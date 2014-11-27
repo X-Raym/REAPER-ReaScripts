@@ -1,0 +1,54 @@
+// Randomize take playback rate (normal distribution)
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 27-11-2014
+
+// Version : 1.0
+// Version Date : 27-11-2014
+
+// Based on spk77 initial code snippet in REAPER Forum Thread : 
+// Takes Random Action - Pan and More > #23
+// and EEL: Pan active takes randomly (in selected items) > #09
+
+// Normal distribution approximation : Generating Normal (Gaussian) Distributed Random Number
+// Normal distribution approximation URl : http://www.protonfish.com/random.shtml
+
+// User Edit Area ////////////////////////////////////////////////////////////////
+mean = 1; // range = 0 to 10
+standard_dev = 0.2; // try values in range 0.01 to 0.5, for example
+/////////////////////////////////////////////////////////////////////////////////
+
+function rand_take_pb_rate(mean, standard_dev) local(i, item, take, c)
+(
+  // Constrain user input
+  mean < 0 ? mean = 0;
+  mean > 10 ? mean = 10;
+  standard_dev < 0 ? standard_dev = 0;
+  standard_dev > 10 ? standard_dev = 10;
+
+  i = 0;
+  loop(CountSelectedMediaItems(0), 
+    (item = GetSelectedMediaItem(0, i)) ? (
+      (take = GetActiveTake(item)) ? (
+        R = 0;
+        G = rand(2) - 1 + rand(2) - 1 + rand(2) - 1;
+        R = G * standard_dev + mean;
+        
+        // Constrain result
+        R < 0 ? R += abs(R + 1);
+        R > 10 ? R -= (R - 1);
+        //GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+        SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", R);
+      );
+    );
+    i += 1;
+  );
+  UpdateArrange(); // refresh arrange view
+  Undo_OnStateChange("Randomize take playback rate");
+);
+
+rand_take_pb_rate(mean, standard_dev);
