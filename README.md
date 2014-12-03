@@ -8,3 +8,6 @@ X-Raym's EEL Scripts for Cockos REAPER.
 
 Detailed Article :
 - REAPER Scripts : Take Properties Randomization => http://extremraym.com/reaper-randomisation-takes/
+
+Contributor :
+- spk77 => http://forum.cockos.com/member.php?u=49553
