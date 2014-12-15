@@ -1,0 +1,27 @@
+// Reset item snap offset
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 15-12-2014
+
+// Version : 1.0
+// Version Date : 15-12-2014
+
+function reset_item_snap_offset() local(i, item)
+(
+  i = 0;
+  loop(CountSelectedMediaItems(0),
+    (item = GetSelectedMediaItem(0, i)) ? (
+      Value = 0;
+      SetMediaItemInfo_Value(item, "D_SNAPOFFSET", Value);
+    );
+    i += 1;
+  );
+  UpdateArrange();
+  Undo_OnStateChange("Reset item snap offset");
+);
+
+reset_item_snap_offset();
