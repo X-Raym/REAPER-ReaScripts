@@ -1,0 +1,33 @@
+// Round selected items volume - one decimal
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 16-12-2014
+
+// Version : 1.0
+// Version Date : 16-12-2014
+
+function nudge_item_vol() local(i, item)
+(
+	i = 0;
+	loop(CountSelectedMediaItems(0),
+		(item = GetSelectedMediaItem(0, i)) ? (
+
+			OldVol=GetMediaItemInfo_Value(item, "D_VOL");
+			OldVolDB=20*(log10(OldVol));
+			
+			NewVolDB=floor((OldVolDB + 0.05) * 10) / 10;
+	    	NewVolGain=exp(NewVolDB*0.115129254);
+
+			SetMediaItemInfo_Value(item, "D_VOL", NewVolGain);
+		);
+	i += 1;
+	);
+	UpdateArrange();
+	Undo_OnStateChange("Nudge Item Vol +1");
+);
+
+nudge_item_vol();
