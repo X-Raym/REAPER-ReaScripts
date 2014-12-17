@@ -6,6 +6,10 @@ X-Raym's EEL Scripts for Cockos REAPER.
 - Scripts written for X-Raym
 - Scripts moded by X-Raym
 
+Download process :
+- For one script : click on one script, then click on the Raw button, then File > Save.
+- For the whole archive : click on Download Zip button on right
+
 Detailed Article :
 - REAPER Scripts : Take Properties Randomization => http://extremraym.com/reaper-randomisation-takes/
 
