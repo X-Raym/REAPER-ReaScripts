@@ -20,7 +20,7 @@ function nudge_item_vol() local(i, item)
 			OldVolDB=20*(log10(OldVol));
 			
 			NewVolDB=floor((OldVolDB + 0.05) * 10) / 10;
-	    		NewVolGain=exp(NewVolDB*0.115129254);
+	    	NewVolGain=exp(NewVolDB*0.115129254);
 
 			SetMediaItemInfo_Value(item, "D_VOL", NewVolGain);
 		);
