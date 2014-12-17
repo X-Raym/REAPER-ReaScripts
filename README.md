@@ -13,4 +13,4 @@ Contributor :
 - spk77 => http://forum.cockos.com/member.php?u=49553
 
 External Scripts (needed) :
-- EEL Simple Slider Class => http://forum.cockos.com/showthread.php?p=1435963
+- EEL Simple Slider Class 1st version => http://forum.cockos.com/showthread.php?p=1435963
