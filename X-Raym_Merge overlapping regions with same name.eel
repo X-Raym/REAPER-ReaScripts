@@ -88,10 +88,6 @@ function merge_overlapping_regions()
   ShowConsoleMsg("Total of regions which have been merged: ");
   msg_d(merged_regions_total);
 
-  msg_d(count_region);
-
-  
-
 );
 
 merge_overlapping_regions();
