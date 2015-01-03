@@ -53,14 +53,15 @@ function merge_overlapping_regions()
     region_id = markrgn_index_number;
    	
     region_name = #name;
+    region_name_string = sprintf(#dest, "%s", region_name);
 
-    compare_name = strcmp(region_name, region_name_previous);
+    compare_name = strcmp(region_name_string, region_name_previous_string);
     
     // If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
   	region_start < region_end_previous ? (
-  		compare_name = 1 ? (
+  		compare_name === 0 ? (
   		// *Function that expand the first region to end of the second - based on SetProjectMarker(int markrgnindexnumber, bool isrgn, pos, rgnend, "name")
-  			SetProjectMarker(region_previous_id, 1, region_start_previous, region_end, region_name_previous);
+  			SetProjectMarker(region_previous_id, 1, region_start_previous, region_end, region_name_previous_string);
 	  		DeleteProjectMarker(NULL, region_id, 1);
 		
 			merged_regions_total += 1;
@@ -73,6 +74,7 @@ function merge_overlapping_regions()
     region_start_previous = pos;
     region_end_previous = rgn_end;
     region_name_previous = #name;
+    region_name_previous_string = sprintf(#dest2, "%s", region_name_previous);
     region_previous_id = markrgn_index_number;
 
     i += 1;
