@@ -1,0 +1,83 @@
+// Merge overlapping regions with same name
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 03-01-2015
+
+// Version : 0.1 (not finisehed yet !!)
+// Version Date : 03-01-2015
+// Required : Reaper 4.76
+
+// From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
+// http://forum.cockos.com/showthread.php?t=136047
+
+function msg(m)
+(
+  ShowConsoleMsg(m);
+  ShowConsoleMsg("\n");
+);
+
+function msg_d(m)
+(
+  sprintf(str, "%d", m);
+  ShowConsoleMsg(str);
+  ShowConsoleMsg("\n");
+);
+
+function msg_f(m)
+(
+  sprintf(str, "%f", m);
+  ShowConsoleMsg(str);
+  ShowConsoleMsg("\n");
+);
+
+function merge_overlapping_regions()
+(
+
+  i = 0;
+  merged_regions_total = 0;
+  // EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
+  while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number) > 0) (    
+
+    // Note sure about this !!! maybe use Arrays and store infos for each regions ?
+    /*region1_start = pos;
+    region1_end = rgn_end;
+    
+    region2_start = pos;
+    region2_end = rgn_end;
+	
+	// If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
+
+  	? (	
+  		// *Function that expand the first region to end of the second - based on SetProjectMarker(int markrgnindexnumber, bool isrgn, pos, rgnend, "name")
+  		// *Function that deleted the second region - based on DeleteProjectMarker(NULL, iID, true);
+	
+	merged_regions_total += 1;
+  	
+  		):(
+  	
+  	);*/
+
+    //msg_d(is_region);
+    //msg_f(pos);
+    //msg_f(rgn_end);
+    //msg(#name);
+    //msg_d(markrgn_index_number);
+    
+    i += 1;
+    
+  );
+  
+  ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
+  ShowConsoleMsg("Total of regions which have been merged: ");
+  msg_d(merged_regions_total);
+
+  UpdateArrange();
+  Undo_OnStateChange("Merge overlapping regions with same name");
+  
+);
+
+merge_overlapping_regions();
