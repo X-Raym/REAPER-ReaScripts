@@ -16,86 +16,84 @@
 
 function msg(m)
 (
-  ShowConsoleMsg(m);
-  ShowConsoleMsg("\n");
+	ShowConsoleMsg(m);
+	ShowConsoleMsg("\n");
 );
 
 function msg_d(m)
 (
-  sprintf(str, "%d", m);
-  ShowConsoleMsg(str);
-  ShowConsoleMsg("\n");
+	sprintf(str, "%d", m);
+	ShowConsoleMsg(str);
+	ShowConsoleMsg("\n");
 );
 
 function msg_f(m)
 (
-  sprintf(str, "%f", m);
-  ShowConsoleMsg(str);
-  ShowConsoleMsg("\n");
+	sprintf(str, "%f", m);
+	ShowConsoleMsg(str);
+	ShowConsoleMsg("\n");
 );
 
 function merge_overlapping_regions()
 (
-	
-  i = 0;
-  merged_regions_total = 0;
 
-  ShowConsoleMsg("=====>\n");
-  ShowConsoleMsg("INSTRUCTIONS : Execute the action several times until the number of regions which have been merge become 0.\n");
-  ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
-  ShowConsoleMsg("-----\n");
+	i = 0;
+	merged_regions_total = 0;
 
-  // EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
-  while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number)) (    
+	ShowConsoleMsg("=====>\n");
+	ShowConsoleMsg("INSTRUCTIONS : Execute the action several times until the number of regions which have been merge become 0.\n");
+	ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
+	ShowConsoleMsg("-----\n");
+
+	// EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
+	while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number)) (    
 
 
-    
-    region_start = pos;
-    region_end = rgn_end;
-    region_id = markrgn_index_number;
-   	
-    region_name = #name;
-    region_name_string = sprintf(#dest, "%s", region_name);
 
-    compare_name = strcmp(region_name_string, region_name_previous_string);
-    
-    // If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
-  	region_start < region_end_previous ? (
-  		compare_name === 0 ? (
-  		// *Function that expand the first region to end of the second - based on SetProjectMarker(int markrgnindexnumber, bool isrgn, pos, rgnend, "name")
-  			
-  			//Here you can add infos about deleted regions.
-  			//ShowConsoleMsg("Deleted regions: \n");
-  			//msg(#name);
-  			//msg_d(markrgn_index_number);
-		  	//msg_d(is_region);
-		    //msg_f(pos);
-		    //msg_f(rgn_end);
-		    //ShowConsoleMsg("-----\n");
-
-  			SetProjectMarker(region_previous_id, 1, region_start_previous, region_end, region_name_previous_string);
-	  		DeleteProjectMarker(NULL, region_id, 1);
+	region_start = pos;
+	region_end = rgn_end;
+	region_id = markrgn_index_number;
 		
-			merged_regions_total += 1;
+	region_name = #name;
+	region_name_string = sprintf(#dest, "%s", region_name);
 
-			//Undo_OnStateChange("Merge overlapping regions with same name"); // To change
+	compare_name = strcmp(region_name_string, region_name_previous_string);
+
+	// If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
+		region_start < region_end_previous ? (
+			compare_name === 0 ? (
+
+				//Here you can add infos about deleted regions.
+				//ShowConsoleMsg("Deleted regions: \n");
+				//msg(#name);
+				//msg_d(markrgn_index_number);
+				//msg_d(is_region);
+				//msg_f(pos);
+				//msg_f(rgn_end);
+				//ShowConsoleMsg("-----\n");
+
+				SetProjectMarker(region_previous_id, 1, region_start_previous, region_end, region_name_previous_string);
+				DeleteProjectMarker(NULL, region_id, 1);
+		
+				merged_regions_total += 1;
+
 		);
-  		
-  	);
-    
-    region_start_previous = pos;
-    region_end_previous = rgn_end;
-    region_name_previous = #name;
-    region_name_previous_string = sprintf(#dest2, "%s", region_name_previous);
-    region_previous_id = markrgn_index_number;
 
-    i += 1;
-    
-  );
+	);
 
-  ShowConsoleMsg("Total of regions which have been merged: \n");
-  msg_d(merged_regions_total);
-  ShowConsoleMsg("<=====\n\n");
+		region_start_previous = pos;
+		region_end_previous = rgn_end;
+		region_name_previous = #name;
+		region_name_previous_string = sprintf(#dest2, "%s", region_name_previous);
+		region_previous_id = markrgn_index_number;
+
+		i += 1;
+
+	);
+
+	ShowConsoleMsg("Total of regions which have been merged: \n");
+	msg_d(merged_regions_total);
+	ShowConsoleMsg("<=====\n\n");
 
 );
 
