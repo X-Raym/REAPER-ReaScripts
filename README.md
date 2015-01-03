@@ -13,8 +13,11 @@ Download process :
 Detailed Article :
 - REAPER Scripts : Take Properties Randomization => http://extremraym.com/reaper-randomisation-takes/
 
-Contributor :
+Contributors :
 - spk77 => http://forum.cockos.com/member.php?u=49553
+
+Helpers :
+- planetnine => http://forum.cockos.com/member.php?u=6549
 
 External Scripts (needed) :
 - EEL Simple Slider Class 1st version => http://forum.cockos.com/showthread.php?p=1435963
