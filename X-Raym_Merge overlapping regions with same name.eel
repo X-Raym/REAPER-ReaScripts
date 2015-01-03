@@ -39,15 +39,16 @@ function merge_overlapping_regions()
 	
   i = 0;
   merged_regions_total = 0;
-  // EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
-  while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number) > 0) (    
 
-  	msg_d(markrgn_index_number);
+  // EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
+  while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number)) (    
+
+  	//msg_d(markrgn_index_number);
   	//msg_d(is_region);
     //msg_f(pos);
     //msg_f(rgn_end);
     //msg(#name);
-
+    
     region_start = pos;
     region_end = rgn_end;
     region_id = markrgn_index_number;
@@ -61,6 +62,7 @@ function merge_overlapping_regions()
   	region_start < region_end_previous ? (
   		compare_name === 0 ? (
   		// *Function that expand the first region to end of the second - based on SetProjectMarker(int markrgnindexnumber, bool isrgn, pos, rgnend, "name")
+  			msg(#name);
   			SetProjectMarker(region_previous_id, 1, region_start_previous, region_end, region_name_previous_string);
 	  		DeleteProjectMarker(NULL, region_id, 1);
 		
@@ -81,12 +83,15 @@ function merge_overlapping_regions()
     
   );
   
+  ShowConsoleMsg("INSTRUCTIONS : Execute the action several time until the number of regions which have been merge become 0.\n");
   ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
   ShowConsoleMsg("Total of regions which have been merged: ");
   msg_d(merged_regions_total);
 
-  UpdateArrange();
+  msg_d(count_region);
+
   
+
 );
 
 merge_overlapping_regions();
