@@ -7,7 +7,7 @@
 // Licence : GPL v3
 // Release Date : 03-01-2015
 
-// Version : 0.1 (not finisehed yet !!)
+// Version : 0.1
 // Version Date : 03-01-2015
 // Required : Reaper 4.76
 
@@ -36,37 +36,47 @@ function msg_f(m)
 
 function merge_overlapping_regions()
 (
-
+	
   i = 0;
   merged_regions_total = 0;
   // EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
   while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number) > 0) (    
 
-    // Note sure about this !!! maybe use Arrays and store infos for each regions ?
-    /*region1_start = pos;
-    region1_end = rgn_end;
-    
-    region2_start = pos;
-    region2_end = rgn_end;
-	
-	// If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
+  	msg_d(markrgn_index_number);
 
-  	? (	
+    region_start = pos;
+    region_end = rgn_end;
+    region_id = markrgn_index_number;
+   	
+	region_name = "";
+    region_name = #name;
+
+    name_compare = strcmp(region_name, region_name_previous);
+    
+    // If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
+  	region_start < region_end_previous ? (
+  		name_compare = 1 ? (
   		// *Function that expand the first region to end of the second - based on SetProjectMarker(int markrgnindexnumber, bool isrgn, pos, rgnend, "name")
-  		// *Function that deleted the second region - based on DeleteProjectMarker(NULL, iID, true);
-	
-	merged_regions_total += 1;
-  	
-  		):(
-  	
-  	);*/
+  			SetProjectMarker(region_previous_id, 1, region_start_previous, region_end, region_name_previous);
+	  		DeleteProjectMarker(NULL, region_id, 1);
+		
+			merged_regions_total += 1;
+
+			Undo_OnStateChange("Merge overlapping regions with same name"); // To change
+		);
+  		
+  	);
 
     //msg_d(is_region);
     //msg_f(pos);
     //msg_f(rgn_end);
     //msg(#name);
-    //msg_d(markrgn_index_number);
     
+    region_start_previous = pos;
+    region_end_previous = rgn_end;
+    region_name_previous = #name;
+    region_previous_id = markrgn_index_number;
+
     i += 1;
     
   );
@@ -76,7 +86,6 @@ function merge_overlapping_regions()
   msg_d(merged_regions_total);
 
   UpdateArrange();
-  Undo_OnStateChange("Merge overlapping regions with same name");
   
 );
 
