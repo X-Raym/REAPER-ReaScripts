@@ -82,11 +82,13 @@ function merge_overlapping_regions()
     i += 1;
     
   );
-  
-  ShowConsoleMsg("INSTRUCTIONS : Execute the action several time until the number of regions which have been merge become 0.\n");
+  ShowConsoleMsg("=====>\n");
+  ShowConsoleMsg("INSTRUCTIONS : Execute the action several times until the number of regions which have been merge become 0.\n");
   ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
-  ShowConsoleMsg("Total of regions which have been merged: ");
+  ShowConsoleMsg("-----\n");
+  ShowConsoleMsg("Total of regions which have been merged: \n");
   msg_d(merged_regions_total);
+  ShowConsoleMsg("<=====\n\n");
 
 );
 
