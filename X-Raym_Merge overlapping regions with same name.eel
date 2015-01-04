@@ -38,7 +38,10 @@ function merge_overlapping_regions()
 (
 
 	i = 0;
-	regions_number_before = 0;
+	
+	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
+	regions_number_before = num_regionsOut;
+
 	merged_regions_total = 0;
 
 	ShowConsoleMsg("=====>\n");
@@ -90,7 +93,8 @@ function merge_overlapping_regions()
 
 	);
 
-	regions_number_after = 0;
+	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
+	regions_number_after = num_regionsOut;
 	
 	ShowConsoleMsg("Regions before the script: \n");
 	msg_d(regions_number_before);
