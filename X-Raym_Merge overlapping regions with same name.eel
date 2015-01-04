@@ -38,6 +38,7 @@ function merge_overlapping_regions()
 (
 
 	i = 0;
+	regions_number_before = 0;
 	merged_regions_total = 0;
 
 	ShowConsoleMsg("=====>\n");
@@ -89,11 +90,19 @@ function merge_overlapping_regions()
 
 	);
 
+	regions_number_after = 0;
+	
+	ShowConsoleMsg("Regions before the script: \n");
+	msg_d(regions_number_before);
+	ShowConsoleMsg("Regions after the script: \n");
+	msg_d(regions_number_after);
 	ShowConsoleMsg("Total of regions which have been merged: \n");
 	msg_d(merged_regions_total);
+	
 	merged_regions_total > 0 ? (
 		ShowConsoleMsg("Please execute the script again.\n");
 	);
+	
 	ShowConsoleMsg("<=====\n\n");
 
 );
