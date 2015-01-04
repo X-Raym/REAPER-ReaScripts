@@ -91,6 +91,9 @@ function merge_overlapping_regions()
 
 	ShowConsoleMsg("Total of regions which have been merged: \n");
 	msg_d(merged_regions_total);
+	merged_regions_total > 0 ? (
+		ShowConsoleMsg("Please execute the script again.\n");
+	);
 	ShowConsoleMsg("<=====\n\n");
 
 );
