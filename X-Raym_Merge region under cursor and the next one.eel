@@ -1,0 +1,132 @@
+// Merge region under cursor and the next one
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 03-01-2015
+
+// Version : 1
+// Version Date : 04-01-2015
+// Required : Reaper 4.76
+
+// From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
+// http://forum.cockos.com/showthread.php?t=136047
+
+function msg(m)
+(
+	ShowConsoleMsg(m);
+	ShowConsoleMsg("\n");
+);
+
+function msg_d(m)
+(
+	sprintf(str, "%d", m);
+	ShowConsoleMsg(str);
+	ShowConsoleMsg("\n");
+);
+
+function msg_f(m)
+(
+	sprintf(str, "%f", m);
+	ShowConsoleMsg(str);
+	ShowConsoleMsg("\n");
+);
+
+function merge_two_regions()
+(
+	ShowConsoleMsg("=====>\n");
+	ShowConsoleMsg("INSTRUCTIONS : Be sure to have the cursor inside a region.\nYou can edit the consecutive threshold in the .eel file !\n");
+	ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
+	ShowConsoleMsg("-----\n");
+
+	consecutive_threshold = 1; // You can edit this ! The value is in seconds.
+	ShowConsoleMsg("Threshold (in seconds):\n");
+	msg_f(consecutive_threshold);
+	ShowConsoleMsg("-----\n");
+		
+	CursorPosition_d = GetCursorPosition();
+
+	ShowConsoleMsg("Cursor Position:\n");
+	msg_f(CursorPosition_d);
+	ShowConsoleMsg("-----\n");
+
+	i = 0;
+
+	while (EnumProjectMarkers(i, isRegion_b, RegionStart_d, RegionEnd_d, #name_str, markrgnIndexNumber_int) ) (
+
+		region_end_previous_threshold = currentRegionEnd_d + consecutive_threshold;
+
+		isRegion_b && RegionStart_d > CursorPosition_d && region_end_previous_threshold >= RegionStart_d ? (
+			
+			region_name = #name_str;
+			region_name_string = sprintf(#dest3, "%s", region_name);
+
+			ShowConsoleMsg("Regions start:\n");
+			msg_f(RegionStart_d);
+			ShowConsoleMsg("Regions end:\n");
+			msg_f(RegionEnd_d);
+			ShowConsoleMsg("Regions ID:\n");
+			msg_d(markrgnIndexNumber_int);
+			ShowConsoleMsg("Regions name:\n");
+			msg(region_name);
+			ShowConsoleMsg("-----\n");
+
+			separator = " ";
+
+			merged_name = sprintf(#dest, "%s%s%s", currentRegionName_str, separator, region_name_string);
+
+			ShowConsoleMsg("Merged name:");
+			msg(merged_name);
+			ShowConsoleMsg("-----\n");
+
+			SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, RegionEnd_d, merged_name);
+
+			ShowConsoleMsg("Deleted region ID:\n");
+			msg_d(markrgnIndexNumber_int);
+			ShowConsoleMsg("-----\n");
+
+			DeleteProjectMarker(NULL, markrgnIndexNumber_int, 1);
+
+			ShowConsoleMsg("Regions merged IDs:\n");
+			msg_d(currentRegionID_int);
+			ShowConsoleMsg("and:\n");
+			msg_d(markrgnIndexNumber_int);
+			ShowConsoleMsg("<=====\n\n");
+
+			regions_merged = 1;
+			
+		):(
+			i < 1 ? (
+			
+				currentRegionStart_d = RegionStart_d;
+				currentRegionEnd_d = RegionEnd_d;
+				currentRegionName_c = #name_str;
+				currentRegionName_str = sprintf(#dest2, "%s", currentRegionName_c);
+				currentRegionID_int = markrgnIndexNumber_int;
+
+				ShowConsoleMsg("Current Regions start:\n");
+				msg_f(currentRegionStart_d);
+				ShowConsoleMsg("Current Regions end:\n");
+				msg_f(currentRegionEnd_d);
+				ShowConsoleMsg("Current Regions ID:\n");
+				msg_d(currentRegionID_int);
+				ShowConsoleMsg("Current Regions name:\n");
+				msg(currentRegionName_str);
+				ShowConsoleMsg("-----\n");
+			);
+		);
+
+		i += 1;
+	);
+	
+	regions_merged = 0 ? (
+
+		ShowConsoleMsg("No regions merged.\n");
+		msg("<=====\n\n");
+
+	);
+);
+
+merge_two_regions();
