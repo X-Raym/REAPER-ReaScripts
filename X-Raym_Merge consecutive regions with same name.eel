@@ -55,10 +55,12 @@ function merge_overlapping_regions()
 	region_name = #name;
 	region_name_string = sprintf(#dest, "%s", region_name);
 
-	compare_name = strcmp(region_name_string, region_name_previous_string);
+	compare_name = strcmp(region_name_string, region_name_previous_string); // strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1
 
-	// If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
-		region_start < region_end_previous ? (
+	consecutive_threshold = region_end_previous + 2.0; // You can edit this. Value is in seconds.
+
+	// You can edit threshold right below !
+		consecutive_threshold >= region_start ? (
 			compare_name === 0 ? (
 
 				//Here you can add infos about deleted regions.
