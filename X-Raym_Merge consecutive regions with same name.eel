@@ -38,6 +38,7 @@ function merge_overlapping_regions()
 (
 
 	i = 0;
+	regions_number_before = 0;
 	merged_regions_total = 0;
 
 	ShowConsoleMsg("=====>\n");
@@ -45,9 +46,9 @@ function merge_overlapping_regions()
 	ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
 	ShowConsoleMsg("-----\n");
 
-	consecutive_threshold = 2.0; // You can edit this ! The value is in seconds.
+	consecutive_threshold = 2.5; // You can edit this ! The value is in seconds.
 	ShowConsoleMsg("Threshold (in seconds): ");
-	msg_d(consecutive_threshold);
+	msg_f(consecutive_threshold);
 	ShowConsoleMsg("-----\n");
 
 	// EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
@@ -95,12 +96,20 @@ function merge_overlapping_regions()
 		i += 1;
 
 	);
+	
+	regions_number_after = 0;
 
+	ShowConsoleMsg("Regions before the script: \n");
+	msg_d(regions_number_before);
+	ShowConsoleMsg("Regions after the script: \n");
+	msg_d(regions_number_after);
 	ShowConsoleMsg("Total of regions which have been merged: \n");
 	msg_d(merged_regions_total);
+	
 	merged_regions_total > 0 ? (
 		ShowConsoleMsg("Please execute the script again.\n");
 	);
+	
 	ShowConsoleMsg("<=====\n\n");
 
 );
