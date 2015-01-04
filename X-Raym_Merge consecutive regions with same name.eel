@@ -45,6 +45,11 @@ function merge_overlapping_regions()
 	ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
 	ShowConsoleMsg("-----\n");
 
+	consecutive_threshold = 2.0; // You can edit this ! The value is in seconds.
+	ShowConsoleMsg("Threshold (in seconds): ");
+	msg_d(consecutive_threshold);
+	ShowConsoleMsg("-----\n");
+
 	// EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
 	while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number)) (    
 
@@ -57,10 +62,10 @@ function merge_overlapping_regions()
 
 	compare_name = strcmp(region_name_string, region_name_previous_string); // strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1
 
-	consecutive_threshold = region_end_previous + 2.0; // You can edit this. Value is in seconds.
+	region_end_previous_threshold = region_end_previous + consecutive_threshold;
 
 	// You can edit threshold right below !
-		consecutive_threshold >= region_start ? (
+		region_end_previous_threshold >= region_start ? (
 			compare_name === 0 ? (
 
 				//Here you can add infos about deleted regions.
