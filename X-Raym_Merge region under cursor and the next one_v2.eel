@@ -62,7 +62,7 @@ function merge_two_regions()
 	currentRegionName = #name_str;
 	currentRegionName_str = sprintf(#dest3, "%s", currentRegionName);
 
-	region_end_previous_threshold = currentRegionEnd_d + consecutive_threshold;
+	regionStartAndEndGap = currentRegionEnd_d + consecutive_threshold;
 
 	/*ShowConsoleMsg("Regions start:\n");
 	msg_f(currentRegionStart_d);
@@ -90,30 +90,33 @@ function merge_two_regions()
 	msg(merged_name);
 	ShowConsoleMsg("-----\n");*/
 
-	SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, nextRegionEnd_d, merged_name);
-	/*ShowConsoleMsg("Deleted region ID:\n");
-	msg_d(nextRegionID_int);
-	ShowConsoleMsg("-----\n");*/
+	regionStartAndEndGap >= nextRegionStart_d ? (
 
-	DeleteProjectMarker(NULL, nextRegionID_int, 1);
+		SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, nextRegionEnd_d, merged_name);
+		/*ShowConsoleMsg("Deleted region ID:\n");
+		msg_d(nextRegionID_int);
+		ShowConsoleMsg("-----\n");*/
 
-	/*ShowConsoleMsg("Regions merged IDs:\n");
-	msg_d(currentRegionID_int);
-	ShowConsoleMsg("and:\n");
-	msg_d(nextRegionID_int);
-	ShowConsoleMsg("<=====\n\n");*/
-	
-	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
-	/*ShowConsoleMsg("Number of region after script:\n");
-	msg_d(num_regionsOut2);
-	ShowConsoleMsg("-----\n");*/
+		DeleteProjectMarker(NULL, nextRegionID_int, 1);
 
-	num_regionsIn === num_regionsOut ? (
+		/*ShowConsoleMsg("Regions merged IDs:\n");
+		msg_d(currentRegionID_int);
+		ShowConsoleMsg("and:\n");
+		msg_d(nextRegionID_int);
+		ShowConsoleMsg("<=====\n\n");*/
+		
+		CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
+		/*ShowConsoleMsg("Number of region after script:\n");
+		msg_d(num_regionsOut2);
+		ShowConsoleMsg("-----\n");*/
 
-		ShowConsoleMsg("No regions merged.\n");
-		msg("<=====\n\n");
+		num_regionsIn === num_regionsOut ? (
 
-	);
+			ShowConsoleMsg("No regions merged.\n");
+			msg("<=====\n\n");
+			
+		);
+	);	
 );
 
 merge_two_regions();
