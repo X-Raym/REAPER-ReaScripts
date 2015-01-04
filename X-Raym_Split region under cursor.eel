@@ -1,0 +1,34 @@
+// Split region under cursor
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 04-01-2015
+
+// Version : 1
+// Version Date : 04-01-2015
+// Required : Reaper 4.76
+
+function split_two_regions()
+(
+
+	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
+	desired_region_id = num_regionsOut;
+
+	time = GetCursorPosition();
+
+	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
+	EnumProjectMarkers(regionidxOut, isrgn, RegionStart_d, RegionEnd_d, #name_str, markrgnIndexNumber_int);
+
+	time < RegionEnd_d ? (
+	
+		SetProjectMarker(CurrentRegionID_int, 1, RegionStart_d, time, #name_str);
+	
+		AddProjectMarker(NULL, 1, time, RegionEnd_d, #name_str, desired_region_id);
+	)
+
+);
+
+split_two_regions();
