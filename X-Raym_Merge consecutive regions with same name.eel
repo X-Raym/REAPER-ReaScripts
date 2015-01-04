@@ -108,6 +108,8 @@ function merge_overlapping_regions()
 	
 	merged_regions_total > 0 ? (
 		ShowConsoleMsg("Please execute the script again.\n");
+	):(
+		ShowConsoleMsg("You can close the console.\n");
 	);
 	
 	ShowConsoleMsg("<=====\n\n");
