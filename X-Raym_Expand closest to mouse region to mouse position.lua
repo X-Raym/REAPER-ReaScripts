@@ -9,7 +9,7 @@
 
 -- Version : 0.1
 -- Version Date : 05-01-2015
--- Required : Reaper 4.76
+-- Required : Reaper v5.0pre3; SWS v2.5.2 #0
 
 -- Some debugg functions
 function msg(m)
