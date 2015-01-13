@@ -12,7 +12,7 @@
 // Required : Reaper 4.76
 
 /* DEBUGGING ====> */
-@import X-Raym_Functions - console debug messages.eel // Import functions file for debbuging
+@import X-Raym_Functions - console debug messages.eel
 
 debug = 0; // 0 => No console. 1 => Display console messages for debugging
 /* <=== DEBUGGING */
