@@ -5,6 +5,7 @@ X-Raym's EEL Scripts for Cockos REAPER.
 - Scripts written by X-Raym
 - Scripts written for X-Raym
 - Scripts moded by X-Raym
+- Scripts needed for other scripts on this repository
 
 Download process :
 - For one script : click on one script, then click on the Raw button, then File > Save.
@@ -19,5 +20,5 @@ Contributors :
 Helpers :
 - planetnine => http://forum.cockos.com/member.php?u=6549
 
-External Scripts (needed) :
+External Scripts (uploaded here) :
 - EEL Simple Slider Class 1st version => http://forum.cockos.com/showthread.php?p=1435963
