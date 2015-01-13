@@ -11,17 +11,20 @@
 // Version Date : 12-01-2015
 // Required : Reaper 4.76
 
+/* DEBUGGING ====> */
 @import X-Raym_Functions - console debug messages.eel
 
 debug = 0; // 0 => No console. 1 => Display console messages for debugging
+/* <=== DEBUGGING */
 
 function snap_regions_to_grid()
 (
+	Main_OnCommand(40754, 0);
 	
 	msg_s("=====>");
-	msg_s("INSTRUCTIONS : Don't forget to activate Snap mod !");
+	msg_s("INSTRUCTIONS : Snap mode is now on !");
 	msg_s("-----");
-
+	
 	i = 0;
 
 	while (EnumProjectMarkers(i, is_region, region_start, region_end, #name, region_id)) (    
