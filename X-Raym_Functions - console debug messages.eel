@@ -34,7 +34,7 @@ function msg_s(m)
 			ShowConsoleMsg(m);
 			ShowConsoleMsg("\n");
 		) : (
-			ShowConsoleMsg("ERROR : Empty Strings");
+			ShowConsoleMsg("ERROR : Empty String");
 			ShowConsoleMsg("\n");
 		);
 	);
