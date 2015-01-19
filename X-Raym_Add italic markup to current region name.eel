@@ -18,7 +18,7 @@ debug = 0; // 0 => No console. 1 => Display console messages for debugging.
 clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();
-// <=== DEBUGGING -----
+// <==== DEBUGGING -----
 
 function add_musical_notes_to_region()
 (

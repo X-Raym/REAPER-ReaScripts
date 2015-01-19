@@ -23,33 +23,29 @@ function main()
 
 main()*/
 
-function msg_s(m)
-(
-  ShowConsoleMsg(m);
-  ShowConsoleMsg("\n");
-);
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
 
-function msg_d(m)
-(
-  ShowConsoleMsg(sprintf(#, "%d", m)); // convert int to string
-  ShowConsoleMsg("\n");
-);
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
 
 // dialog with 3 inputs
 function dialog()
 (
   #dialog_ret_vals = "5,10,some text"; //default values
-  GetUserInputs("GetUserInputs test", 3, "Input1:,Input2:,Text input:", #dialog_ret_vals);
+  GetUserInputs("Parameters", 3, "Color from Track ? 1 = yes,Name with Track Name ?", #dialog_ret_vals);
 );
 
 function main()
 (
   dialog() ? (
     // convert first and second values to int and store to "input1_val", "input2_val"
-    match("%d,%d,%s", #dialog_ret_vals, input1_val, input2_val, input3_val);
+    match("%d,%d,%s", #dialog_ret_vals, input1_val, input2_val);
     msg_d(input1_val); // print int value
     msg_d(input2_val); // print int value
-    msg_s(input3_val); // print string
   );
 );
 
