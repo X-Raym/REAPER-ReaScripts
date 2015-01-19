@@ -7,36 +7,22 @@
 // Licence : GPL v3
 // Release Date : 03-01-2015
 
-// Version : 1.0
-// Version Date : 03-01-2015
+// Version : 1.1
+// Version Date : 19-01-2015
 // Required : Reaper 5.0; SWS v2.5.2 #0
 
-// From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
-// http://forum.cockos.com/showthread.php?t=136047
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
 
-function msg(m)
-(
-  ShowConsoleMsg(m);
-  ShowConsoleMsg("\n");
-);
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-function msg_d(m)
-(
-  sprintf(str, "%d", m);
-  ShowConsoleMsg(str);
-  ShowConsoleMsg("\n");
-);
-
-function msg_f(m)
-(
-  sprintf(str, "%f", m);
-  ShowConsoleMsg(str);
-  ShowConsoleMsg("\n");
-);
+msg_clean();
+// <=== DEBUGGING -----
 
 function create_subtitles_from_regions_names()
 (
-  ShowConsoleMsg("==== INSTRUCTIONS ====
+  msg_s("==== INSTRUCTIONS ====
   1. This action will save the project
   2. Close Reaper
   3. Open the .rpp file in a code editor
@@ -52,14 +38,10 @@ function create_subtitles_from_regions_names()
 \\r
   (without the <= and =>)
   6. Save and close the code editor
-  7. Open the REAPER project file in REAPER\n");
-  
-  ShowConsoleMsg("\n==== MORE INFOS ====
-  Made with love by X-Raym, based on a spk77 script, with the help of planetnine
-  http:\/\/extremraym.com\n");
+  7. Open the REAPER project file in REAPER");
  
-  ShowConsoleMsg("\n==== OUTPUT LOG ====");
-  ShowConsoleMsg("\n");
+  msg_s("==== OUTPUT LOG ====");
+  msg_s("=====>");
 
   i = 0;
   // EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
@@ -87,13 +69,10 @@ function create_subtitles_from_regions_names()
     
     msg_d(markrgn_index_number); // Displays region index in console
     msg(#name); // Diplays regions name in console
-    ShowConsoleMsg("\n");
+    msg_s("<=====");
     
     i += 1;
   );
-  
-  UpdateArrange();
-  Undo_OnStateChange("Create subtitles from regions names");
   
   Main_SaveProject(0, 0); // Save the project
   

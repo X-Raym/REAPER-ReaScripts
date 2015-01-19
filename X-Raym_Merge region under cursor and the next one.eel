@@ -7,50 +7,36 @@
 // Licence : GPL v3
 // Release Date : 03-01-2015
 
-// Version : 1
-// Version Date : 04-01-2015
+// Version : 1.1
+// Version Date : 19-01-2015
 // Required : Reaper 4.76
 
-// From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
-// http://forum.cockos.com/showthread.php?t=136047
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
 
-function msg(m)
-(
-	ShowConsoleMsg(m);
-	ShowConsoleMsg("\n");
-);
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-function msg_d(m)
-(
-	sprintf(str, "%d", m);
-	ShowConsoleMsg(str);
-	ShowConsoleMsg("\n");
-);
-
-function msg_f(m)
-(
-	sprintf(str, "%f", m);
-	ShowConsoleMsg(str);
-	ShowConsoleMsg("\n");
-);
+msg_clean();
+// <=== DEBUGGING -----
 
 function merge_two_regions()
 (
-	ShowConsoleMsg("=====>\n");
-	ShowConsoleMsg("INSTRUCTIONS : Be sure to have the cursor inside a region.\nYou can edit the consecutive threshold in the .eel file !\n");
-	ShowConsoleMsg("BEWARE : If you have regions subtitles, you will have to re-generate them!\n");
-	ShowConsoleMsg("-----\n");
+	msg_s("=====>");
+	msg_s("INSTRUCTIONS : Be sure to have the cursor inside a region.\nYou can edit the consecutive threshold in the .eel file !");
+	msg_s("BEWARE : If you have regions subtitles, you will have to re-generate them!");
+	msg_s("-----");
 
 	consecutive_threshold = 1; // You can edit this ! The value is in seconds.
-	ShowConsoleMsg("Threshold (in seconds):\n");
+	msg_s("Threshold (in seconds):");
 	msg_f(consecutive_threshold);
-	ShowConsoleMsg("-----\n");
+	msg_s("-----");
 		
 	CursorPosition_d = GetCursorPosition();
 
-	ShowConsoleMsg("Cursor Position:\n");
+	msg_s("Cursor Position:");
 	msg_f(CursorPosition_d);
-	ShowConsoleMsg("-----\n");
+	msg_s("-----");
 
 	i = 0;
 
@@ -63,37 +49,37 @@ function merge_two_regions()
 			region_name = #name_str;
 			region_name_string = sprintf(#dest3, "%s", region_name);
 
-			ShowConsoleMsg("Regions start:\n");
+			msg_s("Regions start:");
 			msg_f(RegionStart_d);
-			ShowConsoleMsg("Regions end:\n");
+			msg_s("Regions end:");
 			msg_f(RegionEnd_d);
-			ShowConsoleMsg("Regions ID:\n");
+			msg_s("Regions ID:");
 			msg_d(markrgnIndexNumber_int);
-			ShowConsoleMsg("Regions name:\n");
+			msg_s("Regions name:");
 			msg(region_name);
-			ShowConsoleMsg("-----\n");
+			msg_s("-----");
 
 			separator = " ";
 
 			merged_name = sprintf(#dest, "%s%s%s", currentRegionName_str, separator, region_name_string);
 
-			ShowConsoleMsg("Merged name:");
+			msg_s("Merged name:");
 			msg(merged_name);
-			ShowConsoleMsg("-----\n");
+			msg_s("-----");
 
 			SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, RegionEnd_d, merged_name);
 
-			ShowConsoleMsg("Deleted region ID:\n");
+			msg_s("Deleted region ID:");
 			msg_d(markrgnIndexNumber_int);
-			ShowConsoleMsg("-----\n");
+			msg_s("-----");
 
 			DeleteProjectMarker(NULL, markrgnIndexNumber_int, 1);
 
-			ShowConsoleMsg("Regions merged IDs:\n");
+			msg_s("Regions merged IDs:");
 			msg_d(currentRegionID_int);
-			ShowConsoleMsg("and:\n");
+			msg_s("and:");
 			msg_d(markrgnIndexNumber_int);
-			ShowConsoleMsg("<=====\n\n");
+			msg_s("<=====\n");
 
 			regions_merged = 1;
 			
@@ -106,15 +92,15 @@ function merge_two_regions()
 				currentRegionName_str = sprintf(#dest2, "%s", currentRegionName_c);
 				currentRegionID_int = markrgnIndexNumber_int;
 
-				ShowConsoleMsg("Current Regions start:\n");
+				msg_s("Current Regions start:");
 				msg_f(currentRegionStart_d);
-				ShowConsoleMsg("Current Regions end:\n");
+				msg_s("Current Regions end:");
 				msg_f(currentRegionEnd_d);
-				ShowConsoleMsg("Current Regions ID:\n");
+				msg_s("Current Regions ID:");
 				msg_d(currentRegionID_int);
-				ShowConsoleMsg("Current Regions name:\n");
+				msg_s("Current Regions name:");
 				msg(currentRegionName_str);
-				ShowConsoleMsg("-----\n");
+				msg_s("-----");
 			);
 		);
 
@@ -123,8 +109,8 @@ function merge_two_regions()
 	
 	regions_merged = 0 ? (
 
-		ShowConsoleMsg("No regions merged.\n");
-		msg("<=====\n\n");
+		msg_s("No regions merged.");
+		msg("<=====\n");
 
 	);
 );

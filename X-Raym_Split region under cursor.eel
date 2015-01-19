@@ -7,8 +7,8 @@
 // Licence : GPL v3
 // Release Date : 04-01-2015
 
-// Version : 1
-// Version Date : 04-01-2015
+// Version : 1.1
+// Version Date : 19-01-2015
 // Required : Reaper 4.76
 
 function split_two_regions()

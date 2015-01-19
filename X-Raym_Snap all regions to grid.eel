@@ -7,15 +7,18 @@
 // Licence : GPL v3
 // Release Date : 12-01-2015
 
-// Version : 1.0
-// Version Date : 12-01-2015
+// Version : 1.1
+// Version Date : 19-01-2015
 // Required : Reaper 4.76
 
-/* DEBUGGING ====> */
+// ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
 
-debug = 0; // 0 => No console. 1 => Display console messages for debugging
-/* <=== DEBUGGING */
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <=== DEBUGGING -----
 
 function snap_regions_to_grid()
 (
