@@ -29,7 +29,7 @@
 function msg_s(m)
 (
 	debug === 1 ? (
-		strcmp("", m) > 0 ? (
+		strcmp("", m) < 1 ? (
 			ShowConsoleMsg(m);
 			ShowConsoleMsg("\n");
 		) : (

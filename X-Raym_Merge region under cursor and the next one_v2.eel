@@ -99,7 +99,7 @@ function merge_two_regions()
 		num_regionsIn === num_regionsOut ? (
 
 			msg_s("No regions merged.");
-			msg("<=====\n");
+			msg_s("<=====\n");
 			
 		);
 	);	
