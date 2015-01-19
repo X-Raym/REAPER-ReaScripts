@@ -36,8 +36,8 @@ function add_musical_notes_to_region()
 	currentRegionName = #name_str;
 	currentRegionName_str = sprintf(#dest3, "%s", currentRegionName);
 
-	italicStart = "<em>";
-	italicEnd = "</em>";
+	italicStart = "<i>";
+	italicEnd = "</i>";
 	merged_name = sprintf(#dest, "%s%s%s", italicStart, currentRegionName_str, italicEnd);
 
 	SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, currentRegionEnd_d, merged_name);
