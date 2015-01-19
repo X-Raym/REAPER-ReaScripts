@@ -6,21 +6,37 @@
 // Licence : GPL v3
 // Release Date : 12-01-2015
 
-// Version : 1.0
-// Version Date : 12-01-2015
+// Version : 1.1
+// Version Date : 19-01-2015
 // Required : Reaper 4.76
 
 // From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
 // http://forum.cockos.com/showthread.php?t=136047
 
 // X-Raym contribution for conditional debugging
+// Add this at the begining of your script file :
+
+//=====>
+//@import X-Raym_Functions - console debug messages.eel
+
+//debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+//clean = 0; // 0 => No cleaning pf the console before every script execution. 1 => Clean console before every script execution.
+
+//msg_clean();
+
+//<=====
 
 // Strings
 function msg_s(m)
 (
 	debug === 1 ? (
-		ShowConsoleMsg(m);
-		ShowConsoleMsg("\n");
+		strcmp("", m) > 0 ? (
+			ShowConsoleMsg(m);
+			ShowConsoleMsg("\n");
+		) : (
+			ShowConsoleMsg("ERROR : Empty Strings");
+			ShowConsoleMsg("\n");
+		);
 	);
 );
 
@@ -41,5 +57,15 @@ function msg_f(m)
 		sprintf(str, "%f", m);
 		ShowConsoleMsg(str);
 		ShowConsoleMsg("\n");
+	);
+);
+
+// Clean
+function msg_clean()
+(	
+	debug === 1 ? (
+		clean === 1 ? (
+			ShowConsoleMsg("");
+		);
 	);
 );
