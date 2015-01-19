@@ -14,7 +14,7 @@
 // http://forum.cockos.com/showthread.php?t=136047
 
 // X-Raym contribution for conditional debugging
-// Add this at the begining of your script file :
+// Add this at the begining of your script file (without the //):
 
 //=====>
 //@import X-Raym_Functions - console debug messages.eel
