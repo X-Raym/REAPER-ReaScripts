@@ -6,7 +6,7 @@
 // Licence : GPL v3
 // Release Date : 12-01-2015
 
-// Version : 1.1
+// Version : 1.2
 // Version Date : 19-01-2015
 // Required : Reaper 4.76
 
@@ -29,7 +29,7 @@
 function msg_s(m)
 (
 	debug === 1 ? (
-		strcmp("", m) < 1 ? (
+		strlen(m) > 0 ? (
 			ShowConsoleMsg(m);
 			ShowConsoleMsg("\n");
 		) : (
@@ -68,3 +68,13 @@ function msg_clean()
 		);
 	);
 );
+
+// Debug
+/*function main()(
+	debug = 1;
+	clean = 1;
+	msg_clean();
+	msg_s("sddsd");
+);
+
+main();*/
