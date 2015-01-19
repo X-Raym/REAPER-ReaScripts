@@ -16,7 +16,7 @@
 // X-Raym contribution for conditional debugging
 // Add this at the begining of your script file (without the //):
 
-//=====>
+// ===== DEBUGGING ====>
 //@import X-Raym_Functions - console debug messages.eel
 
 //debug = 0; // 0 => No console. 1 => Display console messages for debugging.
@@ -24,7 +24,7 @@
 
 //msg_clean();
 
-//<=====
+// <=== DEBUGGING =====
 
 // Strings
 function msg_s(m)
