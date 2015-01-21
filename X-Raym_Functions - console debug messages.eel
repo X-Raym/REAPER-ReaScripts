@@ -6,8 +6,8 @@
 // Licence : GPL v3
 // Release Date : 12-01-2015
 
-// Version : 1.2
-// Version Date : 19-01-2015
+// Version : 1.3
+// Version Date : 21-01-2015
 // Required : Reaper 4.76
 
 // From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
@@ -26,11 +26,11 @@
 // <==== DEBUGGING -----
 
 // Strings
-function msg_s(m)
+function msg_s(variable)
 (
 	debug === 1 ? (
-		strlen(m) > 0 ? (
-			ShowConsoleMsg(m);
+		strlen(variable) > 0 ? (
+			ShowConsoleMsg(variable);
 			ShowConsoleMsg("\n");
 		) : (
 			ShowConsoleMsg("ERROR : Empty String");
@@ -39,25 +39,82 @@ function msg_s(m)
 	);
 );
 
-// Double
-function msg_d(m)
+// Strings with text and lines
+function msg_stl(text,variable,line)
 (
 	debug === 1 ? (
-		sprintf(str, "%d", m);
+		strlen(text) > 0 ? (
+			msg_s(text);
+		);
+		strlen(variable) > 0 ? (
+			ShowConsoleMsg(variable);
+			ShowConsoleMsg("\n");
+		) : (
+			ShowConsoleMsg("ERROR : Empty String");
+			ShowConsoleMsg("\n");
+		);
+		line === 0 ?(
+			ShowConsoleMsg("\n");
+			):(
+				ShowConsoleMsg("\n-----\n");
+		);
+	);
+);
+
+// Double
+function msg_d(variable)
+(
+	debug === 1 ? (
+		sprintf(str, "%d", variable);
 		ShowConsoleMsg(str);
 		ShowConsoleMsg("\n");
 	);
 );
 
-// Float
-function msg_f(m)
+// Double with text and lines
+function msg_dtl(text,variable,line)
 (
 	debug === 1 ? (
-		sprintf(str, "%f", m);
+		strlen(text) > 0 ? (
+			msg_s(text);
+		);
+		sprintf(str, "%d", variable);
+		ShowConsoleMsg(str);
+		line === 0 ?(
+			ShowConsoleMsg("\n");
+			):(
+				ShowConsoleMsg("\n-----\n");
+		);
+	);
+);
+
+// Float
+function msg_f(variable)
+(
+	debug === 1 ? (
+		sprintf(str, "%f", variable);
 		ShowConsoleMsg(str);
 		ShowConsoleMsg("\n");
 	);
 );
+
+// Float with text and lines
+function msg_ftl(text,variable,line)
+(
+	debug === 1 ? (
+		strlen(text) > 0 ? (
+			msg_s(text);
+		);
+		sprintf(str, "%f", variable);
+		ShowConsoleMsg(str);
+		line === 0 ?(
+			ShowConsoleMsg("\n");
+			):(
+				ShowConsoleMsg("\n-----\n");
+		);
+	);
+);
+
 
 // Clean
 function msg_clean()
@@ -68,6 +125,27 @@ function msg_clean()
 		);
 	);
 );
+
+// Start
+function msg_start()
+(
+	debug === 1 ? (
+		ShowConsoleMsg("▼▼▼▼▼");
+		ShowConsoleMsg("\n-----\n");
+	);
+);
+
+// End
+function msg_end()
+(
+	debug === 1 ? (
+		ShowConsoleMsg("▲▲▲▲▲");
+		ShowConsoleMsg("\n");
+	);
+);
+
+
+// End
 
 // Debug
 /*function main()(
