@@ -13,6 +13,7 @@ Download process :
 
 Detailed Article :
 - REAPER Scripts : Take Properties Randomization => http://extremraym.com/reaper-randomisation-takes/
+- Better Subtitling with SWS v2.6.0 and Custom EEL Scripts => http://extremraym.com/subtitling-sws-2-6-0-scripts/
 
 Contributors :
 - spk77 => http://forum.cockos.com/member.php?u=49553
