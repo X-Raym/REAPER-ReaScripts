@@ -9,7 +9,7 @@
 
 // Version : 1.0
 // Version Date : 21-01-2015
-// Required : Reaper 5.0
+// Required : Reaper 4.76
 
 // ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
@@ -65,6 +65,6 @@ function insert_time_marker() local(i, item)
 	UpdateTimeline();
 );
 
-msg_s("INSTRUCTIONS : Set your MIDI items to Ignore project tempo.\nDelete all previous Time Signature Markers.\nYou will have to set your project time signature to the lowest denominator that define your project.\n-----");
+msg_s("INSTRUCTIONS : Set your MIDI items to Ignore project tempo.\nDelete all previous Time Signature Markers.\nYou will have to set your project time signature to the lowest denominator that define your project to avoid incomplete measure.\n-----");
 insert_time_marker();
 msg_end();
