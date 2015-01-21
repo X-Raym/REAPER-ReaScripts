@@ -30,14 +30,14 @@ function insert_time_marker() local(i, item)
 			timepos = GetMediaItemInfo_Value(item, "D_POSITION");
 			msg_ftl("Item start", timepos, 1);
 
-			TimeMap_GetTimeSigAtTime(NULL, time, timesig_numOut, timesig_denomOut,tempoOut);
+			TimeMap_GetTimeSigAtTime(NULL, timepos, timesig_numOut, timesig_denomOut,tempoOut);
 			bpm = tempoOut;
 			msg_dtl("Current BPM :", bpm, 1);
 			
 			lengthSeconds = GetMediaItemInfo_Value(item, "D_LENGTH");
 			msg_ftl("Item length (seconds) :", lengthSeconds, 1);
 
-			beatDuration = 60 / bpm;
+			beatDuration = 60 / (bpm * (timesig_denomOut / 4));
 			msg_ftl("Beat duration :", beatDuration, 1);
 
 			lengthBeat = lengthSeconds / beatDuration;
@@ -55,7 +55,7 @@ function insert_time_marker() local(i, item)
 		);
 		i += 1;
 	);
-	msg_dtl("New Markers :", i,1);
+	msg_dtl("New Markers :", i, 1);
 	UpdateArrange();
 	UpdateTimeline();
 );
