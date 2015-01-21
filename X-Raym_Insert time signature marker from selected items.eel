@@ -1,4 +1,4 @@
-// Insert time signature marker depending on selected items
+// Insert time signature marker from selected items
 // EEL Script for Reaper
 // Author : X-Raym
 // Author URl : http://extremraym.com
@@ -43,6 +43,7 @@ function insert_time_marker() local(i, item)
 			lengthBeat = lengthSeconds / beatDuration;
 			msg_ftl("Item length (BPM) :", lengthBeat, 1);
 
+			// don't handle half
 			lenghtBeatFloor = floor(lengthBeat);
 			msg_dtl("Round Lenght Beat :", lenghtBeatFloor, 1);
 			
@@ -51,7 +52,11 @@ function insert_time_marker() local(i, item)
 			timesig_denom = timesig_denomOut;
 			msg_dtl("Time Signature Denom :", timesig_denomOut, 1);
 			
-			SetTempoTimeSigMarker(NULL, -1, timepos, -1, -1, bpm, timesig_num, timesig_denom, 0);
+			previous_timesig_num !=  timesig_num ? (
+				SetTempoTimeSigMarker(NULL, -1, timepos, -1, -1, bpm, timesig_num, timesig_denom, 0);
+			);
+
+			previous_timesig_num = timesig_num;
 		);
 		i += 1;
 	);
