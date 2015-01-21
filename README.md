@@ -11,7 +11,7 @@ Download process :
 - For one script : click on one script, then click on the Raw button, then File > Save.
 - For the whole archive : click on Download Zip button on right
 
-Detailed Article :
+Detailed Articles :
 - REAPER Scripts : Take Properties Randomization => http://extremraym.com/reaper-randomisation-takes/
 - Better Subtitling with SWS v2.6.0 and Custom EEL Scripts => http://extremraym.com/subtitling-sws-2-6-0-scripts/
 
