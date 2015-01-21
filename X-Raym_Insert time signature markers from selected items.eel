@@ -1,4 +1,4 @@
-// Insert time signature marker from selected items
+// Insert time signature markers from selected items
 // EEL Script for Reaper
 // Author : X-Raym
 // Author URl : http://extremraym.com
@@ -65,6 +65,6 @@ function insert_time_marker() local(i, item)
 	UpdateTimeline();
 );
 
-msg_s("INSTRUCTIONS : Set your MIDI items to Ignore project tempo.\nDelete all previous Time Signature Markers.\n-----");
+msg_s("INSTRUCTIONS : Set your MIDI items to Ignore project tempo.\nDelete all previous Time Signature Markers.\nYou will have to set your project time signature to the lowest denominator that define your project.\n-----");
 insert_time_marker();
 msg_end();
