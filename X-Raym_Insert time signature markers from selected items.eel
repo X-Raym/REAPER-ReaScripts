@@ -44,7 +44,7 @@ function insert_time_marker() local(i, item)
 			msg_ftl("Item length (BPM) :", lengthBeat, 1);
 
 			// don't handle half
-			lenghtBeatFloor = floor(lengthBeat);
+			lenghtBeatFloor = floor(lengthBeat + 0.5);
 			msg_dtl("Round Lenght Beat :", lenghtBeatFloor, 1);
 			
 			timesig_num = lenghtBeatFloor;
