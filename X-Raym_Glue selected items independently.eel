@@ -1,0 +1,72 @@
+// Glue selected items independently
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 23-01-2015
+
+// Version : 1.0
+// Version Date : 23-01-2015
+// Required : Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function glue_independently() local(i)
+(
+	countSelectedMediaItem = CountSelectedMediaItems(0); // ++ Not necessary ?
+	msg_dtl("Nombre d'objet sélectionné", countSelectedMediaItem, 0); // ++ Not necessary ?
+	
+	maxNumVals = 10000; // ++ Not necessary ?
+	
+	setSelectedMediaItem_length = 0;// ++ Not necessary .
+	getSelectedMediaItem_length = 0;
+
+	setSelectedMediaItem = 0; // memory address
+	getSelectedMediaItem = 10000; // memory address
+
+	// Mettre les objets sélectionné dans un tableau
+	i = 0;
+	loop(CountSelectedMediaItems(0),
+	(item = GetSelectedMediaItem(0, i)) ? (
+			setSelectedMediaItem[i] = item;
+			setSelectedMediaItem_length += 1;
+		);
+		i += 1;
+	);
+
+	while (setSelectedMediaItem_length >= 1) ? (// while ??
+		Main_OnCommand(40289, 0); // Unselect all items
+		
+		SetMediaItemSelected(setSelectedMediaItem[setSelectedMediaItem_length-1], 1);
+		setSelectedMediaItem_length -= 1;
+
+		CurrItem = GetSelectedMediaItem(0, 0);
+		ATInt = GetMediaItemInfo_Value(CurrItem, "I_CURTAKE");
+		ActiveTake = GetMediaItemTake(CurrItem, ATInt);
+
+		Main_OnCommand(40362, 0); // glue without time selection
+
+		// RENOMMER
+
+		// AUTRE
+		getSelectedMediaItem[i] = CurrItem;
+		getSelectedMediaItem_length +=1;
+	);
+
+	j=0;
+	loop (getSelectedMediaItem_length, j) ? (
+        SetMediaItemSelected(getSelectedMediaItem[j], 1);
+        j+=1;
+    );
+);
+
+glue_independently();
