@@ -60,7 +60,8 @@ function glue_independently() local(i, item, j)
 			ActiveTake = GetMediaItemTake(CurrItem, ATInt);
 
 			// GET NAME
-			activeTake_Name = GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", #stringNeedBig, 0);
+			GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", #stringNeedBig, 0);
+			activeTake_name = #stringNeedBig;
 
 			// GET COLOR
 			TakeClr = GetMediaItemTakeInfo_Value(ActiveTake, "I_CUSTOMCOLOR");
@@ -82,8 +83,7 @@ function glue_independently() local(i, item, j)
 			ActiveTake = GetMediaItemTake(CurrItem, ATInt);
 
 			// RE SET NAME
-			//newTakeName = ;
-			//GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", newTakeName, 1);
+			GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", activeTake_name, 1);
 
 			// RE SET COLOR
 			SetMediaItemInfo_Value(CurrItem, "I_CUSTOMCOLOR", color);
