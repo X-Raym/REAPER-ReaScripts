@@ -76,19 +76,22 @@ function glue_independently() local(i, item, j)
 			);
 
 			// GET MUTED NOTE
-			MuteNoteL = 1000; // memory address
+			/*MuteNoteL = 1000; // memory address
 			MuteNoteL_length = 0;
-			AAA = MIDI_CountEvts(ActiveTake, 0, 0, 0);
+			AAA = MIDI_CountEvts(ActiveTake, 1, 0, 0);
+			msg_dtl("Number of notes :", AAA, 1);
 
-			loop(AAA[2], k ? (
+			loop(AAA, k ? (
+					CN = 10000;
 					CN = MIDI_GetNote(ActiveTake,k+1,0,0,0,0,0,0,0);
 					CN[4] >= 1 ? (
 						MuteNoteL[k] = CN;
-						MuteNoteL_length += 1; 
+						MuteNoteL_length += 1;
+						msg_dtl("MutedNote", CN, 1);
 					);
 				);
 				k += 1;
-			);
+			);*/
 
 			// GLUE WITHOUT TIME SELECTION
 			Main_OnCommand(40362, 0);
@@ -105,7 +108,7 @@ function glue_independently() local(i, item, j)
 			SetMediaItemInfo_Value(CurrItem, "I_CUSTOMCOLOR", color);
 
 			// RE SET NOTE
-			loop(MuteNoteL_length, n ? (
+			/*loop(MuteNoteL_length, n ? (
 					a = MuteNoteL[n][3];
 					b = MuteNoteL[n][5];
 					c = MuteNoteL[n][6];
@@ -115,7 +118,7 @@ function glue_independently() local(i, item, j)
 					MIDI_InsertNote(ActiveTake, a, 1, b, c, d, e, f);
 				);
 				n += 1;
-			);
+			);*/
 		);
 		j+=1;
 	);
