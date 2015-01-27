@@ -53,7 +53,7 @@ function merge_overlapping_regions()
 
 				//Here you can add infos about deleted regions.
 				//msg_s("Deleted regions:");
-				//msg(#name);
+				//msg_s(#name);
 				//msg_d(markrgn_index_number);
 				//msg_d(is_region);
 				//msg_f(pos);

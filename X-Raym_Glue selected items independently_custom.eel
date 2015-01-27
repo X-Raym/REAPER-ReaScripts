@@ -48,6 +48,9 @@ function glue_independently() local(i, item, j)
 	j=0;
 	limit = countSelectedMediaItem + 1;// Why +1 ? don't know but seems to work
 	loop (limit, j ? (
+			// CHECK THE LOOP
+			msg_d(j);
+
 			// UNSELECT ALL ITEMS
 			Main_OnCommand(40289, 0);
 		
@@ -73,6 +76,19 @@ function glue_independently() local(i, item, j)
 			);
 
 			// GET MUTED NOTE
+			MuteNoteL = 1000; // memory address
+			MuteNoteL_length = 0;
+			AAA = MIDI_CountEvts(ActiveTake, 0, 0, 0);
+
+			loop(AAA[2], k ? (
+					CN = MIDI_GetNote(ActiveTake,k+1,0,0,0,0,0,0,0);
+					CN[4] >= 1 ? (
+						MuteNoteL[k] = CN;
+						MuteNoteL_length += 1; 
+					);
+				);
+				k += 1;
+			);
 
 			// GLUE WITHOUT TIME SELECTION
 			Main_OnCommand(40362, 0);
@@ -89,17 +105,24 @@ function glue_independently() local(i, item, j)
 			SetMediaItemInfo_Value(CurrItem, "I_CUSTOMCOLOR", color);
 
 			// RE SET NOTE
-
+			loop(MuteNoteL_length, n ? (
+					a = MuteNoteL[n][3];
+					b = MuteNoteL[n][5];
+					c = MuteNoteL[n][6];
+					d = MuteNoteL[n][7];
+					e = MuteNoteL[n][8];
+					f = MuteNoteL[n][9];
+					MIDI_InsertNote(ActiveTake, a, 1, b, c, d, e, f);
+				);
+				n += 1;
+			);
 		);
-		
 		j+=1;
-		msg_d(j);
 	);
 	// RSELECT ALL
 	//--------
 	Undo_EndBlock("Glue selected items independently", extraflags);
 );
 
-PreventUIRefresh(1);
 glue_independently();
-PreventUIRefresh(-1);
+UpdateArrange();
