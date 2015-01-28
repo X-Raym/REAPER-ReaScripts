@@ -29,8 +29,6 @@ function convert_loop() local(i, item, j)
 	loop(CountSelectedMediaItems(0),
 		    (item = GetSelectedMediaItem(0, i)) ? (
       			(take = GetActiveTake(item)) ? (
-
-				// IF ITEM IS LOOPING ?
 				
 				// GET TRACK
 				track = GetMediaItem_Track(item);
@@ -56,36 +54,40 @@ function convert_loop() local(i, item, j)
 				incompleteLoopsDuration = itemDurationInitial - totalLoopsDuration;
 				msg_ftl("Incomplete loop duration", incompleteLoopsDuration, 1);
 
-				// SET CUSOR POS
-				itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
-				cursorPosition = itemPosition + itemSourceDuration;
-				SetEditCurPos(cursorPosition, 0, 0);
+				//IF ITEM IS LOOPIN
+				completeLoopsNumber > 0 || incompleteLoopsDuration > 0 ? (
 				
-				// PASTE COMPLETE AND INCOMPLETE LOOPS DEPENDING ON THE TAKE TYPE
-				TakeIsMIDI(take) === 1 ? (
-					j=0;
-					loop(completeLoopsNumber + 1, j ? (
+					// SET CURSOR POS
+					itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
+					cursorPosition = itemPosition + itemSourceDuration;
+					SetEditCurPos(cursorPosition, 0, 0);
+					
+					// PASTE COMPLETE AND INCOMPLETE LOOPS DEPENDING ON THE TAKE TYPE
+					/*TakeIsMIDI(take) === 1 ? (
+						j=0;
+						loop(completeLoopsNumber + 1, j ? (
+								Main_OnCommand(41072, 0); // Paste pooled MIDI items
+							);
+							j += 1;
+							msg_d(j);
+						);
+						incompleteLoopsDuration > 0 ? (
 							Main_OnCommand(41072, 0); // Paste pooled MIDI items
+							selitem = GetSelectedMediaItem(0, 0);
+							SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
 						);
-						j += 1;
-						msg_d(j);
-					);
-					incompleteLoopsDuration > 0 ? (
-						Main_OnCommand(41072, 0); // Paste pooled MIDI items
-						selitem = GetSelectedMediaItem(0, 0);
-						SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
-					);
-				):(
-					loop(completeLoopsNumber + 1, j ? (
+					):(*/
+						loop(completeLoopsNumber + 1, j ? (
+								Main_OnCommand(40058, 0); // Paste item
+							);
+							j += 1;
+							msg_d(j);
+						);
+						incompleteLoopsDuration > 0 ? (
 							Main_OnCommand(40058, 0); // Paste item
+							selitem = GetSelectedMediaItem(0, 0);
+							SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
 						);
-						j += 1;
-						msg_d(j);
-					);
-					incompleteLoopsDuration > 0 ? (
-						Main_OnCommand(40058, 0); // Paste item
-						selitem = GetSelectedMediaItem(0, 0);
-						SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
 					);
 				);
 			);
