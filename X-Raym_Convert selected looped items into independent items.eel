@@ -110,7 +110,7 @@ function convert_loop() local(i, item, j, k)
 PreventUIRefresh(1);
 Undo_BeginBlock(); 
 convert_loop();
-Undo_EndBlock("Convert looped items into items and pooled MIDI", extraflags);
+Undo_EndBlock("Convert selected looped items into independent items", 0);
 UpdateArrange();
 PreventUIRefresh(-1);
 msg_end();
