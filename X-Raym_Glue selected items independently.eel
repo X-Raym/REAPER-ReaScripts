@@ -27,7 +27,7 @@ msg_clean();
 function glue_independently() local(i, item, j)
 (	
 	// BEGIN
-	Undo_BeginBlock(); 
+	Undo_BeginBlock();
 	countSelectedMediaItem = CountSelectedMediaItems(0);
 	msg_dtl("Nombre d'objet sélectionné", countSelectedMediaItem, 0);
 	
