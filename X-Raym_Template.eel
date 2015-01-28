@@ -7,8 +7,8 @@
 // Licence : GPL v3
 // Release Date : 19-01-2015
 
-// Version : 1.0
-// Version Date : 19-01-2015
+// Version : 1.1
+// Version Date : 29-01-2015
 // Required : Reaper 4.76
 
 // ----- DEBUGGING ====>
@@ -22,7 +22,19 @@ msg_clean();
 
 function main()
 (
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
+	// YOUR CODE BELOW
+
+	// YOUR CODE ABOVE
+
+	Undo_EndBlock("My action", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
-main();
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.
