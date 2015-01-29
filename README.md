@@ -4,7 +4,7 @@
 ----------
 
 
-##X-Raym's Scripts for Cockos REAPER.
+##X-Raym's Scripts for [Cockos REAPER](http://reaper.fm).
 - Scripts written by X-Raym
 - Scripts written for X-Raym
 - Scripts moded by X-Raym
