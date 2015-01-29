@@ -1,29 +1,32 @@
 // Show console messages
 // EEL Script for Reaper
-// Author : spk77 & X-Raym
+// Author : X-Raym
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
 // Release Date : 12-01-2015
 
-// Version : 1.3
-// Version Date : 21-01-2015
+// Version : 1.4
+// Version Date : 29-01-2015
 // Required : Reaper 4.76
 
 // From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
 // http://forum.cockos.com/showthread.php?t=136047
+// Based on spk77's source
 
-// X-Raym contribution for conditional debugging
-// Add this at the begining of your script file (without the //):
+// X-Raym contribution for conditional debugging, stard, end and text/line functions,
+// Add the next block comment at the begining of your script file, if you not use X-Raym's template:
 
+/*
 // ----- DEBUGGING ====>
-//@import X-Raym_Functions - console debug messages.eel
+@import X-Raym_Functions - console debug messages.eel
 
-//debug = 0; // 0 => No console. 1 => Display console messages for debugging.
-//clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-//msg_clean();
+msg_clean();
 // <==== DEBUGGING -----
+*/
 
 // Strings
 function msg_s(variable)
@@ -48,10 +51,8 @@ function msg_stl(text,variable,line)
 		);
 		strlen(variable) > 0 ? (
 			ShowConsoleMsg(variable);
-			ShowConsoleMsg("\n");
 		) : (
 			ShowConsoleMsg("ERROR : Empty String");
-			ShowConsoleMsg("\n");
 		);
 		line === 0 ?(
 			ShowConsoleMsg("\n");
@@ -79,7 +80,6 @@ function msg_dtl(text,variable,line)
 			msg_s(text);
 		);
 		sprintf(str, "%d", variable);
-		ShowConsoleMsg(str);
 		line === 0 ?(
 			ShowConsoleMsg("\n");
 			):(
@@ -106,7 +106,6 @@ function msg_ftl(text,variable,line)
 			msg_s(text);
 		);
 		sprintf(str, "%f", variable);
-		ShowConsoleMsg(str);
 		line === 0 ?(
 			ShowConsoleMsg("\n");
 			):(
@@ -152,7 +151,7 @@ function msg_end()
 	debug = 1;
 	clean = 1;
 	msg_clean();
-	msg_s("sddsd");
+	msg_s("Sample text");
 );
 
 main();*/
