@@ -6,7 +6,7 @@
 // Licence : GPL v3
 // Release Date : 12-01-2015
 
-// Version : 1.4
+// Version : 1.5
 // Version Date : 29-01-2015
 // Required : Reaper 4.76
 
@@ -80,6 +80,7 @@ function msg_dtl(text,variable,line)
 			msg_s(text);
 		);
 		sprintf(str, "%d", variable);
+		ShowConsoleMsg(str);
 		line === 0 ?(
 			ShowConsoleMsg("\n");
 			):(
@@ -106,6 +107,7 @@ function msg_ftl(text,variable,line)
 			msg_s(text);
 		);
 		sprintf(str, "%f", variable);
+		ShowConsoleMsg(str);
 		line === 0 ?(
 			ShowConsoleMsg("\n");
 			):(
