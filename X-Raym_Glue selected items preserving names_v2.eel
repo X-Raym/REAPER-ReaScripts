@@ -1,0 +1,129 @@
+// Glue selected items preserving names 2
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 28-01-2015
+
+// Version : 0.9
+// Version Date : 28-01-2015
+// Required : Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function glue_items() local(i, j, item, take)
+(	
+	Undo_BeginBlock();
+	// SAVE TRACK SELECTION
+	Main_OnCommand(NamedCommandLookup("_SWS_SAVESEL"), 0);
+
+	// SAVE ITEM SELECTION
+	countSelectedMediaItem = CountSelectedMediaItems(0);
+	msg_dtl("Nombre d'objet sélectionné", countSelectedMediaItem, 0);
+	setSelectedMediaItem = 0; // memory address
+	setSelectedMediaItem_length = 0;
+	
+	i = 0;
+	msg_s("Item Selection List");
+	loop(CountSelectedMediaItems(0),
+	(item = GetSelectedMediaItem(0, i)) ? (
+			setSelectedMediaItem[i] = item;
+			msg_d(setSelectedMediaItem[i]);
+			
+			setSelectedMediaItem_length += 1;
+		);
+		i += 1;
+	);
+	msg_s("-----");
+
+	// SELECT TRACKS FROM SELECTED ITEMS
+	Main_OnCommand(NamedCommandLookup("_SWS_SELTRKWITEM"), 0);
+
+	// UNSELECT ITEMS
+	Main_OnCommand(40289, 0);
+
+	// STORE CURRENT TRACK SELECTION
+	sel_tr_count = CountSelectedTracks(0);
+	sel_tr_count > 0 ? (
+		track_id_array = 10000;
+		i = 0;
+		// store track ID's
+		loop(sel_tr_count,
+			track_id_array[i] = GetSelectedTrack(0, i);
+			i += 1;
+		);
+	);
+
+	// LOOP BETWEEN STORED TRACKS
+	i = 0;
+	loop(sel_tr_count,
+		track_id_array[i] > 0 ? (
+			msg_s("=====");
+			msg_dtl("LOOP BETWEEN STORED TRACKS", track_id_array[i], 1);
+
+			// LOOP IN STORED ITEMS
+			j=0;
+			limit = countSelectedMediaItem + 1;// Why +1 ? don't know but seems to work
+			loop (limit, j ? (
+					// CHECK THE LOOP
+					msg_d(j);
+				
+					msg_dtl("Selection",setSelectedMediaItem[j-1],0);// why -1 ? Don't know but seem to work
+					SetMediaItemSelected(setSelectedMediaItem[j-1],0);
+
+					// GET ACTIVE TAKE
+					CurrItem = GetSelectedMediaItem(0, 0);
+					ATInt = GetMediaItemInfo_Value(CurrItem, "I_CURTAKE");
+					ActiveTake = GetMediaItemTake(CurrItem, ATInt);
+
+					// GET NAME
+					GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", #stringNeedBig, 0);
+					activeTake_name = #stringNeedBig;
+					msg_stl("Take name", activeTake_name, 0);
+
+					// GET TRACK ID FROM
+					track = GetMediaItemTake_Track(ActiveTake);
+					msg_dtl("Track from item", track, 1);
+
+					// GLUE WITHOUT TIME SELECTION
+					Main_OnCommand(40362, 0);
+
+					// RE ACTIVE TAKE
+					CurrItem = GetSelectedMediaItem(0, 0);
+					ATInt = GetMediaItemInfo_Value(CurrItem, "I_CURTAKE");
+					ActiveTake = GetMediaItemTake(CurrItem, ATInt);
+
+					// RE SET NAME
+					GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", activeTake_name, 1);
+				);
+				j+=1;
+			);
+		);
+		i += 1;
+	);
+
+	// GLUE ITMES WITHOUT TIME SELECTION
+	Main_OnCommand(40362, 0);
+
+	// RESTORE TRACK SELECTION
+	Main_OnCommand(NamedCommandLookup("_SWS_RESTORESEL"), 0);
+	
+	Undo_EndBlock("Glue selected items preserving names", 0);
+);
+
+msg_start();
+
+glue_items();
+
+UpdateArrange();
+
+msg_end();
