@@ -1,10 +1,10 @@
-#X-Raym's REAPER-EEL-Scripts / X-Raym's ReaScripts
+#X-Raym's ReaScripts
 
 
 ----------
 
 
-##X-Raym's EEL Scripts for Cockos REAPER.
+##X-Raym's Scripts for Cockos REAPER.
 - Scripts written by X-Raym
 - Scripts written for X-Raym
 - Scripts moded by X-Raym
