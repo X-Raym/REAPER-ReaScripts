@@ -1,15 +1,17 @@
 // Template
 // EEL Script for Reaper
-// Author : X-Raym
-// Author URl : http://extremraym.com
-// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
-// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
-// Licence : GPL v3
-// Release Date : 19-01-2015
+// Author: X-Raym
+// Author URl: http://extremraym.com
+// Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence: GPL v3
+// Release Date: 19-01-2015
+// Forum Thread: EEL : Action name
+// Forum Thread URl: http://forum.cockos.com/
 
-// Version : 1.1
-// Version Date : 29-01-2015
-// Required : Reaper 4.76
+// Version: 1.2
+// Version Date: 29-01-2015
+// Required: Reaper 4.76
 
 // ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
