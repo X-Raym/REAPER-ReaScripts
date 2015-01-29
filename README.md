@@ -1,4 +1,4 @@
-#REAPER-EEL-Scripts
+#X-Raym's REAPER-EEL-Scripts / X-Raym's ReaScripts
 
 
 ----------
