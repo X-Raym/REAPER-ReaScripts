@@ -18,6 +18,7 @@
  - [How to Learn ReaScript](http://extremraym.com/en/learn-reascript-reaper/)
  - [REAPER Scripts : Take Properties Randomization](http://extremraym.com/reaper-randomisation-takes/)
  - [Better Subtitling with SWS v2.6.0 and Custom EEL Scripts](http://extremraym.com/subtitling-sws-2-6-0-scripts/)
+ - [EEL : Console debug messages](http://forum.cockos.com/showthread.php?t=153452)
 
 ##Contributors :
 - [spk77](http://forum.cockos.com/member.php?u=49553)
