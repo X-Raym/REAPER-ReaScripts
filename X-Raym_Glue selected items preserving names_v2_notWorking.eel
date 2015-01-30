@@ -76,14 +76,18 @@ function glue_items() local(i, j, item, take)
 			loop (limit, j ? (
 					// CHECK THE LOOP
 					msg_d(j);
+
+					// UNSELECT ALL ITEMS
+					Main_OnCommand(40289, 0);
 				
-					msg_dtl("Selection",setSelectedMediaItem[j-1],0);// why -1 ? Don't know but seem to work
-					SetMediaItemSelected(setSelectedMediaItem[j-1],0);
+					msg_dtl("Item selection",setSelectedMediaItem[j-1],0);// why -1 ? Don't know but seem to work
+					SetMediaItemSelected(setSelectedMediaItem[j-1], 1);
 
 					// GET ACTIVE TAKE
 					CurrItem = GetSelectedMediaItem(0, 0);
 					ATInt = GetMediaItemInfo_Value(CurrItem, "I_CURTAKE");
 					ActiveTake = GetMediaItemTake(CurrItem, ATInt);
+					msg_dtl("Active take", ActiveTake, 0);
 
 					// GET NAME
 					GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", #stringNeedBig, 0);
@@ -94,8 +98,16 @@ function glue_items() local(i, j, item, take)
 					track = GetMediaItemTake_Track(ActiveTake);
 					msg_dtl("Track from item", track, 1);
 
+					// IF ITEM TRACK ID IS EQUAL
+					track === track_id_array[i] ? (
+						/*i >= 1 ?(
+						separator = " + ";*/
+						outputName = sprintf(#dest5, "%s%s%s", outputName, separator, activeTake_name);
+						msg_stl("Merged name", outputName, 1);	
+					);
+
 					// GLUE WITHOUT TIME SELECTION
-					Main_OnCommand(40362, 0);
+					//Main_OnCommand(40362, 0);
 
 					// RE ACTIVE TAKE
 					CurrItem = GetSelectedMediaItem(0, 0);
@@ -103,7 +115,7 @@ function glue_items() local(i, j, item, take)
 					ActiveTake = GetMediaItemTake(CurrItem, ATInt);
 
 					// RE SET NAME
-					GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", activeTake_name, 1);
+					GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", outputName, 1);
 				);
 				j+=1;
 			);
@@ -112,7 +124,7 @@ function glue_items() local(i, j, item, take)
 	);
 
 	// GLUE ITMES WITHOUT TIME SELECTION
-	Main_OnCommand(40362, 0);
+	//Main_OnCommand(40362, 0);
 
 	// RESTORE TRACK SELECTION
 	Main_OnCommand(NamedCommandLookup("_SWS_RESTORESEL"), 0);
