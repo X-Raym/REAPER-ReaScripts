@@ -145,7 +145,7 @@ function msg_end()
 	);
 );
 
-// MULTI PURPOSE FUNCTION
+// MULTI-PURPOSE FUNCTION
 // Text is string
 // Variable is your variable
 // Output format are string "s", integer "d", and floating point "f"
@@ -154,12 +154,12 @@ function msg_end()
 //
 // Example:
 // msg_tvold("My variable", variableString, "s", 1, debug)
-// will ouput in the console !
+// will ouput in the console :
 //
 // My variable
 // *value of variableString* formated into string
 // -----
-// Only if global debug is set to 1 in header file.
+// Only if global debug is set to 1 in file header.
 //
 // All variables can be set to 0
 function msg_tvold(text,variable,output,line,debug)
