@@ -6,8 +6,8 @@
 // Licence : GPL v3
 // Release Date : 12-01-2015
 
-// Version : 1.5
-// Version Date : 29-01-2015
+// Version : 1.6
+// Version Date : 01-02-2015
 // Required : Reaper 4.76
 
 // From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
@@ -51,7 +51,7 @@ function msg_stl(text,variable,line)
 		);
 		strlen(variable) > 0 ? (
 			ShowConsoleMsg(variable);
-		) : (
+		):(
 			ShowConsoleMsg("ERROR : Empty String");
 		);
 		line === 0 ?(
@@ -145,8 +145,70 @@ function msg_end()
 	);
 );
 
+// MULTI PURPOSE FUNCTION
+// Text is string
+// Variable is your variable
+// Output format are string "s", integer "d", and floating point "f"
+// Debug value can be overide localy with 0 and 1.
+// Line is bolean
+//
+// Example:
+// msg_tvold("My variable", variableString, "s", 1, debug)
+// will ouput in the console !
+//
+// My variable
+// *value of variableString* formated into string
+// -----
+// Only if global debug is set to 1 in header file.
+//
+// All variables can be set to 0
+function msg_tvold(text,variable,output,line,debug)
+(
+	
+	// STORE GLOBAL DEBUG STATE
+	debugInit = debug;
+	
+	debug === 1 ? (
 
-// End
+		// CHECK TEXT
+		strlen(text) > 0 ? (
+			msg_s(text);
+		);
+
+		// OUTPUT FLOAT
+		strcmp("f",output) === 0 ? (
+			sprintf(str, "%f", variable);
+			ShowConsoleMsg(str);
+		);
+
+			// OUTPUT DECIMAL
+		strcmp("d",output) === 0 ? (
+			sprintf(str, "%d", variable);
+			ShowConsoleMsg(str);
+		);
+
+			// OUTPUT STRING
+		output === "s" ? (
+			strlen(variable) > 0 ? (
+				ShowConsoleMsg(variable);
+			):(
+				ShowConsoleMsg("EMPTY STRING");
+			);
+		);
+		
+		// OUTPUT LINE
+		line === 0 ?(
+			ShowConsoleMsg("\n");
+			):(
+				ShowConsoleMsg("\n-----\n");
+		);
+	
+	);
+
+	// RESTORE PREVIOUS GLOBAL DEBUG
+	debug = debugInit;
+);
+
 
 // Debug
 /*function main()(
