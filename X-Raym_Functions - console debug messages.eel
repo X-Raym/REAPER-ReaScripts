@@ -148,12 +148,12 @@ function msg_end()
 // MULTI-PURPOSE FUNCTION
 // Text is string
 // Variable is your variable
-// Output format are string "s", integer "d", and floating point "f"
+// Output format are string "%s", integer "%d", and floating point "%f"
 // Debug value can be overide localy with 0 and 1.
 // Line is bolean
 //
 // Example:
-// msg_tvold("My variable", variableString, "s", 1, debug)
+// msg_tvold("My variable", variableString, "%s", 1, debug)
 // will ouput in the console :
 //
 // My variable
@@ -176,19 +176,19 @@ function msg_tvold(text,variable,output,line,debug)
 		);
 
 		// OUTPUT FLOAT
-		strcmp("f",output) === 0 ? (
+		strcmp("%f",output) === 0 ? (
 			sprintf(str, "%f", variable);
 			ShowConsoleMsg(str);
 		);
 
 			// OUTPUT DECIMAL
-		strcmp("d",output) === 0 ? (
+		strcmp("%d",output) === 0 ? (
 			sprintf(str, "%d", variable);
 			ShowConsoleMsg(str);
 		);
 
 			// OUTPUT STRING
-		output === "s" ? (
+		output === "%s" ? (
 			strlen(variable) > 0 ? (
 				ShowConsoleMsg(variable);
 			):(
