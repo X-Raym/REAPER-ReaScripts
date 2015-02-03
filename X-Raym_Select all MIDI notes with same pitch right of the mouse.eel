@@ -1,4 +1,4 @@
-// Select all MIDI notes with same pitch right of the cursor
+// Select all MIDI notes with same pitch right of the mouse
 // EEL Script for Reaper
 // Author : X-Raym
 // Author URl : http://extremraym.com
@@ -20,7 +20,7 @@
 @import X-Raym_Functions - console debug messages.eel
 
 debug = 0; // 0 => No console. 1 => Display console messages for debugging.
-clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();
 // <==== DEBUGGING -----
@@ -37,12 +37,12 @@ function select()
 
     extension_api("BR_GetMouseCursorContext_MIDI", inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId);
     noteRow += 2;
-    msg_d(noteRow);
+    //msg_d(noteRow);
 
     i = 0;
     loop(notes,
       MIDI_GetNote(take, i, sel, muted, start, end, chan, pitch, vel);
-      msg_d(pitch);
+      //msg_d(pitch);
       start >= cursor_ppq_pos ? MIDI_SetNote(take, i, 1, muted, start, end, chan, pitch, vel);
       i += 1;
     );
