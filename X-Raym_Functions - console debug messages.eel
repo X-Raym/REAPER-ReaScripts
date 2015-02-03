@@ -120,8 +120,10 @@ function msg_ftl(text,variable,line)
 // Clean
 function msg_clean()
 (	
-	clean === 1 ? (
-		ShowConsoleMsg("");
+	debug === 1 ? (
+		clean === 1 ? (
+			ShowConsoleMsg("");
+		);
 	);
 );
 
