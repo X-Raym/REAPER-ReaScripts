@@ -6,8 +6,8 @@
 // Licence : GPL v3
 // Release Date : 12-01-2015
 
-// Version : 1.6
-// Version Date : 01-02-2015
+// Version : 1.7
+// Version Date : 02-02-2015
 // Required : Reaper 4.76
 
 // From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
@@ -35,7 +35,7 @@ function msg_s(variable)
 		strlen(variable) > 0 ? (
 			ShowConsoleMsg(variable);
 			ShowConsoleMsg("\n");
-		) : (
+		):(
 			ShowConsoleMsg("ERROR : Empty String");
 			ShowConsoleMsg("\n");
 		);
@@ -56,8 +56,8 @@ function msg_stl(text,variable,line)
 		);
 		line === 0 ?(
 			ShowConsoleMsg("\n");
-			):(
-				ShowConsoleMsg("\n-----\n");
+		):(
+			ShowConsoleMsg("\n-----\n");
 		);
 	);
 );
@@ -83,8 +83,8 @@ function msg_dtl(text,variable,line)
 		ShowConsoleMsg(str);
 		line === 0 ?(
 			ShowConsoleMsg("\n");
-			):(
-				ShowConsoleMsg("\n-----\n");
+		):(
+			ShowConsoleMsg("\n-----\n");
 		);
 	);
 );
@@ -110,8 +110,8 @@ function msg_ftl(text,variable,line)
 		ShowConsoleMsg(str);
 		line === 0 ?(
 			ShowConsoleMsg("\n");
-			):(
-				ShowConsoleMsg("\n-----\n");
+		):(
+			ShowConsoleMsg("\n-----\n");
 		);
 	);
 );
@@ -120,10 +120,8 @@ function msg_ftl(text,variable,line)
 // Clean
 function msg_clean()
 (	
-	debug === 1 ? (
-		clean === 1 ? (
-			ShowConsoleMsg("");
-		);
+	clean === 1 ? (
+		ShowConsoleMsg("");
 	);
 );
 
@@ -172,9 +170,68 @@ function msg_tvold(text,variable,output,line,debug)
 
 		// CHECK TEXT
 		strlen(text) > 0 ? (
-			msg_s(text);
+			ShowConsoleMsg(variable);
+			ShowConsoleMsg("\n");
+		):(
+			ShowConsoleMsg("ERROR : Empty String");
+			ShowConsoleMsg("\n");
 		);
 
+		// OUTPUT FLOAT
+		strcmp("%f",output) === 0 ? (
+			sprintf(str, "%f", variable);
+			ShowConsoleMsg(str);
+		);
+
+			// OUTPUT DECIMAL
+		strcmp("%d",output) === 0 ? (
+			sprintf(str, "%d", variable);
+			ShowConsoleMsg(str);
+		);
+
+			// OUTPUT STRING
+		output === "%s" ? (
+			strlen(variable) > 0 ? (
+				ShowConsoleMsg(variable);
+			):(
+				ShowConsoleMsg("EMPTY STRING");
+			);
+		);
+		
+		// OUTPUT LINE
+		line === 0 ? (
+			ShowConsoleMsg("\n");
+			):(
+			ShowConsoleMsg("\n-----\n");
+		);
+	
+	);
+
+	// RESTORE PREVIOUS GLOBAL DEBUG
+	debug = debugInit;
+);
+
+function msg_tvoldi(text,variable,output,line,debug,inline)
+(
+	
+	// STORE GLOBAL DEBUG STATE
+	debugInit = debug;
+	
+	debug === 1 ? (
+
+		// CHECK TEXT
+		strlen(text) > 0 ? (
+			ShowConsoleMsg(variable);
+				inline === 1 ? (
+					ShowConsoleMsg("\n");
+				);
+				):(
+				ShowConsoleMsg("ERROR : Empty String");
+				inline === 1 ? (
+					ShowConsoleMsg("\n");
+				);
+			);
+		
 		// OUTPUT FLOAT
 		strcmp("%f",output) === 0 ? (
 			sprintf(str, "%f", variable);
@@ -200,9 +257,8 @@ function msg_tvold(text,variable,output,line,debug)
 		line === 0 ?(
 			ShowConsoleMsg("\n");
 			):(
-				ShowConsoleMsg("\n-----\n");
+			ShowConsoleMsg("\n-----\n");
 		);
-	
 	);
 
 	// RESTORE PREVIOUS GLOBAL DEBUG
@@ -215,7 +271,14 @@ function msg_tvold(text,variable,output,line,debug)
 	debug = 1;
 	clean = 1;
 	msg_clean();
-	msg_s("Sample text");
+	
+	string = "Sample text";
+	integer = 1;
+	float = 1.23456789;
+	
+	msg_tvold("String",string,"%s",0,debug);
+	msg_tvold("Integer",integer,"%d",0,debug);
+	msg_tvold("Float",float,"%f",0,debug);
 );
 
 main();*/
