@@ -172,7 +172,7 @@ function msg_tvold(text,variable,output,line,debug)
 
 		// CHECK TEXT
 		strlen(text) > 0 ? (
-			ShowConsoleMsg(variable);
+			ShowConsoleMsg(text);
 			ShowConsoleMsg("\n");
 		):(
 			ShowConsoleMsg("ERROR : Empty String");
@@ -223,13 +223,13 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 
 		// CHECK TEXT
 		strlen(text) > 0 ? (
-			ShowConsoleMsg(variable);
-				inline === 1 ? (
+			ShowConsoleMsg(text);
+				inline === 0 ? (
 					ShowConsoleMsg("\n");
 				);
-				):(
+			):(
 				ShowConsoleMsg("ERROR : Empty String");
-				inline === 1 ? (
+				inline === 0 ? (
 					ShowConsoleMsg("\n");
 				);
 			);
@@ -269,7 +269,8 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 
 
 // Debug
-/*function main()(
+/*
+function main()(
 	debug = 1;
 	clean = 1;
 	msg_clean();
@@ -281,6 +282,11 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 	msg_tvold("String",string,"%s",0,debug);
 	msg_tvold("Integer",integer,"%d",0,debug);
 	msg_tvold("Float",float,"%f",0,debug);
+	
+	msg_tvoldi("String",string,"%s",0,debug,0);
+	msg_tvoldi("Integer",integer,"%d",0,debug,0);
+	msg_tvoldi("Float",float,"%f",0,debug,0);
 );
 
-main();*/
+main();
+*/
