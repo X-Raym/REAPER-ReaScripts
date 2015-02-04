@@ -7,8 +7,8 @@
 // Licence : GPL v3
 // Release Date : 03-02-2015
 
-// Version : 1.0
-// Version Date : 03-02-2015
+// Version : 1.1
+// Version Date : 04-02-2015
 // Required : Reaper 5.0 pre 10; SWS 2.6.2
 
 // Based on Select all MIDI notes and events right of cursor
@@ -43,7 +43,9 @@ function select()
     loop(notes,
       MIDI_GetNote(take, i, sel, muted, start, end, chan, pitch, vel);
       //msg_d(pitch);
-      start >= cursor_ppq_pos ? MIDI_SetNote(take, i, 1, muted, start, end, chan, pitch, vel);
+      start >= cursor_ppq_pos && noteRow == pitch ? (
+        MIDI_SetNote(take, i, 1, muted, start, end, chan, pitch, vel);
+      ); 
       i += 1;
     );
     
@@ -60,16 +62,7 @@ function select()
       start >= cursor_ppq_pos ? MIDI_SetTextSysexEvt(take, i, 1, muted, start, type, #msg);
       i += 1;
     );*/
-    
-    i = 0;
-    loop(notes,
-    MIDI_EnumSelNotes(take, i);
-    MIDI_GetNote(take, i, sel, muted, start, end, chan, pitch, vel);
-    noteRow != pitch ? (
-      MIDI_SetNote(take, i, 0, muted, start, end, chan, pitch, vel);
-    );
-    i += 1;
-    );
+
   );
   Undo_OnStateChange("Select notes with same rigsht of cursor");
 );

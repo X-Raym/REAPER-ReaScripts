@@ -1,0 +1,105 @@
+// Set selected envelope point at cursor position value
+// EEL Script for Reaper
+// Author: X-Raym
+// Author URl: http://extremraym.com
+// Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence: GPL v3
+// Release Date: 31-01-2015
+// Forum Thread: EEL : Set selected envelope point value
+// Forum Thread URl: http://forum.cockos.com/
+
+// Version: 0.8
+// Version Date: 31-01-2015
+// Required: Reaper 5.0 pre 9, SWS 2.6.2 #0
+
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function set_point_value()
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	// GET SELECTED TRACK ?
+	envelope = GetSelectedEnvelope(0);
+
+	// GET CURSOR POSITION
+	time = GetCursorPosition();
+
+	// GET POINT
+	ptidx = GetEnvelopePointByTime(envelope, time);
+	msg_dtl("Point ID", ptidx, 1);
+
+	// IF THERE IS A POINT SELECTED
+	ptidx != 0 ? (
+		
+		// VALUE
+		GetEnvelopePoint(envelope, ptidx, timeOutOptional, valueOutOptional, shapeOutOptional, tensionOutOptional, selectedOutOptional);
+
+		#dialog_ret_vals = 0;
+		GetUserInputs("Set point value", 1, "Value ?", #dialog_ret_val); // We suppose that the user know the scale he want
+		match("%d", #dialog_ret_val, valueInOptional);
+		msg_dtl("User input", valueInOptional, 1);
+
+		// GET ENVELOPE RANGE -- HERE IT IS
+		GetEnvelopeName(envelope, #buf);
+		msg_stl("Envelope name", #buf, 1);
+
+		match("%s", #buf, envelopeName);
+		/*envelopeNameLen = strlen(envelopeName);
+		msg_dtl("BufLen name", envelopeName, 1);*/
+
+		msg_dtl("Comparaison avec PAN", stricmp("PAN", envelopeName),1);
+
+		// POURQUOI EL TEUC CI DESSOUS MARCHE SI ON MET > ET PAS ==== ???
+		stricmp("PAN", envelopeName) == 0 ? (
+			valueInOptional <= -100 ? (
+				valueIn = 1.0;
+				msg_s("Pan <= -100");
+			);
+			valueInOptional >= 100 ? (
+				valueIn = - 1.0;
+				msg_s("Pan >= 100");	
+			);
+			valueInOptional <= 100 && valueInOptional >= -100 ? (
+				valueIn = - valueInOptional / 100;
+				msg_s("-100 < Pan < 100");	
+			);
+			// SORTIRA CA DE LA BOUCLEA CAUSE DES ENVELOPES MUTES ETC OU METTRE TTOUTES LES ENVLEOPEPS PAR FDEFAUT POSSIBLES
+		):( // IF ENVELOPE HAS NO NAME PAS ICI LA BOUCL !!
+			valueInOptional <= -100 ? (
+				valueIn = 0;
+				msg_s("BOUCLE 3");	
+			);
+			valueInOptional >= 100 ? (
+				valueIn = 1.0;
+				msg_s("BOUCLE 4");
+			);
+			valueInOptional < 100 && valueInOptional > -100 ? (
+				valueIn = valueInOptional / 100;
+				msg_s("BOUCLE 6");	
+			);
+		);
+
+		msg_dtl("Value ouput", valueIn, 1);
+
+		// SET POINT VALUE
+		SetEnvelopePoint(envelope, ptidx, time, valueIn, shapeInOptional, tensionInOptional, 1, noSortInOptional);
+		
+		Undo_EndBlock("Set selected envelope point value", 0); // End of the undo block. Leave it at the bottom of your main function.
+	);
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+set_point_value(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

@@ -1,16 +1,16 @@
-// Template
+// Set selected envelope point value
 // EEL Script for Reaper
 // Author: X-Raym
 // Author URl: http://extremraym.com
 // Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence: GPL v3
-// Release Date: 19-01-2015
-// Forum Thread: EEL : Action name
+// Release Date: 31-01-2015
+// Forum Thread: EEL : Set selected envelope point value
 // Forum Thread URl: http://forum.cockos.com/
 
-// Version: 1.2
-// Version Date: 29-01-2015
+// Version: 1.0
+// Version Date: 31-01-2015
 // Required: Reaper 5.0 pre 9, SWS 2.6.2 #0
 
 // ----- DEBUGGING ====>
@@ -26,32 +26,22 @@ function main()
 (
 	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
-	// YOUR CODE BELOW
-
 	// GET SELECTED TRACK ?
-	envelope = GetSelectedTrackEnvelope(NULL);
-
-	// SELECT THE ENVELOPE
-	extension_api("BR_EnvAlloc", envelope, 1);
+	envelope = GetSelectedEnvelope(0);
 
 	// GET CURSOR POSITION
-	position = GetCursorPosition();
+	time = GetCursorPosition();
 
 	// GET POINT
-	id = extension_api("BR_EnvFind", envelope, position, delta);
+	ptidx = GetEnvelopePointByTime(envelope, time);
 
 	// VALUE
 	value = 0;
 
 	// SET POINT VALUE
-	extension_api("BR_EnvSetPoint", envelope, id, position, value, shape, 1, bezier);
-
-	// LIBERATE THE ENVELOPE AND COMIT CHANGE
-	extension_api("BR_EnvFree", envelope, 0);
+	SetEnvelopePoint(envelope, ptidx, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, selectedInOptional, noSortInOptional);
 	
-	// YOUR CODE ABOVE
-
-	Undo_EndBlock("My action", 0); // End of the undo block. Leave it at the bottom of your main function.
+	Undo_EndBlock("Set selected envelope point value", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 msg_start(); // Display characters in the console to show you the begining of the script execution.

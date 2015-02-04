@@ -207,10 +207,11 @@ function check_duplicate_audio() local(i, item, j, take, k)
 					// COMPARE WITH THE REST - FROM HEDA
 					// this new loop searches the new pooled selected items and assigns them a "pool" attribute to filter them later.
 					k=0; // starting from j, I think it works.
+					k=j+1; // TEST
 					loop(CountSelectedMediaItems(0),
 					(compare_item = GetSelectedMediaItem(0, k)) ? (
 						 	
-							k != j && k > j ? (// CHECK THE LOOP
+							//k != j && k > j ? (// CHECK THE LOOP facultative=
 							msg_dtl("K", K, 0);
 							
 							// Select j item from loop
@@ -280,7 +281,7 @@ function check_duplicate_audio() local(i, item, j, take, k)
 								strcmp(compare_itemSourceName,itemSourceName) === 0 ? (
 									/*IF ITEM SOURCE START */
 
-									// CONSIDER OUSER INPUTS
+									// CONSIDER USER INPUTS
 									msg_s("¤¤¤¤¤");
 									msg_s("TWO TAKES HAVE COMMON SOURCE");
 									GetTakeName(#retval, compare_take);
@@ -291,11 +292,25 @@ function check_duplicate_audio() local(i, item, j, take, k)
 									msg_tvold("Take name", takeName, "%s", 0, debug);
 									msg_s("¤¤¤¤¤");
 
-									// IF ITEM SOURCE IS SUPERIOR THAN ITEM END
+									// CASE 1
+
+									
+									// CASE 2
+									
+									
+									// CASE 3
+									
+
+									// CASE 4
+
+
+									// CASE 5
+
+
 								):(
 									msg_s("NO MATCH");
 								);
-							);
+							//);
 						);
 						k+=1;
 					);
@@ -314,3 +329,5 @@ check_duplicate_audio(); // Execute your main function
 UpdateArrange(); // Update the arrangement (often needed)
 
 msg_end(); // Display characters in the console to show you the end of the script execution.
+
+// CAS DES ITEMS QUI ONT START APRES END (que ce soit en original ou en compare)
