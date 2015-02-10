@@ -389,7 +389,7 @@ function check_duplicate_audio() local(i, item, j, take, k)
 										format_timestr_pos(commonPosition1, #commonPosition1, ecp_format);
 										msg_tvoldi("At position:", #commonPosition1, "%s", 0, 1, 1);
 										//msg_tvoldi("And position:", commonPosition2, "%f", 0, 1, 1);
-										msg_tvoldi("During (source duration):", commonLengh, "%f", 0, 1, 1);	
+										msg_tvoldi("During (source rate):", commonLengh, "%f", 0, 1, 1);	
 										msg_s("\n");									
 									);
 
