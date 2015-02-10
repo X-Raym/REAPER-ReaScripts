@@ -1,0 +1,90 @@
+// Set selected envelope points value
+// EEL Script for Reaper
+// Author: X-Raym
+// Author URl: http://extremraym.com
+// Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence: GPL v3
+// Release Date: 09-02-2015
+// Forum Thread: EEL : Set selected envelope point value
+// Forum Thread URl: http://forum.cockos.com/
+
+// Version: 1.0
+// Version Date: 09-02-2015
+// Required: Reaper 5.0 pre 9, SWS 2.6.2 #0
+
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function floorPoint (value, type)
+(
+	calc = 0;
+	stricmp("VOLUME", type) == 0 || stricmp("VOLUME (PRE-FX)", type) == 0 ? (
+			OldVol=value;
+			OldVolDB=20*(log10(OldVol));
+			
+			NewVolDB=floor(OldVolDB + 0.5);
+	    	calc=exp(NewVolDB*0.115129254);
+			):(
+			calc = floor((value)*20+0.5)/20;
+		);
+
+	calc;
+);
+
+function round_point_value() local (i)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	// GET SELECTED TRACK ?
+	envelope = GetSelectedEnvelope(0);
+	env_point_count = CountEnvelopePoints(envelope);
+
+	// GET ENVELOPE RANGE -- HERE IT IS
+	GetEnvelopeName(envelope, #buf);
+	match("%s", #buf, envelopeName);
+		
+	// VALUE
+	i = 0;
+	loop (env_point_count, i ? (
+			
+			// IDX 0 doesnt seem to work
+			GetEnvelopePoint(envelope, i, timeOutOptional, valueOut, shapeOutOptional, tensionOutOptional, selectedOut);
+			
+			selectedOut == 1 ? (
+
+				valueIn = floorPoint(valueOut, envelopeName);
+
+				timeInOptional = timeOutOptional;
+				shapeInOptional = shapeOutOptional;
+				tensionInOptional = tensionOutOptional;
+
+				// SET POINT VALUE
+				SetEnvelopePoint(envelope, i, timeInOptional, valueIn, shapeInOptional, tensionInOptional, 1, noSortInOptional);
+
+			);
+
+			
+		);
+
+		i += 1;
+	
+	);
+
+	Undo_EndBlock("Round selected envelope points value", 0); // End of the undo block. Leave it at the bottom of your main function.
+
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+round_point_value(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

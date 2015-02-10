@@ -11,13 +11,13 @@
 
 // Version: 0.8
 // Version Date: 31-01-2015
-// Required: Reaper 5.0 pre 9, SWS 2.6.2 #0
+// Required: REAPER 5.0 pre 9, SWS 2.6.2 #0
 
 // ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
 
-debug = 1; // 0 => No console. 1 => Display console messages for debugging.
-clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();
 // <==== DEBUGGING -----
