@@ -1,0 +1,82 @@
+// Display color of selected tracks items and takes in the console
+// EEL Script for Reaper
+// Author: X-Raym
+// Author URl: http://extremraym.com
+// Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence: GPL v3
+// Release Date: 11-02-2015
+// Forum Thread: EEL : Display color of selected tracks items and takes in the console
+// Forum Thread URl: http://forum.cockos.com/
+
+// Version: 1.0
+// Version Date: 11-02-2015
+// Required: Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function main() local (i, j)
+(
+
+	// SELECTED ITEMS LOOP
+	countItems = CountSelectedMediaItems(0);
+	countTracks = CountSelectedTracks(0);
+
+	countItems > 0 ? (
+		msg_tvoldi("SELECTED ITEMS = ", countItems, "%d", 1, debug, 1);
+	);
+
+	i = 0;
+	loop(countItems,
+		(item = GetSelectedMediaItem(0, i)) ? (
+			(take = GetActiveTake(item)) ? (
+					GetTakeName(#retval, take);
+					msg_tvold("Take name", #retval, "%s", 0, debug);
+					takeColor = GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR");
+					takeColor === 0 ? ( // if the item has no color...
+						takeColor = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR");; // ... then take the track color
+						msg_tvold("Take color (from track):", takeColor, "%d", 1, debug);
+						):(
+						msg_tvold("Take color:", takeColor, "%d", 1, debug);
+					);	
+				);
+			);
+		i += 1;
+	);
+		
+	// SELECTED TRACKS LOOP
+	countTracks > 0 ? (
+		msg_s("=====");
+		msg_tvoldi("SELECTED TRACKS = ", countTracks, "%d", 1, debug, 1);
+	);
+
+	j = 0;
+	loop(countTracks, 
+			(track = GetSelectedTrack(0, j)) ? (
+				GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
+				msg_tvold("Track name:", #stringNeedBig, "%s", 0, debug);
+				trackColor = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR");
+				msg_tvold("Track color:", trackColor, "%x", 1, debug);
+			);
+		j += 1;
+	);
+
+	countItems == 0 && countTracks == 0 ? (
+		msg_s("No item or track selected");
+	);
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.
