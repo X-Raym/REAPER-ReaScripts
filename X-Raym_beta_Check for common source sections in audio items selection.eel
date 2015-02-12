@@ -120,139 +120,139 @@ function check_duplicate_audio() local(i, item, j, take, k)
 
 	// LOOP THROUGH SELECTION
 	j=0;
-	loop(countSelectedMediaItem - 1,
-		(itemA = GetSelectedMediaItem(0, j)) ? ( 
+	loop(countSelectedMediaItem,
+		(A_item = GetSelectedMediaItem(0, j)) ? ( 
 			
 			// CHECK THE LOOP
 			msg_tvoldi("\n", NULL, 0, 0, debug, 0);
 			msg_tvoldi("==========\nJ =", j, "%d", 0, debug, 1);
 			
-			takeA = GetActiveTake(itemA);
+			A_take = GetActiveTake(A_item);
 
-			TakeIsMIDI(takeA) === 1 ? (
+			TakeIsMIDI(A_take) === 1 ? (
 				
 					// TAKE IS MIDI
-					msg_tvold("itemA ID", itemA, "%d", 0, debug);
-					msg_s("takeA is MIDI");
+					msg_tvold("A_item ID", A_item, "%d", 0, debug);
+					msg_s("A_take is MIDI");
 					msg_tvold("=====", 0, "%s", 0, debug);
 				
 				):(
 				
 					// TAKE IS AUDIO
-					msg_tvold("itemA ID", itemA, "%d", 0, debug);
-					msg_s("takeA is Audio");
+					msg_tvold("A_item ID", A_item, "%d", 0, debug);
+					msg_s("A_take is Audio");
 
-					// GET itemA PROPERTIES
+					// GET A_item PROPERTIES
 					
 					// Name
-					GetTakeName(#retval, takeA);
-					match("%s", #retval, takeAName);
-					msg_tvold("takeA name", takeAName, "%s", 0, debug);
-					itemASource = GetMediaItemTake_Source(takeA);
-					GetMediaSourceFileName(itemASource, #filenamebuf);
-					itemASourceName = #filenamebuf;
-					msg_stl("itemA source path and name", itemASourceName, 1);
+					GetTakeName(#retval, A_take);
+					match("%s", #retval, A_takeName);
+					msg_tvold("A_take name", A_takeName, "%s", 0, debug);
+					A_itemSource = GetMediaItemTake_Source(A_take);
+					GetMediaSourceFileName(A_itemSource, #filenamebuf);
+					A_itemSourceName = #filenamebuf;
+					msg_stl("A_item source path and name", A_itemSourceName, 1);
 
 					// PLANETNINE SOURCE TIME POSITION TOOL INIT
-					PCM_Source_GetSectionInfo(itemASource, A_offset, A_source_length, A_reverse);
-					itemA_pos = GetMediaItemInfo_value(itemA, "D_POSITION");
-					itemA_length = GetMediaItemInfo_value(itemA, "D_LENGTH");
-					takeA_offset = GetMediaItemTakeInfo_value(takeA, "D_STARTOFFS");
-					takeA_playrate = GetMediaItemTakeInfo_value(takeA, "D_PLAYRATE");
-					takeA_start_offset = GetMediaItemTakeInfo_value(takeA, "D_STARTOFFS");
+					PCM_Source_GetSectionInfo(A_itemSource, A_offset, A_source_length, A_reverse);
+					A_item_pos = GetMediaItemInfo_value(A_item, "D_POSITION");
+					A_item_length = GetMediaItemInfo_value(A_item, "D_LENGTH");
+					A_take_offset = GetMediaItemTakeInfo_value(A_take, "D_STARTOFFS");
+					A_take_playrate = GetMediaItemTakeInfo_value(A_take, "D_PLAYRATE");
+					A_take_start_offset = GetMediaItemTakeInfo_value(A_take, "D_STARTOFFS");
 
-					itemA_end = itemA_pos + itemA_length;
+					A_item_end = A_item_pos + A_item_length;
 
 					
-					// itemA START SOURCE
-					A_num_sm = GetTakeNumStretchMarkers(takeA); // num of SMs
+					// A_item START SOURCE
+					A_num_sm = GetTakeNumStretchMarkers(A_take); // num of SMs
 					A_num_sm ==0 ? 
 					(
 						A_sp1 =0; A_p1 =0; A_sp2 =0; A_p2 =0; A_sm_dev_flag =0; // reset values if no SMs
 						//section_playrate = take_playrate;
-						A_stp = takeA_start_offset;
+						A_stp = A_take_start_offset;
 					):(
-						A_stp = src_offset(itemA_pos, itemA, takeA); // comp for SMs
+						A_stp = src_offset(A_item_pos, A_item, A_take); // comp for SMs
 					);
 
 					A_src_item_stt_time = A_stp; //take_start_offset;
-					msg_tvold("Source in time", A_src_item_stt_time, "%f", 0, debug);
+					msg_tvold("Source start", A_src_item_stt_time, "%f", 0, debug);
 
 					
 					
-					// itemA SOURCE LENGHT
-					A_num_sm = GetTakeNumStretchMarkers(takeA); // num of SMs
+					// A_item SOURCE LENGHT
+					A_num_sm = GetTakeNumStretchMarkers(A_take); // num of SMs
 					A_num_sm ==0 ? 
 					(
 						A_sp1 =0; A_p1 =0; A_sp2 =0; A_p2 =0; A_sm_dev_flag =0; // reset values if no SMs
 						//section_playrate = take_playrate;
-						A_stp = takeA_start_offset + (itemA_length * takeA_playrate);
+						A_stp = A_take_start_offset + (A_item_length * A_take_playrate);
 					):(
-						A_stp = src_offset(itemA_pos+itemA_length, itemA, takeA); // comp for SMs
+						A_stp = src_offset(A_item_pos+A_item_length, A_item, A_take); // comp for SMs
 					);
-					A_src_item_end_time = A_stp; // A_src_item_stt_time + (itemA_length * take_playrate);
-					msg_tvold("Source lenght (seconds)", A_src_item_end_time, "%f", 0, debug);
+					A_src_item_end_time = A_stp; // A_src_item_stt_time + (A_item_length * take_playrate);
+					msg_tvold("Source end (seconds)", A_src_item_end_time, "%f", 0, debug);
 
 					//This needs to be calc'd from source time @end - source time start.	
 
-					A_src_item_length = A_src_item_end_time - A_src_item_stt_time; //itemA_length * take_playrate;
+					A_src_item_length = A_src_item_end_time - A_src_item_stt_time; //A_item_length * take_playrate;
 					A_len_percent = (A_src_item_length / A_source_length) * 100;
 					msg_tvold("Source lenght (seconds)", A_src_item_length, "%f", 0, debug);
 					
 
-					// itemA END SOURCE AND LOOP NUMBER
+					// A_item END SOURCE AND LOOP NUMBER
 					A_repeat_num = ceil(A_src_item_end_time/A_source_length)-1;
 					A_A_src_item_end_time = A_src_item_end_time - (A_source_length * (ceil(A_src_item_end_time/A_source_length)-1)); // modulus = n-d*int(n/d)
 					A_repeat_num ? ( // source repeated at cursor position?
 							msg_tvold("Source loops", A_repeat_num, "%d", 1, debug);
 
-							A_src_item_end_time = A_source_length; // If itemAs loop, then consider the end of first source as the end
+							A_src_item_end_time = A_source_length; // If A_items loop, then consider the end of first source as the end
 						
 						);
 
-					// If itemA has start source before end (if loop, it loop since 0 in source)
-					A_src_item_end_time < A_src_item_end_time ? (
+					// If A_item has start source before end (if loop, it loop since 0 in source)
+					A_src_item_stt_time < A_src_item_end_time ? (
 					// COMPARE WITH THE REST - FROM HEDA
-					// this new loop searches the new pooled selected itemAs and assigns them a "pool" attribute to filter them later.
+					// this new loop searches the new pooled selected A_items and assigns them a "pool" attribute to filter them later.
 					k=0; // starting from j, I think it works.
 					k=j+1; // TEST
-					loop(CountSelectedMediaItems(0),
-					(itemB = GetSelectedMediaItem(0, k)) ? (
+					loop(countSelectedMediaItem,
+					(B_item = GetSelectedMediaItem(0, k)) ? (
 						 	
 							//k != j && k > j ? (// CHECK THE LOOP facultative=
 							msg_tvoldi("K =", j, "%d", 0, debug, 1);
 							
 							// Select j item from loop
 
-							takeB = GetActiveTake(itemB); // is the item selected?
-							TakeIsMIDI(takeB) === 0 ? (
-								itemBSource = GetMediaItemTake_Source(takeB);
-								GetMediaSourceFileName(itemBSource, #filenamebuf2);
-								itemBSourceName = #filenamebuf2;
-								msg_stl("itemB source path and name", itemBSourceName, 1);
+							B_take = GetActiveTake(B_item); // is the item selected?
+							TakeIsMIDI(B_take) === 0 ? (
+								B_itemSource = GetMediaItemTake_Source(B_take);
+								GetMediaSourceFileName(B_itemSource, #filenamebuf2);
+								B_itemSourceName = #filenamebuf2;
+								msg_stl("B_item source path and name", B_itemSourceName, 1);
 								#retval = "";
-								GetTakeName(#retval, takeB);
-								match("%s", #retval, takeBName);
-								msg_tvold("takeB name", takeBName, "%s", 0, debug);
+								GetTakeName(#retval, B_take);
+								match("%s", #retval, B_takeName);
+								msg_tvold("B_take name", B_takeName, "%s", 0, debug);
 
-								PCM_Source_GetSectionInfo(itemBSource, B_offset, B_source_length, B_reverse);
-								itemB_pos = GetMediaItemInfo_value(itemB, "D_POSITION");
-								itemB_length = GetMediaItemInfo_value(itemB, "D_LENGTH");
-								takeB_offset = GetMediaItemTakeInfo_value(takeB, "D_STARTOFFS");
-								takeB_playrate = GetMediaItemTakeInfo_value(takeB, "D_PLAYRATE");
-								takeB_start_offset = GetMediaItemTakeInfo_value(takeB, "D_STARTOFFS");
-								itemB_end = itemB_pos + itemB_length;
+								PCM_Source_GetSectionInfo(B_itemSource, B_offset, B_source_length, B_reverse);
+								B_item_pos = GetMediaItemInfo_value(B_item, "D_POSITION");
+								B_item_length = GetMediaItemInfo_value(B_item, "D_LENGTH");
+								B_take_offset = GetMediaItemTakeInfo_value(B_take, "D_STARTOFFS");
+								B_take_playrate = GetMediaItemTakeInfo_value(B_take, "D_PLAYRATE");
+								B_take_start_offset = GetMediaItemTakeInfo_value(B_take, "D_STARTOFFS");
+								B_item_end = B_item_pos + B_item_length;
 
 								
-								// itemB START SOURCE
-								B_num_sm = GetTakeNumStretchMarkers(takeB); // num of SMs
+								// B_item START SOURCE
+								B_num_sm = GetTakeNumStretchMarkers(B_take); // num of SMs
 								B_num_sm == 0 ? 
 								(
 									B_sp1 =0; B_p1 =0; B_sp2 =0; B_p2 =0; B_sm_dev_flag =0; // reset values if no SMs
 									//section_playrate = take_playrate;
-									B_stp = takeB_start_offset;
+									B_stp = B_take_start_offset;
 								):(
-									B_stp = src_offset(itemB_pos, itemB, takeB); // comp for SMs
+									B_stp = src_offset(B_item_pos, B_item, B_take); // comp for SMs
 								);
 
 								B_src_item_stt_time = B_stp; //take_start_offset;
@@ -260,15 +260,15 @@ function check_duplicate_audio() local(i, item, j, take, k)
 
 								
 								
-								// itemB SOURCE LENGHT
-								B_num_sm = GetTakeNumStretchMarkers(takeB); // num of SMs
+								// B_item SOURCE LENGHT
+								B_num_sm = GetTakeNumStretchMarkers(B_take); // num of SMs
 								B_num_sm ==0 ? 
 								(
 									B_sp1 =0; B_p1 =0; B_sp2 =0; B_p2 =0; B_sm_dev_flag =0; // reset values if no SMs
 									//section_playrate = take_playrate;
-									B_stp = takeB_start_offset + (itemB_length * takeB_playrate);
+									B_stp = B_take_start_offset + (B_item_length * B_take_playrate);
 								):(
-									B_stp = src_offset(itemB_pos+itemB_length, itemB, takeB); // comp for SMs
+									B_stp = src_offset(B_item_pos+B_item_length, B_item, B_take); // comp for SMs
 								);
 								B_src_item_end_time = B_stp; // src_item_stt_time + (item_length * take_playrate);
 								msg_tvold("Compare source lenght (seconds)", B_src_item_end_time, "%f", 0, debug);
@@ -280,7 +280,7 @@ function check_duplicate_audio() local(i, item, j, take, k)
 								msg_tvold("Compare source end (seconds)", B_src_item_length, "%f", 0, debug);
 								
 
-								// itemB END SOURCE AND LOOP NUMBER
+								// B_item END SOURCE AND LOOP NUMBER
 								B_repeat_num = ceil(B_src_item_end_time/B_source_length)-1;
 								B_src_item_end_time = B_src_item_end_time - (B_source_length * (ceil(B_src_item_end_time/B_source_length)-1)); // modulus = n-d*int(n/d)
 								B_repeat_num ? ( // source repeated at cursor position?
@@ -290,17 +290,17 @@ function check_duplicate_audio() local(i, item, j, take, k)
 
 								B_src_item_stt_time < B_src_item_end_time ? (
 								// COMPARE
-								strcmp(itemBSourceName,itemASourceName) === 0 ? (
+								strcmp(B_itemSourceName,A_itemSourceName) === 0 ? (
 									
 									//DEBUG
 									/*msg_tvold("→→→→→", NULL, NULL, 0, debug);
 									msg_tvold("COMMON SOURCE", NULL, NULL, 0, debug);
-									GetTakeName(#retval, takeA);
-									match("%s", #retval, takeAName);
-									msg_tvold("takeA name", takeAName, "%s", 0, debug);
-									GetTakeName(#retval, takeB);
-									match("%s", #retval, takeBName);
-									msg_tvold("takeB name", takeBName, "%s", 0, debug);*/
+									GetTakeName(#retval, A_take);
+									match("%s", #retval, A_takeName);
+									msg_tvold("A_take name", A_takeName, "%s", 0, debug);
+									GetTakeName(#retval, B_take);
+									match("%s", #retval, B_takeName);
+									msg_tvold("B_take name", B_takeName, "%s", 0, debug);*/
 									
 									duplicateItems = 0;
 									commonLengh = 0;
@@ -314,8 +314,8 @@ function check_duplicate_audio() local(i, item, j, take, k)
 										inSource = B_src_item_length;
 										outSource = A_src_item_end_time;
 
-										commonPosition1 = itemB_pos;
-										commonPosition2 = itemA_end;
+										commonPosition1 = B_item_pos;
+										commonPosition2 = A_item_end;
 
 									);
 									
@@ -328,8 +328,8 @@ function check_duplicate_audio() local(i, item, j, take, k)
 										inSource = A_src_item_stt_time;
 										outSource = B_src_item_end_time;
 
-										commonPosition1 = itemA_pos;
-										//commonPosition2 = itemB_end;
+										commonPosition1 = A_item_pos;
+										//commonPosition2 = B_item_end;
 									
 									);
 									
@@ -342,8 +342,8 @@ function check_duplicate_audio() local(i, item, j, take, k)
 										inSource = B_src_item_stt_time;
 										outSource = B_src_item_end_time;
 
-										commonPosition1 = itemB_pos;
-										//commonPosition2 = itemA_end;
+										commonPosition1 = B_item_pos;
+										//commonPosition2 = A_item_end;
 									
 									);
 
@@ -356,8 +356,8 @@ function check_duplicate_audio() local(i, item, j, take, k)
 										inSource = A_src_item_stt_time;
 										outSource = B_src_item_end_time;
 
-										commonPosition1 = itemB_pos;
-										//commonPosition2 = itemA_end;
+										commonPosition1 = B_item_pos;
+										//commonPosition2 = A_item_end;
 
 									);
 									// CASE 5 - A EQUALS B
@@ -368,20 +368,22 @@ function check_duplicate_audio() local(i, item, j, take, k)
 										commonLengh = 1;
 										duplicateItems = 1;
 
-										commonPosition1 = itemA_end;
-										//commonPosition2 = itemA_end; // If item A don"t loop from source 0.
+										commonPosition1 = A_item_end;
+										//commonPosition2 = A_item_end; // If item A don"t loop from source 0.
 
 									);
 
 									commonLengh > 0 ? (
 										msg_tvold("\nCOMMON SOURCE", NULL, NULL, 0, 1);
-										msg_tvold(NULL, itemBSourceName, "%s", 1, 1)
-										GetTakeName(#retval, takeA);
-										match("%s", #retval, takeAName);
-										msg_tvold("takeA name", takeAName, "%s", 0, 1);
-										GetTakeName(#retval, takeB);
-										match("%s", #retval, takeBName);
-										msg_tvold("takeB name", takeBName, "%s", 0, 1);
+										msg_tvold(NULL, B_itemSourceName, "%s", 1, 1);
+										GetTakeName(#retval, A_take);
+										match("%s", #retval, A_takeName);
+										msg_tvold("A_take name", A_takeName, "%s", 0, 1);
+										GetTakeName(#retval, B_take);
+										match("%s", #retval, B_takeName);
+										msg_tvold("B_take name", B_takeName, "%s", 0, 1);
+
+										commonSource += 1;
 									);
 
 									// RESOLUTION
@@ -420,13 +422,19 @@ function check_duplicate_audio() local(i, item, j, take, k)
 				);
 			
 			j += 1;
-			msg_tvold("==========", NULL, NULL, 0, 1);
+			
 			
 			);
-		
+
 		);
+
 	
 	);
+			
+			msg_tvold("==========", NULL, NULL, 0, 1);
+			commonSource == 0 ? (
+				msg_tvold("No common sources section in selection.", NULL, NULL, 0, 1);
+			);
 
 );
 

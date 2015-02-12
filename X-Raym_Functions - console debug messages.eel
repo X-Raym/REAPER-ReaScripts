@@ -132,7 +132,7 @@ function msg_start()
 (
 	debug === 1 ? (
 		ShowConsoleMsg("▼▼▼▼▼");
-		ShowConsoleMsg("\n-----\n");
+		ShowConsoleMsg("\n");
 	);
 );
 
@@ -141,7 +141,7 @@ function msg_end()
 (
 	debug === 1 ? (
 		ShowConsoleMsg("▲▲▲▲▲");
-		ShowConsoleMsg("\n");
+		ShowConsoleMsg("\n"); // In case of clean = 0;
 	);
 );
 
@@ -188,6 +188,11 @@ function msg_tvold(text,variable,output,line,debug)
 			// OUTPUT DECIMAL
 		strcmp("%d",output) === 0 ? (
 			sprintf(str, "%d", variable);
+			ShowConsoleMsg(str);
+		);
+
+		strcmp("%x",output) === 0 ? (
+			sprintf(str, "%x", variable);
 			ShowConsoleMsg(str);
 		);
 
@@ -266,7 +271,6 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 	// RESTORE PREVIOUS GLOBAL DEBUG
 	debug = debugInit;
 );
-
 
 // Debug
 /*
