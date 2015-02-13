@@ -1,17 +1,23 @@
-// Template
-// EEL Script for Reaper
-// Author: X-Raym
-// Author URl: http://extremraym.com
-// Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
-// Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
-// Licence: GPL v3
-// Release Date: 19-01-2015
-// Forum Thread: EEL : Action name
-// Forum Thread URl: http://forum.cockos.com/
+/*
+Template Title (match file name)
+EEL Script for Reaper
+Author: X-Raym
+Author URl: http://extremraym.com
+Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+Licence: GPL v3
+Forum Thread: Script: Script name
+Forum Thread URl: http://forum.cockos.com/
+Version: 1.1
+Version Date: DD-MM-YYYY
+Required: REAPER 4.76 & SWS 2.6.0.
 
-// Version: 1.2
-// Version Date: 29-01-2015
-// Required: Reaper 4.76
+Changelog:
+- v1.1 (13-01-2015)
+-- +Basic scripts actions template
+- v1.0 (29-01-2015)
+-- +Initial Release
+*/
 
 // ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
@@ -22,11 +28,43 @@ clean = 1; // 0 => No console cleaning before every script execution. 1 => Conso
 msg_clean();
 // <==== DEBUGGING -----
 
-function main()
+function main() // local (i, j, item, take, track)
 (
 	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
 	// YOUR CODE BELOW
+
+	// LOOP THROUGH SELECTED ITEMS
+	/*
+	i = 0;
+	loop(
+		CountSelectedMediaItems(0), (item = GetSelectedMediaItem(0, i)) ? (
+			// ACTIONS
+		);
+		i += 1;
+	);
+	*/
+
+	// LOOP THROUGH SELECTED TAKES
+	/*
+	i = 0;
+	loop(
+		CountSelectedMediaItems(0), (item = GetSelectedMediaItem(0, i)) ? (
+			(take = GetActiveTake(item)) ? (
+				// ACTIONS
+			);
+		);
+		i += 1;
+	);
+	*/
+
+	// LOOP TRHOUGH TRACK
+
+	// LOOP THROUGH REGIONS
+
+	// LOOP TRHOUGH FX
+
+	// GET SIMPLE USER INPUTS
 
 	// YOUR CODE ABOVE
 
