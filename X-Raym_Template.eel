@@ -36,26 +36,26 @@ function main() // local (i, j, item, take, track)
 
 	// LOOP THROUGH SELECTED ITEMS
 	/*
-	i = 0;
+	i = 0; // INITIALIZE loop through selected items
 	loop(
 		CountSelectedMediaItems(0), (item = GetSelectedMediaItem(0, i)) ? (
 			// ACTIONS
-		);
-		i += 1;
-	);
+		); // ENDIF inside loop selected items
+		i += 1; // INCREMENT loop through selected items
+	); // ENDLOOP through selected items
 	*/
 
 	// LOOP THROUGH SELECTED TAKES
 	/*
-	i = 0;
+	i = 0; // INITIALIZE loop through selected items
 	loop(
 		CountSelectedMediaItems(0), (item = GetSelectedMediaItem(0, i)) ? (
 			(take = GetActiveTake(item)) ? (
 				// ACTIONS
-			);
-		);
-		i += 1;
-	);
+			); // ENDIF active take
+		); // ENDIF inside loop selected items
+		i += 1; // INCREMENT loop through selected items
+	); // ENDLOOP through selected items
 	*/
 
 	// LOOP TRHOUGH TRACK
