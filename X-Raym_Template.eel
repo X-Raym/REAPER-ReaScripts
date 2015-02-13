@@ -4,8 +4,9 @@
  * Description: A brief description of the script.
  * Author: X-Raym
  * Author URl: http://extremraym.com
- * Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/
@@ -18,7 +19,8 @@
 /**
  * Changelog:
  * v1.2 (2015-13-02)
-	+ Items, Takes, Tracks, Regions, FX loops.
+	+ Items, Takes, Tracks, Regions and FX loops
+	# Underscore variables
  * v1.1 (2015-13-02)
 	+ Basic scripts actions template
  * v1.0 (2015-29-01)
@@ -45,11 +47,11 @@ function main() // local (i, j, item, take, track)
 
 	// LOOP THROUGH SELECTED ITEMS
 	/*
-	selectedItemsCount = CountSelectedMediaItems(0);
+	selected_items_count = CountSelectedMediaItems(0);
 
 	i = 0; // INITIALIZE loop through selected items
 	loop(
-		selectedItemsCount, (item = GetSelectedMediaItem(0, i)) ? (
+		selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
 			// ACTIONS
 		); // ENDIF inside loop selected items
 		i += 1; // INCREMENT loop through selected items
@@ -58,11 +60,11 @@ function main() // local (i, j, item, take, track)
 
 	// LOOP THROUGH SELECTED TAKES
 	/*
-	selectedItemsCount = CountSelectedMediaItems(0);
+	selected_items_count = CountSelectedMediaItems(0);
 
 	i = 0; // INITIALIZE loop through selected items
 	loop(
-		selectedItemsCount, (item = GetSelectedMediaItem(0, i)) ? (
+		selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
 			(take = GetActiveTake(item)) ? (
 				// ACTIONS
 			); // ENDIF active take
@@ -73,11 +75,11 @@ function main() // local (i, j, item, take, track)
 
 	// LOOP TRHOUGH SELECTED TRACKS
 	/*
-	selectedTracksCount = CountSelectedTracks(0);
+	selected_tracks_count = CountSelectedTracks(0);
 
 	i = 0; // INITIALIZE loop through selected tracks
 	loop(
-		selectedTracksCount, (track = GetSelectedTrack(0, j)) ? (
+		selected_tracks_count, (track = GetSelectedTrack(0, j)) ? (
 				// ACTIONS
 			); // ENDIF inside loop
 		i += 1; // INCREMENT loop through selected tracks
@@ -99,16 +101,16 @@ function main() // local (i, j, item, take, track)
 
 	// LOOP TRHOUGH FX - by HeDa
 	/*
-	tracksCount = CountTracks(0);
+	tracks_count = CountTracks(0);
 
 	i=0; // INITIALIZE track loop
-	loop (tracksCount, // loop for all tracks
+	loop (tracks_count, // loop for all tracks
 			
 		track = GetTrack(0, i);	// which track
-		trackFXcount = TrackFX_GetCount(tracki); // count number of FX instances on the track
+		track_FX_count = TrackFX_GetCount(tracki); // count number of FX instances on the track
 		
 		j=0; // INITIALIZE FX loop
-		loop (trackFXcount,	// loop for all FX instances on each track
+		loop (track_FX_count,	// loop for all FX instances on each track
 			// ACTIONS
 			j+=1; // INCREMENT FX loop						
 		); // ENDLOOP FX loop
