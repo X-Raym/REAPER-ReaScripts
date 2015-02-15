@@ -1,7 +1,7 @@
 /**
  * Display selected tracks and takes color in the console
  * EEL Script for Reaper
- * Description: A brief description of the script.
+ * Displays tracks and takes color in RGB and HEX values in the console.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -11,7 +11,7 @@
  * Forum Thread: Script: Display selected tracks and takes color in the console
  * Forum Thread URl: http://forum.cockos.com/
  * Version: 1.0
- * Version Date: YYYY-MM-DD (international ISO 8601 format)
+ * Version Date: 2015-15-02
  * REAPER: 4.76
  */
  
@@ -19,14 +19,13 @@
  * Changelog:
  * v1.0 (2015-15-02)
 	+ Initial Release
-	+ New functions
-	- Deleted functions
-	# Updated functions
  */
 
-// Many thanks to the generous spk77 for helping me with RGB and HEX values convertion!
-// http://forum.cockos.com/showpost.php?p=1479982&postcount=13
-
+/**
+ * Many thanks to the generous spk77 for helping me with RGB and HEX values convertion!
+ * http://forum.cockos.com/showpost.php?p=1479982&postcount=13
+ */
+ 
 // ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
 
