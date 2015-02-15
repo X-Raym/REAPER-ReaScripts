@@ -83,7 +83,7 @@ function main() local (i, j)
 					ShowConsoleMsg(sprintf(#,"%02x", G));
 					ShowConsoleMsg(sprintf(#,"%02x", B));
 
-					msg_s("\n=====");
+					msg_s("\n\n\n=====");
 				);
 			);
 		i += 1;
@@ -120,7 +120,7 @@ function main() local (i, j)
 				ShowConsoleMsg(sprintf(#,"%02x", G));
 				ShowConsoleMsg(sprintf(#,"%02x", B));
 
-				msg_s("\n=====");
+				msg_s("\n\n\n=====");
 			);
 		j += 1;
 	);
