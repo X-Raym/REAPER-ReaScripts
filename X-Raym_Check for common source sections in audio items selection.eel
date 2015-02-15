@@ -14,7 +14,7 @@
  * Version Date: 2015-02-15
  * REAPER: 5.0 pre 8
  */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-29-01)
@@ -141,6 +141,8 @@ function check_duplicate_audio() local(i, item, j, take, k)
 				
 				A_take = GetActiveTake(A_item);
 
+
+
 				TakeIsMIDI(A_take) === 1 ? (// IF A_take is MIDI
 					
 					// TAKE IS MIDI
@@ -165,6 +167,7 @@ function check_duplicate_audio() local(i, item, j, take, k)
 					A_itemSourceName = #filenamebuf;
 					msg_stl("A_item source path and name", A_itemSourceName, 1);
 
+					
 					// SOURCE TIME POSITION TOOL INIT
 					PCM_Source_GetSectionInfo(A_itemSource, A_offset, A_source_length, A_reverse);
 					A_item_pos = GetMediaItemInfo_value(A_item, "D_POSITION");
@@ -440,7 +443,6 @@ function check_duplicate_audio() local(i, item, j, take, k)
 										msg_tvold("DIFFERENT SOURCES", NULL, NULL, 0, debug);
 										
 										);// ENDIF B_item has start source before end
-										same_source_number += 1 ; // Increment this variable each tmime there is a common source
 									);// ENDIF same source
 								);// ENDIF B_take is MIDI
 								k+=1;// Increment loop B_item
@@ -476,6 +478,17 @@ msg_end(); // Display characters in the console to show you the end of the scrip
 // USER INPUT FOR CONSIDERING PLAYRATE ?
 // USER INPUT FOR CONSIDERING STRETCH MARKERS ?
 // USER INPUT FOR PITCH CONSIDERATION ? What about pitch envelope ?
-// NUMBER OF TIME A SECTION IS USED
+// NUMBER OF TIME A FILE IS IMPLICATED IN A COMMON SOURCE CONFLICTS
+/*					
+strcmp(A_itemSourceName_previous,A_itemSourceName) == 0 ? (
+	conflicts_count += 1 ; // Increment this variable each tmime there is a common source
+):(
+	msg_tvoldi("\n\n\nSource file: ", B_itemSourceName, "%s", 0, 1, 1);
+	msg_tvold("Number of conflicts :", conflicts_count, "%d", 1, 1);
+	conflicts_count = 0; // Reset conflicts count
+);
+A_itemSourceName_previous = A_itemSourceName;
+WHERE TO PLACE ?
+				*/
 
 // Currently, it doesn't take into account looping item not starting from 0. I Don't think I personnaly will need this.
