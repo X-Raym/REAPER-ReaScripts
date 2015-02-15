@@ -1,4 +1,4 @@
-// Set color hex value for selected tracks and takes
+// Set color for selected tracks and takes from HEX value
 // EEL Script for Reaper
 // Author: X-Raym
 // Author URl: http://extremraym.com
@@ -10,7 +10,7 @@
 // Forum Thread URl: http://forum.cockos.com/
 
 // Version: 1.0
-// Version Date: 11-02-2015
+// Version Date: 15-02-2015
 // Required: Reaper 4.76
 
 // ----- DEBUGGING ====>
@@ -30,7 +30,7 @@ function main() local (i, j)
 
 	// YOUR CODE BELOW
 
-	colorFormat = setColor(colorHexInput);
+	color_int = (R + 256 * G + 65536 * B)|16777216;
 
 	countItems = CountSelectedMediaItems(0);
 
@@ -39,7 +39,7 @@ function main() local (i, j)
 	loop(countItems,
 		(item = GetSelectedMediaItem(0, i)) ? (
 			(take = GetActiveTake(item)) ? (
-					SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", colorFormat);
+					SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", color_int);
 				);
 			);
 		i += 1;
@@ -51,7 +51,7 @@ function main() local (i, j)
 	j = 0;
 	loop(countTracks, 
 			(track = GetSelectedTrack(0, j)) ? (
-				SetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR", colorFormat);
+				SetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR", color_int);
 			);
 		j += 1;
 	);
@@ -69,8 +69,8 @@ function userInput()
 (
 	dialog() ? (
 		// convert first and second values to int and store to "input1_val", "input2_val"
-		match("%d,%d", #dialog_ret_vals, colorHexInput);
-		msg_d(colorHexInput); // print int value
+		match("%d,%d", #dialog_ret_vals, color_hex_input);
+		msg_d(color_hex_input); // print int value
 	);
 );
 
