@@ -1,5 +1,5 @@
 /**
- * Button color template
+ * Set selected tracks and takes color
  * EEL Script for Reaper
  * A template for adding custom color button.
  * Author: X-Raym
@@ -11,7 +11,7 @@
  * Forum Thread: Script: Display selected tracks and takes color in the console
  * Forum Thread URl: http://forum.cockos.com/
  * Version: 1.0
- * Version Date: YYYY-MM-DD (international ISO 8601 format)
+ * Version Date: 2015-02-15
  * REAPER: 4.76
  */
  
