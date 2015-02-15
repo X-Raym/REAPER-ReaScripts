@@ -1,20 +1,30 @@
-// Check for common source sections in audio items selection
-// EEL Script for Reaper
-// Author: X-Raym
-// Author URl: http://extremraym.com
-// Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
-// Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
-// Licence: GPL v3
-// Release Date: 01-02-2015
-// Forum Thread: EEL : Check for duplicate samples in audio items selection
-// Forum Thread URl: http://forum.cockos.com/
+/**
+ * Check for common source sections in audio items selection
+ * EEL Script for Reaper
+ * Description: Select items and find if they have common sources sections.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URl: http://forum.cockos.com/
+ * Version: 1.2
+ * Version Date: 2015-02-15
+ * REAPER: 5.0 pre 8
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-29-01)
+	+ Initial Release
+ */
 
-// Version: 1.0
-// Version Date: 12-02-2015
-// Required: Reaper 5.0 pre 8
-
-// Inspired by the awesome the Source Time Position Tool 0.15 from PLANET NINE
-// http://forum.cockos.com/showthread.php?t=144822
+/**
+ * Inspired by the awesome the Source Time Position Tool 0.15 from PLANET NINE
+ * http://forum.cockos.com/showthread.php?t=144822
+ */
 
 // ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
@@ -288,10 +298,12 @@ function check_duplicate_audio() local(i, item, j, take, k)
 										msg_tvold("B Source loops", B_repeat_num, "%d", 0, debug);
 										compate_src_item_end_time = B_source_length;
 									);
+									
+								// COMPARE
+								strcmp(B_itemSourceName,A_itemSourceName) === 0 ? (// IF same source
 
-								B_src_item_stt_time < B_src_item_end_time ? (// IF B_item has start source before end
-									// COMPARE
-									strcmp(B_itemSourceName,A_itemSourceName) === 0 ? (// IF same source
+									B_src_item_stt_time < B_src_item_end_time ? (// IF B_item has start source before end
+
 										
 										//DEBUG
 										/*msg_tvold("→→→→→", NULL, NULL, 0, debug);
@@ -405,7 +417,7 @@ function check_duplicate_audio() local(i, item, j, take, k)
 											format_timestr_pos(commonPosition1, #commonPosition1, ecp_format);
 											msg_tvoldi("Time project position: ", #commonPosition1, "%s", 0, 1, 1);
 											//msg_tvoldi("And position:", commonPosition2, "%f", 0, 1, 1);
-											msg_tvoldi("Duration (seconds in source time): ", commonLengh, "%f", 0, 1, 1);	
+											msg_tvoldi("Duration (seconds in source time): ", commonLengh, "%f", 1, 1, 1);	
 											msg_s("\n");									
 										);
 
@@ -427,8 +439,9 @@ function check_duplicate_audio() local(i, item, j, take, k)
 
 										msg_tvold("DIFFERENT SOURCES", NULL, NULL, 0, debug);
 										
-										);// ENDIF same source
-									);// ENDIF B_item has start source before end
+										);// ENDIF B_item has start source before end
+										same_source_number += 1 ; // Increment this variable each tmime there is a common source
+									);// ENDIF same source
 								);// ENDIF B_take is MIDI
 								k+=1;// Increment loop B_item
 							);// END LOOP item_B
@@ -440,7 +453,7 @@ function check_duplicate_audio() local(i, item, j, take, k)
 		);// END LOOP A_Item
 		msg_tvold("\n\n\n==========", NULL, NULL, 0, 1);
 		
-		commonSource == 0 ? (// IF there is common source
+		commonSource == 0 ? (// IF there is no common source sections
 			msg_tvold("No common sources section in selection.", NULL, NULL, 0, 1);
 			msg_tvold("==========", NULL, NULL, 0, 1);
 		):(// ELSE there is no common source
@@ -463,5 +476,6 @@ msg_end(); // Display characters in the console to show you the end of the scrip
 // USER INPUT FOR CONSIDERING PLAYRATE ?
 // USER INPUT FOR CONSIDERING STRETCH MARKERS ?
 // USER INPUT FOR PITCH CONSIDERATION ? What about pitch envelope ?
+// NUMBER OF TIME A SECTION IS USED
 
 // Currently, it doesn't take into account looping item not starting from 0. I Don't think I personnaly will need this.
