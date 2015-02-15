@@ -18,12 +18,12 @@
  
 /**
  * Changelog:
- * v1.2 (2015-13-02)
+ * v1.2 (2015-02-13)
 	+ Items, Takes, Tracks, Regions and FX loops
 	# Underscore variables
- * v1.1 (2015-13-02)
+ * v1.1 (2015-02-15)
 	+ Basic scripts actions template
- * v1.0 (2015-29-01)
+ * v1.0 (2015-01-09)
 	+ Initial Release
 	+ New functions
 	- Deleted functions
