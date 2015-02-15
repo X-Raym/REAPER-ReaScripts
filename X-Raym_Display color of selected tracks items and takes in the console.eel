@@ -25,7 +25,7 @@
  * Many thanks to the generous spk77 for helping me with RGB and HEX values convertion!
  * http://forum.cockos.com/showpost.php?p=1479982&postcount=13
  */
- 
+
 // ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
 
@@ -58,7 +58,7 @@ function main() local (i, j)
 					trackNumber = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
 					msg_tvold("On track number:", trackNumber, "%d", 0, debug);
 					itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
-					msg_tvold("At position:", itemPosition, "%f", 0, debug);
+					msg_tvold("At position:", itemPosition, "%f", 1, debug);
 					takeColor_int = GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")|16777216;
 
 					takeColor_int === 0 ? ( // if the item has no color...
@@ -101,7 +101,7 @@ function main() local (i, j)
 				GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
 				msg_tvold("Track name:", #stringNeedBig, "%s", 0, debug);
 				trackNumber = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
-				msg_tvold("Track number:", trackNumber, "%d", 0, debug);
+				msg_tvold("Track number:", trackNumber, "%d", 1, debug);
 				trackColor_int = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR")|16777216;
 				msg_tvold("Track color:", trackColor_int, "%d", 1, debug);
 
