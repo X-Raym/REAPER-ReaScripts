@@ -45,7 +45,7 @@ function create_subtitles_from_regions_names()
 
   i = 0;
   // EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
-  loop (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number) > 0) (
+  while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number) > 0) (
     // This action below may be required for debugging
     //msg_d(is_region);
     //msg_f(pos);
@@ -68,7 +68,7 @@ function create_subtitles_from_regions_names()
     SetProjExtState(0, extname, key, value); // Write infos in file.
     
     msg_d(markrgn_index_number); // Displays region index in console
-    msg(#name); // Diplays regions name in console
+    msg_s(#name); // Diplays regions name in console
     msg_s("<=====");
     
     i += 1;
