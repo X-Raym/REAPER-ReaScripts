@@ -1,23 +1,22 @@
 /**
- * Check for common source sections in audio items selection
- * EEL Script for Reaper
+ * ReaScript Name: Check for common source sections in audio items selection
  * Description: Select items and find if they have common sources sections.
  * Author: X-Raym
  * Author URl: http://extremraym.com
- * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts/blob/master/X-Raym_Check%20for%20common%20source%20sections%20in%20audio%20items%20selection.eel
+ * File URl: https://raw.githubusercontent.com/X-Raym/REAPER-EEL-Scripts/master/X-Raym_Check%20for%20common%20source%20sections%20in%20audio%20items%20selection.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
+ * Forum Thread: ReaScript: Check for common source sections in audio items selection
  * Forum Thread URl: http://forum.cockos.com/
- * Version: 1.2
- * Version Date: 2015-02-15
+ * Version: 1.0
+ * Version Date: 2015-02-16
  * REAPER: 5.0 pre 8
  */
 
 /**
  * Changelog:
- * v1.0 (2015-29-01)
+ * v1.0 (2015-02-16)
 	+ Initial Release
  */
 
