@@ -1,7 +1,7 @@
 /**
  * Template Title (match file name)
- * EEL Script for Reaper
- * Description: A brief description of the script.
+ * A ReaScript for REAPER
+ * Description: A template script for REAPER ReaScript.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -9,9 +9,9 @@
  * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/
+ * Forum Thread URl: http://forum.cockos.com/***.html
  * Version: 1.2
- * Version Date: YYYY-MM-DD (international ISO 8601 format)
+ * Version Date: YYYY-MM-DD
  * REAPER: 4.76
  * Extensions: SWS 2.6.0.
  */
