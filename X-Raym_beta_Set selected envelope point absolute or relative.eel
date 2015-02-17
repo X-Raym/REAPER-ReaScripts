@@ -1,4 +1,4 @@
-// Set selected envelope point at cursor position value
+// Set selected envelope point absolute or relative
 // EEL Script for Reaper
 // Author: X-Raym
 // Author URl: http://extremraym.com
@@ -17,7 +17,7 @@
 @import X-Raym_Functions - console debug messages.eel
 
 debug = 1; // 0 => No console. 1 => Display console messages for debugging.
-clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();
 // <==== DEBUGGING -----
@@ -37,7 +37,7 @@ function set_point_value()
 	loop(count_points, i) ? (
 		
 		// VALUE
-		ptidx = i;
+		ptidx = i+1;
 		
 		GetEnvelopePoint(envelope, ptidx, timeOutOptional, valueOutOptional, shapeOutOptional, tensionOutOptional, 1);
 		msg_dtl("Point ID", ptidx, 1);
