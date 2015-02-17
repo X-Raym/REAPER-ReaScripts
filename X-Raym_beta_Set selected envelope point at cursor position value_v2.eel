@@ -16,7 +16,7 @@
 // ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
 
-debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
 clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();
@@ -29,18 +29,18 @@ function set_point_value()
 	// GET SELECTED TRACK ?
 	envelope = GetSelectedEnvelope(0);
 
-	// GET CURSOR POSITION
-	time = GetCursorPosition();
+	count_points = CountEnvelopePoints(envelope);
 
-	// GET POINT
-	ptidx = GetEnvelopePointByTime(envelope, time);
-	msg_dtl("Point ID", ptidx, 1);
+	i = 0;
 
 	// IF THERE IS A POINT SELECTED
-	ptidx != 0 ? (
+	loop(count_points, i) ? (
 		
 		// VALUE
-		GetEnvelopePoint(envelope, ptidx, timeOutOptional, valueOutOptional, shapeOutOptional, tensionOutOptional, selectedOutOptional);
+		ptidx = i;
+		
+		GetEnvelopePoint(envelope, ptidx, timeOutOptional, valueOutOptional, shapeOutOptional, tensionOutOptional, 1);
+		msg_dtl("Point ID", ptidx, 1);
 
 		#dialog_ret_vals = 0;
 		GetUserInputs("Set point value", 1, "Value ?", #dialog_ret_val); // We suppose that the user know the scale he want
@@ -54,11 +54,45 @@ function set_point_value()
 		match("%s", #buf, envelopeName);
 		/*envelopeNameLen = strlen(envelopeName);
 		msg_dtl("BufLen name", envelopeName, 1);*/
+		
+		stricmp("VOLUME", envelopeName) == 0 || stricmp("VOLUME (Pre-FX)", envelopeName) == 0 ? (
+			valueInOptional <= -146 ? (
+				valueIn = 0;
+			);
+			valueInOptional >= 12 ? (
+				valueIn = 2;
+			);
+			valueInOptional <= 12 && valueInOptional >= -100 ? (
+				//valueIn = - valueInOptional / 100;
+				OldVol=valueInOptional;
+				OldVolDB=20*(log10(OldVol));
+				
+				NewVolDB=OldVolDB;
+				valueIn=exp(NewVolDB*0.115129254);
+				msg_s("-100 < Pan < 100");	
+			);
 
-		msg_dtl("Comparaison avec PAN", stricmp("PAN", envelopeName),1);
+			already_set = 1;
+		);
 
-		// POURQUOI EL TEUC CI DESSOUS MARCHE SI ON MET > ET PAS ==== ???
-		stricmp("PAN", envelopeName) == 0 ? (
+		stricmp("MUTE", envelopeName) == 0 ? (
+			valueInOptional <= -100 ? (
+				valueIn = 0;
+				msg_s("Pan <= -100");
+			);
+			valueInOptional >= 100 ? (
+				valueIn = 1;
+				msg_s("Pan >= 100");	
+			);
+			valueInOptional <= 100 && valueInOptional >= -100 ? (
+				valueIn = - valueInOptional / 100;
+				msg_s("-100 < Pan < 100");	
+			);
+
+			already_set = 1;
+		);
+
+		stricmp("PAN", envelopeName) == 0 || stricmp("PAN (Pre-FX)", envelopeName) == 0 ? (
 			valueInOptional <= -100 ? (
 				valueIn = 1.0;
 				msg_s("Pan <= -100");
@@ -71,8 +105,11 @@ function set_point_value()
 				valueIn = - valueInOptional / 100;
 				msg_s("-100 < Pan < 100");	
 			);
-			// SORTIRA CA DE LA BOUCLEA CAUSE DES ENVELOPES MUTES ETC OU METTRE TTOUTES LES ENVLEOPEPS PAR FDEFAUT POSSIBLES
-		):( // IF ENVELOPE HAS NO NAME PAS ICI LA BOUCL !!
+
+			already_set = 1;
+		);
+
+		already_set === 0 ? ( // IF ENVELOPE HAS NO NAME PAS ICI LA BOUCL !!
 			valueInOptional <= -100 ? (
 				valueIn = 0;
 				msg_s("BOUCLE 3");	
@@ -87,13 +124,17 @@ function set_point_value()
 			);
 		);
 
-		msg_dtl("Value ouput", valueIn, 1);
+		i += 1;
 
-		// SET POINT VALUE
-		SetEnvelopePoint(envelope, ptidx, time, valueIn, shapeInOptional, tensionInOptional, 1, noSortInOptional);
-		
-		Undo_EndBlock("Set selected envelope point value", 0); // End of the undo block. Leave it at the bottom of your main function.
 	);
+
+	msg_dtl("Value ouput", valueIn, 1);
+
+	// SET POINT VALUE
+	SetEnvelopePoint(envelope, ptidx, time, valueIn, shapeInOptional, tensionInOptional, 1, noSortInOptional);
+	
+	Undo_EndBlock("Set selected envelope point value", 0); // End of the undo block. Leave it at the bottom of your main function.
+
 );
 
 msg_start(); // Display characters in the console to show you the begining of the script execution.
@@ -103,3 +144,5 @@ set_point_value(); // Execute your main function
 UpdateArrange(); // Update the arrangement (often needed)
 
 msg_end(); // Display characters in the console to show you the end of the script execution.
+
+// RELATIVE VALUE
