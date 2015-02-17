@@ -9,7 +9,7 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.2
+ * Version: 1.2.1
  * Version Date: YYYY-MM-DD
  * REAPER: 4.76
  * Extensions: SWS/S&M 2.6.0 (facultative field)
@@ -17,6 +17,8 @@
  
 /**
  * Changelog:
+ * v1.2.1 (2015-02-17)
+	# loops indentation
  * v1.2 (2015-02-13)
 	+ Items, Takes, Tracks, Regions and FX loops
 	# Underscore variables
@@ -49,8 +51,7 @@ function main() // local (i, j, item, take, track)
 	selected_items_count = CountSelectedMediaItems(0);
 
 	i = 0; // INITIALIZE loop through selected items
-	loop(
-		selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
 			// ACTIONS
 		); // ENDIF inside loop selected items
 		i += 1; // INCREMENT loop through selected items
@@ -62,8 +63,7 @@ function main() // local (i, j, item, take, track)
 	selected_items_count = CountSelectedMediaItems(0);
 
 	i = 0; // INITIALIZE loop through selected items
-	loop(
-		selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
 			(take = GetActiveTake(item)) ? (
 				// ACTIONS
 			); // ENDIF active take
@@ -77,13 +77,12 @@ function main() // local (i, j, item, take, track)
 	selected_tracks_count = CountSelectedTracks(0);
 
 	i = 0; // INITIALIZE loop through selected tracks
-	loop(
-		selected_tracks_count, (track = GetSelectedTrack(0, j)) ? (
-				// ACTIONS
-			); // ENDIF inside loop
+	loop(selected_tracks_count, (track = GetSelectedTrack(0, j)) ? (
+			// ACTIONS
+		); // ENDIF inside loop
 		i += 1; // INCREMENT loop through selected tracks
 	); // ENDLOOP through selected tracks
-	*/
+
 
 	// LOOP THROUGH REGIONS
 	/*
