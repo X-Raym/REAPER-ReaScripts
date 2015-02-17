@@ -43,7 +43,7 @@ function create_subtitles_from_regions_names()
     //msg_f(pos);
     //msg_f(rgn_end);    
     
-    sub_prefix = "<S&M_SUBTITLE "; // Prefix of individual subtitles
+    sub_prefix = "    <S&M_SUBTITLE "; // Prefix of individual subtitles
     sub_id = 1073741825 + i; // SWS Subtitles ID start at 1073741825
     
     sub_string = sprintf(#dest, "%s%d", sub_prefix, sub_id); // Mix sub prefix and sub ID. Thanks to planetnine
@@ -53,8 +53,8 @@ function create_subtitles_from_regions_names()
     value = #name; // This add quotes before and after the name. Manually deleting these in the .rpp file is required.
     
     // Write infos in file.
-    msg_tvoldi("  |", value, "%s", 0, 1, 1);
-    msg_s(">");
+    msg_tvoldi("      |", value, "%s", 0, 1, 1);
+    msg_s("    >");
     
     i += 1;
   );
