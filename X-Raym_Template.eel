@@ -77,7 +77,7 @@ function main() // local (i, j, item, take, track)
 	selected_tracks_count = CountSelectedTracks(0);
 
 	i = 0; // INITIALIZE loop through selected tracks
-	loop(selected_tracks_count, (track = GetSelectedTrack(0, j)) ? (
+	loop(selected_tracks_count, (track = GetSelectedTrack(0, i)) ? (
 			// ACTIONS
 		); // ENDIF inside loop
 		i += 1; // INCREMENT loop through selected tracks
@@ -107,13 +107,13 @@ function main() // local (i, j, item, take, track)
 		track = GetTrack(0, i);	// which track
 		track_FX_count = TrackFX_GetCount(tracki); // count number of FX instances on the track
 		
-		j=0; // INITIALIZE FX loop
+		i=0; // INITIALIZE FX loop
 		loop (track_FX_count,	// loop for all FX instances on each track
 			// ACTIONS
-			j+=1; // INCREMENT FX loop						
+			i+=1; // INCREMENT FX loop						
 		); // ENDLOOP FX loop
 		
-		j+=1; // INCREMENT tracks loop
+		i+=1; // INCREMENT tracks loop
 	); // ENDLOOP tracks loop
 	*/
 
