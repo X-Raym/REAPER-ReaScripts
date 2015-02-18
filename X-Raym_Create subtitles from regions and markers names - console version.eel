@@ -109,7 +109,7 @@ function opengui()
 
 	gfx_x = 20;
 	gfx_y = 100;
-	gfx_drawstr("5. Find <EXTENSIONS");
+	gfx_drawstr("5. Find <EXTENSIONS at the bottom");
 
 	gfx_x = 20;
 	gfx_y = 115;
