@@ -29,6 +29,7 @@ function create_subtitles_from_regions_names()
   2. Copy the log below
   3. Open the .rpp file in a code editor
   4. Go to EXTENSIONS
+  (if you already have EXTENSIONS, then just delete EXTSTATE and the > right above it)
   5. Paste
   6. Save and close the code editor
   7. Open the REAPER project file in REAPER");
