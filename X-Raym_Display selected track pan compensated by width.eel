@@ -70,78 +70,78 @@ function main() local (track)
 
 	track = GetSelectedTrack(0, 0);
 
-	pan_initial = GetMediaTrackInfo_Value(track, "D_PAN");
-	width = GetMediaTrackInfo_Value(track, "D_WIDTH");
+	pan_initial = GetMediaTrackInfo_Value(track, "D_PAN")*100;
 	
-	pan_output = (pan_initial * width)*100;
+	width = GetMediaTrackInfo_Value(track, "D_WIDTH")*100;
+	
+	pan_output = (pan_initial * width)/100;
 	
 	GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
 	name = #stringNeedBig;
 
 	number = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
 
-	/*
-	msg_tvold("Track name:", name, "%s", 0, 1);
-	msg_tvold("Track index:", number, "%d", 0, 1);
-	msg_tvold("Track pan:", pan_initial*100, "%d", 0, debug);
-	msg_tvold("Track width:", width*100, "%d", 0, debug);
-	msg_tvold("Compensated pan:", pan_output, "%d", 1, 1);
-	*/
+	gfx_x = 20;
+	gfx_y = 10;
+	gfx_drawstr("Track name:");
 
-	// DISPLAYS INFO (from spk77 CLOCK.EEL)
-	mouse_wheel != 0 ? adjust_font_size(mouse_wheel);
+	gfx_x = 150;
+	gfx_y = 10;
+	gfx_drawstr(name);
 
-	mouse_state == 0 && mouse_cap == 2 && mouse_x > 5 && mouse_x < gfx_w - 5 && mouse_y > 5 && mouse_y < gfx_h - 5 ? (
-		mouse_state = 1;
+	gfx_x = 20;
+	gfx_y = 25;
+	gfx_drawstr("Track index:");
+
+	gfx_x = 150;
+	gfx_y = 25;
+	gfx_printf("%d", number);
+
+	gfx_x = 20;
+	gfx_y = 40;
+	gfx_drawstr("Track pan:");
+
+	gfx_x = 150;
+	gfx_y = 40;
+	gfx_printf("%d", pan_initial);
+
+	gfx_x = 20;
+	gfx_y = 55;
+	gfx_drawstr("Track width:");
+
+	gfx_x = 150;
+	gfx_y = 55;
+	gfx_printf("%d", width);
+
+	gfx_x = 20;
+	gfx_y = 70;
+	gfx_drawstr("Compensated pan:");
+
+	gfx_x = 150;
+	gfx_y = 70;
+	gfx_printf("%d", pan_output);
+
+	//------- 
+	char = gfx_getchar();
+	// ctrl+lmb to Undo
+	char == 26 ? (
+	Main_OnCommand(40029, 0); // undo
 	);
-
-	mouse_cap == 0 ? mouse_state = 0;
-
-	gfx_x = 0.5*(gfx_w-str_w);
-	gfx_y = 5;
-	gfx_printf(name);
-	// THEN PRINT TRACK ID
-	// THEN PRINT PAN
-	// THEN PRINT WIDTH
-	// THEN PRINT PAN COMPENSATED BY WITH
-
+	// Esc to exit
+	char == 27 ? (
+	gfx_quit();
+	);
+	char >= 0 ? (					// if window is visible
+	defer("main();");		// execute loop constantly
+	);	
 	gfx_update();
-	gfx_getchar() >= 0 ? defer("main();");
-			
+
 );
 
-// START
-function msg_start()
-(
-	debug === 1 ? (
-		ShowConsoleMsg("▼▼▼▼▼");
-		ShowConsoleMsg("\n");
-	);
-);
-
-// End
-function msg_end()
-(
-	debug === 1 ? (
-		ShowConsoleMsg("▲▲▲▲▲");
-		ShowConsoleMsg("\n"); // In case of clean = 0;
-	);
-);
-
-// Clean
-function msg_clean()
-(	
-	//debug === 1 ? (
-		clean === 1 ? (
-			ShowConsoleMsg("");
-		);
-	//);
-);
-
+gfx_init("Create subtitles from regions and markers names", 420,200); // open window 
 
 msg_start(); // Display characters in the console to show you the begining of the script execution.
-
-init(window_w, window_h); // INITIALIZE THE WINDOW
+//init(window_w, window_h); // INITIALIZE THE WINDOW
 
 main(); // Execute your main function
 
