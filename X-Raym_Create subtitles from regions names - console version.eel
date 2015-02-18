@@ -48,7 +48,7 @@ function create_subtitles_from_regions_names()
     sub_prefix = "    <S&M_SUBTITLE "; // Prefix of individual subtitles
     
     is_region == 1 ? (
-      sub_id = 1073741825 + markrgn_index_number; // SWS Region Subtitles ID start at 1073741824
+      sub_id = 1073741824 + markrgn_index_number; // SWS Region Subtitles ID start at 1073741824
     ) : (
       sub_id = markrgn_index_number; // SWS markers Subtitles ID start at 0
     );
