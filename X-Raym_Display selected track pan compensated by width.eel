@@ -22,7 +22,7 @@
  */
 
 // ----- DEBUGGING ====>
-@import X-Raym_Functions - console debug messages.eel
+//@import X-Raym_Functions - console debug messages.eel
 
 debug = 0; // 0 => No console. 1 => Display console messages for debugging.
 clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
@@ -109,6 +109,35 @@ function main() local (track)
 	gfx_getchar() >= 0 ? defer("main();");
 			
 );
+
+// START
+function msg_start()
+(
+	debug === 1 ? (
+		ShowConsoleMsg("▼▼▼▼▼");
+		ShowConsoleMsg("\n");
+	);
+);
+
+// End
+function msg_end()
+(
+	debug === 1 ? (
+		ShowConsoleMsg("▲▲▲▲▲");
+		ShowConsoleMsg("\n"); // In case of clean = 0;
+	);
+);
+
+// Clean
+function msg_clean()
+(	
+	//debug === 1 ? (
+		clean === 1 ? (
+			ShowConsoleMsg("");
+		);
+	//);
+);
+
 
 msg_start(); // Display characters in the console to show you the begining of the script execution.
 
