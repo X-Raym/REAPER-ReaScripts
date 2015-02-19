@@ -52,10 +52,9 @@ function main() // local (i, j, item, take, track)
 	// YOUR CODE BELOW
 
 	// LOOP THROUGH SELECTED ITEMS
-	
-	selected_items_count = CountSelectedMediaItems(0);
-
 	/*
+	selected_items_count = CountSelectedMediaItems(0);
+	
 	i = 0; // INITIALIZE loop through selected items
 	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
 			// GET INFOS
