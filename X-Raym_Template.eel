@@ -19,9 +19,9 @@
 /**
  * Changelog:
  * v1.3 (2015-02-19)
-	+ added Instructions header field
-	+ Added all Get and Set parameters for items
-	+ Added all Get and Set parameters for takes
+	+ Instructions header field
+	+ Get and Set parameters for items
+	+ Get and Set parameters for takes
  * v1.2.1 (2015-02-17)
 	# loops indentation
  * v1.2 (2015-02-13)
