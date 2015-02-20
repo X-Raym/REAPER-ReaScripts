@@ -1,6 +1,6 @@
 /**
- * ReaScript Name: Pan selected take from left to right
- * Description: Pan selected take from left to right.
+ * ReaScript Name: Pan selected takes from right to left
+ * Description: Pan selected takes from right to left.
  * Instructions:
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -46,9 +46,9 @@ function main() // local (i, j, item, take, track)
 			(take = GetActiveTake(item)) ? (
 				// GET INFOS
 				value_get = GetMediaItemTakeInfo_Value(take, "D_PAN"); // Get the value of a the parameter
-				
+
 				// MODIFY INFOS
-				value_set = 1.0-((2.0/((selected_items_count-1)))*(i)); // Prepare value output
+				value_set = -1.0+((2.0/((selected_items_count-1)))*(i)); // Prepare value output
 				
 				// SET INFOS
 				SetMediaItemTakeInfo_Value(take, "D_PAN", value_set); // Set the value to the parameter
@@ -59,7 +59,7 @@ function main() // local (i, j, item, take, track)
 
 	// YOUR CODE ABOVE
 
-	Undo_EndBlock("Pan selected take from left to right", 0); // End of the undo block. Leave it at the bottom of your main function.
+	Undo_EndBlock("Pan selected takes from right to left", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 msg_start(); // Display characters in the console to show you the begining of the script execution.
