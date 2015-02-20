@@ -72,6 +72,7 @@ function main() // local (i, j, item, take, track)
 			// "D_SNAPOFFSET"
 			// "D_POSITION"
 			// "D_LENGTH"
+			// MODIFY INFOS
 			value_set = value_get; // Prepare value output
 			// SET INFOS
 			SetMediaItemInfo_Value(item, "D_VOL", value_set); // Set the value to the parameter
@@ -96,6 +97,7 @@ function main() // local (i, j, item, take, track)
 				// "I_CHANMODE"
 				// "D_STARTOFFS"
 				// "D_PANLAW"
+				// MODIFY INFOS
 				value_set = value_get; // Prepare value output
 				// SET INFOS
 				SetMediaItemTakeInfo_Value(take, "D_VOL", value_set); // Set the value to the parameter
