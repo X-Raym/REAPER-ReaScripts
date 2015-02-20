@@ -1,6 +1,6 @@
 /**
- * ReaScript Name: Pan selected take from right to left
- * Description: Pan selected take from right to left.
+ * ReaScript Name: Pan selected takes from right to left
+ * Description: Pan selected takes from right to left.
  * Instructions:
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -10,8 +10,8 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1..1
- * Version Date: YYYY-MM-DD
+ * Version: 1.0
+ * Version Date: 2015-02-20
  * REAPER: 4.76
  * Extensions: None
  */
@@ -57,7 +57,7 @@ function main() // local (i, j, item, take, track)
 
 	// YOUR CODE ABOVE
 
-	Undo_EndBlock("Pan selected take from right to left", 0); // End of the undo block. Leave it at the bottom of your main function.
+	Undo_EndBlock("Pan selected takes from right to left", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 msg_start(); // Display characters in the console to show you the begining of the script execution.
