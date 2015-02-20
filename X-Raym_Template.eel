@@ -18,6 +18,8 @@
  
 /**
  * Changelog:
+ * v1.3.1 (2015-20-19)
+ 	# loops takes bug fix
  * v1.3 (2015-02-19)
 	+ Instructions header field
 	+ Get and Set parameters for items
@@ -86,7 +88,7 @@ function main() // local (i, j, item, take, track)
 	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
 			(take = GetActiveTake(item)) ? (
 				// GET INFOS
-				value_get = GetMediaItemInfo_Value(item, "D_VOL"); // Get the value of a the parameter
+				value_get = GetMediaItemTakeInfo_Value(take, "D_VOL"); // Get the value of a the parameter
 				// "D_VOL"
 				// "D_PAN"
 				// "D_PLAYRATE"
@@ -96,7 +98,7 @@ function main() // local (i, j, item, take, track)
 				// "D_PANLAW"
 				value_set = value_get; // Prepare value output
 				// SET INFOS
-				SetMediaItemInfo_Value(item, "D_VOL", value_set); // Set the value to the parameter
+				SetMediaItemTakeInfo_Value(take, "D_VOL", value_set); // Set the value to the parameter
 			); // ENDIF active take
 		); // ENDIF inside loop selected items
 		i += 1; // INCREMENT loop through selected items
