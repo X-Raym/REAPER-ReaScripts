@@ -205,7 +205,7 @@ function msg_tvold(text,variable,output,line,debug)
 		-- OUTPUT LINE
 		if line == 0 then
 			reaper.ShowConsoleMsg("\n")
-			else
+		else
 			reaper.ShowConsoleMsg("\n-----\n")
 		end
 	
