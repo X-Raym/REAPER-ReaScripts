@@ -241,13 +241,13 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 			reaper.ShowConsoleMsg(str)
 		end
 
-			-- OUTPUT DECIMAL
+		-- OUTPUT DECIMAL
 		if strcmp("%d",output) == 0 then
 			sprintf(str, "%d", variable)
 			reaper.ShowConsoleMsg(str)
 		end
 
-			-- OUTPUT STRING
+		-- OUTPUT STRING
 		if output == "%s" then
 			if strlen(variable) > 0 then
 				reaper.ShowConsoleMsg(variable)
