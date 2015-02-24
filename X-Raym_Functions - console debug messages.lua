@@ -19,7 +19,7 @@
 --[[
  * Changelog:
  * v1.7 (2015-02-24)
-	# Lua conversion. Since this point, the EEL and LUA version of the script will evolves together.
+	# Lua conversion. Since this point, the EEL and LUA version of the script will evolves together. Many thanks to Heda for string.len!
  * v1.0 (2015-02-23)
 	+ Initial Release, from the EEL version.
  ]]--
@@ -264,7 +264,7 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 
 	-- RESTORE PREVIOUS GLOBAL DEBUG
 	debug = debugInit
-	
+
 end -- of msg_tvoldi()
 
 -- Debug
