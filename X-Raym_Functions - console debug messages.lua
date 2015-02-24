@@ -25,14 +25,14 @@
  ]]--
 
 --[[
--- ----- DEBUGGING ===>
+-- ----- DEBUGGING ====>
 @import X-Raym_Functions - console debug messages.eel
 
 debug = 0 -- 0 => No console. 1 => Display console messages for debugging.
 clean = 0 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean()
--- <=== DEBUGGING -----
+-- <==== DEBUGGING -----
 ]]--
 
 -- Strings

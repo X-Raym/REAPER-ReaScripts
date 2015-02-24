@@ -9,8 +9,8 @@
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com//***.html
- * Version: 1.2.1
+ * Forum Thread URl: http://forum.cockos.com/***.html
+ * Version: 1.3.1
  * Version Date: YYYY-MM-DD
  * REAPER: 5.0 pre 14
  * Extensions: SWS/S&M 2.6.0 (optional)
@@ -54,7 +54,7 @@ function main() -- local (i, j, item, take, track)
 	-- YOUR CODE BELOW
 
 	-- LOOP THROUGH SELECTED ITEMS
-	--[[
+	--
 	selected_items_count = reaper.CountSelectedMediaItems(0)
 	
 	i = 0 -- INITIALIZE loop through selected items
@@ -76,10 +76,10 @@ function main() -- local (i, j, item, take, track)
 			value_set = value_get -- Prepare value output
 			-- SET INFOS
 			reaper.SetMediaItemInfo_Value(item, "D_VOL", value_set) -- Set the value to the parameter
-		) -- ENDIF inside loop selected items
+		end -- ENDIF inside loop selected items
 		i += 1 -- INCREMENT loop through selected items
-	) -- ENDLOOP through selected items
-	]]--
+	end -- ENDLOOP through selected items
+	--
 
 	-- LOOP THROUGH SELECTED TAKES
 	--[[
@@ -101,10 +101,10 @@ function main() -- local (i, j, item, take, track)
 				value_set = value_get -- Prepare value output
 				-- SET INFOS
 				reaper.SetMediaItemTakeInfo_Value(take, "D_VOL", value_set) -- Set the value to the parameter
-			) -- ENDIF active take
-		) -- ENDIF inside loop selected items
+			end -- ENDIF active take
+		end -- ENDIF inside loop selected items
 		i += 1 -- INCREMENT loop through selected items
-	) -- ENDLOOP through selected items
+	end -- ENDLOOP through selected items
 	]]--
 
 	-- LOOP TRHOUGH SELECTED TRACKS
@@ -114,9 +114,9 @@ function main() -- local (i, j, item, take, track)
 	i = 0 -- INITIALIZE loop through selected tracks
 	loop(selected_tracks_count, (track = reaper.GetSelectedTrack(0, i)) ? (
 			-- ACTIONS
-		) -- ENDIF inside loop
+		end -- ENDIF inside loop
 		i += 1 -- INCREMENT loop through selected tracks
-	) -- ENDLOOP through selected tracks
+	end -- ENDLOOP through selected tracks
 
 
 	-- LOOP THROUGH REGIONS
@@ -124,11 +124,11 @@ function main() -- local (i, j, item, take, track)
 	i = 0 -- INITIALIZE loop through regions
 
 	while (reaper.EnumProjectMarkers(i, is_region, region_start, region_end, #name, region_id)) (    
-		is_region === 1 ? (
+		is_region == 1 ? (
 			-- ACTIONS	
-		)
+		end
 		i += 1 -- INCREMENT loop through regions
-	) -- ENDWHILE loop through regions
+	end -- ENDWHILE loop through regions
 	]]--
 
 
@@ -146,10 +146,10 @@ function main() -- local (i, j, item, take, track)
 		loop (track_FX_count,	-- loop for all FX instances on each track
 			-- ACTIONS
 			i+=1 -- INCREMENT FX loop						
-		) -- ENDLOOP FX loop
+		end -- ENDLOOP FX loop
 		
 		i+=1 -- INCREMENT tracks loop
-	) -- ENDLOOP tracks loop
+	end -- ENDLOOP tracks loop
 	]]--
 
 	-- YOUR CODE ABOVE
