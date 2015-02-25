@@ -185,18 +185,18 @@ function run() local (s_w, s_h, hue, sat, lum, v)
 
 	// DRAW THE PAN VALUES
 	gfx_x = 20;
-	gfx_y = 110;
+	gfx_y = 140;
 	gfx_drawstr("PAN -X:");
 
-	gfx_x = 150;
-	gfx_y = 110;
+	gfx_x = 70;
+	gfx_y = 140;
 	gfx_printf("%d", pan_neg_x);
 
-	gfx_x = 20;
+	gfx_x = 110;
 	gfx_y = 140;
 	gfx_drawstr("PAN +X:");
 
-	gfx_x = 150;
+	gfx_x = 160;
 	gfx_y = 140;
 	gfx_printf("%d", pan_x);
 
@@ -206,6 +206,29 @@ function run() local (s_w, s_h, hue, sat, lum, v)
 	mouse_cap == 5 && last_slider_id == 0 ? ( // ctrl+lmb to reset to center
 		m.val = 0;
 	);
+
+	gfx_r = 0.3;
+	gfx_g = 0.3;
+	gfx_b = 0.5;
+	gfx_rect(10,110,(gfx_w-20),20);
+
+	gfx_a = 0.5;
+	gfx_r = 0.8;
+	gfx_g = 0.8;
+	gfx_b = 0.8;
+	gfx_x = gfx_w/2 + gfx_w/2*0;
+	gfx_y = 100;
+	gfx_line(gfx_x, gfx_y, gfx_x , gfx_y + 40, 1);
+
+	gfx_a = 1;
+	set_default_colors();
+	gfx_x = (gfx_w-20)/2 + (gfx_w-20)/2*(pan_neg_x/100)+10;
+	gfx_y = 110;
+	gfx_line(gfx_x, gfx_y, gfx_x , gfx_y + 20, 1);
+
+	gfx_x = (gfx_w-20)/2 + (gfx_w-20)/2*(pan_x/100)+10;
+	gfx_y = 110;
+	gfx_line(gfx_x, gfx_y, gfx_x , gfx_y + 20, 1);
 
 	char = gfx_getchar();
 	// ctrl+lmb to Undo
