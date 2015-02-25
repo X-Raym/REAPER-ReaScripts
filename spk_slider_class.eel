@@ -1,3 +1,5 @@
+// Made by spk77
+// Mod by X-Raym
 function scale_x_to_slider_val(range_start, range_end, x_coord, x_start_offs, x_end_offs) local (scaled_x)
 (
   scaled_x = range_start + (range_end - range_start) * (x_coord - x_start_offs) / (gfx_w - x_end_offs - x_start_offs);
@@ -62,7 +64,8 @@ function slider(x_pos, y_pos, radius, val, range_start, range_end, slider_w, sli
   gfx_roundrect(this.x_pos - this.radius, this.y_pos - this.radius, this.slider_w - this.x_pos + 2 * this.radius, 2 * this.radius, this.radius);
   gfx_circle(this.x_coord, this.y_pos, this.radius, this.fill);
   
-  gfx_measurestr(sprintf(slider_val_str, "%0.1f", this.val), s_w, s_h);
+  //gfx_measurestr(sprintf(slider_val_str, "%0.1f", this.val), s_w, s_h);
+  gfx_measurestr(sprintf(slider_val_str, "%d", this.val), s_w, s_h);
   gfx_a = 1;
   gfx_x = this.x_coord - 0.5 * this.radius - 0.5 * s_w;
   gfx_y = this.y_pos - this.radius - gfx_texth;
