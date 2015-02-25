@@ -1,0 +1,234 @@
+/**
+ * ReaScript Name: Pan selected takes from -x to +x
+ * Description: The idea is to use a GFX window to pan selected items sequentially and symmetrically, according to a spread and offset value. A negative spread the pan.
+ * Instructions: Select your spread value, then the offset, and click on "Apply". Cmd/ctrl+click reset the slider.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: ReaScript: Pan selected takes from -x to +x
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=155940
+ * Version: 1.0
+ * Version Date: 2015-02-25
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-02-25)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+@import X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+// ----- EXTERNAL FILE ====>
+// From the great spk77 => http://forum.cockos.com/showthread.php?p=1487374&posted=1#post1487374
+@import spk_slider_class.eel
+// <==== EXTERNAL FILE -----
+
+// DRAW THE WINDOW
+function init()
+(
+
+	gfx_init("Pan selected takes from -x to +x",420,200);
+	gfx_setfont(1, "Arial", 15);
+	lmb_click_outside_window = 1;
+	buf = 10000;
+	gfx_measurestr("Randomize", s_w, s_h);
+
+	refresh_on_slider_change = 1;
+	m.val = 0; // mean slider initial value
+	s.val = 0; // standard_dev initial value
+);
+
+// GFX COLORS
+function set_default_colors()
+(
+	gfx_r = 0.5;
+	gfx_g = 0.8;
+	gfx_b = 0.5;
+);
+
+
+// SET THE PAN
+function set_pan() local (i)
+(
+	Undo_BeginBlock(); 
+
+	selected_items_count = CountSelectedMediaItems(0);
+
+	selected_items_count == 1 ? (
+		selected_items_count = 2; // Else, there will be a division by 0
+	);
+
+	// SPREAD
+	spread /= 100;
+
+	// OFFSET
+	offset /= 100;
+
+	i = 0; // INITIALIZE loop through selected items
+	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+			(take = GetActiveTake(item)) ? (
+
+				// MODIFY INFOS
+				value_set = offset + (-1.0+((2.0/((selected_items_count-1)))*(i)))*spread; // Prepare value output
+				
+				value_set > 1 ? (
+					value_set = 1;
+				);
+
+				value_set < -1 ? (
+					value_set = -1;
+				);
+
+				// SET INFOS
+				SetMediaItemTakeInfo_Value(take, "D_PAN", value_set); // Set the value to the parameter
+			); // ENDIF active take
+		); // ENDIF inside loop selected items
+		i += 1; // INCREMENT loop through selected items
+	); // ENDLOOP through selected items
+	UpdateArrange();
+	Undo_EndBlock("Pan selected takes from -x to +x", 0);
+);
+
+// DRAW APPLY BUTTON
+function apply_btn(x, y, s_w, s_h, r)
+( 
+	gfx_x = x; gfx_y = y;
+	set_default_colors();
+	
+	mouse_x >= x && mouse_x <= x + s_w && mouse_y >= y && mouse_y <= y + gfx_texth ? (
+	
+		gfx_a = 1;
+		gfx_r += 0.1;
+		gfx_g += 0.1;
+		gfx_b += 0.1;
+
+		mouse_cap == 1 && lmb_down == 0 ? (
+			lmb_down = 1;
+			set_pan();
+		);
+	);
+	gfx_printf("Apply");
+);
+
+// RUN THE ACTION
+function run() local (s_w, s_h, hue, sat, lum, v)
+(
+	set_default_colors();
+	gfx_a = 1;
+
+	gfx_x = 20;
+	gfx_y = 20;
+
+	// check if "lmb down" and "mouse cursor is not in window" and "not currently moving slider"
+	mouse_cap >= 1 && (mouse_x <= 0 || mouse_x >= gfx_w || mouse_y < 2 || mouse_y >= gfx_h) && drag_started == 0 ? (
+		lmb_click_outside_window = 1;
+	) : mouse_cap == 0 ? (
+		lmb_click_outside_window = 0;
+	);
+
+	mouse_cap == 0 ? (
+		max_point_drag_started = 0; min_point_drag_started = 0; lmb_down = 0;
+	);
+
+	gfx_r = 0.8;
+	gfx_g = 0.8;
+	gfx_b = 0.8;
+
+	gfx_x = 20;
+	gfx_y = 15;
+	gfx_drawstr("SPREAD");
+
+	spread = m.slider(20, 37, 6, m.val, -100, 100, gfx_w - 30, 0);
+
+	gfx_x = 20;
+	gfx_y = 60;
+	gfx_drawstr("OFFSET");
+
+	offset = s.slider(20, 84, 6, s.val, -100, 100, gfx_w - 30, 1);
+
+	// PAN X DSIPLAY
+	selected_items_count = 2;
+	i = 1;
+	calc = -1 + spread; // Prepare value output
+
+	pan_neg_x = offset - calc;
+	pan_x = offset + calc;
+
+	spread == 0 && offset == 0 ? (
+		pan_neg_x = 0;
+		pan_x = 0;
+	);
+
+	pan_neg_x > 100 ? (
+		pan_neg_x = 100;
+	);
+
+	pan_neg_x < -100 ? (
+		pan_neg_x = -100;
+	);
+
+	pan_x > 100 ? (
+		pan_x = 100;
+	);
+
+	pan_x < -100 ? (
+		pan_x = -100;
+	);
+
+	// DRAW THE PAN VALUES
+	gfx_x = 20;
+	gfx_y = 110;
+	gfx_drawstr("PAN -X:");
+
+	gfx_x = 150;
+	gfx_y = 110;
+	gfx_printf("%d", pan_neg_x);
+
+	gfx_x = 20;
+	gfx_y = 140;
+	gfx_drawstr("PAN +X:");
+
+	gfx_x = 150;
+	gfx_y = 140;
+	gfx_printf("%d", pan_x);
+
+	// DRAW APPLY BUTTON
+	apply_btn(20, 170, 50, s_h, 6);
+
+	mouse_cap == 5 && last_slider_id == 0 ? ( // ctrl+lmb to reset to center
+		m.val = 0;
+	);
+
+	char = gfx_getchar();
+	// ctrl+lmb to Undo
+
+	// Esc to exit
+	char == 27 ? (
+		gfx_quit();
+	);
+	char >= 0 ? (
+		defer("run();");
+	);
+
+	gfx_update();
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+init();
+run(); // Execute your main function
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

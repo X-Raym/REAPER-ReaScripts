@@ -39,7 +39,17 @@
  ]]--
 
 -- ----- DEBUGGING ====>
-@import X-Raym_Functions - console debug messages.lua
+function get_script_path()
+  if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
+    return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
+  end
+  return debug.getinfo(1,'S').source:match("(.*".."/"..")"):sub(2)
+end
+
+-- test
+reaper.ShowConsoleMsg(get_script_path() .. "\n")
+package.path = get_script_path()
+require("X-Raym_Functions - console debug messages.lua")
 
 debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
 clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
@@ -54,11 +64,11 @@ function main() -- local (i, j, item, take, track)
 	-- YOUR CODE BELOW
 
 	-- LOOP THROUGH SELECTED ITEMS
-	--
+	--[[
 	selected_items_count = reaper.CountSelectedMediaItems(0)
 	
 	i = 0 -- INITIALIZE loop through selected items
-	loop(selected_items_count, (item = reaper.GetSelectedMediaItem(0, i)) ? (
+	for selected_items_count, (item = reaper.GetSelectedMediaItem(0, i)) do
 			-- GET INFOS
 			value_get = reaper.GetMediaItemInfo_Value(item, "D_VOL") -- Get the value of a the parameter
 			-- "D_VOL"
@@ -73,13 +83,13 @@ function main() -- local (i, j, item, take, track)
 			-- "D_POSITION"
 			-- "D_LENGTH"
 			-- MODIFY INFOS
-			value_set = value_get -- Prepare value output
+			value_set = 0 -- Prepare value output
 			-- SET INFOS
 			reaper.SetMediaItemInfo_Value(item, "D_VOL", value_set) -- Set the value to the parameter
 		end -- ENDIF inside loop selected items
-		i += 1 -- INCREMENT loop through selected items
+		--i += 1 -- INCREMENT loop through selected items
 	end -- ENDLOOP through selected items
-	--
+	]]--
 
 	-- LOOP THROUGH SELECTED TAKES
 	--[[
