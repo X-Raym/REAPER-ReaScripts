@@ -162,15 +162,10 @@ function run() local (s_w, s_h, hue, sat, lum, v)
 	// PAN X DSIPLAY
 	selected_items_count = 2;
 	i = 1;
-	calc = -1 + spread; // Prepare value output
+	calc = spread; // Prepare value output
 
 	pan_neg_x = offset - calc;
 	pan_x = offset + calc;
-
-	spread == 0 && offset == 0 ? (
-		pan_neg_x = 0;
-		pan_x = 0;
-	);
 
 	pan_neg_x > 100 ? (
 		pan_neg_x = 100;
