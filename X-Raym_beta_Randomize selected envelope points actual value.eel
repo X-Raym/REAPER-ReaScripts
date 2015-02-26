@@ -1,5 +1,5 @@
 /**
- * ReaScript Name: Template Title (match file name without extension and author)
+ * ReaScript Name: Randomize selected envelope points actual value
  * Description: A template script for REAPER ReaScript.
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
@@ -18,24 +18,8 @@
  
 /**
  * Changelog:
- * v1.3.1 (2015-02-20)
- 	# loops takes bug fix
- * v1.3 (2015-02-19)
-	+ Instructions header field
-	+ Get and Set parameters for items
-	+ Get and Set parameters for takes
- * v1.2.1 (2015-02-17)
-	# loops indentation
- * v1.2 (2015-02-13)
-	+ Items, Takes, Tracks, Regions and FX loops
-	# Underscore variables
- * v1.1 (2015-02-15)
-	+ Basic scripts actions template
  * v1.0 (2015-01-09)
 	+ Initial Release
-	+ New functions
-	- Deleted functions
-	# Updated functions
  */
 
 // ----- DEBUGGING ====>
