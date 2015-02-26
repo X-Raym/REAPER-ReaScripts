@@ -41,7 +41,7 @@ function main() // local (i, j, item, take, track)
 	i = 0; // INITIALIZE loop through selected tracks
 	loop(selected_tracks_count, (track = GetSelectedTrack(0, i)) ? (
 			pan_initial = GetMediaTrackInfo_Value(track, "D_PAN");
-			pan_output = calc = floor((pan_initial)*20+0.5)/20;;
+			pan_output = floor((pan_initial)*20+0.5)/20;
 			SetMediaTrackInfo_Value(track, "D_PAN", pan_output);
 		); // ENDIF inside loop
 		i += 1; // INCREMENT loop through selected tracks
