@@ -120,8 +120,7 @@ function main() -- local (i, j, item, take, track)
 	--]]
 
 	-- LOOP THROUGH REGIONS
-	--
-
+	--[[
 	i=0
 	repeat
 		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut = reaper.EnumProjectMarkers(i)
