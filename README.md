@@ -10,7 +10,7 @@
 - Scripts moded by X-Raym
 - Scripts needed for other scripts on this repository
 
-##Download process :
+##Downloading instructions :
 - For one script : click on one script, then click on the Raw button, then File > Save (via Menu, Right Click or CTRL/CMD +S).
 - For the whole archive : click on Download Zip button on right
 
