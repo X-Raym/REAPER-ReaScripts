@@ -95,7 +95,7 @@ function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	selected_track = reaper.GetSelectedTrack(0, 0);
+	selected_track = reaper.GetSelectedTrack(0,0)
 
 	-- COUNT SELECTED ITEMS
 	selected_items_count = reaper.CountSelectedMediaItems(0)
@@ -147,11 +147,11 @@ end
 
 msg_start() -- Display characters in the console to show you the begining of the script execution.
 
-reaper.PreventUIRefresh(1)
+--reaper.PreventUIRefresh(1)
 
 main() -- Execute your main function
 
-reaper.PreventUIRefresh(-1)
+--reaper.PreventUIRefresh(-1)
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
