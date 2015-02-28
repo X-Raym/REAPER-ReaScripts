@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Create text items on selected track from selected takes
- * Description: A template script for REAPER ReaScript.
- * Instructions: Here is how to use it. (optional)
+ * Description: Create text items on selected track from selected takes
+ * Instructions:  Select items. Select a destination track. Execute the script. Text items will be colored depending on original take color, or track color from item if no take color is set. The text note will came from the original take name.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,8 +10,8 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.0
- * Version Date: YYYY-MM-DD
+ * Version: 0.9
+ * Version Date: 2015-02-28
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0 (optional)
  --]]
@@ -52,13 +52,15 @@ function dbug (text)
 	end
 end
 
-function CreateTextItem(starttime, endtime, notetext) 
+function CreateTextItem(starttime, endtime, notetext, color) 
 	--ref: Lua: number startOut retval, number endOut reaper.GetSet_LoopTimeRange(boolean isSet, boolean isLoop, number startOut, number endOut, boolean allowautoseek)
 	reaper.GetSet_LoopTimeRange(1,0,starttime,endtime,0) -- define the time range for the empty item
 	--ref: Lua: reaper.Main_OnCommand(integer command, integer flag)
 	reaper.Main_OnCommand(40142,0) -- insert empty item
 	--ref: Lua: MediaItem reaper.GetSelectedMediaItem(ReaProject proj, integer selitem)
 	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
+	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+
 	HeDaSetNote(item, notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
 end
@@ -116,26 +118,26 @@ function main()
 		take_name = reaper.GetTakeName(take)
 		
 		-- COLOR
-		takeColor = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
-		if takeColor == 0 then -- if the item has no color...
-			takeColor = reaper.GetTrackColor(track) -- ... then take the track color
+		take_color = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
+		if take_color == 0 then -- if the item has no color...
+			take_color = reaper.GetTrackColor(track) -- ... then take the track color
 		end
 			
 		-- TIMES
-		itemStart = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-		itemDuration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-		itemEnd = itemStart + itemDuration
+		item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+		item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+		item_end = item_start + item_duration
 
 		-- DEBUG
 		msg_s("itemName")
 		msg_s(take_name)
-		msg_s("itemStart")
-		msg_f(itemStart)
-		msg_s("itemEnd")
-		msg_f(itemEnd)
+		msg_s("item_start")
+		msg_f(item_start)
+		msg_s("item_end")
+		msg_f(item_end)
 
 		-- ACTION
-		CreateTextItem(itemStart, itemEnd, take_name)
+		CreateTextItem(item_start, item_end, take_name, take_color)
 
 	end -- ENDLOOP through selected items
 
@@ -154,3 +156,10 @@ reaper.PreventUIRefresh(-1)
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 msg_end() -- Display characters in the console to show you the end of the script execution.
+
+--[[
+TO DO:
+1. color text item
+2. restore original loop
+3. text from take name
+]]
