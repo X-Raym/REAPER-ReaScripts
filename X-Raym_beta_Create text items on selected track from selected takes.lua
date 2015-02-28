@@ -147,11 +147,11 @@ end
 
 msg_start() -- Display characters in the console to show you the begining of the script execution.
 
---reaper.PreventUIRefresh(1)
+reaper.PreventUIRefresh(1)
 
 main() -- Execute your main function
 
---reaper.PreventUIRefresh(-1)
+reaper.PreventUIRefresh(-1)
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
@@ -162,4 +162,5 @@ TO DO:
 1. color text item
 2. restore original loop
 3. text from take name
+4. restore view
 ]]
