@@ -60,7 +60,7 @@ function CreateTextItem(starttime, endtime, notetext, color)
 	--ref: Lua: MediaItem reaper.GetSelectedMediaItem(ReaProject proj, integer selitem)
 	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
 	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
-	reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", color)
+	reaper.SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", color)
 
 	HeDaSetNote(item, notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
@@ -128,7 +128,10 @@ function main()
 				-- COLOR
 				take_color = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
 				if take_color == 0 then -- if the item has no color...
-					take_color = reaper.GetTrackColor(track) -- ... then take the track color
+					take_color = reaper.GetMediaItemInfo_Value(item, "I_CUSTOMCOLOR")
+					if take_color == 0 then
+						take_color = reaper.GetTrackColor(track) -- ... then take the track color
+					end
 				end
 					
 				-- TIMES
@@ -143,6 +146,8 @@ function main()
 				msg_f(item_start)
 				msg_s("item_end")
 				msg_f(item_end)
+				msg_s("color")
+				msg_d(take_color)
 
 				-- ACTION
 				CreateTextItem(item_start, item_end, take_name, take_color)
@@ -176,6 +181,5 @@ msg_end() -- Display characters in the console to show you the end of the script
 
 --[[
 TO DO:
-1. color text item
 3. text from take name
 ]]
