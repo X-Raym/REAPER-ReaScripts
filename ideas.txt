@@ -1,0 +1,4 @@
+Merge overlapping similar text items on selected track/Merge consecutive similar text items on selected track
+Merge selected text items as dialog lines
+Create text items on selected track from selected takes
+Create text items from regions

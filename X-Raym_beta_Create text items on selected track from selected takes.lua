@@ -60,6 +60,7 @@ function CreateTextItem(starttime, endtime, notetext, color)
 	--ref: Lua: MediaItem reaper.GetSelectedMediaItem(ReaProject proj, integer selitem)
 	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
 	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+	reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", color)
 
 	HeDaSetNote(item, notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
@@ -147,11 +148,15 @@ end
 
 msg_start() -- Display characters in the console to show you the begining of the script execution.
 
+--reaper.Main_OnCommand(NamedCommandLookup("_WOL_SAVEVIEWS5"), 0)
+--reaper.Main_OnCommand(NamedCommandLookup("_SWS_RESTLOOP5"), 0)
 reaper.PreventUIRefresh(1)
 
 main() -- Execute your main function
 
 reaper.PreventUIRefresh(-1)
+--reaper.Main_OnCommand(NamedCommandLookup("_WOL_RESTOREVIEWS5"), 0)
+--reaper.Main_OnCommand(NamedCommandLookup("_SWS_RESTLOOP5"), 0)
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
@@ -160,7 +165,7 @@ msg_end() -- Display characters in the console to show you the end of the script
 --[[
 TO DO:
 1. color text item
-2. restore original loop
 3. text from take name
-4. restore view
+4. if no item selected
+5. if no track selected
 ]]
