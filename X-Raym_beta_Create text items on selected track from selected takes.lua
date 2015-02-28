@@ -96,54 +96,66 @@ function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	selected_track = reaper.GetSelectedTrack(0,0)
+	selected_tracks_count = reaper.CountSelectedTracks(0)
 
-	-- COUNT SELECTED ITEMS
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+	if selected_tracks_count > 0 then
 
-	-- SAVE TAKES SELECTION
-	for j = 0, selected_items_count-1  do
-		setSelectedMediaItem[j] = reaper.GetSelectedMediaItem(0, j)
-	end
+		-- DEFINE TRACK DESTINATION
+		selected_track = reaper.GetSelectedTrack(0,0)
 
-	-- LOOP THROUGH TAKE SELECTION
-	for i = 0, selected_items_count-1  do
-		-- GET ITEMS AND TAKES AND PARENT TRACK
-		item = setSelectedMediaItem[i] -- Get selected item i
-		take = reaper.GetActiveTake(item) -- Get the active take
-		track = reaper.GetMediaItemTake_Track(take)
-		
-		-- GET INFOS
+		-- COUNT SELECTED ITEMS
+		selected_items_count = reaper.CountSelectedMediaItems(0)
 
-		-- NAME
-		take_name = reaper.GetTakeName(take)
-		
-		-- COLOR
-		take_color = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
-		if take_color == 0 then -- if the item has no color...
-			take_color = reaper.GetTrackColor(track) -- ... then take the track color
-		end
-			
-		-- TIMES
-		item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-		item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-		item_end = item_start + item_duration
+		if selected_items_count > 0 then
 
-		-- DEBUG
-		msg_s("itemName")
-		msg_s(take_name)
-		msg_s("item_start")
-		msg_f(item_start)
-		msg_s("item_end")
-		msg_f(item_end)
+			-- SAVE TAKES SELECTION
+			for j = 0, selected_items_count-1  do
+				setSelectedMediaItem[j] = reaper.GetSelectedMediaItem(0, j)
+			end
 
-		-- ACTION
-		CreateTextItem(item_start, item_end, take_name, take_color)
+			-- LOOP THROUGH TAKE SELECTION
+			for i = 0, selected_items_count-1  do
+				-- GET ITEMS AND TAKES AND PARENT TRACK
+				item = setSelectedMediaItem[i] -- Get selected item i
+				take = reaper.GetActiveTake(item) -- Get the active take
+				track = reaper.GetMediaItemTake_Track(take)
+				
+				-- GET INFOS
 
-	end -- ENDLOOP through selected items
+				-- NAME
+				take_name = reaper.GetTakeName(take)
+				
+				-- COLOR
+				take_color = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
+				if take_color == 0 then -- if the item has no color...
+					take_color = reaper.GetTrackColor(track) -- ... then take the track color
+				end
+					
+				-- TIMES
+				item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+				item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+				item_end = item_start + item_duration
 
-	reaper.Undo_EndBlock("Create text items on selected track from selected takes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+				-- DEBUG
+				msg_s("itemName")
+				msg_s(take_name)
+				msg_s("item_start")
+				msg_f(item_start)
+				msg_s("item_end")
+				msg_f(item_end)
 
+				-- ACTION
+				CreateTextItem(item_start, item_end, take_name, take_color)
+
+			end -- ENDLOOP through selected items
+
+			reaper.Undo_EndBlock("Create text items on selected track from selected takes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+		else -- no selected item
+			msg_s("Please select at least one item")
+		end -- if select item
+	else -- no selected track
+		msg_s("Please select a destination track")
+	end -- if selected track
 end
 
 msg_start() -- Display characters in the console to show you the begining of the script execution.
@@ -166,6 +178,4 @@ msg_end() -- Display characters in the console to show you the end of the script
 TO DO:
 1. color text item
 3. text from take name
-4. if no item selected
-5. if no track selected
 ]]
