@@ -39,7 +39,7 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 msg_clean()]]
 -- <==== DEBUGGING -----
 
-function main() -- local (i, j, item, take, track)
+function selected_items_on_tracks() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -68,7 +68,7 @@ end
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
-main() -- Execute your main function
+selected_items_on_tracks() -- Execute your main function
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
