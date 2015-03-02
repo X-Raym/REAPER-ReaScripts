@@ -39,6 +39,8 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 msg_clean()
 -- <==== DEBUGGING -----
 
+-- From Heda's HeDa_SRT to text items.lua ====>
+
 dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
 function dbug (text) 
 	if dbug_flag==1 then  
