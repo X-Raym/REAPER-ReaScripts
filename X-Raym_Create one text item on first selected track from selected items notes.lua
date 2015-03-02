@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Create text items on first selected track from selected items notes
+ * ReaScript Name: Create one text item on first selected track from selected items notes
  * Description: This was created as a "glue empty items concatenating their notes", but this version works with a destination track, all kind of items, and preserve original selection
  * Instructions: Select a destination track. Select items. Execute. You can use it in Custom Action with the Delete selected items action.
  * Author: X-Raym
