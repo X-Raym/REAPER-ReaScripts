@@ -1,10 +1,16 @@
-Merge overlapping similar text items on selected track/Merge consecutive similar text items on selected track
-
 LOOP TEMPLATE
 For each each selected track, get each selected items
-
-CONDITIONAL TEMPLATE
-If selected item is an empty (text) item
+-> save item selection
+-> loop throught track
+--> loop throught item selection
+--> compare track selected id and track from item
+--> if mathc then get selected
+--> end of loop items => exectute something
 
 FEATURE REQUEST
 auto load/delete scripts
+
+GET PARENT FOLDER
+eel and lua - cross platforms
+GET PARENT SUBFOLDER
+eel and lua - cros platforms
