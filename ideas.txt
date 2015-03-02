@@ -1,4 +1,8 @@
 Merge overlapping similar text items on selected track/Merge consecutive similar text items on selected track
 Merge selected text items as dialog lines
-Create text items on selected track from selected takes
-Create text items from regions
+
+LOOP TEMPLATE
+For each each selected track, get each selected items
+
+CONDITIONAL TEMPLATE
+If selected item is an empty (text) item
