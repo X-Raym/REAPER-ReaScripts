@@ -1,8 +1,10 @@
 Merge overlapping similar text items on selected track/Merge consecutive similar text items on selected track
-Merge selected text items as dialog lines
 
 LOOP TEMPLATE
 For each each selected track, get each selected items
 
 CONDITIONAL TEMPLATE
 If selected item is an empty (text) item
+
+FEATURE REQUEST
+auto load/delete scripts
