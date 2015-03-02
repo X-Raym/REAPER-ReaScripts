@@ -32,9 +32,9 @@
 -- ----- DEBUGGING ====>
 function get_script_path()
   if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
-    return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
+    return debug.getinfo(1,'S').source:match("(.*".."\\..\\Functions"..")"):sub(2) -- remove "@"
   end
-    return debug.getinfo(1,'S').source:match("(.*".."/"..")"):sub(2)
+    return debug.getinfo(1,'S').source:match("(.*".."/../Functions"..")"):sub(2)
 end
 
 package.path = package.path .. ";" .. get_script_path() .. "?.lua"
@@ -89,7 +89,7 @@ function main() -- local (i, j, item, take, track)
 		F_FREEMODE_Y : float * to free mode y position (0..1)
 		F_FREEMODE_H : float * to free mode height (0..1)
 		]]
-		
+		--[[
 		-- MODIFY INFOS
 		value_set = value_get -- Prepare value output
 		
@@ -124,7 +124,7 @@ function main() -- local (i, j, item, take, track)
 			I_CUSTOMCOLOR : int *, custom color, windows standard color order (i.e. RGB(r,g,b)|0x100000). if you do not |0x100000, then it will not be used (though will store the color anyway)
 			IP_TAKENUMBER : int, take number within the item (read-only, returns the take number directly)
 			]]
-
+			--[[
 			-- MODIFY INFOS
 			value_set = value_get -- Prepare value output
 			-- SET INFOS
@@ -179,6 +179,7 @@ function main() -- local (i, j, item, take, track)
 		F_MCP_FXSEND_SCALE : float * : scale of fx+send area in MCP (0.0=smallest allowed, 1=max allowed)
 		F_MCP_SENDRGN_SCALE : float * : scale of send area as proportion of the fx+send total area (0=min allow, 1=max)
 		]]
+		--[[
 		-- ACTIONS
 	end -- ENDLOOP through selected tracks
 	--]]
