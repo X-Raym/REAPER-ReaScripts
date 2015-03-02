@@ -32,9 +32,9 @@
 -- ----- DEBUGGING ====>
 function get_script_path()
   if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
-    return debug.getinfo(1,'S').source:match("(.*".."\\..\\Functions"..")"):sub(2) -- remove "@"
+    return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
   end
-    return debug.getinfo(1,'S').source:match("(.*".."/../Functions"..")"):sub(2)
+    return debug.getinfo(1,'S').source:match("(.*".."/"..")"):sub(2)
 end
 
 package.path = package.path .. ";" .. get_script_path() .. "?.lua"
@@ -90,6 +90,7 @@ function main() -- local (i, j, item, take, track)
 		F_FREEMODE_H : float * to free mode height (0..1)
 		]]
 		--[[
+		
 		-- MODIFY INFOS
 		value_set = value_get -- Prepare value output
 		
@@ -108,7 +109,7 @@ function main() -- local (i, j, item, take, track)
 
 		take = reaper.GetActiveTake(item) -- Get the active take
 
-		if take == true then
+		if take ~= nil then -- if ==, it will work on "empty"/text items only
 			-- GET INFOS
 			value_get = reaper.GetMediaItemTakeInfo_Value(take, "D_VOL") -- Get the value of a the parameter
 			--[[
@@ -125,6 +126,7 @@ function main() -- local (i, j, item, take, track)
 			IP_TAKENUMBER : int, take number within the item (read-only, returns the take number directly)
 			]]
 			--[[
+
 			-- MODIFY INFOS
 			value_set = value_get -- Prepare value output
 			-- SET INFOS
