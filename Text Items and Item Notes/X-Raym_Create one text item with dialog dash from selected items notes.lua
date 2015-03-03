@@ -22,7 +22,7 @@
 	+ Initial Release
  --]]
 
--- ----- DEBUGGING ====>
+--[[ ----- DEBUGGING ====>
 function get_script_path()
   if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
     return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
@@ -36,8 +36,8 @@ require("X-Raym_Functions - console debug messages")
 debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
 clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-msg_clean()
--- <==== DEBUGGING -----
+--msg_clean()
+]]-- <==== DEBUGGING -----
 
 -- From Heda's HeDa_SRT to text items.lua ====>
 
@@ -123,7 +123,7 @@ function main() -- local (i, j, item, take, track)
 			end
 				
 		end -- ENDLOOP through selected items
-		msg_stl("text_output", text_output, 1)
+		--msg_stl("text_output", text_output, 1)
 
 		--reaper.Main_OnCommand(40697, 0) -- DELETE all selected items
 
@@ -134,7 +134,7 @@ function main() -- local (i, j, item, take, track)
 
 end
 
-msg_start() -- Display characters in the console to show you the begining of the script execution.
+--msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 reaper.PreventUIRefresh(1)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
@@ -148,7 +148,7 @@ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTSELITEMS5"), 0)
 reaper.PreventUIRefresh(-1)
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-msg_end() -- Display characters in the console to show you the end of the script execution.
+--msg_end() -- Display characters in the console to show you the end of the script execution.
 
 --[[
 IDEAS

@@ -22,7 +22,7 @@
 	+ Initial Release
  --]]
 
--- ----- DEBUGGING ====>
+--[[ ----- DEBUGGING ====>
 function get_script_path()
   if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
     return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
@@ -37,7 +37,7 @@ debug = 0 -- 0 => No console. 1 => Display console messages for debugging.
 clean = 0 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean()
--- <==== DEBUGGING -----
+]]-- <==== DEBUGGING -----
 
 --INIT
 item_mark_as_delete = {}
@@ -73,17 +73,17 @@ function main() -- local (i, j, item, take, track)
 
 		-- GET ITEMS
 		A_item = reaper.GetTrackMediaItem(track, i) -- Get selected item i
-		msg_tvoldi("i", i, "%f", 1, debug, 1)
+		--msg_tvoldi("i", i, "%f", 1, debug, 1)
 
 		if take == nil then -- If the item is a"text" item
 
 			-- GET INFOS of current item
 			A_item_start = reaper.GetMediaItemInfo_Value(A_item, "D_POSITION")
-			msg_tvoldi("A_item_start = ", A_item_start, "%f", 0, debug, 1)
+			--msg_tvoldi("A_item_start = ", A_item_start, "%f", 0, debug, 1)
 			A_item_length = reaper.GetMediaItemInfo_Value(A_item, "D_LENGTH")
-			msg_tvoldi("A_item_length = ", A_item_length, "%f", 0, debug, 1)
+			--msg_tvoldi("A_item_length = ", A_item_length, "%f", 0, debug, 1)
 			A_item_end = A_item_start + A_item_length
-			msg_tvoldi("A_item_end =", A_item_end, "%f", 0, debug, 1)
+			--msg_tvoldi("A_item_end =", A_item_end, "%f", 0, debug, 1)
 			A_item_text = reaper.ULT_GetMediaItemNote(A_item)
 			A_item_color = reaper.GetDisplayedMediaItemColor(A_item)
 			A_track = reaper.GetMediaItem_Track(A_item)
@@ -96,11 +96,11 @@ function main() -- local (i, j, item, take, track)
 			
 			if A_track == B_track and A_item_text == B_item_text and A_item_start < B_item_end and A_item_color == B_item_color then -- Compare the name, the start-end, and the color of the current item and the previous one
 				if first == true then -- If it is the first item of a group
-					msg_s("First")
+					--msg_s("First")
 					first_item = B_item
 
 					item_start = B_item_start
-					msg_tvoldi("item_start = ", item_start, "%f", 1, debug, 1)
+					--msg_tvoldi("item_start = ", item_start, "%f", 1, debug, 1)
 					item_mark_as_delete_lenght = item_mark_as_delete_lenght + 1
 					j = j + 1
 					item_mark_as_delete[j] = A_item
@@ -124,9 +124,9 @@ function main() -- local (i, j, item, take, track)
 				if i > 0 then -- IF not the first item in the loop
 					
 					item_length = B_item_end - item_start
-					msg_tvoldi("item_length", A_item_end, "%f", 1, debug, 1)
+					--msg_tvoldi("item_length", A_item_end, "%f", 1, debug, 1)
 					item_end = item_start + item_length
-					msg_tvoldi("item_length", item_end, "%f", 1, debug, 1)
+					--msg_tvoldi("item_length", item_end, "%f", 1, debug, 1)
 					reaper.SetMediaItemInfo_Value(first_item, "D_LENGTH", item_length)
 					group_id = group_id + 1
 					
@@ -135,7 +135,7 @@ function main() -- local (i, j, item, take, track)
 
 			end
 
-			msg_tvoldi("group_id = ", group_id, "%d", 0, debug, 1)
+			--msg_tvoldi("group_id = ", group_id, "%d", 0, debug, 1)
 			
 			-- "Previous item" infos for A/B comparaison
 			B_item = A_item
@@ -150,9 +150,9 @@ function main() -- local (i, j, item, take, track)
 
 			if i == media_item_on_track-1 then -- If actual item is the last of the loop
 					item_length = B_item_end - item_start
-					msg_tvoldi("item_length", A_item_end, "%f", 1, debug, 1)
+					--msg_tvoldi("item_length", A_item_end, "%f", 1, debug, 1)
 					item_end = item_start + item_length
-					msg_tvoldi("item_length", item_end, "%f", 1, debug, 1)
+					--msg_tvoldi("item_length", item_end, "%f", 1, debug, 1)
 					reaper.SetMediaItemInfo_Value(first_item, "D_LENGTH", item_length)
 					group_id = group_id + 1
 			end
@@ -161,7 +161,7 @@ function main() -- local (i, j, item, take, track)
 
 		end -- ENDLOOP through selected items
 
-		msg_tvoldi("item_mark_as_delete_lenght", item_mark_as_delete_lenght, "%d", 0, debug, 1)
+		--msg_tvoldi("item_mark_as_delete_lenght", item_mark_as_delete_lenght, "%d", 0, debug, 1)
 
 		for j = 1, item_mark_as_delete_lenght do -- Loop throught item marked as "to be deleted"
 			reaper.DeleteTrackMediaItem(track, item_mark_as_delete[j]) --track is always A
@@ -171,10 +171,10 @@ function main() -- local (i, j, item, take, track)
 	end -- ENDIF a track is selected
 end -- of main
 
-msg_start() -- Display characters in the console to show you the begining of the script execution.
+--msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 main() -- Execute your main function
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-msg_end() -- Display characters in the console to show you the end of the script execution.
+--msg_end() -- Display characters in the console to show you the end of the script execution.

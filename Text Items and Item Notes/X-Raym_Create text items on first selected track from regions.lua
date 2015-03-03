@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Create text items on first selected track from selected takes name
- * Description: X-Raym_Create text items on first selected track from selected takes name.lua
- * Instructions:  Select items. Select a destination track. Execute the script. Text items will be colored depending on original take color, or track color from item if no take color is set. The text note will came from the original take name.
+ * ReaScript Name: Template Title (match file name without extension and author)
+ * Description: A template script for REAPER ReaScript.
+ * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,19 +10,23 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 0.9
- * Version Date: 2015-02-28
+ * Version: 1.3.1
+ * Version Date: YYYY-MM-DD
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0 (optional)
  --]]
  
 --[[
  * Changelog:
- * v1.0 (2015-02-28)
+ * v1.3.1 (2015-02-27)
+ 	# loops takes bug fix
+ 	# thanks benf and heda for help with looping through regions!
+ 	# thanks to Heda for the function that embed external lua files!
+ * v1.0 (2015-02-27)
 	+ Initial Release
  --]]
 
--- ----- DEBUGGING ====>
+--[[ ----- DEBUGGING ====>
 function get_script_path()
   if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
     return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
@@ -36,11 +40,10 @@ require("X-Raym_Functions - console debug messages")
 debug = 0 -- 0 => No console. 1 => Display console messages for debugging.
 clean = 0 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-msg_clean()
--- <==== DEBUGGING -----
+--msg_clean()
+]]-- <==== DEBUGGING -----
 
 -- From Heda's HeDa_SRT to text items.lua ====>
-
 dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
 function dbug (text) 
 	if dbug_flag==1 then  
@@ -84,100 +87,45 @@ function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
 	end
 	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
 end
-
 -- <==== From Heda's HeDa_SRT to text items.lua
 
--- TABLE INIT
-local setSelectedMediaItem = {}
 
--- MAIN
-function main()
+function main() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	selected_tracks_count = reaper.CountSelectedTracks(0)
+	track = reaper.GetSelectedTrack(0, 0) -- Get selected track i
 
-	if selected_tracks_count > 0 then
-
-		-- DEFINE TRACK DESTINATION
-		selected_track = reaper.GetSelectedTrack(0,0)
-
-		-- COUNT SELECTED ITEMS
-		selected_items_count = reaper.CountSelectedMediaItems(0)
-
-		if selected_items_count > 0 then
-
-			-- SAVE TAKES SELECTION
-			for j = 0, selected_items_count-1  do
-				setSelectedMediaItem[j] = reaper.GetSelectedMediaItem(0, j)
+	-- LOOP THROUGH REGIONS
+	
+	i=0
+	repeat
+		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOut = reaper.EnumProjectMarkers3(0, i)
+		if iRetval >= 1 then
+			if bIsrgnOut == true then
+				CreateTextItem(iPosOut, iRgnendOut, sNameOut, iColorOut)
 			end
+			i = i+1
+		end
+	until iRetval == 0
+	
 
-			-- LOOP THROUGH TAKE SELECTION
-			for i = 0, selected_items_count-1  do
-				-- GET ITEMS AND TAKES AND PARENT TRACK
-				item = setSelectedMediaItem[i] -- Get selected item i
-				track = reaper.GetMediaItem_Track(item)
-				
-				-- GET INFOS
+	reaper.Undo_EndBlock("My action", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
-				-- NAME
-				take = reaper.GetActiveTake(item) -- Get the active take !! BUG WITH EMPTY ITEM SELECTED
-				if take ~= 0 then
-					text = reaper.GetTakeName(take)
-				else
-					text = reaper.ULT_GetMediaItemNote(item)
-				end
-				-- COLOR
-				--[[take_color = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
-				if take_color == 0 then -- if the item has no color...
-					take_color = reaper.GetMediaItemInfo_Value(item, "I_CUSTOMCOLOR")
-					if take_color == 0 then
-						take_color = reaper.GetTrackColor(track) -- ... then take the track color
-					end
-				end]]
-				item_color = reaper.GetDisplayedMediaItemColor(item)
-					
-				-- TIMES
-				item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-				item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-				item_end = item_start + item_duration
-
-				-- DEBUG
-				msg_s("itemName")
-				msg_s(take_name)
-				msg_s("item_start")
-				msg_f(item_start)
-				msg_s("item_end")
-				msg_f(item_end)
-				msg_s("color")
-				msg_d(item_color)
-
-				-- ACTION
-				CreateTextItem(item_start, item_end, text, item_color)
-
-			end -- ENDLOOP through selected items
-			reaper.Main_OnCommand(40421, 0)
-			reaper.Undo_EndBlock("Create text items on selected track from selected takes", 0) -- End of the undo block. Leave it at the bottom of your main function.
-		else -- no selected item
-			msg_s("Please select at least one item")
-		end -- if select item
-	else -- no selected track
-		msg_s("Please select a destination track")
-	end -- if selected track
 end
 
-msg_start() -- Display characters in the console to show you the begining of the script execution.
+--msg_start() -- Display characters in the console to show you the begining of the script execution.
 
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
 reaper.PreventUIRefresh(1)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0)
 
 main() -- Execute your main function
 
-reaper.PreventUIRefresh(-1)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTOREVIEWS5"), 0)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0)
+reaper.PreventUIRefresh(-1)
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-msg_end() -- Display characters in the console to show you the end of the script execution.
+--msg_end() -- Display characters in the console to show you the end of the script execution.
