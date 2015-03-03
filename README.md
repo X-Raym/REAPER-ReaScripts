@@ -25,6 +25,7 @@
 
 ##Helpers
 - [planetnine](http://forum.cockos.com/member.php?u=6549)
+- [heda](https://github.com/hedacoder)
 
 ##External Scripts (uploaded here)
 - [EEL Simple Slider Class 1st version](http://forum.cockos.com/showthread.php?p=1435963)
