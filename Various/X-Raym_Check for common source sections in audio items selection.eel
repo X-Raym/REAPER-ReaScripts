@@ -1,0 +1,493 @@
+/**
+ * ReaScript Name: Check for common source sections in audio items selection
+ * Description: Select items and find if they have common sources sections.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts/blob/master/X-Raym_Check%20for%20common%20source%20sections%20in%20audio%20items%20selection.eel
+ * File URl: https://raw.githubusercontent.com/X-Raym/REAPER-EEL-Scripts/master/X-Raym_Check%20for%20common%20source%20sections%20in%20audio%20items%20selection.eel
+ * Licence: GPL v3
+ * Forum Thread: ReaScript: Check for common source sections in audio items selection
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1481447
+ * Version: 1.0
+ * Version Date: 2015-02-16
+ * REAPER: 5.0 pre 8
+ */
+
+/**
+ * Changelog:
+ * v1.0 (2015-02-16)
+	+ Initial Release
+ */
+
+/**
+ * Inspired by the awesome the Source Time Position Tool 0.15 from PLANET NINE
+ * http://forum.cockos.com/showthread.php?t=144822
+ */
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+
+// FROM PLANET NINE
+// Return "un-compensated" marker position in *item* time
+function rev_sm_comp(sp1, p1, sp2, p2, cmip)
+(
+	ucmip =((sp2-sp1)*(cmip-p1))/(p2-p1) + sp1;
+);
+
+// FROM PLANET NINE
+function src_offset(f_position, f_item, f_take) local(pos, spos)
+(
+	item_pos = GetMediaItemInfo_value(f_item, "D_POSITION");
+	item_length = GetMediaItemInfo_value(f_item, "D_LENGTH");
+	take_offset = GetMediaItemTakeInfo_value(f_take, "D_STARTOFFS");
+	take_playrate = GetMediaItemTakeInfo_value(f_take, "D_PLAYRATE");
+	
+	cmip = (f_position - item_pos) * take_playrate; //+ take_offset; //compensated *item* position
+	
+	num_sm = GetTakeNumStretchMarkers(f_take); // num of SMs
+	num_sm !=0 ?
+	(
+		sp1 = 0; p1 = 0;
+		sp2=0; smc = 0;
+		while (smc < num_sm) // scan stretch markers to find SM indexes either side of marker.
+		(
+			GetTakeStretchMarker(f_take, smc, pos, spos);
+			pos <= cmip ? // compare compensated (SM-moved) with SM *pos*
+			(
+				smi = smc; // sm index = sm count
+				sp1 = spos; // source-pos1 = source pos of this sm
+				p1 = pos // pos1 = pos of this sm
+			):(	
+				sp2 = spos; // else source-pos2 = source pos of this sm
+				p2 = pos; // pos2 = pos of this sm
+				smc = num_sm+1; // exit loop
+			);
+			smc +=1;
+		);
+		GetTakeStretchMarker(lm_take, smi, p1, sp1); // get LHS SM
+		smi < num_sm -1 ? 
+		(
+			ucmip = rev_sm_comp(sp1, p1, sp2, p2, cmip);  // calc uncompensated mkr item position (*item* time)
+			section_playrate = ((sp2-sp1)/(p2-p1))*take_playrate;
+		):(
+			ucmip = (cmip - p1) + sp1; // beyond last SM, item time becomes sp1 at p1 and SM rate =1
+			section_playrate = take_playrate;
+		);
+		position_source_offset = ucmip + take_offset; // convert from item pos to source position
+		sm_dev_flag = num_sm>=3 && (sp1 != p1 || sp2 != p2) && (sp1-p1) != (sp2-p2) && smi < num_sm-1; // set SM deviated flag (either side SM moved)
+		
+	):(
+	// Calculate a position's source offset, using item & take parameters...
+		sp1 =0; p1 =0; sp2 =0; p2 =0; sm_dev_flag =0; // reset values if no SMs
+		position_source_offset = (f_position - item_pos) * take_playrate + take_offset; // no SMs
+	);
+	position_source_offset; // return value
+);
+
+// FROM PLANET NINE
+function show_source_item_length(item, take) local(len_percent)
+	(
+	#src_len_buf = ""; // clear #src_len_buf - (global)
+	#src_itm_len_buf = ""; // clear #src_itm_len_buf - (global)
+	#src_len_perc_buf = "";
+
+	num_sm = GetTakeNumStretchMarkers(take); // num of SMs
+	num_sm ==0 ? 
+	(
+		sp1 =0; p1 =0; sp2 =0; p2 =0; sm_dev_flag =0; // reset values if no SMs
+		//section_playrate = take_playrate;
+		stp = take_start_offset + (item_length * take_playrate);
+	):(
+		stp = src_offset(item_pos+item_length, item, take); // comp for SMs
+	);
+	src_item_end_time = stp; // src_item_stt_time + (item_length * take_playrate);
+
+	//This needs to be calc'd from source time @end - source time start.
+	
+	
+	src_item_length = src_item_end_time - src_item_stt_time; //item_length * take_playrate;
+	len_percent = (src_item_length / source_length) * 100;
+	//format_timestr_pos(src_item_length, #src_itm_len_buf, ecp_format); // src_item_length value is stored to #src_itm_len_buf
+	//sprintf(#src_len_perc_buf,"%0.1f",len_percent); // len_percent value is stored to #src_len_perc_buf
+);
+
+// MAIN
+function check_duplicate_audio() local(i, item, j, take, k)
+(
+
+	// COUNT SELECTED ITEMS
+	countSelectedMediaItem = CountSelectedMediaItems(0);
+	msg_tvoldi("Number of selected items: ", countSelectedMediaItem, "%d", 0, 1, 1);
+
+	// CHECK IF THERE IS SEVERAL ITEM SELECTED
+	countSelectedMediaItem > 1 ? (
+	// LOOP THROUGH SELECTION
+		j=0;
+		loop(countSelectedMediaItem,// LOOP A_Item
+			(A_item = GetSelectedMediaItem(0, j)) ? ( // LOOP A_Item
+				
+				// CHECK THE LOOP
+				msg_tvoldi("\n", NULL, 0, 0, debug, 0);
+				msg_tvoldi("==========\nJ =", j, "%d", 0, debug, 1);
+				
+				A_take = GetActiveTake(A_item);
+
+
+
+				TakeIsMIDI(A_take) === 1 ? (// IF A_take is MIDI
+					
+					// TAKE IS MIDI
+					msg_tvold("A_item ID", A_item, "%d", 0, debug);
+					msg_s("A_take is MIDI");
+					msg_tvold("=====", 0, "%s", 0, debug);
+				
+				):(// ELSEIF A_take is MIDI
+				
+					// TAKE IS AUDIO
+					msg_tvold("A_item ID", A_item, "%d", 0, debug);
+					msg_s("A_take is Audio");
+
+					// GET A_item PROPERTIES
+					
+					// Name
+					GetTakeName(#retval, A_take);
+					match("%s", #retval, A_takeName);
+					msg_tvold("A_take name", A_takeName, "%s", 0, debug);
+					A_itemSource = GetMediaItemTake_Source(A_take);
+					GetMediaSourceFileName(A_itemSource, #filenamebuf);
+					A_itemSourceName = #filenamebuf;
+					msg_stl("A_item source path and name", A_itemSourceName, 1);
+
+					
+					// SOURCE TIME POSITION TOOL INIT
+					PCM_Source_GetSectionInfo(A_itemSource, A_offset, A_source_length, A_reverse);
+					A_item_pos = GetMediaItemInfo_value(A_item, "D_POSITION");
+					A_item_length = GetMediaItemInfo_value(A_item, "D_LENGTH");
+					A_take_offset = GetMediaItemTakeInfo_value(A_take, "D_STARTOFFS");
+					A_take_playrate = GetMediaItemTakeInfo_value(A_take, "D_PLAYRATE");
+					A_take_start_offset = GetMediaItemTakeInfo_value(A_take, "D_STARTOFFS");
+
+					A_item_end = A_item_pos + A_item_length;
+
+					
+					// A_item START SOURCE
+					A_num_sm = GetTakeNumStretchMarkers(A_take); // num of SMs
+					A_num_sm ==0 ? 
+					(
+						A_sp1 =0; A_p1 =0; A_sp2 =0; A_p2 =0; A_sm_dev_flag =0; // reset values if no SMs
+						//section_playrate = take_playrate;
+						A_stp = A_take_start_offset;
+					):(
+						A_stp = src_offset(A_item_pos, A_item, A_take); // comp for SMs
+					);
+
+					A_src_item_stt_time = A_stp; //take_start_offset;
+					msg_tvold("Source start", A_src_item_stt_time, "%f", 0, debug);
+
+					
+					
+					// A_item SOURCE LENGHT
+					A_num_sm = GetTakeNumStretchMarkers(A_take); // num of SMs
+					A_num_sm ==0 ? 
+					(
+						A_sp1 =0; A_p1 =0; A_sp2 =0; A_p2 =0; A_sm_dev_flag =0; // reset values if no SMs
+						//section_playrate = take_playrate;
+						A_stp = A_take_start_offset + (A_item_length * A_take_playrate);
+					):(
+						A_stp = src_offset(A_item_pos+A_item_length, A_item, A_take); // comp for SMs
+					);
+					A_src_item_end_time = A_stp; // A_src_item_stt_time + (A_item_length * take_playrate);
+					msg_tvold("Source end (seconds)", A_src_item_end_time, "%f", 0, debug);
+
+					//This needs to be calc'd from source time @end - source time start.	
+
+					A_src_item_length = A_src_item_end_time - A_src_item_stt_time; //A_item_length * take_playrate;
+					A_len_percent = (A_src_item_length / A_source_length) * 100;
+					msg_tvold("Source lenght (seconds)", A_src_item_length, "%f", 0, debug);
+					
+
+					// A_item END SOURCE AND LOOP NUMBER
+					A_repeat_num = ceil(A_src_item_end_time/A_source_length)-1;
+					A_A_src_item_end_time = A_src_item_end_time - (A_source_length * (ceil(A_src_item_end_time/A_source_length)-1)); // modulus = n-d*int(n/d)
+					A_repeat_num ? ( // source repeated at cursor position?
+							msg_tvold("Source loops", A_repeat_num, "%d", 1, debug);
+
+							A_src_item_end_time = A_source_length; // If A_item loop, then consider the end of first source as the end
+						
+						);
+
+					// CHECK SOURCE START
+					A_src_item_stt_time < A_src_item_end_time ? (//IF A_item has start source before end
+					// COMPARE WITH THE REST - FROM HEDA
+					// this new loop searches the new pooled selected A_items and assigns them a "pool" attribute to filter them later.
+					k=0; // starting from j, I think it works.
+					k=j+1; // TEST
+					loop(countSelectedMediaItem,//LOOP item_B
+					(B_item = GetSelectedMediaItem(0, k)) ? (//LOOP item_B
+							
+							//k != j && k > j ? (// CHECK THE LOOP facultative=
+							msg_tvoldi("K =", j, "%d", 0, debug, 1);
+							
+							B_take = GetActiveTake(B_item);
+							TakeIsMIDI(B_take) === 0 ? (// IF B_take is MIDI
+								B_itemSource = GetMediaItemTake_Source(B_take);
+								GetMediaSourceFileName(B_itemSource, #filenamebuf2);
+								B_itemSourceName = #filenamebuf2;
+								msg_stl("B_item source path and name", B_itemSourceName, 1);
+								#retval = "";
+								GetTakeName(#retval, B_take);
+								match("%s", #retval, B_takeName);
+								msg_tvold("B_take name", B_takeName, "%s", 0, debug);
+
+								// SOURCE TIME POSITION TOOL INIT
+								PCM_Source_GetSectionInfo(B_itemSource, B_offset, B_source_length, B_reverse);
+								B_item_pos = GetMediaItemInfo_value(B_item, "D_POSITION");
+								B_item_length = GetMediaItemInfo_value(B_item, "D_LENGTH");
+								B_take_offset = GetMediaItemTakeInfo_value(B_take, "D_STARTOFFS");
+								B_take_playrate = GetMediaItemTakeInfo_value(B_take, "D_PLAYRATE");
+								B_take_start_offset = GetMediaItemTakeInfo_value(B_take, "D_STARTOFFS");
+								B_item_end = B_item_pos + B_item_length;
+
+								
+								// B_item START SOURCE
+								B_num_sm = GetTakeNumStretchMarkers(B_take); // num of SMs
+								B_num_sm == 0 ? 
+								(
+									B_sp1 =0; B_p1 =0; B_sp2 =0; B_p2 =0; B_sm_dev_flag =0; // reset values if no SMs
+									//section_playrate = take_playrate;
+									B_stp = B_take_start_offset;
+								):(
+									B_stp = src_offset(B_item_pos, B_item, B_take); // comp for SMs
+								);
+
+								B_src_item_stt_time = B_stp; //take_start_offset;
+								msg_tvold("B source in time", B_src_item_stt_time, "%f", 0, debug);
+
+								
+								
+								// B_item SOURCE LENGHT
+								B_num_sm = GetTakeNumStretchMarkers(B_take); // num of SMs
+								B_num_sm ==0 ? 
+								(
+									B_sp1 =0; B_p1 =0; B_sp2 =0; B_p2 =0; B_sm_dev_flag =0; // reset values if no SMs
+									//section_playrate = take_playrate;
+									B_stp = B_take_start_offset + (B_item_length * B_take_playrate);
+								):(
+									B_stp = src_offset(B_item_pos+B_item_length, B_item, B_take); // comp for SMs
+								);
+								B_src_item_end_time = B_stp; // src_item_stt_time + (item_length * take_playrate);
+								msg_tvold("B source lenght (seconds)", B_src_item_end_time, "%f", 0, debug);
+
+								//This needs to be calc'd from source time @end - source time start.	
+
+								B_src_item_length = B_src_item_end_time - B_src_item_stt_time; //item_length * take_playrate;
+								B_len_percent = (B_src_item_length / B_source_length) * 100;
+								msg_tvold("B source end (seconds)", B_src_item_length, "%f", 0, debug);
+								
+
+								// B_item END SOURCE AND LOOP NUMBER
+								B_repeat_num = ceil(B_src_item_end_time/B_source_length)-1;
+								B_src_item_end_time = B_src_item_end_time - (B_source_length * (ceil(B_src_item_end_time/B_source_length)-1)); // modulus = n-d*int(n/d)
+								B_repeat_num ? ( // source repeated at cursor position?
+										msg_tvold("B Source loops", B_repeat_num, "%d", 0, debug);
+										compate_src_item_end_time = B_source_length;
+									);
+									
+								// COMPARE
+								strcmp(B_itemSourceName,A_itemSourceName) === 0 ? (// IF same source
+
+									B_src_item_stt_time < B_src_item_end_time ? (// IF B_item has start source before end
+
+										
+										//DEBUG
+										/*msg_tvold("→→→→→", NULL, NULL, 0, debug);
+										msg_tvold("COMMON SOURCE", NULL, NULL, 0, debug);
+										GetTakeName(#retval, A_take);
+										match("%s", #retval, A_takeName);
+										msg_tvold("A_take name", A_takeName, "%s", 0, debug);
+										GetTakeName(#retval, B_take);
+										match("%s", #retval, B_takeName);
+										msg_tvold("B_take name", B_takeName, "%s", 0, debug);*/
+										
+										duplicateItems = 0;
+										commonLengh = 0;
+
+										// CASE 1 - A BEFORE B
+										// [_A_]
+										//   [_B_]
+										A_src_item_stt_time <= B_src_item_stt_time && A_src_item_end_time >= B_src_item_stt_time && A_src_item_end_time <= B_src_item_end_time ? (
+
+											commonLengh = A_src_item_end_time - B_src_item_stt_time;
+											inSource = B_src_item_length;
+											outSource = A_src_item_end_time;
+
+											commonPosition1 = B_item_pos;
+											commonPosition2 = A_item_end;
+
+										);
+										
+										// CASE 2 - A INSIDE B
+										//   [_A_]
+										//  [__B__]
+										A_src_item_stt_time >= B_src_item_stt_time && A_src_item_end_time <= B_src_item_end_time ? (
+
+											commonLengh = A_src_item_length;
+											inSource = A_src_item_stt_time;
+											outSource = B_src_item_end_time;
+
+											commonPosition1 = A_item_pos;
+											//commonPosition2 = B_item_end;
+										
+										);
+										
+										// CASE 3 - A CONTAINS B
+										//  [__A__]
+										//   [_B_]
+										A_src_item_stt_time <= B_src_item_stt_time && A_src_item_end_time >= B_src_item_end_time ? (
+											
+											commonLengh = B_src_item_length;
+											inSource = B_src_item_stt_time;
+											outSource = B_src_item_end_time;
+
+											commonPosition1 = B_item_pos;
+											//commonPosition2 = A_item_end;
+										
+										);
+
+										// CASE 4 - A AFTER B
+										//   [_A_]
+										// [_B_]
+										A_src_item_stt_time >= B_src_item_stt_time && A_src_item_stt_time <= B_src_item_end_time && A_src_item_end_time >= B_src_item_end_time ? (
+
+											commonLengh = B_src_item_end_time - A_src_item_stt_time;
+											inSource = A_src_item_stt_time;
+											outSource = B_src_item_end_time;
+
+											commonPosition1 = B_item_pos;
+											//commonPosition2 = A_item_end;
+
+										);
+										// CASE 5 - A EQUALS B
+										// [_A_]
+										// [_B_]
+										A_src_item_stt_time === B_src_item_stt_time && A_src_item_end_time === B_src_item_end_time ? (
+
+											commonLengh = 1;
+											duplicateItems = 1;
+
+											commonPosition1 = A_item_end;
+											//commonPosition2 = A_item_end; // If item A don"t loop from source 0.
+
+										);
+
+										commonLengh > 0 ? (
+											msg_tvold("\n\n\n==========", NULL, NULL, 0, 1);
+											msg_tvoldi("• COMMON SOURCE #", commonSource+1, "%d", 1, 1, 1);
+											msg_tvoldi("Source file: ", B_itemSourceName, "%s", 1, 1, 1);
+											
+											// ITEM A NAME
+											GetTakeName(#retval, A_take);
+											match("%s", #retval, A_takeName);
+											msg_tvoldi("A_take: ", A_takeName, "%s", 0, 1, 1);
+											// ITEM A TRACK
+											A_track = GetMediaItemTake_Track(A_take);
+											GetSetMediaTrackInfo_String(A_track, "P_NAME", A_trackName, 0);
+											msg_tvoldi("A_track: ", A_trackName, "%s", 1, 1, 1);
+
+											// ITEM B NAME
+											GetTakeName(#retval, B_take);
+											match("%s", #retval, B_takeName);
+											msg_tvoldi("B_take: ", B_takeName, "%s", 0, 1, 1);
+											// ITEM B TRACK
+											B_track = GetMediaItemTake_Track(B_take);
+											GetSetMediaTrackInfo_String(B_track, "P_NAME", B_trackName, 0);
+											msg_tvoldi("B_track: ", A_trackName, "%s", 1, 1, 1);
+
+											commonSource += 1;
+										);
+
+										// RESOLUTION
+										commonLengh > 0 && duplicateItems == 0 ? (
+											format_timestr_pos(commonPosition1, #commonPosition1, ecp_format);
+											msg_tvoldi("Time project position: ", #commonPosition1, "%s", 0, 1, 1);
+											//msg_tvoldi("And position:", commonPosition2, "%f", 0, 1, 1);
+											msg_tvoldi("Duration (seconds in source time): ", commonLengh, "%f", 1, 1, 1);	
+											msg_s("\n");									
+										);
+
+										commonLengh == 0 ? (
+											msg_tvold("... but no overlapping.", NULL, NULL, 0, debug);
+										);
+
+										duplicateItems >= 1 ? (
+											format_timestr_pos(A_item_pos, #commonPosition2, ecp_format);
+											msg_tvoldi("A_item position: ", #commonPosition2, "%s", 0, 1, 1);
+											format_timestr_pos(B_item_pos, #commonPosition3, ecp_format);
+											msg_tvoldi("B_item position: ", #commonPosition3, "%s", 1, 1, 1);
+											msg_tvold("... and same source duration.", NULL, NULL, 0, 1);
+										);
+
+										msg_tvold("←←←←←", NULL, NULL, 0, debug);
+
+										):(// ELSEIF same source
+
+										msg_tvold("DIFFERENT SOURCES", NULL, NULL, 0, debug);
+										
+										);// ENDIF B_item has start source before end
+									);// ENDIF same source
+								);// ENDIF B_take is MIDI
+								k+=1;// Increment loop B_item
+							);// END LOOP item_B
+						);// END LOOP item_B
+					);// ENDIF A_item has start source before end
+					j += 1;//Increment loop A_item
+				);// ENDIF A_take is MIDI
+			);// END LOOP A_Item
+		);// END LOOP A_Item
+		msg_tvold("\n\n\n==========", NULL, NULL, 0, 1);
+		
+		commonSource == 0 ? (// IF there is no common source sections
+			msg_tvold("No common sources section in selection.", NULL, NULL, 0, 1);
+			msg_tvold("==========", NULL, NULL, 0, 1);
+		):(// ELSE there is no common source
+			msg_tvold("Common sources in selection:", commonSource, "%d", 0, 1);
+			msg_tvold("\n==========", NULL, NULL, 0, 1);
+		);// ENDIF there is common source
+	):( // ELSE there is only one selected item
+		msg_tvold("Select more items.", NULL, NULL, 0, 1);
+	);// ENDIF one items selected
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+check_duplicate_audio(); // Execute your main function
+
+msg_end(); // Display characters in the console to show you the end of the script execution.
+
+// SAME SOURCE SECTION DURATION TAKING ACCOUNT RATE IN THE PROJECT ?
+
+// USER INPUT FOR CONSIDERING PLAYRATE ?
+// USER INPUT FOR CONSIDERING STRETCH MARKERS ?
+// USER INPUT FOR PITCH CONSIDERATION ? What about pitch envelope ?
+// NUMBER OF TIME A FILE IS IMPLICATED IN A COMMON SOURCE CONFLICTS
+/*					
+strcmp(A_itemSourceName_previous,A_itemSourceName) == 0 ? (
+	conflicts_count += 1 ; // Increment this variable each tmime there is a common source
+):(
+	msg_tvoldi("\n\n\nSource file: ", B_itemSourceName, "%s", 0, 1, 1);
+	msg_tvold("Number of conflicts :", conflicts_count, "%d", 1, 1);
+	conflicts_count = 0; // Reset conflicts count
+);
+A_itemSourceName_previous = A_itemSourceName;
+WHERE TO PLACE ?
+				*/
+
+// Currently, it doesn't take into account looping item not starting from 0. I Don't think I personnaly will need this.

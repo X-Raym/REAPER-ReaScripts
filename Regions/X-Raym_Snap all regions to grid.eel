@@ -1,0 +1,66 @@
+// Snao all regions to grid
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 12-01-2015
+
+// Version : 1.1
+// Version Date : 19-01-2015
+// Required : Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function snap_regions_to_grid()
+(
+	Main_OnCommand(40754, 0);
+	
+	msg_s("=====>");
+	msg_s("INSTRUCTIONS : Snap mode is now on !");
+	msg_s("-----");
+	
+	i = 0;
+
+	while (EnumProjectMarkers(i, is_region, region_start, region_end, #name, region_id)) (    
+
+		is_region === 1 ? (
+			
+
+			msg_s("Region ID");
+			msg_d(region_id);
+			msg_s("Region start");
+			msg_f(region_start);
+			msg_s("Region end");
+			msg_f(region_end);
+
+			region_snapped_start = SnapToGrid(NULL, region_start);
+			region_snapped_end = SnapToGrid(NULL, region_end);
+
+			msg_s("Region snapped start");
+			msg_f(region_snapped_start);
+			msg_s("Region snapped end");
+			msg_f(region_snapped_end);
+			msg_s("-----");
+
+			SetProjectMarker(region_id, 1, region_snapped_start, region_snapped_end, #name);
+
+			i += 1;
+
+		);
+
+	);
+
+	msg_s("<=====\n");
+
+);
+
+snap_regions_to_grid();

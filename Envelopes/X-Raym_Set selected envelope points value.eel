@@ -1,0 +1,173 @@
+/**
+ * ReaScript Name: Set selected envelope points value
+ * Description: A pop up to let you put values for selected item points. 
+ * Instructions: Write values you want. Don't use "+" sign. Don't use percentage. Example: writte "60" for 60%.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/blob/master/X-Raym_Set%20selected%20envelope%20points%20value.eel
+ * Licence: GPL v3
+ * Forum Thread: ReaScript: Set/Offset selected envelope points values
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487882#post1487882
+ * Version: 1.0
+ * Version Date: 2015-02-26
+ * REAPER: 5.0 pre 9
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-02-26)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function set_point_value()
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	envelope = GetSelectedEnvelope(0);
+
+	env_point_count = CountEnvelopePoints(envelope);
+
+	#dialog_ret_vals = 0;
+	GetUserInputs("Set point value", 1, "Value ?", #dialog_ret_val); // We suppose that the user know the scale he want
+	match("%f", #dialog_ret_val, valueInOptional);
+	msg_ftl("User input", valueInOptional, 1);	
+
+	// GET ENVELOPE RANGE -- HERE IT IS
+	GetEnvelopeName(envelope, #buf);
+	match("%s", #buf, envelopeName);
+	msg_stl("Envelope name", envelopeName, 1);
+	
+	stricmp("VOLUME", envelopeName) == 0 || stricmp("VOLUME (Pre-FX)", envelopeName) == 0 ? (
+		valueInOptional <= -146 ? (
+			valueIn = 0;
+			msg_s("VOLUME <= -146");
+		);
+		valueInOptional >= 6 ? (
+			valueIn = 2;
+			msg_s("+12 <= VOLUME");
+		);
+		valueInOptional < 6 && valueInOptional > -146 ? (
+			valueIn=exp(valueInOptional*0.115129254);
+			msg_s("-146 < VOLUME < +12");
+		);
+
+		already_set = 1;
+	);
+
+	stricmp("MUTE", envelopeName) == 0 ? (
+		valueInOptional < 0 ? (
+			valueIn = 0;
+			msg_s("Mute = 0");
+		);
+		valueInOptional >= 1 ? (
+			valueIn = 1;
+			msg_s("Mute = 1");	
+		);
+		valueInOptional < 0.5 ? (
+			valueIn = 0;
+			msg_s("Mute Floor < 0.5");	
+		);
+		valueInOptional >= 0.5 ? (
+			valueIn = 1;
+			msg_s("0.5 <= Mute Floor");	
+		);
+
+		already_set = 1;
+	);
+
+	stricmp("WIDTH", envelopeName) == 0 || stricmp("WIDTH (Pre-FX)", envelopeName) == 0 || stricmp("PAN", envelopeName) == 0 || stricmp("PAN (Pre-FX)", envelopeName) == 0 ? (
+		valueInOptional <= -100 ? (
+			valueIn = 1.0;
+			msg_s("Pan/Width <= -100");
+		);
+		valueInOptional >= 100 ? (
+			valueIn = - 1.0;
+			msg_s("Pan/Width >= 100");	
+		);
+		valueInOptional < 100 && valueInOptional > -100 ? (
+			valueIn = - valueInOptional / 100;
+			msg_s("-100 < Pan/Width < 100");	
+		);
+
+		already_set = 1;
+	);
+
+	stricmp("PITCH", envelopeName) == 0 ? (
+		valueInOptional <= -3 ? (
+			valueIn = -3;
+			msg_s("Pitch <= -3");
+		);
+		valueInOptional >= 3 ? (
+			valueIn = 3;
+			msg_s("Pitch <= +3");
+		);
+		valueInOptional > -3 && valueInOptional < 3 ? (
+			valueIn = floor((valueInOptional)*20+0.5)/20;
+			msg_s("-3 < Pitch < 3");
+		);
+
+		already_set = 1;
+	);
+
+	already_set === 0 ? ( // IF ENVELOPE HAS NO NAME PAS ICI LA BOUCL !!
+		valueInOptional <= 0 ? (
+			valueIn = 0;
+			msg_s("FX <= 0");	
+		);
+		valueInOptional >= 100 ? (
+			valueIn = 1.0;
+			msg_s("100 <= FX");
+		);
+		valueInOptional < 100 && valueInOptional > -100 ? (
+			valueIn = valueInOptional / 100;
+			msg_s("0 < FX < 100");	
+		);
+	);
+
+	msg_ftl("Value ouput", valueIn, 1);
+
+		// VALUE
+	i = 0;
+	loop (env_point_count, i ? (
+			
+			// IDX 0 doesnt seem to work
+			GetEnvelopePoint(envelope, i, timeOutOptional, valueOut, shapeOutOptional, tensionOutOptional, selectedOut);
+			
+			selectedOut == 1 ? (
+
+				timeInOptional = timeOutOptional;
+				shapeInOptional = shapeOutOptional;
+				tensionInOptional = tensionOutOptional;
+
+				// SET POINT VALUE
+				SetEnvelopePoint(envelope, i, timeInOptional, valueIn, shapeInOptional, tensionInOptional, 1, noSortInOptional);
+
+			); // ENDIF point is selected
+
+		); // End inside Loop
+
+		i += 1;
+	); // END Loop
+
+	Undo_EndBlock("Set selected envelope point value", 0); // End of the undo block. Leave it at the bottom of your main function.
+); // END OF FUNCTION
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+set_point_value(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

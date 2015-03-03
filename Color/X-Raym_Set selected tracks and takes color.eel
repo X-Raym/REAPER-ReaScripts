@@ -1,0 +1,92 @@
+/**
+ * Set selected tracks and takes color
+ * EEL Script for Reaper
+ * A template for adding custom color button.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts/Display selected tracks and takes color in the console.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Display selected tracks and takes color in the console
+ * Forum Thread URl: http://forum.cockos.com/
+ * Version: 1.0
+ * Version Date: 2015-02-15
+ * REAPER: 4.76
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-15-02)
+	+ Initial Release
+	+ Working with RGB
+ */
+
+// Many thanks to the generous spk77 for helping me with RGB and HEX values convertion!
+// http://forum.cockos.com/showpost.php?p=1479982&postcount=13
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+// ----- USER AREA ====>
+/* Comment out the part you don't want */
+color_rgb = 1; // Define 1 you wan't to use RGB color
+
+R = 255;
+G = 0;
+B = 0;
+
+/*color_hex = 1; // Define 1 you wan't to use RGB color
+color_hex_value  = FF0000; // Don't put the #.*/
+// <==== USER AREA -----
+
+function main() local (i, j)
+(
+
+	// CONVERT THE RGB COLOR TO INT
+	color_rgb ? (
+		color_int = (B + 256 * G + 65536 * R)|16777216;
+	);
+
+	// CONVERT HEX TO INT - not finished
+	/*color_hex ? (
+		color_int = 0;
+	);*/
+
+	// SELECTED ITEMS LOOP
+	countItems = CountSelectedMediaItems(0);
+	countTracks = CountSelectedTracks(0);
+
+	i = 0;
+	loop(countItems,
+		(item = GetSelectedMediaItem(0, i)) ? (
+			(take = GetActiveTake(item)) ? (
+					SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", color_int);
+				);
+			);
+		i += 1;
+	);
+		
+	// SELECTED TRACKS LOOP
+	j = 0;
+	loop(countTracks, 
+			(track = GetSelectedTrack(0, j)) ? (
+				SetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR", color_int);
+			);
+		j += 1;
+	);
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

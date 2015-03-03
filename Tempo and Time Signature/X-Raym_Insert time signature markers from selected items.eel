@@ -1,0 +1,70 @@
+// Insert time signature markers from selected items
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 21-01-2015
+
+// Version : 1.0
+// Version Date : 21-01-2015
+// Required : Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+msg_start();
+// <==== DEBUGGING -----
+
+function insert_time_marker() local(i, item)
+(	
+	i = 0;
+	loop(CountSelectedMediaItems(0),
+		(item = GetSelectedMediaItem(0, i)) ? (
+
+			timepos = GetMediaItemInfo_Value(item, "D_POSITION");
+			msg_ftl("Item start", timepos, 1);
+
+			TimeMap_GetTimeSigAtTime(NULL, timepos, timesig_numOut, timesig_denomOut,tempoOut);
+			bpm = tempoOut;
+			msg_dtl("Current BPM :", bpm, 1);
+			
+			lengthSeconds = GetMediaItemInfo_Value(item, "D_LENGTH");
+			msg_ftl("Item length (seconds) :", lengthSeconds, 1);
+
+			beatDuration = 60 / (bpm * (timesig_denomOut / 4));
+			msg_ftl("Beat duration :", beatDuration, 1);
+
+			lengthBeat = lengthSeconds / beatDuration;
+			msg_ftl("Item length (BPM) :", lengthBeat, 1);
+
+			// don't handle half
+			lenghtBeatFloor = floor(lengthBeat + 0.5);
+			msg_dtl("Round Lenght Beat :", lenghtBeatFloor, 1);
+			
+			timesig_num = lenghtBeatFloor;
+			msg_dtl("Time Signature Num :", timesig_num, 1);
+			timesig_denom = timesig_denomOut;
+			msg_dtl("Time Signature Denom :", timesig_denomOut, 1);
+			
+			previous_timesig_num !=  timesig_num ? (
+				SetTempoTimeSigMarker(NULL, -1, timepos, -1, -1, bpm, timesig_num, timesig_denom, 0);
+			);
+
+			previous_timesig_num = timesig_num;
+		);
+		i += 1;
+	);
+	msg_dtl("New Markers :", i, 1);
+	UpdateArrange();
+	UpdateTimeline();
+);
+
+msg_s("INSTRUCTIONS : Set your MIDI items to Ignore project tempo.\nDelete all previous Time Signature Markers.\nYou will have to set your project time signature to the lowest denominator that define your project to avoid incomplete measure.\n-----");
+insert_time_marker();
+msg_end();

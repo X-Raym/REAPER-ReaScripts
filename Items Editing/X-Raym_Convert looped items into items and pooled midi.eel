@@ -1,0 +1,103 @@
+// Convert selected looped takes into independent audio and pooled MIDI takes
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 27-01-2015
+
+// Version : 0.8
+// Version Date : 27-01-2015
+// Required : Reaper 5.0 pre8
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+msg_start();
+// <==== DEBUGGING -----
+
+// SAVE ITEM SELECTIONS
+
+function convert_loop() local(i, item, j)
+(	
+	i = 0;
+	loop(CountSelectedMediaItems(0),
+		    (item = GetSelectedMediaItem(0, i)) ? (
+      			(take = GetActiveTake(item)) ? (
+
+				// IF ITEM IS LOOPING ?
+				
+				// GET TRACK
+				track = GetMediaItem_Track(item);
+				msg_dtl("Track ID", track, 1);
+				Main_OnCommand(40318, 0);
+				SetMediaTrackInfo_Value(track, "I_SELECTED", 1);
+				SetOnlyTrackSelected(track);
+
+				// FIND ITEM LENGHT - LOOPS NUMBER - TAIL DURATION
+				itemDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
+				itemDurationInitial = itemDuration;
+				msg_ftl("Item duration", itemDuration, 1);
+				Main_OnCommand(40612, 0); // Item to source lenght
+				Main_OnCommand(40698, 0); // Copy item
+				itemSourceDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
+				msg_ftl("Item source duration", itemSourceDuration, 1);
+				
+				completeLoopsNumber = floor(itemDuration / itemSourceDuration) - 1;
+				msg_dtl("Complete loops number", completeLoopsNumber, 1);
+
+				totalLoopsDuration = completeLoopsNumber * itemSourceDuration + itemSourceDuration;
+				msg_ftl("Total completed loop duration", totalLoopsDuration, 1);
+				incompleteLoopsDuration = itemDurationInitial - totalLoopsDuration;
+				msg_ftl("Incomplete loop duration", incompleteLoopsDuration, 1);
+
+				// SET CUSOR POS
+				itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
+				cursorPosition = itemPosition + itemSourceDuration;
+				SetEditCurPos(cursorPosition, 0, 0);
+				
+				// PASTE COMPLETE AND INCOMPLETE LOOPS DEPENDING ON THE TAKE TYPE
+				TakeIsMIDI(take) === 1 ? (
+					j=0;
+					loop(completeLoopsNumber + 1, j ? (
+							Main_OnCommand(41072, 0); // Paste pooled MIDI items
+						);
+						j += 1;
+						msg_d(j);
+					);
+					incompleteLoopsDuration > 0 ? (
+						Main_OnCommand(41072, 0); // Paste pooled MIDI items
+						selitem = GetSelectedMediaItem(0, 0);
+						SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
+					);
+				):(
+					loop(completeLoopsNumber + 1, j ? (
+							Main_OnCommand(40058, 0); // Paste item
+						);
+						j += 1;
+						msg_d(j);
+					);
+					incompleteLoopsDuration > 0 ? (
+						Main_OnCommand(40058, 0); // Paste item
+						selitem = GetSelectedMediaItem(0, 0);
+						SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
+					);
+				);
+			);
+		);
+		i += 1;
+	);
+);
+
+PreventUIRefresh(1);
+Undo_BeginBlock(); 
+convert_loop();
+Undo_EndBlock("Convert looped items into items and pooled MIDI", extraflags);
+UpdateArrange();
+PreventUIRefresh(-1);
+msg_end();

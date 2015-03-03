@@ -1,0 +1,109 @@
+// Merge consecutive regions as dialog lines
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 12-01-2015
+
+// Version : 1.1
+// Version Date : 19-01-2015
+// Required : Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function merge_two_regions()
+(
+	msg_s("=====>");
+	msg_s("INSTRUCTIONS : Be sure to have the cursor inside a region.\nYou can edit the consecutive threshold in the .eel file !");
+	msg_s("BEWARE : If you have regions subtitles, you will have to re-generate them!");
+	msg_s("-----");
+
+	CountProjectMarkers(NULL, num_markersIn, num_regionsIn);
+	/*msg_s("Number of region before script:");
+	msg_d(num_regionsOut);
+	msg_s("-----");*/
+
+	consecutive_threshold = 1; // You can edit this ! The value is in seconds.
+	msg_s("Threshold (in seconds):");
+	msg_f(consecutive_threshold);
+	msg_s("-----");
+
+	time = GetCursorPosition();
+
+	/*msg_s("Cursor Position:");
+	msg_f(time);
+	msg_s("-----");*/
+
+	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
+	EnumProjectMarkers(regionidxOut, isRegion_b, currentRegionStart_d, currentRegionEnd_d, #name_str, currentRegionID_int);
+	currentRegionName = #name_str;
+	currentRegionName_str = sprintf(#dest3, "%s", currentRegionName);
+
+	regionStartAndEndGap = currentRegionEnd_d + consecutive_threshold;
+
+	/*msg_s("Regions start:");
+	msg_f(currentRegionStart_d);
+	msg_s("Regions end:");
+	msg_f(currentRegionEnd_d);
+	msg_s("Regions ID:");
+	msg_d(currentRegionID_int);
+	msg_s("Regions name:");
+	msg(currentRegionName_str);
+	msg_s("-----");*/
+
+	Main_OnCommand(41802, 0);
+
+	time = GetCursorPosition();
+
+	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
+	
+	EnumProjectMarkers(regionidxOut, isRegion_b, nextRegionStart_d, nextRegionEnd_d, #name_str, nextRegionID_int);
+	nextRegionName = #name_str;
+	nextRegionName_str = sprintf(#dest2, "%s", nextRegionName);
+
+	separator = " ";
+	dialogTiret = "— ";// This should have a unbreakable space
+	merged_name = sprintf(#dest, "%s%s%s%s%s", dialogTiret, currentRegionName_str, separator, dialogTiret, nextRegionName_str);
+	/*msg_s("Merged name:");
+	msg(merged_name);
+	msg_s("-----");*/
+
+	regionStartAndEndGap >= nextRegionStart_d ? (
+
+		SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, nextRegionEnd_d, merged_name);
+		/*msg_s("Deleted region ID:");
+		msg_d(nextRegionID_int);
+		msg_s("-----");*/
+
+		DeleteProjectMarker(NULL, nextRegionID_int, 1);
+
+		/*msg_s("Regions merged IDs:");
+		msg_d(currentRegionID_int);
+		msg_s("and:");
+		msg_d(nextRegionID_int);
+		msg_s("<=====");*/
+		
+		CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
+		/*msg_s("Number of region after script:");
+		msg_d(num_regionsOut2);
+		msg_s("-----\n");*/
+
+		num_regionsIn === num_regionsOut ? (
+
+			msg_s("No regions merged.");
+			msg("<=====\n\n");
+			
+		);
+	);	
+);
+
+merge_two_regions();

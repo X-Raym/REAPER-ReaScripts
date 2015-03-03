@@ -1,0 +1,59 @@
+/**
+ * ReaScript Name: Round selected tracks pan
+ * Description: Round selected track pan (don't support enveloppe).
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Round selected tracks pan
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1482055
+ * Version: 1.0
+ * Version Date: 2015-02-17
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-02-17)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function main() // local (i, j, item, take, track)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	// LOOP TRHOUGH SELECTED TRACKS
+	
+	selected_tracks_count = CountSelectedTracks(0);
+
+	i = 0; // INITIALIZE loop through selected tracks
+	loop(selected_tracks_count, (track = GetSelectedTrack(0, i)) ? (
+			pan_initial = GetMediaTrackInfo_Value(track, "D_PAN");
+			pan_output = floor((pan_initial)*20+0.5)/20;
+			SetMediaTrackInfo_Value(track, "D_PAN", pan_output);
+		); // ENDIF inside loop
+		i += 1; // INCREMENT loop through selected tracks
+	); // ENDLOOP through selected tracks
+
+	Undo_EndBlock("Round selected tracks pan", 0); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

@@ -1,0 +1,76 @@
+// Create subtitles from regions names
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 03-01-2015
+
+// Version : 1.1
+// Version Date : 19-01-2015
+// Required : Reaper 5.0; SWS v2.5.2 #0
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function create_subtitles_from_regions_names()
+(
+  msg_s("==== INSTRUCTIONS ====
+  1. The script just saved your project.
+  2. Close Reaper
+  3. Open the .rpp file in a code editor
+  4. Go to EXTNAME and replace it EXTENSIONS
+  (if you already have EXTENSIONS, then just delete EXTSTATE and the > right above it)
+  5. Select all subtitles and search and replace
+| \"
+  by
+|
+  6. Save and close the code editor
+  7. Open the REAPER project file in REAPER");
+ 
+  msg_s("==== OUTPUT LOG ====");
+  msg_s("=====>");
+
+  i = 0;
+  // EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
+  while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number) > 0) (
+    // This action below may be required for debugging
+    //msg_d(is_region);
+    //msg_f(pos);
+    //msg_f(rgn_end);    
+    
+    sub_prefix = "S&M_SUBTITLE "; // Prefix of individual subtitles
+    sub_id = 1073741825 + i; // SWS Subtitles ID start at 1073741825
+    
+    sub_string = sprintf(#dest, "%s%d", sub_prefix, sub_id); // Mix sub prefix and sub ID. Thanks to planetnine
+    
+    extname = sub_string; // SWS String ID for individual subtitles
+    
+    key = "|"; // Can't be NULL or "". There is space bewteen key and value.
+    // Trying to mix key and value tentative below :
+    //value = strcat(#str, "|");
+    //value = strcat(#str, #name);
+    
+    value = #name; // This add quotes before and after the name. Manually deleting these in the .rpp file is required.
+    
+    SetProjExtState(0, extname, key, value); // Write infos in file.
+    
+    msg_d(markrgn_index_number); // Displays region index in console
+    msg_s(#name); // Diplays regions name in console
+    msg_s("<=====");
+    
+    i += 1;
+  );
+  
+  Main_SaveProject(0, 0); // Save the project
+  
+);
+
+create_subtitles_from_regions_names();

@@ -1,0 +1,147 @@
+// Create subtitles from regions and markers names
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 03-01-2015
+
+// Version : 1.3
+// Version Date : 18-01-2015
+// Required : REAPER 4.77
+
+// Thanks to Heda for loop fixed and subtitles markers suggestion
+// And for the GFX window !! :)
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function create_subtitles_from_regions_names()
+(
+  sub_prefix = "    <S&M_SUBTITLE "; // Prefix of individual subtitles
+
+  // REGIONS LOOP
+  i = 0;
+
+  while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number) > 0) (
+    // This action below may be required for debugging
+    //msg_d(is_region);
+    //msg_f(pos);
+    //msg_f(rgn_end);    
+    
+    is_region == 1 ? (
+      sub_id = 1073741824 + markrgn_index_number; // SWS Region Subtitles ID start at 1073741824
+
+      sub_string = sprintf(#dest, "%s%d", sub_prefix, sub_id); // Mix sub prefix and sub ID. Thanks to planetnine
+    
+      msg_s(sub_string);
+
+      value = #name; // This add quotes before and after the name. Manually deleting these in the .rpp file is required.
+
+      msg_tvoldi("      |", value, "%s", 0, 1, 1);
+      msg_s("    >");
+    );
+    
+    i += 1;
+  );
+
+  // MARKERS LOOP
+  i = 0;
+
+  while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number) > 0) (
+    // This action below may be required for debugging
+    //msg_d(is_region);
+    //msg_f(pos);
+    //msg_f(rgn_end);    
+      
+    is_region != 1 ? (
+      sub_id = markrgn_index_number; // SWS markers Subtitles ID start at 0
+
+      sub_string = sprintf(#dest, "%s%d", sub_prefix, sub_id); // Mix sub prefix and sub ID. Thanks to planetnine
+    
+      msg_s(sub_string);
+
+      value = #name; // This add quotes before and after the name. Manually deleting these in the .rpp file is required.
+    
+      msg_tvoldi("      |", value, "%s", 0, 1, 1);
+      msg_s("    >");
+    );
+    i += 1;
+  );  
+);
+
+
+// MANY THANKS TO HEDA! YOU ROCK!!
+function opengui() 
+(
+
+// text in the UI
+	gfx_x = 20;
+	gfx_y = 10;
+	gfx_drawstr("==== INSTRUCTIONS ====");
+	
+	gfx_x = 20;
+	gfx_y = 25;
+	gfx_drawstr("0. Execute the script");
+
+	gfx_x = 20;
+	gfx_y = 40;
+	gfx_drawstr("1. Select all console log");
+
+	gfx_x = 20;
+	gfx_y = 55;
+	gfx_drawstr("2. Copy console log (Righ click/copy)");
+
+	gfx_x = 20;
+	gfx_y = 70;
+	gfx_drawstr("3. Save and close the project");
+
+	gfx_x = 20;
+	gfx_y = 85;
+	gfx_drawstr("4. Open the project in a code editor");
+
+	gfx_x = 20;
+	gfx_y = 100;
+	gfx_drawstr("5. Find <EXTENSIONS at the bottom");
+
+	gfx_x = 20;
+	gfx_y = 115;
+	gfx_drawstr("6. Paste the console log after it and save");
+
+	gfx_x = 20;
+	gfx_y = 130;
+	gfx_drawstr("7. Open project in REAPER");	
+
+	gfx_x = 20;
+	gfx_y = 145;
+	gfx_drawstr("8. Enjoy!");	
+
+	//------- 
+	char = gfx_getchar();
+	// ctrl+lmb to Undo
+	char == 26 ? (
+	Main_OnCommand(40029, 0); // undo
+	);
+	// Esc to exit
+	char == 27 ? (
+	gfx_quit();
+	);
+	char >= 0 ? (					// if window is visible
+	defer("opengui();");		// execute loop constantly
+	);	
+	gfx_update();
+	
+);
+
+
+gfx_init("Create subtitles from regions and markers names", 420,200); // open window 
+opengui();
+
+create_subtitles_from_regions_names();

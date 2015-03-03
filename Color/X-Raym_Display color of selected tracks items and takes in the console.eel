@@ -1,0 +1,139 @@
+/**
+ * Display selected tracks and takes color in the console
+ * EEL Script for Reaper
+ * Displays tracks and takes color in RGB and HEX values in the console.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts/Display selected tracks and takes color in the console.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Display selected tracks and takes color in the console
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1480557#post1480557
+ * Version: 1.0
+ * Version Date: 2015-15-02
+ * REAPER: 4.76
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-15-02)
+	+ Initial Release
+ */
+
+/**
+ * Many thanks to the generous spk77 for helping me with RGB and HEX values convertion!
+ * http://forum.cockos.com/showpost.php?p=1479982&postcount=13
+ */
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function main() local (i, j)
+(
+
+	// SELECTED ITEMS LOOP
+	countItems = CountSelectedMediaItems(0);
+	countTracks = CountSelectedTracks(0);
+
+	countItems > 0 ? (
+		msg_tvoldi("SELECTED ITEMS = ", countItems, "%d", 0, debug, 1);
+	);
+
+	msg_s("==========");
+
+	i = 0;
+	loop(countItems,
+		(item = GetSelectedMediaItem(0, i)) ? (
+			(take = GetActiveTake(item)) ? (
+					GetTakeName(#retval, take);
+					msg_tvold("Take name:", #retval, "%s", 0, debug);
+					track = GetMediaItemTake_Track(take);// get track color
+					trackNumber = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
+					msg_tvold("On track number:", trackNumber, "%d", 0, debug);
+					itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
+					msg_tvold("At position:", itemPosition, "%f", 1, debug);
+					takeColor_int = GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")|16777216;
+
+					takeColor_int === 0 ? ( // if the item has no color...
+						takeColor_int = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR"); // ... then take the track color
+						msg_tvold("Take color (from track) int:", takeColor_int, "%d", 1, debug);
+					):(
+						msg_tvold("Take color int:", takeColor_int, "%d", 1, debug);
+					);
+
+					R = takeColor_int & 255;
+					G = (takeColor_int >> 8) & 255;
+					B = (takeColor_int >> 16) & 255;
+
+					msg_s("RGB");
+					ShowConsoleMsg(sprintf(#,"R: %d\n", R));
+					ShowConsoleMsg(sprintf(#,"G: %d\n", G));
+					ShowConsoleMsg(sprintf(#,"B: %d\n", B));
+					msg_s("---");
+
+					msg_s("HEX");
+					ShowConsoleMsg(sprintf(#,"%02x", R));
+					ShowConsoleMsg(sprintf(#,"%02x", G));
+					ShowConsoleMsg(sprintf(#,"%02x", B));
+
+					msg_s("\n\n\n=====");
+				);
+			);
+		i += 1;
+	);
+		
+	// SELECTED TRACKS LOOP
+	countTracks > 0 ? (
+		msg_s("==========");
+		msg_tvoldi("SELECTED TRACKS = ", countTracks, "%d", 1, debug, 1);
+	);
+
+	j = 0;
+	loop(countTracks, 
+			(track = GetSelectedTrack(0, j)) ? (
+				GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
+				msg_tvold("Track name:", #stringNeedBig, "%s", 0, debug);
+				trackNumber = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
+				msg_tvold("Track number:", trackNumber, "%d", 1, debug);
+				trackColor_int = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR")|16777216;
+				msg_tvold("Track color:", trackColor_int, "%d", 1, debug);
+
+				R = trackColor_int & 255;
+				G = (trackColor_int >> 8) & 255;
+				B = (trackColor_int >> 16) & 255;
+
+				msg_s("RGB");
+				ShowConsoleMsg(sprintf(#,"R: %d\n", R));
+				ShowConsoleMsg(sprintf(#,"G: %d\n", G));
+				ShowConsoleMsg(sprintf(#,"B: %d\n", B));
+				msg_s("---");
+
+				msg_s("HEX");
+				ShowConsoleMsg(sprintf(#,"%02x", R));
+				ShowConsoleMsg(sprintf(#,"%02x", G));
+				ShowConsoleMsg(sprintf(#,"%02x", B));
+
+				msg_s("\n\n\n=====");
+			);
+		j += 1;
+	);
+
+	countItems == 0 && countTracks == 0 ? (
+		msg_s("No item or track selected");
+	);
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

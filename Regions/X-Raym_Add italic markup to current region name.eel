@@ -1,0 +1,47 @@
+// Add italic markup to current region name
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 13-01-2015
+
+// Version : 1.1
+// Version Date : 19-01-2015
+// Required : Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function add_musical_notes_to_region()
+(
+	msg_s("=====>");
+	msg_s("INSTRUCTIONS : Be sure to have the cursor inside a region.");
+	msg_s("-----");
+
+	time = GetCursorPosition();
+	msg_s("Cursor Position:");
+	msg_f(time);
+	msg_s("-----");
+
+	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
+	EnumProjectMarkers(regionidxOut, isRegion_b, currentRegionStart_d, currentRegionEnd_d, #name_str, currentRegionID_int);
+	currentRegionName = #name_str;
+	currentRegionName_str = sprintf(#dest3, "%s", currentRegionName);
+
+	italicStart = "<i>";
+	italicEnd = "</i>";
+	merged_name = sprintf(#dest, "%s%s%s", italicStart, currentRegionName_str, italicEnd);
+
+	SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, currentRegionEnd_d, merged_name);
+
+);
+
+add_musical_notes_to_region();

@@ -1,0 +1,296 @@
+// Show console messages
+// EEL Script for Reaper
+// Author : X-Raym
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 12-01-2015
+
+// Version : 1.7
+// Version Date : 02-02-2015
+// Required : Reaper 4.76
+
+// From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
+// http://forum.cockos.com/showthread.php?t=136047
+// Based on spk77's source
+
+// X-Raym contribution for conditional debugging, stard, end and text/line functions,
+// Add the next block comment at the begining of your script file, if you not use X-Raym's template:
+
+/*
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+*/
+
+// Strings
+function msg_s(variable)
+(
+	debug === 1 ? (
+		strlen(variable) > 0 ? (
+			ShowConsoleMsg(variable);
+			ShowConsoleMsg("\n");
+		):(
+			ShowConsoleMsg("ERROR : Empty String");
+			ShowConsoleMsg("\n");
+		);
+	);
+);
+
+// Strings with text and lines
+function msg_stl(text,variable,line)
+(
+	debug === 1 ? (
+		strlen(text) > 0 ? (
+			msg_s(text);
+		);
+		strlen(variable) > 0 ? (
+			ShowConsoleMsg(variable);
+		):(
+			ShowConsoleMsg("ERROR : Empty String");
+		);
+		line === 0 ?(
+			ShowConsoleMsg("\n");
+		):(
+			ShowConsoleMsg("\n-----\n");
+		);
+	);
+);
+
+// Double
+function msg_d(variable)
+(
+	debug === 1 ? (
+		sprintf(str, "%d", variable);
+		ShowConsoleMsg(str);
+		ShowConsoleMsg("\n");
+	);
+);
+
+// Double with text and lines
+function msg_dtl(text,variable,line)
+(
+	debug === 1 ? (
+		strlen(text) > 0 ? (
+			msg_s(text);
+		);
+		sprintf(str, "%d", variable);
+		ShowConsoleMsg(str);
+		line === 0 ?(
+			ShowConsoleMsg("\n");
+		):(
+			ShowConsoleMsg("\n-----\n");
+		);
+	);
+);
+
+// Float
+function msg_f(variable)
+(
+	debug === 1 ? (
+		sprintf(str, "%f", variable);
+		ShowConsoleMsg(str);
+		ShowConsoleMsg("\n");
+	);
+);
+
+// Float with text and lines
+function msg_ftl(text,variable,line)
+(
+	debug === 1 ? (
+		strlen(text) > 0 ? (
+			msg_s(text);
+		);
+		sprintf(str, "%f", variable);
+		ShowConsoleMsg(str);
+		line === 0 ?(
+			ShowConsoleMsg("\n");
+		):(
+			ShowConsoleMsg("\n-----\n");
+		);
+	);
+);
+
+
+// Clean
+function msg_clean()
+(	
+	//debug === 1 ? (
+		clean === 1 ? (
+			ShowConsoleMsg("");
+		);
+	//);
+);
+
+// Start
+function msg_start()
+(
+	debug === 1 ? (
+		ShowConsoleMsg("▼▼▼▼▼");
+		ShowConsoleMsg("\n");
+	);
+);
+
+// End
+function msg_end()
+(
+	debug === 1 ? (
+		ShowConsoleMsg("▲▲▲▲▲");
+		ShowConsoleMsg("\n"); // In case of clean = 0;
+	);
+);
+
+// MULTI-PURPOSE FUNCTION
+// Text is string
+// Variable is your variable
+// Output format are string "%s", integer "%d", and floating point "%f"
+// Debug value can be overide localy with 0 and 1.
+// Line is bolean
+//
+// Example:
+// msg_tvold("My variable", variableString, "%s", 1, debug)
+// will ouput in the console :
+//
+// My variable
+// *value of variableString* formated into string
+// -----
+// Only if global debug is set to 1 in file header.
+//
+// All variables can be set to 0
+function msg_tvold(text,variable,output,line,debug)
+(
+	
+	// STORE GLOBAL DEBUG STATE
+	debugInit = debug;
+	
+	debug === 1 ? (
+
+		// CHECK TEXT
+		strlen(text) > 0 ? (
+			ShowConsoleMsg(text);
+			ShowConsoleMsg("\n");
+		):(
+			ShowConsoleMsg("ERROR : Empty String");
+			ShowConsoleMsg("\n");
+		);
+
+		// OUTPUT FLOAT
+		strcmp("%f",output) === 0 ? (
+			sprintf(str, "%f", variable);
+			ShowConsoleMsg(str);
+		);
+
+			// OUTPUT DECIMAL
+		strcmp("%d",output) === 0 ? (
+			sprintf(str, "%d", variable);
+			ShowConsoleMsg(str);
+		);
+
+		strcmp("%x",output) === 0 ? (
+			sprintf(str, "%x", variable);
+			ShowConsoleMsg(str);
+		);
+
+			// OUTPUT STRING
+		output === "%s" ? (
+			strlen(variable) > 0 ? (
+				ShowConsoleMsg(variable);
+			):(
+				ShowConsoleMsg("EMPTY STRING");
+			);
+		);
+		
+		// OUTPUT LINE
+		line === 0 ? (
+			ShowConsoleMsg("\n");
+			):(
+			ShowConsoleMsg("\n-----\n");
+		);
+	
+	);
+
+	// RESTORE PREVIOUS GLOBAL DEBUG
+	debug = debugInit;
+);
+
+function msg_tvoldi(text,variable,output,line,debug,inline)
+(
+	
+	// STORE GLOBAL DEBUG STATE
+	debugInit = debug;
+	
+	debug === 1 ? (
+
+		// CHECK TEXT
+		strlen(text) > 0 ? (
+			ShowConsoleMsg(text);
+				inline === 0 ? (
+					ShowConsoleMsg("\n");
+				);
+			):(
+				ShowConsoleMsg("ERROR : Empty String");
+				inline === 0 ? (
+					ShowConsoleMsg("\n");
+				);
+			);
+		
+		// OUTPUT FLOAT
+		strcmp("%f",output) === 0 ? (
+			sprintf(str, "%f", variable);
+			ShowConsoleMsg(str);
+		);
+
+			// OUTPUT DECIMAL
+		strcmp("%d",output) === 0 ? (
+			sprintf(str, "%d", variable);
+			ShowConsoleMsg(str);
+		);
+
+			// OUTPUT STRING
+		output === "%s" ? (
+			strlen(variable) > 0 ? (
+				ShowConsoleMsg(variable);
+			):(
+				ShowConsoleMsg("EMPTY STRING");
+			);
+		);
+		
+		// OUTPUT LINE
+		line === 0 ?(
+			ShowConsoleMsg("\n");
+			):(
+			ShowConsoleMsg("\n-----\n");
+		);
+	);
+
+	// RESTORE PREVIOUS GLOBAL DEBUG
+	debug = debugInit;
+);
+
+// Debug
+/*
+function main()(
+	debug = 1;
+	clean = 1;
+	msg_clean();
+	
+	string = "Sample text";
+	integer = 1;
+	float = 1.23456789;
+	
+	msg_tvold("String",string,"%s",0,debug);
+	msg_tvold("Integer",integer,"%d",0,debug);
+	msg_tvold("Float",float,"%f",0,debug);
+	
+	msg_tvoldi("String",string,"%s",0,debug,0);
+	msg_tvoldi("Integer",integer,"%d",0,debug,0);
+	msg_tvoldi("Float",float,"%f",0,debug,0);
+);
+
+main();
+*/

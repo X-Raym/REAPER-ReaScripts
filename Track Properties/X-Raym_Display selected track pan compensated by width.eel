@@ -1,0 +1,151 @@
+/**
+ * ReaScript Name: Display selected track pan compensated by width
+ * Description: Display selected track pan multiplied by width
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script: Display selected track pan compensated by width
+ * Forum Thread URl:
+ * Version: 0.9
+ * Version Date: 2015-02-18
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-02-18)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+// FROM SPK77 CLOCK.EEL
+// Initial values
+font_size = 40;
+font_name = "Arial";
+window_w = 300;
+window_h = 50;
+
+function adjust_font_size(mouse_wheel_val)
+(
+	mouse_wheel_val > 0 ? (
+	font_size < 80 ? (
+	 	font_size += 4;
+		);
+	);
+	mouse_wheel_val < 0 ? (
+	(font_size > 16 ) ? (
+		font_size -= 4;
+		);
+	);
+	gfx_setfont(1, font_name, font_size);
+	mouse_wheel = 0;
+);
+
+function init(window_w, window_h)
+(
+	gfx_init("Pan compensated by with" , window_w, window_h);
+	gfx_setfont(1, font_name, font_size, 'b');
+	gfx_a = 1; gfx_r = 1; gfx_g = 1; gfx_b = 1;
+);
+
+// THE FUNCITON
+function main() local (track)
+(
+	// GET TRACKS INFOS
+
+	// DUE TO GFX WINDOW LIMITATION, JUST GET FIRST SELECTED TRACK
+	selected_tracks_count = CountSelectedTracks(0);
+
+	track = GetSelectedTrack(0, 0);
+
+	pan_initial = GetMediaTrackInfo_Value(track, "D_PAN")*100;
+	
+	width = GetMediaTrackInfo_Value(track, "D_WIDTH")*100;
+	
+	pan_output = (pan_initial * width)/100;
+	
+	GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
+	name = #stringNeedBig;
+
+	number = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
+
+	gfx_x = 20;
+	gfx_y = 10;
+	gfx_drawstr("Track name:");
+
+	gfx_x = 150;
+	gfx_y = 10;
+	gfx_drawstr(name);
+
+	gfx_x = 20;
+	gfx_y = 25;
+	gfx_drawstr("Track index:");
+
+	gfx_x = 150;
+	gfx_y = 25;
+	gfx_printf("%d", number);
+
+	gfx_x = 20;
+	gfx_y = 40;
+	gfx_drawstr("Track pan:");
+
+	gfx_x = 150;
+	gfx_y = 40;
+	gfx_printf("%d", pan_initial);
+
+	gfx_x = 20;
+	gfx_y = 55;
+	gfx_drawstr("Track width:");
+
+	gfx_x = 150;
+	gfx_y = 55;
+	gfx_printf("%d", width);
+
+	gfx_x = 20;
+	gfx_y = 70;
+	gfx_drawstr("Compensated pan:");
+
+	gfx_x = 150;
+	gfx_y = 70;
+	gfx_printf("%d", pan_output);
+
+	//------- 
+	char = gfx_getchar();
+	// ctrl+lmb to Undo
+	char == 26 ? (
+	Main_OnCommand(40029, 0); // undo
+	);
+	// Esc to exit
+	char == 27 ? (
+	gfx_quit();
+	);
+	char >= 0 ? (					// if window is visible
+	defer("main();");		// execute loop constantly
+	);	
+	gfx_update();
+
+);
+
+gfx_init("Create subtitles from regions and markers names", 420,200); // open window 
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+//init(window_w, window_h); // INITIALIZE THE WINDOW
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.
+

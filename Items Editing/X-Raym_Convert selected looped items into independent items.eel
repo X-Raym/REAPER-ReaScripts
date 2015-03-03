@@ -1,0 +1,116 @@
+// Convert selected looped items into independent items
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 28-01-2015
+
+// Version : 1.0
+// Version Date : 28-01-2015
+// Required : Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+msg_start();
+// <==== DEBUGGING -----
+
+function convert_loop() local(i, item, j, k)
+(	
+	// PUT SELECTED ITEMS IN ARRAY
+	countSelectedMediaItem = CountSelectedMediaItems(0);
+	msg_dtl("Number of selected items", countSelectedMediaItem, 0);
+	
+	setSelectedMediaItem = 0; // memory address
+	setSelectedMediaItem_length = 0;
+	
+	// PUT SELECTED ITEMS IN ARRAY
+	i = 0;
+	msg_s("Item selection list");
+	loop(CountSelectedMediaItems(0),
+	(item = GetSelectedMediaItem(0, i)) ? (
+			setSelectedMediaItem[i] = item;
+			msg_d(setSelectedMediaItem[i]);
+			
+			setSelectedMediaItem_length += 1;
+		);
+		i += 1;
+	);
+	msg_s("-----");
+
+	j=0;
+	limit = countSelectedMediaItem + 1;// Why +1 ? don't know but seems to work
+	loop (limit, j ? (
+
+				// UNSELECT ALL ITEMS
+				Main_OnCommand(40289, 0);
+
+				// SET ITEM IN TABLE
+				SetMediaItemSelected(setSelectedMediaItem[j-1], 1);
+				msg_dtl("Selection",setSelectedMediaItem[j-1],1);
+				CurrItem = GetSelectedMediaItem(0, 0);
+				
+				// GET TRACK
+				track = GetMediaItem_Track(CurrItem);
+				msg_dtl("Track ID", track, 1);
+				Main_OnCommand(40318, 0);
+				SetMediaTrackInfo_Value(track, "I_SELECTED", 1);
+				SetOnlyTrackSelected(track);
+
+				// FIND ITEM LENGHT - LOOPS NUMBER - TAIL DURATION
+				itemDuration = GetMediaItemInfo_Value(CurrItem, "D_LENGTH");
+				itemDurationInitial = itemDuration;
+				msg_ftl("Item duration", itemDuration, 1);
+				Main_OnCommand(40612, 0); // Item to source lenght
+				Main_OnCommand(40698, 0); // Copy item
+				itemSourceDuration = GetMediaItemInfo_Value(CurrItem, "D_LENGTH");
+				msg_ftl("Item source duration", itemSourceDuration, 1);
+				
+				completeLoopsNumber = floor(itemDuration / itemSourceDuration) - 1;
+				msg_dtl("Complete loops number", completeLoopsNumber, 1);
+
+				totalLoopsDuration = completeLoopsNumber * itemSourceDuration + itemSourceDuration;
+				msg_ftl("Total completed loop duration", totalLoopsDuration, 1);
+				incompleteLoopsDuration = itemDurationInitial - totalLoopsDuration;
+				msg_ftl("Incomplete loop duration", incompleteLoopsDuration, 1);
+
+				//IF ITEM IS LOOPIN
+				completeLoopsNumber > 0 || incompleteLoopsDuration > 0 ? (
+				
+				// SET CURSOR POS
+				itemPosition = GetMediaItemInfo_Value(CurrItem, "D_POSITION");
+				cursorPosition = itemPosition + itemSourceDuration;
+				SetEditCurPos(cursorPosition, 0, 0);
+				
+				// APPLY ACTIONS
+				k = 0;
+				loop(completeLoopsNumber + 1, k ? (
+						Main_OnCommand(40058, 0); // Paste item
+					);
+					k += 1;
+					msg_d(k);
+				);
+				incompleteLoopsDuration > 0 ? (
+					Main_OnCommand(40058, 0); // Paste item
+					selitem = GetSelectedMediaItem(0, 0);
+					SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
+				);
+			);
+		);
+		j += 1;
+	);
+);
+
+PreventUIRefresh(1);
+Undo_BeginBlock(); 
+convert_loop();
+Undo_EndBlock("Convert selected looped items into independent items", 0);
+UpdateArrange();
+PreventUIRefresh(-1);
+msg_end();

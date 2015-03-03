@@ -11,6 +11,6 @@ FEATURE REQUEST
 auto load/delete scripts
 
 GET PARENT FOLDER
-eel and lua - cross platforms
+lua - cross platforms
 GET PARENT SUBFOLDER
-eel and lua - cros platforms
+lua - cros platforms

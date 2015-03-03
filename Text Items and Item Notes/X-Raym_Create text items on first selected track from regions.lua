@@ -44,7 +44,7 @@ clean = 0 -- 0 => No console cleaning before every script execution. 1 => Consol
 ]]-- <==== DEBUGGING -----
 
 -- From Heda's HeDa_SRT to text items.lua ====>
-dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
+--[[dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
 function dbug (text) 
 	if dbug_flag==1 then  
 		if text then
@@ -53,7 +53,7 @@ function dbug (text)
 			reaper.ShowConsoleMsg("nil")
 		end
 	end
-end
+end]]
 
 function CreateTextItem(starttime, endtime, notetext, color) 
 	--ref: Lua: number startOut retval, number endOut reaper.GetSet_LoopTimeRange(boolean isSet, boolean isLoop, number startOut, number endOut, boolean allowautoseek)
@@ -77,13 +77,13 @@ function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
 		-- there are notes already
 		chunk, note, chunk2 = s:match("(.*<NOTES\n)(.*)(\n>\nIMGRESOURCEFLAGS.*)")
 		newchunk = chunk .. newnote .. chunk2
-		dbug(newchunk .. "\n")
+		--dbug(newchunk .. "\n")
 		
 	else
 		--there are still no notes
 		chunk,chunk2 = s:match("(.*IID%s%d+)(.*)")
 		newchunk = chunk .. "\n<NOTES\n" .. newnote .. "\n>\nIMGRESOURCEFLAGS 0" .. chunk2
-		dbug(newchunk .. "\n")
+		--dbug(newchunk .. "\n")
 	end
 	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
 end

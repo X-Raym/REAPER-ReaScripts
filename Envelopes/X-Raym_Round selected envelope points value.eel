@@ -1,0 +1,133 @@
+/**
+ * ReaScript Name: Round selected envelope points value
+ * Description: It will behave differently, depending on the encelope type.
+ * Instructions: Use it.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: ReaScript: ReaScript: Round selected envelope points value
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487899#post1487899
+ * Version: 1.1
+ * Version Date: 2015-02-26
+ * REAPER: 5.0 pre 9
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.1 (2015-02-26)
+	+ Pitch envelope are rounded at 0.5
+	+ Mute envelope are rounded at 0 or 1
+ * v1.0 (2015-02-09)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function floorPoint (value, type)
+(
+	calc = 0;
+	stricmp("VOLUME", type) == 0 || stricmp("VOLUME (PRE-FX)", type) == 0 ? (
+			OldVol=value;
+			OldVolDB=20*(log10(OldVol));
+			
+			NewVolDB=floor(OldVolDB + 0.5);
+			calc=exp(NewVolDB*0.115129254);
+			): stricmp("MUTE", type) == 0 ? (
+					value < 0 ? (
+						calc = 0;
+						msg_s("Mute = 0");
+					);
+					value >= 1 ? (
+						calc = 1;
+						msg_s("Mute = 1");	
+					);
+					value < 0.5 ? (
+						calc = 0;
+						msg_s("Mute Floor < 0.5");	
+					);
+					value >= 0.5 ? (
+						calc = 1;
+						msg_s("0.5 <= Mute Floor");	
+					);
+
+				): stricmp("PITCH", type) == 0 ? (
+					value <= -3 ? (
+						calc = -3;
+						msg_s("Pitch <= -3");
+					);
+					value >= 3 ? (
+						calc = 3;
+						msg_s("Pitch <= +3");
+					);
+					value > -3 && calc < 3 ? (
+						calc = floor((value)+0.5);
+						msg_s("-3 < Pitch < 3");
+					);
+			):(
+			calc = floor((value)*20+0.5)/20;
+		);
+
+	calc;
+);
+
+function round_point_value() local (i)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	// GET SELECTED TRACK ?
+	envelope = GetSelectedEnvelope(0);
+	env_point_count = CountEnvelopePoints(envelope);
+
+	// GET ENVELOPE RANGE -- HERE IT IS
+	GetEnvelopeName(envelope, #buf);
+	match("%s", #buf, envelopeName);
+		
+	// VALUE
+	i = 0;
+	loop (env_point_count, i ? (
+			
+			// IDX 0 doesnt seem to work
+			GetEnvelopePoint(envelope, i, timeOutOptional, valueOut, shapeOutOptional, tensionOutOptional, selectedOut);
+			
+			selectedOut == 1 ? (
+
+				valueIn = floorPoint(valueOut, envelopeName);
+
+				timeInOptional = timeOutOptional;
+				shapeInOptional = shapeOutOptional;
+				tensionInOptional = tensionOutOptional;
+
+				// SET POINT VALUE
+				SetEnvelopePoint(envelope, i, timeInOptional, valueIn, shapeInOptional, tensionInOptional, 1, noSortInOptional);
+
+			);
+
+			
+		);
+
+		i += 1;
+	
+	);
+
+	Undo_EndBlock("Round selected envelope points value", 0); // End of the undo block. Leave it at the bottom of your main function.
+
+);
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+round_point_value(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

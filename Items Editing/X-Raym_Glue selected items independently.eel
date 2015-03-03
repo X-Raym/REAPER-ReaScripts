@@ -1,0 +1,135 @@
+// Glue selected items independently
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 26-01-2015
+
+// Version : 0.8
+// Version Date : 27-01-2015
+// Required : Reaper 4.76
+
+// Based on How do you glue/render items with ReaScript?
+// by FnA
+// href="http://forum.cockos.com/showthread.php?t=137357
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function glue_independently() local(i, item, j)
+(	
+	// BEGIN
+	Undo_BeginBlock();
+	countSelectedMediaItem = CountSelectedMediaItems(0);
+	msg_dtl("Nombre d'objet sélectionné", countSelectedMediaItem, 0);
+	
+	setSelectedMediaItem = 0; // memory address
+	setSelectedMediaItem_length = 0;
+	
+	// PUT SELECTED ITEMS IN ARRAY
+	i = 0;
+	msg_s("Item Selection List");
+	loop(CountSelectedMediaItems(0),
+	(item = GetSelectedMediaItem(0, i)) ? (
+			setSelectedMediaItem[i] = item;
+			msg_d(setSelectedMediaItem[i]);
+			
+			setSelectedMediaItem_length += 1;
+		);
+		i += 1;
+	);
+	msg_s("-----");
+
+	// LOOP THROUGH SELECTION
+	j=0;
+	limit = countSelectedMediaItem + 1;// Why +1 ? don't know but seems to work
+	loop (limit, j ? (
+			// CHECK THE LOOP
+			msg_d(j);
+
+			// UNSELECT ALL ITEMS
+			Main_OnCommand(40289, 0);
+		
+			msg_dtl("Selection",setSelectedMediaItem[j-1],1);// why -1 ? Don't know but seem to work
+			SetMediaItemSelected(setSelectedMediaItem[j-1], 1);
+
+			// GET ACTIVE TAKE
+			CurrItem = GetSelectedMediaItem(0, 0);
+			ATInt = GetMediaItemInfo_Value(CurrItem, "I_CURTAKE");
+			ActiveTake = GetMediaItemTake(CurrItem, ATInt);
+
+			// GET NAME
+			GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", #stringNeedBig, 0);
+			activeTake_name = #stringNeedBig;
+
+			// GET COLOR
+			TakeClr = GetMediaItemTakeInfo_Value(ActiveTake, "I_CUSTOMCOLOR");
+			TakeClr === 0 ?(
+				ItemClr = GetMediaItemInfo_Value(CurrItem, "I_CUSTOMCOLOR");
+				color = ItemClr;
+			):(
+				color = TakeClr;
+			);
+
+			// GET MUTED NOTE
+			/*MuteNoteL = 1000; // memory address
+			MuteNoteL_length = 0;
+			AAA = MIDI_CountEvts(ActiveTake, 1, 0, 0);
+			msg_dtl("Number of notes :", AAA, 1);
+
+			loop(AAA, k ? (
+					CN = 10000;
+					CN = MIDI_GetNote(ActiveTake,k+1,0,0,0,0,0,0,0);
+					CN[4] >= 1 ? (
+						MuteNoteL[k] = CN;
+						MuteNoteL_length += 1;
+						msg_dtl("MutedNote", CN, 1);
+					);
+				);
+				k += 1;
+			);*/
+
+			// GLUE WITHOUT TIME SELECTION
+			Main_OnCommand(40362, 0);
+
+			// RE ACTIVE TAKE
+			CurrItem = GetSelectedMediaItem(0, 0);
+			ATInt = GetMediaItemInfo_Value(CurrItem, "I_CURTAKE");
+			ActiveTake = GetMediaItemTake(CurrItem, ATInt);
+
+			// RE SET NAME
+			GetSetMediaItemTakeInfo_String(ActiveTake, "P_NAME", activeTake_name, 1);
+
+			// RE SET COLOR
+			SetMediaItemInfo_Value(CurrItem, "I_CUSTOMCOLOR", color);
+
+			// RE SET NOTE
+			/*loop(MuteNoteL_length, n ? (
+					a = MuteNoteL[n][3];
+					b = MuteNoteL[n][5];
+					c = MuteNoteL[n][6];
+					d = MuteNoteL[n][7];
+					e = MuteNoteL[n][8];
+					f = MuteNoteL[n][9];
+					MIDI_InsertNote(ActiveTake, a, 1, b, c, d, e, f);
+				);
+				n += 1;
+			);*/
+		);
+		j+=1;
+	);
+	// RSELECT ALL
+	//--------
+	Undo_EndBlock("Glue selected items independently", extraflags);
+);
+
+glue_independently();
+UpdateArrange();

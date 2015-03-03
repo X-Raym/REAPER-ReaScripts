@@ -1,0 +1,73 @@
+// Toggle FX except those with (ON) and (OFF) suffixes
+// EEL Script for Reaper
+// Author: X-Raym
+// Author URl: http://extremraym.com
+// Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence: GPL v3
+// Release Date: 12-02-2015
+// Forum Thread: EEL : Check for duplicate samples in audio items selection
+// Forum Thread URl: http://forum.cockos.com/
+
+// Version: 1.1
+// Version Date: 12-02-2015
+// Required: Reaper 4.60
+
+// Heavily based on the great Toggle FX by suffix by HeDa
+// http://forum.cockos.com/showthread.php?p=1472339
+
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING -----
+
+
+function ToggleFXbySuffix()
+(
+
+NumberTracks = CountTracks(0);
+
+i=0;
+loop (NumberTracks, 									// loop for all tracks
+	// BEGIN
+	Undo_BeginBlock();
+	////msg_d(i);
+		
+	tracki = GetTrack(0, i);							// which track
+	trackifxcount = TrackFX_GetCount(tracki);		// count number of FX instances on the track
+	
+	k=0;
+	loop (trackifxcount,								// loop for all FX instances on each track
+		TrackFX_GetFXName(tracki, k, #buf);		// get the name of the FX instance
+		////msg_s(trackfxiname_str);
+		match("*(ON)", #buf) == 0 && match("*(OFF)", #buf) == 0 ? (				// if the name doesn't have the suffix...
+			////msg_s("*** found FX to bypass ***");
+			TrackFX_GetEnabled(tracki, k) ? ( 		// FX is enabled.
+				TrackFX_SetEnabled(tracki, k, 0); 	// set FX to bypass 
+				////msg_s("** FX disabled **"); 
+
+			): (										// if not... 
+				TrackFX_SetEnabled(tracki, k, 1); 	//set FX to enabled 
+				////msg_s("** FX enabled **"); 
+			);	
+		);
+		k+=1;											
+	);
+	
+	i+=1;
+);
+
+	Undo_EndBlock("Toggle FX by suffix", 0);
+);
+
+
+////msg_start(); // Display characters in the console to show you the beginning of the script execution.
+
+ToggleFXbySuffix(); // Run Run run !!!!
+
+////msg_end(); // Display characters in the console to show you the end of the script execution.

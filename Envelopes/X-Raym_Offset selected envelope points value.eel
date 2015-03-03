@@ -1,0 +1,250 @@
+/**
+ * ReaScript Name: Offset selected envelope points value
+ * Description: A pop up to let you put offset values for selected item points. 
+ * Instructions: Write values you want. Don't use "+" sign. Don't use percentage. Example: writte "60" for 60%.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/blob/master/X-Raym_Offset%20selected%20envelope%20points%20value.eel
+ * Licence: GPL v3
+ * Forum Thread: ReaScript: Set/Offset selected envelope points values
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487882#post1487882
+ * Version: 1.0
+ * Version Date: 2015-02-26
+ * REAPER: 5.0 pre 9
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-02-26)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function set_point_value()
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	envelope = GetSelectedEnvelope(0);
+
+	env_point_count = CountEnvelopePoints(envelope);
+
+	#dialog_ret_vals = 0;
+	GetUserInputs("Set point value", 1, "Value ?", #dialog_ret_val); // We suppose that the user know the scale he want
+	match("%f", #dialog_ret_val, offset);
+	msg_ftl("User input", offset, 1);	
+
+	// GET ENVELOPE RANGE -- HERE IT IS
+	GetEnvelopeName(envelope, #buf);
+	match("%s", #buf, envelopeName);
+	msg_stl("Envelope name", envelopeName, 1);
+	
+	stricmp("VOLUME", envelopeName) == 0 || stricmp("VOLUME (Pre-FX)", envelopeName) == 0 ? (
+		already_set = 1;
+
+		i = 0;
+		loop (env_point_count, i ? (
+				
+				// IDX 0 doesnt seem to work
+				GetEnvelopePoint(envelope, i, time, valueOut, shape, tension, selectedOut);
+				
+				selectedOut == 1 ? (
+
+					time = time;
+					shape = shape;
+					tension = tension;
+
+					// CALC
+					OldVol=valueOut;
+					OldVolDB=20*(log10(OldVol));
+
+					msg_ftl("Old vol db:", OldVolDB, 1);
+
+					calc = OldVolDB+offset;
+					msg_ftl("Calc", calc, 1);
+
+					calc <= -146 ? (
+						valueIn = 0;
+						msg_s("VOLUME <= -146");
+					);
+					calc >= 6 ? (
+						valueIn = 2;
+						msg_s("+12 <= VOLUME");
+					);
+					calc < 6 && calc > -146 ? (
+						valueIn=exp(calc*0.115129254);
+						msg_s("-146 < VOLUME < +12");
+					);
+
+					//msg_ftl("Value ouput", valueIn, 1);
+					// SET POINT VALUE
+					SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional);
+				); // ENDIF point is selected
+			); // End inside Loop
+			i += 1;
+		); // END Loop
+	); // ENDIF VOLUME
+
+	stricmp("MUTE", envelopeName) == 0 ? (
+		already_set = 1;
+
+		i = 0;
+		loop (env_point_count, i ? (
+				
+				// IDX 0 doesnt seem to work
+				GetEnvelopePoint(envelope, i, time, valueOut, shape, tension, selectedOut);
+				
+				selectedOut == 1 ? (
+
+					// CALC
+					calc = valueOut + offset;
+
+					calc < 0 ? (
+						valueIn = 0;
+						msg_s("Mute = 0");
+					);
+					calc >= 1 ? (
+						valueIn = 1;
+						msg_s("Mute = 1");	
+					);
+					calc < 0.5 ? (
+						valueIn = 0;
+						msg_s("Mute Floor < 0.5");	
+					);
+					calc >= 0.5 ? (
+						valueIn = 1;
+						msg_s("0.5 <= Mute Floor");	
+					);
+
+					// SET POINT VALUE
+					SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional);
+				); // ENDIF point is selected
+			); // End inside Loop
+			i += 1;
+		); // END Loop
+	); // ENDIF Mute
+
+	stricmp("WIDTH", envelopeName) == 0 || stricmp("WIDTH (Pre-FX)", envelopeName) == 0 || stricmp("PAN", envelopeName) == 0 || stricmp("PAN (Pre-FX)", envelopeName) == 0 ? (
+		already_set = 1;
+
+		i = 0;
+		loop (env_point_count, i ? (
+				
+				// IDX 0 doesnt seem to work
+				GetEnvelopePoint(envelope, i, time, valueOut, shape, tension, selectedOut);
+				
+				selectedOut == 1 ? (
+
+					// CALC
+					calc = valueOut*100 - offset;
+
+					calc <= -100 ? (
+						valueIn = - 1.0;
+						msg_s("Pan/Width <= -100");
+					);
+					calc >= 100 ? (
+						valueIn = 1.0;
+						msg_s("Pan/Width >= 100");	
+					);
+					calc < 100 && calc > -100 ? (
+						valueIn = calc / 100;
+						msg_s("-100 < Pan/Width < 100");	
+					);
+					
+					// SET POINT VALUE
+					SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional);
+				); // ENDIF point is selected
+			); // End inside Loop
+			i += 1;
+		); // END Loop
+	); // ENDIF Pan or Width
+	
+	stricmp("PITCH", envelopeName) == 0 ? (
+		already_set = 1;
+
+		i = 0;
+		loop (env_point_count, i ? (
+				
+				// IDX 0 doesnt seem to work
+				GetEnvelopePoint(envelope, i, time, valueOut, shape, tension, selectedOut);
+				
+				selectedOut == 1 ? (
+
+					// CALC
+					calc = valueOut + offset;
+					msg_ftl("Old pitch:", valueOut, 1);
+					msg_ftl("New pitch (before floor):", calc, 1);
+
+					calc <= -3 ? (
+						valueIn = -3;
+						msg_s("Pitch <= -3");
+					);
+					calc >= 3 ? (
+						valueIn = 3;
+						msg_s("Pitch <= +3");
+					);
+					calc > -3 && calc < 3 ? (
+						valueIn = floor((calc)*20+0.5)/20;
+						msg_s("-3 < Pitch < 3");
+					);
+					
+					// SET POINT VALUE
+					SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional);
+				); // ENDIF point is selected
+			); // End inside Loop
+			i += 1;
+		); // END Loop
+	); // ENDIF Pan or Width
+
+	already_set === 0 ? ( // IF ENVELOPE HAS NO NAME PAS ICI LA BOUCL !!
+		i = 0;
+		loop (env_point_count, i ? (
+				
+				// IDX 0 doesnt seem to work
+				GetEnvelopePoint(envelope, i, time, valueOut, shape, tension, selectedOut);
+				
+				selectedOut == 1 ? (
+
+					// CALC
+					calc = valueOut*100 + offset;
+					
+					calc <= 0 ? (
+						valueIn = 0;
+						msg_s("FX <= 0");	
+					);
+					calc >= 100 ? (
+						valueIn = 1.0;
+						msg_s("100 <= FX");
+					);
+					calc < 100 && calc > -100 ? (
+						valueIn = calc / 100;
+						msg_s("0 < FX < 100");	
+					);
+					// SET POINT VALUE
+					SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional);
+				); // ENDIF point is selected
+			); // End inside Loop
+			i += 1;
+		); // END Loop
+	); // ENDIF Fx
+
+	Undo_EndBlock("Offset selected envelope point value", 0); // End of the undo block. Leave it at the bottom of your main function.
+); // END OF FUNCTION
+
+msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+set_point_value(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+msg_end(); // Display characters in the console to show you the end of the script execution.

@@ -1,0 +1,75 @@
+// Made by spk77
+// Mod by X-Raym
+function scale_x_to_slider_val(range_start, range_end, x_coord, x_start_offs, x_end_offs) local (scaled_x)
+(
+  scaled_x = range_start + (range_end - range_start) * (x_coord - x_start_offs) / (gfx_w - x_end_offs - x_start_offs);
+  scaled_x > range_end ? scaled_x = range_end;
+  scaled_x < range_start ? scaled_x = range_start;
+  scaled_x;
+);
+
+function scale_slider_val_to_x(range_start, range_end, slider_val, x_start_offs, x_end_offs) local (x)
+(
+  x = x_start_offs + (slider_val - range_start) * (x_end_offs - x_start_offs) / (range_end - range_start);
+);
+
+function slider(x_pos, y_pos, radius, val, range_start, range_end, slider_w, slider_id) local (m_x, s_w, s_h)
+(
+  mouse_cap == 0 ? clicked_outside = 0; this.drag_started == 0;
+  mouse_cap > 0 && (mouse_x < 0 || mouse_x > gfx_w || mouse_y > gfx_h || mouse_y < 0) ? clicked_outside = 1;
+
+  this.x_pos = x_pos;
+  this.y_pos = y_pos;
+  this.radius = radius;
+  this.val = max(min(val, range_end), range_start);
+  this.range_start = range_start;
+  this.range_end = range_end;
+  this.slider_w = slider_w;
+  this.slider_id = slider_id;
+ 
+  m_x = mouse_x;
+ 
+  gfx_a = 0.7;
+  gfx_r = 0.8;
+  gfx_g = 0.8;
+  gfx_b = 0.8;
+  
+  clicked_outside == 0 && lmb_down == 0 && (mouse_x >= this.x_pos - this.radius && mouse_x <= this.slider_w &&  mouse_y >= this.y_pos - this.radius && mouse_y <= this.y_pos + this.radius)
+  || this.drag_started == 1 ? (
+    last_slider_id = this.slider_id;
+    gfx_a = 0.9;
+    gfx_b += 0.1;
+    this.fill = 1;
+    mouse_cap == 1 ? (
+      gfx_a = 1;
+      this.drag_started = 1;
+      lmb_down = 1;
+      //gfx_b += 0.2;
+      mouse_x > this.slider_w ? m_x = this.slider_w;
+      mouse_x < this.x_pos ? m_x = this.x_pos;
+      this.val = scale_x_to_slider_val(this.range_start, this.range_end, m_x, this.x_pos, gfx_w - this.slider_w);
+      
+      slider_last_x = m_x;
+    ) : (
+      this.fill = 0;
+      this.drag_started = 0;
+      lmb_down = 0;
+    );
+  );
+
+  this.x_coord = scale_slider_val_to_x(this.range_start, this.range_end, this.val, this.x_pos, this.slider_w);
+  this.x_coord < this.x_pos ? x_coord = this.x_pos;
+  this.x_coord > this.slider_w ? x_coord = this.slider_w;
+  
+  gfx_roundrect(this.x_pos - this.radius, this.y_pos - this.radius, this.slider_w - this.x_pos + 2 * this.radius, 2 * this.radius, this.radius);
+  gfx_circle(this.x_coord, this.y_pos, this.radius, this.fill);
+  
+  //gfx_measurestr(sprintf(slider_val_str, "%0.1f", this.val), s_w, s_h);
+  gfx_measurestr(sprintf(slider_val_str, "%d", this.val), s_w, s_h);
+  gfx_a = 1;
+  gfx_x = this.x_coord - 0.5 * this.radius - 0.5 * s_w;
+  gfx_y = this.y_pos - this.radius - gfx_texth;
+  gfx_printf(slider_val_str);
+ 
+  this.val;
+);

@@ -1,0 +1,102 @@
+// Merge overlapping regions with same name
+// EEL Script for Reaper
+// Author : X-Raym
+// Author URl : http://extremraym.com
+// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
+// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
+// Licence : GPL v3
+// Release Date : 03-01-2015
+
+// Version : 1.1
+// Version Date : 27-01-2015
+// Required : Reaper 4.76
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function merge_overlapping_regions()
+(
+
+	i = 0;
+	
+	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
+	regions_number_before = num_regionsOut;
+
+	merged_regions_total = 0;
+
+	msg_s("=====>");
+	msg_s("INSTRUCTIONS : Execute the action several times until the number of regions which have been merge become 0.");
+	msg_s("BEWARE : If you have regions subtitles, you will have to re-generate them!");
+	msg_s("-----");
+
+	// EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
+	while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number)) (    
+
+	region_start = pos;
+	region_end = rgn_end;
+	region_id = markrgn_index_number;
+		
+	region_name = #name;
+	region_name_string = sprintf(#dest, "%s", region_name);
+
+	compare_name = strcmp(region_name_string, region_name_previous_string);
+
+	// If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
+		region_start < region_end_previous ? (
+			compare_name === 0 ? (
+
+				//Here you can add infos about deleted regions.
+				//msg_s("Deleted regions:");
+				//msg_s(#name);
+				//msg_d(markrgn_index_number);
+				//msg_d(is_region);
+				//msg_f(pos);
+				//msg_f(rgn_end);
+				//msg_s("-----");
+
+				SetProjectMarker(region_previous_id, 1, region_start_previous, region_end, region_name_previous_string);
+				DeleteProjectMarker(NULL, region_id, 1);
+		
+				merged_regions_total += 1;
+
+		);
+
+	);
+
+		region_start_previous = pos;
+		region_end_previous = rgn_end;
+		region_name_previous = #name;
+		region_name_previous_string = sprintf(#dest2, "%s", region_name_previous);
+		region_previous_id = markrgn_index_number;
+
+		i += 1;
+
+	);
+
+	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
+	regions_number_after = num_regionsOut;
+	
+	msg_s("Regions before the script:");
+	msg_d(regions_number_before);
+	msg_s("Regions after the script:");
+	msg_d(regions_number_after);
+	msg_s("Total of regions which have been merged:");
+	msg_d(merged_regions_total);
+	
+	merged_regions_total > 0 ? (
+		msg_s("Please execute the script again.");
+	):(
+		msg_s("You can close the console.");
+	);
+	
+	msg_s("<=====\n");
+
+);
+
+merge_overlapping_regions();

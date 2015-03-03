@@ -1,0 +1,52 @@
+/*title = "Load Window Screenset";
+num_inputs = 1;
+captions = "Screenset (1-10):";
+#dialog_ret_vals = "";
+
+function dialog()
+(
+  GetUserInputs(title, num_inputs, captions, #dialog_ret_vals);
+);
+
+function main()
+(
+  dialog() ? (
+    match("%i", #dialog_ret_vals, retval);
+    retval != 0 ? (
+      retval < 11 ? (
+        command = (retval + 40453);
+        Main_OnCommandEx(command, 0, 0);
+      );
+    );
+  );
+);
+
+main()*/
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+// dialog with 3 inputs
+function dialog()
+(
+  #dialog_ret_vals = "5,10,some text"; //default values
+  GetUserInputs("Parameters", 3, "Color from Track ? 1 = yes,Name with Track Name ?", #dialog_ret_vals);
+);
+
+function main()
+(
+  dialog() ? (
+    // convert first and second values to int and store to "input1_val", "input2_val"
+    match("%d,%d,%s", #dialog_ret_vals, input1_val, input2_val);
+    msg_d(input1_val); // print int value
+    msg_d(input2_val); // print int value
+  );
+);
+
+main()
