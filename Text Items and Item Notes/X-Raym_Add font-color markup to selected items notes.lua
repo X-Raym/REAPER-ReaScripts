@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Add font-color markup to selected items notes
  * Description: Add font-color markup to selected items notes, based on actual item color
- * Instructions: Here is how to use it. (optional)
+ * Instructions: Select an item. Use it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -96,14 +96,20 @@ function musical() -- local (i, j, item, take, track)
 			G = (color_int >> 8) & 255
 			B = (color_int >> 16) & 255
 			color_hex = string.format("%02x", R) .. string.format("%02x", G) .. string.format("%02x", B)
-			note = "|<font-color='#" .. color_hex .. "'>" .. note .. "</font-color>"
+			--[[if string.find(note, "<font-color='#[%02x]+") then
+			string.gsub
+				note = "|YES"
+				reaper.ShowConsoleMsg("YES")
+			else]]
+				note = "|<font-color='#" .. color_hex .. "'>" .. note .. "</font-color>"
+			--end
 			-- SET NOTES
 			HeDaSetNote(item, note)
 		end
 
 	end -- ENDLOOP through selected items
 	
-	reaper.Undo_EndBlock("Add musical notes to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Add font-color markup to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
