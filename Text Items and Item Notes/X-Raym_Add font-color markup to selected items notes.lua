@@ -72,7 +72,7 @@ function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
 end
 -- <==== From Heda's HeDa_SRT to text items.lua 
 
-function musical() -- local (i, j, item, take, track)
+function fontColor() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -121,7 +121,7 @@ end
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
 
-musical() -- Execute your main function
+fontColor() -- Execute your main function
 
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position
