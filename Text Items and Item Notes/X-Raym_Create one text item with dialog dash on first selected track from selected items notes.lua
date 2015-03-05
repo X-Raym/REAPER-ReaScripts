@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: X-Raym_Create one text item with dialog dash from selected items notes
+ * ReaScript Name: X-Raym_Create one text item with dialog dash on first selected trackfrom selected items notes
  * Description: This was created as a "glue empty items concatenating their notes and adding dialog dash", but this version works with a destination track, all kind of items, and preserve original selection
  * Instructions: Select a destination track. Select items. Execute. You can use it in Custom Action with the Delete selected items action.
  * Author: X-Raym

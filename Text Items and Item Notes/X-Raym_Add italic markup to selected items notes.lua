@@ -13,7 +13,7 @@
  * Version: 1.0
  * Version Date: 2015-03-03
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.0 (optional)
+ * Extensions: SWS/S&M 2.6.2
  --]]
  
 --[[
