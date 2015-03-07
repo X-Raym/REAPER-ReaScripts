@@ -10,14 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.1
- * Version Date: 2015-03-06
+ * Version: 1.2
+ * Version Date: 2015-03-07
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0 (optional)
  --]]
  
 --[[
  * Changelog:
+ * v1.2 (2015-03-07)
+	+ bug-fix
  * v1.1 (2015-03-06)
 	+ Multiple lines support
 	+ Dialog box if no track selected
@@ -146,19 +148,16 @@ function main()
 				item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 				item_end = item_start + item_duration
 
-				-- DEBUG
-				--msg_s("itemName")
-				--msg_s(take_name)
-				--msg_s("item_start")
-				--msg_f(item_start)
-				--msg_s("item_end")
-				--msg_f(item_end)
-				--msg_s("color")
-				--msg_d(item_color)
-
-				-- ACTION
-				CreateTextItem(item_start, item_end, text, item_color)
-
+				take = reaper.GetActiveTake(item)
+				
+				-- NAME
+				take = reaper.GetActiveTake(item) -- Get the active take !! BUG WITH EMPTY ITEM SELECTED
+				if take ~= nil then
+					text = reaper.GetTakeName(take)
+					CreateTextItem(item_start, item_end, text, item_color)
+				--[[else
+					text = reaper.ULT_GetMediaItemNote(item)]]
+				end
 			end -- ENDLOOP through selected items
 			reaper.Main_OnCommand(40421, 0)
 			reaper.Undo_EndBlock("Create text items on selected track from selected takes", 0) -- End of the undo block. Leave it at the bottom of your main function.
