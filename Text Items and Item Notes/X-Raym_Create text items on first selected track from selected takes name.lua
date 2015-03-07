@@ -170,17 +170,17 @@ function main()
 end
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
-
+reaper.PreventUIRefresh(1)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
-reaper.PreventUIRefresh(1)
+
 
 main() -- Execute your main function
 
-reaper.PreventUIRefresh(-1)
+
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTOREVIEWS5"), 0)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0)
-
+reaper.PreventUIRefresh(-1)
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
