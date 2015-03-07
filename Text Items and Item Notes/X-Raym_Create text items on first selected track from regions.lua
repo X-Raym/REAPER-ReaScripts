@@ -96,21 +96,24 @@ function main() -- local (i, j, item, take, track)
 
 	track = reaper.GetSelectedTrack(0, 0) -- Get selected track i
 
-	-- LOOP THROUGH REGIONS
+	-- IF THERE IS A TRACK SELECTED
+	if track ~= nil then
 	
-	i=0
-	repeat
-		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOut = reaper.EnumProjectMarkers3(0, i)
-		if iRetval >= 1 then
-			if bIsrgnOut == true then
-				CreateTextItem(iPosOut, iRgnendOut, sNameOut, iColorOut)
+		-- LOOP THROUGH REGIONS
+		i=0
+		repeat
+			iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOut = reaper.EnumProjectMarkers3(0, i)
+			if iRetval >= 1 then
+				if bIsrgnOut == true then
+					CreateTextItem(iPosOut, iRgnendOut, sNameOut, iColorOut)
+				end
+				i = i+1
 			end
-			i = i+1
-		end
-	until iRetval == 0
-	
-
-	reaper.Undo_EndBlock("My action", 0) -- End of the undo block. Leave it at the bottom of your main function.
+		until iRetval == 0
+		reaper.Undo_EndBlock("My action", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	else -- no selected track
+		reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
+	end
 
 end
 

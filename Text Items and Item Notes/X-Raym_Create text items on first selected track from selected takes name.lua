@@ -10,14 +10,17 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 0.9
- * Version Date: 2015-02-28
+ * Version: 1.1
+ * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0 (optional)
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-03-06)
+	+ Multiple lines support
+	+ Dialog box if no track selected
  * v1.0 (2015-02-28)
 	+ Initial Release
  --]]
@@ -65,7 +68,24 @@ function CreateTextItem(starttime, endtime, notetext, color)
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
 end
 
+function rtrim(s)
+	local n = #s
+	while n > 0 and s:find("^|", n) do n = n - 1 end
+	return s:sub(1, n)
+end
+
+function string.ends(String,End)
+	return End=='' or string.sub(String,-string.len(End))==End
+end
+
 function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
+	-- X-Raym: prevent multiple lines note break and trim any trailing last empty line
+	newnote = newnote:gsub("\n", "\n|")
+	last_char = string.sub(newnote, -1)
+	if last_char == "|" then
+		newnote = rtrim(newnote)
+	end
+	
 	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
 	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
 	--dbug("\nChunk=" .. s .. "\n")
@@ -119,22 +139,6 @@ function main()
 				track = reaper.GetMediaItem_Track(item)
 				
 				-- GET INFOS
-
-				-- NAME
-				take = reaper.GetActiveTake(item) -- Get the active take !! BUG WITH EMPTY ITEM SELECTED
-				if take ~= 0 then
-					text = reaper.GetTakeName(take)
-				else
-					text = reaper.ULT_GetMediaItemNote(item)
-				end
-				-- COLOR
-				--[[take_color = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
-				if take_color == 0 then -- if the item has no color...
-					take_color = reaper.GetMediaItemInfo_Value(item, "I_CUSTOMCOLOR")
-					if take_color == 0 then
-						take_color = reaper.GetTrackColor(track) -- ... then take the track color
-					end
-				end]]
 				item_color = reaper.GetDisplayedMediaItemColor(item)
 					
 				-- TIMES
@@ -159,10 +163,10 @@ function main()
 			reaper.Main_OnCommand(40421, 0)
 			reaper.Undo_EndBlock("Create text items on selected track from selected takes", 0) -- End of the undo block. Leave it at the bottom of your main function.
 		else -- no selected item
-			--msg_s("Please select at least one item")
+			reaper.ShowMessageBox("Select at least one item","Please",0)
 		end -- if select item
 	else -- no selected track
-		--msg_s("Please select a destination track")
+		reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
 	end -- if selected track
 end
 

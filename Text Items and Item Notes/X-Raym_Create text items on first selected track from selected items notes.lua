@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Create one text item on first selected track from selected items notes
- * Description: This was created as a "glue empty items concatenating their notes", but this version works with a destination track, all kind of items, and preserve original selection
- * Instructions: Select a destination track. Select items. Execute. You can use it in Custom Action with the Delete selected items action.
+ * ReaScript Name: Create text items on first selected track from selected items notes
+ * Description: Create text items on first selected track from selected items notes
+ * Instructions:  Select items. Select a destination track. Execute the script. Text items will be colored depending on original take color, or track color from item if no take color is set. The text note will came from the original take name.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -13,15 +13,15 @@
  * Version: 1.1
  * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.0 (optional)
+ * Extensions: SWS/S&M 2.6.2
  --]]
  
 --[[
  * Changelog:
  * v1.1 (2015-03-06)
-	+ Multi lines support
-	+ Item selection accross multiple tracks
- * v1.0 (2015-03-02)
+	+ Multiple lines support
+	+ Dialog box if no track selected
+ * v1.0 (2015-02-28)
 	+ Initial Release
  --]]
 
@@ -36,8 +36,8 @@ end
 package.path = package.path .. ";" .. get_script_path() .. "?.lua"
 require("X-Raym_Functions - console debug messages")
 
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+debug = 0 -- 0 => No console. 1 => Display console messages for debugging.
+clean = 0 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean()
 ]]-- <==== DEBUGGING -----
@@ -55,13 +55,14 @@ function dbug (text)
 	end
 end]]
 
-function CreateTextItem(starttime, endtime, notetext) 
+function CreateTextItem(starttime, endtime, notetext, color) 
 	--ref: Lua: number startOut retval, number endOut reaper.GetSet_LoopTimeRange(boolean isSet, boolean isLoop, number startOut, number endOut, boolean allowautoseek)
 	reaper.GetSet_LoopTimeRange(1,0,starttime,endtime,0) -- define the time range for the empty item
 	--ref: Lua: reaper.Main_OnCommand(integer command, integer flag)
 	reaper.Main_OnCommand(40142,0) -- insert empty item
 	--ref: Lua: MediaItem reaper.GetSelectedMediaItem(ReaProject proj, integer selitem)
 	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
+	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
 
 	HeDaSetNote(item, "|" .. notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
@@ -106,90 +107,73 @@ end
 
 -- <==== From Heda's HeDa_SRT to text items.lua
 
-function main() -- local (i, j, item, take, track)
+-- TABLE INIT
+local setSelectedMediaItem = {}
+
+-- MAIN
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	text_output = ""
-	
 	selected_tracks_count = reaper.CountSelectedTracks(0)
 
 	if selected_tracks_count > 0 then
 
+		-- DEFINE TRACK DESTINATION
+		selected_track = reaper.GetSelectedTrack(0,0)
+
+		-- COUNT SELECTED ITEMS
 		selected_items_count = reaper.CountSelectedMediaItems(0)
 
 		if selected_items_count > 0 then
-			-- THE THING
 
-			--track = reaper.GetSelectedTrack(0, i)
-			reaper.Main_OnCommand(40914,0) -- Set first selected track as last touched track
-			reaper.Main_OnCommand(40644,0) -- Implode selected items into one track
+			-- SAVE TAKES SELECTION
+			for j = 0, selected_items_count-1  do
+				setSelectedMediaItem[j] = reaper.GetSelectedMediaItem(0, j)
+			end
 
-			selected_items_count = reaper.CountSelectedMediaItems(0) -- Get selected item on track
-			
-			first_item = reaper.GetSelectedMediaItem(0, 0)
-			first_item_start = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION")
-			
-			last_item = reaper.GetSelectedMediaItem(0, selected_items_count-1)
-			last_item_duration = reaper.GetMediaItemInfo_Value(last_item, "D_LENGTH")
-			last_item_start = reaper.GetMediaItemInfo_Value(last_item, "D_POSITION")
-			last_item_end = last_item_start + last_item_duration
-
-			-- LOOP THROUGH SELECTED ITEMS
+			-- LOOP THROUGH TAKE SELECTION
 			for i = 0, selected_items_count-1  do
-				-- GET ITEMS
-				loop_item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-				loop_item_track = reaper.GetMediaItem_Track(loop_item)
+				-- GET ITEMS AND TAKES AND PARENT TRACK
+				item = setSelectedMediaItem[i] -- Get selected item i
+				track = reaper.GetMediaItem_Track(item)
+				
+				-- GET INFOS
+				item_color = reaper.GetDisplayedMediaItemColor(item)
 
-				text_item = reaper.ULT_GetMediaItemNote(loop_item)
-				if i == 0 then
-					text_output = text_item
-				else
-					text_output = text_output .. "\n" .. text_item
-				end
+				text = reaper.ULT_GetMediaItemNote(item)
 					
+				-- TIMES
+				item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+				item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+				item_end = item_start + item_duration
+
+				-- ACTION
+				CreateTextItem(item_start, item_end, text, item_color)
+
 			end -- ENDLOOP through selected items
-			--msg_stl("text_output", text_output, 1)
-
-
-			reaper.Main_OnCommand(40029,0)
-
-			--reaper.Main_OnCommand(40697, 0) -- DELETE all selected items
-			reaper.Undo_BeginBlock()
-			
-			CreateTextItem(first_item_start, last_item_end, text_output)
-
-			--end
-			reaper.Undo_EndBlock("Create one text item on first selected track from selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
-		
+			reaper.Main_OnCommand(40421, 0)
+			reaper.Undo_EndBlock("Create text items on first selected track from selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
 		else -- no selected item
 			reaper.ShowMessageBox("Select at least one item","Please",0)
 		end -- if select item
-
 	else -- no selected track
 		reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
-	end
-
+	end -- if selected track
 end
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
-reaper.PreventUIRefresh(1)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVESELITEMS5"), 0)
-
+reaper.PreventUIRefresh(1)
 
 main() -- Execute your main function
 
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTSELITEMS5"), 0)
 reaper.PreventUIRefresh(-1)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTOREVIEWS5"), 0)
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0)
+
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
-
---[[
-IDEAS
- * Make it per track (loop through selected item on track and glue on tracks)
- * Make it works with track name if take is not a empty item
-]]

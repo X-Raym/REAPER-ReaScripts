@@ -1,6 +1,6 @@
 --[[
- * ReaScript Name: Add musical notes to selected items notes
- * Description: Add musical notes to selected items notes
+ * ReaScript Name: Insert multiple line lorem ipsum to selected items note
+ * Description: Insert multiple line lorem ipsum to selected items note
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -20,7 +20,7 @@
  * Changelog:
  * v1.1 (2015-03-03)
 	+ Multiline support
-	+ Prevent duplicated tags 
+	+ Prevent duplicated tags
  * v1.0 (2015-03-03)
 	+ Initial Release
  --]]
@@ -90,8 +90,9 @@ function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
 	end
 	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
 end
+-- <==== From Heda's HeDa_SRT to text items.lua 
 
-function musical() -- local (i, j, item, take, track)
+function italic() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -104,19 +105,15 @@ function musical() -- local (i, j, item, take, track)
 		-- GET ITEMS
 		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		-- GET NOTES
-		note = reaper.ULT_GetMediaItemNote(item)
-
 		-- MODIFY NOTES
-		note = "|♪ " .. note .. " ♪"
+		note = "|Multiple Lines:\nLorem ipsum dolor sit amet,\nconsectetur adipiscing elit."
 		
 		-- SET NOTES
 		HeDaSetNote(item, note)
 
-	
 	end -- ENDLOOP through selected items
 	
-	reaper.Undo_EndBlock("Add musical notes to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Insert multiple line lorem ipsum to selected items note", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -128,7 +125,7 @@ end
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
 
-musical() -- Execute your main function
+italic() -- Execute your main function
 
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position

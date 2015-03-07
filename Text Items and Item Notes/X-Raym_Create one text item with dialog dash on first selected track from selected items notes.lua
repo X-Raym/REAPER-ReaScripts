@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: X-Raym_Create one text item with dialog dash on first selected trackfrom selected items notes
+ * ReaScript Name: Create one text item with dialog dash on first selected track from selected items notes
  * Description: This was created as a "glue empty items concatenating their notes and adding dialog dash", but this version works with a destination track, all kind of items, and preserve original selection
  * Instructions: Select a destination track. Select items. Execute. You can use it in Custom Action with the Delete selected items action.
  * Author: X-Raym
@@ -10,14 +10,17 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.0
- * Version Date: 2015-03-02
+ * Version: 1.1
+ * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0 (optional)
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-03-06)
+	+ Multi lines support
+	+ Item selection accross multiple tracks
  * v1.0 (2015-03-02)
 	+ Initial Release
  --]]
@@ -64,7 +67,24 @@ function CreateTextItem(starttime, endtime, notetext)
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
 end
 
+function rtrim(s)
+	local n = #s
+	while n > 0 and s:find("^|", n) do n = n - 1 end
+	return s:sub(1, n)
+end
+
+function string.ends(String,End)
+	return End=='' or string.sub(String,-string.len(End))==End
+end
+
 function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
+	-- X-Raym: prevent multiple lines note break and trim any trailing last empty line
+	newnote = newnote:gsub("\n", "\n|")
+	last_char = string.sub(newnote, -1)
+	if last_char == "|" then
+		newnote = rtrim(newnote)
+	end
+	
 	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
 	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
 	--dbug("\nChunk=" .. s .. "\n")
@@ -88,49 +108,68 @@ end
 
 function main() -- local (i, j, item, take, track)
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+	 -- Begining of the undo block. Leave it at the top of your main function.
 
 	text_output = ""
 	
-	--selected_tracks_count = reaper.CountSelectedTracks(0)
+	selected_tracks_count = reaper.CountSelectedTracks(0)
 
-	--for i = 0, selected_tracks_count-1  do
+	if selected_tracks_count > 0 then
 
-		--track = reaper.GetSelectedTrack(0, i)
+		selected_items_count = reaper.CountSelectedMediaItems(0)
 
-		-- THE THING
-		selected_items_count = reaper.CountSelectedMediaItems(0) -- Get selected item on track
-		
-		first_item = reaper.GetSelectedMediaItem(0, 0)
-		first_item_start = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION")
-		
-		last_item = reaper.GetSelectedMediaItem(0, selected_items_count-1)
-		last_item_duration = reaper.GetMediaItemInfo_Value(last_item, "D_LENGTH")
-		last_item_start = reaper.GetMediaItemInfo_Value(last_item, "D_POSITION")
-		last_item_end = last_item_start + last_item_duration
+		if selected_items_count > 0 then
 
-		-- LOOP THROUGH SELECTED ITEMS
-		for i = 0, selected_items_count-1  do
-			-- GET ITEMS
-			loop_item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-			loop_item_track = reaper.GetMediaItem_Track(loop_item)
+			--track = reaper.GetSelectedTrack(0, i)
+			reaper.Main_OnCommand(40914,0) -- Set first selected track as last touched track
+			reaper.Main_OnCommand(40644,0) -- Implode selected items into one track
 
-			text_item = reaper.ULT_GetMediaItemNote(loop_item)
-			if i == 0 then
-				text_output = "— " .. text_item
-			else
-				text_output = text_output .. "\n|— " .. text_item
-			end
-				
-		end -- ENDLOOP through selected items
-		--msg_stl("text_output", text_output, 1)
+			-- THE THING
+			selected_items_count = reaper.CountSelectedMediaItems(0) -- Get selected item on track
+			
+			first_item = reaper.GetSelectedMediaItem(0, 0)
+			first_item_start = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION")
+			
+			last_item = reaper.GetSelectedMediaItem(0, selected_items_count-1)
+			last_item_duration = reaper.GetMediaItemInfo_Value(last_item, "D_LENGTH")
+			last_item_start = reaper.GetMediaItemInfo_Value(last_item, "D_POSITION")
+			last_item_end = last_item_start + last_item_duration
 
-		--reaper.Main_OnCommand(40697, 0) -- DELETE all selected items
+			-- LOOP THROUGH SELECTED ITEMS
+			for i = 0, selected_items_count-1  do
+				-- GET ITEMS
+				loop_item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+				loop_item_track = reaper.GetMediaItem_Track(loop_item)
 
-		CreateTextItem(first_item_start, last_item_end, text_output)
+				text_item = reaper.ULT_GetMediaItemNote(loop_item)
+				if i == 0 then
+					text_output = "— " .. text_item
+				else
+					text_output = text_output .. "\n— " .. text_item
+				end
+					
+			end -- ENDLOOP through selected items
+			--msg_stl("text_output", text_output, 1)
 
-	--end
-	reaper.Undo_EndBlock("Glue selected text items preserving notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+			reaper.Main_OnCommand(40029,0)
+
+			--reaper.Main_OnCommand(40697, 0) -- DELETE all selected items
+			reaper.Undo_BeginBlock()
+
+			CreateTextItem(first_item_start, last_item_end, text_output)
+
+			--reaper.Main_OnCommand(40029,0)
+
+			--end
+			reaper.Undo_EndBlock("Create one text item with dialog dash on first selected track from selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	
+		else -- no selected item
+			reaper.ShowMessageBox("Select at least one item","Please",0)
+		end -- if select item
+	
+	else -- no selected track
+		reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
+	end
 
 end
 

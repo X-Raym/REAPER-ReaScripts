@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Add bold markup to selected items notes
- * Description:Add bold markup to selected items notes
+ * Description: Add bold markup to selected items notes
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -10,14 +10,17 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.0
- * Version Date: 2015-03-03
+ * Version: 1.1
+ * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.2
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-03-03)
+	+ Multiline support
+	+ Prevent duplicated tags
  * v1.0 (2015-03-03)
 	+ Initial Release
  --]]
@@ -51,7 +54,24 @@ function dbug (text)
 	end
 end]]
 
+function rtrim(s)
+	local n = #s
+	while n > 0 and s:find("^|", n) do n = n - 1 end
+	return s:sub(1, n)
+end
+
+function string.ends(String,End)
+	return End=='' or string.sub(String,-string.len(End))==End
+end
+
 function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
+	-- X-Raym: prevent multiple lines note break and trim any trailing last empty line
+	newnote = newnote:gsub("\n", "\n|")
+	last_char = string.sub(newnote, -1)
+	if last_char == "|" then
+		newnote = rtrim(newnote)
+	end
+	
 	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
 	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
 	--dbug("\nChunk=" .. s .. "\n")
@@ -72,7 +92,7 @@ function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
 end
 -- <==== From Heda's HeDa_SRT to text items.lua 
 
-function italic() -- local (i, j, item, take, track)
+function bold() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -88,11 +108,17 @@ function italic() -- local (i, j, item, take, track)
 		-- GET NOTES
 		note = reaper.ULT_GetMediaItemNote(item)
 
-		-- MODIFY NOTES
-		note = "|<b>" .. note .. "</b>"
-		
-		-- SET NOTES
-		HeDaSetNote(item, note)
+		x, y = string.find(note, "<b>")
+
+		if x == nil then
+			
+			-- MODIFY NOTES
+			note = "|<b>" .. note .. "</b>"
+			
+			-- SET NOTES
+			HeDaSetNote(item, note)
+
+		end
 
 	
 	end -- ENDLOOP through selected items
@@ -109,7 +135,7 @@ end
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
 
-italic() -- Execute your main function
+bold() -- Execute your main function
 
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position

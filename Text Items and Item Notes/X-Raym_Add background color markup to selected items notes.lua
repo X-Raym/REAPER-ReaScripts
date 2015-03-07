@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Add musical notes to selected items notes
- * Description: Add musical notes to selected items notes
- * Instructions: Here is how to use it. (optional)
+ * ReaScript Name: Add background markup to selected items notes
+ * Description: Add background markup to selected items notes, based on actual item color
+ * Instructions: Select an item. Use it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,18 +10,17 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.1
+ * Version: v1.0
  * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.2
+ * Extensions: SWS/S&M 2.6.0
  --]]
  
 --[[
  * Changelog:
- * v1.1 (2015-03-03)
-	+ Multiline support
-	+ Prevent duplicated tags 
- * v1.0 (2015-03-03)
+ * v1.0 (2015-03-06)
+	+ Abble to update background tags if already set
+	+ Abble to delete background tag if item has not color
 	+ Initial Release
  --]]
 
@@ -90,8 +89,9 @@ function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
 	end
 	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
 end
+-- <==== From Heda's HeDa_SRT to text items.lua 
 
-function musical() -- local (i, j, item, take, track)
+function background_notes() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -106,17 +106,43 @@ function musical() -- local (i, j, item, take, track)
 
 		-- GET NOTES
 		note = reaper.ULT_GetMediaItemNote(item)
+		--reaper.ShowConsoleMsg(note)
 
 		-- MODIFY NOTES
-		note = "|♪ " .. note .. " ♪"
-		
-		-- SET NOTES
-		HeDaSetNote(item, note)
 
-	
+		color_int = reaper.GetMediaItemInfo_Value(item, "I_CUSTOMCOLOR")
+		if color_int > 0 then
+			R = color_int & 255
+			G = (color_int >> 8) & 255
+			B = (color_int >> 16) & 255
+			color_hex = "\"#" .. string.format("%02X", R) .. string.format("%02X", G) .. string.format("%02X", B) .. "\""
+
+			x, y = string.find(note, "background=")
+
+			if x == nil then
+			
+				note = "|".. note  .. "\n<background=" .. color_hex .. "/>"
+
+			else
+
+				note = "|" .. note:gsub('%b""', color_hex) -- delete all formating
+
+			end
+				
+			-- SET NOTES
+			HeDaSetNote(item, note)
+
+		else
+
+			note = "|" .. note:gsub("<background=\"#.+\"/>", "")
+
+			HeDaSetNote(item, note)
+
+		end
+
 	end -- ENDLOOP through selected items
 	
-	reaper.Undo_EndBlock("Add musical notes to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Add background markup to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -128,7 +154,7 @@ end
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
 
-musical() -- Execute your main function
+background_notes() -- Execute your main function
 
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position

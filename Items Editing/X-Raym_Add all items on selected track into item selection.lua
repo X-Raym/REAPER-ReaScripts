@@ -1,6 +1,6 @@
 --[[
- * ReaScript Name: Select all items on selected tracks
- * Description: Select all items on selected tracks. No time selection involved.
+ * ReaScript Name: Add all items on selected track into item selection
+ * Description: Add all items on selected track into item selection
  * Instructions: Select tracks. Use it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -18,6 +18,8 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-03-05)
+	+ Rename
  * v1.0 (2015-02-27)
 	+ Initial Release
  --]]

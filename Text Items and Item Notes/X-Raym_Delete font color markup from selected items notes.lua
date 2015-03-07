@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Add musical notes to selected items notes
- * Description: Add musical notes to selected items notes
- * Instructions: Here is how to use it. (optional)
+ * ReaScript Name: Delete font color markup from selected items notes
+ * Description: Delete font color markup from selected items notes
+ * Instructions: Select an item. Use it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,18 +10,15 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.1
+ * Version: v1.1
  * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.2
+ * Extensions: SWS/S&M 2.6.0
  --]]
  
 --[[
  * Changelog:
- * v1.1 (2015-03-03)
-	+ Multiline support
-	+ Prevent duplicated tags 
- * v1.0 (2015-03-03)
+ * v1.1 (2015-03-06)
 	+ Initial Release
  --]]
 
@@ -90,8 +87,9 @@ function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
 	end
 	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
 end
+-- <==== From Heda's HeDa_SRT to text items.lua 
 
-function musical() -- local (i, j, item, take, track)
+function fontColor() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -108,15 +106,15 @@ function musical() -- local (i, j, item, take, track)
 		note = reaper.ULT_GetMediaItemNote(item)
 
 		-- MODIFY NOTES
-		note = "|♪ " .. note .. " ♪"
-		
-		-- SET NOTES
-		HeDaSetNote(item, note)
 
-	
+			note = note:gsub("<font color=\"#.+\">", "")
+			note = note:gsub("</font>", "")
+
+			HeDaSetNote(item, "|" .. note)
+
 	end -- ENDLOOP through selected items
 	
-	reaper.Undo_EndBlock("Add musical notes to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Delete font color markup from selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -128,7 +126,7 @@ end
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
 
-musical() -- Execute your main function
+fontColor() -- Execute your main function
 
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position

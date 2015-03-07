@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Add font-color markup to selected items notes
- * Description: Add font-color markup to selected items notes, based on actual item color
- * Instructions: Select an item. Use it.
+ * ReaScript Name: Insert single line lorem ipsum to selected items note
+ * Description: Insert single line lorem ipsum to selected items note
+ * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,15 +10,18 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.0
- * Version Date: 2015-03-05
+ * Version: 1.1
+ * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.0
+ * Extensions: SWS/S&M 2.6.2
  --]]
  
 --[[
  * Changelog:
- * v1.0 (2015-03-05)
+ * v1.1 (2015-03-03)
+	+ Multiline support
+	+ Prevent duplicated tags
+ * v1.0 (2015-03-03)
 	+ Initial Release
  --]]
 
@@ -51,7 +54,24 @@ function dbug (text)
 	end
 end]]
 
+function rtrim(s)
+	local n = #s
+	while n > 0 and s:find("^|", n) do n = n - 1 end
+	return s:sub(1, n)
+end
+
+function string.ends(String,End)
+	return End=='' or string.sub(String,-string.len(End))==End
+end
+
 function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
+	-- X-Raym: prevent multiple lines note break and trim any trailing last empty line
+	newnote = newnote:gsub("\n", "\n|")
+	last_char = string.sub(newnote, -1)
+	if last_char == "|" then
+		newnote = rtrim(newnote)
+	end
+	
 	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
 	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
 	--dbug("\nChunk=" .. s .. "\n")
@@ -72,7 +92,7 @@ function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
 end
 -- <==== From Heda's HeDa_SRT to text items.lua 
 
-function fontColor() -- local (i, j, item, take, track)
+function italic() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -85,31 +105,16 @@ function fontColor() -- local (i, j, item, take, track)
 		-- GET ITEMS
 		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		-- GET NOTES
-		note = reaper.ULT_GetMediaItemNote(item)
-
 		-- MODIFY NOTES
+		note = "|Single Line: Lorem ipsum dolor sit amet."
+		
+		-- SET NOTES
+		HeDaSetNote(item, note)
 
-		color_int = reaper.GetMediaItemInfo_Value(item, "I_CUSTOMCOLOR")
-		if color_int > 0 then
-			R = color_int & 255
-			G = (color_int >> 8) & 255
-			B = (color_int >> 16) & 255
-			color_hex = string.format("%02x", R) .. string.format("%02x", G) .. string.format("%02x", B)
-			--[[if string.find(note, "<font-color='#[%02x]+") then
-			string.gsub
-				note = "|YES"
-				reaper.ShowConsoleMsg("YES")
-			else]]
-				note = "|<font-color='#" .. color_hex .. "'>" .. note .. "</font-color>"
-			--end
-			-- SET NOTES
-			HeDaSetNote(item, note)
-		end
-
+	
 	end -- ENDLOOP through selected items
 	
-	reaper.Undo_EndBlock("Add font-color markup to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Insert single line lorem ipsum to selected items note", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -121,7 +126,7 @@ end
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
 
-fontColor() -- Execute your main function
+italic() -- Execute your main function
 
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position
