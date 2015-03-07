@@ -67,9 +67,9 @@ function main() -- local (i, j, item, take, track)
 
 	if selected_tracks_count > 0 then
 
-		for i = 0, selected_tracks_count-1  do
+		for l = 0, selected_tracks_count-1  do
 		-- GET THE TRACK
-			track = reaper.GetSelectedTrack(0, i)
+			track = reaper.GetSelectedTrack(0, l)
 			track_idx = reaper.GetNumTracks()
 			
 			media_item_on_track = reaper.CountTrackMediaItems(track)
