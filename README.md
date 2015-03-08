@@ -10,9 +10,13 @@
 - Scripts moded by X-Raym
 - Scripts needed for other scripts on this repository
 
+This repo is for developpement. If you want to simply download scripts as a casual user, follow download instructions below. It will be more easy!
+
 ##Downloading Instructions
-- For one script : click on one script, then click on the Raw button, then File > Save (via Menu, Right Click or CTRL/CMD +S).
-- For the whole archive : click on Download Zip button on right
+- Please download scripts on my website => My REAPER Scripts (http://extremraym.com/en/my-reaper-scripts/)
+If you want download scripts on this repo anyway:
+- For one script: click on one script, then click on the Raw button, then File > Save (via Menu, Right Click or CTRL/CMD +S).
+- For the whole archive (may be simpler): click on Download Zip button on right
 
 ##Detailed Articles
  - [How to Learn ReaScript](http://extremraym.com/en/learn-reascript-reaper/)
