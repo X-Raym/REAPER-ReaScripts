@@ -86,7 +86,7 @@ function set_point_value()
 
 				-- CALC
 				OldVol = valueOut
-				OldVolDB = 20*(math.log(OldVol, 10))
+				OldVolDB = 20*(math.log(OldVol, 10)) -- thanks to spk77!
 
 				--msg_ftl("Old vol db:", OldVolDB, 1)
 
