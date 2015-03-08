@@ -7,58 +7,58 @@
 // Licence : GPL v3
 // Release Date : 26-01-2015
 
-// Version : 0.8
-// Version Date : 27-01-2015
+// Version : 0.9
+// Version Date : 08-03-2015
 // Required : Reaper 4.76
 
 // Based on How do you glue/render items with ReaScript?
 // by FnA
 // href="http://forum.cockos.com/showthread.php?t=137357
 
-// ----- DEBUGGING ====>
+/* ----- DEBUGGING ====>
 @import ../Functions/X-Raym_Functions - console debug messages.eel
 
 debug = 0; // 0 => No console. 1 => Display console messages for debugging.
 clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();
-// <==== DEBUGGING -----
+*/ <==== DEBUGGING -----
 
 function glue_independently() local(i, item, j)
 (	
 	// BEGIN
 	Undo_BeginBlock();
 	countSelectedMediaItem = CountSelectedMediaItems(0);
-	msg_dtl("Nombre d'objet sélectionné", countSelectedMediaItem, 0);
+	//msg_dtl("Nombre d'objet sélectionné", countSelectedMediaItem, 0);
 	
 	setSelectedMediaItem = 0; // memory address
 	setSelectedMediaItem_length = 0;
 	
 	// PUT SELECTED ITEMS IN ARRAY
 	i = 0;
-	msg_s("Item Selection List");
+	//msg_s("Item Selection List");
 	loop(CountSelectedMediaItems(0),
 	(item = GetSelectedMediaItem(0, i)) ? (
 			setSelectedMediaItem[i] = item;
-			msg_d(setSelectedMediaItem[i]);
+			//msg_d(setSelectedMediaItem[i]);
 			
 			setSelectedMediaItem_length += 1;
 		);
 		i += 1;
 	);
-	msg_s("-----");
+	//msg_s("-----");
 
 	// LOOP THROUGH SELECTION
 	j=0;
 	limit = countSelectedMediaItem + 1;// Why +1 ? don't know but seems to work
 	loop (limit, j ? (
 			// CHECK THE LOOP
-			msg_d(j);
+			//msg_d(j);
 
 			// UNSELECT ALL ITEMS
 			Main_OnCommand(40289, 0);
 		
-			msg_dtl("Selection",setSelectedMediaItem[j-1],1);// why -1 ? Don't know but seem to work
+			//msg_dtl("Selection",setSelectedMediaItem[j-1],1);// why -1 ? Don't know but seem to work
 			SetMediaItemSelected(setSelectedMediaItem[j-1], 1);
 
 			// GET ACTIVE TAKE
@@ -83,7 +83,7 @@ function glue_independently() local(i, item, j)
 			/*MuteNoteL = 1000; // memory address
 			MuteNoteL_length = 0;
 			AAA = MIDI_CountEvts(ActiveTake, 1, 0, 0);
-			msg_dtl("Number of notes :", AAA, 1);
+			//msg_dtl("Number of notes :", AAA, 1);
 
 			loop(AAA, k ? (
 					CN = 10000;
@@ -91,7 +91,7 @@ function glue_independently() local(i, item, j)
 					CN[4] >= 1 ? (
 						MuteNoteL[k] = CN;
 						MuteNoteL_length += 1;
-						msg_dtl("MutedNote", CN, 1);
+						//msg_dtl("MutedNote", CN, 1);
 					);
 				);
 				k += 1;
@@ -131,5 +131,7 @@ function glue_independently() local(i, item, j)
 	Undo_EndBlock("Glue selected items independently", extraflags);
 );
 
+PreventUIRefresh(1);
 glue_independently();
+PreventUIRefresh(-1);
 UpdateArrange();
