@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Create text items on first selected track from regions
- * Description: Create text items on first selected track from regions
- * Instructions: Select a destination track. Execute the script. Text items will be colored depending on original region color. The text note will came from the original region name.
+ * ReaScript Name: Create one text item on first selected track from selected items notes
+ * Description: This was created as a "glue empty items concatenating their notes", but this version works with a destination track, all kind of items, and preserve original selection
+ * Instructions: Select a destination track. Select items. Execute. You can use it in Custom Action with the Delete selected items action.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -13,15 +13,15 @@
  * Version: 1.1
  * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.2
+ * Extensions: SWS/S&M 2.6.0 (optional)
  --]]
  
 --[[
  * Changelog:
  * v1.1 (2015-03-06)
-	+ Multiple lines support
-	+ Dialog box if no track selected
- * v1.0 (2015-02-28)
+	+ Multi lines support
+	+ Item selection accross multiple tracks
+ * v1.0 (2015-03-02)
 	+ Initial Release
  --]]
 
