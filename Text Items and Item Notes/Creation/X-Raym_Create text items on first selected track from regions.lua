@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Template Title (match file name without extension and author)
- * Description: A template script for REAPER ReaScript.
- * Instructions: Here is how to use it. (optional)
+ * ReaScript Name: Create text items on first selected track from regions
+ * Description: Create text items on first selected track from regions
+ * Instructions: Select a destination track. Execute the script. Text items will be colored depending on original region color. The text note will came from the original region name.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,19 +10,18 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.3.1
- * Version Date: YYYY-MM-DD
+ * Version: 1.1
+ * Version Date: 2015-03-06
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.0 (optional)
+ * Extensions: SWS/S&M 2.6.2
  --]]
  
 --[[
  * Changelog:
- * v1.3.1 (2015-02-27)
- 	# loops takes bug fix
- 	# thanks benf and heda for help with looping through regions!
- 	# thanks to Heda for the function that embed external lua files!
- * v1.0 (2015-02-27)
+ * v1.1 (2015-03-06)
+	+ Multiple lines support
+	+ Dialog box if no track selected
+ * v1.0 (2015-02-28)
 	+ Initial Release
  --]]
 
