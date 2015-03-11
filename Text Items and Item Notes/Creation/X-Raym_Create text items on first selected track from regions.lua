@@ -8,16 +8,19 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.1
- * Version Date: 2015-03-06
+ * Forum Thread: Script: Scripts (LUA): Create Text Items Actions (various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
+ * Version: 1.1.1
+ * Version Date: 2015-03-11
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.2
  --]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2015-03-11)
+	# Better item selection restoration
+	# First selected track as last touched
  * v1.1 (2015-03-06)
 	+ Multiple lines support
 	+ Dialog box if no track selected
@@ -122,6 +125,7 @@ reaper.PreventUIRefresh(1)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0)
 
+reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0)

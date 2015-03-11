@@ -53,7 +53,6 @@ function init()
 	gfx_setfont(1, "Arial", 15);
 	lmb_click_outside_window = 1;
 	buf = 10000;
-	gfx_measurestr("Randomize", s_w, s_h);
 
 	refresh_on_slider_change = 1;
 	m.val = 0; // mean slider initial value
