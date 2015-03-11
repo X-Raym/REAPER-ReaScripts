@@ -1,0 +1,197 @@
+/**
+ * ReaScript Name: Ripple edit items on track based first selected item edges
+ * Description: Demo of what would be a great mouse modifier, if based on item edges.
+ * Instructions:
+ 	This script is not as flexible and powerful as a mouse modifier. Feature request still active. :P
+    It would works on left drag on item edges. (on the demo: offset R is left drag on right, and offset L would be left drag and L)
+    It could work with item loops or without.
+    It would be capable of snapping
+    Actually, you will have to select an item before launching the script, and relaunch the script if you change item selection.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Devs: Could we have this simple "move item contents" modifier addition for items?
+ * Forum Thread URl: http://forum.cockos.com/showpost.php?p=1494775&postcount=34
+ * Version: 1.0
+ * Version Date: 2015-03-01
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v0.8 (2015-03-11)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+//@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+//msg_clean();
+// <==== DEBUGGING -----
+
+// ----- EXTERNAL FILE ====>
+// From the great spk77 => http://forum.cockos.com/showthread.php?p=1487374&posted=1#post1487374
+@import ../Functions/spk_slider_class.eel
+// <==== EXTERNAL FILE -----
+
+// DRAW THE WINDOW
+function init()
+(
+
+	gfx_init("Ripple edit items on track based on first selected item edges",420,220);
+	gfx_setfont(1, "Arial", 15);
+	lmb_click_outside_window = 1;
+	buf = 10000;
+	//gfx_measurestr("Randomize", s_w, s_h);
+
+	refresh_on_slider_change = 1;
+	m.val = 0; // mean slider initial value
+	s.val = 0; // standard_dev initial value
+);
+
+// GFX COLORS
+function set_default_colors()
+(
+	gfx_r = 0.5;
+	gfx_g = 0.8;
+	gfx_b = 0.5;
+);
+
+
+
+
+// SELECTED ITEM
+// Would have to be put inside a function so that the script would be abble to be executed without item selection
+selected_item = GetSelectedMediaItem(0, 0);
+selected_item_length = GetMediaItemInfo_Value(selected_item, "D_LENGTH");
+selected_item_pos = GetMediaItemInfo_Value(selected_item, "D_POSITION");
+selected_item_id = GetMediaItemInfo_Value(selected_item, "IP_ITEMNUMBER");
+
+selected_take = GetActiveTake(selected_item);
+selected_take_startoffs = GetMediaItemTakeInfo_Value(selected_take, "D_STARTOFFS");
+
+track = GetMediaItem_Track(selected_item);
+count_item_on_track = CountTrackMediaItems(track);
+
+
+function save_the_other()
+(		// THE FOLLOWING
+	i = 0;
+	loop(count_item_on_track, (item = GetTrackMediaItem(track, i)) ? (
+			init_item_pos_get[i] = GetMediaItemInfo_Value(item, "D_POSITION");
+		);
+		i = i+1;
+	);
+);
+
+// RIPPLE THE OTHER
+function the_other()
+(		// THE FOLLOWING
+	Undo_BeginBlock(); 
+		i = 0;
+		loop(count_item_on_track, (item = GetTrackMediaItem(track, i)) ? (
+
+				i > selected_item_id ? (
+					item_pos_get = GetMediaItemInfo_Value(item, "D_POSITION");
+					item_pos_set = init_item_pos_get[i] + offset_r/10;
+					SetMediaItemInfo_Value(item, "D_POSITION", item_pos_set);
+				) : (
+					item_pos_get = GetMediaItemInfo_Value(item, "D_POSITION");
+					item_pos_set = init_item_pos_get[i] + offset_l/10;
+					SetMediaItemInfo_Value(item, "D_POSITION", item_pos_set);
+				);
+			
+			);// : (
+			i = i+1;
+		);
+		Undo_EndBlock("Ripple edit items on track based on first selected item edges", 0);
+);
+
+function set_selected() local (i)
+(
+	Undo_BeginBlock(); 
+	
+	set_length = selected_item_length + offset_r/10 - offset_l/10;;
+	set_pos = selected_item_pos + offset_l/10;
+	set_startoffset = selected_take_startoffs + offset_l/10;
+	// SELECTED ITEM
+	SetMediaItemInfo_Value(selected_item, "D_LENGTH", set_length);
+	SetMediaItemInfo_Value(selected_item, "D_POSITION", set_pos);
+	SetMediaItemTakeInfo_Value(selected_take, "D_STARTOFFS", set_startoffset);
+	
+	Undo_EndBlock("Ripple edit items on track based on first selected item edges", 0);
+);
+
+// DRAW APPLY BUTTON
+// If press several time; this action wiill be executed several time
+
+// RUN THE ACTION
+function run() local (s_w, s_h, hue, sat, lum, v)
+(
+	set_default_colors();
+	gfx_a = 1;
+
+	gfx_x = 20;
+	gfx_y = 20;
+
+	// check if "lmb down" and "mouse cursor is not in window" and "not currently moving slider"
+	mouse_cap >= 1 && (mouse_x <= 0 || mouse_x >= gfx_w || mouse_y < 2 || mouse_y >= gfx_h) && drag_started == 0 ? (
+		lmb_click_outside_window = 1;
+	) : mouse_cap == 0 ? (
+		lmb_click_outside_window = 0;
+	);
+
+	mouse_cap == 0 ? (
+		max_point_drag_started = 0; min_point_drag_started = 0; lmb_down = 0;
+	);
+
+	gfx_r = 0.8;
+	gfx_g = 0.8;
+	gfx_b = 0.8;
+
+	gfx_x = 20;
+	gfx_y = 10;
+	gfx_drawstr("OFFSET R");
+
+	offset_r = m.slider(29, 50, 6, m.val, -100, 100, gfx_w - 30, 0);
+	
+	gfx_x = 20;
+	gfx_y = 70;
+	gfx_drawstr("OFFSET L");
+
+	offset_l = s.slider(29, 110, 6, s.val, -100, 0, gfx_w - 30, 1);
+	
+	mouse_cap == 5 && last_slider_id == 0 ? ( // ctrl+lmb to reset to center
+		m.val = 0;
+	);
+
+	char = gfx_getchar();
+	// ctrl+lmb to Undo
+
+	// Esc to exit
+	char == 27 ? (
+		gfx_quit();
+	);
+	set_selected();
+	the_other();
+	char >= 0 ? (
+		defer("run();");
+	);
+
+	gfx_update();
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+save_the_other();
+init();
+
+run(); // Execute your main function
+
+//msg_end(); // Display characters in the console to show you the end of the script execution.
