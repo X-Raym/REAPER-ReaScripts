@@ -1,6 +1,6 @@
 --[[
- * ReaScript Name: Merge consecutive and short text items on selected tracks by pair
- * Description: Merge consecutive and short text items on selected tracks by pair. Useful for subtitlting.
+ * ReaScript Name: Merge consecutive and short text items on selected tracks by pair with dialog dash
+ * Description: Merge consecutive and short text items on selected tracks by pair with dialog dash. Useful for subtitlting.
  * Instructions: Select a track. Execute the script. It will work on text items only.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -214,7 +214,7 @@ function main() -- local (i, j, item, take, track)
 					reaper.DeleteTrackMediaItem(track, item_mark_as_delete[j]) --track is always A
 				end
 
-				reaper.Undo_EndBlock("Merge consecutive and short text items on selected tracks by pair", 0) -- End of the undo block. Leave it at the bottom of your main function.
+				reaper.Undo_EndBlock("Merge consecutive and short text items on selected tracks by pair with dialog dash", 0) -- End of the undo block. Leave it at the bottom of your main function.
 			
 			else -- no selected item
 				reaper.ShowMessageBox("No item on track " .. track_idx,"Warning",0)

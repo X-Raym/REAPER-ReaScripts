@@ -147,7 +147,7 @@ function main() -- local (i, j, item, take, track)
 						j = j + 1
 						item_mark_as_delete[j] = A_item
 
-						text_output = "|— " .. B_item_text .. "\n— " .. A_item_text
+						text_output = "|" .. B_item_text .. "\n" .. A_item_text
 						HeDaSetNote(first_item, text_output)
 
 						in_group = true
