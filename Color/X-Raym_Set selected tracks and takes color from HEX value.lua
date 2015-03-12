@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Set selected tracks and takes color from HEX value
- * Description: Set selected tracks and takes color from HEX value. Use # or not.
+ * Description: Set selected tracks and takes color from HEX value. Use # or not. If no takes (aka, if Text items selected), it will work anyway.
  * Instructions: Select tracks or items. Execute the script.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -61,7 +61,7 @@ end
 
 defaultvals_csv = "123456"
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
-retval, retvals_csv = reaper.GetUserInputs("Color selected Track and Items", 1, "HEX Value", defaultvals_csv) 
+retval, retvals_csv = reaper.GetUserInputs("Color selected Track and Takes", 1, "HEX Value", defaultvals_csv) 
 			
 if retval then -- if user complete the fields
 
