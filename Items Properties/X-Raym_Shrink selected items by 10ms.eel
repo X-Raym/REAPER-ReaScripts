@@ -1,0 +1,69 @@
+/**
+ * ReaScript Name: Shrink selected items by 10ms
+ * Description: Shrink selected items by 10ms
+ * Instructions: Here is how to use it. (optional)
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URl: http://forum.cockos.com/***.html
+ * Version: 1.0
+ * Version Date: 2015-03-13
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-03-13)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING -----
+
+function main() // local (i, j, item, take, track)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	// YOUR CODE BELOW
+
+	// LOOP THROUGH SELECTED ITEMS
+	
+	selected_items_count = CountSelectedMediaItems(0);
+	
+	i = 0; // INITIALIZE loop through selected items
+	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+			// GET INFOS
+			value_get = GetMediaItemInfo_Value(item, "D_LENGTH"); // Get the value of a the parameter
+
+			// MODIFY INFOS
+			value_set = value_get - 0.01; // Prepare value output
+			
+			// SET INFOS
+			SetMediaItemInfo_Value(item, "D_LENGTH", value_set); // Set the value to the parameter
+		); // ENDIF inside loop selected items
+		i += 1; // INCREMENT loop through selected items
+	); // ENDLOOP through selected items
+	
+	// YOUR CODE ABOVE
+
+	Undo_EndBlock("Shrink selected items by 10ms", 0); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+//msg_end(); // Display characters in the console to show you the end of the script execution.
