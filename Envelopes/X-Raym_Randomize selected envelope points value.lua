@@ -17,7 +17,7 @@
  * Extensions: None
 ]]
 
---[[Heavly based on spk77's Quantize envelope points.lua]]
+--[[99% of this is based on spk77's Quantize envelope points.lua]]
  
 --[[
  * Change log:
