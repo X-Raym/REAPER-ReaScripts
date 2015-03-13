@@ -2,21 +2,24 @@
  * ReaScript Name: Export selection as SRT subtitles with offset
  * Description: Export item's note selection (or on selected track) as offset by edit cursor time SRT subtitles
  * Instructions: Select at least one item or one track with items that you want to export. You can select items accross multiple tracks. Note that the initial cursor position is very important 
- * Authors: HeDa, X-Raym
- * Author URl: http://forum.cockos.com/member.php?u=47822
- * Version: 0.6 beta
- * Repository: 
- * Repository URl: 
+ * Authors: X-Raym
+ * Author URl: http://extremraym.com
+ * Version: 1.0
+ * Repository: X-Raym/REAPER-ReaScripts
+ * Repository URl: https://github.com/X-Raym/REAPER-ReaScripts
  * File URl: 
  * License: GPL v3
- * Forum Thread:
- * Forum Thread URl: 
- * REAPER: 5.0
+ * Forum Thread: Lua Script: Export/Import subtitles SubRip SRT format
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1495841#post1495841
+ * Version: 1.0
+ * Version Date: 2015-03-13
+ * REAPER: 5.0 pre 9
  * Extensions: None
- 
- 
+]]
+
+--[[
  * Change log:
- * v0.6 (2015-03-06), by X-Raym
+ * v1.0 (2015-03-06), by X-Raym
  	+ Multitrack export support -> every selected track can would be exported
 	+ Selected items on non selected track will also be exported
 	+ If no track selected, selected items notes can be exported anyway
