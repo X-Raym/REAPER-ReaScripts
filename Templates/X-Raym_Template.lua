@@ -10,7 +10,7 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.4
+ * Version: 1.5
  * Version Date: YYYY-MM-DD
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0 (optional)
@@ -18,6 +18,8 @@
  
 --[[
  * Changelog:
+ * v1.5 (2015-03-03)
+ 	+ Call Functions file from relative parent subfolder
  * v1.4.1 (2015-03-03)
  	# EnumProjectMarkers3 for regions loop
  * v1.4 (2015-03-02)
@@ -33,14 +35,18 @@
 
 -- ----- DEBUGGING ====>
 --NOT YES ABBLE TO CALL PTHER FOLDER FILE
-function get_script_path()
-	if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
-		return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
-	end
-		return debug.getinfo(1,'S').source:match("(.*".."/"..")"):sub(2)
+local info = debug.getinfo(1,'S');
+
+local full_script_path = info.source
+
+local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
+
+if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
+  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
+else
+  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
 end
 
-package.path = package.path .. ";" .. get_script_path() .. "?.lua"
 require("X-Raym_Functions - console debug messages")
 
 
