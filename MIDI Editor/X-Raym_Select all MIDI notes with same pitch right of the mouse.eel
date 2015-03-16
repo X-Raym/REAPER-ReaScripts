@@ -7,9 +7,9 @@
 // Licence : GPL v3
 // Release Date : 03-02-2015
 
-// Version : 1.1
-// Version Date : 04-02-2015
-// Required : Reaper 5.0 pre 10; SWS 2.6.2
+// Version : 1.2
+// Version Date : 17-02-2015
+// Required : Reaper 5.0 pre 16; SWS 2.6.3
 
 // Based on Select all MIDI notes and events right of cursor
 // by spk77
@@ -17,12 +17,12 @@
 
 
 // ----- DEBUGGING ====>
-@import ../Functions/X-Raym_Functions - console debug messages.eel
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
 
 debug = 0; // 0 => No console. 1 => Display console messages for debugging.
 clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-msg_clean();
+msg_clean();*/
 // <==== DEBUGGING -----
 
 function select() 
@@ -36,7 +36,6 @@ function select()
     MIDI_CountEvts(take, notes, ccs, sysex);
 
     extension_api("BR_GetMouseCursorContext_MIDI", inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId);
-    noteRow += 2;
     //msg_d(noteRow);
 
     i = 0;
