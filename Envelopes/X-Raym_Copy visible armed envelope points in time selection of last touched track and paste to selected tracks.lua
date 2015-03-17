@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Copy visible armed envelope points in time selection of last touched track and paste to selected tracks
- * Description: A way to copy paste envelopes section across tracks.
+ * Description: A way to copy paste envelope sections across tracks.
  * Instructions: Make a track selection. Touch a track. Have sure you have source and destination envelope armed and visible. It will copy point from source to destination if envelope name match.
  * Author: X-Raym
  * Author URl: http://extremraym.com
