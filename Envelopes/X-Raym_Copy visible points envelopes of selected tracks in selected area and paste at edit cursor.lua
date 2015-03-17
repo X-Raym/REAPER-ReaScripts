@@ -70,12 +70,10 @@ function main() -- local (i, j, item, take, track)
 				env = reaper.GetTrackEnvelope(track, j)
 				-- TRY TO SEE IF THE ENVELOPE IS VISIBLE --  HELP NEEDED
 				br_env = reaper.BR_EnvAlloc(env, 0)
-				reaper.BR_EnvGetProperties(br_env, active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, test)
-
+				reaper.BR_EnvGetProperties(br_env, active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, test, faderScaling)
 
 				-- IF VISIBLE
 				if visible == true then
-
 					env_points_count = reaper.CountEnvelopePoints(env)
 
 					if env_points_count > 0 then
@@ -99,6 +97,10 @@ function main() -- local (i, j, item, take, track)
 							if time >= startLoop and time <= endLoop then
 								
 								point_time = time - startLoop + offset
+
+								if point_time <= startLoop or point_time >= endLoop then
+									reaper.InsertEnvelopePoint(env, point_time, valueOut, shape, tension, 1, true)
+								end -- ENDIF point time would be paste in time selection
 								
 								if point_time <= startLoop or point_time >= endLoop then
 									reaper.InsertEnvelopePoint(env, point_time, valueOut, shape, tension, 1, true)
