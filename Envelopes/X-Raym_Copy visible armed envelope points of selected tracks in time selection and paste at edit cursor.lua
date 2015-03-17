@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Copy points envelopes of selected tracks in time selection and paste at edit cursor
+ * ReaScript Name: Copy visible armed envelope points of selected tracks in time selection and paste at edit cursor
  * Description: A way to copy paste multiple points envelope from the same track. Preserve original time selected envelope area. In only works with visible armed tracks.
- * Instructions: Make a selection area. PLace the edit cursor somewhere. Execute the script.
+ * Instructions: Make a selection area. Place the edit cursor somewhere. Execute the script.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -19,7 +19,7 @@
 --[[
  * Changelog:
  * v1.0 (2015-03-17)
-	+ beta
+	+ Initial release
  --]]
 
 -- ----- DEBUGGING ====>
@@ -125,7 +125,7 @@ function main() -- local (i, j, item, take, track)
 
 		end -- ENDLOOP through selected tracks
 
-		reaper.Undo_EndBlock("Copy points envelopes of selected tracks in time selection and paste at edit cursor", 0) -- End of the undo block. Leave it at the bottom of your main function.
+		reaper.Undo_EndBlock("Copy visible armed envelope points of selected tracks in time selection and paste at edit cursor", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
