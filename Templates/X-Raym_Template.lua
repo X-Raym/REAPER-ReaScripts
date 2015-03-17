@@ -34,7 +34,6 @@
  --]]
 
 -- ----- DEBUGGING ====>
---NOT YES ABBLE TO CALL PTHER FOLDER FILE
 local info = debug.getinfo(1,'S');
 
 local full_script_path = info.source
