@@ -72,8 +72,9 @@ function main() -- local (i, j, item, take, track)
 				-- IF VISIBLE
 				retval, strNeedBig = reaper.GetEnvelopeStateChunk(env, "", true)
 				x, y = string.find(strNeedBig, "VIS 1")
+				w, z = string.find(strNeedBig, "ARM 1")
 
-				if x ~= nil then
+				if x ~= nil and w ~= nil then
 			
 					env_points_count = reaper.CountEnvelopePoints(env)
 
