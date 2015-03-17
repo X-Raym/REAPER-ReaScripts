@@ -82,7 +82,7 @@ function main() -- local (i, j, item, take, track)
 						
 						-- CLEAN THE DESTINATION AREA
 						max = offset+lengthLoop
-						if max > startLoop then
+						if max <= startLoop then
 							max = startLoop
 						end
 						reaper.DeleteEnvelopePointRange(env, offset, max)
