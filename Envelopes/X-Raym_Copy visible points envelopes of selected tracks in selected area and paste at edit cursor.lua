@@ -13,18 +13,18 @@
  * Version: 1.0
  * Version Date: 2015-03-17
  * REAPER: 5.0 pre 15
- * Extensions: SWS 2.6.3 #0
+ * Extensions: None
  --]]
  
 --[[
  * Changelog:
- * v9.0 (2015-03-17)
+ * v1.0 (2015-03-17)
 	+ beta
  --]]
 
 -- ----- DEBUGGING ====>
---NOT YES ABBLE TO CALL PTHER FOLDER FILE
---[[local info = debug.getinfo(1,'S');
+--[[
+local info = debug.getinfo(1,'S');
 
 local full_script_path = info.source
 
@@ -68,12 +68,13 @@ function main() -- local (i, j, item, take, track)
 
 				-- GET THE ENVELOPE
 				env = reaper.GetTrackEnvelope(track, j)
-				-- TRY TO SEE IF THE ENVELOPE IS VISIBLE --  HELP NEEDED
-				br_env = reaper.BR_EnvAlloc(env, 0)
-				reaper.BR_EnvGetProperties(br_env, active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, test, faderScaling)
 
 				-- IF VISIBLE
-				if visible == true then
+				retval, strNeedBig = reaper.GetEnvelopeStateChunk(env, "", true)
+				x, y = string.find(strNeedBig, "VIS 1")
+
+				if x ~= nil then
+			
 					env_points_count = reaper.CountEnvelopePoints(env)
 
 					if env_points_count > 0 then
@@ -88,6 +89,9 @@ function main() -- local (i, j, item, take, track)
 						reaper.InsertEnvelopePoint(env, startLoop, valueOut, shape, tension, 1, true) -- INSERT startLoop point
 						reaper.InsertEnvelopePoint(env, endLoop, valueOut2, shape, tension, 1, true) -- INSERT startLoop point
 						
+						-- CLEAN THE DESTINATION AREA
+						reaper.DeleteEnvelopePointRange(env, offset, offset+lengthLoop)
+
 						-- LOOP THROUGH POINTS
 						for k = 0, env_points_count+1 do 
 
@@ -101,36 +105,14 @@ function main() -- local (i, j, item, take, track)
 								if point_time <= startLoop or point_time >= endLoop then
 									reaper.InsertEnvelopePoint(env, point_time, valueOut, shape, tension, 1, true)
 								end -- ENDIF point time would be paste in time selection
-								
-								if point_time <= startLoop or point_time >= endLoop then
-									reaper.InsertEnvelopePoint(env, point_time, valueOut, shape, tension, 1, true)
-								end -- ENDIF point time would be paste in time selection
 
 							end -- ENDIF in selected area
-
-							-- SET LOOP START AND END POINT VALUE
-							--[[retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, startLoop, 0, 0)
-							retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, endLoop, 0, 0)
-							
-							-- ADD POINTS ON LOOP START AND END
-							reaper.InsertEnvelopePoint(env, startLoop, valueOut, shape, tension, 1, true) -- INSERT startLoop point
-							reaper.InsertEnvelopePoint(env, endLoop, valueOut2, shape, tension, 1, true) -- INSERT startLoop point
-							--]]
-							--[[reaper.InsertEnvelopePoint(env, offset, valueOut, shape, tension, 1, true) -- INSERT startLoop point
-
-							if offset+lengthLoop <= startLoop or offset+lengthLoop >= endLoop then
-									
-								reaper.InsertEnvelopePoint(env, offset+lengthLoop, valueOut2, shape, tension, 1, true) -- INSERT startLoop point
-							
-							end -- ENDIF point time would be paste in time selection--]]
 						
 						end -- ENDIF points on the envelope
 
 						reaper.Envelope_SortPoints(env)
 
 					end -- ENDLOOP throught points
-					
-					reaper.BR_EnvFree(env, 1)
 				
 				end -- ENFIF visible
 				
@@ -145,16 +127,9 @@ end -- end main()
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 --[[ reaper.PreventUIRefresh(1) ]]-- Prevent UI refreshing. Uncomment it only if the script works.
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0) ]] -- Save view
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0 ]]-- Save loop
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
-
 
 main() -- Execute your main function
 
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTIREVIEWS5"), 0) ]] -- Restore view
 --[[ reaper.PreventUIRefresh(-1) ]] -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
