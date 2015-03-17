@@ -68,29 +68,29 @@ function main() -- local (i, j, item, take, track)
 
 				-- GET THE ENVELOPE
 				env = reaper.GetTrackEnvelope(track, j)
-				
+				-- TRY TO SEE IF THE ENVELOPE IS VISIBLE --  HELP NEEDED
 				br_env = reaper.BR_EnvAlloc(env, 0)
-				active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, test = reaper.BR_EnvGetProperties(br_env)
+				reaper.BR_EnvGetProperties(br_env, active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, test)
 
 
 				-- IF VISIBLE
 				if visible == true then
 
 					env_points_count = reaper.CountEnvelopePoints(env)
-					
 
 					if env_points_count > 0 then
 
-					retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, startLoop, 0, 0)
-					retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, endLoop, 0, 0)
+						retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, startLoop, 0, 0)
+						retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, endLoop, 0, 0)
 					
-					shape = 0
-					tension = 0
+						shape = 0
+						tension = 0
 
-					-- ADD POINTS ON LOOP START AND END
-					reaper.InsertEnvelopePoint(env, startLoop, valueOut, shape, tension, 1, true) -- INSERT startLoop point
-					reaper.InsertEnvelopePoint(env, endLoop, valueOut2, shape, tension, 1, true) -- INSERT startLoop point
-					-- LOOP THROUGH POINTS
+						-- ADD POINTS ON LOOP START AND END
+						reaper.InsertEnvelopePoint(env, startLoop, valueOut, shape, tension, 1, true) -- INSERT startLoop point
+						reaper.InsertEnvelopePoint(env, endLoop, valueOut2, shape, tension, 1, true) -- INSERT startLoop point
+						
+						-- LOOP THROUGH POINTS
 						for k = 0, env_points_count+1 do 
 
 							retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(env, k)
