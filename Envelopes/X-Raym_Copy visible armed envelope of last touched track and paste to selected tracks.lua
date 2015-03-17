@@ -116,7 +116,7 @@ function main() -- local (i, j, item, take, track)
 						reaper.DeleteEnvelopePointRange(env_dest, 0, 999999)
 
 						for p = 0, env_points_count-1 do
-				
+							
 							reaper.InsertEnvelopePoint(env_dest, time[p], valueSource[p], shape[p], tension[p], 1, true)
 
 						end -- END LOOP THROUGH SAVED POINTS
