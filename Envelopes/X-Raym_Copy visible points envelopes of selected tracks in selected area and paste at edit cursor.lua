@@ -79,6 +79,13 @@ function main() -- local (i, j, item, take, track)
 					env_points_count = reaper.CountEnvelopePoints(env)
 
 					if env_points_count > 0 then
+						
+						-- CLEAN THE DESTINATION AREA
+						max = offset+lengthLoop
+						if max > startLoop then
+							max = startLoop
+						end
+						reaper.DeleteEnvelopePointRange(env, offset, max)
 
 						retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, startLoop, 0, 0)
 						retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, endLoop, 0, 0)
@@ -89,9 +96,6 @@ function main() -- local (i, j, item, take, track)
 						-- ADD POINTS ON LOOP START AND END
 						reaper.InsertEnvelopePoint(env, startLoop, valueOut, shape, tension, 1, true) -- INSERT startLoop point
 						reaper.InsertEnvelopePoint(env, endLoop, valueOut2, shape, tension, 1, true) -- INSERT startLoop point
-						
-						-- CLEAN THE DESTINATION AREA
-						reaper.DeleteEnvelopePointRange(env, offset, offset+lengthLoop)
 
 						-- LOOP THROUGH POINTS
 						for k = 0, env_points_count+1 do 
