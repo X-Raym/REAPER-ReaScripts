@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Copy points envelopes of selected tracks in time selection and paste at edit cursor
- * Description: A way to copy paste multiple points envelope from the same track. Preserve original time selected envelope area.
+ * Description: A way to copy paste multiple points envelope from the same track. Preserve original time selected envelope area. In only works with visible armed tracks.
  * Instructions: Make a selection area. PLace the edit cursor somewhere. Execute the script.
  * Author: X-Raym
  * Author URl: http://extremraym.com
