@@ -18,7 +18,7 @@
  
 --[[
  * Changelog:
- * v1.0 (2015-03-18)
+ * v1.1 (2015-03-18)
 	+ Select new points, unselect the other
  * v1.0 (2015-03-17)
 	+ Initial release

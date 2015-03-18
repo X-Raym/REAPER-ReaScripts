@@ -110,15 +110,16 @@ function main() -- local (i, j, item, take, track)
 						env_points_count = reaper.CountEnvelopePoints(env)
 						
 						-- LOOP THROUGH POINTS
-						for k = 0, env_points_count-1 do 
-
-							retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(env, k)
+						for k = 0, env_points_count-1 do
 
 							-- UNSELECT ALL POINTS
 							reaper.SetEnvelopePoint(env, k, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, false, true)
 							if time == min or time == max then
 								reaper.SetEnvelopePoint(env, k, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, true, true)
 							end
+
+							-- GET POINT INFO
+							retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(env, k)
 
 							--IF the point is in selection area and if there is an envelope point
 							if time >= startLoop and time <= endLoop then
