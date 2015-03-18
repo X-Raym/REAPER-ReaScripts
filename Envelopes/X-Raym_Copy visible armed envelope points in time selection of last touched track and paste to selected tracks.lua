@@ -10,14 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.0
- * Version Date: 2015-03-17
- * REAPER: 5.0 pre 15
- * Extensions: SWS 2.6.3 #0
+ * Version: 1.1
+ * Version Date: 2015-03-18
+ * REAPER: 5.0 pre 18b
+ * Extensions: None
  --]]
  
 --[[
  * Changelog:
+ * v1.0 (2015-03-18)
+	+ Select new points, unselect the other
  * v1.0 (2015-03-17)
 	+ Initial release
  --]]
@@ -115,14 +117,23 @@ function main() -- local (i, j, item, take, track)
 
 					if a ~= nil and b ~= nil and env_name_dest == env_name then
 
+						-- UNSELECT POINTS ON TRACK
+						env_points_count = reaper.CountEnvelopePoints(env)
+
+						if env_points_count > 0 then
+							for t = 0, env_points_count-1 do 
+								reaper.SetEnvelopePoint(env, t, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, false, true)
+							end
+						end
+
 						reaper.DeleteEnvelopePointRange(env_dest, startLoop, endLoop)
 
 						retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, startLoop, 0, 0)
 						retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, endLoop, 0, 0)
 
 						-- ADD POINTS ON LOOP START AND END
-						reaper.InsertEnvelopePoint(env_dest, startLoop, valueOut, 0, 0, 1, true) -- INSERT startLoop point
-						reaper.InsertEnvelopePoint(env_dest, endLoop, valueOut2, 0, 0, 1, true) -- INSERT startLoop point
+						reaper.InsertEnvelopePoint(env_dest, startLoop, valueOut, 0, 0, true, true) -- INSERT startLoop point
+						reaper.InsertEnvelopePoint(env_dest, endLoop, valueOut2, 0, 0, true, true) -- INSERT startLoop point
 
 						for p = 0, env_points_count-1 do
 							

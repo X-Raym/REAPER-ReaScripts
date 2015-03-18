@@ -10,14 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.0
- * Version Date: 2015-03-17
- * REAPER: 5.0 pre 15
- * Extensions: SWS 2.6.3 #0
+ * Version: 1.1
+ * Version Date: 2015-03-18
+ * REAPER: 5.0 pre 18b
+ * Extensions: None
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-03-17)
+	+ Select new points
  * v1.0 (2015-03-17)
 	+ Initial release
  --]]
@@ -113,11 +115,17 @@ function main() -- local (i, j, item, take, track)
 
 					if a ~= nil and b ~= nil and env_name_dest == env_name then
 
-						reaper.DeleteEnvelopePointRange(env_dest, 0, 999999)
+						-- GET LAST POINT TIME OF DEST TRACKS AND DELETE ALL
+						env_points_count_dest = reaper.CountEnvelopePoints(env_dest)
 
+						retval_last, time_last, valueSource_last, shape_last, tension_last, selectedOut_last = reaper.GetEnvelopePoint(env_dest, env_points_count_dest-1)
+
+						reaper.DeleteEnvelopePointRange(env_dest, 0, time_last+1)
+
+						-- LOOP IN STORED POINTS AND INSERT
 						for p = 0, env_points_count-1 do
 							
-							reaper.InsertEnvelopePoint(env_dest, time[p], valueSource[p], shape[p], tension[p], 1, true)
+							reaper.InsertEnvelopePoint(env_dest, time[p], valueSource[p], shape[p], tension[p], true, true)
 
 						end -- END LOOP THROUGH SAVED POINTS
 
