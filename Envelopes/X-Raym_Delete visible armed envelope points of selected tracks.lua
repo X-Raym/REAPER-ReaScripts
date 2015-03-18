@@ -13,7 +13,7 @@
  * Version: 1.0
  * Version Date: 2015-03-18
  * REAPER: 5.0 pre 15
- * Extensions: None
+ * Extensions: 2.6.3 #0
  --]]
  
 --[[
@@ -49,9 +49,6 @@ function main() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- GET CURSOR POS
-	offset = reaper.GetCursorPosition()
-
 	startLoop, endLoop = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
 
 		-- LOOP TRHOUGH SELECTED TRACKS
@@ -83,9 +80,6 @@ function main() -- local (i, j, item, take, track)
 
 						reaper.DeleteEnvelopePointRange(env, 0, time_last+1)
 
-						reaper.DeleteEnvelopePointRange(env, startLoop, endLoop)
-
-						
 						reaper.Envelope_SortPoints(env)
 					end
 				
@@ -95,6 +89,10 @@ function main() -- local (i, j, item, take, track)
 
 		end -- ENDLOOP through selected tracks
 
+		reaper.Main_OnCommand(40042, 0)
+
+
+
 		reaper.Undo_EndBlock("Delete visible armed envelope points of selected tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
@@ -102,11 +100,14 @@ end -- end main()
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 --[[ reaper.PreventUIRefresh(1) ]]-- Prevent UI refreshing. Uncomment it only if the script works.
+--reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0)
 
 main() -- Execute your main function
 
 --[[ reaper.PreventUIRefresh(-1) ]] -- Restore UI Refresh. Uncomment it only if the script works.
+--reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) -- Restore current position
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
+reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_EDITCURUNDO"), 0)
