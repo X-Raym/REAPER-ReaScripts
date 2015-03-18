@@ -95,8 +95,8 @@ function main() -- local (i, j, item, take, track)
 					reaper.InsertEnvelopePoint(env, offset, valueOut, 0, 0, true, true) -- INSERT startLoop point
 					reaper.InsertEnvelopePoint(env, startLoop, valueOut2, 0, 0, true, true) -- INSERT startLoop point
 					reaper.InsertEnvelopePoint(env, startLoop, valueOut, 0, 0, true, true) -- INSERT startLoop point
-					reaper.InsertEnvelopePoint(env, endLoop, valueOut3, 0, 0, true, true) -- INSERT startLoop points	
 					reaper.InsertEnvelopePoint(env, endLoop, valueOut, 0, 0, true, true) -- INSERT startLoop points	
+					reaper.InsertEnvelopePoint(env, endLoop, valueOut3, 0, 0, true, true) -- INSERT startLoop points	
 
 					reaper.Envelope_SortPoints(env)
 				

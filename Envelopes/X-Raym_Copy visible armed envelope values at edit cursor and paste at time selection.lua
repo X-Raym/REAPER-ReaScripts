@@ -79,7 +79,7 @@ function main() -- local (i, j, item, take, track)
 
 				if x ~= nil and w ~= nil then
 					
-					reaper.InsertEnvelopePoint(env, offset, valueOut, shape, tension, true, true) -- INSERT point at cursor position
+					
 
 					env_points_count = reaper.CountEnvelopePoints(env)
 
@@ -100,7 +100,8 @@ function main() -- local (i, j, item, take, track)
 					-- ADD POINTS ON LOOP START AND END
 					reaper.InsertEnvelopePoint(env, startLoop, valueOut, shape, tension, true, true) -- INSERT startLoop point
 					reaper.InsertEnvelopePoint(env, endLoop, valueOut, shape, tension, true, true) -- INSERT startLoop points	
-
+					reaper.InsertEnvelopePoint(env, offset, valueOut, shape, tension, true, true) -- INSERT point at cursor position
+					
 					reaper.Envelope_SortPoints(env)
 				
 				end -- ENFIF visible
