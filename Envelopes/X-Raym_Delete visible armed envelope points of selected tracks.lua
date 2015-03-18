@@ -89,10 +89,6 @@ function main() -- local (i, j, item, take, track)
 
 		end -- ENDLOOP through selected tracks
 
-		reaper.Main_OnCommand(40042, 0)
-
-
-
 		reaper.Undo_EndBlock("Delete visible armed envelope points of selected tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
@@ -108,6 +104,4 @@ main() -- Execute your main function
 --reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) -- Restore current position
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
-
 --msg_end() -- Display characters in the console to show you the end of the script execution.
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_EDITCURUNDO"), 0)
