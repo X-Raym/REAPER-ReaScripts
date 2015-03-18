@@ -10,14 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.0
- * Version Date: 2015-03-17
+ * Version: 1.1
+ * Version Date: 2015-03-18
  * REAPER: 5.0 pre 15
  * Extensions: None
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-03-18)
+ 	+ Redraw envelope value at cursor pos in TCP (thanks to HeDa!)
  * v1.0 (2015-03-17)
 	+ Initial release
  --]]
@@ -100,3 +102,23 @@ main() -- Execute your main function
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
+
+-- Update the TCP envelope value at edit cursor position
+function HedaRedrawHack()
+	reaper.PreventUIRefresh(1)
+
+	track=reaper.GetTrack(0,0)
+
+	trackparam=reaper.GetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT")	
+	if trackparam==0 then
+		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 1)
+	else
+		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 0)
+	end
+	reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", trackparam)
+
+	reaper.PreventUIRefresh(-1)
+	
+end
+
+HedaRedrawHack()
