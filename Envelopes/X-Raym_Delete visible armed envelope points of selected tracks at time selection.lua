@@ -22,8 +22,8 @@
 	+ beta
  --]]
 
--- ----- DEBUGGING ====>
---[[
+--[[ ----- DEBUGGING ====>
+
 local info = debug.getinfo(1,'S');
 
 local full_script_path = info.source
@@ -41,8 +41,8 @@ require("X-Raym_Functions - console debug messages")
 
 debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
 clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-msg_clean()]]
+]]
+--msg_clean()
 -- <==== DEBUGGING -----
 
 function main() -- local (i, j, item, take, track)
@@ -53,6 +53,12 @@ function main() -- local (i, j, item, take, track)
 	offset = reaper.GetCursorPosition()
 
 	startLoop, endLoop = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+	--reaper.ShowConsoleMsg("startLoop\n"..tostring(startLoop).."\n")
+	--reaper.ShowConsoleMsg("endLoop\n"..tostring(endLoop).."\n")
+	startLoop = math.floor(startLoop * 100000000+0.5)/100000000
+	endLoop = math.floor(endLoop * 100000000+0.5)/100000000
+	--reaper.ShowConsoleMsg("startRound\n"..tostring(startLoop).."\n")
+	--reaper.ShowConsoleMsg("endRound\n"..tostring(endLoop).."\n")
 
 		-- LOOP TRHOUGH SELECTED TRACKS
 		selected_tracks_count = reaper.CountSelectedTracks(0)
@@ -68,18 +74,13 @@ function main() -- local (i, j, item, take, track)
 				-- GET THE ENVELOPE
 				env = reaper.GetTrackEnvelope(track, j)
 				br_env = reaper.BR_EnvAlloc(env, false)
-				reaper.BR_EnvGetProperties(br_env, active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, zog, faderScaling)
-
-
-				reaper.ShowConsoleMsg("BR env?"..tostring(br_env).."\n")
-				reaper.ShowConsoleMsg("BR env?"..tostring(active).."\n\n") -- why nil?
-
+				active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
+				
 				-- IF VISIBLE AND ARMED
-				retval, strNeedBig = reaper.GetEnvelopeStateChunk(env, "", true)
+				--[[retval, strNeedBig = reaper.GetEnvelopeStateChunk(env, "", true)
 				x, y = string.find(strNeedBig, "VIS 1")
-				w, z = string.find(strNeedBig, "ARM 1")
-
-				if x ~= nil and w ~= nil then
+				w, z = string.find(strNeedBig, "ARM 1")]]
+				if visible == true and active == true then
 					
 					env_points_count = reaper.CountEnvelopePoints(env)
 
@@ -87,17 +88,25 @@ function main() -- local (i, j, item, take, track)
 
 						for k = 0, env_points_count-1 do
 							retval, timeOut, valueOut, shapeOutOptional, tensionOutOptional, selectedOutOptional = reaper.GetEnvelopePoint(env, k)
-
+							position, value, shape, selected, bezier = reaper.BR_EnvGetPoint(br_env, k)
+							--reaper.ShowConsoleMsg("pointTime:\n"..tostring(timeOut).."\n")
+							--reaper.ShowConsoleMsg("startRound\n"..tostring(startLoop).."\n")
+							--reaper.ShowConsoleMsg("BR_Time:\n"..tostring(position).."\n\n")
 							-- IF IN TIME SELECTION
-							if timeOut == startLoop then
-								reaper.BR_EnvDeletePoint(br_env, k)
-
+							if timeOut == startLoop or timeOut == endLoop then -- une boucle while vace un get poitn at time serait mieux
+								--reaper.ShowConsoleMsg("MATCH\n")
+								delete = reaper.BR_EnvDeletePoint(br_env, k)
+								--reaper.DeleteEnvelopePointRange(env, timeOut-0.000000001, timeOut+0.000000001)
+								reaper.ShowConsoleMsg(tostring(delete))
 							end
+
+							--reaper.ShowConsoleMsg("------\n")
 
 						end
 
 					end
 					
+					reaper.BR_EnvFree(br_env, false)
 					reaper.Envelope_SortPoints(env)
 				
 				end -- ENFIF visible
