@@ -1,0 +1,70 @@
+/**
+ * ReaScript Name: Select all rec armed tracks and unselect the others
+ * Description: Select all rec armed tracks and unselect the others
+ * Instructions: Execute.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URl: http://forum.cockos.com/***.html
+ * Version: 1.0
+ * Version Date: 2015-03-19
+ * REAPER: 4.77
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-03-19)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+// <==== DEBUGGING -----
+
+function main() // local (i, j, item, take, track)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	// LOOP TRHOUGH SELECTED TRACKS
+	
+	tracks_count = CountTracks(0);
+
+	i = 0; // INITIALIZE loop through selected tracks
+	loop(tracks_count, (track = GetTrack(0, i)) ? (
+
+			//GET INFOS
+			//track = GetTrack(0, i);
+			//msg_dtl("i", i, 1);
+			rec_armed = GetMediaTrackInfo_Value(track, "I_RECARM");
+
+			rec_armed == 0 ?(
+				// UNSELECT
+				SetMediaTrackInfo_Value(track, "I_SELECTED", 0);
+			):(
+				//SELECT
+				SetMediaTrackInfo_Value(track, "I_SELECTED", 1);
+			);
+		); // ENDIF inside loop
+		i += 1; // INCREMENT loop through selected tracks
+	); // ENDLOOP through selected tracks
+
+	Undo_EndBlock("Select all rec armed tracks and unselect the others", 0); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+//msg_end(); // Display characters in the console to show you the end of the script execution.
