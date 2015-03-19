@@ -91,16 +91,16 @@ function main() -- local (i, j, item, take, track)
 							position, value, shape, selected, bezier = reaper.BR_EnvGetPoint(br_env, k)
 							--reaper.ShowConsoleMsg("pointTime:\n"..tostring(timeOut).."\n")
 							--reaper.ShowConsoleMsg("startRound\n"..tostring(startLoop).."\n")
-							--reaper.ShowConsoleMsg("BR_Time:\n"..tostring(position).."\n\n")
+							reaper.ShowConsoleMsg("BR_Time: "..tostring(position).."\n")
 							-- IF IN TIME SELECTION
 							if timeOut == startLoop or timeOut == endLoop then -- une boucle while vace un get poitn at time serait mieux
 								--reaper.ShowConsoleMsg("MATCH\n")
 								delete = reaper.BR_EnvDeletePoint(br_env, k)
 								--reaper.DeleteEnvelopePointRange(env, timeOut-0.000000001, timeOut+0.000000001)
-								reaper.ShowConsoleMsg(tostring(delete))
+								reaper.ShowConsoleMsg("delete: "..tostring(delete).."\n")
 							end
 
-							--reaper.ShowConsoleMsg("------\n")
+							reaper.ShowConsoleMsg("------\n")
 
 						end
 
