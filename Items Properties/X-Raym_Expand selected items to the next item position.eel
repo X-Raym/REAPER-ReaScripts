@@ -1,6 +1,6 @@
 /**
- * ReaScript Name: Expand selected items lenght to the next item position
- * Description: Expand item lenght to the next item position
+ * ReaScript Name: Expand selected items to the next item position
+ * Description: Expand selected items to the next item position
  * Instructions: Select items and perform the script.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -73,7 +73,7 @@ function main() // local (i, j, item, take, track)
 	); // ENDLOOP through selected items
 	
 
-	Undo_EndBlock("Expand selected items lenght to the next item position", 0); // End of the undo block. Leave it at the bottom of your main function.
+	Undo_EndBlock("Expand selected items to the next item position", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 //msg_start(); // Display characters in the console to show you the begining of the script execution.
