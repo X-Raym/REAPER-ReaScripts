@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Delete visible armed envelope points of selected tracks at time selection
+ * ReaScript Name: Delete visible armed envelope points of selected tracks at time selection edges
  * Description: A way to delete multiple points accros different envelopes and tracks.
  * Instructions: Make a selection area. Execute the script.
  * Author: X-Raym
@@ -11,15 +11,15 @@
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
  * Version: 1.0
- * Version Date: 2015-03-19
+ * Version Date: 2015-03-20
  * REAPER: 5.0 pre 17
  * Extensions: SWS 2.6.3 #0
  --]]
  
 --[[
  * Changelog:
- * v9.0 (2015-03-19)
-	+ beta
+ * v1.0 (2015-03-20)
+	+ Initial release
  --]]
 
 --[[ ----- DEBUGGING ====>
@@ -73,40 +73,17 @@ function main() -- local (i, j, item, take, track)
 
 				-- GET THE ENVELOPE
 				env = reaper.GetTrackEnvelope(track, j)
-				br_env = reaper.BR_EnvAlloc(env, false)
-				active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
-				
+
 				-- IF VISIBLE AND ARMED
-				--[[retval, strNeedBig = reaper.GetEnvelopeStateChunk(env, "", true)
+				retval, strNeedBig = reaper.GetEnvelopeStateChunk(env, "", true)
 				x, y = string.find(strNeedBig, "VIS 1")
-				w, z = string.find(strNeedBig, "ARM 1")]]
-				if visible == true and active == true then
+				w, z = string.find(strNeedBig, "ARM 1")
+				
+				if x ~= nil and w ~= nil then
 					
-					env_points_count = reaper.CountEnvelopePoints(env)
+					reaper.DeleteEnvelopePointRange(env, startLoop-0.000000001, startLoop+0.000000001)
+					reaper.DeleteEnvelopePointRange(env, endLoop-0.000000001, endLoop+0.000000001)
 
-					if env_points_count > 0 then
-
-						for k = 0, env_points_count-1 do
-							retval, timeOut, valueOut, shapeOutOptional, tensionOutOptional, selectedOutOptional = reaper.GetEnvelopePoint(env, k)
-							position, value, shape, selected, bezier = reaper.BR_EnvGetPoint(br_env, k)
-							--reaper.ShowConsoleMsg("pointTime:\n"..tostring(timeOut).."\n")
-							--reaper.ShowConsoleMsg("startRound\n"..tostring(startLoop).."\n")
-							reaper.ShowConsoleMsg("BR_Time: "..tostring(position).."\n")
-							-- IF IN TIME SELECTION
-							if timeOut == startLoop or timeOut == endLoop then -- une boucle while vace un get poitn at time serait mieux
-								--reaper.ShowConsoleMsg("MATCH\n")
-								delete = reaper.BR_EnvDeletePoint(br_env, k)
-								--reaper.DeleteEnvelopePointRange(env, timeOut-0.000000001, timeOut+0.000000001)
-								reaper.ShowConsoleMsg("delete: "..tostring(delete).."\n")
-							end
-
-							reaper.ShowConsoleMsg("------\n")
-
-						end
-
-					end
-					
-					reaper.BR_EnvFree(br_env, false)
 					reaper.Envelope_SortPoints(env)
 				
 				end -- ENFIF visible
@@ -115,7 +92,7 @@ function main() -- local (i, j, item, take, track)
 
 		end -- ENDLOOP through selected tracks
 
-		reaper.Undo_EndBlock("Delete visible armed envelope points of selected tracks at time selection", 0) -- End of the undo block. Leave it at the bottom of your main function.
+		reaper.Undo_EndBlock("Delete visible armed envelope points of selected tracks at time selection edges", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
