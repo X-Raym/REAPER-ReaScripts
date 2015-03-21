@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Copy visible armed envelope values at edit cursor and insert at time selection
- * Description: A way to copy paste multiple points envelope from the same track. Preserve original time selected envelope area, and value at destination area edges. In only works with visible armed tracks.
- * Instructions: Make a selection area. Place the edit cursor somewhere. Execute the script.
+ * ReaScript Name: Add point on visible armed envelopes of selected tracks at edit cursor
+ * Description: A way to copy insert point on several tracks envelopes at one time.
+ * Instructions: Place the edit cursor somewhere. Select a track. Execute the script.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,17 +10,18 @@
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.0
- * Version Date: 2015-03-18
- * REAPER: 5.0 pre 15
- * Extensions: None
+ * Version: 1.1
+ * Version Date: 2015-03-21
+ * REAPER: 5.0 pre 18b
+ * Extensions: SWS 2.6.3 #0
  --]]
  
 --[[
  * Changelog:
- * v1.0 (2015-03-18)
+ * v1.1 (2015-03-21)
+	+ Selected envelope overides armed and visible envelope on selected tracks
+ * v1.0 (2015-03-20)
 	+ Initial release
-	+ Redraw envelope value at cursor pos in TCP (thanks to HeDa!)
  --]]
 
 -- ----- DEBUGGING ====>
@@ -45,6 +46,39 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 
 msg_clean()]]
 -- <==== DEBUGGING -----
+function AddPoints(env)
+		-- GET THE ENVELOPE
+	br_env = reaper.BR_EnvAlloc(env, false)
+
+	active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
+
+	if visible == true and active == true then
+
+		env_points_count = reaper.CountEnvelopePoints(env)
+
+		if env_points_count > 0 then
+			for k = 0, env_points_count+1 do 
+				reaper.SetEnvelopePoint(env, k, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, false, true)
+			end
+		end
+		
+		-- IF THERE IS PREVIOUS POINT
+		cursor_point = reaper.GetEnvelopePointByTime(env, offset)
+
+		if cursor_point ~= -1 then
+
+			--GET POINT VALUE
+			retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, offset, 0, 0)
+			
+			-- ADD POINTS ON LOOP START AND END
+			reaper.InsertEnvelopePoint(env, offset, valueOut, 0, 0, true, true) -- INSERT startLoop point
+
+			reaper.BR_EnvFree(br_env, 0)
+			reaper.Envelope_SortPoints(env)
+
+		end -- ENDIF there is a previous point
+	end
+end
 
 function main() -- local (i, j, item, take, track)
 
@@ -52,11 +86,12 @@ function main() -- local (i, j, item, take, track)
 
 	-- GET CURSOR POS
 	offset = reaper.GetCursorPosition()
+		
+	-- LOOP TRHOUGH SELECTED TRACKS
+	env = reaper.GetSelectedEnvelope(0)
 
-	startLoop, endLoop = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
-	lengthLoop = endLoop - startLoop
+	if env == nil then
 
-		-- LOOP TRHOUGH SELECTED TRACKS
 		selected_tracks_count = reaper.CountSelectedTracks(0)
 		for i = 0, selected_tracks_count-1  do
 			
@@ -69,44 +104,20 @@ function main() -- local (i, j, item, take, track)
 
 				-- GET THE ENVELOPE
 				env = reaper.GetTrackEnvelope(track, j)
-
-				-- IF VISIBLE
-				retval, strNeedBig = reaper.GetEnvelopeStateChunk(env, "", true)
-				x, y = string.find(strNeedBig, "VIS 1")
-				w, z = string.find(strNeedBig, "ARM 1")
-
-				if x ~= nil and w ~= nil then
-
-					retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, offset, 0, 0)
-					retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, startLoop, 0, 0)
-					retval3, valueOut3, dVdSOutOptional3, ddVdSOutOptional3, dddVdSOutOptional3 = reaper.Envelope_Evaluate(env, endLoop, 0, 0)
-
-					env_points_count = reaper.CountEnvelopePoints(env)
-
-					if env_points_count > 0 then
-						for k = 0, env_points_count-1 do 
-							reaper.SetEnvelopePoint(env, k, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, false, true)
-						end
-					end
-					
-					reaper.DeleteEnvelopePointRange(env, startLoop, endLoop)
-
-					-- ADD POINTS ON LOOP START AND END
-					reaper.InsertEnvelopePoint(env, offset, valueOut, 0, 0, true, true) -- INSERT startLoop point
-					reaper.InsertEnvelopePoint(env, startLoop, valueOut2, 0, 0, true, true) -- INSERT startLoop point
-					reaper.InsertEnvelopePoint(env, startLoop, valueOut, 0, 0, true, true) -- INSERT startLoop point
-					reaper.InsertEnvelopePoint(env, endLoop, valueOut, 0, 0, true, true) -- INSERT startLoop points	
-					reaper.InsertEnvelopePoint(env, endLoop, valueOut3, 0, 0, true, true) -- INSERT startLoop points	
-
-					reaper.Envelope_SortPoints(env)
 				
-				end -- ENFIF visible
+				AddPoints(env)
 				
 			end -- ENDLOOP through envelopes
 
 		end -- ENDLOOP through selected tracks
 
-		reaper.Undo_EndBlock("Copy visible armed envelope points of selected tracks in time selection and paste at edit cursor", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	else
+
+		AddPoints(env)
+	
+	end -- endif sel envelope
+
+reaper.Undo_EndBlock("Add point on visible armed envelopes of selected tracks at edit cursor", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
