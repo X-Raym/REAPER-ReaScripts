@@ -73,7 +73,7 @@ function AddPoints(env)
 		reaper.InsertEnvelopePoint(env, end_time, minValue, 0, 0, true, true)
 		reaper.InsertEnvelopePoint(env, end_time, valueOut2, 0, 0, true, true)
 
-		reaper.BR_EnvFree(env, 1)
+		reaper.BR_EnvFree(br_env, 0)
 		reaper.Envelope_SortPoints(env)
 	end
 end
