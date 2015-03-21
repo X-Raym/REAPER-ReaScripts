@@ -19,7 +19,6 @@
 --[[
  * Changelog:
  * v1.1 (2015-03-18)
-	+ Select new points, unselect the other
 	+ Redraw envelope value at cursor pos in TCP (thanks to HeDa!)
  * v1.0 (2015-03-17)
 	+ Initial release

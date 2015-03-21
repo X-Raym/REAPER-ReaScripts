@@ -43,6 +43,12 @@ function set_point_value()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
+	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+
+	if start_time ~= end_time then
+		time_selection = true
+	end
+
 	already_set = false
 
 	envelope = reaper.GetSelectedEnvelope(0)
@@ -108,7 +114,12 @@ function set_point_value()
 				end
 				----msg_ftl("Value ouput", valueIn, 1)
 				-- SET POINT VALUE
-				reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
+
+				if time_selection = true and time >= star_time and time <= end_time then
+					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
+				else
+					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
+				end
 			end -- ENDIF point is selected
 		end -- END Loop
 	end -- ENDIF Volume
