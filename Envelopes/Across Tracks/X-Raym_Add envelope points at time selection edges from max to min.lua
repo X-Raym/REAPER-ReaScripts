@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Add envelope points at time selection edges from max to min preserving edges
+ * ReaScript Name: Add envelope points at time selection edges from max to min
  * Description: Insert points at time selection edges.
  * Instructions: Make a selection area. Execute the script. Works on selected envelope or selected tracks envelope with armed visible envelope.
  * Author: X-Raym
@@ -61,18 +61,19 @@ function AddPoints(env)
 			end
 		end
 		
-		retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, start_time, 0, 0)
-		retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, end_time, 0, 0)
+		--retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, start_time, 0, 0)
+		--retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, end_time, 0, 0)
 			
 		reaper.DeleteEnvelopePointRange(env, start_time-0.000000001, start_time+0.000000001)
 		reaper.DeleteEnvelopePointRange(env, end_time-0.000000001, end_time+0.000000001)
 
 		-- ADD POINTS ON LOOP START AND END
-		reaper.InsertEnvelopePoint(env, start_time, valueOut, 0, 0, 1, 0)
-		reaper.InsertEnvelopePoint(env, start_time, maxValue, 0, 0, 1, 0)
-		reaper.InsertEnvelopePoint(env, end_time, minValue, 0, 0, 1, 0)
-		reaper.InsertEnvelopePoint(env, end_time, valueOut2, 0, 0, 1, 0)
+		--reaper.InsertEnvelopePoint(env, start_time, valueOut, 0, 0, 1, 0)
+		reaper.InsertEnvelopePoint(env, start_time, maxValue, 0, 0, true, true)
+		reaper.InsertEnvelopePoint(env, end_time, minValue, 0, 0, true, true)
+		--reaper.InsertEnvelopePoint(env, end_time, valueOut2, 0, 0, 1, 0)
 
+		reaper.BR_EnvFree(env, 1)
 		reaper.Envelope_SortPoints(env)
 	end
 end
@@ -84,12 +85,15 @@ function main() -- local (i, j, item, take, track)
 	-- GET CURSOR POS
 	offset = reaper.GetCursorPosition()
 
+	-- GET TIME SELECTION EDGES
 	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
-	start_time = math.floor(start_time * 100000000+0.5)/100000000
-	end_time = math.floor(end_time * 100000000+0.5)/100000000
 
 	-- IF TIME SELECTION
 	if start_time ~= end_time then
+
+		-- ROUND LOOP TIME SELECTION EDGES
+		start_time = math.floor(start_time * 100000000+0.5)/100000000
+		end_time = math.floor(end_time * 100000000+0.5)/100000000
 		
 		-- LOOP TRHOUGH SELECTED TRACKS
 		env = reaper.GetSelectedEnvelope(0)
@@ -121,7 +125,7 @@ function main() -- local (i, j, item, take, track)
 		
 		end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Add envelope points at time selection edges from max to min preserving edges", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Add envelope points at time selection edges from max to min", 0) -- End of the undo block. Leave it at the bottom of your main function.
 	
 	end-- ENDIF time selection
 

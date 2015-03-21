@@ -68,11 +68,12 @@ function AddPoints(env)
 		reaper.DeleteEnvelopePointRange(env, end_time-0.000000001, end_time+0.000000001)
 
 		-- ADD POINTS ON LOOP START AND END
-		reaper.InsertEnvelopePoint(env, start_time, valueOut, 0, 0, 1, 0)
-		reaper.InsertEnvelopePoint(env, start_time, minValue, 0, 0, 1, 0)
-		reaper.InsertEnvelopePoint(env, end_time, maxValue, 0, 0, 1, 0)
-		reaper.InsertEnvelopePoint(env, end_time, valueOut2, 0, 0, 1, 0)
+		reaper.InsertEnvelopePoint(env, start_time, valueOut, 0, 0, true, true)
+		reaper.InsertEnvelopePoint(env, start_time, minValue, 0, 0, true, true)
+		reaper.InsertEnvelopePoint(env, end_time, maxValue, 0, 0, true, true)
+		reaper.InsertEnvelopePoint(env, end_time, valueOut2, 0, 0, true, true)
 
+		reaper.BR_EnvFree(env, 1)
 		reaper.Envelope_SortPoints(env)
 	end
 end
@@ -84,12 +85,15 @@ function main() -- local (i, j, item, take, track)
 	-- GET CURSOR POS
 	offset = reaper.GetCursorPosition()
 
+	-- GET TIME SELECTION EDGES
 	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
-	start_time = math.floor(start_time * 100000000+0.5)/100000000
-	end_time = math.floor(end_time * 100000000+0.5)/100000000
 
 	-- IF TIME SELECTION
 	if start_time ~= end_time then
+
+		-- ROUND LOOP TIME SELECTION EDGES
+		start_time = math.floor(start_time * 100000000+0.5)/100000000
+		end_time = math.floor(end_time * 100000000+0.5)/100000000
 		
 		-- LOOP TRHOUGH SELECTED TRACKS
 		env = reaper.GetSelectedEnvelope(0)
