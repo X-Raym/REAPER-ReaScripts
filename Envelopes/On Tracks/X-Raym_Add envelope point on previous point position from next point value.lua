@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Add point on previous visible armed envelope point position from next point value
+ * ReaScript Name: X-Raym_Add envelope point on previous point position from next point value
  * Description: Take next (from cursor position) point value, and insert a new point with that value under the previous point. Works on selected tracks, with visble and armed envelope.
  * Instructions: Place the cursor anywhere between two points. Execute it.
  * Author: X-Raym
@@ -20,6 +20,8 @@
  * Changelog:
  * v1.1 (2015-03-21)
 	+ Selected envelope overides armed and visible envelope on selected tracks
+ * v1.0 (2015-03-18)
+	+ Initial release
  --]]
 
 --[[ ----- DEBUGGING ====>
@@ -135,7 +137,7 @@ function main() -- local (i, j, item, take, track)
 		
 		end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Add point on previous visible armed envelope point position from next point value", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("X-Raym_Add envelope point on previous point position from next point value", 0) -- End of the undo block. Leave it at the bottom of your main function.
 	
 	end-- ENDIF time selection
 
