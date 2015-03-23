@@ -1,0 +1,36 @@
+function MsgD(text, variable)
+(
+	ShowConsoleMsg(text);
+	sprintf(str, "%d", variable);
+	ShowConsoleMsg(str);
+	ShowConsoleMsg("\n");
+);
+
+function MsgF(text, variable)
+(
+	ShowConsoleMsg(text);
+	sprintf(str, "%f", variable);
+	ShowConsoleMsg(str);
+	ShowConsoleMsg("\n");
+);
+
+
+ShowConsoleMsg("");
+
+all = GetToggleCommandState(40311);
+MsgD("All=", all);
+one = GetToggleCommandState(40310);
+MsgD("One=", one);
+all == 0 && one == 0 ?(
+ShowConsoleMsg("No Ripple\n");
+):(
+	ShowConsoleMsg("Ripple\n");
+);
+
+
+ripple = extension_api("SNM_GetIntConfigVar", "ripplelockmode", -666);
+ripple2 = extension_api("SNM_GetDoubleConfigVar", "ripplelockmode", -666);
+test = extension_api("SNM_GetDoubleConfigVar", "dlmfnskljfhnkshfkse", -666);
+MsgD("SNM_int=", ripple);
+MsgF("SNM_float=", ripple2);
+MsgF("Err_value=", test);
