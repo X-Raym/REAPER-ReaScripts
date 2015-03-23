@@ -10,14 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.0
- * Version Date: 2015-03-21
+ * Version: 1.1
+ * Version Date: 2015-03-23
  * REAPER: 5.0 pre 18b
- * Extensions: 2.6.3 #3
+ * Extensions: 2.6.3 #0
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-03-23)
+	+ Clean inside area
  * v1.0 (2015-03-21)
 	+ Initial release
  --]]
@@ -64,8 +66,7 @@ function AddPoints(env)
 		retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, start_time, 0, 0)
 		retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, end_time, 0, 0)
 			
-		reaper.DeleteEnvelopePointRange(env, start_time-0.000000001, start_time+0.000000001)
-		reaper.DeleteEnvelopePointRange(env, end_time-0.000000001, end_time+0.000000001)
+		reaper.DeleteEnvelopePointRange(env, start_time-0.000000001, end_time+0.000000001)
 
 		-- ADD POINTS ON LOOP START AND END
 		reaper.InsertEnvelopePoint(env, start_time, valueOut, 0, 0, true, true)
