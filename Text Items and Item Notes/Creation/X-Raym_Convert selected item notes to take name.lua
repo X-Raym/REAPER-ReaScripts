@@ -1,6 +1,6 @@
 --[[
- * ReaScript Name: Add background markup to selected items notes
- * Description: Add background markup to selected items notes, based on actual item color
+ * ReaScript Name: Convert selected item notes to take name
+ * Description: Convert selected item notes to take name
  * Instructions: Select an item. Use it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -68,6 +68,7 @@ function notes_to_names() -- local (i, j, item, take, track)
 
 		-- GET NOTES
 		note = reaper.ULT_GetMediaItemNote(item)
+		note = note:gsub("\n", " ")
 		--reaper.ShowConsoleMsg(note)
 
 		-- MODIFY TAKE
@@ -75,7 +76,7 @@ function notes_to_names() -- local (i, j, item, take, track)
 
 	end -- ENDLOOP through selected items
 	
-	reaper.Undo_EndBlock("Add background markup to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Convert selected item notes to take name", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
