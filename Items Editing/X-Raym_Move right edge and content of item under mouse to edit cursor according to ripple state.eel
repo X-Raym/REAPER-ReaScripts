@@ -95,7 +95,7 @@ function main()
 
 			mouse_take_off = GetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS");
 
-			SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", mouse_take_off + offset);
+			SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", mouse_take_off - offset);
 
 			SetMediaItemInfo_Value(mouse_item, "D_LENGTH", offset);
 			SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", 0);
