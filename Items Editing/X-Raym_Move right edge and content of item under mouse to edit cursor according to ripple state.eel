@@ -79,6 +79,7 @@ function main()
  						
  					SaveItemRipple();
 
+ 					i+=1;
 				);
 			);
 
