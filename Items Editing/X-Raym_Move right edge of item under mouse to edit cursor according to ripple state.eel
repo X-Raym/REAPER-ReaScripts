@@ -16,27 +16,11 @@
  
 /**
  * Changelog:
-  * v1.2 (2013-03-25)
-	# Ripple optimization
  * v1.1 (2013-03-24)
  	# Get ripple state optimization (thanks to Breeder!)
  * v1.0 (2013-03-23)
 	+ Initial Release
  */
-
-function SaveItemRipple()
-(
-		item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
-
-		mouse_item_pos < edit_pos && mouse_item_pos < item_get_pos ? (
-			item[item_ar_len] = item_get;
-			item_ar_len +=1;
-		);
-		mouse_item_pos > edit_pos && mouse_item_pos > item_get_pos ? (
-			item[item_ar_len] = item_get;
-			item_ar_len +=1;
-		);
-);
 
 //MAIN
 function main()
