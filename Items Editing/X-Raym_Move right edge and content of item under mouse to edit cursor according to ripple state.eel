@@ -1,6 +1,6 @@
 /**
- * ReaScript Name: Move right edge and content of item under mouse to edit cursor according to ripple state
- * Description: A way to expand selected mdia item length based on edit cursor and item under mouse.
+ * ReaScript Name: Move item position of item under mouse to edit cursor according to ripple state
+ * Description: A way to have backward ripple editing
  * Instructions: Place edit cursor before an item. Place the mouse hover an item. Execute the script with a shortcut. Not that this script is also able to move left item edges if edit cursor is inside item under mouse.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -16,9 +16,25 @@
  
 /**
  * Changelog:
- * v1.0 (2013-03-24)
+ * v1.2 (2013-03-25)
+	# Ripple optimization
+ * v1.0 (2013-03-25)
 	+ Initial Release
  */
+
+function SaveItemRipple()
+(
+		item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
+
+		mouse_item_pos < edit_pos && mouse_item_pos < item_get_pos ? (
+			item[item_ar_len] = item_get;
+			item_ar_len +=1;
+		);
+		mouse_item_pos > edit_pos && mouse_item_pos > item_get_pos ? (
+			item[item_ar_len] = item_get;
+			item_ar_len +=1;
+		);
+);
 
 //MAIN
 function main()
@@ -47,7 +63,7 @@ function main()
 		count_item_on_track = CountTrackMediaItems(track);
 		mouse_item_id = GetMediaItemInfo_Value(mouse_item,"IP_ITEMNUMBER");
 
-		mouse_item_pos < edit_pos ?(
+		//mouse_item_pos < edit_pos ?(
 
 			item = 10000;
 			item_ar_len = 0;
@@ -64,12 +80,9 @@ function main()
 				loop(count_media_items, 
 
 					item_get = GetMediaItem(0, i);
-					item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
-					item_track = GetMediaItem_Track(item_get);
-					item_get_pos > mouse_item_pos ? (
-						item[item_ar_len] = item_get;
-						item_ar_len +=1;
-					);
+
+					SaveItemRipple();
+
 					i+=1;
 				);
 			);
@@ -82,11 +95,10 @@ function main()
 				i=0;
 				loop(count_item_on_track, 
 
-					i > mouse_item_id ? (
-						item[item_ar_len] = GetTrackMediaItem(track, i);
-						item_ar_len +=1;
+					item_get = GetTrackMediaItem(track, i);	
 
-					);
+					SaveItemRipple();
+
 					i+=1;
 				);
 			);
@@ -120,8 +132,8 @@ function main()
 					j+=1;
 				);
 			);
-		);
-		Undo_EndBlock("Move right edge and content of item under mouse to edit cursor according to ripple state", -1);
+		//);
+		Undo_EndBlock("Move item position of item under mouse to edit cursor according to ripple state", -1);
 		);
 	);
 );
