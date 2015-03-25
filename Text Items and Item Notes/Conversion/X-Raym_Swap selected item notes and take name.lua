@@ -1,6 +1,6 @@
 --[[
- * ReaScript Name: Convert selected item notes to take name
- * Description: Convert selected item notes to take name
+ * ReaScript Name: Swap selected item notes and take name
+ * Description: Swap selected item notes and take name
  * Instructions: Select an item. Use it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -10,16 +10,12 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: v1.1
- * Version Date: 2015-03-25
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0
  --]]
  
 --[[
  * Changelog:
- * v1.1 (2015-03-25)
-	+ bug fix (if empty item was selected)
  * v1.0 (2015-03-24)
 	+ Initial Release
  --]]
@@ -52,9 +48,46 @@ function dbug (text)
 		end
 	end
 end]]
--- <==== From Heda's HeDa_SRT to text items.lua 
+-- <==== From Heda's HeDa_SRT to text items.lua
 
-function notes_to_names() -- local (i, j, item, take, track)
+function rtrim(s)
+	local n = #s
+	while n > 0 and s:find("^|", n) do n = n - 1 end
+	return s:sub(1, n)
+end
+
+function string.ends(String,End)
+	return End=='' or string.sub(String,-string.len(End))==End
+end
+
+function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
+	-- X-Raym: prevent multiple lines note break and trim any trailing last empty line
+	newnote = newnote:gsub("\n", "\n|")
+	last_char = string.sub(newnote, -1)
+	if last_char == "|" then
+		newnote = rtrim(newnote)
+	end
+	
+	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
+	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
+	--dbug("\nChunk=" .. s .. "\n")
+	has_notes = s:find("<NOTES")  -- has notes?
+	if has_notes then
+		-- there are notes already
+		chunk, note, chunk2 = s:match("(.*<NOTES\n)(.*)(\n>\nIMGRESOURCEFLAGS.*)")
+		newchunk = chunk .. newnote .. chunk2
+		--dbug(newchunk .. "\n")
+		
+	else
+		--there are still no notes
+		chunk,chunk2 = s:match("(.*IID%s%d+)(.*)")
+		newchunk = chunk .. "\n<NOTES\n" .. newnote .. "\n>\nIMGRESOURCEFLAGS 0" .. chunk2
+		--dbug(newchunk .. "\n")
+	end
+	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
+end
+
+function swap() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -71,16 +104,21 @@ function notes_to_names() -- local (i, j, item, take, track)
 		if take ~= nil then
 			-- GET NOTES
 			note = reaper.ULT_GetMediaItemNote(item)
+			--reaper.ShowConsoleMsg(note)
 			note = note:gsub("\n", " ")
+			note2 = note:gsub("|", "")
+			retval, name = reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", "", 0)
 			--reaper.ShowConsoleMsg(note)
 
 			-- MODIFY TAKE
-			retval, stringNeedBig = reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", note, 1)
+			name = "|" .. name
+			HeDaSetNote(item, name)
+			retval, stringNeedBig = reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", note2, 1)
 		end
 
 	end -- ENDLOOP through selected items
 	
-	reaper.Undo_EndBlock("Convert selected item notes to take name", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Swap selected item notes and take name", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -92,7 +130,7 @@ end
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
 
-notes_to_names() -- Execute your main function
+swap() -- Execute your main function
 
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position
