@@ -1,5 +1,5 @@
 /**
- * ReaScript Name: Move right edge of item under mouse to edit cursor according to ripple state preserving end
+ * ReaScript Name: Move item position of item under mouse to edit cursor according to ripple state
  * Description: A way to expand selected mdia item length based on edit cursor and item under mouse.
  * Instructions: Place edit cursor before an item. Place the mouse hover an item. Execute the script with a shortcut. Not that this script is also able to move left item edges if edit cursor is inside item under mouse.
  * Author: X-Raym
@@ -129,7 +129,7 @@ function Main()
 				);
 			);
 		//);
-		Undo_EndBlock("Move left edge of item under mouse to edit cursor according to ripple state preserving end", -1);
+		Undo_EndBlock("Move item position of item under mouse to edit cursor according to ripple state", -1);
 		);
 	);
 );
