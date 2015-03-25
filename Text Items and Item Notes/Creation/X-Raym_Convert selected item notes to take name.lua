@@ -10,14 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: v1.0
- * Version Date: 2015-03-24
+ * Version: v1.1
+ * Version Date: 2015-03-25
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-03-25)
+	+ bug fix (if empty item was selected)
  * v1.0 (2015-03-24)
 	+ Initial Release
  --]]
@@ -66,13 +68,15 @@ function notes_to_names() -- local (i, j, item, take, track)
 		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 		take = reaper.GetActiveTake(item)
 
-		-- GET NOTES
-		note = reaper.ULT_GetMediaItemNote(item)
-		note = note:gsub("\n", " ")
-		--reaper.ShowConsoleMsg(note)
+		if take ~= nil then
+			-- GET NOTES
+			note = reaper.ULT_GetMediaItemNote(item)
+			note = note:gsub("\n", " ")
+			--reaper.ShowConsoleMsg(note)
 
-		-- MODIFY TAKE
-		retval, stringNeedBig = reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", note, 1)
+			-- MODIFY TAKE
+			retval, stringNeedBig = reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", note, 1)
+		end
 
 	end -- ENDLOOP through selected items
 	
