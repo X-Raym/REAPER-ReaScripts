@@ -28,7 +28,7 @@ function SaveItemRipple()
 (
 	item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
 
-	mouse_item_pos < item_get_pos ? (
+	mouse_item_end < item_get_pos ? (
 		item[item_ar_len] = item_get;
 		item_ar_len +=1;
 	);
