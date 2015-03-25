@@ -1,0 +1,150 @@
+/**
+ * ReaScript Name: Move left edge and content of item under mouse to edit cursor according to ripple state
+ * Description: A way to expand selected mdia item length based on edit cursor and item under mouse.
+ * Instructions: Place edit cursor before an item. Place the mouse hover an item. Execute the script with a shortcut. Not that this script is also able to move left item edges if edit cursor is inside item under mouse.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Scripts (EEL): Move L/R edge of item under mouse to edit cursor (with ripple edit)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=157698
+ * REAPER: 5 pre 17
+ * Extensions: SWS/S&M 2.6.3 #0
+ */
+ 
+/**
+ * Changelog:
+ * v1.2 (2015-03-25)
+ 	# Better ripple
+ * v1.0 (2015-03-24)
+	+ Initial Release
+ */
+
+/*function MsgD(variable)
+(
+	sprintf(str, "%d", variable);
+	ShowConsoleMsg(str);
+	ShowConsoleMsg("\n");
+);*/
+
+function SaveItemRipple()
+(
+	item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
+
+	mouse_item_pos > item_get_pos ? (
+		item[item_ar_len] = item_get;
+		item_ar_len +=1;
+	);
+);
+
+//MAIN
+function main()
+(
+	Undo_BeginBlock();
+
+	mouse_pos = extension_api("BR_PositionAtMouseCursor", 0);
+
+	mouse_pos >= 0 ? ( // Mouse in in arrange view
+
+		mouse_item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
+
+		mouse_item != 0 ? (
+		
+		mouse_item_pos = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
+		edit_pos = GetCursorPosition();
+
+		mouse_item_len = GetMediaItemInfo_Value(mouse_item,"D_LENGTH");
+		mouse_item_end = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
+		mouse_item_snap = GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET");
+
+		mouse_item_end = mouse_item_pos + mouse_item_len;
+		offset = mouse_item_pos - edit_pos;
+
+		track = GetMediaItem_Track(mouse_item);
+
+		mouse_item_pos = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
+
+		mouse_item_end > edit_pos ?(
+
+			item = 10000;
+			item_ar_len = 0;
+
+			//all = GetToggleCommandState(40311);
+			//one = GetToggleCommandState(40310);
+			ripple = extension_api("SNM_GetIntConfigVar", "projripedit", -666);
+
+			ripple == 2 ? (
+			//all == 1 ? (
+				count_media_items = CountMediaItems(0);
+
+				i=0;
+				loop(count_media_items, 
+
+					item_get = GetMediaItem(0, i);
+ 						
+ 					SaveItemRipple();
+
+					i+=1;
+				);
+			);
+			
+			ripple == 1 ? (
+			//one == 1 ? (
+				count_item_on_track = CountTrackMediaItems(track);
+
+				i=0;
+				loop(count_item_on_track, 
+
+					item_get = GetTrackMediaItem(track, i);	
+					
+					SaveItemRipple();
+
+					i+=1;
+				);
+			);
+			
+			mouse_take = GetActiveTake(mouse_item);
+
+			mouse_take_off = GetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS");
+
+			SetMediaItemInfo_Value(mouse_item, "D_POSITION", mouse_item_pos - offset);
+			SetMediaItemInfo_Value(mouse_item, "D_LENGTH", mouse_item_len + offset);
+			SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", mouse_item_snap + offset);
+
+			mouse_item_snap = GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET");
+			mouse_item_snap < 0 ? (
+				SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", 0);
+			);
+
+			SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", mouse_take_off);
+
+			ripple > 0 ? (
+			//all == 1 || one == 1 ? (
+				j=0;
+				loop(item_ar_len, 
+
+					item_pos = GetMediaItemInfo_Value(item[j],"D_POSITION");
+					calc = item_pos - offset;
+					calc < 0 ? (
+						calc = 0;
+					);
+					SetMediaItemInfo_Value(item[j], "D_POSITION", calc);
+
+					j+=1;
+				);
+			);
+		);
+		Undo_EndBlock("Move left edge and content of item under mouse to edit cursor according to ripple state", -1);
+		);
+	);
+);
+
+PreventUIRefresh(1);
+
+main();
+
+UpdateArrange();
+
+PreventUIRefresh(-1);
