@@ -54,6 +54,7 @@ function main()
 
 		mouse_item_end = mouse_item_pos + mouse_item_len;
 		offset = edit_pos-mouse_item_pos;
+		offset_end = mouse_item_end-edit_pos;
 
 		track = GetMediaItem_Track(mouse_item);
 		count_item_on_track = CountTrackMediaItems(track);
@@ -102,7 +103,7 @@ function main()
 
 			mouse_take_off = GetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS");
 
-			SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", offset);
+			SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", mouse_take_off + offset_end);
 
 			SetMediaItemInfo_Value(mouse_item, "D_LENGTH", offset);
 			SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", 0);
