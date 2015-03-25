@@ -16,11 +16,23 @@
  
 /**
  * Changelog:
- * v1.1 (2013-03-24)
+ * v1.2 (2015-03-25)
+ 	# Better ripple
+ * v1.1 (2015-03-24)
  	# Get ripple state optimization (thanks to Breeder!)
- * v1.0 (2013-03-23)
+ * v1.0 (2015-03-23)
 	+ Initial Release
  */
+
+function SaveItemRipple()
+(
+	item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
+
+	mouse_item_pos < item_get_pos ? (
+		item[item_ar_len] = item_get;
+		item_ar_len +=1;
+	);
+);
 
 //MAIN
 function main()
@@ -66,12 +78,9 @@ function main()
 				loop(count_media_items, 
 
 					item_get = GetMediaItem(0, i);
-					item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
-					item_track = GetMediaItem_Track(item_get);
-					item_get_pos > mouse_item_pos ? (
-						item[item_ar_len] = item_get;
-						item_ar_len +=1;
-					);
+ 						
+ 					SaveItemRipple();
+
 					i+=1;
 				);
 			);
@@ -79,16 +88,14 @@ function main()
 			ripple == 1 ? (
 			//one == 1 ? (
 				count_item_on_track = CountTrackMediaItems(track);
-				mouse_item_id = GetMediaItemInfo_Value(mouse_item,"IP_ITEMNUMBER");
 
 				i=0;
 				loop(count_item_on_track, 
 
-					i > mouse_item_id ? (
-						item[item_ar_len] = GetTrackMediaItem(track, i);
-						item_ar_len +=1;
+					item_get = GetTrackMediaItem(track, i);	
+					
+					SaveItemRipple();
 
-					);
 					i+=1;
 				);
 			);
