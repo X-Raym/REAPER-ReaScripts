@@ -53,7 +53,7 @@ function AddPoints(env)
 
 	active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
 
-	if visible == true and active == true then
+	if visible == true and armed == true then
 
 		env_points_count = reaper.CountEnvelopePoints(env)
 

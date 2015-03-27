@@ -97,7 +97,7 @@ function main() -- local (i, j, item, take, track)
 						-- IF VISIBLE AND ARMED
 						br_env = reaper.BR_EnvAlloc(env_dest, false)
 						active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
-						if visible == true and active == true then
+						if visible == true and armed == true then
 						
 							retval3, valueOut3, dVdSOutOptional3, ddVdSOutOptional3, dddVdSOutOptional3 = reaper.Envelope_Evaluate(env_dest, start_time, 0, 0)
 							retval4, valueOut4, dVdSOutOptional4, ddVdSOutOptional4, dddVdSOutOptional4 = reaper.Envelope_Evaluate(env_dest, end_time, 0, 0)

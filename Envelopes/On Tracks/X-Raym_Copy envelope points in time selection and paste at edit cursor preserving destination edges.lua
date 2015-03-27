@@ -82,7 +82,7 @@ function Action(env)
 	active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
 
 	-- IF ENVELOPE IS A CANDIDATE
-	if visible == true and active == true then
+	if visible == true and armed == true then
 
 		-- LOOP THROUGH POINTS
 		env_points_count = reaper.CountEnvelopePoints(env)

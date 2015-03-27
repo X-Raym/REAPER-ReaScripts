@@ -103,7 +103,7 @@ function main() -- local (i, j, item, take, track)
 					-- IF VISIBLE AND ARMED
 					br_env = reaper.BR_EnvAlloc(env_dest, false)
 					active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
-					if visible == true and active == true then
+					if visible == true and armed == true then
 
 						if time_selection == true and preserve_edges == true then -- IF we want to preserve edges of time selection
 							retval3, valueOut3, dVdSOutOptional3, ddVdSOutOptional3, dddVdSOutOptional3 = reaper.Envelope_Evaluate(env_dest, start_time, 0, 0)
