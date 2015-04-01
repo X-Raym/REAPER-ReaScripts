@@ -41,7 +41,7 @@ function MsgF(text, variable)
 function main()
 (
 	// RESET
-	ShowConsoleMsg("");
+	//ShowConsoleMsg("");
 
 	// COUNT SEL ITEMS
 	count_sel_items = CountSelectedMediaItems(0);
