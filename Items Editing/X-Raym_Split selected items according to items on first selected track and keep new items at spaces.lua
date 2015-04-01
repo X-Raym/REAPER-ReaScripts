@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Split selected item according to items on first selected track and keep new items at spaces
+ * ReaScript Name: Split selected items according to items on first selected track and keep new items at spaces
  * Description: A script designed for spliting an ambiance sound to put between dialog items
  * Instructions: Select an item. Select a track. The item will be split according to the item starts and item ends on track. If you want to do it on multiple tracks, or if you have overlaping items on your dialog, you create an other track, select dialog items, and use the script X-Raym_Create text items on first selected track from selected items notes.lua following by X-Raym_Merge overlapping similar text items on first selected track.lua
  * Author: X-Raym
@@ -44,12 +44,28 @@ msg_clean()
 
 -- INIT
 split_pos={}
+save_item={}
+save_new_item={}
 split_pos_total = 0
+count_new_item = 0
 
 -- SAVE TIME IN ARRAY
 function save_time(time)
 	table.insert(split_pos, 1, time)
 	split_pos_total = split_pos_total +1
+end
+
+function save_item_selection()
+	count_selected_items = reaper.CountSelectedMediaItems(0)
+	for f = 0, count_selected_items-1 do
+		save_item[f] = reaper.GetSelectedMediaItem(0, f)
+	end
+	for e = 0, count_selected_items-1 do
+		reaper.Main_OnCommand(40289, 0)
+		sel_item = save_item[e]
+		reaper.SetMediaItemSelected(sel_item, 1)
+		main()
+	end
 end
 
 -- MAIN
@@ -58,7 +74,6 @@ function main() -- local (i, j, item, take, track)
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 	-- GET FIRST SELECTED ITEMS & INFOS
-	sel_item = reaper.GetSelectedMediaItem(0, 0) -- Get first selected item
 	sel_item_len = reaper.GetMediaItemInfo_Value(sel_item, "D_LENGTH")
 	sel_item_pos = reaper.GetMediaItemInfo_Value(sel_item, "D_POSITION")
 	sel_item_end = sel_item_pos + sel_item_len
@@ -120,26 +135,34 @@ function main() -- local (i, j, item, take, track)
 		for t = 0, count_selected_items-1 do
 			item = reaper.GetSelectedMediaItem(0, count_selected_items-1-t) -- Get selected item i
 			if (t % 2 == 0) then
-				reaper.SetMediaItemSelected(item, 0)
+				--reaper.SetMediaItemSelected(item, 0)
 				reaper.DeleteTrackMediaItem(track_of_sel_item, item)
 			else
-				reaper.SetMediaItemSelected(item, 1)
+				--reaper.SetMediaItemSelected(item, 1)
+				count_new_item = count_new_item + 1
+				save_new_item[count_new_item] = item
 			end
 		end
 	else -- ELSEIF THE LAST CUT WAS A ITEM END TIME
 		for t = 0, count_selected_items-1 do
 			item = reaper.GetSelectedMediaItem(0, count_selected_items-1-t) -- Get selected item i
 			if (t % 2 == 0) then
-				reaper.SetMediaItemSelected(item, 1)
+				--reaper.SetMediaItemSelected(item, 1)
+				count_new_item = count_new_item + 1
+				save_new_item[count_new_item] = item
 			else
-				reaper.SetMediaItemSelected(item, 0)
+				--reaper.SetMediaItemSelected(item, 0)
 				reaper.DeleteTrackMediaItem(track_of_sel_item, item)
 			end
 		end
 	end
 
+	for a = 1, count_new_item do
+		reaper.SetMediaItemSelected(save_new_item[a], 1)
+	end
+
 	-- UNDO
-	reaper.Undo_EndBlock("Split selected item according to items on first selected track and keep new items at spaces", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Split selected items according to items on first selected track and keep new items at spaces", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -150,8 +173,8 @@ reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the scr
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0 ]]-- Save loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
-
-main() -- Execute your main function
+save_item_selection()
+--main() -- Execute your main function
 
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position
