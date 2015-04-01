@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-04-01)
+	+ Works on selected multiple items
  * v1.0 (2015-04-01)
 	+ Initial Release
  --]]
