@@ -8,8 +8,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
+ * Forum Thread: Script (Lua): Explode Multi-Channel Items
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1506005
  * REAPER: 5.0 pre 15
  * Extensions: 2.6.3 #0
  --]]
