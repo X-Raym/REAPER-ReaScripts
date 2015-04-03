@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Explode multi channel items on tracks without render — stereo
+ * ReaScript Name: Explode multi channel items on two tracks without render (stereo)
  * Description: Just like Explode multichannel audio to new-one channel items, but without MIDI, and without render. Use it with stereo items.
  * Instructions: Select items. Run.
  * Author: X-Raym
@@ -218,7 +218,7 @@ if count_selected_items > 0 then
 	reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTIREVIEWS5"), 0) -- Restore view
 	reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTORESEL"), 0)
 
-	reaper.Undo_EndBlock("Explode multi channel items on tracks without render — stereo", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Explode multi channel items on two tracks without render (stereo)", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 	reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
