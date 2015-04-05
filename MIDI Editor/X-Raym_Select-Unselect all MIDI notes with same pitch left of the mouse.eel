@@ -1,0 +1,100 @@
+/**
+ * ReaScript Name: Select-Unselect all MIDI notes with same pitch left of the mouse
+ * Description: See title.
+ * Instructions: Assign the script to a keyboard shortcut, and load it into MIDI actions, from the MIDI editor Action window.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script (EEL): Select-Unselect all MIDI notes with same pitch right of the mouse
+ * Forum Thread URl: http://forum.cockos.com/***.html
+ * REAPER: 5 pre 21
+ * Extensions: SWS/S&M 2.6.3 #0
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-04-06)
+  + Initial release
+ */
+
+/**
+ * Based on Select all MIDI notes and events right of cursor
+ * by spk77
+ * http://forum.cockos.com/showthread.php?p=1506834#post1506834
+ */
+
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING -----
+
+function select() 
+  local(take, i, cursor_ppq_pos, notes, ccs, sysex, sel, muted, start, end, chan, pitch, vel, chanmsg, msg2, msg3, type)
+(
+  (take = MIDIEditor_GetTake(MIDIEditor_GetActive())) ? (
+    //MIDIEditor_OnCommand(MIDIEditor_GetActive(), 40214); // unselect all
+    extension_api("BR_GetMouseCursorContext", #window, #segment, #details, char_sz);
+    time = extension_api("BR_GetMouseCursorContext_Position");
+    cursor_ppq_pos = MIDI_GetPPQPosFromProjTime(take, time);
+    MIDI_CountEvts(take, notes, ccs, sysex);
+
+    extension_api("BR_GetMouseCursorContext_MIDI", inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId);
+
+    //msg_d(noteRow);
+    all_selected = 1;
+    i = 0;
+    loop(notes,
+    MIDI_EnumSelNotes(take, i);
+    MIDI_GetNote(take, i, sel, muted, start, end, chan, pitch, vel);
+    start <= cursor_ppq_pos && noteRow == pitch ? ( // IF NOTE IS AT PITCH OF MOUSE
+        sel == 0 ? (
+          all_selected = 0;
+        );
+      );
+      i += 1;
+    );
+
+    j = 0;
+    loop(notes,
+      MIDI_GetNote(take, j, sel, muted, start, end, chan, pitch, vel);
+      //msg_d(pitch);
+      start <= cursor_ppq_pos && noteRow == pitch ? (
+       all_selected == 0 ? (
+          MIDI_SetNote(take, j, 1, muted, start, end, chan, pitch, vel);
+        ):(
+          MIDI_SetNote(take, j, 0, muted, start, end, chan, pitch, vel);
+        );
+      ); 
+      j += 1;
+    );
+    
+    /*i = 0;
+    loop(ccs,
+      MIDI_GetCC(take, i, sel, muted, start, chanmsg, chan, msg2, msg3);
+      start >= cursor_ppq_pos ? MIDI_SetCC(take, i, 1, muted, start, chanmsg, chan, msg2, msg3);
+      i += 1;
+    );
+    
+    i = 0;
+    loop(sysex,
+      MIDI_GetTextSysexEvt(take, i, sel, muted, start, type, #msg);
+      start >= cursor_ppq_pos ? MIDI_SetTextSysexEvt(take, i, 1, muted, start, type, #msg);
+      i += 1;
+    );*/
+    
+
+  );
+  Undo_OnStateChange("Select-Unselect all MIDI notes with same pitch left of the mouse");
+);
+
+PreventUIRefresh(1);
+select();
+PreventUIRefresh(-1);
