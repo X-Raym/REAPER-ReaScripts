@@ -453,4 +453,6 @@ function check() local(i, source_item, B_item, B_take)
   );// ENDIF one items selected
 );
 
+PreventUIRefresh(1);
 check();
+PreventUIRefresh(-1);
