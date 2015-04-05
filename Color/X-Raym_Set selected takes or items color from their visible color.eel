@@ -1,0 +1,61 @@
+/**
+ * Set selected takes or items color from their visible color
+ * EEL Script for Reaper
+ * A template for adding custom color button.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Source URl: 
+ * Licence: GPL v3
+ * Forum Thread: Script: 
+ * Forum Thread URl: http://forum.cockos.com/
+ * REAPER: 4.76
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-04-05)
+	+ Initial Release
+ */
+
+// Many thanks to the generous spk77 for helping me with RGB and HEX values convertion!
+// http://forum.cockos.com/showpost.php?p=1479982&postcount=13
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING -----
+
+function main() local (i, j)
+(
+
+	// SELECTED ITEMS LOOP
+	countItems = CountSelectedMediaItems(0);
+
+	i = 0;
+	loop(countItems,
+		(item = GetSelectedMediaItem(0, i)) ? (
+			(take = GetActiveTake(item)) ? (
+					color_int = GetDisplayedMediaItemColor2(item, take);
+					SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", color_int);
+				):(
+					color_int = GetDisplayedMediaItemColor(item);
+					SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color_int);
+				);
+			);
+		i += 1;
+	);
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+//msg_end(); // Display characters in the console to show you the end of the script execution.
