@@ -95,4 +95,6 @@ function select()
   Undo_OnStateChange("Select-Unselect all MIDI notes with same pitch right of the mouse only");
 );
 
+PreventUIRefresh(1);
 select();
+PreventUIRefresh(-1);
