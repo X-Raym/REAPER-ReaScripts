@@ -8,7 +8,7 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
+ * Forum Thread: Script: Script (EEL): Select-Unselect all MIDI notes with same pitch right of the mouse
  * Forum Thread URl: http://forum.cockos.com/***.html
  * REAPER: 5 pre 21
  * Extensions: SWS/S&M 2.6.3 #0
@@ -23,7 +23,7 @@
 /**
  * Based on Select all MIDI notes and events right of cursor
  * by spk77
- * http://forum.cockos.com/showthread.php?p=1465307#post1465307
+ * http://forum.cockos.com/showthread.php?p=1506834#post1506834
  */
 
 
