@@ -1,8 +1,0 @@
-LOOP TEMPLATE
-For each each selected track, get each selected items
--> save item selection
--> loop throught track
---> loop throught item selection
---> compare track selected id and track from item
---> if mathc then get selected
---> end of loop items => exectute something
