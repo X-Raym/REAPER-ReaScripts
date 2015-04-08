@@ -1,0 +1,15 @@
+take = MIDIEditor_GetTake(MIDIEditor_GetActive()); // GET TAKE IN MIDI EDITOR
+MIDI_CountEvts(take, notes, ccs, sysex);// COUNT MIDI NOTES
+j = 0; // INIT
+loop(notes, // EXECUTE THE ACTION BASED ON NUMBER OF NOTES
+	MIDI_GetNote(take, j, sel, muted, start, end, chan, pitch, vel); // GET NOTE J
+	sel == 1 ? ( // IF NOTE IS SELECTED
+		vel = vel + 10; // Optionnal calc based en vel
+		MIDI_SetNote(take, j, sel, muted, start, end, chan, pitch, vel); // SET NOTE J
+	); // END IF NOTE IS SELECTED
+	j += 1; // INCREMENT
+); // END OF LOOP
+
+CountTrackMediaItems(track);
+UpdateArrange();
+CountProjectMarkers(proj,
