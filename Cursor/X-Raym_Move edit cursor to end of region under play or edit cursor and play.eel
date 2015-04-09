@@ -1,0 +1,68 @@
+/**
+ * ReaScript Name: Move edit cursor to end of region under play or edit cursor and play
+ * Description: See title
+ * Instructions: Place edit cursor inside a region. Use it.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URl: http://forum.cockos.com/***.html
+ * REAPER: 4.77
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-04-09)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING -----
+
+function main() // local (i, j, item, take, track)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+	
+	edit_pos = GetCursorPosition();
+	
+	play = GetPlayState();
+	play > 0 ? (
+		pos = GetPlayPosition();
+	):(
+		pos = edit_pos;
+	);
+	
+	GetLastMarkerAndCurRegion(0, pos, markeridxOut, regionidxOut);
+	
+	//msg_d(regionidxOut);
+	
+	regionidxOut > -1 ? (
+		EnumProjectMarkers(regionidxOut, 1, posOut, rgnendOut, #nameOut, markrgnindexnumberOut);
+		
+		calc = rgnendOut - edit_pos;
+		
+		MoveEditCursor(calc, 0);
+		
+		OnPlayButton();
+	);
+
+	Undo_EndBlock("Move edit cursor to end of region under play or edit cursor and play", 0); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+//msg_end(); // Display characters in the console to show you the end of the script execution.
