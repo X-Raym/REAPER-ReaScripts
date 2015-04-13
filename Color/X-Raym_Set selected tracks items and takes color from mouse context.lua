@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-04-13)
+	# no console message
  * v1.0 (2015-04-05)
 	+ Initial Release
  --]]
@@ -49,7 +51,7 @@ function main()
 		if color_int == 0 then
 			mouse_track = reaper.GetMediaItemTrack(mouse_item)
 			color_int = reaper.GetMediaTrackInfo_Value(mouse_track, "I_CUSTOMCOLOR")
-			reaper.ShowConsoleMsg("track")
+			--reaper.ShowConsoleMsg("track")
 		end
 	end
 
