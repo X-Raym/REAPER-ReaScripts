@@ -83,12 +83,10 @@ function InsertChild() -- local (i, j, item, take, track)
 			retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
 			
 			if first == true then
-				reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVESEL"), 0)
 
 				reaper.GetSetMediaTrackInfo_String(next_track, "P_NAME", track_name .. " — Child R", true)
 				reaper.SetMediaTrackInfo_Value(next_track, "D_PAN", 1)
-				-- SAVE TRACK SELECTION (track from item)
-				--SaveTracks()
+
 			else
 				reaper.GetSetMediaTrackInfo_String(next_track, "P_NAME", track_name .. " — Child L", true)
 				reaper.SetMediaTrackInfo_Value(next_track, "D_PAN", -1)
@@ -195,6 +193,22 @@ end
 	end
 end]]
 
+--[[ ----- INITIAL SAVE AND RESTORE ====> ]]
+
+-- CURSOR
+-- SAVE INITIAL CURSOR POS
+function SaveCursorPos()
+	init_cursor_pos = reaper.GetCursorPosition()
+end
+
+-- RESTORE INITIAL CURSOR POS
+function RestoreCursorPos()
+	reaper.Main_OnCommand(40042, 0) -- Go to start of the project
+	reaper.MoveEditCursor(init_cursor_pos, false)
+end
+
+--[[ <==== INITIAL SAVE AND RESTORE ----- ]]
+
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 count_selected_items = reaper.CountSelectedMediaItems(0)
 
@@ -203,20 +217,20 @@ if count_selected_items > 0 then
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 	reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0) -- Save view
-	reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0)
+	SaveCursorPos()
 
 	InsertChild()
 	InsertChild()
 	SaveItems()
+	
 	Main() -- Execute your main function
+	
 	RestoreItems()
-	--RestoreTracks()
 
 	reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-	reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) -- Restore current position
+	RestoreCursorPos()
 	reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTIREVIEWS5"), 0) -- Restore view
-	reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTORESEL"), 0)
 
 	reaper.Undo_EndBlock("Explode multi channel items on two tracks without render (stereo)", 0) -- End of the undo block. Leave it at the bottom of your main function.
 

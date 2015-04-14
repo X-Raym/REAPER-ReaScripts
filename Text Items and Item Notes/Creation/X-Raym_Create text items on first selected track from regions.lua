@@ -119,17 +119,46 @@ function main() -- local (i, j, item, take, track)
 
 end
 
+--[[ ----- INITIAL SAVE AND RESTORE ====> ]]
+
+-- LOOP AND TIME SELECTION
+-- SAVE INITIAL LOOP AND TIME SELECTION
+function SaveLoopTimesel()
+	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
+	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
+end
+
+-- RESTORE INITIAL LOOP AND TIME SELECTION
+function RestoreLoopTimesel()
+	reaper.GetSet_LoopTimeRange(1, 0, init_start_timesel, init_end_timesel, 0)
+	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
+end
+
+-- CURSOR
+-- SAVE INITIAL CURSOR POS
+function SaveCursorPos()
+	init_cursor_pos = reaper.GetCursorPosition()
+end
+
+-- RESTORE INITIAL CURSOR POS
+function RestoreCursorPos()
+	reaper.Main_OnCommand(40042, 0) -- Go to start of the project
+	reaper.MoveEditCursor(init_cursor_pos, false)
+end
+
+--[[ <==== INITIAL SAVE AND RESTORE ----- ]]
+
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 reaper.PreventUIRefresh(1)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0)
+SaveCursorPos()
+SaveLoopTimesel()
 
 reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0)
+RestoreLoopTimesel()
+RestoreCursorPos()
 reaper.PreventUIRefresh(-1)
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)

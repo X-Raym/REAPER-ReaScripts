@@ -175,17 +175,51 @@ function main() -- local (i, j, item, take, track)
 
 end
 
+--[[ ----- INITIAL SAVE AND RESTORE ====> ]]
+
+-- ITEMS
+-- SAVE INITIAL SELECTED ITEMS
+init_sel_items = {}
+local function SaveSelectedItems (table)
+	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+		table[i+1] = reaper.GetSelectedMediaItem(0, i)
+	end
+end
+
+-- RESTORE INITIAL SELECTED ITEMS
+local function RestoreSelectedItems (table)
+	reaper.Main_OnCommand(40289, 0) -- Unselect all items
+	for _, item in ipairs(table) do
+		reaper.SetMediaItemSelected(item, true)
+	end
+end
+
+-- LOOP AND TIME SELECTION
+-- SAVE INITIAL LOOP AND TIME SELECTION
+function SaveLoopTimesel()
+	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
+	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
+end
+
+-- RESTORE INITIAL LOOP AND TIME SELECTION
+function RestoreLoopTimesel()
+	reaper.GetSet_LoopTimeRange(1, 0, init_start_timesel, init_end_timesel, 0)
+	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
+end
+
+--[[ <==== INITIAL SAVE AND RESTORE ----- ]]
+
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 reaper.PreventUIRefresh(1)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVEALLSELITEMS1"), 0)
+SaveLoopTimesel()
+SaveSelectedItems(init_sel_items)
 
 reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTALLSELITEMS1"), 0)
+RestoreLoopTimesel()
+RestoreSelectedItems(init_sel_items)
 reaper.PreventUIRefresh(-1)
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 

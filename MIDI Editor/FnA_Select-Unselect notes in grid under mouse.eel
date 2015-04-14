@@ -1,0 +1,69 @@
+//select/unselect notes in grid space under mouse at or below active row
+
+function AS()
+(
+  j = 0;
+  x = Note_Ct;
+  while(x)(
+    MIDI_GetNote(Take, j, sel, muted, start, end, chan, pitch, vel);
+    Row >= pitch ? (
+      start < Grid_B ? (
+        end > Grid_A  ? (
+          sel == 0 ? (
+            all_selected = 0;
+          );
+        );
+      ):(
+        x = 1;
+      );
+    );
+    j += 1;
+    x -= 1;
+  );
+);
+
+function select()
+(
+  k = 0;
+  y = Note_Ct;
+  while(y)(
+    MIDI_GetNote(Take, k, sel2, muted2, start2, end2, chan2, pitch2, vel2);
+    Row >= pitch2 ? (
+      start2 < Grid_B ? (
+        end2 > Grid_A  ? (
+          all_selected == 0 ? (
+            MIDI_SetNote(Take, k, 1, muted2, start2, end2, chan2, pitch2, vel2);
+          ):(
+            MIDI_SetNote(Take, k, 0, muted2, start2, end2, chan2, pitch2, vel2);
+          );
+        );
+      ):(
+        y = 1;
+      );
+    );
+    k += 1;
+    y -= 1;
+  );
+);
+
+PreventUIRefresh(1);
+
+ME = MIDIEditor_GetActive();
+Take = MIDIEditor_GetTake(ME);
+MIDI_CountEvts(Take, Note_Ct, evts, sysexs);
+Row = MIDIEditor_GetSetting_int(ME, "active_note_row");
+
+CurPos_1 = GetCursorPosition();
+MIDIEditor_LastFocused_OnCommand(40443, 0);// EC to MC
+MIDIEditor_LastFocused_OnCommand(40047, 0);// EC left to grid
+Grid_A = MIDI_GetPPQPosFromProjTime(Take, GetCursorPosition());
+MIDIEditor_LastFocused_OnCommand(40048, 0);// EC right to grid
+Grid_B = MIDI_GetPPQPosFromProjTime(Take, GetCursorPosition());
+SetEditCurPos(CurPos_1, 0, 0);
+
+all_selected = 1;
+AS();
+select();
+
+PreventUIRefresh(-1);
+Undo_OnStateChange("Select-Unselect all MIDI notes under mouse based on grid");

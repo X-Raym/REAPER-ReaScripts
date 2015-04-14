@@ -165,17 +165,34 @@ function main()
 	end -- if selected track
 end
 
+--[[ ----- INITIAL SAVE AND RESTORE ====> ]]
+
+-- LOOP AND TIME SELECTION
+-- SAVE INITIAL LOOP AND TIME SELECTION
+function SaveLoopTimesel()
+	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
+	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
+end
+
+-- RESTORE INITIAL LOOP AND TIME SELECTION
+function RestoreLoopTimesel()
+	reaper.GetSet_LoopTimeRange(1, 0, init_start_timesel, init_end_timesel, 0)
+	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
+end
+
+--[[ <==== INITIAL SAVE AND RESTORE ----- ]]
+
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 reaper.PreventUIRefresh(1)
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0)
+SaveLoopTimesel()
 
 reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
 
+RestoreLoopTimesel()
 reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTOREVIEWS5"), 0)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0)
 reaper.PreventUIRefresh(-1)
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)

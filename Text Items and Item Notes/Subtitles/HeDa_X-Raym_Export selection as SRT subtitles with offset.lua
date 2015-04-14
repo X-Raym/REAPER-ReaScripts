@@ -180,13 +180,49 @@ function export_txt(file)
 end
 
 
+--[[ ----- INITIAL SAVE AND RESTORE ====> ]]
 
+-- ITEMS
+-- SAVE INITIAL SELECTED ITEMS
+init_sel_items = {}
+local function SaveSelectedItems (table)
+	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+		table[i+1] = reaper.GetSelectedMediaItem(0, i)
+	end
+end
+
+-- RESTORE INITIAL SELECTED ITEMS
+local function RestoreSelectedItems (table)
+	reaper.Main_OnCommand(40289, 0) -- Unselect all items
+	for _, item in ipairs(table) do
+		reaper.SetMediaItemSelected(item, true)
+	end
+end
+
+-- TRACKS
+-- SAVE INITIAL TRACKS SELECTION
+init_sel_tracks = {}
+local function SaveSelectedTracks (table)
+	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+		table[i+1] = reaper.GetSelectedMediaItem(0, i)
+	end
+end
+
+-- RESTORE INITIAL TRACKS SELECTION
+local function RestoreSelectedTracks (table)
+	reaper.Main_OnCommand(40289, 0) -- Unselect all items
+	for _, item in ipairs(table) do
+		reaper.SetMediaItemSelected(item, true)
+	end
+end
+
+--[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
 -- START -----------------------------------------------------
 -- backup
 reaper.PreventUIRefresh(-10) -- prevent refreshing
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVEALLSELITEMS1"), 0) -- Save current item selection
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVESEL"), 0) -- save track selection
+SaveSelectedItems(init_sel_items)
+SaveSelectedTracks(init_sel_tracks)
 
 -- the thing
 selected_items_count = reaper.CountSelectedMediaItems(0)
@@ -250,6 +286,6 @@ else -- there is no selected track
 end -- end if there is selected track
 
 -- restoration
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTALLSELITEMS1"), 0)  -- Restore previous item selection
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTORESEL"), 0) -- Restore track selection
+RestoreSelectedItems(init_sel_items)
+RestoreSelectedTracks(init_sel_tracks)
 reaper.PreventUIRefresh(10) -- can refresh again

@@ -232,18 +232,102 @@ function main() -- local (i, j, item, take, track)
 
 end
 
+
+-- The following functions may be passed as global if needed
+--[[ ----- INITIAL SAVE AND RESTORE ====> ]]
+
+-- ITEMS
+-- SAVE INITIAL SELECTED ITEMS
+init_sel_items = {}
+local function SaveSelectedItems (table)
+	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+		table[i+1] = reaper.GetSelectedMediaItem(0, i)
+	end
+end
+
+-- RESTORE INITIAL SELECTED ITEMS
+local function RestoreSelectedItems (table)
+	reaper.Main_OnCommand(40289, 0) -- Unselect all items
+	for _, item in ipairs(table) do
+		reaper.SetMediaItemSelected(item, true)
+	end
+end
+
+-- TRACKS
+-- SAVE INITIAL TRACKS SELECTION
+init_sel_tracks = {}
+local function SaveSelectedTracks (table)
+	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+		table[i+1] = reaper.GetSelectedMediaItem(0, i)
+	end
+end
+
+-- RESTORE INITIAL TRACKS SELECTION
+local function RestoreSelectedTracks (table)
+	reaper.Main_OnCommand(40289, 0) -- Unselect all items
+	for _, item in ipairs(table) do
+		reaper.SetMediaItemSelected(item, true)
+	end
+end
+
+-- LOOP AND TIME SELECTION
+-- SAVE INITIAL LOOP AND TIME SELECTION
+function SaveLoopTimesel()
+	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
+	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
+end
+
+-- RESTORE INITIAL LOOP AND TIME SELECTION
+function RestoreLoopTimesel()
+	reaper.GetSet_LoopTimeRange(1, 0, init_start_timesel, init_end_timesel, 0)
+	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
+end
+
+-- CURSOR
+-- SAVE INITIAL CURSOR POS
+function SaveCursorPos()
+	init_cursor_pos = reaper.GetCursorPosition()
+end
+
+-- RESTORE INITIAL CURSOR POS
+function RestoreCursorPos()
+	reaper.Main_OnCommand(40042, 0) -- Go to start of the project
+	reaper.MoveEditCursor(init_cursor_pos, false)
+end
+
+-- VIEW
+-- SAVE INITIAL VIEW
+function SaveView()
+	start_timeOut, end_timeOut, screen_x_start, integer screen_x_end = reaper.GetSet_ArrangeView2(0, false)
+end
+
+-- RESTORE INITIAL VIEW
+function RestoreView()
+	reaper.GetSet_ArrangeView2(0, true, screen_x_start, integer screen_x_end)
+end
+
+--[[ <==== INITIAL SAVE AND RESTORE ----- ]]
+
+
+
+
 msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 --[[ reaper.PreventUIRefresh(1) ]]-- Prevent UI refreshing. Uncomment it only if the script works.
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0) ]] -- Save view
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SAVELOOP5"), 0 ]]-- Save loop
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_SAVE_CURSOR_POS_SLOT_8"), 0) ]]--
 
+SaveCursorPos()
+SaveLoopTimesel()
+SaveSelectedItems(init_sel_items)
+SaveSelectedTracks(init_sel_tracks)
 
 main() -- Execute your main function
 
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_RESTLOOP5"), 0) ]] -- Restore loop
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_RESTORE_CURSOR_POS_SLOT_8"), 0) ]]-- Restore current position
+RestoreCursorPos()
+RestoreLoopTimesel()
+RestoreSelectedItems(init_sel_items)
+RestoreSelectedTracks(init_sel_tracks)
+
 --[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTIREVIEWS5"), 0) ]] -- Restore view
 --[[ reaper.PreventUIRefresh(-1) ]] -- Restore UI Refresh. Uncomment it only if the script works.
 
