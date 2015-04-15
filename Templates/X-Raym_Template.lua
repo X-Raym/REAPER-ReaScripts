@@ -10,14 +10,15 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.5
- * Version Date: YYYY-MM-DD
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0 (optional)
  --]]
  
 --[[
  * Changelog:
+ * v1.6 (2015-04-15)
+ 	+ Save/Restore functions without calling the SWS API functions.
+ 	# thanks to heda for the edit cursor restore
  * v1.5 (2015-03-03)
  	+ Call Functions file from relative parent subfolder
  * v1.4.1 (2015-03-03)
@@ -291,12 +292,11 @@ end
 
 -- RESTORE INITIAL CURSOR POS
 function RestoreCursorPos()
-	reaper.Main_OnCommand(40042, 0) -- Go to start of the project
-	reaper.MoveEditCursor(init_cursor_pos, false)
+	reaper.SetEditCurPos(init_cursor_pos, false, false)
 end
 
 -- VIEW (NOTE: THIS DOESN'T WORK YET. USE _WOL_SAVEVIEWS5 BELOW)
--- SAVE INITIAL VIEW
+--[[ SAVE INITIAL VIEW
 function SaveView()
 	start_timeOut, end_timeOut, screen_x_start, integer screen_x_end = reaper.GetSet_ArrangeView2(0, false)
 end
@@ -304,7 +304,7 @@ end
 -- RESTORE INITIAL VIEW
 function RestoreView()
 	reaper.GetSet_ArrangeView2(0, true, screen_x_start, integer screen_x_end)
-end
+end]]
 
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
