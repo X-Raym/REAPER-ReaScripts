@@ -37,7 +37,7 @@ msg_clean();*/
 // <==== DEBUGGING -----
 
 function select() 
-  local(take, i, cursor_ppq_pos, notes, ccs, sysex, sel, muted, start, end, chan, pitch, vel, chanmsg, msg2, msg3, type)
+	local (take, i, cursor_ppq_pos, notes, ccs, sysex, sel, muted, start, end, chan, pitch, vel, chanmsg, msg2, msg3, type)
 (
   (take = MIDIEditor_GetTake(MIDIEditor_GetActive())) ? (
     //MIDIEditor_OnCommand(MIDIEditor_GetActive(), 40214); // unselect all
