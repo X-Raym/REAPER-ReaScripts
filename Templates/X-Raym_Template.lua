@@ -295,7 +295,7 @@ function RestoreCursorPos()
 	reaper.MoveEditCursor(init_cursor_pos, false)
 end
 
--- VIEW
+-- VIEW (NOTE: THIS DOESN'T WORK YET. USE _WOL_SAVEVIEWS5 BELOW)
 -- SAVE INITIAL VIEW
 function SaveView()
 	start_timeOut, end_timeOut, screen_x_start, integer screen_x_end = reaper.GetSet_ArrangeView2(0, false)
