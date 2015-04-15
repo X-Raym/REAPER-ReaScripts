@@ -1,5 +1,5 @@
-// EEL-select/unselect notes in grid space under mouse at or below (see note1) mouse cursor
-// From X-Raym_Select-Unselect all MIDI notes under mouse based on grid.eel
+// EEL-select/unselect notes in grid space over mouse at or below (see note1) mouse cursor
+// From X-Raym_Select-Unselect all MIDI notes over mouse based on grid.eel
 // Thing to fix (if possible): jumpy cursor.
 
 function AS()
@@ -8,7 +8,7 @@ function AS()
   x = Note_Ct;
   while(x)(
     MIDI_GetNote(Take, j, sel, muted, start, end, chan, pitch, vel);
-    Row >= pitch ? (
+    Row <= pitch ? (
       start < Grid_B ? (
         end > Grid_A  ? (
           sel == 0 ? (
@@ -30,7 +30,7 @@ function select()
   y = Note_Ct;
   while(y)(
     MIDI_GetNote(Take, k, sel2, muted2, start2, end2, chan2, pitch2, vel2);
-    Row >= pitch2 ? (
+    Row <= pitch2 ? (
       start2 < Grid_B ? (
         end2 > Grid_A  ? (
           all_selected == 0 ? (
