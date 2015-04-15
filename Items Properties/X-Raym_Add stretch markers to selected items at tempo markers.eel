@@ -74,7 +74,8 @@ function src_offset(f_position, f_item, f_take) local(pos, spos)
       ucmip = (cmip - p1) + sp1; // beyond last SM, item time becomes sp1 at p1 and SM rate =1
       section_playrate = take_playrate;
     );
-    position_source_offset = ucmip + take_offset; // convert from item pos to source position
+    // ORIGINAL = position_source_offset = ucmip + take_offset;
+    position_source_offset = ucmip; // convert from item pos to source position
     sm_dev_flag = num_sm>=3 && (sp1 != p1 || sp2 != p2) && (sp1-p1) != (sp2-p2) && smi < num_sm-1; // set SM deviated flag (either side SM moved)
     
   ):(
@@ -95,33 +96,34 @@ function main() local (i, j, item, take, track)
 	tempo_markers_count = CountTempoTimeSigMarkers(0);
 	selected_items_count = CountSelectedMediaItems(0);
 
-	j = 0;
-	loop(tempo_markers_count,
+	
+
+	i = 0; // INITIALIZE loop through selected items
+	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+			item_start = GetMediaItemInfo_Value(item, "D_POSITION");
+			item_end = item_start + GetMediaItemInfo_Value(item, "D_LENGTH");
+
+			(take = GetActiveTake(item)) ? (
+
+        j = 0;
+  loop(tempo_markers_count,
+    
+    GetTempoTimeSigMarker(0, j, timeposOut, measureposOut, beatposOut, bpmOut, timesig_numOut, timesig_denomOut, lineartempoOut);
+
+				item_start <= timeposOut && item_end >= timeposOut ? (
+					// Strech marker pos depends on take playrate
+					take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+					offset = src_offset(timeposOut, item, take);
+					
+					SetTakeStretchMarker(take, -1, (timeposOut-item_start)*take_playrate, offset);	
+				  );// ENF IF TEMPO MARKER IS INSIDE ITEM
+         j += 1;
+        );// END LOOP TEMPO MARKES
+			); // ENDIF active take
+		); // ENDIF selected items
 		
-		GetTempoTimeSigMarker(0, j, timeposOut, measureposOut, beatposOut, bpmOut, timesig_numOut, timesig_denomOut, lineartempoOut);
-
-		i = 0; // INITIALIZE loop through selected items
-		loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
-				item_start = GetMediaItemInfo_Value(item, "D_POSITION");
-				item_end = item_start + GetMediaItemInfo_Value(item, "D_LENGTH");
-
-				(take = GetActiveTake(item)) ? (
-
-					item_start <= timeposOut && item_end >= timeposOut ? (
-						// Strech marker pos depends on take playrate
-						take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
-						offset = src_offset(timeposOut, item, take);
-						
-						SetTakeStretchMarker(take, -1, (timeposOut-item_start)*take_playrate, offset);	
-					);
-				); // ENDIF active take
-			); // ENDIF inside loop selected items
-			
-			i += 1; // INCREMENT loop through selected items
-		); // ENDLOOP through selected items
-		
-		j += 1;
-	);
+		i += 1; // INCREMENT loop through selected items
+	); // ENDLOOP through selected items
 
 	Undo_EndBlock("Add stretch markers to selected items at tempo markers", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
