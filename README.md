@@ -26,10 +26,12 @@ If you want download scripts on this repo anyway:
 
 ##Contributors
 - [spk77](http://forum.cockos.com/member.php?u=49553)
+- [HeDa](http://forum.cockos.com/member.php?u=47822)
+- [FnA](http://forum.cockos.com/member.php?u=47920)
 
 ##Helpers
-- [planetnine](http://forum.cockos.com/member.php?u=6549)
-- [heda](https://github.com/hedacoder)
+- [Breeder](http://forum.cockos.com/member.php?u=27094)
+- [PlanetNine](http://forum.cockos.com/member.php?u=6549)
 
 ##External Scripts (uploaded here)
 - [EEL Simple Slider Class 1st version](http://forum.cockos.com/showthread.php?p=1435963)
