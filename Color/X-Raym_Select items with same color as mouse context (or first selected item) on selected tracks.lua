@@ -8,8 +8,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: 
- * Forum Thread URl: 
+ * Forum Thread: Script (Lua): Set selected tracks, items and takes color from mouse context
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=158358
  * REAPER: 5.0 pre 21
  * Extensions: SWS/S&M 2.6.3 #0
  --]]
