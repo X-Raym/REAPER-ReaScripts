@@ -8,14 +8,16 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
+ * Forum Thread: Scripts (EEL): Add stretch markers (various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1511145#post1511145
  * REAPER: 4.76
  * Extensions: None.
  */
  
 /**
  * Changelog:
+ * v1.1 (2014-04-16)
+ 	# Work with all takes. 
  * v1.0 (2014-04-15)
  	+ Initial release. 
  */
@@ -96,30 +98,36 @@ function main() local (i, j, item, take, track)
 	tempo_markers_count = CountTempoTimeSigMarkers(0);
 	selected_items_count = CountSelectedMediaItems(0);
 
-	
+
 
 	i = 0; // INITIALIZE loop through selected items
 	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
 			item_start = GetMediaItemInfo_Value(item, "D_POSITION");
 			item_end = item_start + GetMediaItemInfo_Value(item, "D_LENGTH");
 
-			(take = GetActiveTake(item)) ? (
+			count_takes = CountTakes(item);
+			
+			// LOOP IN TAKES
+			k = 0;
+			loop(count_takes,
+			
 
-        j = 0;
-  loop(tempo_markers_count,
-    
-    GetTempoTimeSigMarker(0, j, timeposOut, measureposOut, beatposOut, bpmOut, timesig_numOut, timesig_denomOut, lineartempoOut);
+				j = 0;
+				loop(tempo_markers_count,
+			
+					GetTempoTimeSigMarker(0, j, timeposOut, measureposOut, beatposOut, bpmOut, timesig_numOut, timesig_denomOut, lineartempoOut);
 
-				item_start <= timeposOut && item_end >= timeposOut ? (
-					// Strech marker pos depends on take playrate
-					take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
-					offset = src_offset(timeposOut, item, take);
-					
-					SetTakeStretchMarker(take, -1, (timeposOut-item_start)*take_playrate, offset);	
-				  );// ENF IF TEMPO MARKER IS INSIDE ITEM
-         j += 1;
-        );// END LOOP TEMPO MARKES
-			); // ENDIF active take
+					item_start <= timeposOut && item_end >= timeposOut ? (
+						// Strech marker pos depends on take playrate
+						take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+						offset = src_offset(timeposOut, item, take);
+						
+						SetTakeStretchMarker(take, -1, (timeposOut-item_start)*take_playrate, offset);	
+					);// ENF IF TEMPO MARKER IS INSIDE ITEM
+					j += 1;
+				);// END LOOP TEMPO MARKES
+				k+=1;
+			);// END LOOP TAKES
 		); // ENDIF selected items
 		
 		i += 1; // INCREMENT loop through selected items
