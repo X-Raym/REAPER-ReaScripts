@@ -111,6 +111,7 @@ function main() local (i, j, item, take, track)
 			k = 0;
 			loop(count_takes,
 			
+				take=GetTake(item, k);
 
 				j = 0;
 				loop(tempo_markers_count,
