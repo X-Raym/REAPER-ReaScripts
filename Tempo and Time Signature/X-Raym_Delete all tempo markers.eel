@@ -1,0 +1,53 @@
+/**
+ * ReaScript Name: Delete all tempo markers
+ * Description: See title.
+ * Instructions: Run.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Feature Action: Clear Tempo Envelope.
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1514132
+ * REAPER: 5 pre 17
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-04-24)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING -----
+
+function main() // local (i, j, item, take, track)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+	count_tempo_markers = CountTempoTimeSigMarkers(0);
+	i = 0;
+	loop(count_tempo_markers,
+		DeleteTempoTimeSigMarker(0, count_tempo_markers-i);
+		i+=1;
+	);
+
+	// YOUR CODE ABOVE
+
+	Undo_EndBlock("Delete all tempo markers", 0); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+//msg_end(); // Display characters in the console to show you the end of the script execution.
