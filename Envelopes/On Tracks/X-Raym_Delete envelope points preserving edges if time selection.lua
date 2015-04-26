@@ -17,7 +17,7 @@
 --[[
  * Changelog:
  * v1.2 (2015-04-26)
-	+ Better preserving edges
+	+ Better edges preservation
  * v1.1 (2015-03-21)
 	+ Selected envelope overides armed and visible envelope on selected tracks
 	+ Facultative time selection

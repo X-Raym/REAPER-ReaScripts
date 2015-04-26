@@ -17,7 +17,7 @@
 --[[
  * Changelog:
  * v1.2 (2015-04-26)
-	+ Better preserving edges
+	+ Better edges preservation
  * v1.1 (2015-03-23)
 	+ Clean inside area
  * v1.0 (2015-03-21)
