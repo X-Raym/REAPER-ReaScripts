@@ -1,3 +1,0 @@
-// Place this at a custom action start.
-// Don't forget to add Prevent UI Refresh Restore.eel at the end of the custom action.
-PreventUIRefresh(1);
