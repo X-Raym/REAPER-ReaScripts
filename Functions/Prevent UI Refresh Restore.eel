@@ -1,0 +1,3 @@
+// Place this at a custom action end.
+// Don't forget to add Prevent UI Refresh.eel at the start of the custom action.
+PreventUIRefresh(-1);
