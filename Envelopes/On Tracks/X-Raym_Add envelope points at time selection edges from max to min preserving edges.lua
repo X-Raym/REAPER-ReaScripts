@@ -8,8 +8,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832
+ * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations 
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0 pre 18b
  * Extensions: 2.6.3 #0
  --]]
