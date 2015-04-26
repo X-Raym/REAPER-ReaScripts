@@ -9,15 +9,15 @@
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.1
- * Version Date: 2015-03-21
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832
  * REAPER: 5.0 pre 18b
  * Extensions: SWS 2.6.3 #0
  --]]
  
 --[[
  * Changelog:
+ * v1.2 (2015-04-26)
+	+ Better preserving edges
  * v1.1 (2015-03-21)
 	+ Selected envelope overides armed and visible envelope on selected tracks
 	+ Facultative time selection
@@ -51,9 +51,61 @@ msg_clean()]]
 
 -- ----- CONFIG =====>
 
-preserve_edges = false
+preserve_edges = true
 
 -- <===== CONFIG -----
+
+function GetTimeLoopPoints(envelope, env_point_count, start_time, end_time)
+	local set_first_start = 0
+	local set_first_end = 0
+	for i = 0, env_point_count do
+		retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
+		
+		if start_time == time and set_first_start == 0 then
+			set_first_start = 1
+			first_start_idx = i
+			first_start_val = valueOut
+		end
+		if end_time == time and set_first_end == 0 then
+			set_first_end = 1
+			first_end_idx = i
+			first_end_val = valueOut
+		end
+		if set_first_end == 1 and set_first_start == 1 then
+			break
+		end
+	end
+
+	local set_last_start = 0
+	local set_last_end = 0
+	for i = 0, env_point_count do
+		retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,env_point_count-1-i)
+		
+		if start_time == time and set_last_start == 0 then
+			set_last_start = 1
+			last_start_idx = env_point_count-1-i
+			last_start_val = valueOut
+		end
+		if end_time == time and set_last_end == 0 then
+			set_last_end = 1
+			last_end_idx = env_point_count-1-i
+			last_end_val = valueOut
+		end
+		if set_last_start == 1 and set_last_end == 1 then
+			break
+		end
+	end
+	
+	if first_start_val == nil then
+		retval_start_time, first_start_val, dVdS_start_time, ddVdS_start_time, dddVdS_start_time = reaper.Envelope_Evaluate(env, start_time, 0, 0)
+	end
+	if last_end_val == nil then
+		retval_end_time, last_start_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(env, end_time, 0, 0)
+	end
+			
+	return first_start_val, last_start_val, first_end_val, last_end_val
+
+end
 
 function DeleteAtTimeSelection()
 	
@@ -71,14 +123,6 @@ function DeleteAtTimeSelection()
 end
 
 function Action(env)
-	
-	-- PRESERVE EDGES EVALUATION
-	if time_selection == true and preserve_edges == true then -- IF we want to preserve edges of time selection
-
-		retval3, valueOut3, dVdSOutOptional3, ddVdSOutOptional3, dddVdSOutOptional3 = reaper.Envelope_Evaluate(env, start_time, 0, 0)
-		retval4, valueOut4, dVdSOutOptional4, ddVdSOutOptional4, dddVdSOutOptional4 = reaper.Envelope_Evaluate(env, end_time, 0, 0)
-
-	end -- preserve edges of time selection
 
 	-- GET THE ENVELOPE
 	retval, envelopeName = reaper.GetEnvelopeName(env, "envelopeName")
@@ -91,6 +135,13 @@ function Action(env)
 
 		-- LOOP THROUGH POINTS
 		env_points_count = reaper.CountEnvelopePoints(env)
+		
+		-- PRESERVE EDGES EVALUATION
+		if time_selection == true and preserve_edges == true then -- IF we want to preserve edges of time selection
+
+			first_start_val, last_start_val, first_end_val, last_end_val = GetTimeLoopPoints(env, env_points_count, start_time, end_time)
+
+		end -- preserve edges of time selection
 
 		if env_points_count > 0 then
 			for k = 0, env_points_count-1 do 
@@ -107,8 +158,8 @@ function Action(env)
 			reaper.DeleteEnvelopePointRange(env, start_time-0.000000001, start_time+0.000000001)
 			reaper.DeleteEnvelopePointRange(env, end_time-0.000000001, end_time+0.000000001)
 			
-			reaper.InsertEnvelopePoint(env, start_time, valueOut3, 0, 0, true, true) -- INSERT startLoop point
-			reaper.InsertEnvelopePoint(env, end_time, valueOut4, 0, 0, true, true) -- INSERT startLoop point
+			reaper.InsertEnvelopePoint(env, start_time, first_start_val, 0, 0, true, true) -- INSERT startLoop point
+			reaper.InsertEnvelopePoint(env, end_time, last_end_val, 0, 0, true, true) -- INSERT startLoop point
 		
 		end
 		
