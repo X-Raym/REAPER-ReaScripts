@@ -10,14 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Script: Scripts (LUA): Create Text Items Actions (various)
  * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
- * Version: 1.1.2
- * Version Date: 2015-03-11
- * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.2
+ * REAPER: 5.0 pre 29
+ * Extensions: SWS/S&M 2.7.1
  --]]
  
 --[[
  * Changelog:
+ * v1.2 (2015-05-08)
+	# Better view restoration
  * v1.1.2 (2015-03-11)
 	# Better item selection restoration
 	# First selected track as last touched
@@ -186,18 +186,29 @@ function RestoreLoopTimesel()
 	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
 end
 
+-- VIEW
+--SAVE INITIAL VIEW
+function SaveView()
+	start_time_view, end_time_view, screen_x_start, screen_x_end = reaper.GetSet_ArrangeView2(0, false)
+end
+
+-- RESTORE INITIAL VIEW
+function RestoreView()
+	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
+end
+
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 reaper.PreventUIRefresh(1)
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0)
+SaveView()
 SaveLoopTimesel()
 
 reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
 
-reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTOREVIEWS5"), 0)
+RestoreView()
 RestoreLoopTimesel()
 reaper.PreventUIRefresh(-1)
 reaper.UpdateArrange() -- Update the arrangement (often needed)
