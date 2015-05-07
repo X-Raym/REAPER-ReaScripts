@@ -17,9 +17,9 @@
 --[[
  * Changelog:
  * v1.7 (2015-05-18)
- 	+ Save/Restore functions without calling the SWS API functions.
+ 	+ Save/Restore view without calling the SWS "slot" functions.
  * v1.6 (2015-04-15)
- 	+ Save/Restore functions without calling the SWS API functions.
+ 	+ Save/Restore functions without calling the SWS "slot" functions.
  	# thanks to heda for the edit cursor restore
  * v1.5 (2015-03-03)
  	+ Call Functions file from relative parent subfolder
