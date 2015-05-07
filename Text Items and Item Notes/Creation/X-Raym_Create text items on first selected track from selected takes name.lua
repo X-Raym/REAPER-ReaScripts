@@ -11,7 +11,7 @@
  * Forum Thread: Script: Scripts (LUA): Create Text Items Actions (various)
  * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
  * REAPER: 5.0 pre 29
- * Extensions: SWS/S&M 2.7.1
+ * Extensions: SWS/S&M 2.7.1 #0
  --]]
  
 --[[
