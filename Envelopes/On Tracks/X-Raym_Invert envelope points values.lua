@@ -10,14 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.1
- * Version Date: 2015-03-21
  * REAPER: 5.0 pre 18b
  * Extensions: SWS 2.6.3 #0
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-05-07)
+	# Time selection bug fix
  * v1.1 (2015-03-21)
 	+ Selected envelope overides armed and visible envelope on selected tracks
 	+ Facultative time selection
@@ -150,7 +150,7 @@ function main() -- local (i, j, item, take, track)
 	-- GET CURSOR POS
 	offset = reaper.GetCursorPosition()
 
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 	if start_time ~= end_time then
 		time_selection = true

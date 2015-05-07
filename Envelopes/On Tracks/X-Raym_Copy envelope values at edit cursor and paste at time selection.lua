@@ -18,6 +18,8 @@
  
 --[[
  * Changelog:
+ * v1.1.1 (2015-05-07)
+	# Time selection bug fix
  * v1.1 (2015-03-21)
 	+ Selected envelope overides armed and visible envelope on selected tracks
  * v1.0 (2015-03-18)
@@ -91,7 +93,7 @@ function main() -- local (i, j, item, take, track)
 	offset = reaper.GetCursorPosition()
 
 	-- GET TIME SELECTION EDGES
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 	-- IF TIME SELECTION
 	if start_time ~= end_time then

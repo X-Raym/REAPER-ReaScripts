@@ -10,14 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487882#post1487882
- * Version: 1.0
- * Version Date: 2015-03-08
  * REAPER: 5.0 pre 9
  * Extensions: None
 ]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-05-07)
+	# Time selection bug fix
  * v1.0 (2015-03-08)
 	+ Initial Release
 ]]
@@ -43,7 +43,7 @@ function set_point_value()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 	if start_time ~= end_time then
 		time_selection = true

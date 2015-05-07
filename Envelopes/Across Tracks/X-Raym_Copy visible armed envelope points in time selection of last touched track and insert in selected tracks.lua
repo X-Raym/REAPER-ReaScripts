@@ -10,14 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.0
- * Version Date: 2015-03-18
  * REAPER: 5.0 pre 18b
  * Extensions: None
  --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2015-05-07)
+	# Time selection bug fix
  * v1.0 (2015-03-18)
 	+ Initial release
 	+ Redraw envelope value at cursor pos in TCP (thanks to HeDa!)
@@ -62,7 +62,7 @@ function main() -- local (i, j, item, take, track)
 		restore_sel = true
 	end -- ENFIF last track is selected
 
-	startLoop, endLoop = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+	startLoop, endLoop = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 

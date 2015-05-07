@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.2.1 (2015-05-07)
+	# Time selection bug fix
  * v1.2 (2015-04-26)
 	+ Better edges preservation
  * v1.1 (2015-03-23)
@@ -141,7 +143,7 @@ function main() -- local (i, j, item, take, track)
 	offset = reaper.GetCursorPosition()
 
 	-- GET TIME SELECTION EDGES
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 	-- IF TIME SELECTION
 	if start_time ~= end_time then

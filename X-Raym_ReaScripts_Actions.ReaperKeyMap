@@ -137,3 +137,7 @@ SCR 4 0 "XR_CHCK_COMMON_SECTIONS_MOUSE" "Custom: Various (X-Raym) — Check for co
 SCR 4 0 "XR_CHCK_COMMON_SECTIONS_SEL" "Custom: Various (X-Raym) — Check for common source sections in audio items selection" "Various\X-Raym_Check for common source sections in audio items selection.eel"
 SCR 4 0 "XR_MOVE_CURSOR_TO_0" "Custom: Various (X-Raym) — Move edit cursor to time 0 or to project start" "Various\X-Raym_Move edit cursor to time 0 or to project start.lua"
 SCR 4 0 "XR_DELETE_ALL_TEMPO_MARKERS" "Custom: Various (X-Raym) — Delete all tempo markers" "Tempo and Time Signature\X-Raym_Delete all tempo markers.eel"
+SCR 4 0 "XR_PREVENT_UI_REFRESH" "Custom: Various (X-Raym) — Prevent UI Refresh" "Various\X-Raym_Prevent UI Refresh.eel"
+SCR 4 0 "XR_PREVENT_UI_REFRESH_RESTORE" "Custom: Various (X-Raym) — Prevent UI Refresh Restore" "Various\X-Raym_Prevent UI Refresh Restore.eel"
+SCR 4 32060 "XR_SEL_HIGH_NOTES" "Custom: MIDI Editor (X-Raym) — Select-Unselect highest MIDI notes in active take" "MIDI Editor\X-Raym_Select-Unselect highest MIDI notes in active take.eel"
+SCR 4 32060 "XR_SEL_LOW_NOTES" "Custom: MIDI Editor (X-Raym) — Select-Unselect lowest MIDI notes in active take" "MIDI Editor\X-Raym_Select-Unselect lowest MIDI notes in active take.eel"

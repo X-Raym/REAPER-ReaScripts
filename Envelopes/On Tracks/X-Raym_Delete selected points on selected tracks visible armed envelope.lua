@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.0.1 (2015-05-07)
+	# Time selection bug fix
  * v1.0 (2015-03-21)
 	+ Initial Release
 ]]
@@ -53,7 +55,7 @@ selectedOut = {}
 function main() -- local (i, j, item, take, track)
 
 	-- GET LOOP
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 	-- IF LOOP ?
 	if start_time ~= end_time then
 		time_selection = true

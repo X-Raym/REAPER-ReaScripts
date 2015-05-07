@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.2.1 (2015-05-07)
+	# Time selection bug fix
  * v1.2 (2015-04-26)
 	+ Better edges preservation
  * v1.1 (2015-03-21)
@@ -177,7 +179,7 @@ function main() -- local (i, j, item, take, track)
 	-- GET CURSOR POS
 	offset = reaper.GetCursorPosition()
 
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 	if start_time ~= end_time then
 		time_selection = true

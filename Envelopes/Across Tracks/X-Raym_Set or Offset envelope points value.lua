@@ -10,14 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487882#post1487882
- * Version: 1.0
- * Version Date: 2015-03-21
  * REAPER: 5.0 pre 9
  * Extensions: SWS 2.6.3 #0
 ]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2015-05-07)
+	# Time selection bug fix
  * v1.0 (2015-03-21)
 	+ Initial Release
 ]]
@@ -72,7 +72,7 @@ function main() -- local (i, j, item, take, track)
 		user_input_num = tonumber(user_input_str)
 
 		-- GET LOOP
-		start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, true, 0, 0, false)
+		start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 		-- IF LOOP ?
 		if start_time ~= end_time then
 			time_selection = true
