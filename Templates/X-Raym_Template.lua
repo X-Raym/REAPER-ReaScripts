@@ -11,11 +11,13 @@
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.0 (optional)
+ * Extensions: SWS/S&M 2.7.1 (optional)
  --]]
  
 --[[
  * Changelog:
+ * v1.7 (2015-05-18)
+ 	+ Save/Restore functions without calling the SWS API functions.
  * v1.6 (2015-04-15)
  	+ Save/Restore functions without calling the SWS API functions.
  	# thanks to heda for the edit cursor restore
@@ -195,6 +197,7 @@ function main() -- local (i, j, item, take, track)
 		-- ACTIONS
 	end -- ENDLOOP through selected tracks
 	--]]
+	--]]
 
 	-- LOOP THROUGH REGIONS
 	--[[
@@ -209,7 +212,7 @@ function main() -- local (i, j, item, take, track)
 		end
 	until iRetval == 0
 	--]]
-
+	--]]
 
 	-- LOOP TRHOUGH FX - by HeDa
 	--[[
@@ -226,7 +229,8 @@ function main() -- local (i, j, item, take, track)
 		end -- ENDLOOP FX loop
 	end -- ENDLOOP tracks loop
 	--]]
-
+	--]]
+	
 	-- YOUR CODE ABOVE
 
 	reaper.Undo_EndBlock("My action", 0) -- End of the undo block. Leave it at the bottom of your main function.
@@ -238,7 +242,7 @@ end
 --[[ ----- INITIAL SAVE AND RESTORE ====> ]]
 
 -- ITEMS
--- SAVE INITIAL SELECTED ITEMS
+--[[ SAVE INITIAL SELECTED ITEMS
 init_sel_items = {}
 local function SaveSelectedItems (table)
 	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
@@ -252,10 +256,10 @@ local function RestoreSelectedItems (table)
 	for _, item in ipairs(table) do
 		reaper.SetMediaItemSelected(item, true)
 	end
-end
+end]]
 
 -- TRACKS
--- SAVE INITIAL TRACKS SELECTION
+--[[ SAVE INITIAL TRACKS SELECTION
 init_sel_tracks = {}
 local function SaveSelectedTracks (table)
 	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
@@ -269,10 +273,10 @@ local function RestoreSelectedTracks (table)
 	for _, item in ipairs(table) do
 		reaper.SetMediaItemSelected(item, true)
 	end
-end
+end]]
 
 -- LOOP AND TIME SELECTION
--- SAVE INITIAL LOOP AND TIME SELECTION
+--[[ SAVE INITIAL LOOP AND TIME SELECTION
 function SaveLoopTimesel()
 	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
 	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
@@ -282,10 +286,10 @@ end
 function RestoreLoopTimesel()
 	reaper.GetSet_LoopTimeRange(1, 0, init_start_timesel, init_end_timesel, 0)
 	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
-end
+end]]
 
 -- CURSOR
--- SAVE INITIAL CURSOR POS
+--[[ SAVE INITIAL CURSOR POS
 function SaveCursorPos()
 	init_cursor_pos = reaper.GetCursorPosition()
 end
@@ -293,17 +297,17 @@ end
 -- RESTORE INITIAL CURSOR POS
 function RestoreCursorPos()
 	reaper.SetEditCurPos(init_cursor_pos, false, false)
-end
+end]]
 
--- VIEW (NOTE: THIS DOESN'T WORK YET. USE _WOL_SAVEVIEWS5 BELOW)
+-- VIEW
 --[[ SAVE INITIAL VIEW
 function SaveView()
-	start_timeOut, end_timeOut, screen_x_start, integer screen_x_end = reaper.GetSet_ArrangeView2(0, false)
+	start_time_view, end_time_view, screen_x_start, screen_x_end = reaper.GetSet_ArrangeView2(0, false)
 end
 
 -- RESTORE INITIAL VIEW
 function RestoreView()
-	reaper.GetSet_ArrangeView2(0, true, screen_x_start, integer screen_x_end)
+	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
 end]]
 
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
@@ -311,11 +315,11 @@ end]]
 
 
 
-msg_start() -- Display characters in the console to show you the begining of the script execution.
+--msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 --[[ reaper.PreventUIRefresh(1) ]]-- Prevent UI refreshing. Uncomment it only if the script works.
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0) ]] -- Save view
 
+SaveView()
 SaveCursorPos()
 SaveLoopTimesel()
 SaveSelectedItems(init_sel_items)
@@ -327,10 +331,10 @@ RestoreCursorPos()
 RestoreLoopTimesel()
 RestoreSelectedItems(init_sel_items)
 RestoreSelectedTracks(init_sel_tracks)
+RestoreView()
 
---[[ reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTIREVIEWS5"), 0) ]] -- Restore view
 --[[ reaper.PreventUIRefresh(-1) ]] -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-msg_end() -- Display characters in the console to show you the end of the script execution.
+--msg_end() -- Display characters in the console to show you the end of the script execution.

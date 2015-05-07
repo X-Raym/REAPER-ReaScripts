@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Explode Multi-Channel Items
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1506005
- * REAPER: 5.0 pre 15
- * Extensions: 2.6.3 #0
+ * REAPER: 5.0 pre 29
+ * Extensions: 2.7.1 #0
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-05-08)
+	# Better restorations
  * v1.0 (2015-04-03)
 	+ Initial Release
  --]]
@@ -48,20 +50,6 @@ save_item = {}
 first = true
 group_id = 1000
 
--- SAVE ITEMS SELECTION
-function SaveItems()
-	for f = 0, count_selected_items-1 do
-		save_item[f] = reaper.GetSelectedMediaItem(0, f)
-	end
-end
-
--- SAVE TRACKS SELECTION
---[[function SaveTracks()
-	count_selected_tracks = reaper.CountSelectedTracks(0)
-	for g = 0, count_selected_tracks-1 do
-		save_track[g] = reaper.GetSelectedTrack(0, g)
-	end
-end--]]
 
 -- From Insert one new child track for each selected tracks X-Raym's script
 function InsertChild() -- local (i, j, item, take, track)
@@ -179,21 +167,23 @@ function Main() -- local (i, j, item, take, track)
 
 end -- END function Main
 
+--[[ ----- INITIAL SAVE AND RESTORE ====> ]]
+
+-- ITEMS
+-- SAVE ITEMS SELECTION
+function SaveItems()
+	for f = 0, count_selected_items-1 do
+		save_item[f] = reaper.GetSelectedMediaItem(0, f)
+	end
+end
+
+-- RESTORE ITEMS SELECTION
 function RestoreItems()
 	reaper.Main_OnCommand(40289, 0) -- Unselect all items
 	for p = 0, count_selected_items-1 do
 		reaper.SetMediaItemSelected(save_item[p], true)
 	end
 end
-
---[[function RestoreTracks()
-	reaper.Main_OnCommand(40297, 0) -- Unselect all tracks
-	for y = 0, count_selected_tracks-1 do
-		reaper.SetTrackSelected(save_track[y], true)
-	end
-end]]
-
---[[ ----- INITIAL SAVE AND RESTORE ====> ]]
 
 -- CURSOR
 -- SAVE INITIAL CURSOR POS
@@ -207,6 +197,17 @@ function RestoreCursorPos()
 	reaper.MoveEditCursor(init_cursor_pos, false)
 end
 
+-- VIEW
+--SAVE INITIAL VIEW
+function SaveView()
+	start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
+end
+
+-- RESTORE INITIAL VIEW
+function RestoreView()
+	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
+end
+
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
@@ -215,8 +216,8 @@ count_selected_items = reaper.CountSelectedMediaItems(0)
 if count_selected_items > 0 then
 	reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-
-	reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_SAVEVIEWS5"), 0) -- Save view
+	
+	SaveView()
 	SaveCursorPos()
 
 	InsertChild()
@@ -230,8 +231,8 @@ if count_selected_items > 0 then
 	reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 	RestoreCursorPos()
-	reaper.Main_OnCommand(reaper.NamedCommandLookup("_WOL_RESTIREVIEWS5"), 0) -- Restore view
-
+	RestoreView()
+	
 	reaper.Undo_EndBlock("Explode multi channel items on two tracks without render (stereo)", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 	reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
