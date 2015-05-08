@@ -55,6 +55,12 @@ function main() -- local (i, j, item, take, track)
 		
 		reaper.Main_OnCommand(40297, 0) -- Unselect all tracks (so that it can copy items)
 		reaper.Main_OnCommand(40698, 0) -- COpy selected items
+		
+		-- GET SNAP
+		if reaper.GetToggleCommandState(1157) == 1 then 
+			position = reaper.SnapToGrid(0, position)
+		end
+		
 		reaper.SetEditCurPos2(0, position, false, false)
 		reaper.SetOnlyTrackSelected(track)
 		reaper.Main_OnCommand(40914,0) -- Set first sleected track as last touched
