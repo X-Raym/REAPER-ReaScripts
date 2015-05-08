@@ -270,8 +270,8 @@ end
 -- RESTORE INITIAL TRACKS SELECTION
 local function RestoreSelectedTracks (table)
 	reaper.Main_OnCommand(40289, 0) -- Unselect all items
-	for _, item in ipairs(table) do
-		reaper.SetMediaItemSelected(item, true)
+	for _, track in ipairs(table) do
+		reaper.SetMediaItemSelected(track, true)
 	end
 end]]
 
@@ -320,19 +320,19 @@ end]]
 
 --[[ reaper.PreventUIRefresh(1) ]]-- Prevent UI refreshing. Uncomment it only if the script works.
 
-SaveView()
-SaveCursorPos()
-SaveLoopTimesel()
-SaveSelectedItems(init_sel_items)
-SaveSelectedTracks(init_sel_tracks)
+--SaveView()
+--SaveCursorPos()
+--SaveLoopTimesel()
+--SaveSelectedItems(init_sel_items)
+--SaveSelectedTracks(init_sel_tracks)
 
 main() -- Execute your main function
 
-RestoreCursorPos()
-RestoreLoopTimesel()
-RestoreSelectedItems(init_sel_items)
-RestoreSelectedTracks(init_sel_tracks)
-RestoreView()
+--RestoreCursorPos()
+--RestoreLoopTimesel()
+--RestoreSelectedItems(init_sel_items)
+--RestoreSelectedTracks(init_sel_tracks)
+--RestoreView()
 
 --[[ reaper.PreventUIRefresh(-1) ]] -- Restore UI Refresh. Uncomment it only if the script works.
 
