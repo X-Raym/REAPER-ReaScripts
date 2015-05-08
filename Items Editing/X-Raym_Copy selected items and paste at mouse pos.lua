@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-05-08)
+	+ Snap
  * v1.0 (2015-05-08)
 	+ Initial Release
  --]]
