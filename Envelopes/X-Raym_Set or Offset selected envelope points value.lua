@@ -115,7 +115,7 @@ function set_point_value()
 				----msg_ftl("Value ouput", valueIn, 1)
 				-- SET POINT VALUE
 
-				if time_selection = true and time >= star_time and time <= end_time then
+				if time_selection == true and time >= star_time and time <= end_time then
 					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
 				else
 					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
