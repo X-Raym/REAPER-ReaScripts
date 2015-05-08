@@ -203,16 +203,16 @@ end
 -- SAVE INITIAL TRACKS SELECTION
 init_sel_tracks = {}
 local function SaveSelectedTracks (table)
-	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
-		table[i+1] = reaper.GetSelectedMediaItem(0, i)
+	for i = 0, reaper.CountSelectedTracks(0)-1 do
+		table[i+1] = reaper.GetSelectedTrack(0, i)
 	end
 end
 
 -- RESTORE INITIAL TRACKS SELECTION
 local function RestoreSelectedTracks (table)
-	reaper.Main_OnCommand(40289, 0) -- Unselect all items
-	for _, item in ipairs(table) do
-		reaper.SetMediaItemSelected(item, true)
+	reaper.Main_OnCommand(40297, 0) -- Unselect all items
+	for _, track in ipairs(table) do
+		reaper.SetTrackSelected(track, true)
 	end
 end
 
