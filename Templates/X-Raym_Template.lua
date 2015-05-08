@@ -262,25 +262,25 @@ end]]
 --[[ SAVE INITIAL TRACKS SELECTION
 init_sel_tracks = {}
 local function SaveSelectedTracks (table)
-	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
-		table[i+1] = reaper.GetSelectedMediaItem(0, i)
+	for i = 0, reaper.CountSelectedTracks(0)-1 do
+		table[i+1] = reaper.GetSelectedTrack(0, i)
 	end
 end
 
 -- RESTORE INITIAL TRACKS SELECTION
 local function RestoreSelectedTracks (table)
-	reaper.Main_OnCommand(40289, 0) -- Unselect all items
+	reaper.Main_OnCommand(40297, 0) -- Unselect all items
 	for _, track in ipairs(table) do
-		reaper.SetMediaItemSelected(track, true)
+		reaper.SetTrackSelected(track, true)
 	end
-end]]
+end
 
 -- LOOP AND TIME SELECTION
 --[[ SAVE INITIAL LOOP AND TIME SELECTION
 function SaveLoopTimesel()
 	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
 	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
-end
+end]]
 
 -- RESTORE INITIAL LOOP AND TIME SELECTION
 function RestoreLoopTimesel()
