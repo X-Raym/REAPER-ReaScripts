@@ -302,8 +302,9 @@ end]]
 -- VIEW
 --[[ SAVE INITIAL VIEW
 function SaveView()
-	start_time_view, end_time_view, screen_x_start, screen_x_end = reaper.GetSet_ArrangeView2(0, false)
+	start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
 end
+
 
 -- RESTORE INITIAL VIEW
 function RestoreView()
