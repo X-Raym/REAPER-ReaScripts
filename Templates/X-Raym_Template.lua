@@ -280,7 +280,7 @@ end
 function SaveLoopTimesel()
 	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
 	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
-end]]
+end
 
 -- RESTORE INITIAL LOOP AND TIME SELECTION
 function RestoreLoopTimesel()

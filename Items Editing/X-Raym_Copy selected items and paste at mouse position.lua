@@ -79,7 +79,7 @@ end
 --[[ ----- INITIAL SAVE AND RESTORE ====> ]]
 
 -- ITEMS
---[[ SAVE INITIAL SELECTED ITEMS
+-- SAVE INITIAL SELECTED ITEMS
 init_sel_items = {}
 local function SaveSelectedItems (table)
 	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
@@ -93,7 +93,7 @@ local function RestoreSelectedItems (table)
 	for _, item in ipairs(table) do
 		reaper.SetMediaItemSelected(item, true)
 	end
-end]]
+end
 
 -- TRACKS
 -- SAVE INITIAL TRACKS SELECTION
@@ -160,15 +160,14 @@ reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the sc
 SaveView()
 SaveCursorPos()
 --SaveLoopTimesel()
---SaveSelectedItems(init_sel_items)
+SaveSelectedItems(init_sel_items)
 SaveSelectedTracks(init_sel_tracks)
 
 main() -- Execute your main function
 
 RestoreCursorPos()
 --RestoreLoopTimesel()
---RestoreSelectedItems(init_sel_items)
---RestoreSelectedTracks(init_sel_tracks)
+RestoreSelectedItems(init_sel_items)
 RestoreSelectedTracks(init_sel_tracks)
 RestoreView()
 
