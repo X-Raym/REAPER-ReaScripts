@@ -16,7 +16,9 @@
  
 --[[
  * Changelog:
- * v1.7 (2015-05-18)
+ * v1.8 (2015-05-11)
+ 	# No more call to standards actions (better for undos).
+ * v1.7 (2015-05-08)
  	+ Save/Restore view without calling the SWS "slot" functions.
  * v1.6 (2015-04-15)
  	+ Save/Restore functions without calling the SWS "slot" functions.
@@ -242,7 +244,14 @@ end
 --[[ ----- INITIAL SAVE AND RESTORE ====> ]]
 
 -- ITEMS
---[[ SAVE INITIAL SELECTED ITEMS
+--[[ UNSELECT ALL ITEMS
+function UnselectAllItems()
+	for  i = 0, reaper.CountMediaItems(0) do
+		reaper.SetMediaItemSelected(reaper.GetMediaItem(0, i), false)
+	end
+end
+
+-- SAVE INITIAL SELECTED ITEMS
 init_sel_items = {}
 local function SaveSelectedItems (table)
 	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
@@ -252,14 +261,21 @@ end
 
 -- RESTORE INITIAL SELECTED ITEMS
 local function RestoreSelectedItems (table)
-	reaper.Main_OnCommand(40289, 0) -- Unselect all items
+	UnselectAllItems() -- Unselect all items
 	for _, item in ipairs(table) do
 		reaper.SetMediaItemSelected(item, true)
 	end
 end]]
 
 -- TRACKS
---[[ SAVE INITIAL TRACKS SELECTION
+--[[ UNSELECT ALL TRACKS
+function UnselectAllTracks()
+	first_track = reaper.GetTrack(0, 0)
+	reaper.SetOnlyTrackSelected(first_track)
+	reaper.SetTrackSelected(first_track, false)
+end
+
+-- SAVE INITIAL TRACKS SELECTION
 init_sel_tracks = {}
 local function SaveSelectedTracks (table)
 	for i = 0, reaper.CountSelectedTracks(0)-1 do
@@ -269,7 +285,7 @@ end
 
 -- RESTORE INITIAL TRACKS SELECTION
 local function RestoreSelectedTracks (table)
-	reaper.Main_OnCommand(40297, 0) -- Unselect all items
+	UnselectAllTracks()
 	for _, track in ipairs(table) do
 		reaper.SetTrackSelected(track, true)
 	end
