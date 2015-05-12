@@ -143,3 +143,4 @@ SCR 4 32060 "XR_SEL_HIGH_NOTES" "Custom: MIDI Editor (X-Raym) — Select-Unselect 
 SCR 4 32060 "XR_SEL_LOW_NOTES" "Custom: MIDI Editor (X-Raym) — Select-Unselect lowest MIDI notes in active take" "MIDI Editor\X-Raym_Select-Unselect lowest MIDI notes in active take.eel"
 SCR 4 0 "XR_PASTE_SEL_ITEMS_UNDER_MOUSE" "Copy selected items and paste at mouse position" "Items Editing\X-Raym_Copy selected items and paste at mouse position.lua"
 SCR 4 0 "XR_SHUFFLE_ITEMS_ORDER_SNAP" "Custom: Item Editing (X-Raym) — Shuffle order of selected items keeping snap offset positions and parent tracks" "Items Editing\X-Raym_Shuffle order of selected items keeping snap offset positions and parent tracks.lua"
+SCR 4 0 "XR_RESET_TAKE_RATE_SNAP" "Custom: Item Editing (X-Raym) — Reset take playback rate from snap offse" "Items Properties\X-Raym_Reset take playback rate from snap offset.eel"
