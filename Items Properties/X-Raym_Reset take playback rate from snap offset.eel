@@ -1,0 +1,80 @@
+/**
+ * ReaScript Name: Reset take playback rate from snap offset
+ * Description: Reset take playback rate from snap offset, with fade length ratio preservation.
+ * Instructions: Here is how to use it. (optional)
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URl: http://forum.cockos.com/***.html
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-05-12)
+  + Randomize from snap offset position
+  + Support for fades
+ */
+
+// Based on X-Raym_Randomize take playback rate (normal distribution).eel
+
+
+function rand_take_pb_rate() local(i, item, take, c)
+(
+
+  i = 0;
+  loop(CountSelectedMediaItems(0), 
+    (item = GetSelectedMediaItem(0, i)) ? (
+      (take = GetActiveTake(item)) ? (
+
+        R = 1;
+
+        // INITIAL ITEM INFOS
+        init_fadein = GetMediaItemInfo_Value(item, "D_FADEINLEN");
+        init_fadeout = GetMediaItemInfo_Value(item, "D_FADEOUTLEN");
+        init_rate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+        init_position = GetMediaItemInfo_Value(item, "D_POSITION");
+        init_length = GetMediaItemInfo_Value(item, "D_LENGTH");
+        init_snap = GetMediaItemInfo_Value(item, "D_SNAPOFFSET");
+
+        // USE SOURCE AS REFRENCE
+        src_snap = init_snap * init_rate;
+        src_fadein = init_fadein * init_rate;
+        src_fadeout = init_fadeout * init_rate;
+        src_length = init_length * init_rate;
+
+        // SET VALUES
+        SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", R);
+
+        new_snap = src_snap / R;
+        SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap);
+        
+        snap_dif = init_snap - new_snap;
+        SetMediaItemInfo_Value(item, "D_POSITION", init_position + snap_dif);
+        
+        SetMediaItemInfo_Value(item, "D_LENGTH", src_length / R);
+        
+        init_fadein > 0 ? (
+          SetMediaItemInfo_Value(item, "D_FADEINLEN", src_fadein / R);
+        );
+
+        init_fadein > 0 ? (
+          SetMediaItemInfo_Value(item, "D_FADEOUTLEN", src_fadeout / R);
+        );
+
+      );
+    );
+    i += 1;
+  );
+  UpdateArrange(); // refresh arrange view
+  Undo_OnStateChange("Reset take playback rate from snap offset");
+);
+
+PreventUIRefresh(1);
+rand_take_pb_rate();
+PreventUIRefresh(-1);
