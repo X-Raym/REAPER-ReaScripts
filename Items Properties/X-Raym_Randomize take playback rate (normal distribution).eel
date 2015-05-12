@@ -1,14 +1,27 @@
-// Randomize take playback rate (normal distribution)
-// EEL Script for Reaper
-// Author : X-Raym
-// Author URl : http://extremraym.com
-// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
-// Source URl : https://github.com/X-Raym/REAPER-EEL-Scripts
-// Licence : GPL v3
-// Release Date : 27-11-2014
-
-// Version : 1.0
-// Version Date : 27-11-2014
+/**
+ * ReaScript Name: Randomize take playback rate (normal distribution)
+ * Description: Randomize take playback rate from snap offset, with fade length ratio preservation. Customization of the randomization have to be edited int he script itself.
+ * Instructions: Here is how to use it. (optional)
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URl: http://forum.cockos.com/***.html
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.1 (2015-05-12)
+  + Randomize from snap offset position
+  + Support for fades
+ * v1.0 (27-11-2014)
+  + Initial Release
+ */
 
 // Based on spk77 initial code snippet in REAPER Forum Thread : 
 // Takes Random Action - Pan and More > #23
@@ -22,6 +35,15 @@ mean = 1; // range = 0 to 10
 standard_dev = 0.2; // try values in range 0.01 to 0.5, for example
 /////////////////////////////////////////////////////////////////////////////////
 
+/*
+function msg_f(f)
+(
+  sprintf(str, "%f", f);
+  ShowConsoleMsg(str);
+  ShowConsoleMsg("\n");
+);
+*/
+
 function rand_take_pb_rate(mean, standard_dev) local(i, item, take, c)
 (
   // Constrain user input
@@ -29,7 +51,7 @@ function rand_take_pb_rate(mean, standard_dev) local(i, item, take, c)
   mean > 10 ? mean = 10;
   standard_dev < 0 ? standard_dev = 0;
   standard_dev > 10 ? standard_dev = 10;
-
+//ShowConsoleMsg("");
   i = 0;
   loop(CountSelectedMediaItems(0), 
     (item = GetSelectedMediaItem(0, i)) ? (
@@ -41,14 +63,47 @@ function rand_take_pb_rate(mean, standard_dev) local(i, item, take, c)
         // Constrain result
         R < 0 ? R += abs(R + 1);
         R > 10 ? R -= (R - 1);
-        //GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+        
+        // INITIAL ITEM INFOS
+        init_fadein = GetMediaItemInfo_Value(item, "D_FADEINLEN");
+        init_fadeout = GetMediaItemInfo_Value(item, "D_FADEOUTLEN");
+        init_rate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+        init_position = GetMediaItemInfo_Value(item, "D_POSITION");
+        init_length = GetMediaItemInfo_Value(item, "D_LENGTH");
+        init_snap = GetMediaItemInfo_Value(item, "D_SNAPOFFSET");
+
+        // USE SOURCE AS REFRENCE
+        src_snap = init_snap * init_rate;
+        src_fadein = init_fadein * init_rate;
+        src_fadeout = init_fadeout * init_rate;
+        src_length = init_length * init_rate;
+
+        // SET VALUES
         SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", R);
+
+        new_snap = src_snap / R;
+        SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap);
+        
+        snap_dif = init_snap - new_snap;
+        SetMediaItemInfo_Value(item, "D_POSITION", init_position + snap_dif);
+        
+        SetMediaItemInfo_Value(item, "D_LENGTH", src_length / R);
+        
+        init_fadein > 0 ? (
+          SetMediaItemInfo_Value(item, "D_FADEINLEN", src_fadein / R);
+        );
+
+        init_fadein > 0 ? (
+          SetMediaItemInfo_Value(item, "D_FADEOUTLEN", src_fadeout / R);
+        );
       );
     );
     i += 1;
   );
   UpdateArrange(); // refresh arrange view
-  Undo_OnStateChange("Randomize take playback rate");
+  Undo_OnStateChange("Randomize take playback rate (normal distribution)");
 );
 
+PreventUIRefresh(1);
 rand_take_pb_rate(mean, standard_dev);
+PreventUIRefresh(-1);
