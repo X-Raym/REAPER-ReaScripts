@@ -10,7 +10,7 @@
 -- http://extremraym.com
 -- # Now in Lua
 -- + Works on multiple selected items (BPM detection based on first selected item)
--- # user input "cancel" corected
+-- # user input "cancel" corrected
 
 -- ------------------------------------------
 
