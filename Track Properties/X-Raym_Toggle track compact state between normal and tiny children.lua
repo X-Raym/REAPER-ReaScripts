@@ -20,7 +20,7 @@
 	+ Initial Release
  --]]
 
--- ----- DEBUGGING ====>
+--[[ ----- DEBUGGING ====>
 local info = debug.getinfo(1,'S');
 
 local full_script_path = info.source
@@ -40,14 +40,13 @@ debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
 clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean()
--- <==== DEBUGGING -----
+]]-- <==== DEBUGGING -----
 
 function main() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 	-- LOOP TRHOUGH SELECTED TRACKS
-	-
 	selected_tracks_count = reaper.CountSelectedTracks(0)
 
 	for i = 0, selected_tracks_count-1  do
@@ -68,11 +67,11 @@ function main() -- local (i, j, item, take, track)
 end
 
 
---reaper.PreventUIRefresh(-1)
+reaper.PreventUIRefresh(-1)
 
 main() -- Execute your main function
 
---[[ reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
+reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
