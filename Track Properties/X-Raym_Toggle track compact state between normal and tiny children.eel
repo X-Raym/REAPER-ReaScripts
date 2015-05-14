@@ -20,14 +20,14 @@
 	+ Initial Release
  */
 
-/* ----- DEBUGGING ====>
-@import ../Functions/X-Raym_Functions - console debug messages.eel
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
 
 debug = 1; // 0 => No console. 1 => Display console messages for debugging.
 clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-msg_clean();
-// <==== DEBUGGING ----- */
+msg_clean();*/
+// <==== DEBUGGING ----- 
 
 function main() // local (i, j, item, take, track)
 (
