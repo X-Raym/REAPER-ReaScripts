@@ -16,24 +16,9 @@
  
 /**
  * Changelog:
- * v0.9 (2015-04-16)
+ * v1 (2015-04-16)
   + Initial release
  */
-
-/**
- * Based on Auto Record Mode
- * by Heda
- */
-
-// ----- DEBUGGING ====>
-/*@import ../Functions/X-Raym_Functions - console debug messages.eel
-
-debug = 1; // 0 => No console. 1 => Display console messages for debugging.
-clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-msg_clean();
-msg_start();*/
-// <==== DEBUGGING ----
 
 function solo() local(track, i) (
   i=0;
