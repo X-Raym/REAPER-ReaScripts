@@ -1,0 +1,51 @@
+/**
+ * ReaScript Name: Select next visible track only with conditional solo exclusive
+ * Description: See title.
+ * Instructions: Run. Run again to stop it.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: 
+ * Forum Thread URl: 
+ * REAPER: 5 pre 21
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1 (2015-04-18)
+  + Initial release
+ */
+
+function solo() local(track, i) (
+  
+  new_track = GetLastTouchedTrack();
+  SetMediaTrackInfo_Value(GetLastTouchedTrack(), "I_SOLO", 1);
+
+  i=0;
+  loop(CountTracks(0),
+    track = GetTrack(0, i);
+    track != new_track ? (
+      SetMediaTrackInfo_Value(track, "I_SOLO", 0);
+    );
+    i+=1;
+  );
+);
+
+function next() (
+	GetMediaTrackInfo_Value(GetLastTouchedTrack(), "I_SOLO") == 0 ? (
+		Main_OnCommand(40285, 0);
+	):(
+		Main_OnCommand(40285, 0);
+		solo();
+	);
+);
+
+Undo_BeginBlock();
+PreventUIRefresh(1);
+next();
+PreventUIRefresh(-1);
+Undo_EndBlock("Select next visible track only with conditional solo exclusive", -1);
