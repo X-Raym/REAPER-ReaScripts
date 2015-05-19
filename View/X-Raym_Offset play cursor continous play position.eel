@@ -11,18 +11,27 @@
  * Forum Thread: Script: Script (EEL): Select-Unselect all MIDI notes with same pitch right of the mouse
  * Forum Thread URl: http://forum.cockos.com/showthread.php?t=158397
  * REAPER: 5 pre 21
- * Extensions: SWS/S&M 2.6.3 #0
+ * Extensions: SWS/S&M 2.7.1 #0
  */
  
 /**
  * Changelog:
- * v1.0 (2015-04-13)
+ * v0.5 (2015-04-13)
 	+ Initial release
  */
 
 /**
  * Based on Auto Record Mode
  * by Heda
+ */
+
+/**
+ * TO DO
+ * make it zoom friendly
+ * dont make it change initial zoom level
+ * ease transitions
+ * make cursor pos consistent accross zoom level
+ * ability to easily choose cursor relative pos
  */
 
 ///////////// OPTIONS //////////

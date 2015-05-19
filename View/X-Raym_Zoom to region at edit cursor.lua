@@ -1,7 +1,7 @@
 --[[
- * ReaScript Name: Template Title (match file name without extension and author)
- * Description: A template script for REAPER ReaScript.
- * Instructions: Here is how to use it. (optional)
+ * ReaScript Name: Zoom to region at edit cursor
+ * Description: See title
+ * Instructions: Place cursor inside a region. Run.
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,31 +10,13 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.7.1 (optional)
+ * REAPER: 5.0 pre 32
+ * Extensions: SWS/S&M 2.7.1
  --]]
  
 --[[
  * Changelog:
- * v1.8 (2015-05-11)
- 	# No more call to standards actions (better for undos).
- * v1.7 (2015-05-08)
- 	+ Save/Restore view without calling the SWS "slot" functions.
- * v1.6 (2015-04-15)
- 	+ Save/Restore functions without calling the SWS "slot" functions.
- 	# thanks to heda for the edit cursor restore
- * v1.5 (2015-03-03)
- 	+ Call Functions file from relative parent subfolder
- * v1.4.1 (2015-03-03)
- 	# EnumProjectMarkers3 for regions loop
- * v1.4 (2015-03-02)
- 	+ Infos for track, take and items values
- 	+ Restore view, loop, edit cursor and UI
- * v1.3.1 (2015-02-27)
- 	# loops takes bug fix
- 	# thanks benf and heda for help with looping through regions!
- 	# thanks to Heda for the function that embed external lua files!
- * v1.0 (2015-02-27)
+ * v1.0 (2015-05-19)
 	+ Initial Release
  --]]
 
