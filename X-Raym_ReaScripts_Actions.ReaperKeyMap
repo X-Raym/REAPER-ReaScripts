@@ -147,7 +147,7 @@ SCR 4 0 "XR_BPM_BPM_CALCULATOR" "Custom: Item Properties (Viente, X-Raym) — BPM 
 SCR 4 0 "XR_SOLO_EXCLUSIVE" "Custom: Track Properties (X-Raym) — Solo exclusive selected tracks" "Track Properties\X-Raym_Solo exclusive selected tracks.eel"
 SCR 4 0 "XR_TOGGLE_TINY_NORM" "Custom: Track Properties (X-Raym) — Toggle track compact state between normal and tiny children" "Track Properties\X-Raym_Toggle track compact state between normal and tiny children.eel
 SCR 4 0 "XR_RANDOM_PITCH_GUI" "Custom: Item Properties (X-Raym) — Randomize take pitch (normal distribution with GUI)" "Items Properties\X-Raym_Randomize take pitch (normal distribution with GUI).eel"
-SCR 4 0 "XR_RANDOM_MUTE_MIDI" "Custom: MIDI Editor (X-Raym) — Mute selected notes in open MIDI take randomly" "Items Properties\X-Raym_Mute selected notes in open MIDI take randomly.lua"
+SCR 4 32060 "XR_RANDOM_MUTE_MIDI" "Custom: MIDI Editor (X-Raym) — Mute selected notes in open MIDI take randomly" "Items Properties\X-Raym_Mute selected notes in open MIDI take randomly.lua"
 SCR 4 0 "XR_OFFSET_PLAY_POS" "Custom: View (X-Raym) — Offset play cursor continous play position" "View\X-Raym_Offset play cursor continous play position.eel"
 SCR 4 0 "XR_ZOOM_TO_REGION" "Custom: View (X-Raym) — Zoom to region at edit cursor" "View\X-Raym_Zoom to region at edit cursor.lua"
 SCR 4 0 "XR_ALIGN_ITEMS_ACROSS" "Custom: Items Editing (X-Raym) — Align selected items across tracks" "Items Properties\X-Raym_Align selected items across tracks.lua"
