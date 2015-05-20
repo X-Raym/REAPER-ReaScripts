@@ -154,4 +154,3 @@ reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the scri
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
-
