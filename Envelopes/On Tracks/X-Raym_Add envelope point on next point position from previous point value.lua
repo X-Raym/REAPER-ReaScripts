@@ -97,49 +97,37 @@ function main() -- local (i, j, item, take, track)
 	-- GET CURSOR POS
 	offset = reaper.GetCursorPosition()
 
-	-- GET TIME SELECTION EDGES
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
+	-- LOOP TRHOUGH SELECTED TRACKS
+	env = reaper.GetSelectedEnvelope(0)
 
-	-- IF TIME SELECTION
-	if start_time ~= end_time then
+	if env == nil then
 
-		-- ROUND LOOP TIME SELECTION EDGES
-		start_time = math.floor(start_time * 100000000+0.5)/100000000
-		end_time = math.floor(end_time * 100000000+0.5)/100000000
-		
-		-- LOOP TRHOUGH SELECTED TRACKS
-		env = reaper.GetSelectedEnvelope(0)
+		selected_tracks_count = reaper.CountSelectedTracks(0)
+		for i = 0, selected_tracks_count-1  do
+			
+			-- GET THE TRACK
+			track = reaper.GetSelectedTrack(0, i) -- Get selected track i
 
-		if env == nil then
+			-- LOOP THROUGH ENVELOPES
+			env_count = reaper.CountTrackEnvelopes(track)
+			for j = 0, env_count-1 do
 
-			selected_tracks_count = reaper.CountSelectedTracks(0)
-			for i = 0, selected_tracks_count-1  do
+				-- GET THE ENVELOPE
+				env = reaper.GetTrackEnvelope(track, j)
 				
-				-- GET THE TRACK
-				track = reaper.GetSelectedTrack(0, i) -- Get selected track i
+				AddPoints(env)
+				
+			end -- ENDLOOP through envelopes
 
-				-- LOOP THROUGH ENVELOPES
-				env_count = reaper.CountTrackEnvelopes(track)
-				for j = 0, env_count-1 do
+		end -- ENDLOOP through selected tracks
 
-					-- GET THE ENVELOPE
-					env = reaper.GetTrackEnvelope(track, j)
-					
-					AddPoints(env)
-					
-				end -- ENDLOOP through envelopes
+	else
 
-			end -- ENDLOOP through selected tracks
-
-		else
-
-			AddPoints(env)
-		
-		end -- endif sel envelope
+		AddPoints(env)
+	
+	end -- endif sel envelope
 
 	reaper.Undo_EndBlock("Add point on next visible armed envelope point position from previous point value", 0) -- End of the undo block. Leave it at the bottom of your main function.
-	
-	end-- ENDIF time selection
 
 end -- end main()
 
