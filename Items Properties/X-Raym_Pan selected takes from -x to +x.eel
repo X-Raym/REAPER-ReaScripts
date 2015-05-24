@@ -32,12 +32,12 @@
  */
 
 // ----- DEBUGGING ====>
-@import ../Functions/X-Raym_Functions - console debug messages.eel
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
 
 debug = 0; // 0 => No console. 1 => Display console messages for debugging.
 clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-msg_clean();
+msg_clean();*/
 // <==== DEBUGGING -----
 
 // ----- EXTERNAL FILE ====>
@@ -253,9 +253,9 @@ function run() local (s_w, s_h, hue, sat, lum, v)
 	gfx_update();
 );
 
-msg_start(); // Display characters in the console to show you the begining of the script execution.
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
 
 init();
 run(); // Execute your main function
 
-msg_end(); // Display characters in the console to show you the end of the script execution.
+//msg_end(); // Display characters in the console to show you the end of the script execution.
