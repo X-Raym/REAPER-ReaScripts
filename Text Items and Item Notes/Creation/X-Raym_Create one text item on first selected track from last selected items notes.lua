@@ -195,11 +195,23 @@ function RestoreLoopTimesel()
 	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
 end
 
+-- VIEW
+-- SAVE INITIAL VIEW
+function SaveView()
+	start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
+end
+
+
+-- RESTORE INITIAL VIEW
+function RestoreView()
+	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
+end
+
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
 
 reaper.PreventUIRefresh(1)
-
+SaveView()
 SaveSelectedItems(init_sel_items)
 SaveLoopTimesel()
 
@@ -207,6 +219,7 @@ reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
 RestoreLoopTimesel()
+RestoreView()
 RestoreSelectedItems(init_sel_items)
 
 reaper.PreventUIRefresh(-1)

@@ -146,17 +146,30 @@ function RestoreCursorPos()
 	reaper.MoveEditCursor(init_cursor_pos, false)
 end
 
+-- VIEW
+-- SAVE INITIAL VIEW
+function SaveView()
+	start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
+end
+
+
+-- RESTORE INITIAL VIEW
+function RestoreView()
+	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
+end
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 reaper.PreventUIRefresh(1)
+SaveView()
 SaveCursorPos()
 SaveLoopTimesel()
 
 reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
+RestoreView()
 RestoreLoopTimesel()
 RestoreCursorPos()
 reaper.PreventUIRefresh(-1)

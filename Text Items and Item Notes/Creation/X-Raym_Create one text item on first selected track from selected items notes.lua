@@ -207,11 +207,24 @@ function RestoreLoopTimesel()
 	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
 end
 
+-- VIEW
+-- SAVE INITIAL VIEW
+function 
+	start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
+end
+
+
+-- RESTORE INITIAL VIEW
+function RestoreView()
+	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
+end
+
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 reaper.PreventUIRefresh(1)
+SaveView()
 SaveLoopTimesel()
 SaveSelectedItems(init_sel_items)
 
@@ -220,6 +233,7 @@ main() -- Execute your main function
 
 RestoreLoopTimesel()
 RestoreSelectedItems(init_sel_items)
+RestoreView()
 reaper.PreventUIRefresh(-1)
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
