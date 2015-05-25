@@ -65,6 +65,9 @@ function CreateTextItem(starttime, endtime, notetext)
 	reaper.Main_OnCommand(40142,0) -- insert empty item
 	--ref: Lua: MediaItem reaper.GetSelectedMediaItem(ReaProject proj, integer selitem)
 	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
+	
+	--reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+	
 
 	HeDaSetNote(item, "|" .. notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
@@ -131,6 +134,7 @@ function main() -- local (i, j, item, take, track)
 			selected_items_count = reaper.CountSelectedMediaItems(0) -- Get selected item on track
 			
 			first_item = reaper.GetSelectedMediaItem(0, 0)
+			--first_item_color = reaper.GetMediaItemInfo_Value(first_item, "I_CUSTOMCOLOR")
 			first_item_start = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION")
 			
 			last_item = reaper.GetSelectedMediaItem(0, selected_items_count-1)

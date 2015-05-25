@@ -18,6 +18,8 @@
  
 --[[
  * Changelog:
+ * v1.3 (2015-25-05)
+	+ Now with item color preservation
  * v1.1.1 (2015-03-11)
 	# Better item selection restoration
 	# First selected track as last touched
@@ -58,13 +60,15 @@ function dbug (text)
 	end
 end]]
 
-function CreateTextItem(starttime, endtime, notetext) 
+function CreateTextItem(starttime, endtime, notetext, color) 
 	--ref: Lua: number startOut retval, number endOut reaper.GetSet_LoopTimeRange(boolean isSet, boolean isLoop, number startOut, number endOut, boolean allowautoseek)
 	reaper.GetSet_LoopTimeRange(1,0,starttime,endtime,0) -- define the time range for the empty item
 	--ref: Lua: reaper.Main_OnCommand(integer command, integer flag)
 	reaper.Main_OnCommand(40142,0) -- insert empty item
 	--ref: Lua: MediaItem reaper.GetSelectedMediaItem(ReaProject proj, integer selitem)
 	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
+	
+	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
 
 	HeDaSetNote(item, "|" .. notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
@@ -131,6 +135,7 @@ function main() -- local (i, j, item, take, track)
 			selected_items_count = reaper.CountSelectedMediaItems(0) -- Get selected item on track
 			
 			first_item = reaper.GetSelectedMediaItem(0, 0)
+			first_item_color = reaper.GetMediaItemInfo_Value(first_item, "I_CUSTOMCOLOR")
 			first_item_start = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION")
 			
 			last_item = reaper.GetSelectedMediaItem(0, selected_items_count-1)
@@ -160,7 +165,7 @@ function main() -- local (i, j, item, take, track)
 			--reaper.Main_OnCommand(40697, 0) -- DELETE all selected items
 			reaper.Undo_BeginBlock()
 			
-			CreateTextItem(first_item_start, last_item_end, text_output)
+			CreateTextItem(first_item_start, last_item_end, text_output, first_item_color)
 
 			--end
 			reaper.Undo_EndBlock("Create one text item on first selected track from selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
