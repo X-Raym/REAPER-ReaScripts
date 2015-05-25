@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Merge overlapping similar text items on selected tracks
+ * ReaScript Name: Merge overlapping and consecutive similar text items on selected tracks
  * Description: Merge overlapping similar text items on first selected tracks
  * Instructions: Select a track. Execute the script. It will work on text items only.
  * Author: X-Raym
@@ -8,16 +8,16 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.1
- * Version Date: 2015-03-08
+ * Forum Thread: Scripts (LUA): Create Text Items Actions (various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.2
  --]]
  
 --[[
  * Changelog:
+ * v1.3 (2015-05-25)
+	+ Consecutive thredshold user input
  * v1.2 (2015-03-08)
 	+ Now working fine
  * v1.1 (2015-03-06)
@@ -56,6 +56,7 @@ function reset()
 	B_group = 0
 	item_end = 0
 	j = 0
+	in_group = false
 end
 --INIT
 item_mark_as_delete = {}
@@ -96,7 +97,7 @@ function main() -- local (i, j, item, take, track)
 					--msg_tvoldi("A_item_start = ", A_item_start, "%f", 0, debug, 1)
 					A_item_length = reaper.GetMediaItemInfo_Value(A_item, "D_LENGTH")
 					--msg_tvoldi("A_item_length = ", A_item_length, "%f", 0, debug, 1)
-					A_item_end = A_item_start + A_item_length
+					A_item_end = A_item_start + A_item_length + consecutive
 					--msg_tvoldi("A_item_end =", A_item_end, "%f", 0, debug, 1)
 					A_item_text = reaper.ULT_GetMediaItemNote(A_item)
 					A_item_color = reaper.GetDisplayedMediaItemColor(A_item)
@@ -118,7 +119,7 @@ function main() -- local (i, j, item, take, track)
 						if i == media_item_on_track-1 then -- If actual item is the last of the loop
 							first_item_length = A_item_end - first_item_start
 							--msg_tvoldi("item_length", A_item_end, "%f", 1, debug, 1)
-							reaper.SetMediaItemInfo_Value(first_item, "D_LENGTH", first_item_length)
+							reaper.SetMediaItemInfo_Value(first_item, "D_LENGTH", first_item_length - consecutive)
 						end
 
 					else -- DIFFERENT GROUP
@@ -140,7 +141,7 @@ function main() -- local (i, j, item, take, track)
 							
 							end
 
-							reaper.SetMediaItemInfo_Value(first_item, "D_LENGTH", first_item_length)
+							reaper.SetMediaItemInfo_Value(first_item, "D_LENGTH", first_item_length - consecutive)
 							group_id = group_id + 1
 							
 						end
@@ -173,7 +174,7 @@ function main() -- local (i, j, item, take, track)
 					reaper.DeleteTrackMediaItem(track, item_mark_as_delete[j]) --track is always A
 				end
 
-				reaper.Undo_EndBlock("Merge overlapping similar text items on selected tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
+				reaper.Undo_EndBlock("Merge overlapping and consecutive similar text items on selected tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
 			
 			else -- no selected item
 				reaper.ShowMessageBox("No item on track " .. track_idx,"Warning",0)
@@ -186,13 +187,25 @@ function main() -- local (i, j, item, take, track)
 end -- of main
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
+defaultvals_csv = "0"
+--msg_start() -- Display characters in the console to show you the begining of the script execution.
+retval, retvals_csv = reaper.GetUserInputs("Merge Options", 1, "Consecutive?", defaultvals_csv) 
+			
+if retval then -- if user complete the fields
+	
+	consecutive = retvals_csv
 
-reaper.PreventUIRefresh(1)
+	if consecutive ~= nil then
+		consecutive = math.abs(tonumber(consecutive))
+		
+		--reaper.PreventUIRefresh(1)
 
-main() -- Execute your main function
+		main() -- Execute your main function
 
-reaper.PreventUIRefresh(-1)
+		--reaper.PreventUIRefresh(-1)
 
-reaper.UpdateArrange() -- Update the arrangement (often needed)
+		reaper.UpdateArrange() -- Update the arrangement (often needed)
+	end
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
+end
