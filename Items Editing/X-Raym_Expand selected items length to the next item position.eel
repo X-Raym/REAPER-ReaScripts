@@ -1,0 +1,89 @@
+/**
+ * ReaScript Name: Expand selected items length to the next item position
+ * Description: Expand selected items to the next item position
+ * Instructions: Select items and perform the script.
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URl: http://forum.cockos.com/***.html
+ * Version: 1.0
+ * Version Date: 2015-03-20
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.1 (2015-25-05)
+  + Bug fix
+ * v1.0 (2015-03-20)
+  + Initial Release
+ */
+ 
+// TO DO: ITEMS INSIDE OTHERS
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING -----
+
+function main() // local (i, j, item, take, track)
+(
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+  // LOOP THROUGH SELECTED ITEMS
+  
+  selected_items_count = CountSelectedMediaItems(0);
+  
+  i = 0; // INITIALIZE loop through selected items
+  loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+      
+      // GET INFOS
+      item_pos = GetMediaItemInfo_Value(item, "D_POSITION"); // Get the value of a the parameter
+
+      // GET TRACK
+      item_track = GetMediaItemTrack(item);
+
+      // GET ID ON TRACK
+      item_id = GetMediaItemInfo_Value(item, "IP_ITEMNUMBER");
+
+      // GET NEXT ITEM
+      next_item = GetTrackMediaItem(item_track, item_id+1);
+
+      // IF NEXT ITEM
+      next_item ? (
+
+        next_item_pos = GetMediaItemInfo_Value(next_item, "D_POSITION");
+
+        // MODIFY INFOS
+        item_len_input = next_item_pos - item_pos; // Prepare value output
+      
+        // SET INFOS
+        SetMediaItemInfo_Value(item, "D_LENGTH", item_len_input); // Set the value to the parameter
+
+      );
+      
+
+    ); // ENDIF inside loop selected items
+    i += 1; // INCREMENT loop through selected items
+  ); // ENDLOOP through selected items
+  
+
+  Undo_EndBlock("Expand selected items length to the next item position", 0); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+main(); // Execute your main function
+
+UpdateArrange(); // Update the arrangement (often needed)
+
+//msg_end(); // Display characters in the console to show you the end of the script execution.
