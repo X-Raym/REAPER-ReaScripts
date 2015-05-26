@@ -17,7 +17,6 @@
 --[[
  * Changelog:
  * v1.3 (2015-05-26)
-	+ Works on multiple tracks
 	# bug fix when pop up is cancelled
  * v1.2.1 (2015-05-07)
 	# Time selection bug fix
