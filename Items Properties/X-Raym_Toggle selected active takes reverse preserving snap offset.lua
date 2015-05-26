@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Toggle selected active takes reverse and their snap offset
+ * ReaScript Name: Toggle selected active takes reverse preserving snap offset
  * Description: Toggle reverse of seleted items, preserving relative (from item start) snap offset position.
  * Instructions: Select items with take. Run.
  * Author: X-Raym
@@ -71,7 +71,7 @@ function main() -- local (i, j, item, take, track)
 	
 	end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Toggle selected active takes reverse and their snap offset", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Toggle selected active takes reverse preserving snap offset", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
