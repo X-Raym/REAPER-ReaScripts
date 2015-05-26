@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.3 (2015-05-26)
+	+ Works on multiple tracks
  * v1.0.1 (2015-05-07)
 	# Time selection bug fix
  * v1.0 (2015-03-21)
@@ -99,34 +101,38 @@ function main() -- local (i, j, item, take, track)
 					-- GET THE ENVELOPE
 					env_dest = reaper.GetTrackEnvelope(track, m)
 					retval, env_name_dest = reaper.GetEnvelopeName(env_dest, "")
+					
+					if env_name_dest == env_name then
 
-					-- IF VISIBLE AND ARMED
-					br_env = reaper.BR_EnvAlloc(env_dest, false)
-					active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
-					if visible == true and armed == true then
+						-- IF VISIBLE AND ARMED
+						br_env = reaper.BR_EnvAlloc(env_dest, false)
+						active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
+						if visible == true and armed == true then
 
-						if time_selection == true and preserve_edges == true then -- IF we want to preserve edges of time selection
-							retval3, valueOut3, dVdSOutOptional3, ddVdSOutOptional3, dddVdSOutOptional3 = reaper.Envelope_Evaluate(env_dest, start_time, 0, 0)
-							retval4, valueOut4, dVdSOutOptional4, ddVdSOutOptional4, dddVdSOutOptional4 = reaper.Envelope_Evaluate(env_dest, end_time, 0, 0)
-						end -- preserve edges of time selection
-						
-						SetValue(env_dest)
-
-						-- PRESERVE EDGES INSERTION
-						if time_selection == true and preserve_edges == true then
+							if time_selection == true and preserve_edges == true then -- IF we want to preserve edges of time selection
+								retval3, valueOut3, dVdSOutOptional3, ddVdSOutOptional3, dddVdSOutOptional3 = reaper.Envelope_Evaluate(env_dest, start_time, 0, 0)
+								retval4, valueOut4, dVdSOutOptional4, ddVdSOutOptional4, dddVdSOutOptional4 = reaper.Envelope_Evaluate(env_dest, end_time, 0, 0)
+							end -- preserve edges of time selection
 							
-							reaper.DeleteEnvelopePointRange(env_dest, start_time-0.000000001, start_time+0.000000001)
-							reaper.DeleteEnvelopePointRange(env_dest, end_time-0.000000001, end_time+0.000000001)
+							SetValue(env_dest)
+
+							-- PRESERVE EDGES INSERTION
+							if time_selection == true and preserve_edges == true then
+								
+								reaper.DeleteEnvelopePointRange(env_dest, start_time-0.000000001, start_time+0.000000001)
+								reaper.DeleteEnvelopePointRange(env_dest, end_time-0.000000001, end_time+0.000000001)
+								
+								reaper.InsertEnvelopePoint(env_dest, start_time, valueOut3, 0, 0, true, true) -- INSERT startLoop point
+								reaper.InsertEnvelopePoint(env_dest, end_time, valueOut4, 0, 0, true, true) -- INSERT startLoop point
 							
-							reaper.InsertEnvelopePoint(env_dest, start_time, valueOut3, 0, 0, true, true) -- INSERT startLoop point
-							reaper.InsertEnvelopePoint(env_dest, end_time, valueOut4, 0, 0, true, true) -- INSERT startLoop point
-						
-						end
+							end
 
-						reaper.BR_EnvFree(br_env, 0)
-						reaper.Envelope_SortPoints(env_dest)
+							reaper.BR_EnvFree(br_env, 0)
+							reaper.Envelope_SortPoints(env_dest)
 
-					end -- ENDIF envelope passed
+						end -- ENDIF envelope passed
+					
+					end -- ENDIF envelope with same name selected
 
 				end -- ENDLOOP selected tracks envelope
 			

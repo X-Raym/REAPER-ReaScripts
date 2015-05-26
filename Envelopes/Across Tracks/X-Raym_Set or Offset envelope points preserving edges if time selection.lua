@@ -188,7 +188,7 @@ function main() -- local (i, j, item, take, track)
 
 						end -- ENDIF envelope passed
 					
-					end -- ENDIF encelope with same name selected
+					end -- ENDIF envelope with same name selected
 
 				end -- ENDLOOP selected tracks envelope
 			
