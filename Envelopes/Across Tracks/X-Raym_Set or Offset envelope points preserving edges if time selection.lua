@@ -16,6 +16,10 @@
  
 --[[
  * Changelog:
+ * v1.3 (2015-05-26)
+	# Time selection bug fix
+	+ Refresh value in TCP
+	+ Works on multiple tracks
  * v1.2.1 (2015-05-07)
 	# Time selection bug fix
  * v1.2 (2015-04-26)
@@ -96,12 +100,14 @@ function GetTimeLoopPoints(envelope, env_point_count, start_time, end_time)
 	end
 	
 	if first_start_val == nil then
-		retval_start_time, first_start_val, dVdS_start_time, ddVdS_start_time, dddVdS_start_time = reaper.Envelope_Evaluate(env, start_time, 0, 0)
+		retval_start_time, first_start_val, dVdS_start_time, ddVdS_start_time, dddVdS_start_time = reaper.Envelope_Evaluate(envelope, start_time, 0, 0)
+		first_end_val=first_start_val
 	end
 	if last_end_val == nil then
-		retval_end_time, last_start_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(env, end_time, 0, 0)
+		retval_end_time, last_start_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(envelope, end_time, 0, 0)
+		last_end_val=last_start_val
 	end
-			
+	--reaper.ShowConsoleMsg(tostring(last_end_val))
 	return first_start_val, last_start_val, first_end_val, last_end_val
 
 end
@@ -135,7 +141,7 @@ function main() -- local (i, j, item, take, track)
 		-- GET SELECTED ENVELOPE
 		sel_env = reaper.GetSelectedEnvelope(0)
 		
-			if sel_env ~= nil then
+		if sel_env ~= nil then
 			env_point_count = reaper.CountEnvelopePoints(sel_env)
 			retval, env_name = reaper.GetEnvelopeName(sel_env, "")
 
@@ -153,32 +159,36 @@ function main() -- local (i, j, item, take, track)
 					-- GET THE ENVELOPE
 					env_dest = reaper.GetTrackEnvelope(track, m)
 					retval, env_name_dest = reaper.GetEnvelopeName(env_dest, "")
+					
+					if env_name_dest == env_name then
+					
+						-- IF VISIBLE AND ARMED
+						br_env = reaper.BR_EnvAlloc(env_dest, false)
+						active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
+						if visible == true and armed == true then
 
-					-- IF VISIBLE AND ARMED
-					br_env = reaper.BR_EnvAlloc(env_dest, false)
-					active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
-					if visible == true and armed == true then
-
-						env_points_count = reaper.CountEnvelopePoints(env_dest)
-						first_start_val, last_start_val, first_end_val, last_end_val = GetTimeLoopPoints(env_dest, env_points_count, start_time, end_time)
-						
-						SetValue(env_dest)
-
-						-- PRESERVE EDGES INSERTION
-						if time_selection == true and preserve_edges == true then
+							env_points_count = reaper.CountEnvelopePoints(env_dest)
+							first_start_val, last_start_val, first_end_val, last_end_val = GetTimeLoopPoints(env_dest, env_points_count, start_time, end_time)
 							
-							reaper.DeleteEnvelopePointRange(env_dest, start_time-0.000000001, start_time+0.000000001)
-							reaper.DeleteEnvelopePointRange(env_dest, end_time-0.000000001, end_time+0.000000001)
+							SetValue(env_dest)
+
+							-- PRESERVE EDGES INSERTION
+							if time_selection == true and preserve_edges == true then
+								
+								reaper.DeleteEnvelopePointRange(env_dest, start_time-0.000000001, start_time+0.000000001)
+								reaper.DeleteEnvelopePointRange(env_dest, end_time-0.000000001, end_time+0.000000001)
+								
+								reaper.InsertEnvelopePoint(env_dest, start_time, first_start_val, 0, 0, true, true) -- INSERT startLoop point
+								reaper.InsertEnvelopePoint(env_dest, end_time, last_end_val, 0, 0, true, true) -- INSERT startLoop point
 							
-							reaper.InsertEnvelopePoint(env_dest, start_time, first_start_val, 0, 0, true, true) -- INSERT startLoop point
-							reaper.InsertEnvelopePoint(env_dest, end_time, last_end_val, 0, 0, true, true) -- INSERT startLoop point
-						
-						end
+							end
 
-						reaper.BR_EnvFree(br_env, 0)
-						reaper.Envelope_SortPoints(env_dest)
+							reaper.BR_EnvFree(br_env, 0)
+							reaper.Envelope_SortPoints(env_dest)
 
-					end -- ENDIF envelope passed
+						end -- ENDIF envelope passed
+					
+					end -- ENDIF encelope with same name selected
 
 				end -- ENDLOOP selected tracks envelope
 			
@@ -366,7 +376,26 @@ end -- END OF FUNCTION
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 main() -- Execute your main function
-reaper.Undo_EndBlock("Set or Offset envelope point value", 0) -- End of the undo block. Leave it at the bottom of your main function.
+reaper.Undo_EndBlock("Set or Offset envelope point value", -1) -- End of the undo block. Leave it at the bottom of your main function.
 reaper.UpdateArrange() -- Update the arrangement (often needed)
+
+function HedaRedrawHack()
+	reaper.PreventUIRefresh(1)
+
+	track=reaper.GetTrack(0,0)
+
+	trackparam=reaper.GetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT")	
+	if trackparam==0 then
+		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 1)
+	else
+		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 0)
+	end
+	reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", trackparam)
+
+	reaper.PreventUIRefresh(-1)
+	
+end
+
+HedaRedrawHack()
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
