@@ -1,0 +1,177 @@
+/**
+ * ReaScript Name: Randomize take playback rate
+ * Description: This script is a demonstration of how we can randomize take playback rate. It is not meant to be use without modifications of the R value.
+ * Instructions: Here is how to use it. (optional)
+ * Author: X-Raym
+ * Author URl: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Scripts (EEL): Randomize Take Playback Rate
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1520462
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.1 (2015-05-12)
+  + Randomize from snap offset position
+  + Support for fades
+ * v1.0 ()
+  + Initial Release
+ */
+ // ----- DEBUGGING ====>
+@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();
+msg_start();
+// <==== DEBUGGING ----
+
+function rand_take_pb_rate() local(i, item, take)
+(
+ /* i = 0;
+  loop(CountSelectedMediaItems(0), 
+    (item = GetSelectedMediaItem(0, i)) ? (*/
+    item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
+      (take = GetActiveTake(item)) ? (
+
+        // USER INPUT => MODIFY R HERE
+        R = 1;
+        // USER INPUT => END OF R MODIFICATIONS
+
+        cursor_pos = GetCursorPositionEx(0);
+        // REINITILIAZE TO 1
+
+        // INITIAL ITEM INFOS
+        init_fadein = GetMediaItemInfo_Value(item, "D_FADEINLEN");
+        init_fadeout = GetMediaItemInfo_Value(item, "D_FADEOUTLEN");
+        init_rate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+        init_position = GetMediaItemInfo_Value(item, "D_POSITION");
+        init_length = GetMediaItemInfo_Value(item, "D_LENGTH");
+        init_snap = GetMediaItemInfo_Value(item, "D_SNAPOFFSET");
+        init_end = init_position + init_length;
+		init_snap_absolute = init_snap + init_position;
+
+        // USE SOURCE AS REFRENCE
+        src_snap = init_snap * init_rate;
+        src_fadein = init_fadein * init_rate;
+        src_fadeout = init_fadeout * init_rate;
+        src_length = init_length * init_rate;
+
+        one_snap = src_snap;
+        
+        snap_dif = init_snap - new_snap;
+        one_position = init_position + snap_dif;
+        
+        one_length =  src_length;
+        
+        init_fadein > 0 ? (
+          one_fadein = src_fadein;
+        );
+
+        init_fadein > 0 ? (
+          one_fadeout = src_fadeout;
+        );
+
+        one_end = one_position + one_length;
+		
+		
+
+        // SET NEW LENGTH
+        // INITIAL ITEM INFOS
+
+        cursor_pos < init_snap_absolute ? (
+        	src_snap != 0 ?(
+        		new_length = (init_position - cursor_pos) * (src_length/src_snap) + init_length;
+        	):(
+        		new_length = (init_position - cursor_pos) + init_length;
+
+        	);
+
+       
+        	R = one_length/new_length;
+
+	       	// SET VALUES
+	        SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", R);
+
+	        new_snap = src_snap / R;
+	        SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap);
+	        
+	        src_snap != 0 ?(
+	        	snap_dif = init_snap - new_snap;
+	        	SetMediaItemInfo_Value(item, "D_POSITION", init_position + snap_dif);
+	        ):(
+	        	SetMediaItemInfo_Value(item, "D_POSITION", cursor_pos);
+	        );
+	        
+	        SetMediaItemInfo_Value(item, "D_LENGTH", new_length);
+	        
+	        init_fadein > 0 ? (
+	          SetMediaItemInfo_Value(item, "D_FADEINLEN", src_fadein / R);
+	        );
+
+	        init_fadein > 0 ? (
+	          SetMediaItemInfo_Value(item, "D_FADEOUTLEN", src_fadeout / R);
+        	);
+        ):(
+        	src_snap != 0 ?(
+        		// HERE IT IS
+				new_length = init_position - (init_snap_absolute-(1/(cursor_pos-init_snap_absolute))) * (src_length/src_snap) + init_length;
+        	):(
+        		new_length = (cursor_pos - init_position);
+
+        	);
+
+        	R = one_length/new_length;
+
+	       	// SET VALUES
+	        SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", R);
+
+	        new_snap = src_snap / R;
+	        SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap);
+	        
+	        src_snap != 0 ?(
+	        	snap_dif = init_snap - new_snap;
+	        	SetMediaItemInfo_Value(item, "D_POSITION", init_position + snap_dif);
+	        ):(
+	        	SetMediaItemInfo_Value(item, "D_POSITION", init_position);
+	        );
+	        
+	        SetMediaItemInfo_Value(item, "D_LENGTH", new_length);
+	        
+	        init_fadein > 0 ? (
+	          SetMediaItemInfo_Value(item, "D_FADEINLEN", src_fadein / R);
+	        );
+
+	        init_fadein > 0 ? (
+	          SetMediaItemInfo_Value(item, "D_FADEOUTLEN", src_fadeout / R);
+        	);
+
+        );// IS CURSOR AFTER INIT ITEM ABSOLUTE SNAP
+        );// IS TAKE
+        /*cursor_pos >= one_position && cursor_pos <= one_end ?(
+        	new_length = (cursor_pos - one_position - ) * 2 + init_length;
+        	R = init_length/new_length;
+        );
+        cursor_pos > one_position ?(
+        	new_length = (cursor_pos - one_position - ) * 2 + init_length;
+        	R = init_length/new_length;
+        );*/
+
+
+
+     /* );
+    );
+    i += 1;*/
+  UpdateArrange(); // refresh arrange view
+  Undo_OnStateChange("Randomize take playback rate");
+);
+
+PreventUIRefresh(1);
+rand_take_pb_rate();
+PreventUIRefresh(-1);
