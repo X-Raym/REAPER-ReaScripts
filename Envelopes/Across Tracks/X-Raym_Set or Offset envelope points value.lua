@@ -18,6 +18,7 @@
  * Changelog:
  * v1.3 (2015-05-26)
 	+ Works on multiple tracks
+	# bug fix when pop up is cancelled
  * v1.0.1 (2015-05-07)
 	# Time selection bug fix
  * v1.0 (2015-03-21)
@@ -59,7 +60,7 @@ function main() -- local (i, j, item, take, track)
 	retval, user_input_str = reaper.GetUserInputs("Set point value", 1, "Value ?", "") -- We suppose that the user know the scale he want
 	
 	-- IF USER PASTE A VALUE
-	if retval ~= nil then
+	if retval ~= false then
 
 		-- FIND + FOR SET OR OFFSET
 		x, y = string.find(user_input_str, "+")

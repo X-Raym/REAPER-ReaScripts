@@ -20,6 +20,7 @@
 	# Time selection bug fix
 	+ Refresh value in TCP
 	+ Works on multiple tracks
+	# bug fix when pop up is cancelled
  * v1.2.1 (2015-05-07)
 	# Time selection bug fix
  * v1.2 (2015-04-26)
@@ -117,7 +118,7 @@ function main() -- local (i, j, item, take, track)
 	retval, user_input_str = reaper.GetUserInputs("Set point value", 1, "Value ?", "") -- We suppose that the user know the scale he want
 	
 	-- IF USER PASTE A VALUE
-	if retval ~= nil then
+	if retval ~= false then
 
 		-- FIND + FOR SET OR OFFSET
 		x, y = string.find(user_input_str, "+")
