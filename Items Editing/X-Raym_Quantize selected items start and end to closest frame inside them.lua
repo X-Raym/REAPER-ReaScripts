@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Quantize selected items start and end to closest frame inside them
  * Description: Quantize to frame grid. Nice for video items.
- * Instructions: You may consider selecting your items and using SWS/FNG Clean selected overlapping items on ame track after that
+ * Instructions: You may consider selecting your items and using SWS/FNG Clean selected overlapping items on same track after that
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
