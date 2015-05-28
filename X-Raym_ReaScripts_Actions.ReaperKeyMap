@@ -89,7 +89,6 @@ SCR 4 0 "XR_RANDOM_TAKE_PLAYRATE_NRM" "Custom: Items Properties (X-Raym) — Rando
 SCR 4 0 "XR_RANDOM_TAKE_PLAYRATE" "Custom: Items Properties (X-Raym) — Randomize take playback rate" "Items Properties\X-Raym_Randomize take playback rate.eel"
 SCR 4 0 "XR_RESET_ITEM_SNAP" "Custom: Items Properties (X-Raym) — Reset item snap offset" "Items Properties\X-Raym_Reset item snap offset.eel"
 SCR 4 0 "XR_ROUND_SEL_ITEMS_VOL_ONEDEC" "Custom: Items Properties (X-Raym) — Round selected items volume - one decimal" "Items Properties\X-Raym_Round selected items volume - one decimal.eel"
-SCR 4 0 "XR_SHRINK_SEL_ITEMS_10MS" "Custom: Items Properties (X-Raym) — Shrink selected items by 10ms" "Items Properties\X-Raym_Shrink selected items by 10ms.eel"
 SCR 4 0 "XR_ADD_PTS_NEXTPOS_FROM_PREVAL" "Custom: Envelopes\On Tracks (X-Raym) — Add envelope point on next point position from previous point value" "Envelopes\On Tracks\X-Raym_Add envelope point on next point position from previous point value.lua"
 SCR 4 0 "XR_ADD_PTS_PREVPOS_FROM_NXTVAL" "Custom: Envelopes\On Tracks (X-Raym) — Add envelope point on previous point position from next point value" "Envelopes\On Tracks\X-Raym_Add envelope point on previous point position from next point value.lua"
 SCR 4 0 "XR_INS_ENVPTS_AT_TSEDGE_MINTOMAX" "Custom: Envelopes\On Tracks (X-Raym) — Add envelope points at time selection edges from max to min preserving edges" "Envelopes\On Tracks\X-Raym_Add envelope points at time selection edges from max to min preserving edges.lua"
