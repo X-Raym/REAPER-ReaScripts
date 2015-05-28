@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Quantize selected items start and end to closest frame inside them without moving content
+ * ReaScript Name: Quantize selected items start and end to closest frame inside them
  * Description: Quantize to frame grid.
  * Instructions: You may consider selecting your items and using SWS/FNG Clean selected overlapping items on ame track after that
  * Author: X-Raym
@@ -86,7 +86,7 @@ function main() -- local (i, j, item, take, track)
 	
 	end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Quantize selected items start and end to closest frame inside them without moving content", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Quantize selected items start and end to closest frame inside them", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
