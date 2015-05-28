@@ -1,6 +1,6 @@
 --[[
- * ReaScript Name: Quantize selected items start and end to closest frame inside them
- * Description: Quantize to frame grid. Nice for video items.
+ * ReaScript Name: Quantize selected items start and end to closest frame
+ * Description: Quantize to frame grid. Nice for subtitles.
  * Instructions: You may consider selecting your items and using SWS/FNG Clean selected overlapping items on ame track after that
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -78,15 +78,15 @@ function main() -- local (i, j, item, take, track)
 		new_item_pos = RoundToX(item_pos, frame_duration)
 		new_item_end = RoundToX(item_end, frame_duration)
 		
-		if new_item_pos < item_pos then new_item_pos = new_item_pos + frame_duration end
-		if new_item_end > item_end then new_item_end = new_item_end - frame_duration end
+		--if new_item_pos < item_pos then new_item_pos = new_item_pos + frame_duration end
+		--if new_item_end > item_end then new_item_end = new_item_end - frame_duration end
 		
 		-- SET INFOS
 		reaper.BR_SetItemEdges(item, new_item_pos, new_item_end) -- Set the value to the parameter
 	
 	end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Quantize selected items start and end to closest frame inside them", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Quantize selected items start and end to closest frame", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
