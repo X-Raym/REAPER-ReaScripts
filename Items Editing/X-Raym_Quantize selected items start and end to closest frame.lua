@@ -43,7 +43,7 @@ msg_clean()
 ]]-- <==== DEBUGGING -----
 
 function RoundToX(number, interval)
-	round = math.ceil(number/interval) * interval
+	round = math.floor((number+(interval/2))/interval) * interval
 	
 	--msg_f(interval)
 	--msg_f(number)
