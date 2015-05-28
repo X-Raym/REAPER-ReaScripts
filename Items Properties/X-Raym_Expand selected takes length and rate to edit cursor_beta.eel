@@ -32,144 +32,124 @@ msg_clean();
 msg_start();
 // <==== DEBUGGING ----
 
-function rand_take_pb_rate() local(i, item, take)
+function rand_take_pb_rate() local(i, mouse_item, take)
 (
- /* i = 0;
-  loop(CountSelectedMediaItems(0), 
-    (item = GetSelectedMediaItem(0, i)) ? (*/
-    item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
-      (take = GetActiveTake(item)) ? (
-
-        // USER INPUT => MODIFY R HERE
-        R = 1;
-        // USER INPUT => END OF R MODIFICATIONS
-
+	// GET MOUSE ITEM AND MOUSE TAKE
+    mouse_item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
+      (mouse_take = GetActiveTake(mouse_item)) ? (
+		
+		// GET CURSOR POS
         cursor_pos = GetCursorPositionEx(0);
-        // REINITILIAZE TO 1
 
         // INITIAL ITEM INFOS
-        init_fadein = GetMediaItemInfo_Value(item, "D_FADEINLEN");
-        init_fadeout = GetMediaItemInfo_Value(item, "D_FADEOUTLEN");
-        init_rate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
-        init_position = GetMediaItemInfo_Value(item, "D_POSITION");
-        init_length = GetMediaItemInfo_Value(item, "D_LENGTH");
-        init_snap = GetMediaItemInfo_Value(item, "D_SNAPOFFSET");
+        init_fadein = GetMediaItemInfo_Value(mouse_item, "D_FADEINLEN");
+        init_fadeout = GetMediaItemInfo_Value(mouse_item, "D_FADEOUTLEN");
+        init_rate = GetMediaItemTakeInfo_Value(mouse_take, "D_PLAYRATE");
+        init_position = GetMediaItemInfo_Value(mouse_item, "D_POSITION");
+        init_length = GetMediaItemInfo_Value(mouse_item, "D_LENGTH");
+        init_snap = GetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET");
         init_end = init_position + init_length;
 		init_snap_absolute = init_snap + init_position;
-
-        // USE SOURCE AS REFRENCE
-        src_snap = init_snap * init_rate;
-        src_fadein = init_fadein * init_rate;
-        src_fadeout = init_fadeout * init_rate;
-        src_length = init_length * init_rate;
-
-        one_snap = src_snap;
-        
-        snap_dif = init_snap - new_snap;
-        one_position = init_position + snap_dif;
-        
-        one_length =  src_length;
-        
-        init_fadein > 0 ? (
-          one_fadein = src_fadein;
-        );
-
-        init_fadein > 0 ? (
-          one_fadeout = src_fadeout;
-        );
-
-        one_end = one_position + one_length;
 		
-		
-
-        // SET NEW LENGTH
-        // INITIAL ITEM INFOS
-
-        cursor_pos < init_snap_absolute ? (
-        	src_snap != 0 ?(
-        		new_length = (init_position - cursor_pos) * (src_length/src_snap) + init_length;
-        	):(
-        		new_length = (init_position - cursor_pos) + init_length;
-
-        	);
-
+		// IF CURSOR ISN'T ON MOUSE ITEM SNAP OFFSET
+		cursor_pos < init_snap_absolute || cursor_pos > init_snap_absolute ? (
        
-        	R = one_length/new_length;
+			// USE SOURCE AS REFRENCE
+			src_pos = init_position * init_rate;
+			src_snap = init_snap * init_rate;
+			src_fadein = init_fadein * init_rate;
+			src_fadeout = init_fadeout * init_rate;
+			src_length = init_length * init_rate;
+			src_end = init_end * init_rate;
 
-	       	// SET VALUES
-	        SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", R);
+			// SET NEW LENGTH
 
-	        new_snap = src_snap / R;
-	        SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap);
-	        
-	        src_snap != 0 ?(
-	        	snap_dif = init_snap - new_snap;
-	        	SetMediaItemInfo_Value(item, "D_POSITION", init_position + snap_dif);
-	        ):(
-	        	SetMediaItemInfo_Value(item, "D_POSITION", cursor_pos);
-	        );
-	        
-	        SetMediaItemInfo_Value(item, "D_LENGTH", new_length);
-	        
-	        init_fadein > 0 ? (
-	          SetMediaItemInfo_Value(item, "D_FADEINLEN", src_fadein / R);
-	        );
+			// IF EDIT CURSOR IS BEFORE SNAP
+			cursor_pos < init_snap_absolute ? (
+			
+				// IF SNAP ISN'T 0
+				src_snap != 0 ?(
+					new_length = (init_position - cursor_pos) * (src_length/src_snap) + init_length;
+				):(
+					// ELSEIF SNAP IS ZERO
+					new_length = (init_position - cursor_pos) + init_length;
 
-	        init_fadein > 0 ? (
-	          SetMediaItemInfo_Value(item, "D_FADEOUTLEN", src_fadeout / R);
-        	);
-        ):(
-        	src_snap != 0 ?(
-        		// HERE IT IS
-				new_length = init_position - (init_snap_absolute-(1/(cursor_pos-init_snap_absolute))) * (src_length/src_snap) + init_length;
-        	):(
-        		new_length = (cursor_pos - init_position);
+				); // END OF SNAP
+				
+				process = 1;
+			);
+			
+			// IF EDIT CURSOR IS AFTER SNAP
+			cursor_pos > init_snap_absolute ? (
+				
+				// IF SNAP ISN'T 0
+				src_snap != 0 ?(
+					// HERE IT IS - NEED TO BE FIXED, RELATIVE TO SNAOSITON
+					new_length = (cursor_pos - init_position);
+				):(
+					// ELSEIF SNAP IS 0
+					new_length = (cursor_pos - init_position);
+				); // END IF SNAP
+				
+				process = 1;
+			
+			);
 
-        	);
+			// NEW RATE
+			R = src_length/new_length;
 
-        	R = one_length/new_length;
+			// SET VALUES
+			SetMediaItemTakeInfo_Value(mouse_take, "D_PLAYRATE", R);
 
-	       	// SET VALUES
-	        SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", R);
+			new_snap = src_snap / R;
+			SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", new_snap);
+			
+			src_snap != 0 ?(
+				snap_dif = init_snap - new_snap;
+				SetMediaItemInfo_Value(mouse_item, "D_POSITION", init_position + snap_dif);
+			):(
+				cursor_pos > init_snap_absolute ? (
+					SetMediaItemInfo_Value(mouse_item, "D_POSITION", init_position + snap_dif);
+				);
+				cursor_pos < init_snap_absolute ? (
+					SetMediaItemInfo_Value(mouse_item, "D_POSITION", cursor_pos);
+				);
+			);
+			
+			SetMediaItemInfo_Value(mouse_item, "D_LENGTH", new_length);
+			
+			init_fadein > 0 ? (
+			  SetMediaItemInfo_Value(mouse_item, "D_FADEINLEN", src_fadein / R);
+			);
 
-	        new_snap = src_snap / R;
-	        SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap);
-	        
-	        src_snap != 0 ?(
-	        	snap_dif = init_snap - new_snap;
-	        	SetMediaItemInfo_Value(item, "D_POSITION", init_position + snap_dif);
-	        ):(
-	        	SetMediaItemInfo_Value(item, "D_POSITION", init_position);
-	        );
-	        
-	        SetMediaItemInfo_Value(item, "D_LENGTH", new_length);
-	        
-	        init_fadein > 0 ? (
-	          SetMediaItemInfo_Value(item, "D_FADEINLEN", src_fadein / R);
-	        );
+			init_fadein > 0 ? (
+			  SetMediaItemInfo_Value(mouse_item, "D_FADEOUTLEN", src_fadeout / R);
+			);
+			
+			// PROPAGATE TRANSFORMATION
+			//(set IF not ITEM under mouse, adjust item, based transform on snap...)
+			/*i = 0;
+			rate_ratio = init_rate/R;
+			loop(CountSelectedMediaItems(0),
+				
+				item = GetSelectedMediaItem(0,i);
+				(take = GetActiveTake(item)) ? (
+					rate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+					dest_rate = rate / rate_ratio;
+					SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", dest_rate);
+				); // HAVE TAKE
+				
+				i += 1;
+			
+			);*/
+		
+		); // IF CURSOR ISN'T ON SNAP ABSOLUTE'
+	
+	);// IS TAKE
 
-	        init_fadein > 0 ? (
-	          SetMediaItemInfo_Value(item, "D_FADEOUTLEN", src_fadeout / R);
-        	);
-
-        );// IS CURSOR AFTER INIT ITEM ABSOLUTE SNAP
-        );// IS TAKE
-        /*cursor_pos >= one_position && cursor_pos <= one_end ?(
-        	new_length = (cursor_pos - one_position - ) * 2 + init_length;
-        	R = init_length/new_length;
-        );
-        cursor_pos > one_position ?(
-        	new_length = (cursor_pos - one_position - ) * 2 + init_length;
-        	R = init_length/new_length;
-        );*/
-
-
-
-     /* );
-    );
-    i += 1;*/
   UpdateArrange(); // refresh arrange view
   Undo_OnStateChange("Randomize take playback rate");
+
 );
 
 PreventUIRefresh(1);
