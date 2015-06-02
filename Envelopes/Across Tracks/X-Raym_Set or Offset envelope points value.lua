@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Set or Offset envelope point value
+ * ReaScript Name: Set or Offset envelope points value
  * Description: A pop up to let you put offset values for selected item points. 
  * Instructions: Write values you want. Use "+" sign for relative value (the value is added to the original), no sign for absolute Exemple: -6 is absolute, or +-6 is relative. Don't use percentage. Example: writte "60" for 60%.
  * Author: X-Raym
