@@ -16,7 +16,7 @@
  
 --[[
  * Changelog:
- * v1.2 (2015-05-02)
+ * v1.2 (2015-06-02)
 	# No envelope selected bug fix (thanks Soli Deo Gloria for the report)
  * v1.1 (2015-05-07)
 	# Time selection bug fix
