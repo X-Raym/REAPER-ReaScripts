@@ -1,0 +1,10 @@
+GetSet_LoopTimeRange2(0, 0, 0, start_time, end_time, 0);
+duration = end_time - start_time;
+GetPlayPosition2() > end_time ?(
+Main_OnCommand(40201, 0);
+time = GetPlayPosition2Ex(0);
+SetEditCurPos2(0, time - duration, 0, 1);
+):(
+Main_OnCommand(40201, 0);
+);
+GetSet_LoopTimeRange2(0, 1, 0, start_time, end_time, 0);
