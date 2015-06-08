@@ -7,17 +7,17 @@
 // Licence : GPL v3
 // Release Date : 19-01-2015
 
-// Version : 1.0
-// Version Date : 19-01-2015
+// Version : 1.1
+// Version Date : 08-06-2015
 // Required : Reaper 4.76
 
 // ----- DEBUGGING ====>
-@import ../Functions/X-Raym_Functions - console debug messages.eel
+//@import ../Functions/X-Raym_Functions - console debug messages.eel
 
-debug = 1; // 0 => No console. 1 => Display console messages for debugging.
-clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+//debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+//clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-msg_clean();
+//msg_clean();
 // <==== DEBUGGING -----
 
 // ----- CUSTOMIZATION ====>
@@ -36,8 +36,8 @@ function create_regions_from_takes() local(i, item, take)
 				GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
 				colorTake === 1 ? (
 					regionColor = GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR");
-					regionColor === 0 ? ( // if the item has no color...
-						regionColor = GetTrackColor(track); // ... then take the track color
+					regionColor === 0 ? (// if the item has no color...
+						regionColor = GetDisplayedMediaItemColor(item);// ... then take from item or from the track color
 					);
 				):(
 					regionColor = GetTrackColor(track);
@@ -47,14 +47,14 @@ function create_regions_from_takes() local(i, item, take)
 			itemDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
 			itemEnd = itemStart + itemDuration;
 
-			msg_s("trackName");
-			msg_s(#stringNeedBig);
-			msg_s("itemName");
-			msg_s(#retval);
-			msg_s("itemStart");
-			msg_f(itemStart);
-			msg_s("itemEnd");
-			msg_f(itemEnd);
+			//msg_s("trackName");
+			//msg_s(#stringNeedBig);
+			//msg_s("itemName");
+			//msg_s(#retval);
+			//msg_s("itemStart");
+			//msg_f(itemStart);
+			//msg_s("itemEnd");
+			//msg_f(itemEnd);
 
 			nameWithTake === 1 ? (
 				strlen(#stringNeedBig) > 0 ? (// If the track has a name...
@@ -69,13 +69,13 @@ function create_regions_from_takes() local(i, item, take)
 
 			AddProjectMarker2(NULL, 1, itemStart, itemEnd, regionName, -1, regionColor);
 
-			msg_s("------");
+			//msg_s("------");
 		);
 	i += 1;
 	);
-	msg_s("Created regions :");
-	msg_d(i);
-	msg_s("<=====\n");
+	//msg_s("Created regions :");
+	//msg_d(i);
+	//msg_s("<=====\n");
 );
 
 // ----- USER INPUTS ====>
@@ -90,35 +90,37 @@ function user_inputs()
 
 	countItems = CountSelectedMediaItems(0);
 	countItems === 0 ? (
-		msg_s("=====>");
-		msg_s("INSTRUCTIONS : Be sure you have items selected.");
-		msg_s("-----");
+		//msg_s("=====>");
+		//msg_s("INSTRUCTIONS : Be sure you have items selected.");
+		//msg_s("-----");
+		ShowMessageBox("Please select items.", "Alert", 0);
 	):(
-		msg_s("=====>");
-		msg_s("INSTRUCTIONS : Choose either 0 or 1 in the dialog box fields.");
-		msg_s("-----");
-		msg_s("Selected items :");
-		msg_d(countItems);
-		msg_s("-----");
+		//msg_s("=====>");
+		//msg_s("INSTRUCTIONS : Choose either 0 or 1 in the dialog box fields.");
+		//msg_s("-----");
+		//msg_s("Selected items :");
+		//msg_d(countItems);
+		//msg_s("-----");
 
 		dialog() ? (
 			match("%d,%d", #dialog_ret_vals, colorTake, nameWithTake);
-			msg_s("User inputs :");
-			colorTake === 1 ?(
-				msg_s("You choose 1 in the first field for coloring from take.")
+			//msg_s("User inputs :");
+			/*colorTake === 1 ?(
+				//msg_s("You choose 1 in the first field for coloring from take.")
 			):(
-				msg_s("You choose 0 in the first field for coloring from track.")
+				//msg_s("You choose 0 in the first field for coloring from track.")
 			);
 			nameWithTake === 1 ?(
-				msg_s("You choose 1 in the second field for naming region with track names as prefix.")
+				//msg_s("You choose 1 in the second field for naming region with track names as prefix.")
 			):(
-				msg_s("You choose 0 in the second field for naming with track name only.")
-			);
-			msg_s("-----");
+				//msg_s("You choose 0 in the second field for naming with track name only.")
+			);*/
+			//msg_s("-----");
 			create_regions_from_takes();
 		);
 	);
 );
 // <==== USER INPUTS -----
-
+PreventUIRefresh(1);
 user_inputs();
+PreventUIRefresh(-1);
