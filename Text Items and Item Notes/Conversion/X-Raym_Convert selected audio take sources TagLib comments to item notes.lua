@@ -10,8 +10,8 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * REAPER: 5.0 pre 26
- * Extensions: SWS/S&M 2.7.1 #1
+ * REAPER: 5.0 pre 36
+ * Extensions: SWS/S&M 2.7.1 #0
  --]]
  
 --[[

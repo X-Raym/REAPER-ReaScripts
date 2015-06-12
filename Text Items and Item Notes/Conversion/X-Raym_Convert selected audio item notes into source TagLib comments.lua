@@ -10,14 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
- * REAPER: 5.0 pre 36
- * Extensions: SWS/S&M 2.7.1 #1
+ * REAPER: 5.0 pre 26
+ * Extensions: SWS/S&M 2.7.1 #0
  --]]
  
 --[[
  * Changelog:
- * v0.9 (2015-06-12)
-  + Initial Release
+ * v1.0 (2015-06-12)
+	+ Initial Release
  --]]
 
 --[[ ----- DEBUGGING ====>
@@ -61,7 +61,7 @@ function convert() -- local (i, j, item, take, track)
         notes = reaper.ULT_GetMediaItemNote(item)
         
         reaper.Main_OnCommand(40440, 0) -- set offline
-        set = reaper.SNM_TagMediaFile(fn, "Comment", notes)
+        reaper.SNM_TagMediaFile(fn, "Comment", notes)
         reaper.Main_OnCommand(40439, 0) -- set online
         reaper.Main_OnCommand(40441, 0) -- rebuild peak
         

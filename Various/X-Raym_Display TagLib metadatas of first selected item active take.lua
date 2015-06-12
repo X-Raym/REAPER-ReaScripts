@@ -11,13 +11,13 @@
  * Forum Thread: Script: Script name
  * Forum Thread URl: http://forum.cockos.com/***.html
  * REAPER: 5.0 pre 36
- * Extensions: SWS/S&M 2.7.1 #1
+ * Extensions: SWS/S&M 2.7.1 #0
  --]]
  
 --[[
  * Changelog:
  * v1.0 (2015-06-12)
-  + Initial Release
+	+ Initial Release
  --]]
 
 font_size = 20
