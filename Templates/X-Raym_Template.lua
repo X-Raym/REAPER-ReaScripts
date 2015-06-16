@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.9 (2015-06-12)
+ 	+ performance checker
  * v1.8 (2015-05-11)
  	# No more call to standards actions (better for undos).
  * v1.7 (2015-05-08)
@@ -56,6 +58,8 @@ require("X-Raym_Functions - console debug messages")
 
 debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
 clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+time_os = reaper.time_precise()
 
 msg_clean()
 -- <==== DEBUGGING -----
@@ -235,7 +239,7 @@ function main() -- local (i, j, item, take, track)
 	
 	-- YOUR CODE ABOVE
 
-	reaper.Undo_EndBlock("My action", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("My action", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -355,3 +359,5 @@ main() -- Execute your main function
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
+
+-- reaper.ShowMessageBox("Script executed in (s): "..tostring(reaper.time_precise() - time_os), "", 0)
