@@ -8,8 +8,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
+ * Forum Thread: Scripts: TagLib (various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1534071
  * REAPER: 5.0 pre 36
  * Extensions: SWS/S&M 2.7.1 #0
  --]]

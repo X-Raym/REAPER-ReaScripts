@@ -8,8 +8,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
+ * Forum Thread: Scripts: TagLib (various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1534071
  * REAPER: 5.0 pre 26
  * Extensions: SWS/S&M 2.7.1 #0
  --]]
@@ -42,6 +42,7 @@ function convert() -- local (i, j, item, take, track)
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
   -- LOOP THROUGH SELECTED ITEMS
+  reaper.Main_OnCommand(40100, 0) -- set all media offline
   selected_items_count = reaper.CountSelectedMediaItems(0)
   
   -- INITIALIZE loop through selected items
@@ -72,6 +73,8 @@ function convert() -- local (i, j, item, take, track)
     end
 
   end -- ENDLOOP through selected items
+  
+  reaper.Main_OnCommand(40101, 0)-- sel all items online
   
   reaper.Undo_EndBlock("Convert selected audio item notes into source TagLib comments", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
