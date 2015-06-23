@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-24-06)
+	+ Snap to stretch marker if mouse over it
  * v1.0 (2015-05-20)
 	+ Initial Release
  --]]
@@ -48,16 +50,34 @@ function main() -- local (i, j, item, take, track)
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 	-- MOUSE CONTEXT
-	mouse_item, mouse_pos =  reaper.BR_ItemAtMouseCursor()
-	mouse_pos = reaper.BR_PositionAtMouseCursor(-1)
+	window, segment, details = reaper.BR_GetMouseCursorContext()
+	mouse_pos = reaper.BR_GetMouseCursorContext_Position()
+		
+	if window == "arrange" and details == "item_stretch_marker" then
+		
+		item = reaper.BR_GetMouseCursorContext_Item()
+		take = reaper.GetActiveTake(item)
+		
+		idx = reaper.BR_GetMouseCursorContext_StretchMarker()
+		
+		retval, pos, srcpos = reaper.GetTakeStretchMarker(take, idx)
+
+		-- GET INFOS
+		item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+
+		reaper.SetMediaItemInfo_Value(item, "D_SNAPOFFSET", pos)
 	
-	-- IF ITEM UNDER MOUSE
-	if tostring(mouse_item) ~= "userdata: 0000000000000000" then
+	end
 		
-		item_pos =  reaper.GetMediaItemInfo_Value(mouse_item, "D_POSITION")
-		item_end =  item_pos + reaper.GetMediaItemInfo_Value(mouse_item, "D_LENGTH")
+	if window == "arrange" and details == "item" then
 		
-		-- CHECK SNAP
+		item = reaper.BR_GetMouseCursorContext_Item()
+		take = reaper.GetActiveTake(item)
+		
+		-- GET INFOS
+		item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+		item_end =  item_pos + reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+		
 		if reaper.GetToggleCommandState(1157) == 1 then
 		
 			mouse_pos =  reaper.SnapToGrid(0, mouse_pos)
@@ -67,9 +87,8 @@ function main() -- local (i, j, item, take, track)
 			if mouse_pos > item_end then mouse_pos = item_end end
 			
 		end
-		
-		-- SET INFOS
-		reaper.SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", mouse_pos - item_pos) -- Set the value to the parameter
+
+		reaper.SetMediaItemInfo_Value(item, "D_SNAPOFFSET", mouse_pos - item_pos)
 		
 	end -- ENDLOOP through selected items
 
