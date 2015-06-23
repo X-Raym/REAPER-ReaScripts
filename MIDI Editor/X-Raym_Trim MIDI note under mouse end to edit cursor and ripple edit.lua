@@ -88,23 +88,28 @@ function main()
 			end		
 			
 			reaper.FNG_FreeMidiTake(take_fng)
-			--[[ -- NEED TO WAY TO BE CACHED
+			
 			-- CCs
 			for i = 0, ccs - 1 do
 				retval, sel, muted, start, chanmsg, chan, msg2, msg3 = reaper.MIDI_GetCC(take, i)
-				if start <= end_note then 
-				reaper.MIDI_SetCC(take, i, sel, muted, start + offset, chanmsg, chan, msg2, msg3)
+				if start >= end_note then 
+					reaper.MIDI_SetCC(take, i, sel, muted, start + offset, chanmsg, chan, msg2, msg3, true)
 				end
 			end -- END OF CCs
+			
+			reaper.MIDI_Sort(take)
 
 			-- SYSEX
 			for i = 0, sysex - 1 do
 				retval, sel, muted, start, type_sysex, msg = reaper.MIDI_GetTextSysexEvt(take, i)
-				if start <= end_note then
-					reaper.MIDI_SetTextSysexEvt(take, i, sel, muted, start + offset, type_sysex, msg) 
+				if start >= end_note then
+					reaper.MIDI_SetTextSysexEvt(take, i, sel, muted, start + offset, type_sysex, msg, true)
+				
 				end
 			end -- END OF SYSEX
-			]]
+			
+			reaper.MIDI_Sort(take)
+			
 			
 		end -- END OF CURSOR AFTER NOTE UNDER MOUSE START
 		
