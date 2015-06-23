@@ -8,8 +8,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
+ * Forum Thread: Scripts: TagLib (various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1534071
  * REAPER: 5.0 pre 36
  * Extensions: SWS/S&M 2.7.1 #0
  --]]
@@ -17,14 +17,15 @@
 --[[
  * Changelog:
  * v1.0 (2015-06-12)
-	+ Initial Release
+  + Initial Release
  --]]
 
 font_size = 20
 font_name = "Arial"
 window_w = 400
-window_h = 200
+window_h = 250
 marge = 20
+marge2 = 100
 line_height = 25
 
 function init(window_w, window_h)
@@ -60,38 +61,101 @@ function run()
       
       gfx.x = marge
       
-      line = line + 1
+      gfx_a = 1
+      gfx.r = 255/255
+      gfx.g = 255/255
+      gfx.b = 16/255
+	  
+	  line = line + 1
       gfx.x = marge
       gfx.y = line * line_height
-      gfx.printf("Title: "..tag_title)
+      gfx.printf("Take: ")
+	  
+	  line = line + 1
+      gfx.x = marge
+      gfx.y = line * line_height
+      gfx.printf("Source: ")
+	  
+	  gfx.r = 16/255
+      gfx.g = 255/255
+      gfx.b = 255/255
       
       line = line + 1
       gfx.x = marge
       gfx.y = line * line_height
-      gfx.printf("Artist: "..tag_artist)
+      gfx.printf("Title: ")
       
       line = line + 1
       gfx.x = marge
       gfx.y = line * line_height
-      gfx.printf("Album: "..tag_album)
+      gfx.printf("Artist: ")
       
       line = line + 1
       gfx.x = marge
       gfx.y = line * line_height
-      gfx.printf("Year: "..tag_year)
+      gfx.printf("Album: ")
       
       line = line + 1
       gfx.x = marge
       gfx.y = line * line_height
-      gfx.printf("Genre: "..tag_genre)
+      gfx.printf("Year: ")
       
       line = line + 1
       gfx.x = marge
       gfx.y = line * line_height
-      gfx.printf("Comment: "..tag_comment)           
-   
-     end
- 
+      gfx.printf("Genre: ")
+      
+      line = line + 1
+      gfx.x = marge
+      gfx.y = line * line_height
+      gfx.printf("Comment: ")
+      
+      line = 0
+      gfx.r = 255/255
+      gfx.g = 255/255
+      gfx.b = 255/255
+      
+      line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(take_name)
+	  
+	  line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(fn)
+	  
+	  line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(tag_title)
+      
+      line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(tag_artist)
+      
+      line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(tag_album)
+      
+      line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(tag_year)
+      
+      line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(tag_genre)
+      
+      line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(tag_comment)          
+  
+	end
   end  
   
   gfx.update()
