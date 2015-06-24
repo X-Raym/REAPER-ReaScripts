@@ -170,3 +170,4 @@ SCR 4 0 "XR_UNLOCK_ITEMS_X_TIME" "Custom: Items Properties (X-Raym) — Unlock sel
 SCR 4 0 "XR_SEARCH_REPLACE_NOTES" "Custom: Text Items and Item Notes\Formatting (X-Raym) — Search and replace in selected items notes" "Text Items and Item Notes\Formatting\X-Raym_Search and replace in selected items notes.lua"
 SCR 4 0 "XR_TXT_BEGINNING_NOTES" "Custom: Text Items and Item Notes\Formatting (X-Raym) — Add text at beginning of selected items notes" "Text Items and Item Notes\Formatting\X-Raym_Add text at beginning of selected items notes.lua"
 SCR 4 0 "XR_TXT_END_NOTES" "Custom: Text Items and Item Notes\Formatting (X-Raym) — Add text at end of selected items notes" "Text Items and Item Notes\Formatting\X-Raym_Add text at end of selected items notes.lua"
+SCR 4 0 "XR_MARKER_AT_ITEM_SNAP" "Custom: Regions (X-Raym) — Create markers at selected items snap offset" "Regions\X-Raym_Create markers at selected items snap offset.lua"
