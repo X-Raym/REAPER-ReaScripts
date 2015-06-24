@@ -166,3 +166,4 @@ SCR 4 32060 "XR_SEL_UNSEL_MIDI_OVER_MOUSE" "Custom: MIDI Editor (X-Raym) — Selec
 SCR 4 32060 "XR_SEL_UNSEL_MIDI_UNDER_MOUSE" "Custom: MIDI Editor (X-Raym) — Select-Unselect all MIDI notes under mouse" "MIDI Editor\X-Raym_Select-Unselect all MIDI notes under mouse.eel"
 SCR 4 0 "XR_DISPLAY_TAGLIB" "Custom: Items Properties (X-Raym) — Display TagLib metadatas of first selected item active take" "Items Properties\X-Raym_Display TagLib metadatas of first selected item active take.lua"
 SCR 4 0 "XR_KEEP_SEL_X_ITEMS" "Custom: Items Properties (X-Raym) — Keep selected only X items randomly" "Items Properties\X-Raym_Keep selected only X items randomly.lua"
+SCR 4 0 "XR_UNLOCK_ITEMS_X_TIME" "Custom: Items Properties (X-Raym) — Unlock selected items for 5 seconds" "Items Properties\X-Raym_Unlock selected items for 5 seconds.lua"
