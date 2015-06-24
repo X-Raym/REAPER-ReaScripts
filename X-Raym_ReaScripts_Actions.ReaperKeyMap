@@ -167,3 +167,6 @@ SCR 4 32060 "XR_SEL_UNSEL_MIDI_UNDER_MOUSE" "Custom: MIDI Editor (X-Raym) — Sele
 SCR 4 0 "XR_DISPLAY_TAGLIB" "Custom: Items Properties (X-Raym) — Display TagLib metadatas of first selected item active take" "Items Properties\X-Raym_Display TagLib metadatas of first selected item active take.lua"
 SCR 4 0 "XR_KEEP_SEL_X_ITEMS" "Custom: Items Properties (X-Raym) — Keep selected only X items randomly" "Items Properties\X-Raym_Keep selected only X items randomly.lua"
 SCR 4 0 "XR_UNLOCK_ITEMS_X_TIME" "Custom: Items Properties (X-Raym) — Unlock selected items for 5 seconds" "Items Properties\X-Raym_Unlock selected items for 5 seconds.lua"
+SCR 4 0 "XR_SEARCH_REPLACE_NOTES" "Custom: Text Items and Item Notes\Formatting (X-Raym) — Search and replace in selected items notes" "Text Items and Item Notes\Formatting\X-Raym_Search and replace in selected items notes.lua"
+SCR 4 0 "XR_TXT_BEGINNING_NOTES" "Custom: Text Items and Item Notes\Formatting (X-Raym) — Add text at beginning of selected items notes" "Text Items and Item Notes\Formatting\X-Raym_Add text at beginning of selected items notes.lua"
+SCR 4 0 "XR_TXT_END_NOTES" "Custom: Text Items and Item Notes\Formatting (X-Raym) — Add text at end of selected items notes" "Text Items and Item Notes\Formatting\X-Raym_Add text at end of selected items notes.lua"
