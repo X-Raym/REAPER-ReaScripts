@@ -46,8 +46,8 @@ function main() // local (i, j, item, take, track)
       pan_mod == 6 ? (
         pan_L = GetMediaTrackInfo_Value(track, "D_DUALPANL");
         pan_R = GetMediaTrackInfo_Value(track, "D_DUALPANR");
-        SetMediaTrackInfo_Value(track, "D_DUALPANL", - pan_R);
-        SetMediaTrackInfo_Value(track, "D_DUALPANR", - pan_L);
+        SetMediaTrackInfo_Value(track, "D_DUALPANL", - pan_L);
+        SetMediaTrackInfo_Value(track, "D_DUALPANR", - pan_R);
       ):(
         pan = - GetMediaTrackInfo_Value(track, "D_PAN");
         SetMediaTrackInfo_Value(track, "D_PAN", pan);
