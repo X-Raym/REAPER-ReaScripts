@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.4 (2015-06-25)
+	# Dual pan track support
  * v1.3 (2015-05-26)
 	# Time selection bug fix
 	+ Works on multiple tracks
@@ -292,7 +294,7 @@ function SetValue(envelope)
 		end -- END Loop
 	end -- ENDIF Mute
 
-	if env_name == "Width" or env_name == "Width (Pre-FX)" or env_name == "Pan" or env_name == "Pan (Pre-FX)" then
+	if env_name == "Width" or env_name == "Width (Pre-FX)" or env_name == "Pan" or env_name == "Pan (Pre-FX)" or env_name == "Pan (Left)" or env_name == "Pan (Right)" or env_name == "Pan (Left, Pre-FX)" or env_name == "Pan (Right, Pre-FX)" then
 		already_set = true
 
 		for i = 0, env_point_count - 1 do

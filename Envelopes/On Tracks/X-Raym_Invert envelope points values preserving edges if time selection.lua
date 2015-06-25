@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.3 (2015-06-25)
+	# Dual pan track support
  * v1.2.1 (2015-05-07)
 	# Time selection bug fix
  * v1.2 (2015-04-26)
@@ -166,7 +168,7 @@ function Action(env)
 	
 				end -- ENDIF Volume
 
-				if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" then
+				if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" then
 
 					valueIn = -valueOut
 

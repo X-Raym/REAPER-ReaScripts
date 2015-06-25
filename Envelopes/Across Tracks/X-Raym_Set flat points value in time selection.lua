@@ -10,14 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487882#post1487882
- * Version: 1.0
- * Version Date: 2015-03-21
  * REAPER: 5.0 pre 9
  * Extensions: SWS 2.6.3 #0
 ]]
  
 --[[
  * Changelog:
+ * v1.4 (2015-06-25)
+	# Dual pan track support
  * v1.3 (2015-05-26)
 	# bug fix when pop up is cancelled
  * v1.0.1 (2015-05-07)
@@ -215,7 +215,7 @@ function SetValue(envelope)
 			
 	end -- ENDIF Mute
 
-	if env_name == "Width" or env_name == "Width (Pre-FX)" or env_name == "Pan" or env_name == "Pan (Pre-FX)" then
+	if env_name == "Width" or env_name == "Width (Pre-FX)" or env_name == "Pan" or env_name == "Pan (Pre-FX)" or env_name == "Pan (Left)" or env_name == "Pan (Right)" or env_name == "Pan (Left, Pre-FX)" or env_name == "Pan (Right, Pre-FX)" then
 		already_set = true
 							
 			-- CALC
