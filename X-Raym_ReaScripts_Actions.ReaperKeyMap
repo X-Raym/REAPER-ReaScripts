@@ -172,3 +172,4 @@ SCR 4 0 "XR_TXT_BEGINNING_NOTES" "Custom: Text Items and Item Notes\Formatting (
 SCR 4 0 "XR_TXT_END_NOTES" "Custom: Text Items and Item Notes\Formatting (X-Raym) — Add text at end of selected items notes" "Text Items and Item Notes\Formatting\X-Raym_Add text at end of selected items notes.lua"
 SCR 4 0 "XR_MARKER_AT_ITEM_SNAP" "Custom: Regions (X-Raym) — Create markers at selected items snap offset" "Regions\X-Raym_Create markers at selected items snap offset.lua"
 SCR 4 0 "XR_SET_ITEM_FADES_SEC" "Custom: Items Properties (X-Raym) — Set selected items fade-in fade-out length (seconds)" "Items Properties\X-Raym_Set selected items fade-in fade-out length (seconds).lua"
+SCR 4 0 "XR_KEEP_SEL_X_CHAN_ITEMS" "Custom: Items Properties (X-Raym) — Keep selected items with X channels only" "Items Properties\X-Raym_Keep selected items with X channels only.lua"
