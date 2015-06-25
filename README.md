@@ -28,6 +28,7 @@ If you want download scripts on this repo anyway:
 - [spk77](http://forum.cockos.com/member.php?u=49553)
 - [HeDa](http://forum.cockos.com/member.php?u=47822)
 - [FnA](http://forum.cockos.com/member.php?u=47920)
+- [mpl](http://forum.cockos.com/member.php?u=70694)
 
 ##Helpers
 - [Breeder](http://forum.cockos.com/member.php?u=27094)
