@@ -17,43 +17,52 @@
  
 /**
  * Changelog:
+ * v1.1 (2015-06-25)
+  + Dual pan support
  * v1.0 (2015-02-17)
-	+ Initial Release
+  + Initial Release
  */
 
 // ----- DEBUGGING ====>
-@import ../Functions/X-Raym_Functions - console debug messages.eel
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
 
 debug = 0; // 0 => No console. 1 => Display console messages for debugging.
 clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
-msg_clean();
+msg_clean();*/
 // <==== DEBUGGING -----
 
 function main() // local (i, j, item, take, track)
 (
-	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
-	// LOOP TRHOUGH SELECTED TRACKS
-	
-	selected_tracks_count = CountSelectedTracks(0);
+  // LOOP TRHOUGH SELECTED TRACKS
+  
+  selected_tracks_count = CountSelectedTracks(0);
 
-	i = 0; // INITIALIZE loop through selected tracks
-	loop(selected_tracks_count, (track = GetSelectedTrack(0, i)) ? (
-			pan_initial = GetMediaTrackInfo_Value(track, "D_PAN");
-			pan_output = - pan_initial;
-			SetMediaTrackInfo_Value(track, "D_PAN", pan_output);
-		); // ENDIF inside loop
-		i += 1; // INCREMENT loop through selected tracks
-	); // ENDLOOP through selected tracks
+  i = 0; // INITIALIZE loop through selected tracks
+  loop(selected_tracks_count, (track = GetSelectedTrack(0, i)) ? (
+      pan_mod = GetMediaTrackInfo_Value(track, "I_PANMODE");
+      pan_mod == 6 ? (
+        pan_L = GetMediaTrackInfo_Value(track, "D_DUALPANL");
+        pan_R = GetMediaTrackInfo_Value(track, "D_DUALPANR");
+        SetMediaTrackInfo_Value(track, "D_DUALPANL", - pan_R);
+        SetMediaTrackInfo_Value(track, "D_DUALPANR", - pan_L);
+      ):(
+        pan = - GetMediaTrackInfo_Value(track, "D_PAN");
+        SetMediaTrackInfo_Value(track, "D_PAN", pan);
+      ); // ENDIF PANMOD = DUAL
+    ); // ENDIF inside loop
+    i += 1; // INCREMENT loop through selected tracks
+  ); // ENDLOOP through selected tracks
 
-	Undo_EndBlock("Invert selected tracks pan", 0); // End of the undo block. Leave it at the bottom of your main function.
+  Undo_EndBlock("Invert selected tracks pan", -1); // End of the undo block. Leave it at the bottom of your main function.
 );
 
-msg_start(); // Display characters in the console to show you the begining of the script execution.
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
 
 main(); // Execute your main function
 
 UpdateArrange(); // Update the arrangement (often needed)
 
-msg_end(); // Display characters in the console to show you the end of the script execution.
+//msg_end(); // Display characters in the console to show you the end of the script execution.
