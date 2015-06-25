@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-26-06)
+  + Now with relative to initial fade with + prefix
  * v1.0 (2015-25-06)
   + Initial Release
  --]]
@@ -36,10 +38,22 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 
 msg_clean()
 ]]-- <==== DEBUGGING -----
+function IfRelative(str)
+  x, y = string.find(str, "+")
+  str = str:gsub("+", "")
+  if x ~= nil then -- set
+    return str, true
+  else -- offset
+    return str, false 
+  end
+end
 
 function main(input1, input2, input3) -- local (i, j, item, take, track)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  
+  input1, input1_relative = IfRelative(input1)
+  input2, input2_relative = IfRelative(input2)
   
   -- INITIALIZE loop through selected items
   for i = 0, selected_items_count-1  do
@@ -50,23 +64,26 @@ function main(input1, input2, input3) -- local (i, j, item, take, track)
     item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
     item_end = item_pos + item_len
     
+    fadein_len_init = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN")
+    fadeout_len_init = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN")
+    
     -- GET FADES
     if input1 == "/initial" then
-      fadein_len = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN")
+      fadein_len = fadein_len_init
     else
-      fadein_len = tonumber(answer1)
-      if fadein_len ~= nil then 
-        fadein_len = math.abs(fadein_len)
+      fadein_len = tonumber(input1)
+      if input1_relative then fadein_len = fadein_len + fadein_len_init end
+      if fadein_len ~= nil then
         if fadein_len > item_len then fadein_len = item_len end
       end
     end
     
     if input2 == "/initial" then
-      fadeout_len = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN")
+      fadeout_len =  fadeout_len_init
     else
-      fadeout_len = tonumber(answer2)
+      fadeout_len = tonumber(input2)
+      if input2_relative then fadeout_len = fadeout_len +  fadeout_len_init end
       if fadeout_len ~= nil then 
-        fadeout_len = math.abs(fadeout_len)
         if item_end - fadeout_len < item_pos then fadeout_len = item_len end
       end
     end
@@ -97,7 +114,7 @@ if selected_items_count > 0 then
 
   reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
   
-  retval, retvals_csv = reaper.GetUserInputs("Set fades length in seconds", 3, "Fade-in (no change = /initial),Fade-out (no change = /initial), Priority (0 = in, 1 = out)", "0"..",".."0".. ",".."0") 
+  retval, retvals_csv = reaper.GetUserInputs("Set fades length in seconds", 3, "Fade-in (no change = /initial),Fade-out (+ for relative), Priority (0 = in, 1 = out)", "0"..",".."0".. ",".."0") 
   
   if retval == true then
       
