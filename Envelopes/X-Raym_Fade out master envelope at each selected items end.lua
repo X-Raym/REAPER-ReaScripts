@@ -8,8 +8,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: 
  * Licence: GPL v3
- * Forum Thread: ReaScript: Set/Offset selected envelope points values
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487882#post1487882
+ * Forum Thread: Script (Lua): Scripts for Layering
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=159961
  * REAPER: 5.0 pre 36
  * Extensions: None
 ]]
