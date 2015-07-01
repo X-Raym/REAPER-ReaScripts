@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Rename and recolor tracks created by Vordio from a Premiere Pro XML export
- * Description: A way to quickly rename and recolor tracks in a REAPER project created by Vordio from a Premiere Pro project.
+ * Description: A way to quickly rename and recolor tracks in a REAPER project created by Vordio from a Premiere Pro project. Note that track recogbnition is based on track name, so try to avoid track name that contains a premiere pro label ID, if you don't wont them to be renamed/colorized.
  * Instructions: Edit the User Area part of the script if you want to change the default naming and colors. Run.
  * Author: X-Raym
  * Author URl: http://extremraym.com
