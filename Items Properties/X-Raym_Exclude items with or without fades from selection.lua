@@ -49,7 +49,7 @@ end
 
 --Msg("")
 
-function main(input1, input2) -- local (i, j, item, take, track)
+function main(input1, input2, input3, input4) -- local (i, j, item, take, track)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
   
@@ -67,7 +67,10 @@ function main(input1, input2) -- local (i, j, item, take, track)
     fadein_len = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN")
     fadeout_len = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN")
     
-    if (fadein_len > 0 and input1 == "with") or (fadein_len == 0 and input1 == "without") or (fadeout_len > 0 and input2 == "with") or (fadeout_len == 0 and input2 == "without") then
+    fadein_auto_len = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN_AUTO")
+    fadeout_auto_len = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN_AUTO")
+    
+    if (fadein_auto_len > 0 and input3 == "with") or (fadein_auto_len == 0 and input3 == "without") or (fadeout_auto_len > 0 and input4 == "with") or (fadeout_auto_len == 0 and input4 == "without") or (fadein_len > 0 and input1 == "with") or (fadein_len == 0 and input1 == "without") or (fadeout_len > 0 and input2 == "with") or (fadeout_len == 0 and input2 == "without") then
        table.insert(items_to_unsel, item)
        --Msg(fadein_len)
     end
@@ -88,16 +91,16 @@ if selected_items_count > 0 then
 
   reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
   
-  retval, retvals_csv = reaper.GetUserInputs("Exclude selected items...", 2, "Fade-in (ignore/with/without),Fade-out (ignore/with/without)", "ignore,ignore") 
+  retval, retvals_csv = reaper.GetUserInputs("Exclude selected items...", 4, "Fade-in (ignore/with/without),Auto Fade-in,Fade-out (ignore/with/without),Auto Fade-out", "ignore,ignore,ignore,ignore") 
   
   if retval == true then
       
     -- PARSE THE STRING
-    answer1, answer2 = retvals_csv:match("([^,]+),([^,]+)")
+    answer1, answer2, answer3, answer4 = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
     
     if answer1 ~= nil then -- if match
     
-      main(answer1, answer2) -- Execute your main function
+      main(answer1, answer2, answer3, answer4) -- Execute your main function
   
       reaper.UpdateArrange() -- Update the arrangement (often needed)
     
