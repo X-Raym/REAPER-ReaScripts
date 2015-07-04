@@ -191,3 +191,4 @@ SCR 4 0 "XR_SHUFFLE_ITEMSCOL_ORDER_SNAP" "Custom: Items Editing (X-Raym) — Shu
 SCR 4 0 "XR_FADEOUT_AT_SNAP" "Custom: Items Properties (X-Raym) — Set selected items fade-out to snap offset" "Items Properties\X-Raym_Set selected items fade-out to snap offset.lua"
 SCR 4 0 "XR_FADEIN_AT_SNAP" "Custom: Items Properties (X-Raym) — Set selected items fade-in to snap offset" "Items Properties\X-Raym_Set selected items fade-in to snap offset.lua"
 SCR 4 0 "XR_TRCK_NAME_COLOR_VORDIO_PPRO" "Custom: Track Properties (X-Raym) — Rename and recolor tracks created by Vordio from a Premiere Pro XML export" "Items Properties\X-Raym_Rename and recolor tracks created by Vordio from a Premiere Pro XML export.lua"
+SCR 4 0 "XR_MOVE_SNAP_NXT_CUE" "Custom: Items Properties (X-Raym) — Exclude items with or without fades from selection" "Items Properties\X-Raym_Exclude items with or without fades from selection.lua"
