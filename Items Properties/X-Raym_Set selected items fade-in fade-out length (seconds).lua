@@ -121,7 +121,7 @@ if selected_items_count > 0 then
 
   reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
   
-  retval, retvals_csv = reaper.GetUserInputs("Set fades length in seconds", 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Preserve existing fades ? (y/n)", "0,0,i,n")  
+  retval, retvals_csv = reaper.GetUserInputs("Set fades length in seconds", 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", "0,0,i,n")  
   if retval == true then
       
     -- PARSE THE STRING
