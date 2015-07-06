@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.2 (2015-07-06)
+  + Option to create new fades only. Already present fades length are overriden by priority.
  * v1.1 (2015-26-06)
   + Now with relative to initial fade with + prefix
  * v1.0 (2015-25-06)
@@ -48,7 +50,7 @@ function IfRelative(str)
   end
 end
 
-function main(input1, input2, input3) -- local (i, j, item, take, track)
+function main(input1, input2, input3, input4) -- local (i, j, item, take, track)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
   
@@ -68,7 +70,7 @@ function main(input1, input2, input3) -- local (i, j, item, take, track)
     fadeout_len_init = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN")
     
     -- GET FADES
-    if input1 == "/initial" then
+    if input1 == "/initial" or (input4 == "y" and fadein_len_init ~= 0) then
       fadein_len = fadein_len_init
     else
       fadein_len = tonumber(input1)
@@ -78,7 +80,7 @@ function main(input1, input2, input3) -- local (i, j, item, take, track)
       end
     end
     
-    if input2 == "/initial" then
+    if input2 == "/initial" or (input4 == "y" and fadeout_len_init ~= 0) then
       fadeout_len =  fadeout_len_init
     else
       fadeout_len = tonumber(input2)
@@ -90,10 +92,15 @@ function main(input1, input2, input3) -- local (i, j, item, take, track)
     
     -- SET
     if fadeout_len ~= nil and fadein_len ~= nil then
-      if (item_pos + fadein_len) > (item_end - fadeout_len) and input3 == "1" then -- if overlaping
-        reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", 0)
-        reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", fadeout_len)
-        reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", item_len - fadeout_len)
+      if (item_pos + fadein_len) > (item_end - fadeout_len) then -- if overlaping
+        if input3 == "o" then
+          reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", 0)
+          reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", fadeout_len)
+          reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", item_len - fadeout_len)
+        else
+          reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", fadein_len)
+          reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN",  item_len - fadein_len)
+        end
       else
         reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", fadein_len)
         reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", fadeout_len)
@@ -114,14 +121,13 @@ if selected_items_count > 0 then
 
   reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
   
-  retval, retvals_csv = reaper.GetUserInputs("Set fades length in seconds", 3, "Fade-in (no change = /initial),Fade-out (+ for relative), Priority (0 = in, 1 = out)", "0"..",".."0".. ",".."0") 
-  
+  retval, retvals_csv = reaper.GetUserInputs("Set fades length in seconds", 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Preserve existing fades ? (y/n)", "0,0,i,n")  
   if retval == true then
       
     -- PARSE THE STRING
-    answer1, answer2, answer3 = retvals_csv:match("([^,]+),([^,]+),([^,]+)")
+    answer1, answer2, answer3, answer4 = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
     
-    main(answer1, answer2, answer3) -- Execute your main function
+    main(answer1, answer2, answer3, answer4) -- Execute your main function
   
     reaper.UpdateArrange() -- Update the arrangement (often needed)
   
