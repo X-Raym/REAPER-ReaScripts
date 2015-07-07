@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.3.1 (2015-07-07)
+  # translations/typos fixes thanks to daxliniere
  * v1.3 (2015-07-07)
   + adding User Are custmization option
   # Rename
