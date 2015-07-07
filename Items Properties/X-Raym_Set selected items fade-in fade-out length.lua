@@ -78,7 +78,7 @@ function main(input1, input2, input3, input4) -- local (i, j, item, take, track)
   
   if unity == "milliseconds" then
     input1 = input1/1000
-  input2 = input2/1000
+    input2 = input2/1000
   end
   
   -- INITIALIZE loop through selected items
