@@ -28,15 +28,16 @@
  --]]
  
 -- >-----> USER AREA >=====>
-
+  
+  prompt = true -- false -> No prompt, true -> prompt window
+  
+  units = "seconds" -- "Available Value => seconds, milliseconds"
+  
   -- Default Values
   answer1 = "0" -- fade in value
   answer2 = "0" -- fade out value
   answer3 = "i" -- priority on fade out "o", priority on fade in "i"
   answer4 = "n" -- only Create new fades "y", treat already existing fades as well "n"
-
-  unity = "seconds" -- "Avaible Value => seconds, milliseconds"
-  prompt = true -- false -> No prompt, true -> prompt window
 
 -- <=====< USER AREA <-----< 
 
@@ -147,7 +148,7 @@ if selected_items_count > 0 then
   
   if prompt == true then
   
-    retval, retvals_csv = reaper.GetUserInputs("Set fades length in "..unity, 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", answer1..","..answer2..","..answer3..","..answer4)  
+    retval, retvals_csv = reaper.GetUserInputs("Set fades length in "..units, 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", answer1..","..answer2..","..answer3..","..answer4)  
     
     if retval == true then
       
