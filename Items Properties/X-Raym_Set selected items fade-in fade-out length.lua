@@ -147,7 +147,7 @@ if selected_items_count > 0 then
   
   if prompt == true then
   
-    retval, retvals_csv = reaper.GetUserInputs("Set fades length in"..unity, 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", answer1..","..answer2..","..answer3..","..answer4)  
+    retval, retvals_csv = reaper.GetUserInputs("Set fades length in "..unity, 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", answer1..","..answer2..","..answer3..","..answer4)  
     
     if retval == true then
       
