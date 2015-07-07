@@ -16,10 +16,10 @@
  
 --[[
  * Changelog:
- * v1.3.1 (2015-07-07)
+ * v1.3.2 (2015-07-07)
   # translations/typos fixes thanks to daxliniere
  * v1.3 (2015-07-07)
-  + adding User Are custmization option
+  + adding User Area customization option
   # Rename
  * v1.2 (2015-07-06)
   + Option to create new fades only. Already present fades length are overriden by priority.
@@ -79,7 +79,7 @@ function main(input1, input2, input3, input4) -- local (i, j, item, take, track)
   input1, input1_relative = IfRelative(input1)
   input2, input2_relative = IfRelative(input2)
   
-  if unity == "milliseconds" then
+  if units == "milliseconds" then
     input1 = input1/1000
     input2 = input2/1000
   end
