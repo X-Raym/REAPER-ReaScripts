@@ -16,6 +16,9 @@
  
 --[[
  * Changelog:
+ * v1.3 (2015-07-07)
+  + adding User Are custmization option
+  # Rename
  * v1.2 (2015-07-06)
   + Option to create new fades only. Already present fades length are overriden by priority.
  * v1.1 (2015-26-06)
@@ -23,6 +26,21 @@
  * v1.0 (2015-25-06)
   + Initial Release
  --]]
+ 
+-- >-----> USER AREA >=====>
+
+  -- Default Values
+  answer1 = "0" -- fade in value
+  answer2 = "0" -- fade out value
+  answer3 = "i" -- priority on fade out "o", priority on fade in "i"
+  answer4 = "n" -- only Create new fades "y", treat already existing fades as well "n"
+
+  unity = "seconds" -- "Avaible Value => seconds, milliseconds"
+  prompt = true -- false -> No prompt, true -> prompt window
+
+-- <=====< USER AREA <-----< 
+
+
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()
@@ -40,6 +58,7 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 
 msg_clean()
 ]]-- <==== DEBUGGING -----
+
 function IfRelative(str)
   x, y = string.find(str, "+")
   str = str:gsub("+", "")
@@ -56,6 +75,11 @@ function main(input1, input2, input3, input4) -- local (i, j, item, take, track)
   
   input1, input1_relative = IfRelative(input1)
   input2, input2_relative = IfRelative(input2)
+  
+  if unity == "milliseconds" then
+    input1 = input1/1000
+  input2 = input2/1000
+  end
   
   -- INITIALIZE loop through selected items
   for i = 0, selected_items_count-1  do
@@ -121,18 +145,26 @@ if selected_items_count > 0 then
 
   reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
   
-  retval, retvals_csv = reaper.GetUserInputs("Set fades length in seconds", 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", "0,0,i,n")  
-  if retval == true then
-      
-    -- PARSE THE STRING
-    answer1, answer2, answer3, answer4 = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
-    
-    main(answer1, answer2, answer3, answer4) -- Execute your main function
+  if prompt == true then
   
-    reaper.UpdateArrange() -- Update the arrangement (often needed)
+    retval, retvals_csv = reaper.GetUserInputs("Set fades length in"..unity, 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", answer1..","..answer2..","..answer3..","..answer4)  
+    
+    if retval == true then
+      
+      -- PARSE THE STRING
+      answer1, answer2, answer3, answer4 = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
+    
+      main(answer1, answer2, answer3, answer4) -- Execute your main function
+  
+      reaper.UpdateArrange() -- Update the arrangement (often needed)
+  
+    end
+    
+  else -- no prompt
+  
+    main(answer1, answer2, answer3, answer4)
   
   end
-  
   reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
   
   reaper.UpdateArrange() -- Update the arrangement (often needed)
