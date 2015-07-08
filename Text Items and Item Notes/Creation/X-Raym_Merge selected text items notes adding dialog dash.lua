@@ -60,6 +60,8 @@ end
 
 function main()
 
+	reaper.Undo_BeginBlock()
+
 	SelectTracksOfSelectedItems()
 	
 	-- LOOP TRHOUGH SELECTED TRACKS

@@ -59,6 +59,8 @@ end
 
 
 function main()
+	
+	reaper.Undo_BeginBlock()
 
 	SelectTracksOfSelectedItems()
 	
