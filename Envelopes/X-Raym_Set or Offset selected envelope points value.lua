@@ -16,14 +16,16 @@
  
 --[[
  * Changelog:
+ * v1.4 (2015-07-11)
+  + Send support
  * v1.3 (2015-06-25)
-	# Dual pan track support
+  # Dual pan track support
  * v1.2 (2015-06-02)
-	# No envelope selected bug fix (thanks Soli Deo Gloria for the report)
+  # No envelope selected bug fix (thanks Soli Deo Gloria for the report)
  * v1.1 (2015-05-07)
-	# Time selection bug fix
+  # Time selection bug fix
  * v1.0 (2015-03-08)
-	+ Initial Release
+  + Initial Release
 ]]
 
 --[[ ----- DEBUGGING ===>
@@ -45,230 +47,230 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 
 function set_point_value()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	already_set = false
+  already_set = false
 
-	envelope = reaper.GetSelectedEnvelope(0)
-	
-	if envelope ~= nil then
+  envelope = reaper.GetSelectedEnvelope(0)
+  
+  if envelope ~= nil then
 
-		env_point_count = reaper.CountEnvelopePoints(envelope)
+    env_point_count = reaper.CountEnvelopePoints(envelope)
 
-		dialog_ret_vals = ""
-		retval, user_input_str = reaper.GetUserInputs("Set point value", 1, "Value ?", dialog_ret_vals) -- We suppose that the user know the scale he want
-		x, y = string.find(user_input_str, "+")
-		--reaper.ShowConsoleMsg(user_input_str)
-		
-		if x ~= nil then -- set
-			set = false
-		else -- offset
-			set = true 
-		end
+    dialog_ret_vals = ""
+    retval, user_input_str = reaper.GetUserInputs("Set point value", 1, "Value ?", dialog_ret_vals) -- We suppose that the user know the scale he want
+    x, y = string.find(user_input_str, "+")
+    --reaper.ShowConsoleMsg(user_input_str)
+    
+    if x ~= nil then -- set
+      set = false
+    else -- offset
+      set = true 
+    end
 
-		user_input_str = user_input_str:gsub("+", "")
-		--reaper.ShowConsoleMsg(user_input_str)
-		user_input_num = tonumber(user_input_str)
+    user_input_str = user_input_str:gsub("+", "")
+    --reaper.ShowConsoleMsg(user_input_str)
+    user_input_num = tonumber(user_input_str)
 
-		-- GET ENVELOPE RANGE -- HERE IT IS
-		envelopeName = ""
-		retval, envelopeName = reaper.GetEnvelopeName(envelope, envelopeName)
-		--msg_stl("Envelope name", envelopeName, 1)
-		--reaper.ShowConsoleMsg(envelopeName)
-		
-		if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" then
-			already_set = true
+    -- GET ENVELOPE RANGE -- HERE IT IS
+    envelopeName = ""
+    retval, envelopeName = reaper.GetEnvelopeName(envelope, envelopeName)
+    --msg_stl("Envelope name", envelopeName, 1)
+    --reaper.ShowConsoleMsg(envelopeName)
+    
+    if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" or envelopeName == "Send Volume" then
+      already_set = true
 
-			for i = 0, env_point_count - 1 do
-					
-				-- IDX 0 doesnt seem to work
-				retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
+      for i = 0, env_point_count - 1 do
+          
+        -- IDX 0 doesnt seem to work
+        retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
 
-				if set == true then
-					valueOut = math.exp(0*0.115129254)
-				end
+        if set == true then
+          valueOut = math.exp(0*0.115129254)
+        end
 
-				if selectedOut == true then
+        if selectedOut == true then
 
-					-- CALC
-					OldVol = valueOut
-					OldVolDB = 20*(math.log(OldVol, 10)) -- thanks to spk77!
+          -- CALC
+          OldVol = valueOut
+          OldVolDB = 20*(math.log(OldVol, 10)) -- thanks to spk77!
 
-					--msg_ftl("Old vol db:", OldVolDB, 1)
+          --msg_ftl("Old vol db:", OldVolDB, 1)
 
-					calc = OldVolDB + user_input_num
-					--msg_ftl("Calc", calc, 1)
-					--reaper.ShowConsoleMsg(tostring(calc))
-					
-					if calc <= -146 then
-						valueIn = 0
-						--msg_s("Volume <= -146")
-					end
-					if calc >= 6 then
-						valueIn = 2
-						--msg_s("+12 <= Volume")
-					end
-					if calc < 6 and calc > -146 then
-						valueIn = math.exp(calc*0.115129254)
-						--msg_s("-146 < Volume < +12")
-					end
-					----msg_ftl("Value ouput", valueIn, 1)
-					-- SET POINT VALUE
+          calc = OldVolDB + user_input_num
+          --msg_ftl("Calc", calc, 1)
+          --reaper.ShowConsoleMsg(tostring(calc))
+          
+          if calc <= -146 then
+            valueIn = 0
+            --msg_s("Volume <= -146")
+          end
+          if calc >= 6 then
+            valueIn = 2
+            --msg_s("+12 <= Volume")
+          end
+          if calc < 6 and calc > -146 then
+            valueIn = math.exp(calc*0.115129254)
+            --msg_s("-146 < Volume < +12")
+          end
+          ----msg_ftl("Value ouput", valueIn, 1)
+          -- SET POINT VALUE
 
-					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
-					
-				end -- ENDIF point is selected
-			end -- END Loop
-		end -- ENDIF Volume
+          reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
+          
+        end -- ENDIF point is selected
+      end -- END Loop
+    end -- ENDIF Volume
 
-		if envelopeName == "Mute" then
-			already_set = true
+    if envelopeName == "Mute" or envelopeName == "Send Mute" then
+      already_set = true
 
-			for i = 0, env_point_count - 1 do
-					
-				-- IDX 0 doesnt seem to work
-				retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
-				if set == true then
-					valueOut = 0
-				end
+      for i = 0, env_point_count - 1 do
+          
+        -- IDX 0 doesnt seem to work
+        retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
+        if set == true then
+          valueOut = 0
+        end
 
-				if selectedOut == true then
+        if selectedOut == true then
 
-					-- CALC
-					calc = valueOut + user_input_num
+          -- CALC
+          calc = valueOut + user_input_num
 
-					if calc < 0 then
-						valueIn = 0
-						--msg_s("Mute = 0")
-					end
-					if calc >= 1 then
-						valueIn = 1
-						--msg_s("Mute = 1")	
-					end
-					if calc < 0.5 then
-						valueIn = 0
-						--msg_s("Mute Floor < 0.5")	
-					end
-					if calc >= 0.5 then
-						valueIn = 1
-						--msg_s("0.5 <= Mute Floor")	
-					end
+          if calc < 0 then
+            valueIn = 0
+            --msg_s("Mute = 0")
+          end
+          if calc >= 1 then
+            valueIn = 1
+            --msg_s("Mute = 1")  
+          end
+          if calc < 0.5 then
+            valueIn = 0
+            --msg_s("Mute Floor < 0.5")  
+          end
+          if calc >= 0.5 then
+            valueIn = 1
+            --msg_s("0.5 <= Mute Floor")  
+          end
 
-					-- SET POINT VALUE
-					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
-				end -- ENDIF point is selected
-			end -- END Loop
-		end -- ENDIF Mute
+          -- SET POINT VALUE
+          reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
+        end -- ENDIF point is selected
+      end -- END Loop
+    end -- ENDIF Mute
 
-		if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" then
-			already_set = true
+    if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" or envelopeName == "Send Pan" then
+      already_set = true
 
-			for i = 0, env_point_count - 1 do
-					
-				-- IDX 0 doesnt seem to work
-				retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
-				if set == true then
-					valueOut = 0
+      for i = 0, env_point_count - 1 do
+          
+        -- IDX 0 doesnt seem to work
+        retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
+        if set == true then
+          valueOut = 0
 
-				end
-								
-				if selectedOut == true then
+        end
+                
+        if selectedOut == true then
 
-					-- CALC
-					calc = valueOut*100 - user_input_num
+          -- CALC
+          calc = valueOut*100 - user_input_num
 
-					if calc <= -100 then
-						valueIn = - 1.0
-						--msg_s("Pan/Width <= -100")
-					end
-					if calc >= 100 then
-						valueIn = 1.0
-						--msg_s("Pan/Width >= 100")	
-					end
-					if calc < 100 and calc > -100 then
-						valueIn = calc / 100
-						--msg_s("-100 < Pan/Width < 100")	
-					end
-					
-					-- SET POINT VALUE
-					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
-				end -- ENDIF point is selected
-			end -- END Loop
-		end -- ENDIF Pan or Width
-		
-		if envelopeName == "Pitch" then
-			already_set = true
+          if calc <= -100 then
+            valueIn = - 1.0
+            --msg_s("Pan/Width <= -100")
+          end
+          if calc >= 100 then
+            valueIn = 1.0
+            --msg_s("Pan/Width >= 100")  
+          end
+          if calc < 100 and calc > -100 then
+            valueIn = calc / 100
+            --msg_s("-100 < Pan/Width < 100")  
+          end
+          
+          -- SET POINT VALUE
+          reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
+        end -- ENDIF point is selected
+      end -- END Loop
+    end -- ENDIF Pan or Width
+    
+    if envelopeName == "Pitch" then
+      already_set = true
 
-			
-			for i = 0, env_point_count - 1 do
-					
-				-- IDX 0 doesnt seem to work
-				retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
-				if set == true then
-					valueOut = 0
-				end
-								
-				if selectedOut == true then
+      
+      for i = 0, env_point_count - 1 do
+          
+        -- IDX 0 doesnt seem to work
+        retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
+        if set == true then
+          valueOut = 0
+        end
+                
+        if selectedOut == true then
 
-					-- CALC
-					calc = valueOut + user_input_num
-					--msg_ftl("Old pitch:", valueOut, 1)
-					--msg_ftl("New pitch (before floor):", calc, 1)
+          -- CALC
+          calc = valueOut + user_input_num
+          --msg_ftl("Old pitch:", valueOut, 1)
+          --msg_ftl("New pitch (before floor):", calc, 1)
 
-					if calc <= -3 then
-						valueIn = -3
-						--msg_s("Pitch <= -3")
-					end
-					if calc >= 3 then
-						valueIn = 3
-						--msg_s("Pitch <= +3")
-					end
-					if calc > -3 and calc < 3 then
-						valueIn = floor((calc)*20+0.5)/20
-						--msg_s("-3 < Pitch < 3")
-					end
-					-- SET POINT VALUE
-					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
-				end -- ENDIF point is selected
-			end -- END Loop
-		end -- ENDIF Pan or Width
+          if calc <= -3 then
+            valueIn = -3
+            --msg_s("Pitch <= -3")
+          end
+          if calc >= 3 then
+            valueIn = 3
+            --msg_s("Pitch <= +3")
+          end
+          if calc > -3 and calc < 3 then
+            valueIn = floor((calc)*20+0.5)/20
+            --msg_s("-3 < Pitch < 3")
+          end
+          -- SET POINT VALUE
+          reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
+        end -- ENDIF point is selected
+      end -- END Loop
+    end -- ENDIF Pan or Width
 
-		if already_set == false then -- IF ENVELOPE HAS NO NAME PAS ICI LA BOUCL !!
-			
-			for i = 0, env_point_count - 1 do
-					
-				-- IDX 0 doesnt seem to work
-				retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
-				
-				if set == true then
-					valueOut = 0
-				end
-								
-				if selectedOut == true then
+    if already_set == false then -- IF ENVELOPE HAS NO NAME PAS ICI LA BOUCL !!
+      
+      for i = 0, env_point_count - 1 do
+          
+        -- IDX 0 doesnt seem to work
+        retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
+        
+        if set == true then
+          valueOut = 0
+        end
+                
+        if selectedOut == true then
 
-					-- CALC
-					calc = valueOut*100 + user_input_num
-					
-					if calc <= 0 then
-						valueIn = 0
-						--msg_s("FX <= 0")	
-					end
-					if calc >= 100 then
-						valueIn = 1.0
-						--msg_s("100 <= FX")
-					end
-					if calc < 100 and calc > -100 then
-						valueIn = calc / 100
-						--msg_s("0 < FX < 100")	
-					end
-					-- SET POINT VALUE
-					reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
-				end -- ENDIF point is selected
-			end -- END Loop
-		end -- ENDIF Fx
-		
-	end --if envelope is selected
-	reaper.Undo_EndBlock("Set or Offset selected envelope point value", 0) -- End of the undo block. Leave it at the bottom of your main function.
+          -- CALC
+          calc = valueOut*100 + user_input_num
+          
+          if calc <= 0 then
+            valueIn = 0
+            --msg_s("FX <= 0")  
+          end
+          if calc >= 100 then
+            valueIn = 1.0
+            --msg_s("100 <= FX")
+          end
+          if calc < 100 and calc > -100 then
+            valueIn = calc / 100
+            --msg_s("0 < FX < 100")  
+          end
+          -- SET POINT VALUE
+          reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
+        end -- ENDIF point is selected
+      end -- END Loop
+    end -- ENDIF Fx
+    
+  end --if envelope is selected
+  reaper.Undo_EndBlock("Set or Offset selected envelope point value", 0) -- End of the undo block. Leave it at the bottom of your main function.
 end -- END OF FUNCTION
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.

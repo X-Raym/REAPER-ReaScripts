@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.4 (2015-07-11)
+	+ Send support
  * v1.3 (2015-06-25)
 	# Dual pan track support
  * v1.2.1 (2015-05-07)
@@ -153,7 +155,7 @@ function Action(env)
 				-- BEGIN ACTION
 				valueIn = -(valueOut-1)
 
-				if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" then
+				if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" or envelopeName == "Send Volume" then
 					
 					-- CALC
 					OldVolDB = 20*(math.log(valueOut, 10)) -- thanks to spk77!
@@ -168,7 +170,7 @@ function Action(env)
 	
 				end -- ENDIF Volume
 
-				if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" then
+				if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" or envelopeName == "Send Pan" then
 
 					valueIn = -valueOut
 

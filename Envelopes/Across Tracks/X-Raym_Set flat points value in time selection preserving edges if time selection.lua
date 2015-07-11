@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.5 (2015-07-11)
+	+ Send support
  * v1.4 (2015-06-25)
 	# Dual pan track support
  * v1.3 (2015-05-26)
@@ -211,7 +213,7 @@ function SetValue(envelope)
 	already_set = false
 	valueOut = 0
 	
-	if env_name == "Volume" or env_name == "Volume (Pre-FX)" then
+	if env_name == "Volume" or env_name == "Volume (Pre-FX)" or env_name == "Send Volume" then
 		already_set = true
 
 		-- CALC
@@ -240,7 +242,7 @@ function SetValue(envelope)
 			
 	end -- ENDIF Volume
 
-	if env_name == "Mute" then
+	if env_name == "Mute" or env_name == "Send Mute" then
 		already_set = true
 
 		-- CALC
@@ -265,7 +267,7 @@ function SetValue(envelope)
 			
 	end -- ENDIF Mute
 
-	if env_name == "Width" or env_name == "Width (Pre-FX)" or env_name == "Pan" or env_name == "Pan (Pre-FX)" or env_name == "Pan (Left)" or env_name == "Pan (Right)" or env_name == "Pan (Left, Pre-FX)" or env_name == "Pan (Right, Pre-FX)" then
+	if env_name == "Width" or env_name == "Width (Pre-FX)" or env_name == "Pan" or env_name == "Pan (Pre-FX)" or env_name == "Pan (Left)" or env_name == "Pan (Right)" or env_name == "Pan (Left, Pre-FX)" or env_name == "Pan (Right, Pre-FX)" or env_name == "Send Pan" then
 		already_set = true
 							
 			-- CALC

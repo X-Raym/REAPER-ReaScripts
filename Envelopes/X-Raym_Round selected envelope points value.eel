@@ -18,6 +18,8 @@
  
 /**
  * Changelog:
+ * v1.2 (2015-07-11)
+	+ Send support
  * v1.1 (2015-02-26)
 	+ Pitch envelope are rounded at 0.5
 	+ Mute envelope are rounded at 0 or 1
@@ -37,13 +39,13 @@ msg_clean();
 function floorPoint (value, type)
 (
 	calc = 0;
-	stricmp("VOLUME", type) == 0 || stricmp("VOLUME (PRE-FX)", type) == 0 ? (
+	stricmp("VOLUME", type) == 0 || stricmp("VOLUME (PRE-FX)", type) == 0 || stricmp("Send Volume", type) == 0 ? (
 			OldVol=value;
 			OldVolDB=20*(log10(OldVol));
 			
 			NewVolDB=floor(OldVolDB + 0.5);
 			calc=exp(NewVolDB*0.115129254);
-			): stricmp("MUTE", type) == 0 ? (
+			): stricmp("MUTE", type) == 0 || stricmp("Send Mute", type) == 0 ? (
 					value < 0 ? (
 						calc = 0;
 						msg_s("Mute = 0");
