@@ -16,7 +16,7 @@
  
 --[[
  * Changelog:
- * v1.3 (2015-07-11)
+ * v1.5 (2015-07-11)
 	+ Send support
  * v1.4 (2015-06-25)
 	# Dual pan track support
