@@ -32,8 +32,8 @@
 ]]
 
 -- ------ USER AREA =====>
-default_mod = "absolute" -- Set the primary mod that will be defined if no prefix character. Values are "absolute" or "relative".
-character = "+" -- Prefix to enter the secondary mod
+mod1 = "absolute" -- Set the primary mod that will be defined if no prefix character. Values are "absolute" or "relative".
+mod2_prefix = "+" -- Prefix to enter the secondary mod
 input_default = "" -- "" means no character aka relative per default.
 -- <===== USER AREA ------
 
@@ -69,10 +69,10 @@ function set_point_value()
     retval, user_input_str = reaper.GetUserInputs("Set or Offset point value", 1, "Value ?", input_default) -- We suppose that the user know the scale he want
     if retval then
 	
-		x, y = string.find(user_input_str, character)
+		x, y = string.find(user_input_str, mod2_prefix)
 		--reaper.ShowConsoleMsg(user_input_str)
 		
-		if default_mod == "absolute" then
+		if mod1 == "absolute" then
 			if x ~= nil then -- set
 			  set = false
 			else -- offset
@@ -80,7 +80,7 @@ function set_point_value()
 			end
 		end
 		
-		if default_mod == "relative" then
+		if mod1 == "relative" then
 			if x ~= nil then -- set
 			  set = true
 			else -- offset
@@ -88,7 +88,7 @@ function set_point_value()
 			end
 		end
 
-		user_input_str = user_input_str:gsub(character, "")
+		user_input_str = user_input_str:gsub(mod2_prefix, "")
 		--reaper.ShowConsoleMsg(user_input_str)
 		user_input_num = tonumber(user_input_str)
 		
