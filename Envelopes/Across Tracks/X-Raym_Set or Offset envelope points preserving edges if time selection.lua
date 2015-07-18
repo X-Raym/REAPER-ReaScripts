@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.5.1 (2015-07-16)
+	# Bug fix when Cancel
  * v1.5 (2015-07-11)
 	+ Send support
  * v1.4 (2015-06-25)
@@ -31,6 +33,12 @@
  * v1.0 (2015-03-21)
 	+ Initial Release
 ]]
+
+-- ------ USER AREA =====>
+mod1 = "absolute" -- Set the primary mod that will be defined if no prefix character. Values are "absolute" or "relative".
+mod2_prefix = "+" -- Prefix to enter the secondary mod
+input_default = "" -- "" means no character aka relative per default.
+-- <===== USER AREA ------
 
 --[[ ----- DEBUGGING ===>
 function get_script_path()
@@ -120,83 +128,97 @@ function main() -- local (i, j, item, take, track)
 
 	retval, user_input_str = reaper.GetUserInputs("Set point value", 1, "Value ?", "") -- We suppose that the user know the scale he want
 	
-	-- IF USER PASTE A VALUE
-	if retval ~= false then
-
-		-- FIND + FOR SET OR OFFSET
-		x, y = string.find(user_input_str, "+")
-		if x ~= nil then -- set
-			set = false
-		else -- offset
-			set = true 
-		end
-
-		-- DELETE +
-		user_input_str = user_input_str:gsub("+", "")
-		user_input_num = tonumber(user_input_str)
-
-		-- GET LOOP
-		start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
-		-- IF LOOP ?
-		if start_time ~= end_time then
-			time_selection = true
-		end
-
-		-- GET SELECTED ENVELOPE
-		sel_env = reaper.GetSelectedEnvelope(0)
+	if retval then
+	
+		x, y = string.find(user_input_str, mod2_prefix)
+		--reaper.ShowConsoleMsg(user_input_str)
 		
-		if sel_env ~= nil then
-			env_point_count = reaper.CountEnvelopePoints(sel_env)
-			retval, env_name = reaper.GetEnvelopeName(sel_env, "")
+		if mod1 == "absolute" then
+			if x ~= nil then -- set
+			  set = false
+			else -- offset
+			  set = true 
+			end
+		end
+		
+		if mod1 == "relative" then
+			if x ~= nil then -- set
+			  set = true
+			else -- offset
+			  set = false 
+			end
+		end
 
-			-- LOOP TRHOUGH SELECTED TRACKS
-			selected_tracks_count = reaper.CountSelectedTracks(0)
-			for j = 0, selected_tracks_count-1  do
-				
-				-- GET THE TRACK
-				track = reaper.GetSelectedTrack(0, j) -- Get selected track i
+		user_input_str = user_input_str:gsub(mod2_prefix, "")
+		
+		user_input_num = tonumber(user_input_str)
+		
+		-- IF VALID INPUT
+		if user_input_num ~= nil then
 
-				env_count = reaper.CountTrackEnvelopes(track)
-				
-				for m = 0, env_count-1 do
+			-- GET LOOP
+			start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
+			-- IF LOOP ?
+			if start_time ~= end_time then
+				time_selection = true
+			end
 
-					-- GET THE ENVELOPE
-					env_dest = reaper.GetTrackEnvelope(track, m)
-					retval, env_name_dest = reaper.GetEnvelopeName(env_dest, "")
-					
-					if env_name_dest == env_name then
-					
-						-- IF VISIBLE AND ARMED
-						br_env = reaper.BR_EnvAlloc(env_dest, false)
-						active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
-						if visible == true and armed == true then
-
-							env_points_count = reaper.CountEnvelopePoints(env_dest)
-							first_start_val, last_start_val, first_end_val, last_end_val = GetTimeLoopPoints(env_dest, env_points_count, start_time, end_time)
-							
-							SetValue(env_dest)
-
-							-- PRESERVE EDGES INSERTION
-							if time_selection == true and preserve_edges == true then
-								
-								reaper.DeleteEnvelopePointRange(env_dest, start_time-0.000000001, start_time+0.000000001)
-								reaper.DeleteEnvelopePointRange(env_dest, end_time-0.000000001, end_time+0.000000001)
-								
-								reaper.InsertEnvelopePoint(env_dest, start_time, first_start_val, 0, 0, true, true) -- INSERT startLoop point
-								reaper.InsertEnvelopePoint(env_dest, end_time, last_end_val, 0, 0, true, true) -- INSERT startLoop point
-							
-							end
-
-							reaper.BR_EnvFree(br_env, 0)
-							reaper.Envelope_SortPoints(env_dest)
-
-						end -- ENDIF envelope passed
-					
-					end -- ENDIF envelope with same name selected
-
-				end -- ENDLOOP selected tracks envelope
+			-- GET SELECTED ENVELOPE
+			sel_env = reaper.GetSelectedEnvelope(0)
 			
-			end -- ENDLOOP selected tracks
+			if sel_env ~= nil then
+				env_point_count = reaper.CountEnvelopePoints(sel_env)
+				retval, env_name = reaper.GetEnvelopeName(sel_env, "")
+
+				-- LOOP TRHOUGH SELECTED TRACKS
+				selected_tracks_count = reaper.CountSelectedTracks(0)
+				for j = 0, selected_tracks_count-1  do
+					
+					-- GET THE TRACK
+					track = reaper.GetSelectedTrack(0, j) -- Get selected track i
+
+					env_count = reaper.CountTrackEnvelopes(track)
+					
+					for m = 0, env_count-1 do
+
+						-- GET THE ENVELOPE
+						env_dest = reaper.GetTrackEnvelope(track, m)
+						retval, env_name_dest = reaper.GetEnvelopeName(env_dest, "")
+						
+						if env_name_dest == env_name then
+						
+							-- IF VISIBLE AND ARMED
+							br_env = reaper.BR_EnvAlloc(env_dest, false)
+							active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
+							if visible == true and armed == true then
+
+								env_points_count = reaper.CountEnvelopePoints(env_dest)
+								first_start_val, last_start_val, first_end_val, last_end_val = GetTimeLoopPoints(env_dest, env_points_count, start_time, end_time)
+								
+								SetValue(env_dest)
+
+								-- PRESERVE EDGES INSERTION
+								if time_selection == true and preserve_edges == true then
+									
+									reaper.DeleteEnvelopePointRange(env_dest, start_time-0.000000001, start_time+0.000000001)
+									reaper.DeleteEnvelopePointRange(env_dest, end_time-0.000000001, end_time+0.000000001)
+									
+									reaper.InsertEnvelopePoint(env_dest, start_time, first_start_val, 0, 0, true, true) -- INSERT startLoop point
+									reaper.InsertEnvelopePoint(env_dest, end_time, last_end_val, 0, 0, true, true) -- INSERT startLoop point
+								
+								end
+
+								reaper.BR_EnvFree(br_env, 0)
+								reaper.Envelope_SortPoints(env_dest)
+
+							end -- ENDIF envelope passed
+						
+						end -- ENDIF envelope with same name selected
+
+					end -- ENDLOOP selected tracks envelope
+				
+				end -- ENDLOOP selected tracks
+			end
 		end
 	end
 
@@ -253,7 +275,7 @@ function SetValue(envelope)
 		end -- END Loop
 	end -- ENDIF Volume
 
-	if env_name == "Mute" or env_name == "Send Mute" then
+	if env_name == "Mute" or env_name == "Send Mute" or then
 		already_set = true
 
 		for i = 0, env_point_count - 1 do
