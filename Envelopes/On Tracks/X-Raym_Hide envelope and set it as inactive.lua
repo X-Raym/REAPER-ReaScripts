@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Hide envelope and set it as inactive
- * Description: A way to reset multiple envelopes according to value at edit carsor.
+ * Description: A way to hide multiple envelopes.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
