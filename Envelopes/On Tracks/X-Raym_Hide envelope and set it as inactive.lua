@@ -17,7 +17,7 @@
 --[[
  * Changelog:
  * v1.0 (2015-07-20)
-	+ Initial release
+  + Initial release
  --]]
  
 -- ------ USER CONFIG AREA =====>
@@ -53,81 +53,81 @@ msg_clean()
 
 --[[
 function UserInput()
-	retval, user_input_str = reaper.GetUserInputs("Envelope Analysis", 1, "Interval ? (s)", interval) -- We suppose that the user know the scale he want
+  retval, user_input_str = reaper.GetUserInputs("Envelope Analysis", 1, "Interval ? (s)", interval) -- We suppose that the user know the scale he want
     if retval then
-		interval = tonumber(user_input_str)
-	end
-	return retval
+    interval = tonumber(user_input_str)
+  end
+  return retval
 end
 ]]
 
 function Msg(val)
-	reaper.ShowConsoleMsg(tostring(val).."\n")
+  reaper.ShowConsoleMsg(tostring(val).."\n")
 end
 
 function Action(env)
-	
-	-- GET THE ENVELOPE
-	br_env = reaper.BR_EnvAlloc(env, false)
+  
+  -- GET THE ENVELOPE
+  br_env = reaper.BR_EnvAlloc(env, false)
 
-	active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
+  active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
 
-	-- IF ENVELOPE IS A CANDIDATE
-	if visible == true and armed == true then
-	
-		reaper.BR_EnvSetProperties(br_env, active_out, visible_out, armed_out, inLane, laneHeight, defaultShape, faderScaling)
-	
-	end
-	
-	reaper.BR_EnvFree(br_env, 1)
-	-- reaper.Envelope_SortPoints(env)
+  -- IF ENVELOPE IS A CANDIDATE
+  if visible == true and armed == true then
+  
+    reaper.BR_EnvSetProperties(br_env, active_out, visible_out, armed_out, inLane, laneHeight, defaultShape, faderScaling)
+  
+  end
+  
+  reaper.BR_EnvFree(br_env, 1)
+  -- reaper.Envelope_SortPoints(env)
 
 end
 
 function main() -- local (i, j, item, take, track)
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-	
-	edit_pos = reaper.GetCursorPosition()
-	
-	-- LOOP TRHOUGH SELECTED TRACKS
-	env = reaper.GetSelectedEnvelope(0)
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  
+  edit_pos = reaper.GetCursorPosition()
+  
+  -- LOOP TRHOUGH SELECTED TRACKS
+  env = reaper.GetSelectedEnvelope(0)
 
-	if env == nil then
+  if env == nil then
 
-		selected_tracks_count = reaper.CountSelectedTracks(0)
-		
-		-- if selected_tracks_count > 0 and UserInput() then
-		if selected_tracks_count > 0 then
-			for i = 0, selected_tracks_count-1  do
-				
-				-- GET THE TRACK
-				track = reaper.GetSelectedTrack(0, i) -- Get selected track i
+    selected_tracks_count = reaper.CountSelectedTracks(0)
+    
+    -- if selected_tracks_count > 0 and UserInput() then
+    if selected_tracks_count > 0 then
+      for i = 0, selected_tracks_count-1  do
+        
+        -- GET THE TRACK
+        track = reaper.GetSelectedTrack(0, i) -- Get selected track i
 
-				-- LOOP THROUGH ENVELOPES
-				env_count = reaper.CountTrackEnvelopes(track)
-				for j = 0, env_count-1 do
+        -- LOOP THROUGH ENVELOPES
+        env_count = reaper.CountTrackEnvelopes(track)
+        for j = 0, env_count-1 do
 
-					-- GET THE ENVELOPE
-					env = reaper.GetTrackEnvelope(track, j)
+          -- GET THE ENVELOPE
+          env = reaper.GetTrackEnvelope(track, j)
 
-					Action(env)
+          Action(env)
 
-				end -- ENDLOOP through envelopes
+        end -- ENDLOOP through envelopes
 
-			end -- ENDLOOP through selected tracks
-			
-		end
+      end -- ENDLOOP through selected tracks
+      
+    end
 
-	else
+  else
 
-		-- if UserInput() then
-			Action(env)
-		-- end
-	
-	end -- endif sel envelope
+    -- if UserInput() then
+      Action(env)
+    -- end
+  
+  end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Hide envelope and set it as inactive", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Hide envelope and set it as inactive", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
@@ -142,23 +142,3 @@ reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the scri
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.
-
--- Update the TCP envelope value at edit cursor position
---[[function HedaRedrawHack()
-	reaper.PreventUIRefresh(1)
-
-	track=reaper.GetTrack(0,0)
-
-	trackparam=reaper.GetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT")	
-	if trackparam==0 then
-		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 1)
-	else
-		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 0)
-	end
-	reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", trackparam)
-
-	reaper.PreventUIRefresh(-1)
-	
-end
-
-HedaRedrawHack()]]
