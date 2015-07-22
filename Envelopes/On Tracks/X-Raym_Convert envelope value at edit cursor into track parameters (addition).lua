@@ -80,7 +80,7 @@ function Action(env, track)
 			--msg_stl("Envelope name", env_name, 1)
 			--reaper.ShowConsoleMsg(env_name)
 			
-		if env_name == "Volume" then
+		if env_name == "Volume" or env_name = "Send Volume" then
 
 			value_eval_db = 20*(math.log(value_eval, 10)) -- thanks to spk77!
 			init_value_db = 20*(math.log(init_value, 10)) -- thanks to spk77!
@@ -100,11 +100,11 @@ function Action(env, track)
 		
 		end -- ENDIF Volume
 		
-		if env_name == "Pan" then
+		if env_name == "Pan" env_name = "Send Pan" then
 			reaper.SetMediaTrackInfo_Value(track, "D_PAN", value_eval + init_value)
 		end -- ENDIF Volume
 		
-		if env_name == "Mute" then
+		if env_name == "Mute" or env_name = "Send Mute" then
 			reaper.SetMediaTrackInfo_Value(track, "B_MUTE", value_eval + init_value)
 		end -- ENDIF Mute
 
