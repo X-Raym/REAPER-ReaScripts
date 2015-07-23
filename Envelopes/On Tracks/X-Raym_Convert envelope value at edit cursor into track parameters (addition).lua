@@ -53,6 +53,69 @@ function UserInput()
 end
 ]]
 
+function ConstrainInMinMax(val, minimum, maximum)
+	if val < minimum then val = minimum end
+	if val > maximum then val = maximum end
+	return val
+end
+
+function AddDB(value_eval, init_value, max_value)
+	value_eval_db = 20*(math.log(value_eval, 10)) -- thanks to spk77!
+	init_value_db = 20*(math.log(init_value, 10)) -- thanks to spk77!
+	maxValue_db = 20*(math.log(maxValue, 10)) + 6
+
+	calc_db = value_eval_db + init_value_db
+
+	if calc_db <= -146 then
+		calc = 0
+	end
+	if calc_db > maxValue_db then
+		calc = math.exp(maxValue_db*0.115129254)
+	end
+	if calc_db < maxValue_db and calc_db > -146 then
+		calc = math.exp(calc_db*0.115129254)
+	end
+	return calc
+
+end
+
+function AddEnvValueToSend(track, env, param_name, value, minimum, maximum)
+	
+	num_sends = reaper.GetTrackNumSends(track, 0) -- 0 = sends
+
+	for w = 0, num_sends - 1 do
+		
+		if param_name == "D_VOL" then send_type = 0 end
+		if param_name == "D_PAN" then send_type = 1 end
+		if param_name == "B_MUTE" then send_type = 2 end
+		
+		env_send = reaper.BR_GetMediaTrackSendInfo_Envelope(track, 0, w, send_type)
+		
+		if env_send == env then
+		
+			if param_name == "D_VOL" then
+				init_value = reaper.BR_GetSetTrackSendInfo(track, 0, w, param_name, false, 0)
+				new_value = AddDB(value, init_value, max_value)
+			end
+
+			if param_name == "D_PAN" then
+				init_value = reaper.BR_GetSetTrackSendInfo(track, 0, w, param_name, false, 0)
+				new_value = ConstrainInMinMax(init_value - value, minimum, maximum)-- Pan are set to their opposite (-) because on envelope, Pan Left = 1 and Pan Right = -1
+			end
+			
+			if param_name == "B_MUTE" then
+				-- reaper.BR_GetSetTrackSendInfo(track, 0, w, param_name, false, 0)
+				new_value = value
+			end
+			
+			reaper.BR_GetSetTrackSendInfo(track, 0, w, param_name, true, new_value)
+
+		end
+
+	end
+
+end
+
 function Msg(val)
 	reaper.ShowConsoleMsg(tostring(val).."\n")
 end
@@ -71,59 +134,61 @@ function Action(env, track)
 			track = reaper.BR_EnvGetParentTrack(br_env)
 		end
 		
-		init_value = reaper.GetMediaTrackInfo_Value(track, "D_VOL")
-		
 		-- OUTPUT VALUE ANALYSIS
 		retval_eval, value_eval, dVdSOut_eval, ddVdSOut_eval, dddVdSOut_eval = reaper.Envelope_Evaluate(env, edit_pos, 0, 0)
 		
 		retval, env_name = reaper.GetEnvelopeName(env, "")
-			--msg_stl("Envelope name", env_name, 1)
-			--reaper.ShowConsoleMsg(env_name)
 			
-		if env_name == "Volume" or env_name == "Send Volume" then
-
-			value_eval_db = 20*(math.log(value_eval, 10)) -- thanks to spk77!
-			init_value_db = 20*(math.log(init_value, 10)) -- thanks to spk77!
-			
-			calc_db = value_eval_db + init_value_db
-
-			if calc_db <= -146 then
-				calc = 0
-			end
-			if calc_db >= 6 then
-				calc = 2
-			end
-			if calc_db < 6 and calc_db > -146 then
-				calc = math.exp(calc_db*0.115129254)
-			end
-			reaper.SetMediaTrackInfo_Value(track, "D_VOL", calc)
+		if env_name == "Volume"  then
+			init_vol = reaper.GetMediaTrackInfo_Value(track, "D_VOL")
+			new_value = AddDB(value_eval, init_vol, maxValue)
+			reaper.SetMediaTrackInfo_Value(track, "D_VOL", new_value)
+		end
 		
-		end -- ENDIF Volume
-		
-		if env_name == "Pan" env_name == "Send Pan" then
-			reaper.SetMediaTrackInfo_Value(track, "D_PAN", value_eval + init_value)
-		end -- ENDIF Volume
-		
-		if env_name == "Mute" or env_name == "Send Mute" then
-			reaper.SetMediaTrackInfo_Value(track, "B_MUTE", value_eval + init_value)
-		end -- ENDIF Mute
-
-		if env_name == "Width" then
-			reaper.SetMediaTrackInfo_Value(track, "D_WIDTH", value_eval + init_value)
-		end -- ENDIF Pan or Width
+		if env_name == "Pan" then
+			init_pan = reaper.GetMediaTrackInfo_Value(track, "D_PAN")
+			new_value = ConstrainInMinMax(init_pan - value_eval, minValue, maxValue) -- Pan are set to their opposite (-) because on envelope, Pan Left = 1 and Pan Right = -1
+			reaper.SetMediaTrackInfo_Value(track, "D_PAN", new_value)
+		end
 		
 		if env_name == "Pan (Left)" then
-			reaper.SetMediaTrackInfo_Value(track, "D_DUALPANL", value_eval + init_value)
+			init_dualL = reaper.GetMediaTrackInfo_Value(track, "D_DUALPANL")
+			new_value = ConstrainInMinMax(init_dualL - value_eval, minValue, maxValue)
+			reaper.SetMediaTrackInfo_Value(track, "D_DUALPANL", new_value)
 		end
 		
 		if env_name == "Pan (Right)" then
-			reaper.SetMediaTrackInfo_Value(track, "D_DUALPANR", value_eval + init_value)
+			init_dualR = reaper.GetMediaTrackInfo_Value(track, "D_DUALPANR")
+			new_value = ConstrainInMinMax(init_dualR - value_eval, minValue, maxValue)
+			reaper.SetMediaTrackInfo_Value(track, "D_DUALPANR", new_value)
+		end
+
+		if env_name == "Width" then
+			init_width = reaper.GetMediaTrackInfo_Value(track, "D_WIDTH")
+			new_value = ConstrainInMinMax(init_width - value_eval, minValue, maxValue)
+			reaper.SetMediaTrackInfo_Value(track, "D_WIDTH", new_value)
 		end
 		
-		-- reaper.BR_EnvSetPoint(br_env, 0, 0, value_eval, 0, false, 0)
-		--reaper.BR_EnvSetProperties(BR_Envelope envelope, boolean active, boolean visible, boolean armed, boolean inLane, integer laneHeight, integer defaultShape, boolean faderScaling)
-		-- reaper.BR_EnvSetProperties(br_env, false, false, true, true, laneHeight, defaultShape, faderScaling)
-		-- reaper.BR_EnvSetProperties(br_env, active_out, visible_out, armed_out, inLane, laneHeight, defaultShape, faderScaling)
+		if env_name == "Mute" then
+			-- init_mute = reaper.GetMediaTrackInfo_Value(track, "B_MUTE")
+			-- reaper.SetMediaTrackInfo_Value(track, "B_MUTE", value_eval + init_mute)
+			reaper.SetMediaTrackInfo_Value(track, "B_MUTE", value_eval)
+		end
+		
+		if env_name == "Send Volume" then
+			param_name = "D_VOL"
+			AddEnvValueToSend(track, env, param_name, value_eval)
+		end
+		
+		if env_name == "Send Pan" then
+			param_name = "D_PAN"
+			AddEnvValueToSend(track, env, param_name, value_eval, minValue, maxValue)
+		end
+		
+		if env_name == "Send Mute" then
+			param_name = "B_MUTE"
+			AddEnvValueToSend(track, env, param_name, value_eval, minValue, maxValue)
+		end
 	
 	end
 	
@@ -182,7 +247,7 @@ end -- end main()
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 -- reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
-
+--reaper.ShowConsoleMsg("")
 main() -- Execute your main function
 
 -- reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
