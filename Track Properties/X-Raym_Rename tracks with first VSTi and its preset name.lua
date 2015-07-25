@@ -15,6 +15,8 @@
  
 --[[
  * Changelog:
+ * v1.1.1 (2015-07-25)
+	# Space in name
  * v1.1 (2015-07-25)
 	+ Delete author and version in name
 	# bug fix
@@ -42,9 +44,7 @@ function main()
 			
 			fx_name = fx_name:gsub("VSTi: ", "")
 			
-			fx_name = fx_name:gsub("%(.-%)", "")
-			
-			fx_name = fx_name:gsub("  ", "")
+			fx_name = fx_name:gsub(" %(.-%)", "")
 			
 			retval, presetname = reaper.TrackFX_GetPreset(track, vsti_id, "")
 			
@@ -54,7 +54,7 @@ function main()
 				
 			else
 			
-				track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", fx_name .. " ".. separator .. " " .. presetname, true)
+				track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", fx_name .. " " .. separator .. " " .. presetname, true)
 			
 			end
 		
