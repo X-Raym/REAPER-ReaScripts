@@ -91,10 +91,10 @@ function main() -- local (i, j, item, take, track)
 
 end -- end main()
 
--- reaper.PreventUIRefresh(-1)
+reaper.PreventUIRefresh(-1)
 main()
 reaper.UpdateArrange()
--- reaper.PreventUIRefresh(1)
+reaper.PreventUIRefresh(1)
 
 function HedaRedrawHack()
   reaper.PreventUIRefresh(1)

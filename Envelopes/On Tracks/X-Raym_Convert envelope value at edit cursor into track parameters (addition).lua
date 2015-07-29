@@ -65,7 +65,8 @@ function AddDB(value_eval, init_value, max_value)
 	maxValue_db = 20*(math.log(maxValue, 10)) + 6
 
 	calc_db = value_eval_db + init_value_db
-
+	
+	-- this functions has its own constrain as max db in tracks (+12) is suppriori than max db in envelope (+6)
 	if calc_db <= -146 then
 		calc = 0
 	end
@@ -246,11 +247,11 @@ end -- end main()
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
--- reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
+reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
 --reaper.ShowConsoleMsg("")
 main() -- Execute your main function
 
--- reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
+reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
