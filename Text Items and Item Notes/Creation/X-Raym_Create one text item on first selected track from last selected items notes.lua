@@ -11,11 +11,13 @@
  * Forum Thread: Script: Scripts (LUA): Create Text Items Actions (various)
  * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.2
+ * Extensions: SWS/S&M 2.7.3 #0
  --]]
  
 --[[
  * Changelog:
+ * v1.4 (2015-07-29)
+	# Better Set notes
  * v1.3 (2015-25-05)
 	+ Now with item color preservation
  * v1.2 (2015-04-14)
@@ -44,19 +46,6 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 msg_clean()
 ]]-- <==== DEBUGGING -----
 
--- From Heda's HeDa_SRT to text items.lua ====>
-
---[[dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
-function dbug (text) 
-	if dbug_flag==1 then  
-		if text then
-			reaper.ShowConsoleMsg(text .. '\n')
-		else
-			reaper.ShowConsoleMsg("nil")
-		end
-	end
-end]]
-
 function CreateTextItem(starttime, endtime, notetext, color) 
 	--ref: Lua: number startOut retval, number endOut reaper.GetSet_LoopTimeRange(boolean isSet, boolean isLoop, number startOut, number endOut, boolean allowautoseek)
 	reaper.GetSet_LoopTimeRange(1,0,starttime,endtime,0) -- define the time range for the empty item
@@ -67,48 +56,10 @@ function CreateTextItem(starttime, endtime, notetext, color)
 	
 	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
 
-	HeDaSetNote(item, "|" .. notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
+	reaper.ULT_SetMediaItemNote(item, notetext)
+	
 	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
 end
-
-function rtrim(s)
-	local n = #s
-	while n > 0 and s:find("^|", n) do n = n - 1 end
-	return s:sub(1, n)
-end
-
-function string.ends(String,End)
-	return End=='' or string.sub(String,-string.len(End))==End
-end
-
-function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
-	-- X-Raym: prevent multiple lines note break and trim any trailing last empty line
-	newnote = newnote:gsub("\n", "\n|")
-	last_char = string.sub(newnote, -1)
-	if last_char == "|" then
-		newnote = rtrim(newnote)
-	end
-	
-	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
-	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
-	--dbug("\nChunk=" .. s .. "\n")
-	has_notes = s:find("<NOTES")  -- has notes?
-	if has_notes then
-		-- there are notes already
-		chunk, note, chunk2 = s:match("(.*<NOTES\n)(.*)(\n>\nIMGRESOURCEFLAGS.*)")
-		newchunk = chunk .. newnote .. chunk2
-		--dbug(newchunk .. "\n")
-		
-	else
-		--there are still no notes
-		chunk,chunk2 = s:match("(.*IID%s%d+)(.*)")
-		newchunk = chunk .. "\n<NOTES\n" .. newnote .. "\n>\nIMGRESOURCEFLAGS 0" .. chunk2
-		--dbug(newchunk .. "\n")
-	end
-	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
-end
-
--- <==== From Heda's HeDa_SRT to text items.lua
 
 function main() -- local (i, j, item, take, track)
 
@@ -155,7 +106,7 @@ function main() -- local (i, j, item, take, track)
 			CreateTextItem(first_item_start, last_item_end, text_output, last_item_color)
 
 			--end
-			reaper.Undo_EndBlock("Create one text item on first selected track from last selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+			reaper.Undo_EndBlock("Create one text item on first selected track from last selected items notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
 		
 		else -- no selected item
 			reaper.ShowMessageBox("Select at least one item","Please",0)

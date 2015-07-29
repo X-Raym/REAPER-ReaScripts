@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.3 (2015-07-29)
+	# Better Set notes
  * v1.2 (2015-05-08)
 	# Better view restoration
  * v1.1.2 (2015-03-11)
@@ -49,65 +51,18 @@ msg_clean()
 
 -- From Heda's HeDa_SRT to text items.lua ====>
 
---[[dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
-function dbug (text) 
-	if dbug_flag==1 then  
-		if text then
-			reaper.ShowConsoleMsg(text .. '\n')
-		else
-			reaper.ShowConsoleMsg("nil")
-		end
-	end
-end]]
-
 function CreateTextItem(starttime, endtime, notetext, color) 
 	--ref: Lua: number startOut retval, number endOut reaper.GetSet_LoopTimeRange(boolean isSet, boolean isLoop, number startOut, number endOut, boolean allowautoseek)
 	reaper.GetSet_LoopTimeRange(1,0,starttime,endtime,0) -- define the time range for the empty item
 	--ref: Lua: reaper.Main_OnCommand(integer command, integer flag)
 	reaper.Main_OnCommand(40142,0) -- insert empty item
 	--ref: Lua: MediaItem reaper.GetSelectedMediaItem(ReaProject proj, integer selitem)
-	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
+	local item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
 	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
 
-	HeDaSetNote(item, "|" .. notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
-	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
-end
-
-function rtrim(s)
-	local n = #s
-	while n > 0 and s:find("^|", n) do n = n - 1 end
-	return s:sub(1, n)
-end
-
-function string.ends(String,End)
-	return End=='' or string.sub(String,-string.len(End))==End
-end
-
-function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
-	-- X-Raym: prevent multiple lines note break and trim any trailing last empty line
-	newnote = newnote:gsub("\n", "\n|")
-	last_char = string.sub(newnote, -1)
-	if last_char == "|" then
-		newnote = rtrim(newnote)
-	end
+	reaper.ULT_SetMediaItemNote(item, notetext)
 	
-	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
-	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
-	--dbug("\nChunk=" .. s .. "\n")
-	has_notes = s:find("<NOTES")  -- has notes?
-	if has_notes then
-		-- there are notes already
-		chunk, note, chunk2 = s:match("(.*<NOTES\n)(.*)(\n>\nIMGRESOURCEFLAGS.*)")
-		newchunk = chunk .. newnote .. chunk2
-		--dbug(newchunk .. "\n")
-		
-	else
-		--there are still no notes
-		chunk,chunk2 = s:match("(.*IID%s%d+)(.*)")
-		newchunk = chunk .. "\n<NOTES\n" .. newnote .. "\n>\nIMGRESOURCEFLAGS 0" .. chunk2
-		--dbug(newchunk .. "\n")
-	end
-	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
+	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
 end
 
 -- <==== From Heda's HeDa_SRT to text items.lua
@@ -120,15 +75,15 @@ function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	selected_tracks_count = reaper.CountSelectedTracks(0)
+	local selected_tracks_count = reaper.CountSelectedTracks(0)
 
 	if selected_tracks_count > 0 then
 
 		-- DEFINE TRACK DESTINATION
-		selected_track = reaper.GetSelectedTrack(0,0)
+		local selected_track = reaper.GetSelectedTrack(0,0)
 
 		-- COUNT SELECTED ITEMS
-		selected_items_count = reaper.CountSelectedMediaItems(0)
+		local selected_items_count = reaper.CountSelectedMediaItems(0)
 
 		if selected_items_count > 0 then
 
@@ -140,23 +95,23 @@ function main()
 			-- LOOP THROUGH TAKE SELECTION
 			for i = 0, selected_items_count-1  do
 				-- GET ITEMS AND TAKES AND PARENT TRACK
-				item = setSelectedMediaItem[i] -- Get selected item i
-				track = reaper.GetMediaItem_Track(item)
+				local item = setSelectedMediaItem[i] -- Get selected item i
+				local track = reaper.GetMediaItem_Track(item)
 				
 				-- GET INFOS
-				item_color = reaper.GetDisplayedMediaItemColor(item)
+				local item_color = reaper.GetDisplayedMediaItemColor(item)
 					
 				-- TIMES
-				item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-				item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-				item_end = item_start + item_duration
+				local item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+				local item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+				local item_end = item_start + item_duration
 
-				take = reaper.GetActiveTake(item)
+				local take = reaper.GetActiveTake(item)
 				
 				-- NAME
-				take = reaper.GetActiveTake(item) -- Get the active take !! BUG WITH EMPTY ITEM SELECTED
+				local take = reaper.GetActiveTake(item) -- Get the active take !! BUG WITH EMPTY ITEM SELECTED
 				if take ~= nil then
-					text = reaper.GetTakeName(take)
+					local text = reaper.GetTakeName(take)
 					CreateTextItem(item_start, item_end, text, item_color)
 				--[[else
 					text = reaper.ULT_GetMediaItemNote(item)]]
@@ -201,6 +156,7 @@ end
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
+
 reaper.PreventUIRefresh(1)
 SaveView()
 SaveLoopTimesel()
@@ -208,10 +164,11 @@ SaveLoopTimesel()
 reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
-
 RestoreView()
 RestoreLoopTimesel()
-reaper.PreventUIRefresh(-1)
+
 reaper.UpdateArrange() -- Update the arrangement (often needed)
+
+reaper.PreventUIRefresh(-1)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.

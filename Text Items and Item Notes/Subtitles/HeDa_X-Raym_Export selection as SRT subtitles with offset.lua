@@ -14,11 +14,13 @@
  * Version: 1.0
  * Version Date: 2015-03-13
  * REAPER: 5.0 pre 9
- * Extensions: None
+ * Extensions: SWS 2.7.3 #0
 ]]
 
 --[[
  * Change log:
+ * v1.1 (2015-07-29)
+	# Better get notes.
  * v1.0 (2015-03-06), by X-Raym
  	+ Multitrack export support -> every selected track can would be exported
 	+ Selected items on non selected track will also be exported
@@ -42,7 +44,8 @@
 	+ initial version
 
 ]]
-------------------- USER AREA --------------------------------
+
+------------------- INIT --------------------------------
 if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
 	-- user_folder = buf --"C:\\Users\\[username]" -- need to be test
 	separator = "\\"
@@ -50,38 +53,7 @@ else
 	-- user_folder = "/USERS/[username]" -- Mac OS. Not tested on Linux.
 	separator = "/"
 end
---------------------------------------------- End of User Area
-
-------------------- OPTIONS ----------------------------------
--- this script has no options
-
-
------------------------------------------------ End of Options
-
-
-
-	dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
-	function dbug (text) 
-		if dbug_flag==1 then  
-			if text then
-				reaper.ShowConsoleMsg(text .. '\n')
-			else
-				reaper.ShowConsoleMsg("nil")
-			end
-		end
-	end
-
-
-	function HeDaGetNote(item) 
-		retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
-		if retval then
-			--dbug("\nChunk=" .. s .. "\n")
-			note = s:match(".*<NOTES\n(.*)>\nIMGRESOURCEFLAGS.*");
-			if note then note = string.gsub(note, "|", ""); end;	-- remove all the | characters
-		end
-		
-		return note;
-	end
+--------------------------------------------- End of INIT
 
 
 	function selected_items_on_tracks(track) -- local (i, j, item, take, track)
@@ -94,8 +66,6 @@ end
 		end
 	end
 	
-	
-
 	
 ----------------------------------------------------------------------
 
@@ -134,7 +104,7 @@ function export_txt(file)
 		itemlength = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") --get length
 		itemend = itemstart + itemlength
 		
-		note = HeDaGetNote(item)  -- get the note text
+		note = reaper.ULT_GetMediaItemNote(item)  -- get the note text
 		
 		if note == nil then
 			note = "" 

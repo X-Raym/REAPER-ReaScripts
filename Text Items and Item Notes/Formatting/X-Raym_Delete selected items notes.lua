@@ -8,16 +8,16 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
- * Version: 1.0
- * Version Date: 2015-03-03
+ * Forum Thread: Scripts (LUA): Text Items Formatting Actions (various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156757
  * REAPER: 5.0 pre 15
- * Extensions: None
+ * Extensions: SWS/S&M 2.7.3 #0
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-07-29)
+	# Better Set Notes
  * v1.0 (2015-03-03)
 	+ Initial Release
  --]]
@@ -39,39 +39,6 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 msg_clean()
 ]]-- <==== DEBUGGING -----
 
--- From Heda's HeDa_SRT to text items.lua ====>
---[[dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
-function dbug (text) 
-	if dbug_flag==1 then  
-		if text then
-			reaper.ShowConsoleMsg(text .. '\n')
-		else
-			reaper.ShowConsoleMsg("nil")
-		end
-	end
-end]]
-
-function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
-	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
-	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
-	--dbug("\nChunk=" .. s .. "\n")
-	has_notes = s:find("<NOTES")  -- has notes?
-	if has_notes then
-		-- there are notes already
-		chunk, note, chunk2 = s:match("(.*<NOTES\n)(.*)(\n>\nIMGRESOURCEFLAGS.*)")
-		newchunk = chunk .. newnote .. chunk2
-		--dbug(newchunk .. "\n")
-		
-	else
-		--there are still no notes
-		chunk,chunk2 = s:match("(.*IID%s%d+)(.*)")
-		newchunk = chunk .. "\n<NOTES\n" .. newnote .. "\n>\nIMGRESOURCEFLAGS 0" .. chunk2
-		--dbug(newchunk .. "\n")
-	end
-	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
-end
--- <==== From Heda's HeDa_SRT to text items.lua 
-
 function delete() -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
@@ -86,10 +53,10 @@ function delete() -- local (i, j, item, take, track)
 		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
 		-- MODIFY NOTES
-		note = "|"
+		note = ""
 		
 		-- SET NOTES
-		HeDaSetNote(item, note)
+		reaper.ULT_SetMediaItemNote(item, note)
 
 	
 	end -- ENDLOOP through selected items

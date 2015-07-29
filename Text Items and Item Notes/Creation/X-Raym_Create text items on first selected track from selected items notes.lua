@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.3 (2015-07-29)
+	# Better Set notes
  * v1.2 (2015-05-08)
 	# Better view restoration
  * v1.1.1 (2015-03-11)
@@ -67,45 +69,9 @@ function CreateTextItem(starttime, endtime, notetext, color)
 	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
 	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
 
-	HeDaSetNote(item, "|" .. notetext) -- set the note add | character to the beginning of each line. only 1 line for now.
-	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
-end
-
-function rtrim(s)
-	local n = #s
-	while n > 0 and s:find("^|", n) do n = n - 1 end
-	return s:sub(1, n)
-end
-
-function string.ends(String,End)
-	return End=='' or string.sub(String,-string.len(End))==End
-end
-
-function HeDaSetNote(item,newnote)  -- HeDa - SetNote v1.0
-	-- X-Raym: prevent multiple lines note break and trim any trailing last empty line
-	newnote = newnote:gsub("\n", "\n|")
-	last_char = string.sub(newnote, -1)
-	if last_char == "|" then
-		newnote = rtrim(newnote)
-	end
+	reaper.ULT_SetMediaItemNote(item, notetext)
 	
-	--ref: Lua: boolean retval, string str reaper.GetSetItemState(MediaItem item, string str)
-	retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
-	--dbug("\nChunk=" .. s .. "\n")
-	has_notes = s:find("<NOTES")  -- has notes?
-	if has_notes then
-		-- there are notes already
-		chunk, note, chunk2 = s:match("(.*<NOTES\n)(.*)(\n>\nIMGRESOURCEFLAGS.*)")
-		newchunk = chunk .. newnote .. chunk2
-		--dbug(newchunk .. "\n")
-		
-	else
-		--there are still no notes
-		chunk,chunk2 = s:match("(.*IID%s%d+)(.*)")
-		newchunk = chunk .. "\n<NOTES\n" .. newnote .. "\n>\nIMGRESOURCEFLAGS 0" .. chunk2
-		--dbug(newchunk .. "\n")
-	end
-	reaper.GetSetItemState(item, newchunk)	-- set the new chunk with the note
+	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
 end
 
 -- <==== From Heda's HeDa_SRT to text items.lua
@@ -202,11 +168,11 @@ SaveLoopTimesel()
 reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
-
 RestoreLoopTimesel()
 RestoreView()
-reaper.PreventUIRefresh(-1)
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
+
+reaper.PreventUIRefresh(-1)
 
 --msg_end() -- Display characters in the console to show you the end of the script execution.

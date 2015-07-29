@@ -8,14 +8,16 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Scripts (LUA): Create Text Items Actions (various)
+ * Forum Thread: Scripts (LUA): Create Text Items Actions (various)
  * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
- * REAPER: 5.0 pre 32
- * Extensions: SWS/S&M 2.7.1
+ * REAPER: 5.0 pre 15
+ * Extensions: SWS/S&M 2.7.3 #0
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-07-29)
+	# Better Set Notes
  * v1.0 (2015-07-08)
 	+ Initial Release
  --]]
@@ -84,11 +86,17 @@ function main()
 
 			if reaper.IsMediaItemSelected(item) == true then
 
+				text_item = reaper.ULT_GetMediaItemNote(item)
+				
 				if first == false then
 
 					first_sel_item = item
 					first = true
-
+					
+					text_item_new = text_item
+				
+				else
+					text_item_new = text_item_new .. "\n".. text_item
 				end
 				
 				-- CHECK IF IT ITEM END IS AFTER PREVIOUS ITEM ENDS
@@ -98,14 +106,6 @@ function main()
 
 					sel_items_on_tracks_end = item_on_tracks_end
 
-				end
-				
-				text_item = reaper.ULT_GetMediaItemNote(item)
-				
-				if j == 0 then
-					text_item_new = text_item
-				else
-					text_item_new = text_item_new .. "\n".. text_item
 				end
 				
 				table.insert(item_to_delete, item)
