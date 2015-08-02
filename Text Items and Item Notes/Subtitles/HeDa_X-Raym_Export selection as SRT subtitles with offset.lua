@@ -19,6 +19,8 @@
 
 --[[
  * Change log:
+ * v1.1.1 (2015-08-02)
+	# Bug fix
  * v1.1 (2015-07-29)
 	# Better get notes.
  * v1.0 (2015-03-06), by X-Raym
@@ -66,6 +68,17 @@ end
 		end
 	end
 	
+	function HeDaGetNote(item) 
+		retval, s = reaper.GetSetItemState(item, "")	-- get the current item's chunk
+		if retval then
+			--dbug("\nChunk=" .. s .. "\n")
+			note = s:match(".*<NOTES\n(.*)>\nIMGRESOURCEFLAGS.*");
+			if note then note = string.gsub(note, "|", ""); end;	-- remove all the | characters
+		end
+		
+		return note;
+	end
+	
 	
 ----------------------------------------------------------------------
 
@@ -104,12 +117,11 @@ function export_txt(file)
 		itemlength = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") --get length
 		itemend = itemstart + itemlength
 		
-		note = reaper.ULT_GetMediaItemNote(item)  -- get the note text
+		note = HeDaGetNote(item)  -- get the note text
 		
 		if note == nil then
 			note = "" 
 		end
-		
 		-- write item number 
 		f:write(i+1 .. "\n")
 		
@@ -120,9 +132,10 @@ function export_txt(file)
 
 		-- write text
 		f:write(note)
-
-		-- write new line for next subtitle
+		
+		-- break line
 		f:write("\n")
+
 	end
 	
 	f:close() -- never forget to close the file
