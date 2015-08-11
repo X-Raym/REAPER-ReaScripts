@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1.2 (2015-08-11)
+	# Bug fix
  * v1.1.1 (2015-05-07)
 	# Time selection bug fix
  * v1.1 (2015-03-21)
@@ -82,12 +84,13 @@ function AddPoints(env)
 				reaper.InsertEnvelopePoint(env, timeOut3, valueOut3, 0, 0, true, true)
 
 			end -- ENDIF there is a next point
-			
-			reaper.BR_EnvFree(br_env, 0)
-			reaper.Envelope_SortPoints(env)
 
 		end -- ENDIF there is a previous point
 	end
+	
+	reaper.BR_EnvFree(br_env, 0)
+	reaper.Envelope_SortPoints(env)
+	
 end
 
 function main() -- local (i, j, item, take, track)
