@@ -7,8 +7,8 @@
 // EEL script by spk77 15.11.2014
 
 // Edit these ///////////////////////////////////////////////////////////////////
-mean = 0.5; // range = 0 to 1.0 (-1.0 = 100%L, 0.0 = center and 1.0 = 100%R)
-standard_dev = 0.25; // try values in range 0.01 to 0.5, for example
+mean = 0; // range = 0 to 1.0 (-1.0 = 100%L, 0.0 = center and 1.0 = 100%R)
+standard_dev = 1; // try values in range 0.01 to 0.5, for example
 /////////////////////////////////////////////////////////////////////////////////
 
 
