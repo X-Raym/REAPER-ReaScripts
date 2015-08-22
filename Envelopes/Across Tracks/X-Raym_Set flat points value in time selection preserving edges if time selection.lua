@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.5.1 (2015-08-22)
+	# Bug fix
  * v1.5 (2015-07-11)
 	+ Send support
  * v1.4 (2015-06-25)
@@ -102,10 +104,17 @@ function GetDeleteTimeLoopPoints(envelope, env_point_count, start_time, end_time
 	end
 	
 	if first_start_val == nil then
-		retval_start_time, first_start_val, dVdS_start_time, ddVdS_start_time, dddVdS_start_time = reaper.Envelope_Evaluate(env, start_time, 0, 0)
+		retval_start_time, first_start_val, dVdS_start_time, ddVdS_start_time, dddVdS_start_time = reaper.Envelope_Evaluate(envelope, start_time, 0, 0)
 	end
 	if last_end_val == nil then
-		retval_end_time, last_start_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(env, end_time, 0, 0)
+		retval_end_time, last_end_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(envelope, end_time, 0, 0)
+	end
+	
+	if last_start_val == nil then
+		last_start_val = first_start_val
+	end
+	if first_end_val == nil then
+		first_end_val = last_end_val
 	end
 	
 	reaper.DeleteEnvelopePointRange(envelope, start_time-0.000000001, end_time+0.000000001)
@@ -134,7 +143,7 @@ function main() -- local (i, j, item, take, track)
 
 			-- GET SELECTED ENVELOPE
 			sel_env = reaper.GetSelectedEnvelope(0)
-			
+
 			if sel_env ~= nil then
 				env_point_count = reaper.CountEnvelopePoints(sel_env)
 				retval, env_name = reaper.GetEnvelopeName(sel_env, "")
@@ -315,7 +324,7 @@ end -- END OF FUNCTION
 
 reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 main() -- Execute your main function
-reaper.Undo_EndBlock("Set flat points value in time selection preserving edges if time selection", 0) -- End of the undo block. Leave it at the bottom of your main function.
+reaper.Undo_EndBlock("Set flat points value in time selection preserving edges if time selection", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 

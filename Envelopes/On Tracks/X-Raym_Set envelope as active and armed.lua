@@ -43,16 +43,6 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 msg_clean()
 ]]-- <==== DEBUGGING -----
 
---[[
-function UserInput()
-	retval, user_input_str = reaper.GetUserInputs("Envelope Analysis", 1, "Interval ? (s)", interval) -- We suppose that the user know the scale he want
-    if retval then
-		interval = tonumber(user_input_str)
-	end
-	return retval
-end
-]]
-
 function Msg(val)
 	reaper.ShowConsoleMsg(tostring(val).."\n")
 end
@@ -68,12 +58,11 @@ function Action(env)
 	if visible == true then
 	
 		-- reaper.BR_EnvSetProperties(br_env, active_out, visible_out, armed_out, inLane, laneHeight, defaultShape, faderScaling)
-		reaper.BR_EnvSetProperties(br_env, true, true, true, inLane, laneHeight, defaultShape, faderScaling)
+		reaper.BR_EnvSetProperties(br_env, true, true, true, true, laneHeight, defaultShape, faderScaling)
 	
 	end
 	
 	reaper.BR_EnvFree(br_env, 1)
-	-- reaper.Envelope_SortPoints(env)
 
 end
 
@@ -114,9 +103,7 @@ function main() -- local (i, j, item, take, track)
 
 	else
 
-		-- if UserInput() then
-			Action(env)
-		-- end
+		Action(env)
 	
 	end -- endif sel envelope
 
@@ -153,5 +140,4 @@ function HedaRedrawHack()
 	reaper.PreventUIRefresh(-1)
 	
 end
-
 HedaRedrawHack()

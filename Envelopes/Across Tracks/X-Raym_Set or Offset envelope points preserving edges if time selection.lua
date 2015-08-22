@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.5.2 (2015-08-22)
+	# Bug fix
  * v1.5.1 (2015-07-16)
 	# Bug fix when Cancel
  * v1.5 (2015-07-11)
@@ -116,10 +118,16 @@ function GetTimeLoopPoints(envelope, env_point_count, start_time, end_time)
 		first_end_val=first_start_val
 	end
 	if last_end_val == nil then
-		retval_end_time, last_start_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(envelope, end_time, 0, 0)
-		last_end_val=last_start_val
+		retval_end_time, last_end_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(envelope, end_time, 0, 0)
 	end
-	--reaper.ShowConsoleMsg(tostring(last_end_val))
+	
+	if last_start_val == nil then
+		last_start_val = first_start_val
+	end
+	if first_end_val == nil then
+		first_end_val = last_end_val
+	end
+
 	return first_start_val, last_start_val, first_end_val, last_end_val
 
 end
@@ -275,7 +283,7 @@ function SetValue(envelope)
 		end -- END Loop
 	end -- ENDIF Volume
 
-	if env_name == "Mute" or env_name == "Send Mute" or then
+	if env_name == "Mute" or env_name == "Send Mute" then
 		already_set = true
 
 		for i = 0, env_point_count - 1 do

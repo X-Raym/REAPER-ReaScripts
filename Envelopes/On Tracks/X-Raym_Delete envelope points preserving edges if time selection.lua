@@ -16,6 +16,10 @@
  
 --[[
  * Changelog:
+ * v1.2.3 (2015-08-22)
+	# Bug fix
+ * v1.2.2 (2015-08-22)
+	# Time selection bug fix
  * v1.2.1 (2015-05-07)
 	# Time selection bug fix
  * v1.2 (2015-04-26)
@@ -99,10 +103,17 @@ function GetTimeLoopPoints(envelope, env_point_count, start_time, end_time)
 	end
 	
 	if first_start_val == nil then
-		retval_start_time, first_start_val, dVdS_start_time, ddVdS_start_time, dddVdS_start_time = reaper.Envelope_Evaluate(env, start_time, 0, 0)
+		retval_start_time, first_start_val, dVdS_start_time, ddVdS_start_time, dddVdS_start_time = reaper.Envelope_Evaluate(envelope, start_time, 0, 0)
 	end
 	if last_end_val == nil then
-		retval_end_time, last_start_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(env, end_time, 0, 0)
+		retval_end_time, last_end_val, dVdS_end_time, ddVdS_end_time, dddVdS_end_time = reaper.Envelope_Evaluate(envelope, end_time, 0, 0)
+	end
+	
+	if last_start_val == nil then
+		last_start_val = first_start_val
+	end
+	if first_end_val == nil then
+		first_end_val = last_end_val
 	end
 			
 	return first_start_val, last_start_val, first_end_val, last_end_val
