@@ -31,9 +31,6 @@ function Main()
   
   retval, focused_fx_track, focused_item_fx, focused_fx = reaper.GetFocusedFX()
   
-  Msg(focused_fx_track)
-  Msg(focused_fx)
-  
   if retval then
   
     for i = 0, reaper.CountTracks(0) - 1 do  
@@ -46,7 +43,7 @@ function Main()
         
         if j ~= focused_fx - 1 and i ~= focused_fx_track - 1 then
           reaper.TrackFX_SetOpen(track, j, false)
-		  Msg("CLOSE")
+
         end
         
       end
