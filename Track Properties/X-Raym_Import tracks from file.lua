@@ -69,8 +69,11 @@ if retval then
 	
 	reaper.PreventUIRefresh(1)
 	read_lines(filetxt)
+	
+	-- Update TCP
 	reaper.TrackList_AdjustWindows(false)
 	reaper.UpdateTimeline()
+	
 	reaper.UpdateArrange()
 	reaper.PreventUIRefresh(-1)
 	
