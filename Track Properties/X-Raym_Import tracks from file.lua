@@ -7,12 +7,12 @@
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * File URl:
  * Licence: GPL v3
  * Forum Thread: Import track titles from file (eg: CSV)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1564559&posted=1#post1564559
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1564559
  * REAPER: 5.0 pre 36
- * Extensions: SWS/S&M 2.7.1 #0
+ * Extensions: None
 ]]
  
  
