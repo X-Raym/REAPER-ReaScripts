@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: GFX - Word Wrap
+ * ReaScript Name: Tap Tempo
  * Description: See title
  * Instructions: Select an item. Use it.
  * Author: X-Raym
@@ -16,15 +16,12 @@
  
 --[[
  * Changelog:
- * v0.5 (2015-06-16)
+ * v0.5 (2015-08-27)
   + Beta
  --]]
  
 --[[
- * To do:
-  * clickable scrollbar
-  * bug fix scroll bar heigth
-  * navigation with arrow key
+ * Uses : GFX WOrd-Wrap template 0.5
 ]]
 
 font_size = 30
@@ -261,7 +258,7 @@ function run()
   if char == 1685026670 then
     line_offset = line_offset - 1
     line = line + line_offset -- wheel increment by 120 
-  end
+  end 
   
   if gfx.mouse_wheel ~= 0 then getMousewheel(gfx.mouse_wheel) end
   
