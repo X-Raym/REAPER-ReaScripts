@@ -279,6 +279,8 @@ function run()
     engaged = false
     done = true
     engaged = false
+    color(1)
+    gfx.rect(gfx.mouse_x-8, gfx.mouse_y-8, 30, 30)
   end
   
   text = tostring(durationToBpm(average(times)))
