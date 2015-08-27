@@ -268,9 +268,9 @@ function run()
     
   if done == false then clock = os.clock() end  
   
-  if gfx.mouse_cap == 1 then engaged = true end
+  if gfx.mouse_cap == 0 then engaged = true end
 
-  if gfx.mouse_cap == 0 and engaged == true then
+  if gfx.mouse_cap == 1 and engaged == true then
     z = z + 1
     if z > 10 then z = 1 end
     cal = os.clock() - clock
@@ -278,12 +278,14 @@ function run()
     clock = os.clock()
     engaged = false
     done = true
+    engaged = false
   end
   
-  text = average(times)
-  
-  stringWrap(durationToBpm(text))
-  
+  text = tostring(durationToBpm(average(times)))
+  if text == "-1.#IND" then text = "Left-click me 2 times more" end
+  if text == "1.#INF" then text = "Left-click me 1 times more" end
+  stringWrap(text)
+    
   --stringWrap("Last Logs:")
   --for i = 1, #times do
     --stringWrap(times[i])
