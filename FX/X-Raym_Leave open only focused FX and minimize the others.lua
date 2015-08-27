@@ -29,7 +29,12 @@ function Main()
   
   reaper.Undo_BeginBlock()
   
-  retval, focused_fx_track, focused_item_fx, focused_fx = reaper.GetFocusedFX()
+  retval, focused_fx_track, focused_item_fx, focused_fx_id = reaper.GetFocusedFX()
+  
+  focused_fx_track_id = focused_fx_track - 1
+  
+  Msg("focused_fx_track_id = "..focused_fx_track_id)
+  Msg("focused_fx_id = "..focused_fx_id)
   
   if retval then
   
@@ -39,12 +44,19 @@ function Main()
       
       for j = 0, reaper.TrackFX_GetCount(track) - 1 do
       
-        fx_open = reaper.TrackFX_GetOpen(track, j)
+        --fx_open = reaper.TrackFX_GetOpen(track, j)
         
-        if j ~= focused_fx - 1 and i ~= focused_fx_track - 1 then
-          reaper.TrackFX_SetOpen(track, j, false)
+         if j == focused_fx_id and i == focused_fx_track_id then
+		
+		 Msg(j.." ~= "..(focused_fx_id) .." and "..i.." ~= ".. focused_fx_track_id)
+          
+		  reaper.TrackFX_SetOpen(track, j, true)
 
-        end
+        else
+		
+			reaper.TrackFX_SetOpen(track, j, false)
+			
+		end
         
       end
       

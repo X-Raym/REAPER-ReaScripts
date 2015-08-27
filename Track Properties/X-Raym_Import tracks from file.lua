@@ -18,6 +18,8 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-08-27)
+	# Track order
  * v1.0 (2015-08-27)
 	+ Initial Release
 ]]
@@ -33,16 +35,16 @@ function read_lines(filepath)
 	
 	reaper.Undo_BeginBlock() -- Begin undo group
 	
-	count_tracks = reaper.CountTracks(0)
-	
 	local f = io.input(filepath)
 	repeat
 		
 		s = f:read ("*l") -- read one line
 		
-		i = 0
-		
 		if s then  -- if not end of file (EOF)
+		
+			count_tracks = reaper.CountTracks(0)
+			
+			i = 0
 			
 			last_track_id = count_tracks + i
 			reaper.InsertTrackAtIndex(last_track_id, true)
