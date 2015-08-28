@@ -385,10 +385,12 @@ function run()
     deviation = (math.floor(standardDeviation(times)*100))
     max_bpm = (averageBPM * (100 + deviation)) /100
     min_bpm = (averageBPM * (100 - deviation)) /100
+	
+	dif = max_bpm - min_bpm
     
-    if deviation >= 10 then color("Red") end
-    if deviation > 3 and deviation < 10 then color("Yellow") end
-    if deviation <= 3 then color("Lime") end
+    if dif >= 5 then color("Red") end
+    if dif > 2 and deviation < 5 then color("Yellow") end
+    if dif <= 2 then color("Lime") end
     
     stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
     stringWrap("Average = ".. (roundBPM(averageBPM)))
