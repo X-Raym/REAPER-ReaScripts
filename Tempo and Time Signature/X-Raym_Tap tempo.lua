@@ -9,8 +9,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Lua Code Snippet: Text - String Word Wrap for GFX
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=163063
+ * Forum Thread: Tap Tempo Script
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1564860
  * REAPER: 5.0 pre 36
  * Extensions: SWS/S&M 2.7.1 #0
  --]]
@@ -329,6 +329,14 @@ function maxmin( t )
   return max, min
 end
 
+function roundBPM(number)
+  
+  local result = (math.floor(number*100+5))/100 
+
+  return result
+
+end
+
 function run()  
   
   color("White")
@@ -383,10 +391,10 @@ function run()
     if deviation <= 3 then color("Lime") end
     
     stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
-    stringWrap("Average = ".. averageBPM)
+    stringWrap("Average = ".. (roundBPM(averageBPM)))
     stringWrap("Deviation = " .. deviation .."%%")
-    stringWrap("Max = "..max_bpm)
-    stringWrap("Min = "..min_bpm)
+    stringWrap("Max = "..(roundBPM(max_bpm)))
+    stringWrap("Min = "..(roundBPM(min_bpm)))
   end 
 
   ----------------------------- 
