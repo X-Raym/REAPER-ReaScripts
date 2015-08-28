@@ -152,7 +152,7 @@ function stringWrap (text, margin_b, margin_l, margin_r)
   
   if text_width > gfx.w then
   
-    color(1)
+    color(2)
         
     m_width, m_height = gfx.measurestr("s")
     char_max = math.floor( (gfx.w - margin_r - margin_l) / m_width )
@@ -270,7 +270,7 @@ function run()
   
   if gfx.mouse_cap == 0 then engaged = true end
 
-  if gfx.mouse_cap == 1 and engaged == true then
+  if gfx.mouse_cap > 0 and engaged == true then
     z = z + 1
     if z > 10 then z = 1 end
     cal = os.clock() - clock
@@ -284,8 +284,8 @@ function run()
   end
   
   text = tostring(durationToBpm(average(times)))
-  if text == "-1.#IND" then text = "Left-click me 2 times more" end
-  if text == "1.#INF" then text = "Left-click me 1 times more" end
+  if text == "-1.#IND" then text = "Press a key 2 times more" end
+  if text == "1.#INF" then text = "Press a key 1 times more" end
   stringWrap(text)
     
   --stringWrap("Last Logs:")
