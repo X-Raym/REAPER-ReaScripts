@@ -211,8 +211,8 @@ function HexToRGB(value)
 	local B = tonumber("0x"..hex:sub(5,6))
 	
 	gfx.r = R/255
- gfx.g = G/255
- gfx.b = B/255
+  gfx.g = G/255
+  gfx.b = B/255
 		
 end
 
@@ -331,7 +331,7 @@ end
 
 function roundBPM(number)
   
-  local result = (math.floor(number*100+5))/100 
+  local result = (math.floor(number*100+0.5))/100 
 
   return result
 
