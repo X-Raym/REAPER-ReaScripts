@@ -2,6 +2,7 @@
  * ReaScript Name: Tap Tempo
  * Description: See title
  * Instructions: Select an item. Use it.
+ * Screenshot: http://i.giphy.com/3oEduFGeA2lCw3Fh7y.gif
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -16,6 +17,12 @@
  
 --[[
  * Changelog:
+ * v0.6 (2015-08-28)
+  + Deviation
+  + Max
+  + Min
+  + Visual input
+  + Keyboard input
  * v0.5 (2015-08-27)
   + Beta
  --]]
@@ -34,10 +41,11 @@ line_height = font_size + font_size/5 -- is there a better way ?
 done = false -- prevent calculation from script launch, but start at first click
 times = {}
 z = 0
+clicks = 0
 
 
 function init(window_w, window_h)
-  gfx.init("X-Raym's Word Wrap" , window_w, window_h)
+  gfx.init("X-Raym's Tap Tempo" , window_w, window_h)
   gfx.setfont(1, font_name, font_size, 'b')
   
   color(1)
@@ -243,6 +251,56 @@ function durationToBpm(duration)
   local bpm = 60 / duration
   return bpm
 end
+--http://lua-users.org/wiki/SimpleStats
+function mean( t )
+  local sum = 0
+  local count= 0
+
+  for k,v in pairs(t) do
+    if type(v) == 'number' then
+      sum = sum + v
+      count = count + 1
+    end
+  end
+
+  return (sum / count)
+end
+
+function standardDeviation( t )
+  local m
+  local vm
+  local sum = 0
+  local count = 0
+  local result
+
+  m = mean( t )
+
+  for k,v in pairs(t) do
+    if type(v) == 'number' then
+      vm = v - m
+      sum = sum + (vm * vm)
+      count = count + 1
+    end
+  end
+
+  result = math.sqrt(sum / (count-1))
+
+  return result
+end
+
+function maxmin( t )
+  local max = -math.huge
+  local min = math.huge
+
+  for k,v in pairs( t ) do
+    if type(v) == 'number' then
+      max = math.max( max, v )
+      min = math.min( min, v )
+    end
+  end
+
+  return max, min
+end
 
 function run()  
   
@@ -262,17 +320,14 @@ function run()
   
   if gfx.mouse_wheel ~= 0 then getMousewheel(gfx.mouse_wheel) end
   
-  ----- BASIC TEXT DISPLAY ---
-  --stringWrap(text1, 1, 50, 50)
-  --stringWrap(text2, 1)
-    
+  ----- BASIC TEXT DISPLAY ---    
   if done == false then clock = os.clock() end  
   
   if gfx.mouse_cap == 0 then engaged = true end
 
   if gfx.mouse_cap > 0 and engaged == true then
     z = z + 1
-    if z > 10 then z = 1 end
+    if z > 20 then z = 1 end
     cal = os.clock() - clock
     times[z] = os.clock() - clock
     clock = os.clock()
@@ -281,13 +336,23 @@ function run()
     engaged = false
     color(1)
     gfx.rect(gfx.mouse_x-8, gfx.mouse_y-8, 30, 30)
+    clicks = clicks + 1
   end
   
-  text = tostring(durationToBpm(average(times)))
-  if text == "-1.#IND" then text = "Press a key 2 times more" end
-  if text == "1.#INF" then text = "Press a key 1 times more" end
-  stringWrap(text)
-    
+  averageBPM = durationToBpm(average(times))
+  if clicks == 1 then stringWrap("Press a key 2 times more") end
+  if clicks == 2 then stringWrap("Press a key 1 time more") end
+  if clicks > 2 then
+    if clicks > 20 then clicks_display = 20 else clicks_display = clicks end
+    stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
+    stringWrap("Average = ".. averageBPM)
+    deviation = (math.floor(standardDeviation(times)*100))
+    stringWrap("Deviation = " .. deviation .."%%")
+    max_bpm = (averageBPM * (100 + deviation)) /100
+    min_bpm = (averageBPM * (100 - deviation)) /100
+    stringWrap("Max = "..max_bpm)
+    stringWrap("Min = "..min_bpm)
+  end 
   --stringWrap("Last Logs:")
   --for i = 1, #times do
     --stringWrap(times[i])
@@ -302,10 +367,6 @@ function run()
   if char >= 0 then reaper.defer(run) end
 
 end
-  
-text1 = "Word-Wrap:"
-text2 = "A simple but powerful feature that will be very useful in a lot of GFX scripts !"
-text3 = "In sagittis cursus velit sit amet porta. Sed eget bibendum dolor, eu ornare nisi. Donec ultrices, dui quis varius tempor, sem ex fermentum nulla, id faucibus felis velit sit amet lorem. Aliquam erat volutpat. Cras vel elementum ipsum, et ultrices libero. Phasellus condimentum imperdiet libero ac dictum. Sed consectetur nec nisi at hendrerit. Mauris efficitur libero et libero tincidunt, et lobortis ipsum mattis. In ut orci a nibh aliquet vehicula at nec enim. Donec nec dui id lectus elementum accumsan gravida eu risus. Phasellus viverra ornare justo id venenatis. Nunc semper in justo ut mattis. ."
 
 -------------------
 
