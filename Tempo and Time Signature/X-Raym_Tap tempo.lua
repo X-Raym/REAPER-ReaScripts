@@ -23,6 +23,7 @@
   + Min
   + Visual input
   + Keyboard input
+  + Color indicator
  * v0.5 (2015-08-27)
   + Beta
  --]]
@@ -48,7 +49,7 @@ function init(window_w, window_h)
   gfx.init("X-Raym's Tap Tempo" , window_w, window_h)
   gfx.setfont(1, font_name, font_size, 'b')
   
-  color(1)
+  color("White")
   line = 0      
   gfx.x = marge
   gfx.y = line_height
@@ -160,7 +161,7 @@ function stringWrap (text, margin_b, margin_l, margin_r)
   
   if text_width > gfx.w then
   
-    color(2)
+    --color("White")
         
     m_width, m_height = gfx.measurestr("s")
     char_max = math.floor( (gfx.w - margin_r - margin_l) / m_width )
@@ -178,7 +179,7 @@ function stringWrap (text, margin_b, margin_l, margin_r)
   
   else
     
-    color(2)
+    --color("White")
     gfx.printf(text, line)
   
   end
@@ -203,9 +204,35 @@ function rgba(r, g, b, a)
   gfx.b = b/255
 end
 
+function HexToRGB(value)
+	local hex = value:gsub("#", "")
+	local R = tonumber("0x"..hex:sub(1,2))
+	local G = tonumber("0x"..hex:sub(3,4))
+	local B = tonumber("0x"..hex:sub(5,6))
+	
+	gfx.r = R/255
+ gfx.g = G/255
+ gfx.b = B/255
+		
+end
+
 function color(col)
-  if col == 1 then rgba(255, 255, 16) end
-  if col == 2 then rgba(255, 255, 255) end
+  if col == "White" then HexToRGB("#FFFFFF") end
+  if col == "Silver" then HexToRGB("#C0C0C0") end
+  if col == "Gray" then HexToRGB("#808080") end
+  if col == "Black" then HexToRGB("#000000") end
+  if col == "Red" then HexToRGB("#FF0000") end
+  if col == "Maroon" then HexToRGB("#800000") end
+  if col == "Yellow" then HexToRGB("#FFFF00") end
+  if col == "Olive" then HexToRGB("#808000") end
+  if col == "Lime" then HexToRGB("#00FF00") end
+  if col == "Green" then HexToRGB("#008000") end
+  if col == "Aqua" then HexToRGB("#00FFFF") end
+  if col == "Teal" then HexToRGB("#008080") end
+  if col == "Blue" then HexToRGB("#0000FF") end
+  if col == "Navy" then HexToRGB("#000080") end
+  if col == "Fuchsia" then HexToRGB("#FF00FF") end
+  if col == "Purple" then HexToRGB("#800080") end
 end
 
 function newLine(number)
@@ -304,6 +331,8 @@ end
 
 function run()  
   
+  color("White")
+  
   line = 0
   if line_offset == nil then line_offset = 0 end
   char = gfx.getchar()
@@ -334,29 +363,32 @@ function run()
     engaged = false
     done = true
     engaged = false
-    color(1)
+    color("Fuchsia")
     gfx.rect(gfx.mouse_x-8, gfx.mouse_y-8, 30, 30)
     clicks = clicks + 1
   end
-  
+  color("White")
   averageBPM = durationToBpm(average(times))
   if clicks == 1 then stringWrap("Press a key 2 times more") end
   if clicks == 2 then stringWrap("Press a key 1 time more") end
   if clicks > 2 then
     if clicks > 20 then clicks_display = 20 else clicks_display = clicks end
-    stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
-    stringWrap("Average = ".. averageBPM)
+    
     deviation = (math.floor(standardDeviation(times)*100))
-    stringWrap("Deviation = " .. deviation .."%%")
     max_bpm = (averageBPM * (100 + deviation)) /100
     min_bpm = (averageBPM * (100 - deviation)) /100
+    
+    if deviation >= 10 then color("Red") end
+    if deviation > 3 and deviation < 10 then color("Yellow") end
+    if deviation <= 3 then color("Lime") end
+    
+    stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
+    stringWrap("Average = ".. averageBPM)
+    stringWrap("Deviation = " .. deviation .."%%")
     stringWrap("Max = "..max_bpm)
     stringWrap("Min = "..min_bpm)
   end 
-  --stringWrap("Last Logs:")
-  --for i = 1, #times do
-    --stringWrap(times[i])
-  --end
+
   ----------------------------- 
   
   scrollBar()
