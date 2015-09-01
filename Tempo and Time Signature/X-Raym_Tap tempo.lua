@@ -17,6 +17,9 @@
  
 --[[
  * Changelog:
+ * v0.8 (2015-09-01)
+  + New input engine based on BPM
+  + min, Max, Deviation and Precision
  * v0.7 (2015-09-01)
   + Better deviation Engine ?
   - Max
@@ -37,6 +40,14 @@
  * Uses : GFX WOrd-Wrap template 0.5
 ]]
 
+
+
+
+
+--------------------------------------------------
+-- INIT
+--------------------------------------------------
+
 font_size = 30
 font_name = "Arial"
 window_w = font_size * 16
@@ -48,7 +59,7 @@ done = false -- prevent calculation from script launch, but start at first click
 times = {}
 z = 0
 clicks = 0
-
+input_limit = 16
 
 function init(window_w, window_h)
   gfx.init("X-Raym's Tap Tempo" , window_w, window_h)
@@ -62,8 +73,12 @@ function init(window_w, window_h)
   
 end
 
+
+
+
+
 --------------------------------------------------
--- GFX -------------------------------
+-- GFX
 --------------------------------------------------
 
 ----- MOUSE WHEEL ZOOM ----------------------------
@@ -277,7 +292,7 @@ end
 
 
 --------------------------------------------------
--- STATS FUNCTIONS -------------------------------
+-- STATS FUNCTIONS
 --------------------------------------------------
 
 function average(matrix)
@@ -330,6 +345,13 @@ function standardDeviation( t )
   return result
 end
 
+function round(num, idp)
+  local mult = 10^(idp or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
+
+-------------
+-- NOT NEEDED
 
 function variance( t )
   local m
@@ -368,22 +390,6 @@ function maxmin( t )
   return max, min
 end
 
-function roundBPM(number)
-  
-  local result = (math.floor(number*100+0.5))/100 
-
-  return result
-
-end
-
-function round(number)
-  
-  local result = (math.floor(number+0.5)) 
-
-  return result
-
-end
-
 function secToBeats(sec, bpm)
   
   local result = sec/(bpm/60) 
@@ -396,7 +402,7 @@ end
 
 
 --------------------------------------------------
--- DEFER -----------------------------------------
+-- DEFER
 --------------------------------------------------
 
 function run()  
@@ -424,52 +430,51 @@ function run()
   if gfx.mouse_cap == 0 or char > 0 then engaged = true end
 
   if (gfx.mouse_cap > 0 or char > 0 ) and engaged == true then
-    z = z + 1
-    if z > 20 then z = 1 end
-    cal = os.clock() - clock
-    times[z] = os.clock() - clock
+    
+     if clicks > 1 then
+       z = z + 1
+       if z > input_limit then z = 1 end
+       times[z] = durationToBpm(os.clock() - clock) -- Actual time minus previous time
+    end
+    
     clock = os.clock()
     engaged = false
     done = true
     engaged = false
+   
+    -- INPUT DISPLAY
     color("Fuchsia")
     gfx.rect(gfx.mouse_x-8, gfx.mouse_y-8, 30, 30)
     clicks = clicks + 1
     color("White")
+    
   end
   
   if clicks == 1 then stringWrap("Press a key 2 times more") end
   if clicks == 2 then stringWrap("Press a key 1 time more") end
   if clicks > 2 then
-    if clicks > 20 then clicks_display = 20 else clicks_display = clicks end
-    
-    averageSec = average(times)
-    averageBPM = durationToBpm(averageSec)
-    variance_sec = variance(times)
-    deviation = standardDeviation(times)
-    deviationBeats = secToBeats(deviation, averageBPM)
-    max_deviation = averageBPM + deviationBeats
-    min_deviation = averageBPM - deviationBeats
-    max_bpm, min_bpm = maxmin(times)
-    max_bpm = durationToBpm(max_bpm)
-    min_bpm = durationToBpm(min_bpm)
   
-    --dif = max_bpm - min_bpm
+    if clicks > input_limit then clicks_display = input_limit else clicks_display = clicks end
     
-    if deviationBeats >= 10 then color("Red") end
-    if deviationBeats > 0.05 and deviation < 10 then color("Yellow") end
-    if deviationBeats <= 0.05 then color("Lime") end
+    averageBPM  = average(times)
+    deviation = standardDeviation(times)
+    max_deviation = averageBPM + deviation
+    min_deviation = averageBPM - deviation
+    
+    precision = min_deviation / averageBPM
+    
+    if precision <= 0.5 then color("Red") end
+    if precision > 0.5 and precision <= 0.9 then color("Yellow") end
+    if precision > 0.9 and precision < 0.95 then color("Lime") end
+    if precision >= 0.95 then color("Aqua") end
     
     stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
-    --stringWrap("Average (s) = ".. (averageSec))
-    stringWrap("Average BPM = ".. (round(averageBPM)))
-    --stringWrap("Average BPM (round) = ".. (roundBPM(averageBPM)))
-    --stringWrap("Deviation (s) = " .. deviation )
-    --stringWrap("Deviation (beat) = " .. deviationBeats )
-    --stringWrap("Max Deviation = "..(roundBPM(max_deviation)))
-    --stringWrap("Min Deviation = "..(roundBPM(min_deviation)))
-    --stringWrap("Max BPM = "..(roundBPM(max_bpm)))
-    --stringWrap("Min BPM = "..(roundBPM(min_bpm)))
+    stringWrap("Average BPM = ".. (round(averageBPM, 0)))
+    stringWrap("Deviation = " .. (round(deviation, 2)))
+    stringWrap("Precision = ".. (round(precision, 2)).." %%")
+    stringWrap("Max BPM = "..(round(max_deviation, 2)))
+    stringWrap("Min BPM = "..(round(min_deviation, 2)))
+  
   end 
 
   ----------------------------- 
@@ -483,8 +488,13 @@ function run()
 
 end
 
+
+
+
+
 --------------------------------------------------
--- RUN -----------------------------------------
+-- RUN
 --------------------------------------------------
+
 init(window_w, window_h)
 run()
