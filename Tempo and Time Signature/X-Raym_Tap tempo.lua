@@ -11,12 +11,17 @@
  * Licence: GPL v3
  * Forum Thread: Tap Tempo Script
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1564860
- * REAPER: 5.0 pre 36
- * Extensions: SWS/S&M 2.7.1 #0
+ * REAPER: 5.0
+ * Extensions: None
  --]]
  
 --[[
  * Changelog:
+ * v1.0 (2015-09-02)
+  + Mac user firendly
+  + Graphical display
+ * v0.9 (2015-09-01)
+  + Average of averages
  * v0.8 (2015-09-01)
   + New input engine based on BPM
   + min, Max, Deviation and Precision
@@ -51,7 +56,7 @@
 font_size = 30
 font_name = "Arial"
 window_w = font_size * 16
-window_h = font_size * 9
+window_h = font_size * 26
 marge = font_size
 --indentation = 100 -- for paragraph first line
 line_height = font_size + font_size/5 -- is there a better way ?
@@ -60,6 +65,10 @@ times = {}
 z = 0
 clicks = -1
 input_limit = 16
+average_times = {}
+w = 0
+a = 0
+b = 0
 
 function init(window_w, window_h)
   gfx.init("X-Raym's Tap Tempo" , window_w, window_h)
@@ -217,7 +226,7 @@ end
 
 function rgba(r, g, b, a)
   if a ~= nil then 
-    gfx.a = a 
+    gfx.a = a/255
   else
     a = 1
   end
@@ -271,7 +280,7 @@ function scrollBar()
   doc_height = gfx.y - (line_offset * line_height)
   
   -- draw bar background
-  gfx.rect(gfx.w-20,0,20,gfx.h,rgba(128,128,128,1))
+  gfx.rect(gfx.w-20,0,20,gfx.h,rgba(128,128,128,255))
   
   -- draw scrollbar
   scrollbar_height = gfx.h/(doc_height/gfx.h)
@@ -287,6 +296,25 @@ function scrollBar()
   --end
 end
 
+
+
+function square(opacity, number, current)
+  
+  gfx.x = marge -- Init  
+  
+  width = gfx.w/12
+  
+  column = (number-1) % 8
+  
+  gfx.x = gfx.x + gfx.w/12 * column
+  
+  gfx.rect(gfx.x, gfx.y, width, line_height, rgba(opacity,opacity,opacity,255))
+  
+  if number == current then
+    gfx.rect(gfx.x, gfx.y, width, line_height/4, rgba(10,255,255,255))
+  end
+  
+end
 
 
 
@@ -425,7 +453,7 @@ function run()
   
   if gfx.mouse_wheel ~= 0 then getMousewheel(gfx.mouse_wheel) end
       
-  if done == false then clock = os.clock() end  
+  if done == false then clock = reaper.time_precise() end  
   
   if gfx.mouse_cap == 0 or char > 0 then engaged = true end
 
@@ -434,10 +462,16 @@ function run()
      if clicks > 1 then
        z = z + 1
        if z > input_limit then z = 1 end
-       times[z] = durationToBpm(os.clock() - clock) -- Actual time minus previous time
+       times[z] = durationToBpm(reaper.time_precise() - clock) -- Actual time minus previous time
     end
     
-    clock = os.clock()
+    if clicks > 3 then
+      w = w + 1
+      if w > input_limit then w = 1 end
+      average_times[w] = average_current
+    end
+    
+    clock = reaper.time_precise()
     done = true
     engaged = false
    
@@ -451,31 +485,70 @@ function run()
   
   color("White")
   
+  if clicks == -1 then stringWrap("Press a key 5 times more") end
   if clicks == 0 then stringWrap("Press a key 4 times more") end
   if clicks == 1 then stringWrap("Press a key 3 times more") end
-  if clicks == 2 then stringWrap("Press a key 2 time more") end
+  if clicks == 2 then stringWrap("Press a key 2 times more") end
   if clicks == 3 then stringWrap("Press a key 1 time more") end
   if clicks > 3 then
   
-    if clicks > input_limit then clicks_display = input_limit else clicks_display = clicks end
-    
-    averageBPM  = average(times)
+    average_current = average(times)
     deviation = standardDeviation(times)
-    max_deviation = averageBPM + deviation
-    min_deviation = averageBPM - deviation
+    max_deviation = average_current + deviation
+    min_deviation = average_current - deviation
     
-    precision = min_deviation / averageBPM
+    precision = min_deviation / average_current
     
     if precision <= 0.5 then color("Red") end
     if precision > 0.5 and precision <= 0.9 then color("Yellow") end
-    if precision > 0.9 then color("Lime") end  
+    if precision > 0.9 then color("Lime") end
       
-    stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
-    stringWrap("Average BPM = ".. (round(averageBPM, 0)))
+    stringWrap("BPM of the last " .. (#times) .. " inputs:") 
+    stringWrap("Average BPM = ".. (round(average_current, 0)))
+    stringWrap("Average BPM /2 = ".. (round(average_current/2, 0)))
     stringWrap("Deviation = " .. (round(deviation, 2)))
     stringWrap("Precision = ".. (round(precision, 2)).." %%")
     stringWrap("Max BPM = "..(round(max_deviation, 2)))
     stringWrap("Min BPM = "..(round(min_deviation, 2)))
+    
+    for b = 1, #times do
+      if b == 1 then newLine(2) end
+      if b <= 8 then square(times[b], b, z) end
+      if b == 8  then newLine() end
+      if b > 8 then square(times[b], b, z) end
+    end
+    
+    newLine()
+    
+    average_timesBPM = average(average_times)
+    deviationBPM = standardDeviation(average_times)
+    max_deviationBPM = average_timesBPM + deviationBPM
+    min_deviationBPM = average_timesBPM - deviationBPM
+    
+    precisionBPM = min_deviationBPM / average_timesBPM
+	
+	if precisionBPM <= 0.5 then color("Red") end
+    if precisionBPM > 0.5 and precisionBPM <= 0.95 then color("Yellow") end
+    if precisionBPM > 0.95 then color("Lime") end
+    
+    if clicks > 5 then
+      newLine()
+      stringWrap("Average of " .. (#average_times).. " last averages:")
+      stringWrap("Average BPM = ".. (round(average_timesBPM, 0)))
+      stringWrap("Average BPM /2 = ".. (round(average_timesBPM/2, 0)))
+      stringWrap("Deviation = " .. (round(deviationBPM, 2)))
+      stringWrap("Precision = ".. (round(precisionBPM, 2)).." %%")
+      stringWrap("Max BPM = "..(round(max_deviationBPM, 2)))
+      stringWrap("Min BPM = "..(round(min_deviationBPM, 2)))
+      
+      for a = 1, #average_times do
+        if a == 1 then newLine(2) end
+        if a <= 8 then square(average_times[a], a, w) end
+        if a == 8  then newLine() end
+        if a > 8 then square(average_times[a], a, w) end
+      end
+    
+    end
   
   end 
 
