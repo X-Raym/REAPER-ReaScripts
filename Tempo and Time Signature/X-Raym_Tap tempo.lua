@@ -17,6 +17,11 @@
  
 --[[
  * Changelog:
+ * v0.7 (2015-09-01)
+  + Better deviation Engine ?
+  - Max
+  - Min
+  # Any keyboard output
  * v0.6 (2015-08-28)
   + Deviation
   + Max
@@ -57,6 +62,9 @@ function init(window_w, window_h)
   
 end
 
+--------------------------------------------------
+-- GFX -------------------------------
+--------------------------------------------------
 
 ----- MOUSE WHEEL ZOOM ----------------------------
 -- From PlanetNine EEL Item Marker Tool beta0.17 
@@ -141,7 +149,6 @@ local function wrap(str, limit)
     return Lines
 end
 
----------------------------------------------------
 function stringWrap (text, margin_b, margin_l, margin_r)
 -- str, pixel, pixel, line
   
@@ -205,15 +212,15 @@ function rgba(r, g, b, a)
 end
 
 function HexToRGB(value)
-	local hex = value:gsub("#", "")
-	local R = tonumber("0x"..hex:sub(1,2))
-	local G = tonumber("0x"..hex:sub(3,4))
-	local B = tonumber("0x"..hex:sub(5,6))
-	
-	gfx.r = R/255
+  local hex = value:gsub("#", "")
+  local R = tonumber("0x"..hex:sub(1,2))
+  local G = tonumber("0x"..hex:sub(3,4))
+  local B = tonumber("0x"..hex:sub(5,6))
+  
+  gfx.r = R/255
   gfx.g = G/255
   gfx.b = B/255
-		
+    
 end
 
 function color(col)
@@ -265,6 +272,14 @@ function scrollBar()
   --end
 end
 
+
+
+
+
+--------------------------------------------------
+-- STATS FUNCTIONS -------------------------------
+--------------------------------------------------
+
 function average(matrix)
   local sum = 0
   for i, cell in ipairs(matrix) do
@@ -315,6 +330,30 @@ function standardDeviation( t )
   return result
 end
 
+
+function variance( t )
+  local m
+  local vm
+  local sum = 0
+  local count = 0
+  local result
+
+  m = mean( t )
+
+  for k,v in pairs(t) do
+    if type(v) == 'number' then
+      vm = v - m
+      sum = sum + (vm * vm)
+      count = count + 1
+    end
+  end
+
+  result = (sum / (count-1))
+
+  return result
+end
+
+
 function maxmin( t )
   local max = -math.huge
   local min = math.huge
@@ -337,6 +376,29 @@ function roundBPM(number)
 
 end
 
+function round(number)
+  
+  local result = (math.floor(number+0.5)) 
+
+  return result
+
+end
+
+function secToBeats(sec, bpm)
+  
+  local result = sec/(bpm/60) 
+  
+  return result
+
+end
+
+
+
+
+--------------------------------------------------
+-- DEFER -----------------------------------------
+--------------------------------------------------
+
 function run()  
   
   color("White")
@@ -356,13 +418,12 @@ function run()
   end 
   
   if gfx.mouse_wheel ~= 0 then getMousewheel(gfx.mouse_wheel) end
-  
-  ----- BASIC TEXT DISPLAY ---    
+      
   if done == false then clock = os.clock() end  
   
-  if gfx.mouse_cap == 0 then engaged = true end
+  if gfx.mouse_cap == 0 or char > 0 then engaged = true end
 
-  if gfx.mouse_cap > 0 and engaged == true then
+  if (gfx.mouse_cap > 0 or char > 0 ) and engaged == true then
     z = z + 1
     if z > 20 then z = 1 end
     cal = os.clock() - clock
@@ -374,29 +435,41 @@ function run()
     color("Fuchsia")
     gfx.rect(gfx.mouse_x-8, gfx.mouse_y-8, 30, 30)
     clicks = clicks + 1
+    color("White")
   end
-  color("White")
-  averageBPM = durationToBpm(average(times))
+  
   if clicks == 1 then stringWrap("Press a key 2 times more") end
   if clicks == 2 then stringWrap("Press a key 1 time more") end
   if clicks > 2 then
     if clicks > 20 then clicks_display = 20 else clicks_display = clicks end
     
-    deviation = (math.floor(standardDeviation(times)*100))
-    max_bpm = (averageBPM * (100 + deviation)) /100
-    min_bpm = (averageBPM * (100 - deviation)) /100
-	
-	dif = max_bpm - min_bpm
+    averageSec = average(times)
+    averageBPM = durationToBpm(averageSec)
+    variance_sec = variance(times)
+    deviation = standardDeviation(times)
+    deviationBeats = secToBeats(deviation, averageBPM)
+    max_deviation = averageBPM + deviationBeats
+    min_deviation = averageBPM - deviationBeats
+    max_bpm, min_bpm = maxmin(times)
+    max_bpm = durationToBpm(max_bpm)
+    min_bpm = durationToBpm(min_bpm)
+  
+    --dif = max_bpm - min_bpm
     
-    if dif >= 10 then color("Red") end
-    if dif > 5 and deviation < 10 then color("Yellow") end
-    if dif <= 5 then color("Lime") end
+    if deviationBeats >= 10 then color("Red") end
+    if deviationBeats > 0.05 and deviation < 10 then color("Yellow") end
+    if deviationBeats <= 0.05 then color("Lime") end
     
     stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
-    stringWrap("Average = ".. (roundBPM(averageBPM)))
-    stringWrap("Deviation = " .. deviation .."%%")
-    stringWrap("Max = "..(roundBPM(max_bpm)))
-    stringWrap("Min = "..(roundBPM(min_bpm)))
+    --stringWrap("Average (s) = ".. (averageSec))
+    stringWrap("Average BPM = ".. (round(averageBPM)))
+    --stringWrap("Average BPM (round) = ".. (roundBPM(averageBPM)))
+    --stringWrap("Deviation (s) = " .. deviation )
+    --stringWrap("Deviation (beat) = " .. deviationBeats )
+    --stringWrap("Max Deviation = "..(roundBPM(max_deviation)))
+    --stringWrap("Min Deviation = "..(roundBPM(min_deviation)))
+    --stringWrap("Max BPM = "..(roundBPM(max_bpm)))
+    --stringWrap("Min BPM = "..(roundBPM(min_bpm)))
   end 
 
   ----------------------------- 
@@ -410,7 +483,8 @@ function run()
 
 end
 
--------------------
-
+--------------------------------------------------
+-- RUN -----------------------------------------
+--------------------------------------------------
 init(window_w, window_h)
 run()
