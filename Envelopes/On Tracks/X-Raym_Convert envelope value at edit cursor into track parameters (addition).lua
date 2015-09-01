@@ -166,7 +166,7 @@ function Action(env, track)
 
 		if env_name == "Width" then
 			init_width = reaper.GetMediaTrackInfo_Value(track, "D_WIDTH")
-			new_value = ConstrainInMinMax(init_width + value_eval, minValue, maxValue)
+			new_value = ConstrainInMinMax(init_width * value_eval, minValue, maxValue)
 			reaper.SetMediaTrackInfo_Value(track, "D_WIDTH", new_value)
 		end
 		
