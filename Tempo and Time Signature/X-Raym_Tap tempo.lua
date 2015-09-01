@@ -58,7 +58,7 @@ line_height = font_size + font_size/5 -- is there a better way ?
 done = false -- prevent calculation from script launch, but start at first click
 times = {}
 z = 0
-clicks = 0
+clicks = -1
 input_limit = 16
 
 function init(window_w, window_h)
@@ -438,7 +438,6 @@ function run()
     end
     
     clock = os.clock()
-    engaged = false
     done = true
     engaged = false
    
@@ -446,10 +445,13 @@ function run()
     color("Fuchsia")
     gfx.rect(gfx.mouse_x-8, gfx.mouse_y-8, 30, 30)
     clicks = clicks + 1
-    color("White")
+   
     
   end
   
+  color("White")
+  
+  if clicks == 0 then stringWrap("Press a key 4 times more") end
   if clicks == 1 then stringWrap("Press a key 3 times more") end
   if clicks == 2 then stringWrap("Press a key 2 time more") end
   if clicks == 3 then stringWrap("Press a key 1 time more") end

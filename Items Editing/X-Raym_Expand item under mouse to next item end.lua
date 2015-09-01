@@ -50,7 +50,7 @@ function main() -- local (i, j, item, take, track)
 	
 	item, position = reaper.BR_ItemAtMouseCursor()
 	
-	if tostring(item) ~= "userdata: 0000000000000000" then
+	if item ~= nil then
 		
 		track = reaper.GetMediaItem_Track(item)
 		
