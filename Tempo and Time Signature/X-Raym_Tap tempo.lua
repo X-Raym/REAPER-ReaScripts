@@ -450,9 +450,10 @@ function run()
     
   end
   
-  if clicks == 1 then stringWrap("Press a key 2 times more") end
-  if clicks == 2 then stringWrap("Press a key 1 time more") end
-  if clicks > 2 then
+  if clicks == 1 then stringWrap("Press a key 3 times more") end
+  if clicks == 2 then stringWrap("Press a key 2 time more") end
+  if clicks == 3 then stringWrap("Press a key 1 time more") end
+  if clicks > 3 then
   
     if clicks > input_limit then clicks_display = input_limit else clicks_display = clicks end
     
@@ -465,9 +466,8 @@ function run()
     
     if precision <= 0.5 then color("Red") end
     if precision > 0.5 and precision <= 0.9 then color("Yellow") end
-    if precision > 0.9 and precision < 0.95 then color("Lime") end
-    if precision >= 0.95 then color("Aqua") end
-    
+    if precision > 0.9 then color("Lime") end  
+      
     stringWrap("BPM On the last " .. (clicks_display) .. " inputs:") 
     stringWrap("Average BPM = ".. (round(averageBPM, 0)))
     stringWrap("Deviation = " .. (round(deviation, 2)))
