@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Reset strech marker under mouse position
+ * ReaScript Name: Reset stretch marker under mouse position
  * Description:
  * Instructions: Put this on a keyboard shortcut. Run.
  * Notes : Only work if take rate is 1. SWS issue.
@@ -71,7 +71,7 @@ function main() -- local (i, j, item, take, track)
 				
 	end
 	
-	reaper.Undo_EndBlock("Reset strech marker under mouse position", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Reset stretch marker under mouse position", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

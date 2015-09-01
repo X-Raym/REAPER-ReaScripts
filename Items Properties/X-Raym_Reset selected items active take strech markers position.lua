@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Reset selected items active take strech markers position
+ * ReaScript Name: Reset selected items active take stretch markers position
  * Description:
  * Instructions: Select items with take. Run.
  * Screenshot: http://i.giphy.com/3o85xowNTqf8CYQrba.gif
@@ -73,7 +73,7 @@ function main() -- local (i, j, item, take, track)
 	
 	end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Reset selected items active take strech markers position", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Reset selected items active take stretch markers position", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
