@@ -82,7 +82,7 @@ function AddEnvValueToSend(track, env, param_name, value, minimum, maximum)
 		if env_send == env then
 		
 			if param_name == "D_VOL" then
-				init_value = 0
+				init_value = 1
 				new_value = AddDB(value, init_value, max_value)
 			end
 
