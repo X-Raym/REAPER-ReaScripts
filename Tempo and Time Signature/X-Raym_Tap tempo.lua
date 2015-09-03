@@ -17,6 +17,9 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-09-03)
+  # Precision is now Accuracy
+  # Precision display fixed
  * v1.0 (2015-09-02)
   + Mac user firendly
   + Graphical display
@@ -507,7 +510,7 @@ function run()
     stringWrap("Average BPM = ".. (round(average_current, 0)))
     stringWrap("Average BPM /2 = ".. (round(average_current/2, 0)))
     stringWrap("Deviation = " .. (round(deviation, 2)))
-    stringWrap("Precision = ".. (round(precision, 2)).." %%")
+    stringWrap("Accuracy = ".. (round(precision*100, 2)).." %%")
     stringWrap("Max BPM = "..(round(max_deviation, 2)))
     stringWrap("Min BPM = "..(round(min_deviation, 2)))
     
@@ -537,7 +540,7 @@ function run()
       stringWrap("Average BPM = ".. (round(average_timesBPM, 0)))
       stringWrap("Average BPM /2 = ".. (round(average_timesBPM/2, 0)))
       stringWrap("Deviation = " .. (round(deviationBPM, 2)))
-      stringWrap("Precision = ".. (round(precisionBPM, 2)).." %%")
+      stringWrap("Accuracy = ".. (round(precisionBPM*100, 2)).." %%")
       stringWrap("Max BPM = "..(round(max_deviationBPM, 2)))
       stringWrap("Min BPM = "..(round(min_deviationBPM, 2)))
       
