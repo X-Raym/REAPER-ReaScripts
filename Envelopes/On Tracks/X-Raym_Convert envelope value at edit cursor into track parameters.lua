@@ -16,6 +16,9 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-07-22)
+	# Pan fix
+	+ Send support
  * v1.0 (2015-07-22)
 	+ Initial release
  --]]
@@ -43,15 +46,63 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 msg_clean()
 ]]-- <==== DEBUGGING -----
 
---[[
-function UserInput()
-	retval, user_input_str = reaper.GetUserInputs("Envelope Analysis", 1, "Interval ? (s)", interval) -- We suppose that the user know the scale he want
-    if retval then
-		interval = tonumber(user_input_str)
+function AddDB(value_eval, init_value, max_value)
+	value_eval_db = 20*(math.log(value_eval, 10)) -- thanks to spk77!
+	init_value_db = 20*(math.log(init_value, 10)) -- thanks to spk77!
+	maxValue_db = 20*(math.log(maxValue, 10)) + 6
+
+	calc_db = value_eval_db + init_value_db
+	
+	-- this functions has its own constrain as max db in tracks (+12) is suppriori than max db in envelope (+6)
+	if calc_db <= -146 then
+		calc = 0
 	end
-	return retval
+	if calc_db > maxValue_db then
+		calc = math.exp(maxValue_db*0.115129254)
+	end
+	if calc_db < maxValue_db and calc_db > -146 then
+		calc = math.exp(calc_db*0.115129254)
+	end
+	return calc
+
 end
-]]
+
+function AddEnvValueToSend(track, env, param_name, value, minimum, maximum)
+	
+	num_sends = reaper.GetTrackNumSends(track, 0) -- 0 = sends
+
+	for w = 0, num_sends - 1 do
+		
+		if param_name == "D_VOL" then send_type = 0 end
+		if param_name == "D_PAN" then send_type = 1 end
+		if param_name == "B_MUTE" then send_type = 2 end
+		
+		env_send = reaper.BR_GetMediaTrackSendInfo_Envelope(track, 0, w, send_type)
+		
+		if env_send == env then
+		
+			if param_name == "D_VOL" then
+				init_value = 0
+				new_value = AddDB(value, init_value, max_value)
+			end
+
+			if param_name == "D_PAN" then
+				init_value = 0
+				new_value = ConstrainInMinMax(init_value - value, minimum, maximum)-- Pan are set to their opposite (-) because on envelope, Pan Left = 1 and Pan Right = -1
+			end
+			
+			if param_name == "B_MUTE" then
+				-- reaper.BR_GetSetTrackSendInfo(track, 0, w, param_name, false, 0)
+				new_value = value
+			end
+			
+			reaper.BR_GetSetTrackSendInfo(track, 0, w, param_name, true, new_value)
+
+		end
+
+	end
+
+end
 
 function Msg(val)
 	reaper.ShowConsoleMsg(tostring(val).."\n")
@@ -83,7 +134,7 @@ function Action(env, track)
 		end -- ENDIF Volume
 		
 		if env_name == "Pan" then
-			reaper.SetMediaTrackInfo_Value(track, "D_PAN", value_eval)
+			reaper.SetMediaTrackInfo_Value(track, "D_PAN", - value_eval)
 		end -- ENDIF Volume
 		
 		if env_name == "Mute" then
@@ -95,18 +146,28 @@ function Action(env, track)
 		end -- ENDIF Pan or Width
 		
 		if env_name == "Pan (Left)" then
-			reaper.SetMediaTrackInfo_Value(track, "D_DUALPANL", value_eval)
+			reaper.SetMediaTrackInfo_Value(track, "D_DUALPANL", - value_eval)
 		end
 		
 		if env_name == "Pan (Right)" then
-			reaper.SetMediaTrackInfo_Value(track, "D_DUALPANR", value_eval)
+			reaper.SetMediaTrackInfo_Value(track, "D_DUALPANR", - value_eval)
 		end
 		
-		-- reaper.BR_EnvSetPoint(br_env, 0, 0, value_eval, 0, false, 0)
-		--reaper.BR_EnvSetProperties(BR_Envelope envelope, boolean active, boolean visible, boolean armed, boolean inLane, integer laneHeight, integer defaultShape, boolean faderScaling)
-		-- reaper.BR_EnvSetProperties(br_env, false, false, true, true, laneHeight, defaultShape, faderScaling)
-		-- reaper.BR_EnvSetProperties(br_env, active_out, visible_out, armed_out, inLane, laneHeight, defaultShape, faderScaling)
-	
+		if env_name == "Send Volume" then
+			param_name = "D_VOL"
+			AddEnvValueToSend(track, env, param_name, value_eval)
+		end
+		
+		if env_name == "Send Pan" then
+			param_name = "D_PAN"
+			AddEnvValueToSend(track, env, param_name, value_eval, minValue, maxValue)
+		end
+		
+		if env_name == "Send Mute" then
+			param_name = "B_MUTE"
+			AddEnvValueToSend(track, env, param_name, value_eval, minValue, maxValue)
+		end
+
 	end
 	
 	reaper.BR_EnvFree(br_env, 0)
