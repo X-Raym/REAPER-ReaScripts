@@ -46,6 +46,12 @@ clean = 1 -- 0 => No console cleaning before every script execution. 1 => Consol
 msg_clean()
 ]]-- <==== DEBUGGING -----
 
+function ConstrainInMinMax(val, minimum, maximum)
+	if val < minimum then val = minimum end
+	if val > maximum then val = maximum end
+	return val
+end
+
 function AddDB(value_eval, init_value, max_value)
 	value_eval_db = 20*(math.log(value_eval, 10)) -- thanks to spk77!
 	init_value_db = 20*(math.log(init_value, 10)) -- thanks to spk77!
