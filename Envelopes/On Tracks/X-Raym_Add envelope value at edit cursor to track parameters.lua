@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Convert envelope value at edit cursor into track parameters (addition)
+ * ReaScript Name: Add envelope value at edit cursor to track parameters
  * Description: A way to convert envelope into track parameters.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Author: X-Raym
@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations
  * Forum Thread URl: http://forum.cockos.com/showthread.php?t=157483
- * REAPER: 5.0 RC5
- * Extensions: SWS 2.7.3 #0
+ * REAPER: 5.0
+ * Extensions: SWS 2.8.0 #0
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-09-01)
+	# Width fix
  * v1.0 (2015-07-22)
 	+ Initial release
  --]]
@@ -241,18 +243,14 @@ function main() -- local (i, j, item, take, track)
 	
 	end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Convert envelope value at edit cursor into track parameters (addition)", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Add envelope value at edit cursor to track parameters", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
---msg_start() -- Display characters in the console to show you the begining of the script execution.
-
 reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
---reaper.ShowConsoleMsg("")
+
 main() -- Execute your main function
 
 reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
-
---msg_end() -- Display characters in the console to show you the end of the script execution.
