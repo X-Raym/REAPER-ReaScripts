@@ -1,6 +1,6 @@
 --[[
- * ReaScript Name: Convert envelope value at edit cursor into track parameters
- * Description: A way to convert envelope into track parameters.
+ * ReaScript Name: Set selected tracks parameters values with envelopes values at edit cursor
+ * Description: A way to convert envelope into track parameters. Use this script for tracks with Read mode.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1.1 (2015-09-07)
+ 	# Rename from to Convert envelope value at edit cursor into track parameters to Set selected tracks parameters values with envelopes values at edit cursor
  * v1.1 (2015-07-22)
 	# Pan fix
 	+ Send support
@@ -224,18 +226,14 @@ function main() -- local (i, j, item, take, track)
 	
 	end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Convert envelope value at edit cursor into track parameters", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Set selected tracks parameters values with envelopes values at edit cursor", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
---msg_start() -- Display characters in the console to show you the begining of the script execution.
-
--- reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
+reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
 
 main() -- Execute your main function
 
--- reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
+reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
-
---msg_end() -- Display characters in the console to show you the end of the script execution.
