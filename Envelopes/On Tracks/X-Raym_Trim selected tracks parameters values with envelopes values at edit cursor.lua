@@ -1,6 +1,6 @@
 --[[
- * ReaScript Name: Add envelope value at edit cursor to track parameters
- * Description: A way to convert envelope into track parameters.
+ * ReaScript Name: Trim selected tracks parameters values with envelopes values at edit cursor
+ * Description: A way to convert envelope into track parameters. Use this script for tracks in Trim/Read mode.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Author: X-Raym
  * Author URl: http://extremraym.com
@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1.1 (2015-09-07)
+	# Renamed
  * v1.1 (2015-09-01)
 	# Width fix
  * v1.0 (2015-07-22)
@@ -243,7 +245,7 @@ function main() -- local (i, j, item, take, track)
 	
 	end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Add envelope value at edit cursor to track parameters", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Trim selected tracks parameters values with envelopes values at edit cursor", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
