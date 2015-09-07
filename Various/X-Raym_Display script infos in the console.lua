@@ -42,7 +42,6 @@ function read_lines(filepath)
 	thread_urls = ""
 	screenshot = ""
 	folder = ""
-	release = ""
 	version = ""
 	version_date = ""
 	
@@ -119,6 +118,15 @@ function read_lines(filepath)
 				if version ~= "" then Msg(" * Last Version: " .. version) end
 				if version_date ~= "" then Msg(" * Last Version Date: " .. version_date) end
 
+			end
+			
+			-- VERSION
+			if string.find(s,'%s%*%sv1.0') then
+
+				release_date = tostring(string.match(s, "%d%d%d%d%-%d%d%-%d%d"))
+
+				if release_date ~= "" then Msg(" * Initial Release Date: " .. release_date) end
+				
 				break
 
 			end
@@ -131,7 +139,7 @@ function read_lines(filepath)
 	
 	sep = "	" -- Tab
 	
-	Msg("\n\nCSV OUTPUT\n".. name .. sep .. folder .. sep .. author .. sep .. version.. sep.. version_date .. sep .. release .. sep .. required .. " / " .. extensions .. sep .. thread .. sep .. thread_url .. sep .. screenshot)
+	Msg("\n\nCSV OUTPUT\n".. name .. sep .. folder .. sep .. author .. sep .. version.. sep.. version_date .. sep .. release_date .. sep .. required .. " / " .. extensions .. sep .. thread .. sep .. thread_url .. sep .. screenshot)
 	
 	reaper.Undo_EndBlock("Display script infos in the console", -1) -- End undo group
 	
