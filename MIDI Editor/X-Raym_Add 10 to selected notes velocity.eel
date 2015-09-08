@@ -10,6 +10,4 @@ loop(notes, // EXECUTE THE ACTION BASED ON NUMBER OF NOTES
 	j += 1; // INCREMENT
 ); // END OF LOOP
 
-CountTrackMediaItems(track);
 UpdateArrange();
-CountProjectMarkers(proj,
