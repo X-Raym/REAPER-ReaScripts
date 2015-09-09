@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.6 (2015-09-09)
+	+ Fader-scaling support
  * v1.5 (2015-07-15)
 	+ User customization area
 	# "Cancel" bug fix
@@ -103,12 +105,16 @@ function set_point_value()
 			
 			if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" or envelopeName == "Send Volume" then
 			  already_set = true
+			  
+			  env_scale = reaper.GetEnvelopeScalingMode(envelope)
 
 			  for i = 0, env_point_count - 1 do
 				  
 				-- IDX 0 doesnt seem to work
 				retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
-
+				
+				if env_scale == 1 then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
+				
 				if set == true then
 				  valueOut = math.exp(0*0.115129254)
 				end
@@ -139,6 +145,8 @@ function set_point_value()
 				  end
 				  ----msg_ftl("Value ouput", valueIn, 1)
 				  -- SET POINT VALUE
+				  
+				  if env_scale == 1 then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
 
 				  reaper.SetEnvelopePoint(envelope, i, time, valueIn, shape, tension, 1, noSortInOptional)
 				  
