@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Move selected items to next item on their track
+ * ReaScript Name: Move selected items to next item on all visible tracks
  * Description: Move group of selected items to next item end on all visible tracks, according to max end of items in selection.
  * Instructions: Select items. Run.
  * Screenshot: http://i.giphy.com/xTiTnGR5CJ4m7RyvHW.gif
@@ -95,7 +95,7 @@ function main()
 	
 	end
 	
-	reaper.Undo_EndBlock("Move selected items to next item on their track", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Move selected items to next item on all visible tracks", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
