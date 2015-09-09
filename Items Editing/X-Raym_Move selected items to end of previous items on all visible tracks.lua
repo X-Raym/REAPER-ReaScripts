@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name:Move selected items to end of previous items on all visible tracks
+ * ReaScript Name: Move selected items to end of previous items on all visible tracks
  * Description: Move group of selected items to previous item end on all visible tracks, according to min position of items in selection.
  * Instructions: Select items. Run.
  * Screenshot: http://i.giphy.com/xTiTnGR5CJ4m7RyvHW.gif
