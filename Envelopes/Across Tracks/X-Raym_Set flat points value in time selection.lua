@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.6 (2015-09-09)
+	+ Fader scaling support
  * v1.5 (2015-07-11)
 	+ Send support
  * v1.4 (2015-06-25)
@@ -165,6 +167,8 @@ function SetValue(envelope)
 	
 	if env_name == "Volume" or env_name == "Volume (Pre-FX)" or env_name == "Send Volume" then
 		already_set = true
+		
+		if faderScaling == true then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
 
 		-- CALC
 		valueOut = math.exp(0*0.115129254)
@@ -189,6 +193,8 @@ function SetValue(envelope)
 			valueIn = math.exp(calc*0.115129254)
 			--msg_s("-146 < Volume < +12")
 		end
+		
+		if faderScaling == true then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
 			
 	end -- ENDIF Volume
 

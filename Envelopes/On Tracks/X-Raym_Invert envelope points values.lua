@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.4 (2015-09-09)
+	+ Fader scaling support
  * v1.3 (2015-07-11)
 	+ Send support
  * v1.2 (2015-06-25)
@@ -97,7 +99,9 @@ function Action(env)
 		if env_points_count > 0 then
 			for k = 0, env_points_count-1 do 
 				retval, point_time, valueOut, shapeOutOptional, tensionOutOptional, selectedOutOptional = reaper.GetEnvelopePoint(env, k)
-
+				
+				if faderScaling == true then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
+				
 				-- BEGIN ACTION
 				valueIn = -(valueOut-1)
 
@@ -115,6 +119,8 @@ function Action(env)
 					end
 	
 				end -- ENDIF Volume
+				
+				if faderScaling == true then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
 
 				if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" or envelopeName == "Send Pan" then
 
@@ -190,17 +196,17 @@ function main() -- local (i, j, item, take, track)
 	
 	end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Invert envelope points values", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Invert envelope points values", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
 --msg_start() -- Display characters in the console to show you the begining of the script execution.
 
---[[ reaper.PreventUIRefresh(1) ]]-- Prevent UI refreshing. Uncomment it only if the script works.
+reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 
 main() -- Execute your main function
 
---[[ reaper.PreventUIRefresh(-1) ]] -- Restore UI Refresh. Uncomment it only if the script works.
+reaper.PreventUIRefresh(-1)  -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 

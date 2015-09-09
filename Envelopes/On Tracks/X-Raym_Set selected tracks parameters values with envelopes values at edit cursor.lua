@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.2 (2015-09-09)
+	+ Fader scaling support
  * v1.1.1 (2015-09-07)
  	# Rename from to Convert envelope value at edit cursor into track parameters to Set selected tracks parameters values with envelopes values at edit cursor
  * v1.1 (2015-07-22)
@@ -138,6 +140,8 @@ function Action(env, track)
 			--reaper.ShowConsoleMsg(env_name)
 			
 		if env_name == "Volume" then
+			if faderScaling == true then value_eval = reaper.ScaleFromEnvelopeMode(1, value_eval) end
+			
 			reaper.SetMediaTrackInfo_Value(track, "D_VOL", value_eval)
 		end -- ENDIF Volume
 		

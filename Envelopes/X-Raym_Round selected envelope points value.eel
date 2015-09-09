@@ -18,6 +18,8 @@
  
 /**
  * Changelog:
+ * v1.3 (2015-09-09)
+	+ Fader scaling support
  * v1.2 (2015-07-11)
 	+ Send support
  * v1.1 (2015-02-26)
@@ -36,15 +38,21 @@ clean = 0; // 0 => No console cleaning before every script execution. 1 => Conso
 msg_clean();
 // <==== DEBUGGING -----
 
-function floorPoint (value, type)
+function floorPoint (value, type, scale)
 (
 	calc = 0;
 	stricmp("VOLUME", type) == 0 || stricmp("VOLUME (PRE-FX)", type) == 0 || stricmp("Send Volume", type) == 0 ? (
+			scale == 1 ? (
+				value = ScaleFromEnvelopeMode(1, value);
+			);
 			OldVol=value;
 			OldVolDB=20*(log10(OldVol));
 			
 			NewVolDB=floor(OldVolDB + 0.5);
 			calc=exp(NewVolDB*0.115129254);
+			scale == 1 ? (
+				calc = ScaleToEnvelopeMode(1, calc);
+			);
 			): stricmp("MUTE", type) == 0 || stricmp("Send Mute", type) == 0 ? (
 					value < 0 ? (
 						calc = 0;
@@ -94,7 +102,9 @@ function round_point_value() local (i)
 	// GET ENVELOPE RANGE -- HERE IT IS
 	GetEnvelopeName(envelope, #buf);
 	match("%s", #buf, envelopeName);
-		
+	
+	env_scale = GetEnvelopeScalingMode(envelope);
+
 	// VALUE
 	i = 0;
 	loop (env_point_count, i ? (
@@ -104,7 +114,7 @@ function round_point_value() local (i)
 			
 			selectedOut == 1 ? (
 
-				valueIn = floorPoint(valueOut, envelopeName);
+				valueIn = floorPoint(valueOut, envelopeName, env_scale);
 
 				timeInOptional = timeOutOptional;
 				shapeInOptional = shapeOutOptional;

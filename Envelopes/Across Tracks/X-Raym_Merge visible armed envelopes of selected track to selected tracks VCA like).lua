@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-09-09)
+	+ Fader scaling support
  * v1.0 (2015-07-14)
 	+ Initial release
  --]]
@@ -132,6 +134,8 @@ function main() -- local (i, j, item, take, track)
 							retval, valueOut, dVdSOut, ddVdSOut, dddVdSOut = reaper.Envelope_Evaluate(env, envLast_time, 0, 0)
 							
 							if envLast_name == "Volume" or envLast_name == "Volume (Pre-FX)" or envLast_name == "Send Volume" then
+							
+								if env_faderScaling == true then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
 					
 								-- CALC
 								env_VolDB = 20*(math.log(valueOut, 10)) -- thanks to spk77!
@@ -140,6 +144,8 @@ function main() -- local (i, j, item, take, track)
 								calc = env_VolDB + envLast_VolDB -- it invert volume based on 0db
 
 								valueIn = math.exp(calc*0.115129254)
+								
+								if env_faderScaling == true then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
 								
 							else -- ENDIF Volume
 								

@@ -16,6 +16,8 @@
  
 --[[
  * Changelog:
+ * v1.2 (2015-09-09)
+	+ Fader scaling support
  * v1.1.1 (2015-09-07)
 	# Renamed
  * v1.1 (2015-09-01)
@@ -146,6 +148,7 @@ function Action(env, track)
 			
 		if env_name == "Volume"  then
 			init_vol = reaper.GetMediaTrackInfo_Value(track, "D_VOL")
+			if faderScaling == true then value_eval = reaper.ScaleFromEnvelopeMode(1, value_eval) end
 			new_value = AddDB(value_eval, init_vol, maxValue)
 			reaper.SetMediaTrackInfo_Value(track, "D_VOL", new_value)
 		end
