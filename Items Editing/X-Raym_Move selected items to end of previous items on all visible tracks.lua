@@ -17,13 +17,39 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-09-10)
+	+ Limit with marker name "LIMIT"
  * v1.0 (2015-09-09)
 	+ Initial Release
  --]]
 
+-- ----- USER CONFIG AREA ====>
+
+limit = true
+
+-- <==== USER CONFIG AREA -----
+
+-- INIT
 sel_item = {}
 max_end = 0
- 
+
+function GetLimitTime()
+	i=0
+	repeat
+		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
+		if iRetval >= 1 then
+			if sNameOut == "LIMIT" then
+				limit_time = iPosOut
+			end
+			i = i+1
+		end
+	until iRetval == 0
+	
+	if limit_time == nil then limit = false end
+	
+	return limit_time
+end
+
 function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
@@ -48,6 +74,8 @@ function main()
 	
 	end
 	
+	limit_time = GetLimitTime()
+	
 	count_tracks = reaper.CountTracks(0)
 	
 	for j = 1, count_tracks do
@@ -69,8 +97,13 @@ function main()
 				item_end = item_pos + item_len
 				
 				if item_end > max_end and item_end < min_sel_item_pos then
-				
-					max_end = item_end
+					if limit == true then
+						if item_end < limit_time then
+							max_end = item_end
+						end
+					else
+						max_end = item_end
+					end
 				
 				end
 			
@@ -80,8 +113,7 @@ function main()
 	
 	end
 	
-	first_sel_item_pos = reaper.GetMediaItemInfo_Value(sel_item[1], "D_POSITION")
-	offset = first_sel_item_pos - max_end
+	offset = min_sel_item_pos - max_end
 		
 	for w = 1, #sel_item do
 	
