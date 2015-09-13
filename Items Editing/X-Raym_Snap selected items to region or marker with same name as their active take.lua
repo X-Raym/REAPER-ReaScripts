@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Snap selected items to region or marker with the same name of their active take
+ * ReaScript Name: Snap selected items to region or marker with same name as their active take
  * Description: A way to snap items to regions according to their names.
  * Instructions: Have regions or markers.
  * Screenshot: http://i.giphy.com/xTiTntThSvTeIV8gsE.gif
@@ -75,7 +75,7 @@ function main() -- local (i, j, item, take, track)
 	
 	end -- selected items loop
 	
-	reaper.Undo_EndBlock("Snap selected items to region or marker with the same name of their active take", -1)
+	reaper.Undo_EndBlock("Snap selected items to region or marker with same name as their active take", -1)
 	
 end -- of function
 
