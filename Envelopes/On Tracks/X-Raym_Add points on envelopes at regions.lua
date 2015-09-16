@@ -72,7 +72,7 @@ function AddPoints(env)
 				
 				-- ADD POINTS ON LOOP START AND END
 				reaper.InsertEnvelopePoint(env, pos, valueOut, 0, 0, true, true) -- INSERT startLoop point
-				reaper.InsertEnvelopePoint(env, rgnend, valueOut, 0, 0, true, true) -- INSERT startLoop point
+				reaper.InsertEnvelopePoint(env, rgnend, valueOut2, 0, 0, true, true) -- INSERT startLoop point
 			
 			end
 			
