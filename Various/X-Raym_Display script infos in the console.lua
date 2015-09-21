@@ -101,7 +101,7 @@ function read_lines(filepath)
 			end
 
 			-- SCREENSHOT
-			if string.find(s,'%s%*%sCREENSHOT: ') then
+			if string.find(s,'%s%*%sSCREENSHOT: ') then
 
 				screenshot = tostring(s:match("Screenshot: (.*)"))
 				Msg(" * Screenshot: " .. screenshot)
