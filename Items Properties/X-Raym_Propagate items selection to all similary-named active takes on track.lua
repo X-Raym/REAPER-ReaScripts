@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Propagate items selection to all similary-named active takes on track
- * Description: A way to prepare a custom propagation.
+ * Description: Select items with similary-named active take of selected items on tracks.
  * Instructions: Select items. Run.
  * Screenshot:
  * Author: X-Raym
