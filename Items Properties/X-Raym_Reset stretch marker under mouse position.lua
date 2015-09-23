@@ -51,7 +51,7 @@ function main() -- local (i, j, item, take, track)
 	
 	window, segment, details = reaper.BR_GetMouseCursorContext()
 	--reaper.ShowConsoleMsg(details.."\n")
-	if details == "item" or details == "item_stretch_marker" then
+	if details == "item_stretch_marker" then
 		
 		take, mouse_pos = reaper.BR_TakeAtMouseCursor()
 		
@@ -62,12 +62,12 @@ function main() -- local (i, j, item, take, track)
 			if idx ~= nil then
 	
 				idx, strech_pos, srcpos = reaper.GetTakeStretchMarker(take, idx)
+				
+				reaper.SetTakeStretchMarker(take, idx, srcpos)
 			
 			end
 			
 		end
-	
-		reaper.SetTakeStretchMarker(take, idx, srcpos)
 				
 	end
 	
