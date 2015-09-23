@@ -3,7 +3,7 @@
  * Description:
  * Instructions: Put this on a keyboard shortcut. Run.
  * Notes : Only work if take rate is 1. SWS issue.
- * Screenshot:
+ * Screenshot: http://i.giphy.com/l41m5L3XNjRhjDyww.gif
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
