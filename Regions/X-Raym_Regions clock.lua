@@ -2,6 +2,7 @@
  * ReaScript Name: Region's Clock
  * Description: Add a clock for regions, based on Play Cursor position.
  * Instructions: Run
+ * Screenshot: http://i.giphy.com/3o85xpylrlY7MPzmo0.gif
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER

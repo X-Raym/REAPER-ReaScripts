@@ -141,7 +141,7 @@ function read_lines(filepath)
 	
 	Msg("\n\nCSV OUTPUT\n".. name .. sep .. folder .. sep .. author .. sep .. version.. sep.. version_date .. sep .. release_date .. sep .. required .. " / " .. extensions .. sep .. thread .. sep .. thread_url .. sep .. screenshot)
 	
-	Msg("\n\nFORUM OUTPUT\n".. "[b]EDIT" .. version_date .."[/b]")
+	Msg("\n\nFORUM OUTPUT\n".. "[b]EDIT: " .. version_date .."[/b]")
 	Msg("[List]")
 	Msg("[*][b]" .. name .."[/b]")
 	Msg("[/list]")
