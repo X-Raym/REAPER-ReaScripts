@@ -1,4 +1,4 @@
-﻿--[[
+--[[
  * ReaScript Name: Region's Clock
  * Description: Add a clock for regions, based on Play Cursor position.
  * Instructions: Run
@@ -17,9 +17,19 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-09-25)
+  + User config area
  * v1.0 (2015-09-24)
   + Initial Release
  --]]
+
+--// USER CONFIG AREA -->
+
+text_color = "White" -- support names (see color function) and hex values with #
+background_color = "#333333" -- support names and hex values with #. REAPER defaults are dark grey #333333 and brigth grey #A4A4A4
+no_regions_text = true -- set to false to desactivate "NO REGIONS UNDER PLAY CURSOR" instructions
+
+--// -------------------- END OF USER CONFIG AREA 
 
 --// INITIAL VALUES //--
 font_size = 40
@@ -47,7 +57,44 @@ function rgba(r, g, b, a)
   gfx.b = b/255
 end
 
+function HexToRGB(value)
+  local hex = value:gsub("#", "")
+  local R = tonumber("0x"..hex:sub(1,2))
+  local G = tonumber("0x"..hex:sub(3,4))
+  local B = tonumber("0x"..hex:sub(5,6))
+  
+  if R == nil then R = 0 end
+  if G == nil then G = 0 end
+  if B == nil then B = 0 end
+  
+  gfx.r = R/255
+  gfx.g = G/255
+  gfx.b = B/255
+    
+end
 
+function color(col)
+  if string.find(col, "#.+") ~= nil then
+    color2 = col
+    HexToRGB(color2)
+  end
+  if col == "White" then HexToRGB("#FFFFFF") end
+  if col == "Silver" then HexToRGB("#C0C0C0") end
+  if col == "Gray" then HexToRGB("#808080") end
+  if col == "Black" then HexToRGB("#000000") end
+  if col == "Red" then HexToRGB("#FF0000") end
+  if col == "Maroon" then HexToRGB("#800000") end
+  if col == "Yellow" then HexToRGB("#FFFF00") end
+  if col == "Olive" then HexToRGB("#808000") end
+  if col == "Lime" then HexToRGB("#00FF00") end
+  if col == "Green" then HexToRGB("#008000") end
+  if col == "Aqua" then HexToRGB("#00FFFF") end
+  if col == "Teal" then HexToRGB("#008080") end
+  if col == "Blue" then HexToRGB("#0000FF") end
+  if col == "Navy" then HexToRGB("#000080") end
+  if col == "Fuchsia" then HexToRGB("#FF00FF") end
+  if col == "Purple" then HexToRGB("#800080") end
+end
 
 --// ELEMENTS //--
 function DrawProgressBar() -- Idea from Heda's Notes Reader
@@ -80,20 +127,27 @@ end
 function PrintAndBreak(string)
   CenterAndResizeText(string)
 
-  rgba(255, 255, 255, 255)
+  color(text_color)
   gfx.printf(string)
   gfx.y = gfx.y + font_size
+end
+
+function DrawBackground()
+  color(background_color)
+  gfx.rect( 0, 0, gfx.w, gfx.h )
 end
 
 --// INIT //--
 function init(window_w, window_h)
   gfx.init("Region's Clock by X-Raym" , window_w, window_h)
   gfx.setfont(1, font_name, font_size, 'b')
-  rgba( 255, 255, 255 )
+  --color(text_color)
 end
 
 --// MAIN //--
 function run()
+  
+  DrawBackground()
   
   -- PLAY STATE
   play_state = reaper.GetPlayState()
@@ -139,8 +193,10 @@ function run()
      PrintAndBreak(buf)
      PrintAndBreak(region_name)
   else
-     PrintAndBreak("No Region")
-     PrintAndBreak("Under Play Cursor")
+     if no_regions_text then
+       PrintAndBreak("No Region")
+       PrintAndBreak("Under Play Cursor")
+     end
   end    
   
   gfx.update()
