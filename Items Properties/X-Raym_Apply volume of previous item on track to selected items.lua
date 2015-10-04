@@ -8,8 +8,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread:
- * Forum Thread URl:
+ * Forum Thread: 
+ * Forum Thread URl: 
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.1
  --]]
