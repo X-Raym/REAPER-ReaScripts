@@ -1,15 +1,16 @@
 --[[
  * ReaScript Name: Apply volume of previous item on track to selected item
- * Description:
- * Instructions:
+ * Description: A very nice way to set item volume for dialog editing.
+ * Instructions: Select items. Run.
+ * Screenshot: http://i.giphy.com/xTiTnBqy5MgtePvLLG.gif
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: 
- * Forum Thread URl: 
+ * Forum Thread: Nudge selected items volume
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=152009
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.1
  --]]
