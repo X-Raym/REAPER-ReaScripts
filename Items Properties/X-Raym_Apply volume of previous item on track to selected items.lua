@@ -12,7 +12,7 @@
  * Forum Thread: Nudge selected items volume
  * Forum Thread URl: http://forum.cockos.com/showthread.php?t=152009
  * REAPER: 5.0
- * Extensions: SWS/S&M 2.8.1
+ * Extensions: None
  --]]
  
 --[[
