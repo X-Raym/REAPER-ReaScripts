@@ -10,43 +10,20 @@
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
- * Version: 1.1
- * Version Date: 2015-03-18
- * REAPER: 5.0 pre 18b
+ * REAPER: 5.0
  * Extensions: None
  --]]
  
 --[[
  * Changelog:
+ * v1.2 (2015-10-05)
+	# Propper send support
  * v1.1 (2015-03-18)
 	+ Select new points
 	+ Redraw envelope value at cursor pos in TCP (thanks to HeDa!)
  * v1.0 (2015-03-17)
 	+ Initial release
  --]]
-
--- ----- DEBUGGING ====>
---[[
-local info = debug.getinfo(1,'S');
-
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
-end
-
-require("X-Raym_Functions - console debug messages")
-
-
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-msg_clean()]]
--- <==== DEBUGGING -----
 
 -- INIT
 time = {}
@@ -55,7 +32,43 @@ shape = {}
 tension = {}
 selectedOut = {}
 
+function GetTrackEnvelopeSendName(track, env)
+	
+	local retval, env_name_temp = reaper.GetEnvelopeName(env, "")
+	
+	local send_type
+	
+	if env_name_temp == "Send Volume" then send_type = 0 end
+	if env_name_temp == "Send Pan" then send_type = 1 end
+	if env_name_temp == "Send Mute" then send_type = 2 end
+	
+	local num_sends = reaper.GetTrackNumSends(track, 0) -- 0 = sends
+
+	for w = 0, num_sends - 1 do
+		
+		local env_send = reaper.BR_GetMediaTrackSendInfo_Envelope(track, 0, w, send_type)
+		
+		if env_send == env then
+		
+			local track_send = reaper.BR_GetMediaTrackSendInfo_Track(track, 0, w, 1)
+			local retval, track_send_name = reaper.GetSetMediaTrackInfo_String(track_send, "P_NAME", "", false)
+
+			env_name_temp = env_name_temp .. ": " .. track_send_name
+
+		end
+
+	end
+	
+	return env_name_temp
+
+end
+
 function main() -- local (i, j, item, take, track)
+
+	-- GET LOOP
+    start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
+    -- IF LOOP ?
+    if start_time ~= end_time then time_selection = true end
 
 	-- GET AND UNSELECT LAST TRACK
 	last_track = reaper.GetLastTouchedTrack()
@@ -72,7 +85,6 @@ function main() -- local (i, j, item, take, track)
 
 		-- GET THE ENVELOPE
 		env = reaper.GetTrackEnvelope(last_track, j)
-		retval, env_name = reaper.GetEnvelopeName(env, "")
 
 		-- IF VISIBLE AND ARMED
 		retval, strNeedBig = reaper.GetEnvelopeStateChunk(env, "", true)
@@ -80,7 +92,14 @@ function main() -- local (i, j, item, take, track)
 		w, z = string.find(strNeedBig, "ARM 1")
 
 		if x ~= nil and w ~= nil then
-			
+		
+			retval, env_name = reaper.GetEnvelopeName(env, "")
+		
+			-- IF SEND
+			if env_name == "Send Pan" or env_name == "Send Mute" or env_name == "Send Volume" then
+				env_name = GetTrackEnvelopeSendName(last_track, env)
+			end
+
 			-- SAVE LAST TOUCHED TRACK ENVELOPES POINTS
 			env_points_count = reaper.CountEnvelopePoints(env)
 
@@ -107,8 +126,13 @@ function main() -- local (i, j, item, take, track)
 
 					-- GET THE ENVELOPE
 					env_dest = reaper.GetTrackEnvelope(track, m)
-					retval, env_name_dest = reaper.GetEnvelopeName(env_dest, "")
-
+					retval, env_name_dest = reaper.GetEnvelopeName(env_dest, "")					
+					
+					-- IF SEND	
+					if env_name_dest == "Send Pan" or env_name_dest == "Send Mute" or env_name_dest == "Send Volume" then
+						env_name_dest = GetTrackEnvelopeSendName(track, env_dest)
+					end
+					
 					-- IF VISIBLE AND ARMED
 					retval, strNeedBig_dest = reaper.GetEnvelopeStateChunk(env_dest, "", true)
 					a, c = string.find(strNeedBig_dest, "VIS 1")
@@ -120,13 +144,36 @@ function main() -- local (i, j, item, take, track)
 						env_points_count_dest = reaper.CountEnvelopePoints(env_dest)
 
 						retval_last, time_last, valueSource_last, shape_last, tension_last, selectedOut_last = reaper.GetEnvelopePoint(env_dest, env_points_count_dest-1)
+						
+						if time_selection then
+							reaper.DeleteEnvelopePointRange(env_dest, start_time, end_time)
+							
+							retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, start_time, 0, 0)
+							retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, end_time, 0, 0)
 
-						reaper.DeleteEnvelopePointRange(env_dest, 0, time_last+1)
+							-- ADD POINTS ON LOOP START AND END
+							reaper.InsertEnvelopePoint(env_dest, start_time, valueOut, 0, 0, true, true) -- INSERT start_time point
+							reaper.InsertEnvelopePoint(env_dest, end_time, valueOut2, 0, 0, true, true) -- INSERT 
+						else
+							reaper.DeleteEnvelopePointRange(env_dest, 0, time_last+1)
+						end
 
 						-- LOOP IN STORED POINTS AND INSERT
 						for p = 0, env_points_count-1 do
+						
+							if time_selection == true then
 							
-							reaper.InsertEnvelopePoint(env_dest, time[p], valueSource[p], shape[p], tension[p], true, true)
+								if time[p] >= start_time and time[p] <= end_time then
+
+									reaper.InsertEnvelopePoint(env_dest, time[p], valueSource[p], shape[p], tension[p], 1, true)
+
+								end
+							
+							else
+							
+								reaper.InsertEnvelopePoint(env_dest, time[p], valueSource[p], shape[p], tension[p], true, true)
+							
+							end
 
 						end -- END LOOP THROUGH SAVED POINTS
 
@@ -134,24 +181,22 @@ function main() -- local (i, j, item, take, track)
 
 					reaper.Envelope_SortPoints(env_dest)
 
-				end -- ENDLOOP selected tracks envelope
+				end -- end_time selected tracks envelope
 			
-			end -- ENDLOOP selected tracks
+			end -- end_time selected tracks
 
 		end -- ENFIF visible
 		
-	end -- ENDLOOP through envelopes
+	end -- end_time through envelopes
 
 	-- RESTORE LAST TRACK SELECTION
 	if restore_sel == true then
 		reaper.SetTrackSelected(last_track, true)
 	end
 
-	reaper.Undo_EndBlock("Copy visible armed envelope of last touched tracks and paste to selected tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Copy visible armed envelope of last touched tracks and paste to selected tracks", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
-
---msg_start() -- Display characters in the console to show you the begining of the script execution.
 
 reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 
@@ -160,10 +205,6 @@ main() -- Execute your main function
 reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
-
---msg_end() -- Display characters in the console to show you the end of the script execution.
-
--- BEWARE OF CTRL+Z as last touched track will Change
 
 -- Update the TCP envelope value at edit cursor position
 function HedaRedrawHack()
