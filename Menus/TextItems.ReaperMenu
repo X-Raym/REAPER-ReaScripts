@@ -1,0 +1,30 @@
+[Floating toolbar 16]
+icon_0=toolbar_window_tab_list.png
+icon_1=toolbar_tool_pencil_draw.png
+icon_3=toolbar_misc_speech_note.png
+icon_5=toolbar_misc_back_left_previous_more.png
+icon_6=toolbar_misc_back_left_previous.png
+icon_7=toolbar_undo.png
+icon_8=toolbar_misc_right_forward_next.png
+icon_9=toolbar_misc_right_forward_next_more.png
+icon_11=toolbar_midi_lengthen_note_grid_unit.png
+icon_13=toolbar_item_selected_snap.png
+icon_14=toolbar_item_right_edge_grow.png
+icon_15=toolbar_project_save_as_new_disk.png
+item_0=_RS73564e9d3add2b79b05aa1713eedc00de35b6e12 Script: HeDa_ Notes Reader (R5).eel
+item_1=_S&M_ITEMNOTES Edit TXT
+item_2=-1
+item_3=_RS7aa3b5042624744c80340f51f85274b4a57c6c46 Create text items on first selected track from selected items notes
+item_4=-1
+item_5=_33f82385550f034a868f8284a4a00e96 Custom: Go to previous item, Play
+item_6=_5c61e90b0a432b489660908590afefb8 Custom: Go to previous item
+item_7=_XEN_PREF_STOPATENDLOOP Xenakios/SWS: Toggle stop playback at end of time selection
+item_8=_6685de38e0081a4090db62dbffa5d171 Custom: Go to next item
+item_9=_16f9294d4543f3499946cd967bd5370d Custom: Go to next item, Play
+item_10=-1
+item_11=_6c2c987f5de1b84fb2e31b518c0baec1 Exp Item
+item_12=-1
+item_13=_RSd5d245ee09524d1ca3be936153da509efd52d7ec Snap Frame
+item_14=_RS8bd94945a3d8160a8015dc1d005580c3a563b0fb Expand selected items length to the next item position if close enough
+item_15=_37eca78e78fdf042ae173d4cc0ba60f0 Custom: Export subtitle track
+

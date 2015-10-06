@@ -1,0 +1,6 @@
+ACT 1 0 "37eca78e78fdf042ae173d4cc0ba60f0" "Custom: Export subtitle track" 40042 40635 40289 _SWS_SELUNMUTEDITEMS2 _RSd014a501abdd7b451fe9c37eb18bc9e0c5ac0a0c
+ACT 1 0 "6685de38e0081a4090db62dbffa5d171" "Custom: Go to next item" _RS8eae3648033a52df9dea7dabba90fe00db8d3ff0 40417 40290
+ACT 1 0 "16f9294d4543f3499946cd967bd5370d" "Custom: Go to next item, Play" _RS8eae3648033a52df9dea7dabba90fe00db8d3ff0 40417 40290 1007
+ACT 1 0 "5c61e90b0a432b489660908590afefb8" "Custom: Go to previous item" _RS8eae3648033a52df9dea7dabba90fe00db8d3ff0 40416 40290
+ACT 1 0 "33f82385550f034a868f8284a4a00e96" "Custom: Go to previous item, Play" _RS8eae3648033a52df9dea7dabba90fe00db8d3ff0 40416 40290 1007
+ACT 1 0 "a19e04266d3ce94da9d3acf98b677a16" "Custom: Insert Empty Items" _BR_SAVE_CURSOR_POS_SLOT_1 40626 41110 40914 40142 40635 _BR_RESTORE_CURSOR_POS_SLOT_1
