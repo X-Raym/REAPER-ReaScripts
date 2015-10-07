@@ -1,49 +1,45 @@
 --[[
  * ReaScript Name: Add text to selected items notes (Items Notes Processor)
  * Description: Equivalent to SWS label processor, but for items notes
- * Instructions: Here is how to use it. (optional)
+ * Instructions: Select items. Run. See below for customization and wildcards references.
+ * Screenshot: http://i.giphy.com/l41lPYdijt9494V5S.gif
  * Author: X-Raym
  * Author URl: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
- * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.7.1 (optional)
+ * Forum Thread: Scripts (LUA): Text Items Formatting Actions (various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156757
+ * REAPER: 5.0
+ * Extensions: SWS/S&M 2.8.1
  --]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-10-07)
+	+ Replace
+	+ User config area
+	+ Shortcut (B for Before, A for After, R for Replace)
+	# bug fixes
  * v1.0 (2015-05-06)
 	+ Initial Release
  --]]
 
---[[ ----- DEBUGGING ====>
-local info = debug.getinfo(1,'S');
-
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
-end
-
-require("X-Raym_Functions - console debug messages")
-
-
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-time_os = reaper.time_precise()
-
-msg_clean()
-]]-- <==== DEBUGGING -----
-
+--[[ ------ TEXT WILDCARDS REFERENCES ---------------------
+/E -- enumerate in selection
+/I -- inverse enumerate in selection
+/T -- Track name
+/t -- Track number
+--]] -----------------------------------------------------
+ 
+ 
+-- ------ USER CONFIG AREA -----------------------------
+default_action = "After" -- "Before", "After", "Replace"
+default_text = "" -- "Text"
+--------------------------------------------------------
+ 
+ 
 function main(csv) -- local (i, j, item, take, track)
 	
 	csv = csv:gsub(", ", "¤¤¤")
@@ -55,9 +51,7 @@ function main(csv) -- local (i, j, item, take, track)
 	
 		text = text:gsub("¤¤¤", ", ")
 		
-		before_after = tonumber(before_after)
-		
-		if (before_after == 1 or before_after == 0) and text ~= nil then
+		if (before_after == "Before" or before_after == "After" or before_after == "Replace" or before_after == "b" or before_after == "a" or before_after == "r" or before_after == "before" or before_after == "after" or before_after == "replace") and text ~= nil then
 		
 			reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the 
 		
@@ -84,17 +78,22 @@ function main(csv) -- local (i, j, item, take, track)
 				
 				notes = reaper.ULT_GetMediaItemNote(item)
 				
-				if notes == nil then
-					reaper.ULT_SetMediaItemNote(item, notes)
+				if notes == nil or notes == "" then
+					reaper.ULT_SetMediaItemNote(item, text)
 				else
 					
-					if before_after == 0 then -- before
+					if before_after == "Before" or before_after == "before" or before_after == "b"then -- before
 						notes = input .. "\n" .. notes
 						reaper.ULT_SetMediaItemNote(item, notes)
 					end
 					
-					if before_after == 1 then -- after
-						notes = input .. "\n" .. text
+					if before_after == "After" or before_after == "after" or before_after == "a"then -- after
+						notes = notes .. "\n" .. input
+						reaper.ULT_SetMediaItemNote(item, notes)
+					end
+					
+					if before_after == "Replace" or before_after == "replace" or before_after == "r" then -- after
+						notes = input
 						reaper.ULT_SetMediaItemNote(item, notes)
 					end
 					
@@ -115,7 +114,10 @@ reaper.PreventUIRefresh(1)
 selected_items_count = reaper.CountSelectedMediaItems(0)
 
 if selected_items_count > 0 then
-	retval, output_csv = reaper.GetUserInputs("Item Notes Processor", 2, "Before (0)/After (1):,Text", "0,") 
+	
+	default_csv = default_action .. "," .. default_text
+	
+	retval, output_csv = reaper.GetUserInputs("Item Notes Processor", 2, "Before/After/Replace:,Text:", default_csv) 
 
 	if retval then
 	
