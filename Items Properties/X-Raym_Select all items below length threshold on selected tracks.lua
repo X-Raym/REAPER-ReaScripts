@@ -9,8 +9,8 @@
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Scripts (LUA): Item Properties (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1574814
+ * Forum Thread: Scripts: Items selection (Various)
+ * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1600647
  * REAPER: 5.0
  * Extensions: None
  --]]
