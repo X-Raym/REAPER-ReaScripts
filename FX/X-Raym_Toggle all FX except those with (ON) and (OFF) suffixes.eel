@@ -1,13 +1,13 @@
 // Toggle FX except those with (ON) and (OFF) suffixes
 // EEL Script for Reaper
 // Author: X-Raym
-// Author URl: http://extremraym.com
+// Author URI: http://extremraym.com
 // Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
-// Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+// Source URI: https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence: GPL v3
 // Release Date: 12-02-2015
 // Forum Thread: EEL : Check for duplicate samples in audio items selection
-// Forum Thread URl: http://forum.cockos.com/
+// Forum Thread URI: http://forum.cockos.com/
 
 // Version: 1.1
 // Version Date: 12-02-2015

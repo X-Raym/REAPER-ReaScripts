@@ -4,13 +4,13 @@
  * Instructions: Select an item. Use it.
  * Screenshot: http://i.giphy.com/3oEduTrQlzj80oPpWE.gif
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: Import track titles from file (eg: CSV)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1564559
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1564559
  * REAPER: 5.0 pre 36
  * Extensions: None
 ]]

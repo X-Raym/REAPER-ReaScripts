@@ -3,13 +3,13 @@
  * Description: A way to copy insert point on several tracks envelopes at one time.
  * Instructions: Place the edit cursor somewhere. Select a track. Execute the script.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1497832#post1497832
  * Version: 1.1
  * Version Date: 2015-03-21
  * REAPER: 5.0 pre 18b

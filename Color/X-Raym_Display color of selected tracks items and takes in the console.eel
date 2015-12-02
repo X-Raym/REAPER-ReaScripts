@@ -3,13 +3,13 @@
  * EEL Script for Reaper
  * Displays tracks and takes color in RGB and HEX values in the console.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts/Display selected tracks and takes color in the console.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Source URI: https://github.com/X-Raym/REAPER-EEL-Scripts/Display selected tracks and takes color in the console.eel
  * Licence: GPL v3
  * Forum Thread: Script: Display selected tracks and takes color in the console
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1480557#post1480557
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1480557#post1480557
  * Version: 1.0
  * Version Date: 2015-15-02
  * REAPER: 4.76

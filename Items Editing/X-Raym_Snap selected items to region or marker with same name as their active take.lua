@@ -4,13 +4,13 @@
  * Instructions: Have regions or markers.
  * Screenshot: http://i.giphy.com/xTiTntThSvTeIV8gsE.gif
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Editing (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=163363
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
  * Extensions: None
  --]]

@@ -3,14 +3,14 @@
  * Description: Export item's note selection (or on selected track) as offset by edit cursor time SRT subtitles
  * Instructions: Select at least one item or one track with items that you want to export. You can select items accross multiple tracks. Note that the initial cursor position is very important 
  * Authors: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Version: 1.0
  * Repository: X-Raym/REAPER-ReaScripts
- * Repository URl: https://github.com/X-Raym/REAPER-ReaScripts
- * File URl: 
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
+ * File URI: 
  * License: GPL v3
  * Forum Thread: Lua Script: Export/Import subtitles SubRip SRT format
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1495841#post1495841
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1495841#post1495841
  * REAPER: 5.0
  * Extensions: SWS 2.8.1
 ]]

@@ -4,13 +4,13 @@
  * Instructions: Touch an FX param. Run.
  * Screenshot : http://i.giphy.com/l41lY1RKDcgF7ibkY.gif
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts: FX Param Values (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=164796
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=164796
  * REAPER: 5.0 RC 14b
  * Extensions: None
  --]]

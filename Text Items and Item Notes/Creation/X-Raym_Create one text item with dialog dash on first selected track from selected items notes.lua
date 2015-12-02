@@ -3,13 +3,13 @@
  * Description: This was created as a "glue empty items concatenating their notes and adding dialog dash", but this version works with a destination track, all kind of items, and preserve original selection
  * Instructions: Select a destination track. Select items. Execute. You can use it in Custom Action with the Delete selected items action.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Scripts (LUA): Create Text Items Actions (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.7.3 #0
  --]]

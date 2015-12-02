@@ -5,13 +5,13 @@
  * Notes : Only work if take rate is 1. SWS issue.
  * Screenshot: http://i.giphy.com/l41m5L3XNjRhjDyww.gif
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: http://i.giphy.com/l41m5L3XNjRhjDyww.gif
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: http://i.giphy.com/l41m5L3XNjRhjDyww.gif
  * Licence: GPL v3
  * Forum Thread: REQ: Snap stretch marker closest to mouse cursor to grid
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=166702
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166702
  * REAPER: 5.0
  * Extensions: SWS 2.8.0
  --]]

@@ -3,13 +3,13 @@
  * Description: A way to temporary unlock an item.
  * Instructions: Select item. Run. Wait.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: unlock for a given time
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=162188
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=162188
  * REAPER: 5.0 pre 15
  * Extensions: None
  --]]

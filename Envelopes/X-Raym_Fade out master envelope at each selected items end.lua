@@ -3,13 +3,13 @@
  * Description: Create points at selected items position, end and end minus offset. Original value are keept except for the last one which goes -inf.
  * Instructions: Display master volume envelope. Write positive or negative value in the user input field.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: 
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: 
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Scripts for Layering
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=159961
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
  * REAPER: 5.0 pre 36
  * Extensions: None
 ]]

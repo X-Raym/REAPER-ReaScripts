@@ -4,13 +4,13 @@
  * Instructions: Run
  * Screenshot: http://i.giphy.com/3o85xpylrlY7MPzmo0.gif
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread:   EEL: Clock (shows project time)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=155542
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
  * REAPER: 5.0
  * Extensions: None
  --]]

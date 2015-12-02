@@ -3,13 +3,13 @@
  * Description: Use this action on text items. It will merge them in one item only, from first item position to last one end, preserving all notes one under the other. This works for each tracks.
  * Instructions: Select items. Execute.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts (LUA): Create Text Items Actions (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.7.3 #0
  --]]

@@ -3,13 +3,13 @@
  * Description: A way to delete multiple points across different envelopes and tracks.
  * Instructions: Make a selection area or no. Select track with visible armed envelope or no. Execute the script.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Scripts (Lua): Multiple Tracks and Multiple Envelope Operations
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=157483
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0 RC5
  * Extensions: SWS 2.7.3 #0
  --]]

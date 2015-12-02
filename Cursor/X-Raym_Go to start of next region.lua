@@ -3,13 +3,13 @@
  * Description: Move edit or play cursor to next region. Move view and seek play.
  * Instructions: Place edit cursor inside a region. Use it.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts: Transport (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1601342
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1601342
  * REAPER: 5.0
  * Extensions: None
 --]]

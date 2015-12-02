@@ -3,13 +3,13 @@
  * Description: Quantize to frame grid. Nice for subtitles.
  * Instructions: You may consider selecting your items and using SWS/FNG Clean selected overlapping items on same track after that
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
+ * Forum Thread URI: http://forum.cockos.com/***.html
  * REAPER: 5 pre 28
  * Extensions: SWS/S&M 2.7.1
  --]]

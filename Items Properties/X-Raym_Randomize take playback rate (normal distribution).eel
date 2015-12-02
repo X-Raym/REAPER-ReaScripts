@@ -3,13 +3,13 @@
  * Description: Randomize take playback rate from snap offset, with fade length ratio preservation. Customization of the randomization have to be edited int he script itself.
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts (EEL): Randomize Take Playback Rate
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1520462
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1520462
  * REAPER: 4.76
  * Extensions: None
  */
@@ -28,7 +28,7 @@
 // and EEL: Pan active takes randomly (in selected items) > #09
 
 // Normal distribution approximation : Generating Normal (Gaussian) Distributed Random Number
-// Normal distribution approximation URl : http://www.protonfish.com/random.shtml
+// Normal distribution approximation URI : http://www.protonfish.com/random.shtml
 
 // User Edit Area ////////////////////////////////////////////////////////////////
 mean = 1; // range = 0 to 10

@@ -3,13 +3,13 @@
  * Description: A way to expand items in selection without moving their synch point, determined by snap offset and content at snap offset. Rate is calculated from snap offset of item under mouse and edit cursor distance.
  * Instructions: Place edit cursor. mouse over an item. Run with keyboard shortcut. If item under mouse has snap = 0, then it put item pos at edit cursor, and put all other item with snap = 0 to edit cursor, with the same rate transformation
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts (EEL): Randomize Take Playback Rate
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1520462
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1520462
  * REAPER: 5 pre 28
  * Extensions: SWS 2.6.4 #0
  */

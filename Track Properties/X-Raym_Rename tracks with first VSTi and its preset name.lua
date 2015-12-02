@@ -4,13 +4,13 @@
  * Instructions: Select tracks. Run.
  * Screenshot: http://i.giphy.com/l41lMgnQVFZp2qfjW.gif
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: Video & Sound Editors Will Really Like This
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1539710
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1539710
  * Extensions: None
  --]]
  

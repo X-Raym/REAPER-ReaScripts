@@ -2,13 +2,13 @@
  * ReaScript Name: Display selected track pan compensated by width
  * Description: Display selected track pan multiplied by width
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Script: Display selected track pan compensated by width
- * Forum Thread URl:
+ * Forum Thread URI:
  * Version: 0.9
  * Version Date: 2015-02-18
  * REAPER: 4.76

@@ -2,13 +2,13 @@
  * ReaScript Name: Trim MIDI note under mouse end to edit cursor and ripple edit
  * Description: 
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: 
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: 
  * Licence: GPL v3
  * Forum Thread: ReaScript: 
- * Forum Thread URl: 
+ * Forum Thread URI: 
  * REAPER: 5.0 pre 32
  * Extensions: SWS 2.7.1 #0
 ]]

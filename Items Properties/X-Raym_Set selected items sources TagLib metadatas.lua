@@ -3,13 +3,13 @@
  * Description: Select Items. Run. DOn't forget to unselect the source items in media explorer.'
  * Instructions: Don't use ",". Two commands /del and /keep and /name and /notes. Note that if selected share same sources, the last item of the selection will erase the metadatas written for the other. COnsider Glueing items idependently (cf Breeder Advanced Glue scripts).
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Scripts: TagLib (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1534071
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1534071
  * REAPER: 5.0 pre 15
  * Extensions: None
  --]]

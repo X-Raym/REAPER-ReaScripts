@@ -3,13 +3,13 @@
  * Description: This script contains fonctions to be embed in other scripts, for displaying all king of text and variables values in the console.
  * Instructions: Copy the DEBUGGING part of this script inside of your header, and put this functions file in the same folder of your script.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: EEL : Console debug messages 
- * Forum Thread URl: http://forum.cockos.com/showthread.phpthent=153452
+ * Forum Thread URI: http://forum.cockos.com/showthread.phpthent=153452
  * Version: 1.7
  * Version Date: 2015-02-24
  * REAPER: 5.0 pre 14

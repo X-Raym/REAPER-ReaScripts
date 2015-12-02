@@ -3,13 +3,13 @@
  * Description: A template script for running in background REAPER ReaScript, with toolbar button ON/OFF state.
  * Instructions: Run.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Toolbar button toggle state for script actions?
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=164034
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=164034
  * REAPER: 5.0
  * Extensions: None
  --]]

@@ -3,13 +3,13 @@
  * Description: A way to select items based on color sample.
  * Instructions: Mouse over a colored item, track, regions or marker. Run with a keyboard shortcut. If you don't run from a keyboard shortcut, it will sample color from first selected item. 
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Set selected tracks, items and takes color from mouse context
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=158358
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=158358
  * REAPER: 5.0 pre 21
  * Extensions: SWS/S&M 2.6.3 #0
  --]]

@@ -3,13 +3,13 @@
  * Description: Add all items on selected track into item selection
  * Instructions: Select tracks. Use it.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: ReaScript: Select all items on selected tracks
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1489411
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1489411
  * Version: 1.0
  * Version Date: 2015-02-27
  * REAPER: 5.0 pre 11

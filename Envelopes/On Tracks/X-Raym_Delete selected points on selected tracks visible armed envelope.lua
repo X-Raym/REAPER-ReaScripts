@@ -3,13 +3,13 @@
  * Description:Delete selected points on selected tracks visible armed envelope
  * Instructions: Select points across envelopes and tracks. Execute the script. Selected points on visible armed track will be deleted.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: 
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: 
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487882#post1487882
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
  * REAPER: 5.0 pre 9
  * Extensions: SWS 2.6.3 #0
 ]]

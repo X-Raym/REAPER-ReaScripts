@@ -3,13 +3,13 @@
  * Description: Convert selected item notes to take name
  * Instructions: Select an item. Use it.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
+ * Forum Thread URI: http://forum.cockos.com/***.html
  * Version: v1.1
  * Version Date: 2015-03-25
  * REAPER: 5.0 pre 15

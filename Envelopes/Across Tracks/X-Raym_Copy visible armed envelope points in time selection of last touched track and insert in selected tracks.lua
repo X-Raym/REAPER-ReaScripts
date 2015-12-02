@@ -3,13 +3,13 @@
  * Description: A way to copy paste envelope sections across tracks.
  * Instructions: Make a track selection. Touch a track. Have sure you have source and destination envelope armed and visible. It will copy point from source to destination if envelope name match. It will preserve value at time selection edges.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1497832#post1497832
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1497832#post1497832
  * REAPER: 5.0 pre 18b
  * Extensions: None
  --]]

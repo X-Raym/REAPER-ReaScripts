@@ -3,13 +3,13 @@
  * Description: Toggle reverse of seleted items, preserving relative (from item start) snap offset position.
  * Instructions: Select items with take. Run.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Shuffle Items
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1524014
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1524014
  * REAPER: 5.0 pre 15
  * Extensions: None
  --]]

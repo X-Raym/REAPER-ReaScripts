@@ -3,13 +3,13 @@
  * Description: A way to copy paste color value bewteen elements.
  * Instructions: Select tracks and items. Mouse over tracks in TCP/MCP or over items/takes. Run with a keyboard shortcut.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: 
- * Forum Thread URl: 
+ * Forum Thread URI: 
  * REAPER: 5.0 pre 21
  * Extensions: SWS/S&M 2.6.3 #0
  --]]

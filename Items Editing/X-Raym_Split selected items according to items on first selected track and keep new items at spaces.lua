@@ -3,13 +3,13 @@
  * Description: A script designed for spliting an ambiance sound to put between dialog items
  * Instructions: Select an item. Select a track. The item will be split according to the item starts and item ends on track. If you want to do it on multiple tracks, or if you have overlaping items on your dialog, you create an other track, select dialog items, and use the script X-Raym_Create text items on first selected track from selected items notes.lua following by X-Raym_Merge overlapping similar text items on first selected track.lua
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Script name
- * Forum Thread URl: http://forum.cockos.com/***.html
+ * Forum Thread URI: http://forum.cockos.com/***.html
  * REAPER: 5.0 pre 15
  * Extensions: None
  --]]

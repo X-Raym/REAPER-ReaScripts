@@ -3,14 +3,14 @@
  * Description: This script will help you randomize envelope point value.
  * Instructions: Execute the script. Select envelope point. Click and drag on Randomize.
  * Authors: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Version: 1.0
  * Repository: X-Raym/REAPER-ReaScripts
- * Repository URl: https://github.com/X-Raym/REAPER-ReaScripts
- * File URl: 
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
+ * File URI: 
  * License: GPL v3
  * Forum Thread: v5.0pre - New ReaScript functions/IDE testing - Page 8
- * Forum Thread URl: http://forum.cockos.com/showpost.php?p=1495481&postcount=284
+ * Forum Thread URI: http://forum.cockos.com/showpost.php?p=1495481&postcount=284
  * Version: 1.0
  * Version Date: 2015-03-13
  * REAPER: 5.0 pre 9

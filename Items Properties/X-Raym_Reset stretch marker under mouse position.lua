@@ -5,13 +5,13 @@
  * Notes : Only work if take rate is 1. SWS issue.
  * Screenshot:
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: REQ: Reset stretch markers value
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=165774
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=165774
  * REAPER: 5.0
  * Extensions: SWS 2.8.0
  --]]

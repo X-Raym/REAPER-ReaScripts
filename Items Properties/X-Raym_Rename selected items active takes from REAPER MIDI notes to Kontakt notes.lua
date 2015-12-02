@@ -3,13 +3,13 @@
  * Description: Use this after the X-Raym_Analyse pitch of items on selected tracks and commit as item notes.lua script.
  * Instructions: Select items. Run.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: 
- * Forum Thread URl: 
+ * Forum Thread URI: 
  * REAPER: 5.0
  * Extensions: None
  --]]

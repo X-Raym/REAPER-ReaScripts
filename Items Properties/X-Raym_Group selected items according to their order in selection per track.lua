@@ -3,13 +3,13 @@
  * Description: Select item. Run. It will group and colorize item based on their position in selection per track (firsts selected items on selected track together, seconds together etc...)
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Shuffle Items
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=159961
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
  * REAPER: 5.0 pre 15
  * Extensions: None
  --]]

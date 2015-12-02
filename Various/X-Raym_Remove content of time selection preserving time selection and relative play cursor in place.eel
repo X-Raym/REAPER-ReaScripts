@@ -2,13 +2,13 @@
  * Remove content of time selection preserving time sleection and relative play cursor in place
  * Description:
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * Source URl: https://github.com/X-Raym/REAPER-EEL-Scripts/Display selected tracks and takes color in the console.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Source URI: https://github.com/X-Raym/REAPER-EEL-Scripts/Display selected tracks and takes color in the console.eel
  * Licence: GPL v3
  * Forum Thread: 
- * Forum Thread URl: 
+ * Forum Thread URI: 
  * REAPER: 4.76
  */
  

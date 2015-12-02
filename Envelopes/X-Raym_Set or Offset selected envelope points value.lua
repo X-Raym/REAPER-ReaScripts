@@ -3,13 +3,13 @@
  * Description: A pop up to let you put offset values for selected item points. 
  * Instructions: Write values you want. Use "+" sign for relative value (the value is added to the original), no sign for absolute Exemple: -6 is absolute, or +-6 is relative. Don't use percentage. Example: writte "60" for 60%. You can customize default behavior (relative or absolute mod and prefix character) in the User Area of this script.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: 
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: 
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1487882#post1487882
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
  * REAPER: 5.0 pre 9
  * Extensions: None
 ]]

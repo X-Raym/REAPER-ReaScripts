@@ -3,13 +3,13 @@
  * Description: A way to quickly rename and recolor tracks in a REAPER project created by Vordio from a Premiere Pro project. Note that track recogbnition is based on track name, so try to avoid track name that contains a premiere pro label ID, if you don't wont them to be renamed/colorized.
  * Instructions: Edit the User Area part of the script if you want to change the default naming and colors. Run.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: Video & Sound Editors Will Really Like This
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1539710
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1539710
  * Extensions: None
  --]]
  

@@ -4,13 +4,13 @@
  * Instructions: Select items. Run.
  * Screenshot: http://i.giphy.com/3oEdv3tKb0CpB7VCtq.gif
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Properties (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1574814#post1574814
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814#post1574814
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.1
  --]]

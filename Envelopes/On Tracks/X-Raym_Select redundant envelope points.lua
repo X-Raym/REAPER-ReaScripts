@@ -4,13 +4,13 @@
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Notes : Slope detection doesn't work on volume.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=157483
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0 RC5
  * Extensions: SWS 2.7.3 #0
  --]]

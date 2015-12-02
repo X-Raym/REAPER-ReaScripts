@@ -3,13 +3,13 @@
  * Description: A way to convert envelope into track parameters. Use this script for tracks in Trim/Read mode.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=157483
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0
  * Extensions: SWS 2.8.0 #0
  --]]

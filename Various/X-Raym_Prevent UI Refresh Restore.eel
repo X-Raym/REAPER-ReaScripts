@@ -5,13 +5,13 @@
  	1. Place this at a custom action end.
  	2. Don't forget to add Prevent UI Refresh.eel at the start of the custom action.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: Scripts (EEL): Prevent UI Refresh for Custom Actions
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1514689
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1514689
  * REAPER: 4.76
  * Extensions: None
  */

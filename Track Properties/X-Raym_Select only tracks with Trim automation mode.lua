@@ -3,13 +3,13 @@
  * Description: A template script for REAPER ReaScript.
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts: Track Selection (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1569551
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551
  * REAPER: 5.0
  * Extensions: None
  --]]

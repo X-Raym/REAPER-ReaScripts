@@ -3,13 +3,13 @@
  * Description: 
  * Instructions: 
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: 
- * Forum Thread URl: 
+ * Forum Thread URI: 
  * REAPER: 5.0
  * Extensions: None
  --]]

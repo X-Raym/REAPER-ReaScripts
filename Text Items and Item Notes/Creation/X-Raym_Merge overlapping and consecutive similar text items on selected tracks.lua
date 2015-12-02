@@ -3,13 +3,13 @@
  * Description: Merge overlapping similar text items on first selected tracks
  * Instructions: Select a track. Execute the script. It will work on text items only.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts (LUA): Create Text Items Actions (various)
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=156763
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.2
  --]]

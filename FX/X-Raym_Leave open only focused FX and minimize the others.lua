@@ -4,13 +4,13 @@
  * Instructions: Touch an FX param. Run.
  * Screenshot :
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl:
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
  * Licence: GPL v3
  * Forum Thread: [REQ]: minimize all FX windows but the selected or last (added) one
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=165547
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=165547
  * REAPER: 5.0 RC 14b
  * Extensions: None
  --]]

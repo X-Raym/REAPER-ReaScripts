@@ -3,13 +3,13 @@
  * Description: See title
  * Instructions: Select an item. Use it.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Lua Code Snippet: Text - String Word Wrap for GFX
- * Forum Thread URl: http://forum.cockos.com/showthread.php?t=163063
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163063
  * REAPER: 5.0 pre 36
  * Extensions: SWS/S&M 2.7.1 #0
 ]]
@@ -39,7 +39,7 @@ function read_lines(filepath)
 	required = ""
 	extensions = ""
 	thread = ""
-	thread_urls = ""
+	thread_URIs = ""
 	screenshot = ""
 	folder = ""
 	version = ""
@@ -76,11 +76,11 @@ function read_lines(filepath)
 
 			end
 
-			-- THREAD URl
-			if string.find(s,'%s%*%sForum Thread URl: ') then
+			-- THREAD URI
+			if string.find(s,'%s%*%sForum Thread URI: ') then
 
-				thread_url = tostring(s:match("Forum Thread URl: (.*)"))
-				Msg(" * Forum Thread URl: " .. thread_url)
+				thread_URI = tostring(s:match("Forum Thread URI: (.*)"))
+				Msg(" * Forum Thread URI: " .. thread_URI)
 
 			end
 
@@ -139,7 +139,7 @@ function read_lines(filepath)
 	
 	sep = "	" -- Tab
 	
-	Msg("\n\nCSV OUTPUT\n".. name .. sep .. folder .. sep .. author .. sep .. version.. sep.. version_date .. sep .. release_date .. sep .. required .. " / " .. extensions .. sep .. thread .. sep .. thread_url .. sep .. screenshot)
+	Msg("\n\nCSV OUTPUT\n".. name .. sep .. folder .. sep .. author .. sep .. version.. sep.. version_date .. sep .. release_date .. sep .. required .. " / " .. extensions .. sep .. thread .. sep .. thread_URI .. sep .. screenshot)
 	
 	Msg("\n\nFORUM OUTPUT\n".. "[b]EDIT: " .. version_date .."[/b]")
 	Msg("[List]")
