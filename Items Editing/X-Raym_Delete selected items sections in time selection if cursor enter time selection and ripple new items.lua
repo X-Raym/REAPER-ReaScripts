@@ -61,7 +61,7 @@ function main()
 				if count_selected_items > 0 then
 					reaper.PreventUIRefresh(1)
 					reaper.Main_OnCommand(40061, 0) -- Split Items at Time Selection // This action performs on all tracks if no items selected
-					reaper.Main_OnCommand( reaper.NamedCommandLookup( "_RSeae17866577002490d8a62b72bbe7f939970eb70" ), 0 ) -- Ripple Edit
+					reaper.Main_OnCommand( reaper.NamedCommandLookup( "_RSa1ea364b73053e605ddc565b0eda487f79df6ad1" ), 0 ) -- Ripple Edit
 					reaper.PreventUIRefresh(-1)
 				end
 			end
