@@ -31,17 +31,17 @@ end
  -- Set ToolBar Button ON
 function SetButtonON()
   is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
-  state = reaper.GetToggleCommandStateEx( sec, cmd );
-  reaper.SetToggleCommandState( sec, cmd, 1 ); -- Set ON
-  reaper.RefreshToolbar2( sec, cmd );
+  state = reaper.GetToggleCommandStateEx( sec, cmd )
+  reaper.SetToggleCommandState( sec, cmd, 1 ) -- Set ON
+  reaper.RefreshToolbar2( sec, cmd )
 end
 
 -- Set ToolBar Button OFF
 function SetButtonOFF()
   is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
-  state = reaper.GetToggleCommandStateEx( sec, cmd );
-  reaper.SetToggleCommandState( sec, cmd, 0 ); -- Set OFF
-  reaper.RefreshToolbar2( sec, cmd );
+  state = reaper.GetToggleCommandStateEx( sec, cmd )
+  reaper.SetToggleCommandState( sec, cmd, 0 ) -- Set OFF
+  reaper.RefreshToolbar2( sec, cmd )
 end
 
 
