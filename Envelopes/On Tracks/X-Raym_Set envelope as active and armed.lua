@@ -119,8 +119,6 @@ main() -- Execute your main function
 
 reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
-reaper.UpdateArrange() -- Update the arrangement (often needed)
-
 --msg_end() -- Display characters in the console to show you the end of the script execution.
 
 -- Update the TCP envelope value at edit cursor position
@@ -141,3 +139,9 @@ function HedaRedrawHack()
 	
 end
 HedaRedrawHack()
+
+-- Update TCP
+reaper.TrackList_AdjustWindows(false)
+reaper.UpdateTimeline()
+
+reaper.UpdateArrange()
