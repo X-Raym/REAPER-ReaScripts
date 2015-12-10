@@ -17,9 +17,24 @@
  
 --[[
  * Changelog:
+ * v1.1 (2015-12-10)
+  + User Config Area
  * v1.0 (2015-10-08)
   + Initial Release
  --]]
+ 
+-- USER CONFIG AREA ---------------------------------------------
+-- Do you want a pop up to appear ?
+popup = true -- true/false
+
+-- Define here your default variables values
+search = "word" -- % for escaping characters
+replace = "/del" -- "/del" for deletion
+truncate_start = "0"
+truncate_end = "0"
+ins_start_in = "/no" -- "/no" for no insertion, "/E" for item number in selection, "/T" for track name 
+ins_end_in = "/no" -- "/no" for no insertion, "/E" for item number in selection, "/T" for track name 
+-----------------------------------------------------------------
 
 function main()
 
@@ -74,29 +89,47 @@ sel_items_count = reaper.CountSelectedMediaItems(0)
 
 if sel_items_count > 0 then
 
-	defaultvals_csv = "0,0,0,0,/no,/no"
+	if popup == true then
 
-	retval, retvals_csv = reaper.GetUserInputs("Search & Replace", 6, "Search (% for escape char),Replace (/del for deletion),Truncate from start,Truncate from end,Insert at start (/E = Sel Num),Insert at end (/T = track name)", defaultvals_csv) 
+		defaultvals_csv = search .. "," .. replace .. "," .. truncate_start .. "," .. truncate_end .. "," .. ins_start_in .. "," .. ins_end_in
+
+		retval, retvals_csv = reaper.GetUserInputs("Search & Replace", 6, "Search (% for escape char),Replace (/del for deletion),Truncate from start,Truncate from end,Insert at start (/E = Sel Num),Insert at end (/T = track name)", defaultvals_csv) 
+			  
+		if retval then -- if user complete the fields
 		  
-	if retval then -- if user complete the fields
-	  
-	  search, replace, truncate_start, truncate_end, ins_start_in, ins_end_in = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
-	  
-	  if replace == "/del" then replace = "" end
-	  if ins_start_in == "/no" then ins_start_in = "" end
-	  if ins_end_in == "/no" then ins_end_in = "" end
+		  search, replace, truncate_start, truncate_end, ins_start_in, ins_end_in = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+		  
+		  if replace == "/del" then replace = "" end
+		  if ins_start_in == "/no" then ins_start_in = "" end
+		  if ins_end_in == "/no" then ins_end_in = "" end
 
-	  if search ~= nil then
+		  if search ~= nil then
+			
+			reaper.PreventUIRefresh(1)
+
+			main() -- Execute your main function
+
+			reaper.PreventUIRefresh(-1)
+
+			reaper.UpdateArrange() -- Update the arrangement (often needed)
+		  end
+
+		end
 		
+	else
+	
 		reaper.PreventUIRefresh(1)
+		
+		if replace == "/del" then replace = "" end
+		if ins_start_in == "/no" then ins_start_in = "" end
+		if ins_end_in == "/no" then ins_end_in = "" end
 
 		main() -- Execute your main function
 
 		reaper.PreventUIRefresh(-1)
 
 		reaper.UpdateArrange() -- Update the arrangement (often needed)
-	  end
-
+	
 	end
 	
 end
