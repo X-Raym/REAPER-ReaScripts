@@ -29,7 +29,7 @@ function main()
 	if take ~= nil then
     
 		window, segment, details = reaper.BR_GetMouseCursorContext()
-		retval, inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId = reaper.BR_GetMouseCursorContext_MIDI()
+		inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId = reaper.BR_GetMouseCursorContext_MIDI()
 		mouse_time = reaper.BR_GetMouseCursorContext_Position()
 		cursor_time = reaper.GetCursorPosition()
 
