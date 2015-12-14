@@ -2,7 +2,7 @@
  * ReaScript Name: Move selected items position left according to their snap offset
  * Description: 
  * Instructions: Select items. Run.
- * Screenshot: 
+ * Screenshot: http://i.giphy.com/xTka01QdCUzcfyqtna.gif
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
