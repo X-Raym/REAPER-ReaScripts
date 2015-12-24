@@ -1,3 +1,25 @@
+--[[
+ * ReaScript Name: Class
+ * Description: See title.
+ * Instructions: 
+ * Author: spk77
+ * Author URI: 
+ * Repository: 
+ * Repository URI: 
+ * File URI: 
+ * Licence: GPL v3
+ * Forum Thread: 
+ * Forum Thread URI: 
+ * REAPER: 5.0
+ * Extensions: None
+--]]
+
+--[[
+ * Changelog:
+ * v1.0 (2015-03-03)
+	+ Initial release
+--]]
+
 ------------- "class.lua" is copied from http://lua-users.org/wiki/SimpleLuaClasses -----------
 
 -- class.lua

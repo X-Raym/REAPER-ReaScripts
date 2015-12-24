@@ -1,8 +1,28 @@
-// Clock (EEL script by spk77 14.2.2015)
+/**
+ * ReaScript Name: Ripple check
+ * Description: Check the state of the ripple editing mod.
+ * Instructions: Run.
+ * Author: X-Raym
+ * Author URI: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: 
+ * Licence: GPL v3
+ * Forum Thread:  EEL: Clock (shows project time) 
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
+ * REAPER: 5.0
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-03-20)
+  + Initial release
+ */
+
+// Based on Clock (EEL script by spk77 14.2.2015)
 // Use mouse wheel to increase/decrease font size
 // Right click on window -> cycle through time formatting modes
-
-// Moded by Raym 2015-20-03
 
 // Initial values
 font_size = 40;

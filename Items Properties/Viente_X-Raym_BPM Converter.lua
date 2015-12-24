@@ -1,16 +1,28 @@
--- ------------------------------------------
--- BPM Converter v.1.05
--- Author : VIENTE
--- http://forum.cockos.com/member.php?u=42674
--- Forum: Viente's BPM Converter
--- http://forum.cockos.com/showthread.php?t=110780
+--[[
+ * ReaScript Name: BPM Converter
+ * Description: Insert FX on selected tracks. FX name is can be edited witing the script code.
+ * Instructions: Run
+ * Screenshot:
+ * Author: Viente, X-Raym
+ * Author URI: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
+ * Licence: GPL v3
+ * Forum Thread: Viente's BPM Converter
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=110780
+ * REAPER: 5.0
+ * Extensions: None
+ * Version: 1.0.6
+--]]
 
--- Mod 1.06 by X-Raym
--- 2015-05-13
--- http://extremraym.com
--- # Now in Lua
--- + Works on multiple selected items (BPM detection based on first selected item)
--- # user input "cancel" corrected
+--[[
+ * Changelog:
+ * v1.0 (2015-05-13)
+	# Now in Lua
+	+ Works on multiple selected items (BPM detection based on first selected item)
+	# user input "cancel" corrected
+--]]
 
 -- ------------------------------------------
 

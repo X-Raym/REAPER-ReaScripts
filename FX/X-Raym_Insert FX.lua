@@ -1,9 +1,20 @@
--- From Viente
--- http://forum.cockos.com/showthread.php?t=111152
-
-
--- lua conversion by X-Raym
-
+--[[
+ * ReaScript Name: Insert FX
+ * Description: Insert FX on selected tracks. FX name is can be edited witing the script code.
+ * Instructions: Run
+ * Screenshot:
+ * Author: X-Raym
+ * Author URI: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI:
+ * Licence: GPL v3
+ * Forum Thread: 
+ * Forum Thread URI: 
+ * REAPER: 5.0
+ * Extensions: None
+ * Version: 1.0
+--]]
 
 reaper.Undo_BeginBlock()
 
