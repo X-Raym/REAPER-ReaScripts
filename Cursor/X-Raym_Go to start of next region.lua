@@ -12,6 +12,7 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1601342
  * REAPER: 5.0
  * Extensions: None
+ * Version: 1.0
 --]]
  
 --[[

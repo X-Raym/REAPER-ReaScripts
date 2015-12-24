@@ -1,6 +1,7 @@
 // Pan active takes randomly (normal distr.) -> create take pan envelopes
 // NOTE: replaces all existing take pan envelopes in selected items (active takes)
 // EEL script by spk77 23.11.2014
+// Version: 0.2014.11.23
 
 @import ../../Functions/spk_slider_class.eel
 

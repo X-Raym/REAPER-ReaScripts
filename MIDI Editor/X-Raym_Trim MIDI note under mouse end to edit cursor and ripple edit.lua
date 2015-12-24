@@ -11,6 +11,7 @@
  * Forum Thread URI: 
  * REAPER: 5.0 pre 32
  * Extensions: SWS 2.7.1 #0
+ * Version: 1.0
 ]]
  
 --[[

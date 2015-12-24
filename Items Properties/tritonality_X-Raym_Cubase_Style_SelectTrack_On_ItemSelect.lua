@@ -13,7 +13,8 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=143470
  * REAPER: 5.0
  * Extensions: None
- --]]
+ * Version: 1.0
+--]]
  
 --[[
   This script is a mod of Cubase_Style_SelectTrack_On_ItemSelect.eel.js

@@ -12,7 +12,8 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=116061
  * REAPER: 5.0 pre 36
  * Extensions: None
- --]]
+ * Version: 1.0
+--]]
  
 --[[ CREDITS
   This script is an adaptation in Lua of Note Lengths at Cursor.py by michaeltonight

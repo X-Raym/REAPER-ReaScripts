@@ -11,7 +11,8 @@
  * Forum Thread: Video & Sound Editors Will Really Like This
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1539710
  * Extensions: None
- --]]
+ * Version: 1.0
+--]]
  
 --[[
  * Changelog:

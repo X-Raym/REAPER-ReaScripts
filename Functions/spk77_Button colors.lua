@@ -12,6 +12,7 @@
  * Forum Thread URI: 
  * REAPER: 5.0
  * Extensions: None
+ * Version: 1.0
 --]]
 
 --[[

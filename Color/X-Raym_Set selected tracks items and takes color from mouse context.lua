@@ -12,7 +12,8 @@
  * Forum Thread URI: 
  * REAPER: 5.0 pre 21
  * Extensions: SWS/S&M 2.6.3 #0
- --]]
+ * Version: 1.1
+--]]
  
 --[[
  * Changelog:

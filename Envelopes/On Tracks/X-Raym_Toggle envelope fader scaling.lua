@@ -12,7 +12,8 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0
  * Extensions: SWS 2.8.0 #0
- --]]
+ * Version: 1.0
+--]]
  
 --[[
  * Changelog:

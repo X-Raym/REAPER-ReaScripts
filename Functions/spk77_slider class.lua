@@ -1,3 +1,5 @@
+-- Version: 0.1
+
 require "spk77_class"
 
 --///////////////////////

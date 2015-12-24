@@ -1,6 +1,7 @@
 // Create take pitch envelope (normal distr. random points)
 // NOTE: replaces all existing take pitch envelopes in selected items (active takes)
 // EEL script by spk77 23.11.2014
+// Version: 0.2014.11.23
 
 // mod from X-Raym_Create take pitch envelope (random points - with GUI)
 // 2015-05-16
