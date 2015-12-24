@@ -14,7 +14,7 @@
  * Extensions: None
  *
  * Version: 1.0
- * Changelog: (2015-19-12)
+ * Changelog: (2015-12-19)
  *   + Initial Release
 --]]
 
