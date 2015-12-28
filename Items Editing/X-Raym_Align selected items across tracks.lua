@@ -17,7 +17,7 @@
  
 --[[
  * Changelog:
- * v1.0 (2015-05-19)
+ * v1.1 (2015-05-19)
 	+ Track under mouse as reference
  * v1.0 (2015-05-19)
 	+ Initial Release
