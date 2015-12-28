@@ -10,13 +10,15 @@
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Shuffle Items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
- * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.7.1
- * Version: 1.0
+ * REAPER: 5.0
+ * Extensions: SWS/S&M 2.8.2
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0 (2015-05-19)
+	+ Track under mouse as reference
  * v1.0 (2015-05-19)
 	+ Initial Release
  --]]
@@ -56,7 +58,19 @@ function main() -- local (i, j, item, take, track)
 	if selected_tracks >= 2 then
 		
 		-- Get the first selected track and save item selected
-		first_sel_track = reaper.GetSelectedTrack(0, 0)
+		
+		-- Get track under mouse
+		first_sel_track, context, position = reaper.BR_TrackAtMouseCursor()
+		-- If no track under mouse
+		if first_sel_track == nil then
+			first_sel_track = reaper.GetSelectedTrack(0, 0)
+		else -- track under rmouse
+			-- Check if the track is not selecyed
+			if reaper.IsTrackSelected(first_sel_track) == false then
+				first_sel_track = reaper.GetSelectedTrack(0, 0)
+			end
+		end
+		
 		first_snap_abs = {}
 		
 		for i = 0, reaper.CountTrackMediaItems(first_sel_track)-1 do
@@ -72,33 +86,37 @@ function main() -- local (i, j, item, take, track)
 		
 		end -- loop through item on first track
 		
-		-- LOOP ON SELECTED TRACKS +1
-		for i = 1, selected_tracks - 1 do
+		-- LOOP ON SELECTED TRACKS
+		for i = 0, selected_tracks - 1 do
 			
 			track = reaper.GetSelectedTrack(0, i)
-			sel_items = {} -- init table of selected items on track
+			if track ~= first_sel_track then
 			
-			for j = 0, reaper.CountTrackMediaItems(track)-1 do
-		
-				item = reaper.GetTrackMediaItem(track, j)
+				sel_items = {} -- init table of selected items on track
+				
+				for j = 0, reaper.CountTrackMediaItems(track)-1 do
 			
-				if reaper.IsMediaItemSelected(item) == true then
+					item = reaper.GetTrackMediaItem(track, j)
+				
+					if reaper.IsMediaItemSelected(item) == true then
+						
+						table.insert(sel_items, item)
+				
+					end -- end if item on first track is selected
+			
+				end -- loop through item on first track
+				
+				-- LOOP THROUGH SAVE ITEMS ON TRACKS
+				for k = 1, #first_snap_abs do
 					
-					table.insert(sel_items, item)
-			
-				end -- end if item on first track is selected
-		
-			end -- loop through item on first track
-			
-			-- LOOP THROUGH SAVE ITEMS ON TRACKS
-			for k = 1, #first_snap_abs do
+					item = sel_items[k]
+					
+					if item ~= nil then
+						reaper.SetMediaItemInfo_Value(sel_items[k], "D_POSITION", first_snap_abs[k] - reaper.GetMediaItemInfo_Value(sel_items[k], "D_SNAPOFFSET"))
+					end
 				
-				item = sel_items[k]
-				
-				if item ~= nil then
-					reaper.SetMediaItemInfo_Value(sel_items[k], "D_POSITION", first_snap_abs[k] - reaper.GetMediaItemInfo_Value(sel_items[k], "D_SNAPOFFSET"))
 				end
-			
+				
 			end
 		
 		end -- loop tracks with selected items
