@@ -23,7 +23,7 @@
    + Initial release
  --]]
 
-console = true
+console = false
 function Msg(variable)
   if console == true then
     reaper.ShowConsoleMsg(tostring(variable).."\n")
@@ -93,7 +93,7 @@ function main()
   for key, min_pos in pairs(groups) do
     index, closest_grid = NearestValue(regions_start, min_pos)
     offset = closest_grid - min_pos
-    Msg(closest_grid .. "-" .. min_pos .. "=" .. "offset")
+    --Msg(closest_grid .. "-" .. min_pos .. "=" .. "offset")
     offsets[key] = offset
   end
   
