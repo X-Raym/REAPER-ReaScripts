@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Set selected audio takes max peak value by columns according to first track with selected items
+ * ReaScript Name: Set selected audio takes gain by columns according to takes average RMS
  * Description: Select audio takes on multile tracks. Run.
  * Instructions: Here is how to use it. (optional)
  * Screenshot: http://i.giphy.com/3o8doXnw0QskX4o1EI.gif
@@ -12,7 +12,7 @@
  * Forum Thread: REQ: Copy & Paste Peak/RMS values of items to different items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
- * Extensions: spk77_Get take RMS.lua
+ * Extensions: spk77_Get max peak val and pos from take_function.lua
  --]]
  
 --[[
@@ -41,7 +41,7 @@ else
   package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
 end
 
-require("spk77_Get max peak val and pos from take_function")
+require("spk77_Get take RMS")
 -- <==== DEBUGGING -----
 
 -- INIT
@@ -151,6 +151,17 @@ function MaxValTable(table)
 	return max_val
 
 end
+
+-------------------------------------------------------------
+function Average(matrix)
+  local sum = 0
+  for i, cell in ipairs(matrix) do
+    sum = sum + cell
+  end
+  sum = sum / #matrix
+  return sum
+end
+
 -------------------------------------------------------------
 function debug(table)
 	
@@ -163,6 +174,7 @@ function debug(table)
 	return max_val
 
 end
+
 -------
 function Msg(variable)
 	if console == true then
@@ -228,16 +240,19 @@ function main() -- local (i, j, item, take, track)
 					if retval then
 					
 						--[[ REFERENCE
-						retval, maximum peak value, maximum peak pos = get_sample_max_val_and_pos(MediaItem_Take, bool adj_for_take_vol, bool adj_for_item_vol, bool val_is_dB)
+						RMS_table = get_average_rms(MediaItem_Take, bool adj_for_take_vol, bool adj_for_item_vol, bool adj_for_take_pan, bool val_is_dB)
+						Returns a table (RMS values from each channel in an array)
 						--]]
 						
-						retval, peak_values, peak_pos = get_sample_max_val_and_pos( source_take, true, true, true )
-						Msg("Source Peak: " .. peak_values)
+						rms_source = get_average_rms( source_take, true, true, true, true )
+						average_rms_source = Average(rms_source)
+						Msg("Average Source RMS: " .. average_rms_source)
 						
-						retval2, peak_values_dest, peak_pos_dest = get_sample_max_val_and_pos( take, true, true, true )						
-						Msg("Dest Peak: " .. peak_values_dest)
+						rms_dest = get_average_rms( take, true, true, true, true )						
+						average_rms_dest = Average(rms_dest)
+						Msg("Average Dest RMS: " .. average_rms_dest)
 						
-						db_diff = peak_values - peak_values_dest
+						db_diff = average_rms_source - average_rms_dest
 						Msg("dB diff: " ..db_diff)
 						
 						item_vol = reaper.GetMediaItemInfo_Value(item, "D_VOL")
@@ -258,7 +273,7 @@ function main() -- local (i, j, item, take, track)
 	end
 	
 
-	reaper.Undo_EndBlock("Set selected audio takes max peak value by columns according to first track with selected items", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Set selected audio takes gain by columns according to takes average RMS", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -315,10 +330,8 @@ if count_sel_tems > 2 then
 
 	SaveSelectedItems(init_sel_items)
 	SaveSelectedTracks(init_sel_tracks)
-	
-	if console == true then
-		reaper.ClearConsole()
-	end
+
+	reaper.ClearConsole()
 	main() -- Execute your main function
 
 	RestoreSelectedItems(init_sel_items)
