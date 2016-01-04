@@ -92,7 +92,7 @@ function main() -- local (i, j, item, take, track)
   end
 
 if prompt == true then
-  retval, interval = reaper.GetUserInputs("Insert CC Events", 1, "Number of Events to insert?", interval)
+  retval, interval = reaper.GetUserInputs("Insert CC Events", 1, "Number of intverals between notes?", interval)
 end
 
 if retval or prompt == false then -- if user complete the fields
