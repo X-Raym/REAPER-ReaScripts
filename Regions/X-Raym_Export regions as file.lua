@@ -157,28 +157,6 @@ function main() -- local (i, j, item, take, track)
 end -- ENDFUNCTION MAIN
 
 
-
-----------------------------------------------------------------
--- MAIN FUNCTION
--- -------------
-
--- SAVE INITIAL SELECTED ITEMS
-function SaveSelectedItems (table)
-	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
-		table[i+1] = reaper.GetSelectedMediaItem(0, i)
-	end
-end
-
--- RESTORE INITIAL SELECTED ITEMS
-function RestoreSelectedItems (table)
-	reaper.SelectAllMediaItems(0, false) -- Unselect all items
-	for _, item in ipairs(table) do
-		reaper.SetMediaItemSelected(item, true)
-	end
-end
-
-
-
 ----------------------------------------------------------------------
 -- RUN
 -- ---
