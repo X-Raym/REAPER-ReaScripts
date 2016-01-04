@@ -3,13 +3,13 @@
  * Description: See title.
  * Instructions: Save project. Have regions. Run.
  * Author: X-Raym
- * Author URl: http://extremraym.com
+ * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URl: 
  * Licence: GPL v3
  * Forum Thread: Export regions as file
- * Forum Thread URl: http://forum.cockos.com/showthread.php?p=1617036&posted=1#post1617036
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
  * Extensions: None
  * Version: 1.0
@@ -17,7 +17,7 @@
 
 --[[
  * Changelog:
- * v1.0 (2015-04-01)
+ * v1.0 (2016-04-01)
 	+ Initial Release
  --]]
 
