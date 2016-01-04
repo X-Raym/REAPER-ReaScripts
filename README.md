@@ -29,6 +29,7 @@ If you want download scripts on this repo anyway:
 - [HeDa](http://forum.cockos.com/member.php?u=47822)
 - [FnA](http://forum.cockos.com/member.php?u=47920)
 - [mpl](http://forum.cockos.com/member.php?u=70694)
+- [timatkins](http://www.iamtimatkins.com)
 
 ##Helpers
 - [Breeder](http://forum.cockos.com/member.php?u=27094)
