@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.2
- * Version: 1.1
+ * Version: 1.2
 --]]
  
 --[[
  * Changelog:
+ * v1.2 (2016-01-05)
+	+ Preserve grouping if groups active. Treat first selected item (in position) in each group as group leader (other are ignored during the alignement).
  * v1.1 (2015-12-28)
 	+ Track under mouse as reference
  * v1.0 (2015-05-19)
@@ -24,28 +26,65 @@
  --]]
 
 -- ----- DEBUGGING ====>
---[[
-local info = debug.getinfo(1,'S');
+reselect_groups = true
+-- <==== DEBUGGING -----
 
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
+function Msg(variable)
+    reaper.ShowConsoleMsg(tostring(variable).."\n")
 end
 
-require("X-Raym_Functions - console debug messages")
 
 
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+function KeepSelOnlyFirstItemInGroups()
+	
+	-- Count Sel Items (maybe it is already in GLobal variable)
+	if count_sel_items == nil then
+		count_sel_items = reaper.CountSelectedMediaItems(0)
+	end
 
-msg_clean()
-]]
--- <==== DEBUGGING -----
+	groups = {} -- Table to store groups infos (min item and min pos)
+	unselect = {} -- Table to store items to unselect after
+
+	-- Loop in Sel Items
+	for i = 0, count_sel_items - 1 do
+	  item = reaper.GetSelectedMediaItem(0, i)
+	  
+	  -- Check Group
+	  group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
+	  if group > 0 then
+	  
+		pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+		-- If group is new, then create one
+		if groups[group] == nil then
+
+			groups[group]={}
+
+			groups[group].item = item -- Min item of the group
+			groups[group].pos = pos -- Min item pos of the group
+
+			else -- if group exists in table, check item pos against min group item pos
+			
+				if pos < groups[group].pos then -- unselect previous item and set new one as reference
+					table.insert(unselect, groups[group].item)
+					groups[group].item = item
+					groups[group].pos = pos
+				else -- unselect the current item
+					table.insert(unselect, item)
+				end
+
+			end
+
+		end -- END IF GROUP (no else)
+
+	end -- END LOOP sel items
+	
+	-- Unselect Items
+	for i, item in ipairs(unselect) do
+	  reaper.SetMediaItemSelected(item, false)
+	end
+
+
+end -- End of KeepSelOnlyFirstItemInGroups()
 
 function main() -- local (i, j, item, take, track)
 
@@ -112,7 +151,18 @@ function main() -- local (i, j, item, take, track)
 					item = sel_items[k]
 					
 					if item ~= nil then
+						
+						item_abs_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 						reaper.SetMediaItemInfo_Value(sel_items[k], "D_POSITION", first_snap_abs[k] - reaper.GetMediaItemInfo_Value(sel_items[k], "D_SNAPOFFSET"))
+						offset = reaper.GetMediaItemInfo_Value(item, "D_POSITION") - item_abs_pos
+						
+						if group_state == 1 then
+							-- Check Group
+							group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
+							if group > 0 then
+								groups[group].offset = offset
+							end
+						end
 					end
 				
 				end
@@ -120,6 +170,35 @@ function main() -- local (i, j, item, take, track)
 			end
 		
 		end -- loop tracks with selected items
+		
+		if group_state == 1 then
+			-- Loop all items in table (cause they will move)
+			all_items = {}
+			for i = 0, reaper.CountMediaItems(0) - 1 do
+				item = reaper.GetMediaItem(0, i)
+				table.insert(all_items, item)
+			end
+			-- Loop in all items
+			for i, item in ipairs(all_items) do
+				-- Check Group
+				group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
+				if group > 0 then
+					if reaper.IsMediaItemSelected(item) == false then
+						if groups[group] ~= nil then -- if it was in the initial selection and if it has an offset
+							pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+							reaper.SetMediaItemInfo_Value(item, "D_POSITION", pos + groups[group].offset)
+						end
+					end
+				end
+			end
+			
+			if reselect_groups == true then
+				-- Unselect Items
+				for i, item in ipairs(unselect) do
+				  reaper.SetMediaItemSelected(item, true)
+				end
+			end
+		end
 		
 	end -- more than two tracks selected
 
@@ -155,15 +234,16 @@ end
 
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
-
-
-
---msg_start() -- Display characters in the console to show you the begining of the script execution.
-
+-- INIT
 reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 
 SaveSelectedTracks(init_sel_tracks)
 
+group_state = reaper.GetToggleCommandState(1156, 0);
+
+if group_state == 1 then
+	KeepSelOnlyFirstItemInGroups()
+end
 main() -- Execute your main function
 
 RestoreSelectedTracks(init_sel_tracks)
@@ -171,5 +251,3 @@ RestoreSelectedTracks(init_sel_tracks)
 reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
-
---msg_end() -- Display characters in the console to show you the end of the script execution.

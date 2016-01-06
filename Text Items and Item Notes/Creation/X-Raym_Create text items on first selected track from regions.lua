@@ -29,23 +29,6 @@
 	+ Initial Release
  --]]
 
---[[ ----- DEBUGGING ====>
-function get_script_path()
-  if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
-    return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
-  end
-    return debug.getinfo(1,'S').source:match("(.*".."/"..")"):sub(2)
-end
-
-package.path = package.path .. ";" .. get_script_path() .. "?.lua"
-require("X-Raym_Functions - console debug messages")
-
-debug = 0 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 0 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
---msg_clean()
-]]-- <==== DEBUGGING -----
-
 function CreateTextItem(starttime, endtime, notetext, color) 
 	--ref: Lua: number startOut retval, number endOut reaper.GetSet_LoopTimeRange(boolean isSet, boolean isLoop, number startOut, number endOut, boolean allowautoseek)
 	reaper.GetSet_LoopTimeRange(1,0,starttime,endtime,0) -- define the time range for the empty item
