@@ -13,12 +13,14 @@
  * Forum Thread: REQ: Snap stretch marker closest to mouse cursor to grid
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166702
  * REAPER: 5.0
- * Extensions: SWS 2.8.0
- * Version: 1.0
+ * Extensions: SWS 2.8.3
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2016-01-11)
+	+ Initial Release
  * v1.0 (2015-09-23)
 	+ Initial Release
  --]]
@@ -47,7 +49,11 @@ function main() -- local (i, j, item, take, track)
 				
 			idx = reaper.BR_GetMouseCursorContext_StretchMarker()
 			
+			idx = reaper.BR_GetMouseCursorContext_StretchMarker()
+			
 			if idx ~= nil then
+			
+				reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 	
 				idx, strech_pos, srcpos = reaper.GetTakeStretchMarker(take, idx)
 				
@@ -61,6 +67,8 @@ function main() -- local (i, j, item, take, track)
 				srcpos = (reaper.BR_GetClosestGridDivision(strech_pos+item_pos) - item_pos)*rate
 				
 				reaper.SetTakeStretchMarker(take, idx, srcpos)
+				
+				reaper.Undo_EndBlock("Snap stretch marker under mouse to closest grid line", -1) -- End of the undo block. Leave it at the bottom of your main function.
 			
 			end
 			
