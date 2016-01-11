@@ -9,8 +9,8 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URI: 
  * Licence: GPL v3
- * Forum Thread: 
- * Forum Thread URI: 
+ * Forum Thread: Lua: Move selected items preserving groups timing relative positions
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1620740
  * REAPER: 5.0
  * Extensions: None
  * Version: 1.0
@@ -167,21 +167,26 @@ function Main()
 	sel_items = {}
 	SaveSelectedItems(sel_items)
 	
-	-- LOOP THROUGH SELECTED ITEMS ON TRACKS
+	-- LOOP THROUGH SELECTED ITEMS
 	for i, item in ipairs(sel_items) do
 		
 		-- Store Initial Pos
 		item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+		
+		-- Snap Offset
+		-- item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
+		item_snap = 0 -- In this script template, because dest_pos = 0, item_snap doesn't matter.
 
 		 -- Transformation
-		reaper.SetMediaItemInfo_Value(item, "D_POSITION", dest_pos)
+		reaper.SetMediaItemInfo_Value(item, "D_POSITION", dest_pos - item_snap)
 		
 		-- Store offset in a table
 		StoreOffsetInGroups(item, item_pos)
 		
-	end
+	end -- END LOOP selected items
 
-end
+end -- END FUNCTION ain()
+
 
 -------------------------------------------------------------------------------------------------------------		
 -- INIT
