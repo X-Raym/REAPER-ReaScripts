@@ -1,51 +1,85 @@
 --[[
  * ReaScript Name: Shuffle order of selected items keeping snap offset positions and parent tracks
- * Description: A template script for REAPER ReaScript.
- * Instructions: Here is how to use it. (optional)
+ * Description: See title.
+ * Instructions: Select items. Run.
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * File URI: 
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URI: http://forum.cockos.com/***.html
- * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.7.1 (optional)
- * Version: 1.0
+ * Forum Thread: Script (Lua): Shuffle Items
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
+ * REAPER: 5.0
+ * Extensions: SWS/S&M 2.8.2.
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2016-01-07)
+	+ Preserve grouping if groups active. Treat first selected item (in position) in each group as group leader (other are ignored during the alignement).
  * v1.0 (2015-05-11)
 	+ Initial Release
  --]]
-
---[[ ----- DEBUGGING ====>
-local info = debug.getinfo(1,'S');
-
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
-end
-
-require("X-Raym_Functions - console debug messages")
+ 
+-- ----- DEBUGGING ====>
+reselect_groups = true
+-- <==== DEBUGGING -----
 
 
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+-- FUNCTION TO EXECUTE BEFORE MAIN LOOPS
+function KeepSelOnlyFirstItemInGroups()
+	
+	-- Count Sel Items (maybe it is already in GLobal variable)
+	if count_sel_items == nil then
+		count_sel_items = reaper.CountSelectedMediaItems(0)
+	end
 
-msg_clean()
-]]-- <==== DEBUGGING -----
+	groups = {} -- Table to store groups infos (min item and min pos)
+	unselect = {} -- Table to store items to unselect after
 
--- INIT
-parent_tracks = {}
-t = {}
+	-- Loop in Sel Items
+	for i = 0, count_sel_items - 1 do
+	  local item = reaper.GetSelectedMediaItem(0, i)
+	  
+	  -- Check Group
+	  local group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
+	  if group > 0 then
+	  
+		local pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+		-- If group is new, then create one
+		if groups[group] == nil then
+
+			groups[group]={}
+
+			groups[group].item = item -- Min item of the group
+			groups[group].pos = pos -- Min item pos of the group
+
+			else -- if group exists in table, check item pos against min group item pos
+			
+				if pos < groups[group].pos then -- unselect previous item and set new one as reference
+					table.insert(unselect, groups[group].item)
+					groups[group].item = item
+					groups[group].pos = pos
+				else -- unselect the current item
+					table.insert(unselect, item)
+				end
+
+			end
+
+		end -- END IF GROUP (no else)
+
+	end -- END LOOP sel items
+	
+	-- Unselect Items
+	for i, item in ipairs(unselect) do
+	  reaper.SetMediaItemSelected(item, false)
+	end
+
+
+end -- End of KeepSelOnlyFirstItemInGroups()
+
 
 -- SHUFFLE TABLE FUNCTION
 -- from Tutorial: How to Shuffle Table Items by Rob Miracle
@@ -111,7 +145,7 @@ function main() -- local (i, j, item, take, track)
 				sel_items_on_track[snap_sel_items_on_tracks_len] = item
 				snap_sel_items_on_track[snap_sel_items_on_tracks_len] = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET") + reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 				snap_sel_items_on_tracks_len = snap_sel_items_on_tracks_len + 1
-			end	
+			end     
 
 		end
 
@@ -126,37 +160,58 @@ function main() -- local (i, j, item, take, track)
 			
 			item = sel_items_on_track[k]
 			item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
+			item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 
 			reaper.SetMediaItemInfo_Value(item, "D_POSITION", snap_sel_items_on_track[k] - item_snap)
+			
+			offset = reaper.GetMediaItemInfo_Value(item, "D_POSITION") - item_pos
+			if group_state == 1 then
+				-- Check Group
+				group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
+				if group > 0 then
+					groups[group].offset = offset
+				end
+			end
 			
 		end
 		
 	end -- ENDLOOP through selected tracks
+	
+	if group_state == 1 then
+		-- Loop all items in table (cause they will move)
+		all_items = {}
+		for i = 0, reaper.CountMediaItems(0) - 1 do
+			item = reaper.GetMediaItem(0, i)
+			table.insert(all_items, item)
+		end
+		-- Loop in all items
+		for i, item in ipairs(all_items) do
+			-- Check Group
+			group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
+			if group > 0 then
+				if reaper.IsMediaItemSelected(item) == false then
+					if groups[group] ~= nil then -- if it was in the initial selection and if it has an offset
+						pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+						reaper.SetMediaItemInfo_Value(item, "D_POSITION", pos + groups[group].offset)
+					end
+				end
+			end
+		end
+		
+		if reselect_groups == true then
+			-- Unselect Items
+			for i, item in ipairs(unselect) do
+			  reaper.SetMediaItemSelected(item, true)
+			end
+		end
+	end
 
 	reaper.Undo_EndBlock("Shuffle order of selected items keeping snap offset positions and parent tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
 
--- The following functions may be passed as global if needed
 --[[ ----- INITIAL SAVE AND RESTORE ====> ]]
-
--- ITEMS
---[[ SAVE INITIAL SELECTED ITEMS
-init_sel_items = {}
-local function SaveSelectedItems (table)
-	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
-		table[i+1] = reaper.GetSelectedMediaItem(0, i)
-	end
-end
-
--- RESTORE INITIAL SELECTED ITEMS
-local function RestoreSelectedItems (table)
-	reaper.Main_OnCommand(40289, 0) -- Unselect all items
-	for _, item in ipairs(table) do
-		reaper.SetMediaItemSelected(item, true)
-	end
-end]]
 
 -- TRACKS
 -- UNSELECT ALL TRACKS
@@ -182,67 +237,29 @@ local function RestoreSelectedTracks (table)
 	end
 end
 
--- LOOP AND TIME SELECTION
---[[ SAVE INITIAL LOOP AND TIME SELECTION
-function SaveLoopTimesel()
-	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
-	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
+selected_items_count = reaper.CountSelectedMediaItems(0)
+
+if selected_items_count >= 2 then
+
+	-- INIT
+	parent_tracks = {}
+	t = {}
+
+	reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
+
+	SaveSelectedTracks(init_sel_tracks)
+
+	group_state = reaper.GetToggleCommandState(1156, 0)
+
+	if group_state == 1 then
+		KeepSelOnlyFirstItemInGroups()
+	end
+	main() -- Execute your main function
+
+	RestoreSelectedTracks(init_sel_tracks)
+
+	reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
+
+	reaper.UpdateArrange() -- Update the arrangement (often needed)
+	
 end
-
--- RESTORE INITIAL LOOP AND TIME SELECTION
-function RestoreLoopTimesel()
-	reaper.GetSet_LoopTimeRange(1, 0, init_start_timesel, init_end_timesel, 0)
-	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
-end]]
-
--- CURSOR
---[[ SAVE INITIAL CURSOR POS
-function SaveCursorPos()
-	init_cursor_pos = reaper.GetCursorPosition()
-end
-
--- RESTORE INITIAL CURSOR POS
-function RestoreCursorPos()
-	reaper.SetEditCurPos(init_cursor_pos, false, false)
-end]]
-
--- VIEW
---[[ SAVE INITIAL VIEW
-function SaveView()
-	start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
-end
-
-
--- RESTORE INITIAL VIEW
-function RestoreView()
-	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
-end]]
-
---[[ <==== INITIAL SAVE AND RESTORE ----- ]]
-
-
-
-
---msg_start() -- Display characters in the console to show you the begining of the script execution.
-
-reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
-
---SaveView()
---SaveCursorPos()
---SaveLoopTimesel()
---SaveSelectedItems(init_sel_items)
-SaveSelectedTracks(init_sel_tracks)
-
-main() -- Execute your main function
-
---RestoreCursorPos()
---RestoreLoopTimesel()
---RestoreSelectedItems(init_sel_items)
-RestoreSelectedTracks(init_sel_tracks)
---RestoreView()
-
-reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
-
-reaper.UpdateArrange() -- Update the arrangement (often needed)
-
---msg_end() -- Display characters in the console to show you the end of the script execution.
