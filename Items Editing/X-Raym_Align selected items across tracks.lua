@@ -239,7 +239,7 @@ reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the sc
 
 SaveSelectedTracks(init_sel_tracks)
 
-group_state = reaper.GetToggleCommandState(1156, 0);
+group_state = reaper.GetToggleCommandState(1156, 0)
 
 if group_state == 1 then
 	KeepSelOnlyFirstItemInGroups()
