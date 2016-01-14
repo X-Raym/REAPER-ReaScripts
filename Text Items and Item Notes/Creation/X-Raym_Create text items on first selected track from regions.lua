@@ -65,7 +65,7 @@ function main() -- local (i, j, item, take, track)
 				i = i+1
 			end
 		until iRetval == 0
-		reaper.Undo_EndBlock("My action", 0) -- End of the undo block. Leave it at the bottom of your main function.
+		reaper.Undo_EndBlock("Create text items on first selected track from regions", -1) -- End of the undo block. Leave it at the bottom of your main function.
 	else -- no selected track
 		reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
 	end
