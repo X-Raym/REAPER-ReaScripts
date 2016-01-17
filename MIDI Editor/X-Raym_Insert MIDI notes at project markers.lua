@@ -60,6 +60,8 @@ function main() -- local (i, j, item, take, track)
 				
 				next_iRetval, next_bIsrgnOut, next_iPosOut, next_iRgnendOut, next_sNameOut, next_iMarkrgnindexnumberOut, next_iColorOut = reaper.EnumProjectMarkers3(0, i+1)
 				
+				-- TODO add conditions to check if it is in item boudnaries
+				
 				if next_iRetval >= 1 and next_bIsrgnOut == false then
 					if next_iPosOut - iPosOut < length then
 						end_time = next_iPosOut
