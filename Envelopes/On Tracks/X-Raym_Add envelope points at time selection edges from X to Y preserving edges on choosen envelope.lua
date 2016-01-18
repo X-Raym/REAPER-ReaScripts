@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.1
+ * Version: 1.2
 --]]
  
 --[[
  * Changelog:
+ * v1.2 (2016-01-18)
+	+ Time offsets
  * v1.1 (2016-01-18)
 	+ Optionnal infos in console
 	+ Value Y
@@ -36,12 +38,15 @@ https://www.youtube.com/user/honestcam
 
 messages = true -- true/false : displai infos in console
 
-valueIn_X = -50 -- number : destination value // Don't forget to add scale corrections if needed.
-valueIn_Y = -50
+valueIn_X = -0.5 -- number : destination value // Don't forget to add scale corrections if needed.
+valueIn_Y = 1
+
+offset_X = 1 -- number : offset time selection left (create a linear ramp between the two left points
+offset_Y = 2 -- number : offset time selection right (create a linear ramp between the two right points
 
 prompt = true -- true/false : display a prompt window at script run
 
-dest_env_name = "left  gain / ReaSurround" -- Name of the envelope
+dest_env_name = "Pan" -- Name of the envelope
 
 ------------------- END OF USER CONFIF AREA
 
@@ -116,7 +121,8 @@ function GetDeleteTimeLoopPoints(envelope, env_point_count, start_time, end_time
 end
 
 function AddPoints(env)
-		-- GET THE ENVELOPE
+	
+	-- GET THE ENVELOPE
 	br_env = reaper.BR_EnvAlloc(env, false)
 
 	active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
@@ -124,19 +130,20 @@ function AddPoints(env)
 	if visible == true and armed == true then
 
 		env_points_count = reaper.CountEnvelopePoints(env)
-
+		
+		-- UNSELECT POINTS
 		if env_points_count > 0 then
 			for k = 0, env_points_count+1 do 
 				reaper.SetEnvelopePoint(env, k, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, false, true)
 			end
 		end
 		
-		first_start_val, last_start_val, first_end_val, last_end_val = GetDeleteTimeLoopPoints(env, env_points_count, start_time, end_time)
+		first_start_val, last_start_val, first_end_val, last_end_val = GetDeleteTimeLoopPoints(env, env_points_count, start_time_offset, end_time_offset)
 		
 		
-		reaper.InsertEnvelopePoint(env, start_time, first_start_val, 0, 0, true, true) -- INSERT startLoop point
+		reaper.InsertEnvelopePoint(env, start_time_offset, first_start_val, 0, 0, true, true) -- INSERT startLoop point
 
-		-- SANITIZE
+		-- SANITIZE VALUE X & Y
 		if valueIn_X < minValue then valueIn_X = minValue end
 		if valueIn_X > maxValue then valueIn_X = maxValue end
 		if valueIn_Y < minValue then valueIn_Y = minValue end
@@ -149,7 +156,7 @@ function AddPoints(env)
 		reaper.InsertEnvelopePoint(env, start_time, valueIn_X, 0, 0, true, true)
 		reaper.InsertEnvelopePoint(env, end_time, valueIn_Y, 0, 0, true, true)
 		
-		reaper.InsertEnvelopePoint(env, end_time, last_end_val, 0, 0, true, true) -- INSERT startLoop point
+		reaper.InsertEnvelopePoint(env, end_time_offset, last_end_val, 0, 0, true, true) -- INSERT startLoop point
 
 
 		reaper.BR_EnvFree(br_env, 0)
@@ -173,6 +180,10 @@ function main() -- local (i, j, item, take, track)
 		-- ROUND LOOP TIME SELECTION EDGES
 		start_time = math.floor(start_time * 100000000+0.5)/100000000
 		end_time = math.floor(end_time * 100000000+0.5)/100000000
+		
+		-- OFFSETS
+		start_time_offset = start_time - offset_X
+		end_time_offset = end_time + offset_Y
 		
 		-- LOOP TRHOUGH SELECTED TRACKS
 		env = reaper.GetSelectedEnvelope(0)
@@ -252,19 +263,21 @@ end
 if prompt == true then
   valueIn_X = tostring(valueIn_X)
   valueIn_Y = tostring(valueIn_Y)
-  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Value", 2, "Value,Value", valueIn_X .. "," .. valueIn_Y)
+  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Value", 4, "Value X,Value Y,Time Offset X (s),Time Offset Y (s)", valueIn_X .. "," .. valueIn_Y .. "," .. offset_X .. "," .. offset_Y)
 end
 
 if retval or prompt == false then -- if user complete the fields
 
-	valueIn_X, valueIn_Y = retvals_csv:match("([^,]+),([^,]+)")
+	valueIn_X, valueIn_Y, offset_X, offset_Y = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
 	
-	if valueIn_X ~= nil and valueIn_Y ~= nil then
+	if valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
 	
 		valueIn_X = tonumber(valueIn_X)
 		valueIn_Y = tonumber(valueIn_Y)
+		offset_X = tonumber(offset_X)
+		offset_Y = tonumber(offset_Y)
 
-		if valueIn_X ~= nil and valueIn_Y ~= nil then
+		if valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
 
 			reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 			
