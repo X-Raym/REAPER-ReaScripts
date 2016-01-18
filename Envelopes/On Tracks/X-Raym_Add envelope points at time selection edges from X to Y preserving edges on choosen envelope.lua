@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.2
+ * Version: 1.3
 --]]
  
 --[[
  * Changelog:
+ * v1.2 (2016-01-18)
+	+ Envelope Name in prompt
  * v1.2 (2016-01-18)
 	+ Time offsets
  * v1.1 (2016-01-18)
@@ -171,12 +173,6 @@ function main() -- local (i, j, item, take, track)
 	-- GET CURSOR POS
 	offset = reaper.GetCursorPosition()
 
-	-- GET TIME SELECTION EDGES
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
-
-	-- IF TIME SELECTION
-	if start_time ~= end_time then
-
 		-- ROUND LOOP TIME SELECTION EDGES
 		start_time = math.floor(start_time * 100000000+0.5)/100000000
 		end_time = math.floor(end_time * 100000000+0.5)/100000000
@@ -233,8 +229,6 @@ function main() -- local (i, j, item, take, track)
 		end -- endif sel envelope
 
 		reaper.Undo_EndBlock("Add envelope points at time selection edges from X to Y preserving edges on choosen envelope", -1) -- End of the undo block. Leave it at the bottom of your main function.
-	
-	end-- ENDIF time selection
 
 end -- end main()
 
@@ -260,39 +254,48 @@ end
 --------------------
 -- INIT
 
-if prompt == true then
-  valueIn_X = tostring(valueIn_X)
-  valueIn_Y = tostring(valueIn_Y)
-  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Value", 4, "Value X,Value Y,Time Offset X (s),Time Offset Y (s)", valueIn_X .. "," .. valueIn_Y .. "," .. offset_X .. "," .. offset_Y)
-end
+-- GET TIME SELECTION EDGES
+start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
-if retval or prompt == false then -- if user complete the fields
+-- IF TIME SELECTION
+if start_time ~= end_time then
 
-	valueIn_X, valueIn_Y, offset_X, offset_Y = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
-	
-	if valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
-	
-		valueIn_X = tonumber(valueIn_X)
-		valueIn_Y = tonumber(valueIn_Y)
-		offset_X = tonumber(offset_X)
-		offset_Y = tonumber(offset_Y)
-
-		if valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
-
-			reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
-			
-			if messages then reaper.ClearConsole() end
-
-			main() -- Execute your main function
-
-			reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
-
-			reaper.UpdateArrange() -- Update the arrangement (often needed)
-
-			HedaRedrawHack()
-
-		end
-	
+	-- PROMPT
+	if prompt == true then
+	  valueIn_X = tostring(valueIn_X)
+	  valueIn_Y = tostring(valueIn_Y)
+	  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Value", 5, "Envelope Name,Value X,Value Y,Time Offset X (s),Time Offset Y (s)", dest_env_name .. "," ..valueIn_X .. "," .. valueIn_Y .. "," .. offset_X .. "," .. offset_Y)
 	end
 
-end
+	if retval or prompt == false then -- if user complete the fields
+
+		dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+		
+		if dest_env_name ~= nil and valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
+		
+			valueIn_X = tonumber(valueIn_X)
+			valueIn_Y = tonumber(valueIn_Y)
+			offset_X = tonumber(offset_X)
+			offset_Y = tonumber(offset_Y)
+
+			if valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
+
+				reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
+				
+				if messages then reaper.ClearConsole() end
+
+				main() -- Execute your main function
+
+				reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
+
+				reaper.UpdateArrange() -- Update the arrangement (often needed)
+
+				HedaRedrawHack()
+
+			end
+		
+		end
+
+	end
+
+end -- ENDIF time selection
