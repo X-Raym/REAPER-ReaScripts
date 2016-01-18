@@ -139,6 +139,8 @@ function AddPoints(env)
 		-- SANITIZE
 		if valueIn_X < minValue then valueIn_X = minValue end
 		if valueIn_X > maxValue then valueIn_X = maxValue end
+		if valueIn_Y < minValue then valueIn_Y = minValue end
+		if valueIn_Y > maxValue then valueIn_Y = maxValue end
 
 		-- MOD
 		if env_scale == 1 then valueIn_X = reaper.ScaleToEnvelopeMode(1, valueIn_X) end
