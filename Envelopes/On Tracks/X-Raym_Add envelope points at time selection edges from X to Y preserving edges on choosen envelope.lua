@@ -19,7 +19,7 @@
 --[[
  * Changelog:
  * v1.1 (2016-01-17)
-	+ Messages infos in console
+	+ Optionnal infos in console
 	+ Value Y
  * v1.0 (2016-01-17)
 	+ Initial release
