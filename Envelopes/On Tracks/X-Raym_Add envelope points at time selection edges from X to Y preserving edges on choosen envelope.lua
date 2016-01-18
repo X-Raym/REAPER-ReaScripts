@@ -18,7 +18,7 @@
  
 --[[
  * Changelog:
- * v1.2 (2016-01-18)
+ * v1.3 (2016-01-18)
 	+ Envelope Name in prompt
  * v1.2 (2016-01-18)
 	+ Time offsets
