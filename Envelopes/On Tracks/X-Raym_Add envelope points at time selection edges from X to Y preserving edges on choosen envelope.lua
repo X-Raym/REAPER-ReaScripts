@@ -1,22 +1,26 @@
 --[[
- * ReaScript Name: Add envelope points at time selection edges from XdB to XdB preserving edges on Volume envelope
+ * ReaScript Name: Add envelope points at time selection edges from X to Y preserving edges on choosen envelope
  * Description: Insert points at time selection edges. You can deactivate the pop up window within the script.∑
  * Instructions: Make a selection area. Execute the script. Works on selected envelope or selected tracks envelope with armed visible envelope.
+ * Screenshot: http://i.giphy.com/l0K7o2JPg4cpLr2Jq.gif
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * File URI: 
  * Licence: GPL v3
  * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations 
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2016-01-17)
+	+ Messages infos in console
+	+ Value Y
  * v1.0 (2016-01-17)
 	+ Initial release
 --]]
@@ -30,12 +34,24 @@ https://www.youtube.com/user/honestcam
 
 -- USER CONFIG AREA -----------------------
 
-valueIn = -50 -- number : destination value
+messages = true -- true/false : displai infos in console
+
+valueIn_X = -50 -- number : destination value // Don't forget to add scale corrections if needed.
+valueIn_Y = -50
+
 prompt = true -- true/false : display a prompt window at script run
 
-dest_env_name = "Pan" -- Name of the envelope
+dest_env_name = "left  gain / ReaSurround" -- Name of the envelope
 
 ------------------- END OF USER CONFIF AREA
+
+
+-- Display Messages in the Console
+function Msg(value)
+	if messages == true then
+		reaper.ShowConsoleMsg(tostring(value).."\n")
+	end
+end
 
 
 function GetDeleteTimeLoopPoints(envelope, env_point_count, start_time, end_time)
@@ -121,14 +137,15 @@ function AddPoints(env)
 		reaper.InsertEnvelopePoint(env, start_time, first_start_val, 0, 0, true, true) -- INSERT startLoop point
 
 		-- SANITIZE
-		if valueIn < minValue then valueIn = minValue end
-		if valueIn > maxValue then valueIn = maxValue end
+		if valueIn_X < minValue then valueIn_X = minValue end
+		if valueIn_X > maxValue then valueIn_X = maxValue end
 
 		-- MOD
-		if env_scale == 1 then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
+		if env_scale == 1 then valueIn_X = reaper.ScaleToEnvelopeMode(1, valueIn_X) end
+		if env_scale == 1 then valueIn_Y = reaper.ScaleToEnvelopeMode(1, valueIn_Y) end
 
-		reaper.InsertEnvelopePoint(env, start_time, valueIn, 0, 0, true, true)
-		reaper.InsertEnvelopePoint(env, end_time, valueIn, 0, 0, true, true)
+		reaper.InsertEnvelopePoint(env, start_time, valueIn_X, 0, 0, true, true)
+		reaper.InsertEnvelopePoint(env, end_time, valueIn_Y, 0, 0, true, true)
 		
 		reaper.InsertEnvelopePoint(env, end_time, last_end_val, 0, 0, true, true) -- INSERT startLoop point
 
@@ -165,6 +182,9 @@ function main() -- local (i, j, item, take, track)
 				
 				-- GET THE TRACK
 				track = reaper.GetSelectedTrack(0, i) -- Get selected track i
+				track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
+				Msg("Track:")
+				Msg(track_name)
 
 				-- LOOP THROUGH ENVELOPES
 				env_count = reaper.CountTrackEnvelopes(track)
@@ -174,6 +194,10 @@ function main() -- local (i, j, item, take, track)
 					env = reaper.GetTrackEnvelope(track, j)
 					
 					retval, envName = reaper.GetEnvelopeName(env, "")
+					if messages == true then
+						Msg("Envelope #"..j.." :")
+						Msg(envName)
+					end
 					if envName == dest_env_name then
 						AddPoints(env)
 					end
@@ -185,13 +209,17 @@ function main() -- local (i, j, item, take, track)
 		else
 
 			retval, envName = reaper.GetEnvelopeName(env, "")
+			if messages == true then 
+				Msg("Selected envelope: ")
+				Msg(envName)
+			end
 			if envName == dest_env_name then
 				AddPoints(env)
 			end
 		
 		end -- endif sel envelope
 
-		reaper.Undo_EndBlock("Add envelope points at time selection edges from XdB to XdB preserving edges on Volume envelope", -1) -- End of the undo block. Leave it at the bottom of your main function.
+		reaper.Undo_EndBlock("Add envelope points at time selection edges from X to Y preserving edges on choosen envelope", -1) -- End of the undo block. Leave it at the bottom of your main function.
 	
 	end-- ENDIF time selection
 
@@ -220,26 +248,36 @@ end
 -- INIT
 
 if prompt == true then
-  valueIn = tostring(valueIn)
-  retval, valueIn = reaper.GetUserInputs("Set Envelope Value", 1, "Value (dB)", valueIn)
+  valueIn_X = tostring(valueIn_X)
+  valueIn_Y = tostring(valueIn_Y)
+  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Value", 2, "Value,Value", valueIn_X .. "," .. valueIn_Y)
 end
 
 if retval or prompt == false then -- if user complete the fields
 
-  valueIn = tonumber(valueIn)
+	valueIn_X, valueIn_Y = retvals_csv:match("([^,]+),([^,]+)")
+	
+	if valueIn_X ~= nil and valueIn_Y ~= nil then
+	
+		valueIn_X = tonumber(valueIn_X)
+		valueIn_Y = tonumber(valueIn_Y)
 
-  if valueIn ~= nil then
+		if valueIn_X ~= nil and valueIn_Y ~= nil then
 
-    reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
+			reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
+			
+			if messages then reaper.ClearConsole() end
 
-	main() -- Execute your main function
+			main() -- Execute your main function
 
-	reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
+			reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
-	reaper.UpdateArrange() -- Update the arrangement (often needed)
+			reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-	HedaRedrawHack()
+			HedaRedrawHack()
 
-  end
+		end
+	
+	end
 
 end
