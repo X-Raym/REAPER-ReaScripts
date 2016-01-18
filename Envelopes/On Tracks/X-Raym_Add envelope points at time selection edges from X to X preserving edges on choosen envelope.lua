@@ -30,7 +30,7 @@ https://www.youtube.com/user/honestcam
 
 -- USER CONFIG AREA -----------------------
 
-valueIn = -50 -- number : destination value in dB
+valueIn = -50 -- number : destination value
 prompt = true -- true/false : display a prompt window at script run
 
 dest_env_name = "Pan" -- Name of the envelope
