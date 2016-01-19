@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.4
+ * Version: 1.4.1
 --]]
  
 --[[
  * Changelog:
+ * v1.4.1 (2016-01-19)
+	# Bug fixes
  * v1.4 (2016-01-18)
 	+ Min, Max, Center in value input
 	+ Conform input value to destination envelope
@@ -40,14 +42,15 @@ messages = true -- true/false : displai infos in console
 valueIn_X = -0.5 -- number/string : destination value OR "max", "min", "center" // Don't forget to add scale corrections if needed.
 valueIn_Y = 1
 
-offset_X = 1 -- number : offset time selection left (create a linear ramp between the two left points
-offset_Y = 2 -- number : offset time selection right (create a linear ramp between the two right points
+offset_X = 1 -- number (seconds) : offset time selection left (create a linear ramp between the two left points
+offset_Y = 2 -- number (seconds) : offset time selection right (create a linear ramp between the two right points
 
 prompt = true -- true/false : display a prompt window at script run
 
 dest_env_name = "Pan" -- Name of the envelope
 
-------------------- END OF USER CONFIF AREA
+
+------------------- END OF USER CONFIG AREA
 
 
 
@@ -60,7 +63,8 @@ function Msg(value)
 	end
 end
 
--------------------------------------- DEBUG
+
+--------------------------------END OF DEBUG
 
 
 
@@ -161,10 +165,33 @@ function ConformValueToEnvelope(number, envelopeName)
 
 end
 
-------------------------- ENVELOPE FUNCTIONS
+
+-- Update the TCP envelope value at edit cursor position
+function HedaRedrawHack()
+	reaper.PreventUIRefresh(1)
+
+	track=reaper.GetTrack(0,0)
+
+	trackparam=reaper.GetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT")     
+	if trackparam==0 then
+		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 1)
+	else
+		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 0)
+	end
+	reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", trackparam)
+
+	reaper.PreventUIRefresh(-1)
+	
+end
+
+
+-------------------END OF ENVELOPE FUNCTIONS
 
 
 
+-- MAIN FUNCTIONS --------------------------
+
+-- Add Points
 function AddPoints(env)
 	
 	-- GET THE ENVELOPE
@@ -290,26 +317,7 @@ function main() -- local (i, j, item, take, track)
 end -- end main()
 
 
--- Update the TCP envelope value at edit cursor position
-function HedaRedrawHack()
-	reaper.PreventUIRefresh(1)
-
-	track=reaper.GetTrack(0,0)
-
-	trackparam=reaper.GetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT")     
-	if trackparam==0 then
-		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 1)
-	else
-		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 0)
-	end
-	reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", trackparam)
-
-	reaper.PreventUIRefresh(-1)
-	
-end
-
-
---------------------------------------------
+-----------------------END OF MAIN FUNCTIONS
 
 
 
@@ -322,15 +330,17 @@ start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false
 if start_time ~= end_time then
 
 	-- PROMPT
-	if prompt == true then
+	if prompt then
 	  valueIn_X = tostring(valueIn_X)
 	  valueIn_Y = tostring(valueIn_Y)
 	  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Value", 5, "Envelope Name,Value X,Value Y,Time Offset X (s),Time Offset Y (s)", dest_env_name .. "," ..valueIn_X .. "," .. valueIn_Y .. "," .. offset_X .. "," .. offset_Y)
 	end
 
 	if retval or prompt == false then -- if user complete the fields
-
-		dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+		
+		if prompt then
+			dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+		end
 		
 		if dest_env_name ~= nil and valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
 			
@@ -340,9 +350,7 @@ if start_time ~= end_time then
 			end
 			if valueIn_Y ~= "min" and valueIn_Y ~= "max" and valueIn_Y ~= "center" then
 				valueIn_Y = tonumber(valueIn_Y)
-				Msg("lol"..valueIn_Y)
 				valueIn_Y = ConformValueToEnvelope(valueIn_Y, dest_env_name)
-				Msg("lol"..valueIn_Y)
 			end
 			
 			offset_X = tonumber(offset_X)
@@ -352,7 +360,7 @@ if start_time ~= end_time then
 
 				reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 				
-				--if messages then reaper.ClearConsole() end
+				if messages then reaper.ClearConsole() end
 
 				main() -- Execute your main function
 
