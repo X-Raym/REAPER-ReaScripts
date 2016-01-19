@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1
+ * Version: 1.1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2016-01-19)
+  # Prevent vertical truncation of the regions names
  * v1.1 (2015-09-25)
   + User config area
  * v1.0 (2015-09-24)
@@ -115,7 +117,7 @@ function CenterAndResizeText(string)
   
   str_w, str_h = gfx.measurestr(string)
   fontsizefit=(gfx.w/(str_w+50))*100 -- new font size needed to fit.
-  fontsizefith=(gfx.h/(str_h+50))*100 -- new font size needed to fit in vertical.
+  fontsizefith=((gfx.h-gfx.y)/(str_h+50))*100 -- new font size needed to fit in vertical.
   
   font_size =  math.min(fontsizefit,fontsizefith)
   gfx.setfont(1, font_name, font_size) 
