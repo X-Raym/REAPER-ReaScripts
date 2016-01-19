@@ -39,15 +39,15 @@
 
 messages = true -- true/false : displai infos in console
 
-valueIn_X = -0.5 -- number/string : destination value OR "max", "min", "center" // Don't forget to add scale corrections if needed.
-valueIn_Y = 1
+valueIn_X = 0.4375 -- number/string : destination value OR "max", "min", "center" // Don't forget to add scale corrections if needed.
+valueIn_Y = 0.4375
 
 offset_X = 1 -- number (seconds) : offset time selection left (create a linear ramp between the two left points
 offset_Y = 2 -- number (seconds) : offset time selection right (create a linear ramp between the two right points
 
 prompt = true -- true/false : display a prompt window at script run
 
-dest_env_name = "Pan" -- Name of the envelope
+dest_env_name = "left  gain / ReaSurround" -- Name of the envelope
 
 
 ------------------- END OF USER CONFIG AREA
@@ -209,6 +209,13 @@ function AddPoints(env)
 		-- CLEAN TIME SELECTION
 		first_start_val, last_start_val, first_end_val, last_end_val = GetDeleteTimeLoopPoints(env, env_points_count, start_time_offset, end_time_offset)
 		
+
+		-- EDIT CURSOR VALUE EVALUATION
+		retval_cursor_time, last_cursor_val, dVdS_cursor_time, ddVdS_cursor_time, dddVdS_cursor_time = reaper.Envelope_Evaluate(env, cursor_pos, 0, 0)
+		Msg("Value at Edit Cursor:")
+		Msg(last_cursor_val)
+		--
+
 		-- INSERT RIGHT POINT
 		reaper.InsertEnvelopePoint(env, start_time_offset, first_start_val, 0, 0, true, true) -- INSERT startLoop point
 		
@@ -255,7 +262,7 @@ function main() -- local (i, j, item, take, track)
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 	-- GET CURSOR POS
-	offset = reaper.GetCursorPosition()
+	cursor_pos = reaper.GetCursorPosition()
 
 	-- ROUND LOOP TIME SELECTION EDGES
 	start_time = math.floor(start_time * 100000000+0.5)/100000000
