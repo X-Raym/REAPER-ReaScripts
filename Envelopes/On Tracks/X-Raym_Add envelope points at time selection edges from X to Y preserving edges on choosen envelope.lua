@@ -13,11 +13,15 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.4.1
+ * Version: 1.4.2
 --]]
  
 --[[
  * Changelog:
+ * v1.4.2 (2016-01_19)
+ 	+ Envelope scale types support (types: Volume, Pan/With, ReaSurround Gain)
+ 	+ "cursor" keyword for value
+ 	# No popup if necessary conditions are not here
  * v1.4.1 (2016-01-19)
 	# Bug fixes
  * v1.4 (2016-01-18)
@@ -39,8 +43,8 @@
 
 messages = true -- true/false : displai infos in console
 
-valueIn_X = 0.4375 -- number/string : destination value OR "max", "min", "center" // Don't forget to add scale corrections if needed.
-valueIn_Y = 0.4375
+valueIn_X = 3 -- number/string : destination value OR "max", "min", "center", "cursor"
+valueIn_Y = 3
 
 offset_X = 1 -- number (seconds) : offset time selection left (create a linear ramp between the two left points
 offset_Y = 2 -- number (seconds) : offset time selection right (create a linear ramp between the two right points
@@ -48,7 +52,6 @@ offset_Y = 2 -- number (seconds) : offset time selection right (create a linear 
 prompt = true -- true/false : display a prompt window at script run
 
 dest_env_name = "left  gain / ReaSurround" -- Name of the envelope
-
 
 ------------------- END OF USER CONFIG AREA
 
@@ -151,17 +154,49 @@ function ValFromdB(dB_val) return 10^(dB_val/20) end
 
 
 -- Conform value
-function ConformValueToEnvelope(number, envelopeName)
+function ConformValueToEnvelope(number, envelopeType)
 	
-	if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" or envelopeName == "Send Volume" then
+	-- Volume
+	if envelopeType == 0 then
 		number = ValFromdB(number)
 	end
 	
-	if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" or envelopeName == "Send Pan" then
+	-- Pan/Width
+	if envelopeType == 2 then
 		number = (-number)/100
+	end
+
+	-- ReaSurround Gain
+	if envelopeType == 11 then
+		number = 10^((number-12.0)/20)
 	end
 	
 	return number
+
+end
+
+
+-- Get envelope scale type
+function GetEnvelopeScaleType(envelopeName)
+
+	local dest_env_type = -1
+
+	-- Volume log
+	if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" or envelopeName == "Send Volume" then
+		dest_env_type = 0
+	end
+
+	-- Pan/Width
+	if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" or envelopeName == "Send Pan" then
+		dest_env_type = 2
+	end
+
+	-- ReaSurround gain
+	if string.find(envelopeName, "gain / ReaSurround") ~= nil then
+		dest_env_type = 11
+	end
+
+	return dest_env_type
 
 end
 
@@ -211,9 +246,9 @@ function AddPoints(env)
 		
 
 		-- EDIT CURSOR VALUE EVALUATION
-		retval_cursor_time, last_cursor_val, dVdS_cursor_time, ddVdS_cursor_time, dddVdS_cursor_time = reaper.Envelope_Evaluate(env, cursor_pos, 0, 0)
+		retval_cursor_time, cursor_val, dVdS_cursor_time, ddVdS_cursor_time, dddVdS_cursor_time = reaper.Envelope_Evaluate(env, cursor_pos, 0, 0)
 		Msg("Value at Edit Cursor:")
-		Msg(last_cursor_val)
+		Msg(cursor_val)
 		--
 
 		-- INSERT RIGHT POINT
@@ -226,9 +261,11 @@ function AddPoints(env)
 		if valueIn_X == "min" then valueOut_X = minValue end
 		if valueIn_X == "max" then valueOut_X = maxValue end
 		if valueIn_X == "center" then valueOut_X = centerValue end
+		if valueIn_X == "cursor" then valueOut_X = cursor_val end
 		if valueIn_Y == "min" then valueOut_Y = minValue end
 		if valueIn_Y == "max" then valueOut_Y = maxValue end
 		if valueIn_Y == "center" then valueOut_Y = centerValue end
+		if valueIn_Y == "cursor" then valueOut_Y = cursor_val end
 
 		-- SANITIZE VALUE X & Y
 		if valueOut_X < minValue then valueOut_X = minValue end
@@ -273,11 +310,8 @@ function main() -- local (i, j, item, take, track)
 	end_time_offset = end_time + offset_Y
 	
 	-- LOOP TRHOUGH SELECTED TRACKS
-	env = reaper.GetSelectedEnvelope(0)
-
 	if env == nil then
 
-		selected_tracks_count = reaper.CountSelectedTracks(0)
 		for i = 0, selected_tracks_count-1  do
 			
 			-- GET THE TRACK
@@ -330,11 +364,17 @@ end -- end main()
 
 -- INIT ------------------------------------
 
+-- GET SELECTED ENVELOPE
+env = reaper.GetSelectedEnvelope(0)
+
+-- COUNT SELECTED TRACKS
+selected_tracks_count = reaper.CountSelectedTracks(0)
+
 -- GET TIME SELECTION EDGES
 start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 -- IF TIME SELECTION
-if start_time ~= end_time then
+if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
 
 	-- PROMPT
 	if prompt then
@@ -351,13 +391,16 @@ if start_time ~= end_time then
 		
 		if dest_env_name ~= nil and valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
 			
-			if valueIn_X ~= "min" and valueIn_X ~= "max" and valueIn_X ~= "center" then
+			dest_env_type = GetEnvelopeScaleType(dest_env_name)
+
+			if valueIn_X ~= "min" and valueIn_X ~= "max" and valueIn_X ~= "center" and valueIn_X ~= "cursor" then
 				valueIn_X = tonumber(valueIn_X)
-				valueIn_X = ConformValueToEnvelope(valueIn_X, dest_env_name)
+				valueIn_X = ConformValueToEnvelope(valueIn_X, dest_env_type)
 			end
-			if valueIn_Y ~= "min" and valueIn_Y ~= "max" and valueIn_Y ~= "center" then
+			
+			if valueIn_Y ~= "min" and valueIn_Y ~= "max" and valueIn_Y ~= "center" and valueIn_Y ~= "cursor" then
 				valueIn_Y = tonumber(valueIn_Y)
-				valueIn_Y = ConformValueToEnvelope(valueIn_Y, dest_env_name)
+				valueIn_Y = ConformValueToEnvelope(valueIn_Y, dest_env_type)
 			end
 			
 			offset_X = tonumber(offset_X)
