@@ -18,7 +18,7 @@
  
 --[[
  * Changelog:
- * v1.4.2 (2016-01_19)
+ * v1.4.2 (2016-01-19)
  	+ Envelope scale types support (types: Volume, Pan/With, ReaSurround Gain)
  	+ "cursor" keyword for value
  	# No popup if necessary conditions are not here
