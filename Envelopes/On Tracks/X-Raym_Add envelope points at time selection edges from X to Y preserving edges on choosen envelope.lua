@@ -373,6 +373,11 @@ if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
 	-- CLEAR CONSOLE
 	if messages then reaper.ClearConsole() end
 	
+	Msg("INSTRUCTIONS")
+	Msg("Avaible Value keywords:")
+	Msg("min, max, center, cursor")
+	Msg("------------")
+	
 	-- SELECTED ENVELOPE NAME
 	if env ~= nil then
 	
