@@ -13,11 +13,14 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.4.2
+ * Version: 1.4.3
 --]]
  
 --[[
  * Changelog:
+ * v1.4.3 (2016-01-20)
+ 	+ Units infos in prompt
+ 	+ Selected envelope as destination in prompt
  * v1.4.2 (2016-01-19)
  	+ Envelope scale types support (types: Volume, Pan/With, ReaSurround Gain)
  	+ "cursor" keyword for value
@@ -51,7 +54,8 @@ offset_Y = 2 -- number (seconds) : offset time selection right (create a linear 
 
 prompt = true -- true/false : display a prompt window at script run
 
-dest_env_name = "left  gain / ReaSurround" -- Name of the envelope
+dest_env_name = "left  gain / ReaSurround" -- Name of the envelope. It will be overriden by the selected envelope name if there is one.
+
 
 ------------------- END OF USER CONFIG AREA
 
@@ -375,12 +379,17 @@ start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false
 
 -- IF TIME SELECTION
 if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
+	
+	-- SELECTED ENVELOPE NAME
+	if env ~= nil then
+		retval, dest_env_name = reaper.GetEnvelopeName(env, "")
+	end
 
 	-- PROMPT
 	if prompt then
 	  valueIn_X = tostring(valueIn_X)
 	  valueIn_Y = tostring(valueIn_Y)
-	  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Value", 5, "Envelope Name,Value X,Value Y,Time Offset X (s),Time Offset Y (s)", dest_env_name .. "," ..valueIn_X .. "," .. valueIn_Y .. "," .. offset_X .. "," .. offset_Y)
+	  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Points", 5, "Envelope Name,Value X (number),Value Y (number),Time Offset X (s),Time Offset Y (s)", dest_env_name .. "," ..valueIn_X .. "," .. valueIn_Y .. "," .. offset_X .. "," .. offset_Y)
 	end
 
 	if retval or prompt == false then -- if user complete the fields
@@ -414,11 +423,11 @@ if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
 
 				main() -- Execute your main function
 
+				HedaRedrawHack()
+
 				reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 				reaper.UpdateArrange() -- Update the arrangement (often needed)
-
-				HedaRedrawHack()
 
 			end
 		
