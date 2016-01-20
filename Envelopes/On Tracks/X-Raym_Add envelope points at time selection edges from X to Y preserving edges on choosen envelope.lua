@@ -21,6 +21,7 @@
  * v1.4.3 (2016-01-20)
  	+ Units infos in prompt
  	+ Selected envelope as destination in prompt
+ 	# List envelopes before prompt
  * v1.4.2 (2016-01-19)
  	+ Envelope scale types support (types: Volume, Pan/With, ReaSurround Gain)
  	+ "cursor" keyword for value
@@ -246,14 +247,12 @@ function AddPoints(env)
 		UnselectAllEnvelopePoints(env, env_points_count)
 		
 		-- CLEAN TIME SELECTION
-		first_start_val, last_start_val, first_end_val, last_end_val = GetDeleteTimeLoopPoints(env, env_points_count, start_time_offset, end_time_offset)
-		
+		first_start_val, last_start_val, first_end_val, last_end_val = GetDeleteTimeLoopPoints(env, env_points_count, start_time_offset, end_time_offset)	
 
 		-- EDIT CURSOR VALUE EVALUATION
 		retval_cursor_time, cursor_val, dVdS_cursor_time, ddVdS_cursor_time, dddVdS_cursor_time = reaper.Envelope_Evaluate(env, cursor_pos, 0, 0)
 		Msg("Value at Edit Cursor:")
 		Msg(cursor_val)
-		--
 
 		-- INSERT RIGHT POINT
 		reaper.InsertEnvelopePoint(env, start_time_offset, first_start_val, 0, 0, true, true) -- INSERT startLoop point
@@ -320,9 +319,6 @@ function main() -- local (i, j, item, take, track)
 			
 			-- GET THE TRACK
 			track = reaper.GetSelectedTrack(0, i) -- Get selected track i
-			track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
-			Msg("Track:")
-			Msg(track_name)
 
 			-- LOOP THROUGH ENVELOPES
 			env_count = reaper.CountTrackEnvelopes(track)
@@ -332,10 +328,7 @@ function main() -- local (i, j, item, take, track)
 				env = reaper.GetTrackEnvelope(track, j)
 				
 				retval, envName = reaper.GetEnvelopeName(env, "")
-				if messages == true then
-					Msg("Envelope #"..j.." :")
-					Msg(envName)
-				end
+
 				if envName == dest_env_name then
 					AddPoints(env)
 				end
@@ -347,10 +340,7 @@ function main() -- local (i, j, item, take, track)
 	else
 
 		retval, envName = reaper.GetEnvelopeName(env, "")
-		if messages == true then 
-			Msg("Selected envelope: ")
-			Msg(envName)
-		end
+
 		if envName == dest_env_name then
 			AddPoints(env)
 		end
@@ -380,9 +370,46 @@ start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false
 -- IF TIME SELECTION
 if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
 	
+	-- CLEAR CONSOLE
+	if messages then reaper.ClearConsole() end
+	
 	-- SELECTED ENVELOPE NAME
 	if env ~= nil then
+	
 		retval, dest_env_name = reaper.GetEnvelopeName(env, "")
+	
+		if messages == true then 
+			Msg("Selected envelope: ")
+			Msg(dest_env_name)
+		end
+	
+	else
+
+		-- LIST ALL ENVELOPES
+		for i = 0, selected_tracks_count-1  do
+			-- GET THE TRACK
+			track = reaper.GetSelectedTrack(0, i) -- Get selected track i
+			track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
+			Msg("Seceleted Track#"..i.." :")
+			Msg(track_name)
+
+			-- LOOP THROUGH ENVELOPES
+			env_count = reaper.CountTrackEnvelopes(track)
+			for j = 0, env_count-1 do
+
+				-- GET THE ENVELOPE
+				env = reaper.GetTrackEnvelope(track, j)
+				
+				retval, envName = reaper.GetEnvelopeName(env, "")
+				if messages == true then
+					Msg("Envelope #"..j.." :")
+					Msg(envName)
+				end
+				
+			end -- ENDLOOP through envelopes
+
+		end -- ENDLOOP through selected tracks
+	
 	end
 
 	-- PROMPT
@@ -418,8 +445,6 @@ if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
 			if valueIn_X ~= nil and valueIn_Y ~= nil and offset_X ~= nil and offset_Y ~= nil then
 
 				reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
-				
-				if messages then reaper.ClearConsole() end
 
 				main() -- Execute your main function
 
