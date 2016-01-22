@@ -10,13 +10,15 @@
  * Licence: GPL v3
  * Forum Thread: Script: Scripts (LUA): Create Text Items Actions (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
- * REAPER: 5.0 pre 29
- * Extensions: SWS/S&M 2.7.1 #0
- * Version: 1.3
+ * REAPER: 5.0
+ * Extensions: SWS/S&M 2.8.3
+ * Version: 1.4
 --]]
  
 --[[
  * Changelog:
+ * v1.4 (2016-01-22)
+	# Better item creation
  * v1.3 (2015-07-29)
 	# Better Set notes
  * v1.2 (2015-05-08)
@@ -29,61 +31,36 @@
 	+ Dialog box if no track selected
  * v1.0 (2015-02-28)
 	+ Initial Release
- --]]
+--]]
 
---[[ ----- DEBUGGING ====>
-function get_script_path()
-  if reaper.GetOS() == "Win32" or reaper.GetOS() == "Win64" then
-    return debug.getinfo(1,'S').source:match("(.*".."\\"..")"):sub(2) -- remove "@"
-  end
-    return debug.getinfo(1,'S').source:match("(.*".."/"..")"):sub(2)
-end
 
-package.path = package.path .. ";" .. get_script_path() .. "?.lua"
-require("X-Raym_Functions - console debug messages")
-
-debug = 0 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 0 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-msg_clean()
-]]-- <==== DEBUGGING -----
-
--- From Heda's HeDa_SRT to text items.lua ====>
-
---[[dbug_flag = 0 -- set to 0 for no debugging messages, 1 to get them
-function dbug (text) 
-	if dbug_flag==1 then  
-		if text then
-			reaper.ShowConsoleMsg(text .. '\n')
-		else
-			reaper.ShowConsoleMsg("nil")
-		end
+-- CREATE TEXT ITEMS
+-- text and color are optional
+function CreateTextItem(track, position, length, text, color)
+    
+	local item = reaper.AddMediaItemToTrack(track)
+  
+	reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
+	reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
+  
+	if text ~= nil then
+		reaper.ULT_SetMediaItemNote(item, text)
 	end
-end]]
+  
+	if color ~= nil then
+		reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+	end
+  
+	return item
 
-function CreateTextItem(starttime, endtime, notetext, color) 
-	--ref: Lua: number startOut retval, number endOut reaper.GetSet_LoopTimeRange(boolean isSet, boolean isLoop, number startOut, number endOut, boolean allowautoseek)
-	reaper.GetSet_LoopTimeRange(1,0,starttime,endtime,0) -- define the time range for the empty item
-	--ref: Lua: reaper.Main_OnCommand(integer command, integer flag)
-	reaper.Main_OnCommand(40142,0) -- insert empty item
-	--ref: Lua: MediaItem reaper.GetSelectedMediaItem(ReaProject proj, integer selitem)
-	item = reaper.GetSelectedMediaItem(0,0) -- get the selected item
-	reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
-
-	reaper.ULT_SetMediaItemNote(item, notetext)
-	
-	reaper.SetEditCurPos(endtime, 1, 0) -- moves cursor for next item
 end
 
--- <==== From Heda's HeDa_SRT to text items.lua
 
 -- TABLE INIT
 local setSelectedMediaItem = {}
 
 -- MAIN
 function main()
-
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 	selected_tracks_count = reaper.CountSelectedTracks(0)
 
@@ -96,6 +73,8 @@ function main()
 		selected_items_count = reaper.CountSelectedMediaItems(0)
 
 		if selected_items_count > 0 then
+		
+			reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 			-- SAVE TAKES SELECTION
 			for j = 0, selected_items_count-1  do
@@ -106,7 +85,6 @@ function main()
 			for i = 0, selected_items_count-1  do
 				-- GET ITEMS AND TAKES AND PARENT TRACK
 				item = setSelectedMediaItem[i] -- Get selected item i
-				track = reaper.GetMediaItem_Track(item)
 				
 				-- GET INFOS
 				item_color = reaper.GetDisplayedMediaItemColor(item)
@@ -116,14 +94,13 @@ function main()
 				-- TIMES
 				item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 				item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-				item_end = item_start + item_duration
 
 				-- ACTION
-				CreateTextItem(item_start, item_end, text, item_color)
+				CreateTextItem(selected_track, item_start, item_duration, text)
 
 			end -- ENDLOOP through selected items
 			reaper.Main_OnCommand(40421, 0)
-			reaper.Undo_EndBlock("Create text items on first selected track from selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+			reaper.Undo_EndBlock("Create text items on first selected track from selected items notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
 		else -- no selected item
 			reaper.ShowMessageBox("Select at least one item","Please",0)
 		end -- if select item
@@ -132,48 +109,12 @@ function main()
 	end -- if selected track
 end
 
---[[ ----- INITIAL SAVE AND RESTORE ====> ]]
 
--- LOOP AND TIME SELECTION
--- SAVE INITIAL LOOP AND TIME SELECTION
-function SaveLoopTimesel()
-	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
-	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
-end
-
--- RESTORE INITIAL LOOP AND TIME SELECTION
-function RestoreLoopTimesel()
-	reaper.GetSet_LoopTimeRange(1, 0, init_start_timesel, init_end_timesel, 0)
-	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
-end
-
--- VIEW
--- SAVE INITIAL VIEW
-function SaveView()
-	start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
-end
-
-
--- RESTORE INITIAL VIEW
-function RestoreView()
-	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
-end
-
---[[ <==== INITIAL SAVE AND RESTORE ----- ]]
-
---msg_start() -- Display characters in the console to show you the begining of the script execution.
 reaper.PreventUIRefresh(1)
-SaveView()
-SaveLoopTimesel()
 
 reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 main() -- Execute your main function
 
-RestoreLoopTimesel()
-RestoreView()
-
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 reaper.PreventUIRefresh(-1)
-
---msg_end() -- Display characters in the console to show you the end of the script execution.
