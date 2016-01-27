@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1.1
+ * Version: 1.1.2
 --]]
  
 --[[
  * Changelog:
+ * v1.1.2 (2016-01-27)
+  + Dock the window via left click if there is no regions.
  * v1.1.1 (2016-01-19)
   # Prevent vertical truncation of the regions names
  * v1.1 (2015-09-25)
@@ -183,10 +185,14 @@ function run()
     
   -- Left clik return cursor at the begining of the region smooth seek
   if gfx.mouse_cap == 1 then
-    if gfx.mouse_y < rect_h then
-      reaper.SetEditCurPos(region_start, false, true)
+    if is_region then
+      if gfx.mouse_y < rect_h then
+        reaper.SetEditCurPos(region_start, false, true)
+      else
+        reaper.Main_OnCommand(40616, 0)
+      end
     else
-      reaper.Main_OnCommand(40616, 0)
+      if gfx.dock(-1) == 0 then gfx.dock(1) else gfx.dock(0) end
     end
   end
   
