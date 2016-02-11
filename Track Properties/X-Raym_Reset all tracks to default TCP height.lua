@@ -49,6 +49,8 @@ if tracks_count > 0 then
 	main() -- Execute your main function
 
 	reaper.TrackList_AdjustWindows(true) -- Update the arrangement (often needed)
+	
+	reaper.UpdateArrange()
 
 	reaper.PreventUIRefresh(-1)
 	
