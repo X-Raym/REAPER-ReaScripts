@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Reset all tracks to default TCP height
+ * ReaScript Name: Reset all tracks to last global TCP height
  * Description: 
  * Instructions: Run.
  * Author: X-Raym
