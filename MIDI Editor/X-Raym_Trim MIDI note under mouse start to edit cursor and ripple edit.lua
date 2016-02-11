@@ -9,13 +9,15 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: 
  * Forum Thread URI: 
- * REAPER: 5.0 pre 32
- * Extensions: SWS 2.7.1 #0
- * Version: 1.0
+ * REAPER: 5.0
+ * Extensions: SWS 2.8.6 #0
+ * Version: 1.0.1
 ]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2016-02-11)
+	+ SWS fix
  * v1.0 (2015-06-05)
 	+ Initial Release
 ]]
@@ -30,7 +32,7 @@ function main()
 	if take ~= nil then
     
 		window, segment, details = reaper.BR_GetMouseCursorContext()
-		inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId = reaper.BR_GetMouseCursorContext_MIDI()
+		retval, inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId = reaper.BR_GetMouseCursorContext_MIDI()
 		mouse_time = reaper.BR_GetMouseCursorContext_Position()
 		cursor_time = reaper.GetCursorPosition()
 
