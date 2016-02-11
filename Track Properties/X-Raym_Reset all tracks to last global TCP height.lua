@@ -54,6 +54,6 @@ if tracks_count > 0 then
 
 	reaper.PreventUIRefresh(-1)
 	
-	reaper.Undo_EndBlock("Reset all tracks to default TCP height", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Reset all tracks to last global TCP height", -1) -- End of the undo block. Leave it at the bottom of your main function.
 	
 end
