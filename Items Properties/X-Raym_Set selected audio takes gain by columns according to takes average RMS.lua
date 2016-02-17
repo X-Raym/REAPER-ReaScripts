@@ -13,6 +13,7 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
  * Extensions: spk77_Get max peak val and pos from take_function.lua
+ * Version: 1.0
  --]]
  
 --[[

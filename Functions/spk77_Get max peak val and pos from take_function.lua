@@ -1,3 +1,7 @@
+--[[
+ * Version: 1.0
+--]]
+
 ----------------------------------------------------------
 -- A function to get the maximum peak value from a take --
 -- (+ an example for how to use the function)           --

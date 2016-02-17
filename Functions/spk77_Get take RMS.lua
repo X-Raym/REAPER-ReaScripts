@@ -1,3 +1,7 @@
+--[[
+ * Version: 1.0
+--]]
+
 ---------------------------------------------------
 -- A function to get the average RMS from a take --
 -- + an example (at the end)                     --

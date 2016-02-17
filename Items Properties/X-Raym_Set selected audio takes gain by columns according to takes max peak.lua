@@ -13,13 +13,14 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
  * Extensions: spk77_Get take RMS.lua
- --]]
+ * Version: 1.0
+--]]
  
 --[[
  * Changelog:
  * v1.0 (2015-12-30)
 	+ Initial Release
- --]]
+--]]
  
 -- USER CONFIG AREA -------------------------------------
 
