@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="30503b24c0f40a26706244074951c0b80776bbb4">
+<index version="1" commit="6070af9aaf2c5d71bc8123d3bf86b83963aa1a57">
   <category name="Functions">
     <reapack name="X-Raym_Functions - console debug messages.lua" type="script">
       <version name="1.7" author="X-Raym" time="2015-03-02T21:55:54Z">
@@ -2428,4 +2428,82 @@
       </version>
     </reapack>
   </category>
+  <metadata>
+    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 X-Raym's ReaScripts\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 X-Raym's Scripts for {\field{\*\fldinst{HYPERLINK "http://reaper.fm"}}{\fldrslt{\ul
+Cockos REAPER
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts written by X-Raym\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts written for X-Raym\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts moded by X-Raym\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts needed for other scripts on this repository\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This repo is for developpement. If you want to simply download scripts as a casual user, follow download instructions below. It will be more easy!\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Downloading Instructions\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Please download scripts on my website => {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/my-reaper-scripts/"}}{\fldrslt{\ul
+My REAPER Scripts
+}}}
+ If you want download scripts on this repo anyway:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab For one script: click on one script, then click on the Raw button, then File > Save (via Menu, Right Click or CTRL/CMD +S).\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab For the whole archive (may be simpler): click on Download Zip button on right\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Detailed Articles\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/learn-reascript-reaper/"}}{\fldrslt{\ul
+How to Learn ReaScript
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://extremraym.com/reaper-randomisation-takes/"}}{\fldrslt{\ul
+REAPER Scripts : Take Properties Randomization
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://extremraym.com/subtitling-sws-2-6-0-scripts/"}}{\fldrslt{\ul
+Better Subtitling with SWS v2.6.0 and Custom EEL Scripts
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://forum.cockos.com/showthread.php?t=153452"}}{\fldrslt{\ul
+EEL : Console debug messages
+}}}
+\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Contributors\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://forum.cockos.com/member.php?u=49553"}}{\fldrslt{\ul
+spk77
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://forum.cockos.com/member.php?u=47822"}}{\fldrslt{\ul
+HeDa
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://forum.cockos.com/member.php?u=47920"}}{\fldrslt{\ul
+FnA
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://forum.cockos.com/member.php?u=70694"}}{\fldrslt{\ul
+mpl
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://www.iamtimatkins.com"}}{\fldrslt{\ul
+timatkins
+}}}
+\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Helpers\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://forum.cockos.com/member.php?u=27094"}}{\fldrslt{\ul
+Breeder
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://forum.cockos.com/member.php?u=6549"}}{\fldrslt{\ul
+PlanetNine
+}}}
+\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 External Scripts (uploaded here)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://forum.cockos.com/showthread.php?p=1435963"}}{\fldrslt{\ul
+EEL Simple Slider Class 1st version
+}}}
+\sa180\par}
+}
+]]></description>
+  </metadata>
 </index>
