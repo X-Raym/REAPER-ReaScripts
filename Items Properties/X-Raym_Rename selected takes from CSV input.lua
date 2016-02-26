@@ -21,6 +21,9 @@
 	+ Initial Release
 --]]
 
+-- Consider transposing the table if you have your list in several rows
+-- http://www.convertcsv.com/transpose-csv.htm
+
 -- USER CONFIG AREA -----------------------------------------------------------
 
 console = true -- true/false: display debug messages in the console
@@ -117,7 +120,7 @@ count_sel_items = reaper.CountSelectedMediaItems(0)
 
 if count_sel_items > 0 then
 
-	retval, names_csv = reaper.GetUserInputs("Rename Item with CSV", 1, 'Names (separated by"' .. sep .. '")', "")
+	retval, names_csv = reaper.GetUserInputs("Rename Item with CSV", 1, 'Names (separated by "' .. sep .. '")', "")
 	
 	if retval then
 	
