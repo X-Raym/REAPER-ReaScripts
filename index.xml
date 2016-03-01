@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="6070af9aaf2c5d71bc8123d3bf86b83963aa1a57">
+<index version="1" commit="02706a9a8e02085650cb6cf761ed66e2b015a350">
   <category name="Functions">
     <reapack name="X-Raym_Functions - console debug messages.lua" type="script">
       <version name="1.7" author="X-Raym" time="2015-03-02T21:55:54Z">
@@ -37,6 +37,16 @@
         <changelog><![CDATA[(2015-03-03)
 + Mod by X-Raym]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Functions/spk_slider_class.eel</source>
+      </version>
+    </reapack>
+    <reapack name="spk77_Get max peak val and pos from take_function.lua" type="script">
+      <version name="1.0" time="2016-02-17T00:57:18Z">
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4f4563f691c3b235c2802f2f95d72d9dc59f044/Functions/spk77_Get%20max%20peak%20val%20and%20pos%20from%20take_function.lua</source>
+      </version>
+    </reapack>
+    <reapack name="spk77_Get take RMS.lua" type="script">
+      <version name="1.0" time="2016-02-17T00:57:18Z">
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4f4563f691c3b235c2802f2f95d72d9dc59f044/Functions/spk77_Get%20take%20RMS.lua</source>
       </version>
     </reapack>
   </category>
@@ -495,6 +505,13 @@
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/26fbe2feb20984a52e41c1cd8c18227228c12a61/Items%20Editing/X-Raym_Quantize%20selected%20items%20to%20previous%20marker%20position.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Stutter edit selected media items.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-02-29T23:09:52Z">
+        <changelog><![CDATA[(2016-02-29)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/b75bad270621c7f302c7de566b7b27fc27dadb6f/Items%20Editing/X-Raym_Stutter%20edit%20selected%20media%20items.lua</source>
+      </version>
+    </reapack>
   </category>
   <category name="Items Properties">
     <reapack name="X-Raym_Pan selected takes from -x to +x.eel" type="script">
@@ -854,6 +871,27 @@
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/2caf31f834b0cc1deba0f612773392ae9d7947b5/Items%20Properties/X-Raym_Add%20all%20items%20on%20selected%20track%20into%20item%20selection.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Set selected audio takes gain by columns according to takes average RMS.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-02-17T00:57:18Z">
+        <changelog><![CDATA[(2015-12-30)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4f4563f691c3b235c2802f2f95d72d9dc59f044/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20average%20RMS.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set selected audio takes gain by columns according to takes max peak.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-02-17T00:57:18Z">
+        <changelog><![CDATA[(2015-12-30)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4f4563f691c3b235c2802f2f95d72d9dc59f044/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20max%20peak.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Rename selected takes from CSV input.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-02-26T15:55:29Z">
+        <changelog><![CDATA[(2016-02-29)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/f9d2dc13753bf12e9eb3a5ec5ae98c0d614935e4/Items%20Properties/X-Raym_Rename%20selected%20takes%20from%20CSV%20input.lua</source>
+      </version>
+    </reapack>
   </category>
   <category name="Track Properties">
     <reapack name="X-Raym_Display selected track pan compensated by width.eel" type="script">
@@ -1029,11 +1067,11 @@
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/69ffc99f5bd4349a2f3ac289cf5d32c1e02c40cd/Track%20Properties/X-Raym_Save%20all%20tracks%20visibility.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Reset all tracks to last global TCP height.lua" type="script">
-      <version name="1.0" author="X-Raym" time="2016-02-11T14:10:20Z">
+    <reapack name="X-Raym_Reset all tracks to default TCP height.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-02-17T00:57:18Z">
         <changelog><![CDATA[(2016-02-11)
 + Initial Release]]></changelog>
-        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/7b996a7cf73ebb39abedefe73b0528af3b4ae571/Track%20Properties/X-Raym_Reset%20all%20tracks%20to%20last%20global%20TCP%20height.lua</source>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4f4563f691c3b235c2802f2f95d72d9dc59f044/Track%20Properties/X-Raym_Reset%20all%20tracks%20to%20default%20TCP%20height.lua</source>
       </version>
     </reapack>
   </category>
