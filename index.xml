@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="02706a9a8e02085650cb6cf761ed66e2b015a350">
+<index version="1" commit="072e3648eb005aec4f38e77e14752377c52a628c">
   <category name="Functions">
     <reapack name="X-Raym_Functions - console debug messages.lua" type="script">
       <version name="1.7" author="X-Raym" time="2015-03-02T21:55:54Z">
@@ -1966,6 +1966,12 @@
         <changelog><![CDATA[(2016-01-26)
 + Multitracks presets support]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/892d7607835837001757c4ffb16d2ef08bbda73c/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20X%20to%20Y%20preserving%20edges%20on%20choosen%20envelopes.lua</source>
+      </version>
+      <version name="1.6" author="X-Raym" time="2016-03-01T13:49:11Z">
+        <changelog><![CDATA[(2016-03-01)
++ Independant "Inside" Parameter for X and Y (priority on X)
+# When prompt defaut envelope name is selected envelope one, if any.]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/072e3648eb005aec4f38e77e14752377c52a628c/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20X%20to%20Y%20preserving%20edges%20on%20choosen%20envelopes.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle envelopes properties.lua" type="script">
