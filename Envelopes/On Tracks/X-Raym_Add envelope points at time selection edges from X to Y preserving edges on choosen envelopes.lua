@@ -13,11 +13,14 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.5
+ * Version: 1.6
 --]]
  
 --[[
  * Changelog:
+ * v1.6 (2016-03-01)
+   + Independant "Inside" Parameter for X and Y (priority on X)
+   # When prompt defaut envelope name is selected envelope one, if any.
  * v1.5 (2016-01-26)
    + Multitracks presets support
  * v1.4.3 (2016-01-20)
@@ -60,7 +63,7 @@ ins_idx = 0 -- prepare indexes of table of insertions
 
 -- Basic Settings
 messages = true -- true/false : display infos in console
-prompt = false -- true/false : display a prompt window at script run. Only envelope 1 will work in prompt mode.
+prompt = true -- true/false : display a prompt window at script run. Only envelope 1 will work in prompt mode.
 
 -- Instructions: Copy envelope blocks below if you want to add another envelope.
 -- Demo: http://quick.as/GRgDCz3l6
@@ -76,6 +79,10 @@ insertions[ins_idx].valueIn_Y = 0
 
 insertions[ins_idx].offset_X = 1 -- number (seconds) : offset time selection left (create a linear ramp between the two left points
 insertions[ins_idx].offset_Y = 2 -- number (seconds) : offset time selection right (create a linear ramp between the two right points
+
+insertions[ins_idx].inside_X = 0 -- bolean (true/false) : offset time inside left in time selection
+insertions[ins_idx].inside_Y = 0 -- bolean (true/false) : offset time inside right time selection
+
 -------------------- End of envelope block
 
 ---- Envelope Block ----
@@ -89,6 +96,10 @@ insertions[ins_idx].valueIn_Y = 3
 
 insertions[ins_idx].offset_X = 1 -- number (seconds) : offset time selection left (create a linear ramp between the two left points
 insertions[ins_idx].offset_Y = 2 -- number (seconds) : offset time selection right (create a linear ramp between the two right points
+
+insertions[ins_idx].inside_X = 0 -- bolean (true/false) : offset time inside left in time selection
+insertions[ins_idx].inside_Y = 0 -- bolean (true/false) : offset time inside right time selection
+
 -------------------- End of envelope block
 
 ------------------- END OF USER CONFIG AREA
@@ -265,7 +276,7 @@ end
 -- MAIN FUNCTIONS --------------------------
 
 -- Add Points
-function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y)
+function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, inside_Y)
   
   -- GET THE ENVELOPE
   br_env = reaper.BR_EnvAlloc(env, false)
@@ -286,22 +297,19 @@ function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y)
     retval_cursor_time, cursor_val, dVdS_cursor_time, ddVdS_cursor_time, dddVdS_cursor_time = reaper.Envelope_Evaluate(env, cursor_pos, 0, 0)
     Msg("Value at Edit Cursor:")
     Msg(cursor_val)
-
-    -- INSERT RIGHT POINT
-    reaper.InsertEnvelopePoint(env, start_time_offset, first_start_val, 0, 0, true, true) -- INSERT startLoop point
     
     -- CONFORM VALUE ACCORDING TO ENVELOPE
     valueOut_X = valueIn_X
     valueOut_Y = valueIn_Y
     
-    if valueIn_X == "min" then valueOut_X = minValue end
-    if valueIn_X == "max" then valueOut_X = maxValue end
+	if valueIn_X == "min"    then valueOut_X = minValue    end
+	if valueIn_X == "max"    then valueOut_X = maxValue    end
     if valueIn_X == "center" then valueOut_X = centerValue end
-    if valueIn_X == "cursor" then valueOut_X = cursor_val end
-    if valueIn_Y == "min" then valueOut_Y = minValue end
-    if valueIn_Y == "max" then valueOut_Y = maxValue end
+	if valueIn_X == "cursor" then valueOut_X = cursor_val  end
+	if valueIn_Y == "min"    then valueOut_Y = minValue    end
+	if valueIn_Y == "max"    then valueOut_Y = maxValue    end
     if valueIn_Y == "center" then valueOut_Y = centerValue end
-    if valueIn_Y == "cursor" then valueOut_Y = cursor_val end
+	if valueIn_Y == "cursor" then valueOut_Y = cursor_val  end
 
     -- SANITIZE VALUE X & Y
     if valueOut_X < minValue then valueOut_X = minValue end
@@ -312,15 +320,26 @@ function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y)
     -- FADER SCALE
     if env_scale == 1 then valueIn_X = reaper.ScaleToEnvelopeMode(1, valueOut_X) end
     if env_scale == 1 then valueIn_Y = reaper.ScaleToEnvelopeMode(1, valueOut_Y) end
-    
-    -- INSERT X & Y POINTS
-    reaper.InsertEnvelopePoint(env, start_time, valueOut_X, 0, 0, true, true)
-    reaper.InsertEnvelopePoint(env, end_time, valueOut_Y, 0, 0, true, true)
+	
+	    -- INSERT RIGHT POINT
+	if inside_X == 0 then
+      reaper.InsertEnvelopePoint(env, start_time_offset, first_start_val, 0, 0, true, true) -- INSERT startLoop point
+	  reaper.InsertEnvelopePoint(env, start_time, valueOut_X, 0, 0, true, true) -- INSERT X point
+	else
+	  reaper.InsertEnvelopePoint(env, start_time_offset, valueOut_X, 0, 0, true, true) -- INSERT startLoop point
+	  reaper.InsertEnvelopePoint(env, start_time, first_start_val, 0, 0, true, true) -- INSERT X point
+	end
     
     -- INSERT RIGHT POINT
-    reaper.InsertEnvelopePoint(env, end_time_offset, last_end_val, 0, 0, true, true) -- INSERT startLoop point
-
-    -- RELEASE ENVELOPE
+	if inside_Y == 0 then
+	  reaper.InsertEnvelopePoint(env, end_time_offset, last_end_val, 0, 0, true, true) -- INSERT startLoop point
+	  reaper.InsertEnvelopePoint(env, end_time, valueOut_Y, 0, 0, true, true) -- INSERT Y point
+	else
+	  reaper.InsertEnvelopePoint(env, end_time_offset, valueOut_Y, 0, 0, true, true) -- INSERT startLoop point
+	  reaper.InsertEnvelopePoint(env, end_time, last_end_val, 0, 0, true, true) -- INSERT Y point
+	end
+    
+	-- RELEASE ENVELOPE
     reaper.BR_EnvFree(br_env, 0)
     reaper.Envelope_SortPoints(env)
   
@@ -330,7 +349,7 @@ end
 
 
 
-function main(dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y)
+function main(dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, inside_Y)
 
   -- GET CURSOR POS
   cursor_pos = reaper.GetCursorPosition()
@@ -340,8 +359,18 @@ function main(dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y)
   end_time = math.floor(end_time * 100000000+0.5)/100000000
   
   -- OFFSETS
-  start_time_offset = start_time - offset_X
-  end_time_offset = end_time + offset_Y
+  if inside_X == 0 then
+	start_time_offset = start_time - offset_X
+  else
+	start_time_offset = start_time + offset_X
+  end
+  
+  if inside_Y == 0 then
+	end_time_offset = end_time + offset_Y
+  else
+	end_time_offset = end_time - offset_Y
+	if end_time_offset < start_time_offset then end_time_offset = start_time_offset end
+  end
   
   -- LOOP TRHOUGH SELECTED TRACKS
   if sel_env == nil then
@@ -361,7 +390,7 @@ function main(dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y)
         retval, envName = reaper.GetEnvelopeName(env, "")
 
         if envName == dest_env_name then
-          AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y)
+          AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, inside_Y)
         end
         
       end -- ENDLOOP through envelopes
@@ -373,7 +402,7 @@ function main(dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y)
     retval, envName = reaper.GetEnvelopeName(sel_env, "")
 
     if envName == dest_env_name then
-      AddPoints(sel_env, valueIn_X, valueIn_Y, offset_X, offset_Y)
+      AddPoints(sel_env, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, inside_Y)
     end
   
   end -- endif sel envelope
@@ -397,7 +426,7 @@ selected_tracks_count = reaper.CountSelectedTracks(0)
 start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 -- IF TIME SELECTION
-if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
+if start_time ~= end_time and (sel_env or selected_tracks_count > 0) then
   
   -- CLEAR CONSOLE
   if messages then reaper.ClearConsole() end
@@ -411,7 +440,7 @@ if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
   Msg("------------")
   
   -- SELECTED ENVELOPE NAME
-  if env ~= nil then
+  if sel_env then
   
     retval, dest_env_name = reaper.GetEnvelopeName(sel_env, "")
   
@@ -453,7 +482,8 @@ if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
   if prompt then
     insertions[1].valueIn_X = tostring(insertions[1].valueIn_X)
     insertions[1].valueIn_Y = tostring(insertions[1].valueIn_Y)
-    retval, retvals_csv = reaper.GetUserInputs("Set Envelope Points", 5, "Envelope Name,Value X (number),Value Y (number),Time Offset X (s),Time Offset Y (s)", insertions[1].dest_env_name .. "," .. insertions[1].valueIn_X .. "," .. insertions[1].valueIn_Y .. "," .. insertions[1].offset_X .. "," .. insertions[1].offset_Y)
+	if not sel_env then dest_env_name = insertions[1].dest_env_name end
+	retval, retvals_csv = reaper.GetUserInputs("Set Envelope Points", 7, "Envelope Name,Value X (number),Value Y (number),Time Offset X (s),Time Offset Y (s),Inside TS Left (0/1),Inside TS Right(0,1)", dest_env_name .. "," .. insertions[1].valueIn_X .. "," .. insertions[1].valueIn_Y .. "," .. insertions[1].offset_X .. "," .. insertions[1].offset_Y .. "," .. insertions[1].inside_X .. "," .. insertions[1].inside_Y)
   end
 
   if retval or prompt == false then -- if user complete the fields
@@ -463,12 +493,12 @@ if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
     reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
     if prompt then
-      insertions[1].dest_env_name, insertions[1].valueIn_X, insertions[1].valueIn_Y, insertions[1].offset_X, insertions[1].offset_Y = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+      insertions[1].dest_env_name, insertions[1].valueIn_X, insertions[1].valueIn_Y, insertions[1].offset_X, insertions[1].offset_Y, insertions[1].inside_X, insertions[1].inside_Y = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
     end
 
     for i, insert in ipairs(insertions) do
     
-      if insert.dest_env_name ~= nil and insert.valueIn_X ~= nil and insert.valueIn_Y ~= nil and insert.offset_X ~= nil and insert.offset_Y ~= nil then
+      if insert.dest_env_name and insert.valueIn_X and insert.valueIn_Y and insert.offset_X and insert.offset_Y and insert.inside_X and insert.inside_Y then
         
         insert.dest_env_type = GetEnvelopeScaleType(insert.dest_env_name)
 
@@ -484,10 +514,13 @@ if start_time ~= end_time and (env ~= nil or selected_tracks_count > 0) then
         
         insert.offset_X = tonumber(insert.offset_X)
         insert.offset_Y = tonumber(insert.offset_Y)
+		
+		insert.inside_X = tonumber(insert.inside_X)
+		insert.inside_Y = tonumber(insert.inside_Y)
 
-        if insert.valueIn_X ~= nil and insert.valueIn_Y ~= nil and insert.offset_X ~= nil and insert.offset_Y ~= nil then
+		if insert.valueIn_X and insert.valueIn_Y and insert.offset_X and insert.offset_Y and insert.inside_X and insert.inside_Y then
 
-          main(insert.dest_env_name, insert.valueIn_X, insert.valueIn_Y, insert.offset_X, insert.offset_Y) -- Execute your main function
+			main(insert.dest_env_name, insert.valueIn_X, insert.valueIn_Y, insert.offset_X, insert.offset_Y, insert.inside_X, insert.inside_Y) -- Execute your main function
 
         end
 
