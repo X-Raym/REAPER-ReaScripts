@@ -18,8 +18,8 @@
  
 --[[
  * Changelog:
- * v1.6 (2016-03-01)
-   # Fix delete points in area
+ * v1.6.1 (2016-03-02)
+   # Delete points in area
  * v1.6 (2016-03-01)
    + Independant "Inside" Parameter for X and Y (priority on X)
    # When prompt defaut envelope name is selected envelope one, if any.
