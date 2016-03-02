@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.6
+ * Version: 1.6.1
 --]]
  
 --[[
  * Changelog:
+ * v1.6 (2016-03-01)
+   # Fix delete points in area
  * v1.6 (2016-03-01)
    + Independant "Inside" Parameter for X and Y (priority on X)
    # When prompt defaut envelope name is selected envelope one, if any.
@@ -291,7 +293,10 @@ function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, insi
     UnselectAllEnvelopePoints(env, env_points_count)
     
     -- CLEAN TIME SELECTION
-    first_start_val, last_start_val, first_end_val, last_end_val = GetDeleteTimeLoopPoints(env, env_points_count, start_time_offset, end_time_offset)  
+	if start_time_offset < start_time then start_clean = start_time_offset else start_clean = start_time end
+	if end_time_offset > end_time then end_clean = end_time_offset else end_clean = end_time end
+    first_start_val, last_start_val, first_end_val, last_end_val = GetDeleteTimeLoopPoints(env, env_points_count, start_clean, end_clean)
+	
 
     -- EDIT CURSOR VALUE EVALUATION
     retval_cursor_time, cursor_val, dVdS_cursor_time, ddVdS_cursor_time, dddVdS_cursor_time = reaper.Envelope_Evaluate(env, cursor_pos, 0, 0)
