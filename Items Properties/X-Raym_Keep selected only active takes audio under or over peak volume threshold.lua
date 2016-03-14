@@ -29,7 +29,7 @@
 threshold = -10 -- number: Default threshold to select items
 direction = "+" -- "+"/"-": Select if over or below the threshold
 
-all_items = true
+all_items = false
 
 popup = true -- true/false: display a pop up box
 
