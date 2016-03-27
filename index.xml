@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="072e3648eb005aec4f38e77e14752377c52a628c">
+<index version="1" commit="7f9d419f7c50fd71f35d46de88f82295132c5ad8">
   <category name="Functions">
     <reapack name="X-Raym_Functions - console debug messages.lua" type="script">
       <version name="1.7" author="X-Raym" time="2015-03-02T21:55:54Z">
@@ -892,6 +892,13 @@
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/f9d2dc13753bf12e9eb3a5ec5ae98c0d614935e4/Items%20Properties/X-Raym_Rename%20selected%20takes%20from%20CSV%20input.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Keep selected only active takes audio under or over peak volume threshold.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-03-14T23:27:16Z">
+        <changelog><![CDATA[(2016-03-14)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/34723f2549567de93c4f88fbfc6003499f948e5d/Items%20Properties/X-Raym_Keep%20selected%20only%20active%20takes%20audio%20under%20or%20over%20peak%20volume%20threshold.lua</source>
+      </version>
+    </reapack>
   </category>
   <category name="Track Properties">
     <reapack name="X-Raym_Display selected track pan compensated by width.eel" type="script">
@@ -1153,6 +1160,13 @@
         <changelog><![CDATA[(2016-01-14)
 + Initial Release]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/99c219b47d1b09ade0d1e58ff8502b71da2c7eff/Various/X-Raym_Open%20project%20folder%20in%20explorer%20or%20finder.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Render selected tracks individually through master.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-03-14T00:15:50Z">
+        <changelog><![CDATA[(2016-03-16)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/f71c4d79329c55018174c8b714884a664e132982/Various/X-Raym_Render%20selected%20tracks%20individually%20through%20master.lua</source>
       </version>
     </reapack>
   </category>
@@ -1973,6 +1987,9 @@
 # When prompt defaut envelope name is selected envelope one, if any.]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/072e3648eb005aec4f38e77e14752377c52a628c/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20X%20to%20Y%20preserving%20edges%20on%20choosen%20envelopes.lua</source>
       </version>
+      <version name="1.6.1" author="X-Raym" time="2016-03-02T01:11:41Z">
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/dbde2a857b84a7af7bca56b1419e1b364a49f2dd/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20X%20to%20Y%20preserving%20edges%20on%20choosen%20envelopes.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Toggle envelopes properties.lua" type="script">
       <version name="1.0" author="X-Raym" time="2016-01-29T20:25:45Z">
@@ -2317,6 +2334,11 @@
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/33e850cbdbd699da0675d2248cc8f048420b9afa/MIDI%20Editor/X-Raym_Insert%20MIDI%20notes%20at%20project%20markers.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Set selected notes velocity to 100.eel" type="script">
+      <version name="1.0" author="X-Raym" time="2016-03-27T11:51:55Z">
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/7f9d419f7c50fd71f35d46de88f82295132c5ad8/MIDI%20Editor/X-Raym_Set%20selected%20notes%20velocity%20to%20100.eel</source>
+      </version>
+    </reapack>
   </category>
   <category name="Regions">
     <reapack name="X-Raym_Add italic markup to current region name.eel" type="script">
@@ -2415,6 +2437,13 @@
     <reapack name="X-Raym_Snap all markers to grid.eel" type="script">
       <version name="1.0" author="X-Raym" time="2016-01-13T23:55:07Z">
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/26fbe2feb20984a52e41c1cd8c18227228c12a61/Regions/X-Raym_Snap%20all%20markers%20to%20grid.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Insert or update start and end marker from time selection.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-03-21T05:58:32Z">
+        <changelog><![CDATA[(2016-03-21)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc9c6cc0e19da68e9e5941aeb1ed5a2bd80b2610/Regions/X-Raym_Insert%20or%20update%20start%20and%20end%20marker%20from%20time%20selection.lua</source>
       </version>
     </reapack>
   </category>
