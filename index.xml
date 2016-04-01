@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="7f9d419f7c50fd71f35d46de88f82295132c5ad8">
+<index version="1" commit="f0f1244b2902726a4f0d1b628d0848d59311ac8f">
   <category name="Functions">
     <reapack name="X-Raym_Functions - console debug messages.lua" type="script">
       <version name="1.7" author="X-Raym" time="2015-03-02T21:55:54Z">
@@ -512,6 +512,20 @@
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/b75bad270621c7f302c7de566b7b27fc27dadb6f/Items%20Editing/X-Raym_Stutter%20edit%20selected%20media%20items.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Create seamless loops from selected items sections inside time selection.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-04-01T16:09:06Z">
+        <changelog><![CDATA[(2016-04-01)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/f0f1244b2902726a4f0d1b628d0848d59311ac8f/Items%20Editing/X-Raym_Create%20seamless%20loops%20from%20selected%20items%20sections%20inside%20time%20selection.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set item under mouse start and end to items selection.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-04-01T16:09:06Z">
+        <changelog><![CDATA[(2016-04-01)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/f0f1244b2902726a4f0d1b628d0848d59311ac8f/Items%20Editing/X-Raym_Set%20item%20under%20mouse%20start%20and%20end%20to%20items%20selection.lua</source>
+      </version>
+    </reapack>
   </category>
   <category name="Items Properties">
     <reapack name="X-Raym_Pan selected takes from -x to +x.eel" type="script">
@@ -620,6 +634,11 @@
 + User Config Area
 # All items real support (1.0 had a 250 items limitations)]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Properties/X-Raym_List%20all%20audio%20takes%20paths%20in%20the%20console.lua</source>
+      </version>
+      <version name="1.2" author="X-Raym" time="2016-04-01T16:06:40Z">
+        <changelog><![CDATA[(2015-12-16)
++ Sorting option]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/7852a5f6d90cae5bbee5c246199cff1686ab3a86/Items%20Properties/X-Raym_List%20all%20audio%20takes%20paths%20in%20the%20console.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Move selected items snap offset to next cue.lua" type="script">
@@ -1371,6 +1390,20 @@
 # Better item creation
 ]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/8bbff4ed759d3236f42e649cc5faecb123c65a62/Text%20Items%20and%20Item%20Notes/Creation/X-Raym_Create%20text%20items%20on%20first%20selected%20track%20from%20markers.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Create one text item on first selected track from selected items.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-04-01T16:09:06Z">
+        <changelog><![CDATA[(2016-04-01)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/f0f1244b2902726a4f0d1b628d0848d59311ac8f/Text%20Items%20and%20Item%20Notes/Creation/X-Raym_Create%20one%20text%20item%20on%20first%20selected%20track%20from%20selected%20items.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Create text items on first selected track from selected items groups.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-04-01T16:09:06Z">
+        <changelog><![CDATA[(2016-04-01)
++ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/f0f1244b2902726a4f0d1b628d0848d59311ac8f/Text%20Items%20and%20Item%20Notes/Creation/X-Raym_Create%20text%20items%20on%20first%20selected%20track%20from%20selected%20items%20groups.lua</source>
       </version>
     </reapack>
   </category>
