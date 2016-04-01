@@ -12,11 +12,13 @@
  * Forum Thread URI:
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1
+ * Version: 1.2
 --]]
  
 --[[
  * Changelog:
+ * v1.2 (2015-12-16)
+	+ Sorting option
  * v1.1 (2015-12-16)
 	+ Minimalist report
 	+ Possibility to delete duplicates sources
@@ -28,6 +30,7 @@
 
 -- USER CONFIG AREA --------------
 duplicates = false -- (true/false): define if you want to have only different sources, or all takes sources.
+sorting = true -- (true/false): sort the results by alphabetical order or not
 ---------------------------------- 
 
 function Msg(val)
@@ -87,6 +90,10 @@ function main()
 	
 	if duplicates == false then
 		sources = table_unique(sources)
+	end
+	
+	if sorting then
+		table.sort(sources)
 	end
 	
 	-- Display results
