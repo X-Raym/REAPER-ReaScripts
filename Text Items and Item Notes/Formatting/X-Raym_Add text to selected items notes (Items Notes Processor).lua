@@ -20,7 +20,7 @@
  * Changelog:
  * v1.2 (2016-04-12)
 	+ Added "Below" and Above keywords. "After" and "Before" now work without breaklines.
-	+ Argument for /E and /I (leading zeros and offset) like this /Eoffset/leadingZero
+	+ Argument for /E and /I (leading zeros and offset) like this /Eoffset_digits eg /E2_2 will output 03 for first selected items.
  * v1.1 (2015-10-07)
 	+ Replace
 	+ User config area
