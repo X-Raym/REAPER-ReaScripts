@@ -13,11 +13,14 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156757
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.1
- * Version: 1.1
+ * Version: 1.2
 --]]
  
 --[[
  * Changelog:
+ * v1.2 (2016-04-12)
+	+ Added "Below" and Above keywords. "After" and "Before" now work without breaklines.
+	+ Argument for /E and /I (leading zeros and offset) like this /Eoffset/leadingZero
  * v1.1 (2015-10-07)
 	+ Replace
 	+ User config area
@@ -25,7 +28,7 @@
 	# bug fixes
  * v1.0 (2015-05-06)
 	+ Initial Release
- --]]
+--]]
 
 --[[ ------ TEXT WILDCARDS REFERENCES ---------------------
 /E -- enumerate in selection
@@ -33,13 +36,53 @@
 /T -- Track name
 /t -- Track number
 --]] -----------------------------------------------------
- 
+
  
 -- ------ USER CONFIG AREA -----------------------------
-default_action = "After" -- "Before", "After", "Replace"
-default_text = "" -- "Text"
+default_action = "After" -- "Before", "After", "Replace", "Below", "Above"
+default_text = "/E3_0_" -- "Text"
+
+console = false
 --------------------------------------------------------
- 
+
+function Msg(value)
+	if console then
+		reaper.ShowConsoleMsg(tostring(value) .. "\n")
+	end
+end
+
+
+function AddZerosAndOffset(number, zeros, offset)
+
+	local number = number + offset
+	
+	number = tostring(number)
+	
+	number = string.format('%0' .. zeros .. 'd', number)
+	Msg(number)
+	
+	return number
+
+end
+
+
+function ProcessKeyword(input, number, keyword)
+	
+	local zeros, offset = input:match(keyword .. "(%d+)_([^,]+)_")
+	
+	if zeros or offset then
+		Msg('zeros = ' .. zeros)
+		Msg('offset = ' .. offset)
+		local number = AddZerosAndOffset(number, zeros, offset)
+		input = input:gsub(keyword .. "(%d+)_([^,]+)_", tostring(number))
+	else
+		input = input:gsub(keyword, tostring(number))
+	end
+	
+	return input
+	
+end
+
  
 function main(csv) -- local (i, j, item, take, track)
 	
@@ -52,7 +95,17 @@ function main(csv) -- local (i, j, item, take, track)
 	
 		text = text:gsub("¤¤¤", ", ")
 		
-		if (before_after == "Before" or before_after == "After" or before_after == "Replace" or before_after == "b" or before_after == "a" or before_after == "r" or before_after == "before" or before_after == "after" or before_after == "replace") and text ~= nil then
+		before_after = string.lower(before_after)
+		
+		if (before_after == "b" or 
+			before_after == "a" or 
+			before_after == "r" or 
+			before_after == "before" or 
+			before_after == "after" or 
+			before_after == "replace" or 
+			before_after == "below" or 
+			before_after == "above") and
+			text ~= nil then
 		
 			reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the 
 		
@@ -65,6 +118,7 @@ function main(csv) -- local (i, j, item, take, track)
 				track_id = reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER")
 				track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
 				
+				-- Some possible keywords from SWS label processor
 				-- /D -- Duration
 				-- /E[digits, first] -- enumerate in selection
 				-- /e[digits, first] -- enumerate in selection on track
@@ -72,28 +126,53 @@ function main(csv) -- local (i, j, item, take, track)
 				-- /i[digits, first] -- inverse enumerate in selection on track
 				-- /T[offset, length] -- Track name
 				-- /t[digits] -- Track number
-				input = text:gsub("/E", tostring(i + 1))
-				input = input:gsub("/I", tostring(selected_items_count - i))
+				
+				input = text
+				Msg('input = ' .. input)
+				
+				if string.find(input, "/E") then
+					number = i + 1
+					
+					input  = ProcessKeyword(input, number, "/E")
+				end
+				
+				if string.find(input, "/I") then
+					number = selected_items_count - i
+					
+					input  = ProcessKeyword(input, number, "/I")
+				end
+				
 				input = input:gsub("/T", track_name)
 				input = input:gsub("/t", tostring(track_id))
 				
 				notes = reaper.ULT_GetMediaItemNote(item)
 				
+				-- Get Item Notes
 				if notes == nil or notes == "" then
-					reaper.ULT_SetMediaItemNote(item, text)
+					reaper.ULT_SetMediaItemNote(item, input)
 				else
 					
-					if before_after == "Before" or before_after == "before" or before_after == "b"then -- before
-						notes = input .. "\n" .. notes
+					if before_after == "above" or before_after == "a2"then -- before
+						notes = input .. "\r\n" .. notes
 						reaper.ULT_SetMediaItemNote(item, notes)
 					end
 					
-					if before_after == "After" or before_after == "after" or before_after == "a"then -- after
-						notes = notes .. "\n" .. input
+					if before_after == "below" or before_after == "b2"then -- before
+						notes = notes .. "\r\n" .. input
 						reaper.ULT_SetMediaItemNote(item, notes)
 					end
 					
-					if before_after == "Replace" or before_after == "replace" or before_after == "r" then -- after
+					if before_after == "after" or before_after == "a"then -- after
+						notes = notes .. input
+						reaper.ULT_SetMediaItemNote(item, notes)
+					end
+					
+					if before_after == "before" or before_after == "b"then -- before
+						notes = input .. notes
+						reaper.ULT_SetMediaItemNote(item, notes)
+					end
+					
+					if before_after == "replace" or before_after == "r" then -- after
 						notes = input
 						reaper.ULT_SetMediaItemNote(item, notes)
 					end
@@ -102,13 +181,14 @@ function main(csv) -- local (i, j, item, take, track)
 			
 			end -- end of items loop
 		
-		reaper.Undo_EndBlock("Add text to selected items notes (Items Notes Processor)", -1) -- End of the undo block. Leave it at the bottom of your main function.
+			reaper.Undo_EndBlock("Add text to selected items notes (Items Notes Processor)", -1) -- End of the undo block. Leave it at the bottom of your main function.
 		
 		end -- end of it there is before after
 	
 	end -- end of if there is text
 
 end -- end of function
+
 
 reaper.PreventUIRefresh(1)
 
@@ -118,15 +198,18 @@ if selected_items_count > 0 then
 	
 	default_csv = default_action .. "," .. default_text
 	
-	retval, output_csv = reaper.GetUserInputs("Item Notes Processor", 2, "Before/After/Replace:,Text:", default_csv) 
+	retval, output_csv = reaper.GetUserInputs("Item Notes Processor", 2, "Before/After/Replace/Above/Below:,Text (/Ex_x, /I, /T, /t):", default_csv) 
 
 	if retval then
+	
+		if console then reaper.ClearConsole() end
 	
 		main(output_csv) -- Execute your main function
 	
 	end
 
 end
-reaper.PreventUIRefresh(-1)
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
+
+reaper.PreventUIRefresh(-1)
