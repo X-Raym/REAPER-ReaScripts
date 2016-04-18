@@ -12,12 +12,15 @@
  * Forum Thread:   EEL: Clock (shows project time)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
  * REAPER: 5.0
- * Extensions: None
- * Version: 1.1.2
+ * Extensions: ../Functions/spk77_Save table to file and load table from file_functions.lua
+ * Version: 1.2
 --]]
- 
+
 --[[
  * Changelog:
+ * v1.2 (2016-04-18)
+	+ Button states if action is in toolbar.
+	+ Save window state in an external file.
  * v1.1.2 (2016-01-27)
   + Dock the window via left click if there is no regions.
  * v1.1.1 (2016-01-19)
@@ -26,22 +29,53 @@
   + User config area
  * v1.0 (2015-09-24)
   + Initial Release
- --]]
+--]]
+
 
 --// USER CONFIG AREA -->
 
 text_color = "White" -- support names (see color function) and hex values with #
 background_color = "#333333" -- support names and hex values with #. REAPER defaults are dark grey #333333 and brigth grey #A4A4A4
 no_regions_text = true -- set to false to desactivate "NO REGIONS UNDER PLAY CURSOR" instructions
+console = false -- Display debug messages in the console
 
---// -------------------- END OF USER CONFIG AREA 
+--// -------------------- END OF USER CONFIG AREA
+
 
 --// INITIAL VALUES //--
 font_size = 40
 font_name = "Arial"
+format = 0
+
+-- To Save in Preset filename
 window_w = 640
 window_h = 270
-format = 0
+
+-- DEBUG
+function Msg(value)
+	if console then
+		reaper.ShowConsoleMsg(tostring(value) .. "\n")
+	end
+end
+
+
+-- Set ToolBar Button ON
+function SetButtonON()
+ local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
+ local state = reaper.GetToggleCommandStateEx( sec, cmd )
+ reaper.SetToggleCommandState( sec, cmd, 1 ) -- Set ON
+ reaper.RefreshToolbar2( sec, cmd )
+end
+
+
+-- Set ToolBar Button OFF
+function SetButtonOFF()
+ local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
+ local state = reaper.GetToggleCommandStateEx( sec, cmd )
+ reaper.SetToggleCommandState( sec, cmd, 0 ) -- Set OFF
+ reaper.RefreshToolbar2( sec, cmd )
+end
+
 
 --// COLOR FUNCTIONS //--
 function INT2RGB(color_int)
@@ -55,6 +89,7 @@ function INT2RGB(color_int)
   rgba(R, G, B, 255)
 end
 
+
 function rgba(r, g, b, a)
   if a ~= nil then gfx.a = a/255 else a = 255 end
   gfx.r = r/255
@@ -62,21 +97,23 @@ function rgba(r, g, b, a)
   gfx.b = b/255
 end
 
+
 function HexToRGB(value)
   local hex = value:gsub("#", "")
   local R = tonumber("0x"..hex:sub(1,2))
   local G = tonumber("0x"..hex:sub(3,4))
   local B = tonumber("0x"..hex:sub(5,6))
-  
+
   if R == nil then R = 0 end
   if G == nil then G = 0 end
   if B == nil then B = 0 end
-  
+
   gfx.r = R/255
   gfx.g = G/255
   gfx.b = B/255
-    
+
 end
+
 
 function color(col)
   if string.find(col, "#.+") ~= nil then
@@ -101,33 +138,36 @@ function color(col)
   if col == "Purple" then HexToRGB("#800080") end
 end
 
+
 --// ELEMENTS //--
 function DrawProgressBar() -- Idea from Heda's Notes Reader
   progress_percent = (play_pos-region_start)/region_duration
   rect_h = gfx.h/10
-  
+
   INT2RGB(region_color)
   gfx.rect( 0, 0, gfx.w, rect_h )
-  
+
   rgba( 255,255,255,200 )
   gfx.rect( 0, 0, gfx.w*progress_percent, rect_h )
   gfx.y = rect_h * 2
 end
 
+
 function CenterAndResizeText(string)
   gfx.setfont(1, font_name, 100)
-  
+
   str_w, str_h = gfx.measurestr(string)
   fontsizefit=(gfx.w/(str_w+50))*100 -- new font size needed to fit.
   fontsizefith=((gfx.h-gfx.y)/(str_h+50))*100 -- new font size needed to fit in vertical.
-  
+
   font_size =  math.min(fontsizefit,fontsizefith)
-  gfx.setfont(1, font_name, font_size) 
-  
+  gfx.setfont(1, font_name, font_size)
+
   str_w, str_h = gfx.measurestr(string)
   gfx.x = gfx.w/2-str_w/2
   gfx.y = gfx.y
 end
+
 
 function PrintAndBreak(string)
   CenterAndResizeText(string)
@@ -137,31 +177,57 @@ function PrintAndBreak(string)
   gfx.y = gfx.y + font_size
 end
 
+
 function DrawBackground()
   color(background_color)
   gfx.rect( 0, 0, gfx.w, gfx.h )
 end
 
+
 --// INIT //--
-function init(window_w, window_h)
-  gfx.init("Region's Clock by X-Raym" , window_w, window_h)
+function init(window_w, window_h, window_x, window_y, docked)
+  gfx.init("Region's Clock by X-Raym" , window_w, window_h, docked, window_x, window_y)	-- name,width,height,dockstate,xpos,ypos
   gfx.setfont(1, font_name, font_size, 'b')
   --color(text_color)
 end
 
+
+function DoExitFunctions()
+	SetButtonOFF()
+	SaveWindow()
+end
+
+
+function SaveWindow()
+	docked, xpos, ypos, wlen, hlen = gfx.dock(-1, xpos, ypos, wlen, hlen)
+	presets = {
+						 -- Preset 1
+						 regions_clock =
+							 {
+								 docked = docked,
+								 xpos = xpos,
+								 ypos = ypos,
+								 wlen = wlen,
+								 hlen = hlen
+							 },
+						}
+	table.save(presets, presets_path) -- save "presets" table
+end
+
+
 --// MAIN //--
 function run()
-  
+
   DrawBackground()
-  
+
   -- PLAY STATE
   play_state = reaper.GetPlayState()
   if play_state == 0 then play_pos = reaper.GetCursorPosition() else play_pos = reaper.GetPlayPosition() end
-  
+
   -- IS REGION
   marker_idx, region_idx = reaper.GetLastMarkerAndCurRegion(0, play_pos)
   if region_idx >= 0 then -- IF LAST REGION
-    
+
     retval, is_region, region_start, region_end, region_name, markrgnindexnumber, region_color = reaper.EnumProjectMarkers3(0, region_idx)
     buf = play_pos - region_start
     buf = reaper.format_timestr_pos(buf, "", format)
@@ -173,16 +239,16 @@ function run()
     is_region = false
     gfx.y = 0
   end -- IF LAST REGION
-  
+
   -- From SPK77's Clock script
   -- CHANGE FORMAT WITH A CLICK
   if mouse_state == 0 and gfx.mouse_cap == 2 and gfx.mouse_x > 5 and gfx.mouse_x < gfx.w - 5 and gfx.mouse_y > 5 and gfx.mouse_y < gfx.h - 5 then
     mouse_state = 1
    if format < 5 then format = format + 1 else format = 0 end
   end
-  
+
   if gfx.mouse_cap == 0 then mouse_state = 0 end
-    
+
   -- Left clik return cursor at the begining of the region smooth seek
   if gfx.mouse_cap == 1 then
     if is_region then
@@ -195,8 +261,8 @@ function run()
       if gfx.dock(-1) == 0 then gfx.dock(1) else gfx.dock(0) end
     end
   end
-  
-  -- DRAW  
+
+  -- DRAW
   if is_region == true then
      DrawProgressBar()
      PrintAndBreak(buf)
@@ -206,14 +272,58 @@ function run()
        PrintAndBreak("No Region")
        PrintAndBreak("Under Play Cursor")
      end
-  end    
-  
+  end
+
   gfx.update()
   if gfx.getchar() ~= 27 then reaper.defer(run) else gfx.quit() end
 
 end -- END DEFER
 
 
--- RUN
-init(window_w, window_h)
+function get_script_path()
+  local info = debug.getinfo(1,'S');
+  local script_path = info.source:match[[^@?(.*[\/])[^\/]-$]]
+  return script_path
+end
+
+--// RUN //--
+
+---------------------------------------------------
+-- Get script path and create "presets.txt" file --
+---------------------------------------------------
+
+script_path = get_script_path()
+presets_path = script_path .. "../X-Raym_Scripts presets.lua"
+
+-- Get External File
+dofile(script_path .. "../Functions/spk77_Save table to file and load table from file_functions.lua")
+
+-- if "presets.txt" doesn't exist it will be created
+if not reaper.file_exists(presets_path) then
+  local file = io.open(presets_path, "w")
+  io.close(file)
+
+	-- Save presets according t
+	presets = {
+						 -- Preset 1
+						 regions_clock =
+							 {
+								 wlen = window_w,
+								 hlen = window_h,
+								 xpos = 0, -- will display at left.
+								 ypos = 0, -- will display at bottom.
+								 docked = 0
+							 },
+						}
+	table.save(presets, presets_path) -- save "presets" table
+
+end
+
+-- Restore regions_clock table
+preset = table.load(presets_path).regions_clock -- load only the "other_preset" table
+
+SetButtonON()
+-- init(window_w, window_h, window_x, window_y, docked)
+init(preset.wlen, preset.hlen, preset.xpos, preset.ypos, preset.docked)
 run()
+reaper.atexit( DoExitFunctions )
