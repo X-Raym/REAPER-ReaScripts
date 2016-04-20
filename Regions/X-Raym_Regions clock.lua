@@ -9,8 +9,8 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URI:
  * Licence: GPL v3
- * Forum Thread:   EEL: Clock (shows project time)
- * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
+ * Forum Thread: Scripts: Regions and Markers (various)
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
  * Extensions: ../Functions/spk77_Save table to file and load table from file_functions.lua
  * Version: 1.2
