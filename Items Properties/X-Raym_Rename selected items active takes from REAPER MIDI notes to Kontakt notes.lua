@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-10-02)
 	+ Initial Release
- --]]
+--]]
 
 function swap() -- local (i, j, item, take, track)
 

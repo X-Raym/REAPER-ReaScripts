@@ -18,7 +18,7 @@
  * Changelog:
  * v1.0 (2015-07-01)
   + Initial Release
- --]]
+--]]
 
  
 --> >>>>> USER AREA =========>

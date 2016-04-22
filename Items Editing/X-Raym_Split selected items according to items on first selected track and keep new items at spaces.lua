@@ -21,7 +21,7 @@
 	+ Works on selected multiple items
  * v1.0 (2015-04-01)
 	+ Initial Release
- --]]
+--]]
 
 -- ----- DEBUGGING ====>
 --[[local info = debug.getinfo(1,'S');

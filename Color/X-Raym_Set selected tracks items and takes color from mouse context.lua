@@ -21,7 +21,7 @@
 	# no console message
  * v1.0 (2015-04-05)
 	+ Initial Release
- --]]
+--]]
 
 -- INIT
 color_int = 0

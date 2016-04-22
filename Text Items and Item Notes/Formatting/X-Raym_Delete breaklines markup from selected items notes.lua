@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-31-07)
 	+ Initial Release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()

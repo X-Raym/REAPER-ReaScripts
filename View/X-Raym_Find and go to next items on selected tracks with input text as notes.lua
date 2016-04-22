@@ -20,7 +20,7 @@
  * Changelog:
  * v1.0 (2015-10-07)
   + Initial Release
- --]]
+--]]
 
 -- TO DO: MAke it Work with - chracter in search
 -- make it save last search

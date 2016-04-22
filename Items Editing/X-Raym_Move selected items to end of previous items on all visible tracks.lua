@@ -22,7 +22,7 @@
 	+ Limit with marker name "LIMIT"
  * v1.0 (2015-09-09)
 	+ Initial Release
- --]]
+--]]
 
 -- ----- USER CONFIG AREA ====>
 

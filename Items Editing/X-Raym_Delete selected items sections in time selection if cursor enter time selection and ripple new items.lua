@@ -20,7 +20,7 @@
  * Changelog:
  * v1.0 (2015-12-02)
 	+ Initial Release
- --]]
+--]]
 
 -- Requested by Vanhaze
 -- Need X-Raym_Delete selected items and ripple edit adjacent items.lua

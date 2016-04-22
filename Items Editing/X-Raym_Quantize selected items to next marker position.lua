@@ -13,13 +13,13 @@
  * REAPER: 5.0
  * Extensions: None
  * Version: 1.0
- --]]
+--]]
 
 --[[
  * Changelog:
  * v1.0 (2016-01-14)
    + Initial release
- --]]
+--]]
 
 console = false
 function Msg(variable)

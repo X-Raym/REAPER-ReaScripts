@@ -23,7 +23,7 @@
 	+ Abble to update background tags if already set
 	+ Abble to delete background tag if item has not color
 	+ Initial Release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()

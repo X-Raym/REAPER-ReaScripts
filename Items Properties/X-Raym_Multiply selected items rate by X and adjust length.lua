@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-11-25)
 	+ Initial Release
- --]]
+--]]
 
 function main( coef ) -- local (i, j, item, take, track)
 

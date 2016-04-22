@@ -26,7 +26,7 @@
 	# All items real support (1.0 had a 250 items limitations)
  * v1.0 (2015-07-14)
 	+ Initial Release
- --]]
+--]]
 
 -- USER CONFIG AREA --------------
 duplicates = false -- (true/false): define if you want to have only different sources, or all takes sources.

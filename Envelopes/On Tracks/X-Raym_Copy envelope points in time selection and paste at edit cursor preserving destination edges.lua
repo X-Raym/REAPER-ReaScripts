@@ -26,7 +26,7 @@
 	+ Redraw envelope value at cursor pos in TCP (thanks to HeDa!)
  * v1.0 (2015-03-17)
 	+ Initial release
- --]]
+--]]
 
 -- ----- DEBUGGING ====>
 --[[

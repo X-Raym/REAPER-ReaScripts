@@ -14,7 +14,7 @@
  * Version Date: 2015-02-27
  * REAPER: 5.0 pre 11
  * Extensions: None
- --]]
+--]]
  
 --[[
  * Changelog:
@@ -22,7 +22,7 @@
 	+ Rename
  * v1.0 (2015-02-27)
 	+ Initial Release
- --]]
+--]]
 
 -- ----- DEBUGGING ====>
 --[[function get_script_path()

@@ -14,7 +14,7 @@
  * Version Date: 2015-02-28
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0 (optional)
- --]]
+--]]
  
 --[[
  * Changelog:
@@ -22,7 +22,7 @@
 	+ Initial Release
 	+ Thanks to benf for the help on format_timestr_pos
 	+ Thanks to spk77 for his Clock.eel script
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()

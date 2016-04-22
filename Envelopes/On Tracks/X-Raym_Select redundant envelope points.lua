@@ -25,7 +25,7 @@
 	+ Value Point at same time
  * v0.8 (2015-07-16)
 	+ Initial Beta
- --]]
+--]]
 
 -- ----- DEBUGGING ====>
 --[[

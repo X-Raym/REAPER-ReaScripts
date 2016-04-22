@@ -14,7 +14,7 @@
  * Version Date: 2015-03-25
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.0
- --]]
+--]]
  
 --[[
  * Changelog:
@@ -22,7 +22,7 @@
 	+ bug fix (if empty item was selected)
  * v1.0 (2015-03-24)
 	+ Initial Release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()

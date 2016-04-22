@@ -21,7 +21,7 @@
 	+ Preserve grouping if groups active. Treat first selected item (in position) in each group as group leader (other are ignored during the alignement).
  * v1.0 (2015-05-11)
 	+ Initial Release
- --]]
+--]]
  
 -- ----- DEBUGGING ====>
 reselect_groups = true

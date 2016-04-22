@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-07-22)
 	+ Initial release
- --]]
+--]]
  
 -- ----- DEBUGGING ====>
 --[[

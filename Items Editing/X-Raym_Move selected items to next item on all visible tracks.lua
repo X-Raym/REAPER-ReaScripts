@@ -20,7 +20,7 @@
  * Changelog:
  * v1.0 (2015-09-09)
 	+ Initial Release
- --]]
+--]]
 
 sel_item = {}
 min_pos = 0

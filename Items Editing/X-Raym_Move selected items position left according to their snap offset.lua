@@ -20,7 +20,7 @@
  * Changelog:
  * v1.0 (2015-12-14)
 	+ Initial Release
- --]]
+--]]
 
 sel_item = {}
  

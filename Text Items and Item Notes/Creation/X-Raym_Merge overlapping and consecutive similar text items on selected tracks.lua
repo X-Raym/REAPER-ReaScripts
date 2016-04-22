@@ -25,7 +25,7 @@
 	+ Multi tracks selection support
  * v1.0 (2015-02-27)
 	+ Initial Release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()

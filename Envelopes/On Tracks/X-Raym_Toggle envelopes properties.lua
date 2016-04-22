@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2016-01-29)
   + Initial release
- --]]
+--]]
  
 -- ------ USER CONFIG AREA =====>
 -- here you can customize the script

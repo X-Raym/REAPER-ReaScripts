@@ -29,7 +29,7 @@
 	+ Clean inside area
  * v1.0 (2015-03-21)
 	+ Initial release
- --]]
+--]]
 
 -- ----- DEBUGGING ====>
 --[[

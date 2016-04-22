@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-05-29)
 	+ Initial Release
- --]]
+--]]
  
  -- THANKS to heda for the multi-dimensional array syntax !
 

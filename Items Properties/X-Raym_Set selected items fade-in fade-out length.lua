@@ -28,7 +28,7 @@
   + Now with relative to initial fade with + prefix
  * v1.0 (2015-25-06)
   + Initial Release
- --]]
+--]]
  
 -- >-----> USER AREA >=====>
   

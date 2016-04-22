@@ -24,7 +24,7 @@
 	# bug fix
  * v1.0 (2015-07-22)
 	+ Initial Release
- --]]
+--]]
  
 -- ------ USER CONFIG AREA =====>
 

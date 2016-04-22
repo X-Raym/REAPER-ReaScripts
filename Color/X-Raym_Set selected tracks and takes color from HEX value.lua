@@ -14,13 +14,13 @@
  * Version Date: 2015-03-12
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.6.2
- --]]
+--]]
  
 --[[
  * Changelog:
  * v1.0 (2015-03-12)
 	+ Initial Release
- --]]
+--]]
 
 function main()
 

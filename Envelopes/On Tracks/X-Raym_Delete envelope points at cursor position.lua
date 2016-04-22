@@ -14,7 +14,7 @@
  * Version Date: 2015-03-21
  * REAPER: 5.0 pre 18b
  * Extensions: SWS 2.6.3 #0
- --]]
+--]]
  
 --[[
  * Changelog:
@@ -22,7 +22,7 @@
 	+ Selected envelope overides armed and visible envelope on selected tracks
  * v1.0 (2015-03-20)
 	+ Initial release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 

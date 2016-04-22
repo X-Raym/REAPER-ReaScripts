@@ -24,7 +24,7 @@
 	+ Abble to delete font color tags if there if item has no color
  * v1.0 (2015-03-05)
 	+ Initial Release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()

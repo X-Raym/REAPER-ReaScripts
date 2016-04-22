@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-06-13)
 	+ Initial Release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 local info = debug.getinfo(1,'S');

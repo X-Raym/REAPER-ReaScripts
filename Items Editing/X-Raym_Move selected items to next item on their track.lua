@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-09-09)
 	+ Initial Release
- --]]
+--]]
 
 
 function main()

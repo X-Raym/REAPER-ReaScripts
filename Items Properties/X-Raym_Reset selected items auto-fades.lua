@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-09-29)
 	+ Initial Release
- --]]
+--]]
 
 function main() -- local (i, j, item, take, track)
 

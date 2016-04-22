@@ -25,7 +25,7 @@
 	+ Selected envelope overides armed and visible envelope on selected tracks
  * v1.0 (2015-03-18)
 	+ Initial release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 

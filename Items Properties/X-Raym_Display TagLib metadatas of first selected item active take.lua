@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-06-12)
   + Initial Release
- --]]
+--]]
 
 font_size = 20
 font_name = "Arial"

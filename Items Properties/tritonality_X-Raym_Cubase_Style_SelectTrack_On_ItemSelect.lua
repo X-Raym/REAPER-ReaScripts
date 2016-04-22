@@ -30,7 +30,7 @@
  * Changelog:
  * v1.0 (2015-10-04)
   + Initial Release
- --]]
+--]]
 
 
 function SelectTrack_OnItemSelect_Monitor()

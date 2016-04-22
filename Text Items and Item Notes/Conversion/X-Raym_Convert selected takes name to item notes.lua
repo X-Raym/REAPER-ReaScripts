@@ -21,7 +21,7 @@
 	# Better Set notes
  * v1.0 (2015-03-24)
 	+ Initial Release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()

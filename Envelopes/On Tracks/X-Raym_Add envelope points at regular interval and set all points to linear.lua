@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-07-25)
 	+ Initial release
- --]]
+--]]
  
 -- ----- CONFIG =====>
 

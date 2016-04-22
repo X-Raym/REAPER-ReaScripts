@@ -24,7 +24,7 @@
 	+ Prevent duplicated tags
  * v1.0 (2015-03-03)
 	+ Initial Release
- --]]
+--]]
 
 --[[ ----- DEBUGGING ====>
 function get_script_path()

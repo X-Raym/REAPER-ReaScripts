@@ -20,7 +20,7 @@
  * Changelog:
  * v1.0 (2015-12-15)
 	+ Initial Release
- --]]
+--]]
  
 -- USER CONFIG AREA ------------
 do_tracks = "y" -- (y/n)

@@ -20,7 +20,7 @@
  * Changelog:
  * v1.0 (2015-12-07)
   + Initial Release
- --]]
+--]]
  
 -- ------ USER AREA =====>
 mod1 = "absolute" -- Set the primary mod that will be defined if no prefix character. Values are "absolute" or "relative".

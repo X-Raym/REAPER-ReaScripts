@@ -14,7 +14,7 @@
  * Version Date: 2015-03-23
  * REAPER: 5.0 pre 18b
  * Extensions: 2.6.3 #0
- --]]
+--]]
  
 --[[
  * Changelog:
@@ -22,7 +22,7 @@
 	+ Clean inside area
  * v1.0 (2015-03-21)
 	+ Initial release
- --]]
+--]]
 
 -- ----- DEBUGGING ====>
 --[[

@@ -21,7 +21,7 @@
 	+ Preserve grouping if groups active. Treat first selected item (in position) in each group as group leader (other are ignored during the alignement).
  * v1.0 (2015-06-09)
 	+ Initial Release
- --]]
+--]]
  
 -- THANKS to heda for the multi-dimensional array syntax !
 

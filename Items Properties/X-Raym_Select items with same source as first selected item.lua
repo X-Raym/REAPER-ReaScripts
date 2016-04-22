@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-08-14)
 	+ Initial Release
- --]]
+--]]
 
 function Msg(variable)
 	reaper.ShowConsoleMsg(tostring(variable).."\n")

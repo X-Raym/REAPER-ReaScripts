@@ -23,7 +23,7 @@
 	+ Track under mouse as reference
  * v1.0 (2015-05-19)
 	+ Initial Release
- --]]
+--]]
 
 -- ----- DEBUGGING ====>
 reselect_groups = true

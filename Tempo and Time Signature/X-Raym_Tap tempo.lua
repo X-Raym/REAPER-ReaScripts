@@ -43,7 +43,7 @@
   + Color indicator
  * v0.5 (2015-08-27)
   + Beta
- --]]
+--]]
  
 --[[
  * Uses : GFX WOrd-Wrap template 0.5

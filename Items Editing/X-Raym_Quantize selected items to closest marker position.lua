@@ -13,7 +13,7 @@
  * REAPER: 5.0
  * Extensions: None
  * Version: 1.1
- --]]
+--]]
 
 --[[
  * Changelog:
@@ -21,7 +21,7 @@
    + Preserve relative position of items in groups (considering min pos of selected items in groups as referance, and propagate offset on al items in groups, even non selected ones.
  * v1.0 (2015-12-24)
  	+ Initial release
- --]]
+--]]
 
 console = false
 function Msg(variable)

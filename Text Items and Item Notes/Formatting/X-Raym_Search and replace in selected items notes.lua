@@ -19,7 +19,7 @@
  * Changelog:
  * v1.0 (2015-05-25)
   + Initial Release
- --]]
+--]]
  
  -- TO DO: MAke it Work with - chracter in search
 

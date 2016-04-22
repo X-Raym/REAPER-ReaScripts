@@ -23,7 +23,7 @@
 	+ Initial Release
  * v1.0 (2015-09-01)
 	+ Initial Release
- --]]
+--]]
 
 function main() -- local (i, j, item, take, track)
 	

@@ -23,7 +23,7 @@
 	+ Initial Release
  * v1.0 (2015-09-23)
 	+ Initial Release
- --]]
+--]]
 
  
 --[[
@@ -33,7 +33,7 @@ function Msg(variable)
 		reaper.ShowConsoleMsg(tostring(variable).."\n")
 	end
 end
- --]]
+--]]
 
 function main() -- local (i, j, item, take, track)
 

@@ -20,7 +20,7 @@
  * Changelog:
  * v1.0 (2015-10-20)
 	+ Initial Release
- --]]
+--]]
 
 -- INIT
 count_sel_items_on_track = {}

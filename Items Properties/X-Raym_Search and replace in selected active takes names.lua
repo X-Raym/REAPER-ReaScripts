@@ -22,7 +22,7 @@
   + User Config Area
  * v1.0 (2015-10-08)
   + Initial Release
- --]]
+--]]
  
 -- USER CONFIG AREA ---------------------------------------------
 -- Do you want a pop up to appear ?

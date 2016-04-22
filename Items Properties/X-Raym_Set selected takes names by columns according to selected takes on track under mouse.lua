@@ -13,7 +13,7 @@
  * REAPER: 5.0
  * Extensions: SWS 2.8.7
  * Version: 1.0
- --]]
+--]]
 
 --[[
  * Changelog:

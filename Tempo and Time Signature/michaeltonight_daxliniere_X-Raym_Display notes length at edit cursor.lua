@@ -19,7 +19,7 @@
   This script is an adaptation in Lua of Note Lengths at Cursor.py by michaeltonight
   http://stash.reaper.fm/v/14427/Note%20Lengths%20at%20Cursor.py
   It has been moded by Dax, and converted in Lua by X-Raym.
- --]]
+--]]
 
 --[[
  * Changelog:
@@ -27,7 +27,7 @@
   + Initial Release (in Lua), moded by Dax
  * v1.0 (2012-10-26)
   + Initial Release (in Python)
- --]]
+--]]
 
 function round(num, idp)
   local mult = 10^(idp or 0)

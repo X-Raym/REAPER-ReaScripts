@@ -20,7 +20,7 @@
  * Changelog:
  * v1.0 (2015-09-22)
 	+ Initial Release
- --]]
+--]]
 
 -- REQUEST BY Bernadette Michelle
  
