@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="c2f9ceead593e1ef8938e51fa4a87ca05ca4b6d3" name="X-Raym Scripts">
+<index version="1" commit="05876b1a4b12a54eadf98e1a05d7875071de7dde" name="X-Raym Scripts">
   <category name="View">
     <reapack name="X-Raym_Find and go to next items on selected tracks with input text as notes.lua" type="script">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
@@ -807,13 +807,6 @@
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Editing/X-Raym_Expand%20selected%20items%20length%20to%20the%20next%20item%20position%20if%20close%20enough.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Expand selected items length to the next item position.eel" type="script">
-      <version name="1.0" author="X-Raym" time="2015-05-25T12:39:24Z">
-        <changelog><![CDATA[(2015-03-20)
-+ Initial Release]]></changelog>
-        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/d83037c95bd662d8d3eb0750c71f4c242ea67ba8/Items%20Editing/X-Raym_Expand%20selected%20items%20length%20to%20the%20next%20item%20position.eel</source>
-      </version>
-    </reapack>
     <reapack name="X-Raym_Explode multi channel items on two tracks without render (stereo).lua" type="script">
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[(2015-05-08)
@@ -1045,6 +1038,13 @@
         <changelog><![CDATA[(2015-04-01)
 + Works on selected multiple items]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20first%20selected%20track%20and%20keep%20new%20items%20at%20spaces.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Split selected items according to items on selected tracks.lua" type="script">
+      <version name="1.1" author="X-Raym" time="2016-04-19T14:36:32Z">
+        <changelog><![CDATA[+ Works with multiple tracks selected
+# Refactoring]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/1f28f486d6fb8b71aac4de1ac830ee51f04cd21d/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20selected%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Split selected items every X seconds intervals.lua" type="script">
@@ -1420,6 +1420,11 @@
         <changelog><![CDATA[(2016-01-27)
 + Dock the window via left click if there is no regions.]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/0df42b0d890fe3807b7940df23a5f377912d0ce5/Regions/X-Raym_Regions%20clock.lua</source>
+      </version>
+      <version name="1.2" author="X-Raym" time="2016-04-18T23:25:07Z">
+        <changelog><![CDATA[+ Button states if action is in toolbar.
++ Save window state in an external file.]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/862d4d700f6d60aa7870356689fb985e293a1ead/Regions/X-Raym_Regions%20clock.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Snap all markers to grid.eel" type="script">
@@ -2489,6 +2494,12 @@
         <changelog><![CDATA[(2015-06-13)
 + Initial Release]]></changelog>
         <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Properties/X-Raym_Set%20selected%20items%20sources%20TagLib%20metadatas.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set selected takes names by columns according to selected takes on track under mouse.lua" type="script">
+      <version name="1.0" author="X-Raym" time="2016-04-18T13:35:58Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source platform="all">https://github.com/X-Raym/REAPER-ReaScripts/raw/4182a70686d890f2d5230185e1f1d3ea9dc51253/Items%20Properties/X-Raym_Set%20selected%20takes%20names%20by%20columns%20according%20to%20selected%20takes%20on%20track%20under%20mouse.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Snap stretch marker under mouse to closest grid line.lua" type="script">
