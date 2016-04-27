@@ -13,14 +13,14 @@
  * REAPER: 5.0 pre 36
  * Extensions: SWS/S&M 2.7.1 #0
  * Version: 1.0
-]]
+--]]
  
  
 --[[
  * Changelog:
  * v1.0 (2015-08-21)
 	+ Initial Release
-]]
+--]]
 
 
 function Msg(variable)
@@ -75,6 +75,8 @@ function read_lines(filepath)
 				thread = tostring(s:match("Forum Thread: (.*)"))
 				Msg(" * Forum Thread: " .. thread)
 
+			else
+				thread = " "
 			end
 
 			-- THREAD URI
@@ -83,6 +85,8 @@ function read_lines(filepath)
 				thread_URI = tostring(s:match("Forum Thread URI: (.*)"))
 				Msg(" * Forum Thread URI: " .. thread_URI)
 
+			else
+				thread_URI = " "
 			end
 
 			-- REAPER
