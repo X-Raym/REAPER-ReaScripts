@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Toggle envelopes properties
+ * ReaScript Name: Toggle certain envelopes properties
  * Description: A way to set properties of several envelopes
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Author: X-Raym
@@ -106,7 +106,7 @@ function main() -- local (i, j, item, take, track)
   
   end -- endif sel envelope
 
-  reaper.Undo_EndBlock("Toggle envelopes properties", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Toggle certain envelopes properties", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
