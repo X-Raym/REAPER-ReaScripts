@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2016-05-12)
+	+ Bug fix
  * v1.1 (2016-04-19)
 	+ Works with multiple tracks selected
 	# Refactoring
@@ -105,11 +107,10 @@ function main()
 		-- SPLIT ITEMS
 		for j, pos in ipairs(split_pos) do
 
-			if pos < item_end then
+			if pos < item_end and pos > item_pos then
 				item = reaper.SplitMediaItem(item, pos)
-			else
-				break
 			end
+			if pos > item_end then break end
 
 		end
 
