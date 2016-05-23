@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8c4644d4edf7a29c611fd7573816431f651b3850" name="X-Raym Scripts">
+<index version="1" commit="664bb42a5a1cd6aaf741d58679b4363d3f06de67" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1568,6 +1568,10 @@
     <reapack name="X-Raym_Convert selected item notes to take name.lua" type="script">
       <version name="v1.1" author="X-Raym" time="2015-03-25T12:51:41Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Text%20Items%20and%20Item%20Notes/Conversion/X-Raym_Convert%20selected%20item%20notes%20to%20take%20name.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2016-05-23T22:29:48Z">
+        <changelog><![CDATA[+ bug fix (if empty item was selected)]]></changelog>
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/664bb42a5a1cd6aaf741d58679b4363d3f06de67/Text%20Items%20and%20Item%20Notes/Conversion/X-Raym_Convert%20selected%20item%20notes%20to%20take%20name.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Convert selected takes name to item notes.lua" type="script">
