@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a2e5b83412df799806d7642928ad9b476d8cc480" name="X-Raym Scripts">
+<index version="1" commit="8c4644d4edf7a29c611fd7573816431f651b3850" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -913,6 +913,10 @@
         <changelog><![CDATA[+ Works with multiple tracks selected
 # Refactoring]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/1f28f486d6fb8b71aac4de1ac830ee51f04cd21d/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20selected%20tracks.lua</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2016-05-11T22:41:19Z">
+        <changelog><![CDATA[+ Bug fix]]></changelog>
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/8c4644d4edf7a29c611fd7573816431f651b3850/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20selected%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Split selected items every X seconds intervals.lua" type="script">
@@ -2301,5 +2305,6 @@ EEL Simple Slider Class 1st version
 \sa180\par}
 }
 ]]></description>
+    <link rel="donation">http://www.extremraym.com/en/donation</link>
   </metadata>
 </index>
