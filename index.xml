@@ -1566,7 +1566,7 @@
       </version>
     </reapack>
     <reapack name="X-Raym_Convert selected item notes to take name.lua" type="script">
-      <version name="v1.1" author="X-Raym" time="2015-03-25T12:51:41Z">
+      <version name="1.1" author="X-Raym" time="2015-03-25T12:51:41Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Text%20Items%20and%20Item%20Notes/Conversion/X-Raym_Convert%20selected%20item%20notes%20to%20take%20name.lua</source>
       </version>
       <version name="1.1" author="X-Raym" time="2016-05-23T22:29:48Z">
@@ -1778,7 +1778,7 @@
   </category>
   <category name="Text Items and Item Notes/Formatting">
     <reapack name="X-Raym_Add background color markup to selected items notes.lua" type="script">
-      <version name="v1.0" author="X-Raym" time="2015-03-07T15:01:01Z">
+      <version name="1.0" author="X-Raym" time="2015-03-07T15:01:01Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/fa81bae94b5d5760cde4b76eca42774381f470d3/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Add%20background%20color%20markup%20to%20selected%20items%20notes.lua</source>
       </version>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
@@ -1892,7 +1892,7 @@
       </version>
     </reapack>
     <reapack name="X-Raym_Delete font color markup from selected items notes.lua" type="script">
-      <version name="v1.1" author="X-Raym" time="2015-03-07T15:01:01Z">
+      <version name="1.1" author="X-Raym" time="2015-03-07T15:01:01Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/fa81bae94b5d5760cde4b76eca42774381f470d3/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Delete%20font%20color%20markup%20from%20selected%20items%20notes.lua</source>
       </version>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
