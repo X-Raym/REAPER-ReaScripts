@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="72d2ccf3c9d1ee507a32cc1ef7250f31f17074ff" name="X-Raym Scripts">
+<index version="1" commit="e7e04539f9408f52107bdb5976532ffb469bb1a4" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -552,6 +552,11 @@
     <reapack name="spk77_Get take RMS.lua" type="script">
       <version name="1.0" time="2016-02-17T00:57:18Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4f4563f691c3b235c2802f2f95d72d9dc59f044/Functions/spk77_Get%20take%20RMS.lua</source>
+      </version>
+    </reapack>
+    <reapack name="spk77_Save table to file and load table from file_functions.lua" type="script">
+      <version name="1.0" time="2016-06-07T10:58:21Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/e7e04539f9408f52107bdb5976532ffb469bb1a4/Functions/spk77_Save%20table%20to%20file%20and%20load%20table%20from%20file_functions.lua</source>
       </version>
     </reapack>
     <reapack name="spk77_slider class.lua" type="script">
