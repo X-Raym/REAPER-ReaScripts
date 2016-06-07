@@ -8,6 +8,7 @@
 // Version : 1.7
 // Version Date : 02-02-2015
 // Required : Reaper 4.76
+// Main: False
 
 // From : "name" variable in RPR_EnumProjectMarkers3 - Cockos Confederated Forums
 // http://forum.cockos.com/showthread.php?t=136047
@@ -118,7 +119,7 @@ function msg_ftl(text,variable,line)
 
 // Clean
 function msg_clean()
-(	
+(
 	//debug === 1 ? (
 		clean === 1 ? (
 			ShowConsoleMsg("");
@@ -163,10 +164,10 @@ function msg_end()
 // All variables can be set to 0
 function msg_tvold(text,variable,output,line,debug)
 (
-	
+
 	// STORE GLOBAL DEBUG STATE
 	debugInit = debug;
-	
+
 	debug === 1 ? (
 
 		// CHECK TEXT
@@ -203,14 +204,14 @@ function msg_tvold(text,variable,output,line,debug)
 				ShowConsoleMsg("EMPTY STRING");
 			);
 		);
-		
+
 		// OUTPUT LINE
 		line === 0 ? (
 			ShowConsoleMsg("\n");
 			):(
 			ShowConsoleMsg("\n-----\n");
 		);
-	
+
 	);
 
 	// RESTORE PREVIOUS GLOBAL DEBUG
@@ -219,10 +220,10 @@ function msg_tvold(text,variable,output,line,debug)
 
 function msg_tvoldi(text,variable,output,line,debug,inline)
 (
-	
+
 	// STORE GLOBAL DEBUG STATE
 	debugInit = debug;
-	
+
 	debug === 1 ? (
 
 		// CHECK TEXT
@@ -237,7 +238,7 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 					ShowConsoleMsg("\n");
 				);
 			);
-		
+
 		// OUTPUT FLOAT
 		strcmp("%f",output) === 0 ? (
 			sprintf(str, "%f", variable);
@@ -258,7 +259,7 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 				ShowConsoleMsg("EMPTY STRING");
 			);
 		);
-		
+
 		// OUTPUT LINE
 		line === 0 ?(
 			ShowConsoleMsg("\n");
@@ -277,15 +278,15 @@ function main()(
 	debug = 1;
 	clean = 1;
 	msg_clean();
-	
+
 	string = "Sample text";
 	integer = 1;
 	float = 1.23456789;
-	
+
 	msg_tvold("String",string,"%s",0,debug);
 	msg_tvold("Integer",integer,"%d",0,debug);
 	msg_tvold("Float",float,"%f",0,debug);
-	
+
 	msg_tvoldi("String",string,"%s",0,debug,0);
 	msg_tvoldi("Integer",integer,"%d",0,debug,0);
 	msg_tvoldi("Float",float,"%f",0,debug,0);

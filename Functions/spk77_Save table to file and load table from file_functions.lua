@@ -1,3 +1,6 @@
+-- Version: 1.0
+-- Main: False
+
 --[[
   Save Table to File/Stringtable
   Load Table from File/Stringtable

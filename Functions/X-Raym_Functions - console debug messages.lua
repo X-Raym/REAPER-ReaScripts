@@ -8,14 +8,15 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: EEL : Console debug messages 
+ * Forum Thread: EEL : Console debug messages
  * Forum Thread URI: http://forum.cockos.com/showthread.phpthent=153452
  * Version: 1.7
  * Version Date: 2015-02-24
  * REAPER: 5.0 pre 14
  * Extensions: None
+ * Main: False
  ]]--
- 
+
 --[[
  * Changelog:
  * v1.7 (2015-02-24)
@@ -119,7 +120,7 @@ end -- of msg_ftl()
 
 
 -- Clean
-function msg_clean()	
+function msg_clean()
 	if clean == 1 then
 		reaper.ShowConsoleMsg("")
 	end
@@ -159,10 +160,10 @@ end -- of msg_end()
 --
 -- All variables can be set to 0
 function msg_tvold(text,variable,output,line,debug)
-	
+
 	-- STORE GLOBAL DEBUG STATE
 	debugInit = debug
-	
+
 	if debug == 1 then
 
 		-- CHECK TEXT
@@ -199,14 +200,14 @@ function msg_tvold(text,variable,output,line,debug)
 				reaper.ShowConsoleMsg("EMPTY STRING")
 			end
 		end
-		
+
 		-- OUTPUT LINE
 		if line == 0 then
 			reaper.ShowConsoleMsg("\n")
 		else
 			reaper.ShowConsoleMsg("\n-----\n")
 		end
-	
+
 	end
 
 	-- RESTORE PREVIOUS GLOBAL DEBUG
@@ -214,10 +215,10 @@ function msg_tvold(text,variable,output,line,debug)
 end -- of msg_tvold()
 
 function msg_tvoldi(text,variable,output,line,debug,inline)
-	
+
 	-- STORE GLOBAL DEBUG STATE
 	debugInit = debug
-	
+
 	if debug == 1 then
 
 		-- CHECK TEXT
@@ -232,7 +233,7 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 				reaper.ShowConsoleMsg("\n")
 			end
 		end
-		
+
 		-- OUTPUT FLOAT
 		if output == "%f" then
 			str = string.format("%f", variable)
@@ -253,7 +254,7 @@ function msg_tvoldi(text,variable,output,line,debug,inline)
 				reaper.ShowConsoleMsg("EMPTY STRING")
 			end
 		end
-		
+
 		-- OUTPUT LINE
 		if line == 0 then
 			reaper.ShowConsoleMsg("\n")
@@ -273,15 +274,15 @@ end -- of msg_tvoldi()
 	debug = 1
 	clean = 1
 	msg_clean()
-	
+
 	string = "Sample text"
 	integer = 1
 	float = 1.23456789
-	
+
 	msg_tvold("String",string,"%s",0,debug)
 	msg_tvold("Integer",integer,"%d",0,debug)
 	msg_tvold("Float",float,"%f",0,debug)
-	
+
 	msg_tvoldi("String",string,"%s",0,debug,0)
 	msg_tvoldi("Integer",integer,"%d",0,debug,0)
 	msg_tvoldi("Float",float,"%f",0,debug,0)

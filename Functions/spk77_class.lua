@@ -1,18 +1,19 @@
 --[[
  * ReaScript Name: Class
  * Description: See title.
- * Instructions: 
+ * Instructions:
  * Author: spk77
- * Author URI: 
- * Repository: 
- * Repository URI: 
- * File URI: 
+ * Author URI:
+ * Repository:
+ * Repository URI:
+ * File URI:
  * Licence: GPL v3
- * Forum Thread: 
- * Forum Thread URI: 
+ * Forum Thread:
+ * Forum Thread URI:
  * REAPER: 5.0
  * Extensions: None
  * Version: 1.0
+ * Main: False
 --]]
 
 --[[
@@ -48,7 +49,7 @@ function class(base, init)
    setmetatable(obj,c)
    if init then
       init(obj,...)
-   else 
+   else
       -- make sure that any stuff from the base class is initialized!
       if base and base.init then
       base.init(obj, ...)
@@ -59,7 +60,7 @@ function class(base, init)
    c.init = init
    c.is_a = function(self, klass)
       local m = getmetatable(self)
-      while m do 
+      while m do
          if m == klass then return true end
          m = m._base
       end
