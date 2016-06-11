@@ -2256,10 +2256,13 @@ Cockos REAPER
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts moded by X-Raym\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts needed for other scripts on this repository\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 ReaPack Download Instructions\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 This repository is now part of the ReaPack {\field{\*\fldinst{HYPERLINK "http://www.extremraym.com/reapack-extension/"}}{\fldrslt{\ul
-REAPER extension
+{\pard \ql \f0 \sa180 \li0 \fi0 This repository is now linked natively in the {\field{\*\fldinst{HYPERLINK "http://www.reapack.com"}}{\fldrslt{\ul
+ReaPack
 }}}
-. This means that you don't need to download and install the scripts manually anymore, you can simply use ReaPack to batch download all scripts or scripts of your choice right from REAPER!\par}
+ REAPER extension, the free scripts/packages download manager made by {\field{\*\fldinst{HYPERLINK "https://github.com/cfillion/"}}{\fldrslt{\ul
+cfillion
+}}}
+. This means that you don't need to download and install the scripts manually anymore, you can simply use ReaPack to batch download all scripts or scripts of your choice right from REAPER! More, you will get auto-update each time your synchronize packages!\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Manual ReaPack Installation\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 If for some reasons you deleted the link to this repo from ReaPack, you can add it back by importing this {\field{\*\fldinst{HYPERLINK "https://raw.githubusercontent.com/X-Raym/REAPER-ReaScripts/master/index.xml"}}{\fldrslt{\ul
 index.xml
