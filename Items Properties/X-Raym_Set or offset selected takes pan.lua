@@ -2,7 +2,6 @@
  * ReaScript Name: Set or offset selected takes pan
  * Description: Set selected takes pan
  * Instructions: Select items. Run.
- * Screenshot:
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -13,7 +12,7 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
