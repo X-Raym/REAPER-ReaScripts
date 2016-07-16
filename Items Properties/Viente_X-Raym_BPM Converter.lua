@@ -2,18 +2,17 @@
  * ReaScript Name: BPM Converter
  * Description: Insert FX on selected tracks. FX name is can be edited witing the script code.
  * Instructions: Run
- * Screenshot:
+ * Screenshot: https://s3.amazonaws.com/f.cl.ly/items/3j1g3Q050i010P3S0Y3c/bpmconverter.gif
  * Author: Viente, X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI:
  * Licence: GPL v3
  * Forum Thread: Viente's BPM Converter
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=110780
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0.6
+ * Version: 1.0.7
 --]]
 
 --[[
@@ -36,20 +35,20 @@ end
 --msg("")
 
 function getMusicalLenght(selItem)
-	
+
 	-- Get selected item's start and end
 	itemStart = reaper.GetMediaItemInfo_Value(selItem, "D_POSITION")
 	itemEnd = itemStart + reaper.GetMediaItemInfo_Value(selItem, "D_LENGTH")
 
 	-- Check if there are any tempo changes during item's length (NextChangeTime will output -1 if there are no more tempo markers after the requested position)
-	if reaper.TimeMap2_GetNextChangeTime(0, itemStart) > itemEnd or reaper.TimeMap2_GetNextChangeTime(0, itemStart) == -1 then 
-		
+	if reaper.TimeMap2_GetNextChangeTime(0, itemStart) > itemEnd or reaper.TimeMap2_GetNextChangeTime(0, itemStart) == -1 then
+
 		-- There are no tempo markers over selected item so we continue
 		timeSig, timesig_denomOut, startBPM = reaper.TimeMap_GetTimeSigAtTime(0, itemStart)
 
 		-- This is needed because then we don't have to worry about linear/square difference of tempo points
-		timeSig, timesig_denomOut, endBPM = reaper.TimeMap_GetTimeSigAtTime(0, itemEnd) -- we don't use TimeMap_GetDividedBpmAtTime because note in the API says: get the effective BPM at the time (seconds) position (i.e. 2x in /8 signatures) 
-		
+		timeSig, timesig_denomOut, endBPM = reaper.TimeMap_GetTimeSigAtTime(0, itemEnd) -- we don't use TimeMap_GetDividedBpmAtTime because note in the API says: get the effective BPM at the time (seconds) position (i.e. 2x in /8 signatures)
+
 		-- This is the formula
 		musicalLenght = ((startBPM + endBPM) * timesig_denomOut * (itemEnd - itemStart)) / (480 * timeSig)
 
@@ -114,10 +113,10 @@ function setTempo()
 	master_tempo = math.floor(reaper.Master_GetTempo())
 
 	functionaults = tostring(bpm)..","..tostring(master_tempo)
-	retval, retvals_csv = reaper.GetUserInputs("BPM Converter", 2, "Original Tempo (BPM),Target Tempo (BPM)", functionaults) 
+	retval, retvals_csv = reaper.GetUserInputs("BPM Converter", 2, "Original Tempo (BPM),Target Tempo (BPM)", functionaults)
 
 	if retval == true then
-		
+
 		-- PARSE THE STRING
 		answer1, answer2 = retvals_csv:match("([^,]+),([^,]+)")
 		answer1 = tonumber(answer1)
@@ -134,7 +133,7 @@ function setTempo()
 					currentrate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
 					reaper.SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", currentrate + bpm_rate)
 				end
-			
+
 			elseif answer2 < answer1 then
 
 				bpm_rate = (answer2 / answer1)
@@ -145,13 +144,13 @@ function setTempo()
 					currentrate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
 					reaper.SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", currentrate - bpm_calc)
 				end
-			
+
 			end
-			
+
 			reaper.Main_OnCommand(40612,0) -- Fix item length
 
 		else
-			reaper.ShowMessageBox("Incorrect tempo!", "Error", 0) -- 0=OK,2=OKCANCEL,2=ABORTRETRYIGNORE,3=YESNOCANCEL,4=YESNO,5=RETRYCANCEL : ret 1=OK,2=CANCEL,3=ABORT,4=RETRY,5=IGNORE,6=YES,7=NO		
+			reaper.ShowMessageBox("Incorrect tempo!", "Error", 0) -- 0=OK,2=OKCANCEL,2=ABORTRETRYIGNORE,3=YESNOCANCEL,4=YESNO,5=RETRYCANCEL : ret 1=OK,2=CANCEL,3=ABORT,4=RETRY,5=IGNORE,6=YES,7=NO
 		end
 	end
 end
@@ -167,7 +166,7 @@ if numItems >= 1 then
 	reaper.UpdateArrange()
 
 else
-	
+
 	reaper.ShowMessageBox("Please select one item...", "Error", 0) -- 0=OK,2=OKCANCEL,2=ABORTRETRYIGNORE,3=YESNOCANCEL,4=YESNO,5=RETRYCANCEL : ret 1=OK,2=CANCEL,3=ABORT,4=RETRY,5=IGNORE,6=YES,7=NO
 
 end

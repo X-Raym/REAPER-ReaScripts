@@ -2,7 +2,7 @@
  * ReaScript Name: Set selected tracks FX parameter value from last focused FX last touch parameter
  * Description: A way to propagate FX param value from last touched FX to others on selected tracks
  * Instructions: Touch an FX param. Run.
- * Screenshot : http://i.giphy.com/3oEdv7plpUl2dmlOcU.gif
+ * Screenshot: http://i.giphy.com/3oEdv7plpUl2dmlOcU.gif
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -13,7 +13,7 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=164796
  * REAPER: 5.0 RC 14b
  * Extensions: None
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[

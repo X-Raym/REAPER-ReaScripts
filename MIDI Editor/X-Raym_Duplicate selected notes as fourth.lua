@@ -2,16 +2,13 @@
  * ReaScript Name: Duplicate selected notes as fifth and octave triad
  * Description: See title
  * Instructions: Run
- * Screenshot:
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Forum Thread:
- * Forum Thread URI:
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[

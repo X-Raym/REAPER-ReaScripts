@@ -1,19 +1,17 @@
 --[[
  * ReaScript Name: Leave open only focused FX and minimize the others
- * Description:
+ * Description: See title.
  * Instructions: Touch an FX param. Run.
- * Screenshot :
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI:
  * Licence: GPL v3
  * Forum Thread: [REQ]: minimize all FX windows but the selected or last (added) one
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=165547
  * REAPER: 5.0 RC 14b
  * Extensions: None
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[

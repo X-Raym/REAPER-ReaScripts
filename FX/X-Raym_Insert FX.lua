@@ -2,7 +2,6 @@
  * ReaScript Name: Insert FX
  * Description: Insert FX on selected tracks. FX name is can be edited witing the script code.
  * Instructions: Run
- * Screenshot:
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -10,7 +9,7 @@
  * File URI:
  * Licence: GPL v3
  * Forum Thread: 
- * Forum Thread URI: 
+ * Forum Thread URI:
  * REAPER: 5.0
  * Extensions: None
  * Version: 1.0
