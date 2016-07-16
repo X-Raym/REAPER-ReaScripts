@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="ebafa79342fd711d9e0316ed0d71c1122edf33c0" name="X-Raym Scripts">
+<index version="1" commit="5f3df6fa60ee6692918496848182a5050b43ec93" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -583,27 +583,42 @@
     </reapack>
   </category>
   <category name="FX">
-    <reapack name="X-Raym_Insert FX.lua" type="script">
+    <reapack name="X-Raym_Insert FX.lua" type="script" desc="Insert FX">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:51:47Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/df11abb2149f9df1875a3a4a2e4a365593270b26/FX/X-Raym_Insert%20FX.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Leave open only focused FX and minimize the others.lua" type="script">
+    <reapack name="X-Raym_Leave open only focused FX and minimize the others.lua" type="script" desc="Leave open only focused FX and minimize the others">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/FX/X-Raym_Leave%20open%20only%20focused%20FX%20and%20minimize%20the%20others.lua</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/FX/X-Raym_Leave%20open%20only%20focused%20FX%20and%20minimize%20the%20others.lua</source>
+      </version>
     </reapack>
-    <reapack name="X-Raym_Set selected tracks FX parameter value from last focused FX last touch parameter.lua" type="script">
+    <reapack name="X-Raym_Set selected tracks FX parameter value from last focused FX last touch parameter.lua" type="script" desc="Set selected tracks FX parameter value from last focused FX last touch parameter">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/FX/X-Raym_Set%20selected%20tracks%20FX%20parameter%20value%20from%20last%20focused%20FX%20last%20touch%20parameter.lua</source>
       </version>
+      <metadata>
+        <link rel="screenshot">http://i.giphy.com/3oEdv7plpUl2dmlOcU.gif</link>
+      </metadata>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/FX/X-Raym_Set%20selected%20tracks%20FX%20parameter%20value%20from%20last%20focused%20FX%20last%20touch%20parameter.lua</source>
+      </version>
     </reapack>
-    <reapack name="X-Raym_Set selected tracks FX parameters values from last focused FX.lua" type="script">
+    <reapack name="X-Raym_Set selected tracks FX parameters values from last focused FX.lua" type="script" desc="Set selected tracks FX parameters values from last focused FX">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/FX/X-Raym_Set%20selected%20tracks%20FX%20parameters%20values%20from%20last%20focused%20FX.lua</source>
+      </version>
+      <metadata>
+        <link rel="screenshot">http://i.giphy.com/l41lY1RKDcgF7ibkY.gif</link>
+      </metadata>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/FX/X-Raym_Set%20selected%20tracks%20FX%20parameters%20values%20from%20last%20focused%20FX.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle all FX except those with (ON) and (OFF) suffixes.eel" type="script">
@@ -980,9 +995,15 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/tritonality_X-Raym_Cubase_Style_SelectTrack_On_ItemSelect.lua</source>
       </version>
     </reapack>
-    <reapack name="Viente_X-Raym_BPM Converter.lua" type="script">
+    <reapack name="Viente_X-Raym_BPM Converter.lua" type="script" desc="BPM Converter">
       <version name="1.0.6" author="Viente, X-Raym" time="2015-12-24T16:51:47Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/df11abb2149f9df1875a3a4a2e4a365593270b26/Items%20Properties/Viente_X-Raym_BPM%20Converter.lua</source>
+      </version>
+      <metadata>
+        <link rel="screenshot">https://s3.amazonaws.com/f.cl.ly/items/3j1g3Q050i010P3S0Y3c/bpmconverter.gif</link>
+      </metadata>
+      <version name="1.0.7" author="Viente, X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/Items%20Properties/Viente_X-Raym_BPM%20Converter.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add all items on selected track into item selection.lua" type="script">
@@ -1132,10 +1153,13 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/2a42303362aadeb4b5c89f36e6fc1780854b32a2/Items%20Properties/X-Raym_Pan%20selected%20takes%20from%20right%20to%20left.eel</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Propagate items selection to all similary-named active takes on track.lua" type="script">
+    <reapack name="X-Raym_Propagate items selection to all similary-named active takes on track.lua" type="script" desc="Propagate items selection to all similary-named active takes on track">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Propagate%20items%20selection%20to%20all%20similary-named%20active%20takes%20on%20track.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/Items%20Properties/X-Raym_Propagate%20items%20selection%20to%20all%20similary-named%20active%20takes%20on%20track.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Propagate selected items FX to all items with same active take name.lua" type="script">
@@ -1192,7 +1216,7 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Reset%20selected%20items%20auto-fades.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Reset stretch marker under mouse position.lua" type="script">
+    <reapack name="X-Raym_Reset stretch marker under mouse position.lua" type="script" desc="Reset stretch marker under mouse position">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Properties/X-Raym_Reset%20stretch%20marker%20under%20mouse%20position.lua</source>
@@ -1200,6 +1224,9 @@
       <version name="1.0.1" author="X-Raym" time="2016-01-11T11:56:23Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Reset%20stretch%20marker%20under%20mouse%20position.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/Items%20Properties/X-Raym_Reset%20stretch%20marker%20under%20mouse%20position.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Reset take playback rate from snap offset.eel" type="script">
@@ -1238,10 +1265,13 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Set%20item%20under%20mouse%20snap%20offset%20at%20mouse%20cursor%20position.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Set or offset selected takes pan.lua" type="script">
+    <reapack name="X-Raym_Set or offset selected takes pan.lua" type="script" desc="Set or offset selected takes pan">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Set%20or%20offset%20selected%20takes%20pan.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:33:10Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/5f3df6fa60ee6692918496848182a5050b43ec93/Items%20Properties/X-Raym_Set%20or%20offset%20selected%20takes%20pan.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected audio takes gain by columns according to takes average RMS.lua" type="script">
@@ -1328,19 +1358,28 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/MIDI%20Editor/X-Raym_Add%2010%20to%20selected%20notes%20velocity.eel</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Duplicate selected notes as fifth and octave triads.lua" type="script">
+    <reapack name="X-Raym_Duplicate selected notes as fifth and octave triads.lua" type="script" desc="Duplicate selected notes as fifth and octave triads">
       <version name="1.0" author="X-Raym" time="2016-06-06T15:49:43Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/60d6035026fa9be95257fb149eba8ce9ec1a91c2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth%20and%20octave%20triads.lua</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth%20and%20octave%20triads.lua</source>
+      </version>
     </reapack>
-    <reapack name="X-Raym_Duplicate selected notes as fifth.lua" type="script">
+    <reapack name="X-Raym_Duplicate selected notes as fifth.lua" type="script" desc="Duplicate selected notes as fifth and octave triad">
       <version name="1.0" author="X-Raym" time="2016-06-06T15:49:43Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/60d6035026fa9be95257fb149eba8ce9ec1a91c2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth.lua</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth.lua</source>
+      </version>
     </reapack>
-    <reapack name="X-Raym_Duplicate selected notes as fourth.lua" type="script">
+    <reapack name="X-Raym_Duplicate selected notes as fourth.lua" type="script" desc="Duplicate selected notes as fifth and octave triad">
       <version name="1.0" author="X-Raym" time="2016-06-06T15:49:43Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/60d6035026fa9be95257fb149eba8ce9ec1a91c2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fourth.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fourth.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Insert CC linear ramp events between selected ones if consecutive.lua" type="script">
@@ -2213,10 +2252,13 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/99c219b47d1b09ade0d1e58ff8502b71da2c7eff/Various/X-Raym_Open%20project%20folder%20in%20explorer%20or%20finder.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Remove content of time selection preserving time selection and relative play cursor in place.eel" type="script">
+    <reapack name="X-Raym_Remove content of time selection preserving time selection and relative play cursor in place.eel" type="script" desc="Remove content of time selection preserving time sleection and relative play cursor in place">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Various/X-Raym_Remove%20content%20of%20time%20selection%20preserving%20time%20selection%20and%20relative%20play%20cursor%20in%20place.eel</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/Various/X-Raym_Remove%20content%20of%20time%20selection%20preserving%20time%20selection%20and%20relative%20play%20cursor%20in%20place.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Render selected tracks individually through master.lua" type="script">
