@@ -19,7 +19,8 @@ More, you will get auto-update each time your synchronize packages!
 If for some reasons you deleted the link to this repo from ReaPack, you can add it back by importing this [index.xml](https://raw.githubusercontent.com/X-Raym/REAPER-ReaScripts/master/index.xml) link from the Import a repository window.
 
 ##Manual Download Instructions
-- Please download the whole archive on my website => [My REAPER Scripts](http://extremraym.com/en/my-reaper-scripts/)
+Please download the whole archive on my website => [My REAPER Scripts](http://extremraym.com/en/my-reaper-scripts/).
+
 If you want download scripts on this repo anyway:
 - The whole archive can also be downloaded from here by clicking on the Download Master button.
 - For one script in particular: click on one script, then click on the Raw button, then File > Save (via Menu, Right Click or CTRL/CMD +S).
