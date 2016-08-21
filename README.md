@@ -24,6 +24,10 @@ If you want download scripts on this repo anyway:
 - The whole archive can also be downloaded from here by clicking on the Download Master button.
 - For one script in particular: click on one script, then click on the Raw button, then File > Save (via Menu, Right Click or CTRL/CMD +S).
 
+## Support
+Please consider making a [donation](http://extremraym.com/en/donation/) if you like my work and if you use some of these scripts in your projecrs, or consider buying some of my [premium scripts](http://www.extremraym.com/en/downloads/category/reascripts/).
+This will help me continue sharing and maitaining these scripts for free, and even code new ones.
+
 ##Detailed Articles
  - [My REAPER Scripts](http://extremraym.com/en/my-reaper-scripts/)
  - [How to Learn ReaScript](http://extremraym.com/en/learn-reascript-reaper/)
