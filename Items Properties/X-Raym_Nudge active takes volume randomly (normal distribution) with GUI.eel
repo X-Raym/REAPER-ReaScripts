@@ -4,9 +4,9 @@
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
-// Release Date : 17-12-2014
-// Version : 1.0.1
-// Version Date : 17-12-2014
+// Release Date : 2014-12-17
+// Version : 1.0.2
+// Version Date : 2016-06-05
 
 // Based on : Create take pitch envelope (random points - with GUI) by spk77
 
@@ -183,7 +183,6 @@ function run() local (s_w, s_h, hue, sat, lum, v)
 
   randomize_btn(10, 150, 50, s_h, 6, mean, standard_dev);
   apply_btn(10, 170, 50, s_h, 6);
-  apply_one_seed_btn(10, 190, 50, s_h, 6);
   
   refresh_on_slider_change && (mean != last_mean || standard_dev != last_standard_dev) ? rand_vol(mean, standard_dev);
   
