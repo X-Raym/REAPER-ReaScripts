@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1652366
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2016-11-01)
+	+ Region engine
  * v1.0 (2016-03-16)
 	+ Initial Release
 --]]
@@ -28,11 +30,31 @@ render = true -- true/false: display debug messages in the console
 
 console = true -- display console messages
 
+function GetRegionsRender_Index()
+
+
+	-- LOOP THROUGH REGIONS
+	i=0
+	repeat
+		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
+		if iRetval >= 1 then
+			if bIsrgnOut == true and sNameOut == "=RENDER" then
+				region_idx = iRetval
+				break
+			end
+			i = i+1
+		end
+	until iRetval == 0
+	
+	return region_idx   
+
+end
+
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 function main()
 
-	Msg("Set your render settings to source = Master Track, and add the $track wildcard to the output file name.")
+	Msg("Set your render settings to source = Region, go to region matrix and set 'Master Mix' for all tracks, and add the $region wildcard to the output file name.")
 	Msg("Auto-render can be deactivated by editing the script.\n")
 	Msg("------")
 	Msg("Tracks added to render queue:")
@@ -40,13 +62,15 @@ function main()
 	-- LOOP TRHOUGH SELECTED TRACKS
 	total = 0
 	for i, track in ipairs(init_sel_tracks) do
-
 		reaper.SetOnlyTrackSelected(track)
 		reaper.Main_OnCommand(40340, 0) -- Unsolo all tracks
 		reaper.Main_OnCommand(40728, 0) -- Solo track
-		reaper.Main_OnCommand(41823, 0) -- Add to render queue
 
-		local retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "new track name", false)
+		retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "new track name", false) -- Get track info
+		
+		reaper.SetProjectMarker(region_idx, true, iPosOut, iRgnendOut, track_name) -- Set region to name of track
+
+		reaper.Main_OnCommand(41823, 0) -- Add to render queue
 
 		Msg(track_name)
 
@@ -104,15 +128,26 @@ if sel_tracks_count > 0 then
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 	reaper.PreventUIRefresh(1)
+	
+	reaper.ClearConsole()
 
 	init_sel_tracks = {}
 	SaveSelectedTracks(init_sel_tracks)
+	
+	region_idx = GetRegionsRender_Index()
+	
+	if region_idx == nil then
+		Msg('Create a region named "=RENDER", from the size of your project.')
+		return
+	end
 
 	main() -- Execute your main function
 
 	if render then
 		reaper.Main_OnCommand(41207, 0)
 	end
+	
+	reaper.SetProjectMarker(region_idx, true, iPosOut, iRgnendOut, "=RENDER")
 
 	RestoreSelectedTracks(init_sel_tracks)
 
