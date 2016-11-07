@@ -10,14 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Scripts (LUA): Create Text Items Actions (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
- * Version: 1.0
- * Version Date: 2015-03-12
+ * Version: 1.1
+ * Version Date: 2016-11-07
  * REAPER: 5.0 pre 15
- * Extensions: SWS/S&M 2.6.2
+ * Extensions: None
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2016-11-07)
+	# MacOS color fixed
  * v1.0 (2015-03-12)
 	+ Initial Release
 --]]
@@ -28,7 +30,7 @@ function main()
 
 	-- YOUR CODE BELOW
 
-	color_int = (R + 256 * G + 65536 * B)|16777216
+	color_int =  reaper.ColorToNative( R, G, B )
 
 	countItems = reaper.CountSelectedMediaItems(0)
 
