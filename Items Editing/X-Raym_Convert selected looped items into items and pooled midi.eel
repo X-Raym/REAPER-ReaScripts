@@ -1,23 +1,28 @@
-// Convert selected looped takes into independent audio and pooled MIDI takes
-// EEL Script for Reaper
+// ReaScript Name: Convert selected looped takes into independent audio and pooled MIDI takes
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
-// Release Date : 27-01-2015
-// Version : 0.8
-// Version Date : 27-01-2015
-// Required : Reaper 5.0 pre8
+// Version : 1.1
+// Required : Reaper 4.76
+
+/**
+ * Changelog:
+ * v1.1 (2016-11-19)
+	# Remove dependency and debug infos
+ * v1.0 (2015-27-01)
+	+ Initial Release
+ */
 
 // ----- DEBUGGING ====>
-@import ../Functions/X-Raym_Functions - console debug messages.eel
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
 
 debug = 1; // 0 => No console. 1 => Display console messages for debugging.
 clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();
-msg_start();
+msg_start();*/
 // <==== DEBUGGING -----
 
 // SAVE ITEM SELECTIONS
@@ -33,7 +38,7 @@ function convert_loop() local(i, item, j)
 				
 				// GET TRACK
 				track = GetMediaItem_Track(item);
-				msg_dtl("Track ID", track, 1);
+				//msg_dtl("Track ID", track, 1);
 				Main_OnCommand(40318, 0);
 				SetMediaTrackInfo_Value(track, "I_SELECTED", 1);
 				SetOnlyTrackSelected(track);
@@ -41,19 +46,19 @@ function convert_loop() local(i, item, j)
 				// FIND ITEM LENGHT - LOOPS NUMBER - TAIL DURATION
 				itemDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
 				itemDurationInitial = itemDuration;
-				msg_ftl("Item duration", itemDuration, 1);
+				//msg_ftl("Item duration", itemDuration, 1);
 				Main_OnCommand(40612, 0); // Item to source lenght
 				Main_OnCommand(40698, 0); // Copy item
 				itemSourceDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
-				msg_ftl("Item source duration", itemSourceDuration, 1);
+				//msg_ftl("Item source duration", itemSourceDuration, 1);
 				
 				completeLoopsNumber = floor(itemDuration / itemSourceDuration) - 1;
-				msg_dtl("Complete loops number", completeLoopsNumber, 1);
+				//msg_dtl("Complete loops number", completeLoopsNumber, 1);
 
 				totalLoopsDuration = completeLoopsNumber * itemSourceDuration + itemSourceDuration;
-				msg_ftl("Total completed loop duration", totalLoopsDuration, 1);
+				//msg_ftl("Total completed loop duration", totalLoopsDuration, 1);
 				incompleteLoopsDuration = itemDurationInitial - totalLoopsDuration;
-				msg_ftl("Incomplete loop duration", incompleteLoopsDuration, 1);
+				//msg_ftl("Incomplete loop duration", incompleteLoopsDuration, 1);
 
 				// SET CUSOR POS
 				itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
@@ -67,7 +72,7 @@ function convert_loop() local(i, item, j)
 							Main_OnCommand(41072, 0); // Paste pooled MIDI items
 						);
 						j += 1;
-						msg_d(j);
+						//msg_d(j);
 					);
 					incompleteLoopsDuration > 0 ? (
 						Main_OnCommand(41072, 0); // Paste pooled MIDI items
@@ -79,7 +84,7 @@ function convert_loop() local(i, item, j)
 							Main_OnCommand(40058, 0); // Paste item
 						);
 						j += 1;
-						msg_d(j);
+						//msg_d(j);
 					);
 					incompleteLoopsDuration > 0 ? (
 						Main_OnCommand(40058, 0); // Paste item
@@ -96,7 +101,7 @@ function convert_loop() local(i, item, j)
 PreventUIRefresh(1);
 Undo_BeginBlock(); 
 convert_loop();
-Undo_EndBlock("Convert looped items into items and pooled MIDI", extraflags);
+Undo_EndBlock("Convert looped items into items and pooled MIDI", -1);
 UpdateArrange();
 PreventUIRefresh(-1);
-msg_end();
+//msg_end();
