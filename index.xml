@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8ffade195b1008eb25e84a5851ae99ce54e9bbcd" name="X-Raym Scripts">
+<index version="1" commit="4131c5a97d6fb22f43518e9f46e8087c007f6641" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -665,10 +665,18 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Editing/X-Raym_Convert%20selected%20looped%20items%20into%20independent%20items.eel</source>
       </version>
+      <version name="1.1" author="X-Raym" time="2016-11-19T12:12:15Z">
+        <changelog><![CDATA[# Remove dependency and debug infos]]></changelog>
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4131c5a97d6fb22f43518e9f46e8087c007f6641/Items%20Editing/X-Raym_Convert%20selected%20looped%20items%20into%20independent%20items.eel</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Convert selected looped items into items and pooled midi.eel" type="script">
       <version name="0.8" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Editing/X-Raym_Convert%20selected%20looped%20items%20into%20items%20and%20pooled%20midi.eel</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2016-11-19T12:12:15Z">
+        <changelog><![CDATA[# Remove dependency and debug infos]]></changelog>
+        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4131c5a97d6fb22f43518e9f46e8087c007f6641/Items%20Editing/X-Raym_Convert%20selected%20looped%20items%20into%20items%20and%20pooled%20midi.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Copy selected items and paste at mouse position.lua" type="script">
