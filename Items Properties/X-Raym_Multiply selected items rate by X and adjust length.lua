@@ -17,9 +17,18 @@
  
 --[[
  * Changelog:
+ * v1.1 (2016-11-25)
+	+ User config area for moding
  * v1.0 (2015-11-25)
 	+ Initial Release
 --]]
+
+-- ------ USER AREA =====>
+
+coef = 2 -- number > 1
+prompt = true -- true/false
+
+-- <===== USER AREA ------
 
 function main( coef ) -- local (i, j, item, take, track)
 
@@ -67,13 +76,14 @@ end
 selected_items_count = reaper.CountSelectedMediaItems(0)
 
 if selected_items_count > 0 then
-  
-	retval, retvals_csv = reaper.GetUserInputs("Multiply Rate", 1, "Rate Coefficient ( > 0 )", "1")  
+  	
+  	if prompt then
+		retval, coef = reaper.GetUserInputs("Multiply Rate", 1, "Rate Coefficient ( > 0 )", tostring(coef))
+	end 
 
-      
-	if retvals_csv ~= nil then
+	if retval or prompt == false then
 		
-		coef = tonumber(retvals_csv)
+		coef = tonumber(coef)
 		
 		if coef ~= nil then
 		
