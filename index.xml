@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="4131c5a97d6fb22f43518e9f46e8087c007f6641" name="X-Raym Scripts">
+<index version="1" commit="41bc65f23073400dd69dd61daa034966ac12bb94" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1662,6 +1662,12 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Tempo%20and%20Time%20Signature/X-Raym_Insert%20time%20signature%20markers%20from%20selected%20items.eel</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Round all tempo markers BPM.lua" type="script" desc="Round all tempo markers BPM">
+      <version name="0.9" author="X-Raym" time="2016-11-25T00:03:08Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/41bc65f23073400dd69dd61daa034966ac12bb94/Tempo%20and%20Time%20Signature/X-Raym_Round%20all%20tempo%20markers%20BPM.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Tap tempo.lua" type="script">
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[# Precision is now Accuracy
@@ -2245,6 +2251,12 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Track%20Properties/X-Raym_Set%20parents%20tracks%20names%20to%20uppercase%20and%20childs%20ones%20to%20camelcase.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set selected tracks channels number.lua" type="script" desc="Set selected tracks channel number">
+      <version name="1.1" author="X-Raym" time="2016-11-25T00:03:08Z">
+        <changelog><![CDATA[+ User config area]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/41bc65f23073400dd69dd61daa034966ac12bb94/Track%20Properties/X-Raym_Set%20selected%20tracks%20channels%20number.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Solo exclusive selected tracks.eel" type="script">
