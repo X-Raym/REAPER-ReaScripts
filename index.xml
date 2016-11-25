@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="41bc65f23073400dd69dd61daa034966ac12bb94" name="X-Raym Scripts">
+<index version="1" commit="cd669e887959b68bef8e90d4321c67143fd914d6" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1107,7 +1107,7 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Move%20selected%20items%20snap%20offset%20to%20previous%20cue.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Multiply selected items rate by X and adjust length.lua" type="script">
+    <reapack name="X-Raym_Multiply selected items rate by X and adjust length.lua" type="script" desc="Multiply selected items rate by X and adjust length">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Multiply%20selected%20items%20rate%20by%20X%20and%20adjust%20length.lua</source>
