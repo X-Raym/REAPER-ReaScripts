@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showpost.php?p=1617117&postcount=1265
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2016-12-10)
+	# Bug fix
  * v1.0 (2016-01-04)
 	+ Initial Release
 --]]
@@ -59,15 +61,14 @@ function main() -- local (i, j, item, take, track)
       if a_selected == true and b_selected == true then
 
         time_interval = (b_ppqpos - a_ppqpos) / interval
-        cc_interval = math.floor(((b_msg3 - a_msg3) / interval)+0.5)
-
+        
         for z = 1, interval - 1 do
-
+        
           cc_events_len = cc_events_len + 1
           cc_events[cc_events_len] = {}
 
           c_ppqpos = a_ppqpos + time_interval * z
-          c_msg3 = a_msg3 + cc_interval * z
+          c_msg3 = math.floor( ( (b_msg3 - a_msg3) / interval * z + a_msg3 )+ 0.5 )
 
           cc_events[cc_events_len].ppqpos = c_ppqpos
           cc_events[cc_events_len].chanmsg = a_chanmsg
@@ -100,6 +101,8 @@ if retval or prompt == false then -- if user complete the fields
   interval = tonumber(interval)
 
   if interval ~= nil then
+
+  	interval = interval + 1
 
     interval = math.floor(interval)
 
