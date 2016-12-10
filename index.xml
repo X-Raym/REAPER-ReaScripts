@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="6918c9da6ac8d885ee57b011e60a2284a2055a20" name="X-Raym Scripts">
+<index version="1" commit="b6b92a5925626dd9be0111f5ed1dba8ba1e6bb9b" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1452,6 +1452,10 @@
       <version name="1.1" author="X-Raym" time="2016-12-10T15:45:08Z">
         <changelog><![CDATA[# Bug fix]]></changelog>
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/6918c9da6ac8d885ee57b011e60a2284a2055a20/MIDI%20Editor/X-Raym_Insert%20CC%20linear%20ramp%20events%20between%20selected%20ones%20if%20consecutive.lua</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2016-12-10T15:50:24Z">
+        <changelog><![CDATA[# Text]]></changelog>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/b6b92a5925626dd9be0111f5ed1dba8ba1e6bb9b/MIDI%20Editor/X-Raym_Insert%20CC%20linear%20ramp%20events%20between%20selected%20ones%20if%20consecutive.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Insert MIDI notes at project markers.lua" type="script">
