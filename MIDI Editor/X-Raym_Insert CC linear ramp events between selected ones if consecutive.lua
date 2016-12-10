@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showpost.php?p=1617117&postcount=1265
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2016-12-10)
+	# Text
  * v1.1 (2016-12-10)
 	# Bug fix
  * v1.0 (2016-01-04)
@@ -93,7 +95,7 @@ function main() -- local (i, j, item, take, track)
   end
 
 if prompt == true then
-  retval, interval = reaper.GetUserInputs("Insert CC Events", 1, "Number of intverals between notes?", interval)
+  retval, interval = reaper.GetUserInputs("Insert CC Events", 1, "Number of new events between CC?", interval)
 end
 
 if retval or prompt == false then -- if user complete the fields
@@ -102,9 +104,7 @@ if retval or prompt == false then -- if user complete the fields
 
   if interval ~= nil then
 
-  	interval = interval + 1
-
-    interval = math.floor(interval)
+    interval = math.floor(interval) + 1
 
     main() -- Execute your main function
 
