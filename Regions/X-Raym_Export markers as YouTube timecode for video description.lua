@@ -11,11 +11,15 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2017-01-03)
+  # New format
+  + Don't consider marker before project time 0
+  + Don't output hour if no markers is over one hour
  * v1.0 (2016-11-10)
   + Initial Release
 --]]
@@ -46,32 +50,59 @@ function main()
     if iRetval >= 1 then
       if bIsrgnOut == false then
         -- ACTION ON MARKERS HERE
-        pos = reaper.format_timestr_pos( math.floor( iPosOut ), "", 5 )
-        pos = pos:sub(0, -4)
-        Msg("- " .. pos ..": " .. sNameOut)
+        abs_pos = tonumber( reaper.format_timestr_pos( math.floor( iPosOut ), "", 3 ) )
+        if abs_pos > 0 then
+          pos = reaper.format_timestr_pos( math.floor( iPosOut ), "", 5 )
+          pos = pos:sub(0, -4)
+          marker = {}
+          marker.name = sNameOut
+          marker.pos = pos
+          table.insert( markers, marker )
+          if abs_pos >= 3600 then
+            hour = true 
+          end
+        end
       end
       i = i+1
     end
-  until iRetval == 0
+  until iRetval == 0  
+  
+  for i, marker in ipairs( markers ) do
+    
+    local pos = ""
+    if hour then
+      pos = marker.pos
+    else
+      pos = marker.pos:sub(3)
+    end
+    
+    Msg(pos .. " - " .. marker.name)
+    
+  end
   
 end
 
-
 -- INIT ---------------------------------------------------------------------
 
--- Here: your conditions to avoid triggering main without reason.
+total, num_markers, num_regions = reaper.CountProjectMarkers( -1 )
 
-reaper.PreventUIRefresh(1)
+if num_markers > 0 then
 
-reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-
-reaper.ClearConsole()
-
-main()
-
-reaper.Undo_EndBlock("Export markers as YouTube timecode for video description", -1) -- End of the undo block. Leave it at the bottom of your main function.
-
-reaper.UpdateArrange()
-
-reaper.PreventUIRefresh(-1)
+  reaper.PreventUIRefresh(1)
+  
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  
+  reaper.ClearConsole()
+  
+  markers = {}
+  
+  main()
+  
+  reaper.Undo_EndBlock("Export markers as YouTube timecode for video description", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  
+  reaper.UpdateArrange()
+  
+  reaper.PreventUIRefresh(-1)
+  
+end
 
