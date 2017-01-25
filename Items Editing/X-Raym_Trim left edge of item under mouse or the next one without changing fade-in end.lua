@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157698
  * REAPER: 5 pre 17
  * Extensions: SWS/S&M 2.6.3 #0
- * Version: 1.0
+ * Version: 1.1
 ]]
  
 --[[
  * Changelog:
+ * v1.1 (2015-08-11)
+	+ Stretch Markers and Envelope Points positions preserved
  * v1.0 (2015-08-11)
 	+ Initial Release
 ]]
@@ -113,7 +115,7 @@ function main()
 
 				for i = 0, count_item_on_track - 1 do 
 
-					item_get = reaper.GetTrackMediaItem(track, i)	
+					item_get = reaper.GetTrackMediaItem(track, i)     
 					
 					SaveItemRipple()
 
@@ -142,6 +144,32 @@ function main()
 			end
 
 			reaper.SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", mouse_take_off - offset)
+			
+			-- Envelopes
+			for i = 0, reaper.CountTakeEnvelopes( mouse_take ) - 1 do
+				env = reaper.GetTakeEnvelope( mouse_take, i )
+				-- LOOP THROUGH POINTS
+				env_points_count = reaper.CountEnvelopePoints(env)
+				
+				if env_points_count > 0 then
+					for k = 0, env_points_count-1 do
+						retval, time, value, shape, tensionl, selected = reaper.GetEnvelopePoint(env, env_points_count-1-k)                
+						reaper.SetEnvelopePoint(env, env_points_count-1-k, time + offset, value, shape, tensionl, selected, true)
+					end
+				end
+				reaper.Envelope_SortPoints(env)
+			end
+			
+			-- Stretch Markers
+			strech_count = reaper.GetTakeNumStretchMarkers(mouse_take)
+			
+			for j = 0, strech_count - 1 do
+			
+				idx, strech_pos, srcpos = reaper.GetTakeStretchMarker(mouse_take, j)
+			
+				reaper.SetTakeStretchMarker(mouse_take, idx, strech_pos+offset)
+				
+			end
 
 			if ripple > 0 then
 			--all == 1 || one == 1 then
