@@ -7,20 +7,21 @@
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI:
  * Licence: GPL v3
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
  * Extensions: ../Functions/spk77_Save table to file and load table from file_functions.lua
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2017-03-17)
+  + Project start offset support
  * v1.2 (2016-04-18)
-	+ Button states if action is in toolbar.
-	+ Save window state in an external file.
+  + Button states if action is in toolbar.
+  + Save window state in an external file.
  * v1.1.2 (2016-01-27)
   + Dock the window via left click if there is no regions.
  * v1.1.1 (2016-01-19)
@@ -51,11 +52,14 @@ format = 0
 window_w = 640
 window_h = 270
 
+-- Performance
+local reaper = reaper
+
 -- DEBUG
 function Msg(value)
-	if console then
-		reaper.ShowConsoleMsg(tostring(value) .. "\n")
-	end
+  if console then
+    reaper.ShowConsoleMsg(tostring(value) .. "\n")
+  end
 end
 
 
@@ -186,37 +190,38 @@ end
 
 --// INIT //--
 function init(window_w, window_h, window_x, window_y, docked)
-  gfx.init("Region's Clock by X-Raym" , window_w, window_h, docked, window_x, window_y)	-- name,width,height,dockstate,xpos,ypos
+  gfx.init("Region's Clock by X-Raym" , window_w, window_h, docked, window_x, window_y)  -- name,width,height,dockstate,xpos,ypos
   gfx.setfont(1, font_name, font_size, 'b')
   --color(text_color)
 end
 
 
 function DoExitFunctions()
-	SetButtonOFF()
-	SaveWindow()
+  SetButtonOFF()
+  SaveWindow()
 end
 
 
 function SaveWindow()
-	docked, xpos, ypos, wlen, hlen = gfx.dock(-1, xpos, ypos, wlen, hlen)
-	presets = {
-						 -- Preset 1
-						 regions_clock =
-							 {
-								 docked = docked,
-								 xpos = xpos,
-								 ypos = ypos,
-								 wlen = wlen,
-								 hlen = hlen
-							 },
-						}
-	table.save(presets, presets_path) -- save "presets" table
+  docked, xpos, ypos, wlen, hlen = gfx.dock(-1, xpos, ypos, wlen, hlen)
+  presets = {
+             -- Preset 1
+             regions_clock =
+               {
+                 docked = docked,
+                 xpos = xpos,
+                 ypos = ypos,
+                 wlen = wlen,
+                 hlen = hlen
+               },
+            }
+  table.save(presets, presets_path) -- save "presets" table
 end
-
 
 --// MAIN //--
 function run()
+
+  offset = reaper.GetProjectTimeOffset( proj, false )
 
   DrawBackground()
 
@@ -229,9 +234,9 @@ function run()
   if region_idx >= 0 then -- IF LAST REGION
 
     retval, is_region, region_start, region_end, region_name, markrgnindexnumber, region_color = reaper.EnumProjectMarkers3(0, region_idx)
-    buf = play_pos - region_start
+    buf = play_pos - region_start - offset
     buf = reaper.format_timestr_pos(buf, "", format)
-    end_buf = region_end - play_pos
+    end_buf = region_end - play_pos - offset
     end_string = reaper.format_timestr_pos(end_buf, "", format)
     buf = buf .. " → " .. end_string
     region_duration = region_end - region_start
@@ -303,19 +308,19 @@ if not reaper.file_exists(presets_path) then
   local file = io.open(presets_path, "w")
   io.close(file)
 
-	-- Save presets according t
-	presets = {
-						 -- Preset 1
-						 regions_clock =
-							 {
-								 wlen = window_w,
-								 hlen = window_h,
-								 xpos = 0, -- will display at left.
-								 ypos = 0, -- will display at bottom.
-								 docked = 0
-							 },
-						}
-	table.save(presets, presets_path) -- save "presets" table
+  -- Save presets according t
+  presets = {
+             -- Preset 1
+             regions_clock =
+               {
+                 wlen = window_w,
+                 hlen = window_h,
+                 xpos = 0, -- will display at left.
+                 ypos = 0, -- will display at bottom.
+                 docked = 0
+               },
+            }
+  table.save(presets, presets_path) -- save "presets" table
 
 end
 
