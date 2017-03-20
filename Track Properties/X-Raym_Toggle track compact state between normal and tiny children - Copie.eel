@@ -1,0 +1,57 @@
+/**
+ * ReaScript Name: Toggle track compact state between normal and tiny children
+ * Description: Toggle track compact/collapse state.
+ * Instructions: Select tracks. Run
+ * Author: X-Raym
+ * Author URI: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Licence: GPL v3
+ * Forum Thread: Script: Script name
+ * Forum Thread URI: http://forum.cockos.com/***.html
+ * REAPER: 4.76
+ * Extensions: None
+ * Version: 1.0
+*/
+ 
+/**
+ * Changelog:
+ * v1.0 (2015-05-14)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 1; // 0 => No console. 1 => Display console messages for debugging.
+clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING ----- 
+
+function main() // local (i, j, item, take, track)
+(
+	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+
+	// LOOP TRHOUGH SELECTED TRACKS
+	i = 0; // INITIALIZE loop through selected tracks
+	loop(CountSelectedTracks(0), (track = GetSelectedTrack(0, i)) ? (
+			// ACTIONS
+			GetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT") == 0 ? (
+				SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 2);
+				):(
+				SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 0);
+			);
+		); // ENDIF TRACK
+		i += 1; // INCREMENT loop through selected tracks
+	); // ENDLOOP through selected tracks
+	Undo_EndBlock("My action", -1); // End of the undo block. Leave it at the bottom of your main function.
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+PreventUIRefresh(1);
+main(); // Execute your main function
+UpdateArrange(); // Update the arrangement (often needed)
+PreventUIRefresh(-1);
+//msg_end(); // Display characters in the console to show you the end of the script execution.
