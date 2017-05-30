@@ -34,10 +34,10 @@ function main() // local (i, j, item, take, track)
 (
 	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 	count_tempo_markers = CountTempoTimeSigMarkers(0);
-	i = 0;
+	i = count_tempo_markers;
 	loop(count_tempo_markers,
-		DeleteTempoTimeSigMarker(0, count_tempo_markers-i);
-		i+=1;
+		DeleteTempoTimeSigMarker(0, i);
+		i-=1;
 	);
 
 	// YOUR CODE ABOVE
@@ -50,5 +50,5 @@ function main() // local (i, j, item, take, track)
 main(); // Execute your main function
 
 UpdateArrange(); // Update the arrangement (often needed)
-
+UpdateTimeline()
 //msg_end(); // Display characters in the console to show you the end of the script execution.
