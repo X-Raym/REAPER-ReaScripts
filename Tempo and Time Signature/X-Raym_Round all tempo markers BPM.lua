@@ -8,16 +8,16 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.9
+ * Version: 1.0
 ]]
  
 --[[
  * Changelog:
+ * v1.0 (2017-07-16)
+ 	+ Update
  * v0.9 (2016-11-16)
 	+ Initial Release
 ]]
-
-reaper.ShowConsoleMsg("This script is a work in progress. It doesn't move markers position yet.")
 
 reaper.PreventUIRefresh(1)
 
