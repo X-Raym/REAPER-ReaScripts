@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="cb19b6253543d079fc9eb35ee12571a39f12f681" name="X-Raym Scripts">
+<index version="1" commit="2ba411cfe4e24758d9b3ddf7f330f8ef71cc4637" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1746,6 +1746,16 @@
       <version name="0.9" author="X-Raym" time="2016-11-25T00:03:08Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/41bc65f23073400dd69dd61daa034966ac12bb94/Tempo%20and%20Time%20Signature/X-Raym_Round%20all%20tempo%20markers%20BPM.lua</source>
+      </version>
+      <version name="1.0" author="X-Raym" time="2017-07-17T18:08:39Z">
+        <changelog><![CDATA[+ Update]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/bba17a8e43f4616cf3277af419c8cecc1e05903d/Tempo%20and%20Time%20Signature/X-Raym_Round%20all%20tempo%20markers%20BPM.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set selected tempo envelope points value.lua" type="script" desc="Set selected tempo envelope points value">
+      <version name="1.0" author="X-Raym" time="2017-07-17T18:08:48Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2ba411cfe4e24758d9b3ddf7f330f8ef71cc4637/Tempo%20and%20Time%20Signature/X-Raym_Set%20selected%20tempo%20envelope%20points%20value.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Tap tempo.lua" type="script">
