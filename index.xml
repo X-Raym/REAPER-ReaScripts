@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="2ba411cfe4e24758d9b3ddf7f330f8ef71cc4637" name="X-Raym Scripts">
+<index version="1" commit="c9c3ab01e44ee7e96fdc8b0968d45237ad240897" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1101,10 +1101,17 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Keep%20selected%20items%20with%20X%20channels%20only.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Keep selected only active takes audio under or over peak volume threshold.lua" type="script">
+    <reapack name="X-Raym_Keep selected only active takes audio under or over peak volume threshold.lua" type="script" desc="Keep selected only active audio takes under or over peak volume threshold">
+      <metadata>
+        <link rel="screenshot">http://i.imgur.com/nKlFUCZ.gifv</link>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2016-03-14T23:27:16Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/fd87147195f732f9af4e2e32eae610cc8d4f1a9f/Items%20Properties/X-Raym_Keep%20selected%20only%20active%20takes%20audio%20under%20or%20over%20peak%20volume%20threshold.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2017-08-04T16:59:22Z">
+        <changelog><![CDATA[# Fix dependency path]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c9c3ab01e44ee7e96fdc8b0968d45237ad240897/Items%20Properties/X-Raym_Keep%20selected%20only%20active%20takes%20audio%20under%20or%20over%20peak%20volume%20threshold.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Keep selected only X items randomly.lua" type="script">
