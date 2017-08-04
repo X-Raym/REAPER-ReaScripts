@@ -12,12 +12,14 @@
  * Forum Thread: REQ: Copy & Paste Peak/RMS values of items to different items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
- * Extensions: spk77 Get max peak val and pos from take (function and example).lua
- * Version: 1.0
+ * Extensions: spk77_Get max peak val and pos from take_function.lua
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2017-08-04)
+	# Fix dependency path
  * v1.0 (2016-03-14)
 	+ Initial Release
 --]]
@@ -42,7 +44,7 @@ console = false -- true/false: display debug messages in the console
 
 local info = debug.getinfo(1,'S');
 script_path = info.source:match[[^@?(.*[\/])[^\/]-$]]
-dofile(script_path .. "../spk77_Get max peak val and pos from take (function and example).lua")
+dofile(script_path .. "../Functions/spk77_Get max peak val and pos from take_function.lua")
 
 -------------------------------------------------------------- INCLUDES
 
