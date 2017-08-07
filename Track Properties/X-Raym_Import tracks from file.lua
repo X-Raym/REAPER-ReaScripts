@@ -13,12 +13,14 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1564559
  * REAPER: 5.0 pre 36
  * Extensions: None
- * Version: 1.1
+ * Version: 1.1.1
 ]]
  
  
 --[[
  * Changelog:
+ * v1.1.1 (2015-08-27)
+	# .csv file extension for MacOS
  * v1.1 (2015-08-27)
 	# Track order
  * v1.0 (2015-08-27)
@@ -66,7 +68,7 @@ end
 
 
 -- START -----------------------------------------------------
-retval, filetxt = reaper.GetUserFileNameForRead("", "Import tracks from file", "")
+retval, filetxt = reaper.GetUserFileNameForRead("", "Import tracks from file", "csv")
 
 if retval then 
 	
