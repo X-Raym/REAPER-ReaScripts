@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="94323254a3c3222356ad142fc480eabe7d88ce1c" name="X-Raym Scripts">
+<index version="1" commit="c235771c77ae360a602c2392e5fa2bc1a4e8261b" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -850,7 +850,7 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Editing/X-Raym_Quantize%20selected%20items%20start%20and%20end%20to%20closest%20frame.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Quantize selected items to closest marker position.lua" type="script">
+    <reapack name="X-Raym_Quantize selected items to closest marker position.lua" type="script" desc="Quantize selected items to closest marker position">
       <version name="1.0" author="X-Raym" time="2015-12-24T01:40:30Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/d95052d2ce9b8a71d65b49278277ca831957e71b/Items%20Editing/X-Raym_Quantize%20selected%20items%20to%20closest%20marker%20position.lua</source>
@@ -858,6 +858,10 @@
       <version name="1.1" author="X-Raym" time="2015-12-30T16:57:32Z">
         <changelog><![CDATA[+ Preserve relative position of items in groups (considering min pos of selected items in groups as referance, and propagate offset on al items in groups, even non selected ones.]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Editing/X-Raym_Quantize%20selected%20items%20to%20closest%20marker%20position.lua</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2017-08-11T14:40:05Z">
+        <changelog><![CDATA[# Bug fix]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c235771c77ae360a602c2392e5fa2bc1a4e8261b/Items%20Editing/X-Raym_Quantize%20selected%20items%20to%20closest%20marker%20position.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Quantize selected items to closest region start.lua" type="script">
