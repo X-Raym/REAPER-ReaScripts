@@ -12,15 +12,17 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2017-08-11)
+   # Bug fix
  * v1.1 (2015-12-24)
    + Preserve relative position of items in groups (considering min pos of selected items in groups as referance, and propagate offset on al items in groups, even non selected ones.
  * v1.0 (2015-12-24)
- 	+ Initial release
+   + Initial release
 --]]
 
 console = false
@@ -31,33 +33,33 @@ function Msg(variable)
 end
 
 function SaveMarkers()
-	markers_pos = {}
+  markers_pos = {}
 
-	i=0
-	repeat
-		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
-		if iRetval >= 1 then
-			if bIsrgnOut == false then
-				table.insert(markers_pos, iPosOut)
-			end
-			i = i+1
-		end
-	until iRetval == 0
-	table.sort(markers_pos)
-	return markers_pos
+  i=0
+  repeat
+    iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
+    if iRetval >= 1 then
+      if bIsrgnOut == false then
+        table.insert(markers_pos, iPosOut)
+      end
+      i = i+1
+    end
+  until iRetval == 0
+  table.sort(markers_pos)
+  return markers_pos
 
 end
 
 -- http://stackoverflow.com/questions/29987249/find-the-nearest-value
 function NearestValue(table, number)
-	local smallestSoFar, smallestIndex
-	for i, y in ipairs(table) do
-			if not smallestSoFar or (math.abs(number-y) < smallestSoFar) then
-					smallestSoFar = math.abs(number-y)
-					smallestIndex = i
-			end
-	end
-	return smallestIndex, table[smallestIndex]
+  local smallestSoFar, smallestIndex
+  for i, y in ipairs(table) do
+      if not smallestSoFar or (math.abs(number-y) < smallestSoFar) then
+          smallestSoFar = math.abs(number-y)
+          smallestIndex = i
+      end
+  end
+  return smallestIndex, table[smallestIndex]
 end
 
 function main()
@@ -128,18 +130,18 @@ function SaveAllItems(table)
   end
 end
 
-count_sel_items = reaper.CountSelectedMediaItems(0, 0)
+count_sel_items = reaper.CountSelectedMediaItems(0)
 retval, count_markers, count_regions = reaper.CountProjectMarkers(0)
 
-if count_sel_items > 0 and count_regions > 0 then
-	reaper.PreventUIRefresh(1)
-	SaveMarkers()
-	sel_items = {}
-	all_items = {}
-	SaveSelectedItems(sel_items)
-	reaper.Undo_BeginBlock()
-	main()
-	reaper.Undo_EndBlock("Quantize selected items to closest marker position", -1)
-	reaper.UpdateArrange()
-	reaper.PreventUIRefresh(-1)
+if count_sel_items > 0 and count_markers > 0 then
+  reaper.PreventUIRefresh(1)
+  SaveMarkers()
+  sel_items = {}
+  all_items = {}
+  SaveSelectedItems(sel_items)
+  reaper.Undo_BeginBlock()
+  main()
+  reaper.Undo_EndBlock("Quantize selected items to closest marker position", -1)
+  reaper.UpdateArrange()
+  reaper.PreventUIRefresh(-1)
 end
