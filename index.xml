@@ -2603,12 +2603,12 @@
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
-{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 X-Raym's ReaScripts\par}
-{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 X-Raym's Scripts for {\field{\*\fldinst{HYPERLINK "http://reaper.fm"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs36 X-Raym's ReaScripts for {\field{\*\fldinst{HYPERLINK "http://reaper.fm"}}{\fldrslt{\ul
 Cockos REAPER
 }}}
 \par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Pack Content\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts written by X-Raym\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts written for X-Raym\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scripts moded by X-Raym\par}
@@ -2620,19 +2620,28 @@ ReaPack
  REAPER extension, the free scripts/packages download manager made by {\field{\*\fldinst{HYPERLINK "https://github.com/cfillion/"}}{\fldrslt{\ul
 cfillion
 }}}
-. This means that you don't need to download and install the scripts manually anymore, you can simply use ReaPack to batch download all scripts or scripts of your choice right from REAPER! More, you will get auto-update each time your synchronize packages!\par}
+.\line This means that you don't need to download and install the scripts manually anymore, you can simply use ReaPack to batch download all scripts or scripts of your choice right from REAPER!\line More, you will get auto-update each time your synchronize packages!\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Manual ReaPack Installation\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 If for some reasons you deleted the link to this repo from ReaPack, you can add it back by importing this {\field{\*\fldinst{HYPERLINK "https://raw.githubusercontent.com/X-Raym/REAPER-ReaScripts/master/index.xml"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa180 \li0 \fi0 If for some reasons you deleted the link to this repo from ReaPack, you can add it back by importing the following {\field{\*\fldinst{HYPERLINK "https://raw.githubusercontent.com/X-Raym/REAPER-ReaScripts/master/index.xml"}}{\fldrslt{\ul
 index.xml
 }}}
- link from the Import a repository window.\par}
+ link from the Import a repository window.\line {\f1 https://raw.githubusercontent.com/X-Raym/REAPER-ReaScripts/master/index.xml}\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Manual Download Instructions\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Please download the whole archive on my website => {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/my-reaper-scripts/"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa180 \li0 \fi0 Please download the whole archive on my website => {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/my-reaper-scripts/"}}{\fldrslt{\ul
 My REAPER Scripts
 }}}
- If you want download scripts on this repo anyway:\par}
+.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 If you want download scripts on this repo anyway:\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab The whole archive can also be downloaded from here by clicking on the Download Master button.\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab For one script in particular: click on one script, then click on the Raw button, then File > Save (via Menu, Right Click or CTRL/CMD +S).\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Support\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Please consider making a {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/donation/"}}{\fldrslt{\ul
+donation
+}}}
+ if you like my work and if you use some of these scripts in your projects, or consider buying some of my {\field{\*\fldinst{HYPERLINK "http://www.extremraym.com/en/downloads/category/reascripts/"}}{\fldrslt{\ul
+premium scripts
+}}}
+.\line This will help me continue sharing and maintaining these scripts for free, and even code new ones.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Detailed Articles\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/my-reaper-scripts/"}}{\fldrslt{\ul
 My REAPER Scripts
