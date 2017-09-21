@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Rename selected takes from regions
+ * ReaScript Name: Rename selected items with clipboard content
  * Description: See title
  * Author: X-Raym
  * Author URI: https://extremraym.com
@@ -9,15 +9,20 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=195520
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2017-09-21)
+  # Title
  * v1.0 (2017-09-21)
   + Initial Release
 --]]
 
+reaper.PreventUIRefresh(1)
+
+reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 clipboard = reaper.CF_GetClipboard('')
 
@@ -29,3 +34,7 @@ if clipboard ~= "" then
     end
   end
 end
+
+reaper.Undo_EndBlock("Rename selected takes from regions", - 1) -- End of the undo block. Leave it at the bottom of your main function.
+
+reaper.PreventUIRefresh(-1)
