@@ -10,11 +10,13 @@
  * Forum Thread: Request, split selected item(s) to regions.
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=169127
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2017-09-21)
+  + Bug fix if similar pos points
  * v1.0 (2017-09-20)
   + Initial Release
 --]]
@@ -29,6 +31,28 @@ console = false -- true/false: display debug messages in the console
 pos = {}
 
 -- UTILITIES -------------------------------------------------------------
+
+-- Count the number of times a value occurs in a table 
+function table_count(tt, item)
+  local count
+  count = 0
+  for ii,xx in pairs(tt) do
+    if item == xx then count = count + 1 end
+  end
+  return count
+end
+
+-- Remove duplicates from a table array
+function table_unique(tt)
+  local newtable
+  newtable = {}
+  for ii,xx in ipairs(tt) do
+    if(table_count(newtable, xx) == 0) then
+      newtable[#newtable+1] = xx
+    end
+  end
+  return newtable
+end
 
 function MultiSplitMediaItem(item, times)
 
@@ -90,6 +114,7 @@ function GetRegionsPoints()
       i = i+1
     end
   until iRetval == 0
+  pos = table_unique(pos)
   table.sort(pos)
 end
 
