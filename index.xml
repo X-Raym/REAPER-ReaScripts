@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="50e2914ac4e0430abc0f9dc78ca1a7f63c6fe2be" name="X-Raym Scripts">
+<index version="1" commit="53fa951de24470cafe631e9157e45f72528627f6" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -987,6 +987,10 @@
       <version name="1.0" author="X-Raym" time="2017-09-20T16:37:19Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/1c2308178a7745789828d5c82f99ddc9f807cd47/Items%20Editing/X-Raym_Split%20selected%20items%20at%20regions.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2017-09-21T11:23:44Z">
+        <changelog><![CDATA[+ Bug fix if similar pos points]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/53fa951de24470cafe631e9157e45f72528627f6/Items%20Editing/X-Raym_Split%20selected%20items%20at%20regions.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Split selected items every X seconds intervals.lua" type="script">
