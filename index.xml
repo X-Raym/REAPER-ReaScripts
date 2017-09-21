@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="53fa951de24470cafe631e9157e45f72528627f6" name="X-Raym Scripts">
+<index version="1" commit="d589f74a943e8f6898d353d539d3217746d597c9" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1282,10 +1282,14 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Rename%20selected%20items%20active%20takes%20from%20REAPER%20MIDI%20notes%20to%20Kontakt%20notes.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Rename selected items with clipboard content.lua" type="script" desc="Rename selected takes from regions">
+    <reapack name="X-Raym_Rename selected items with clipboard content.lua" type="script" desc="Rename selected items with clipboard content">
       <version name="1.0" author="X-Raym" time="2017-09-21T10:43:23Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/50e2914ac4e0430abc0f9dc78ca1a7f63c6fe2be/Items%20Properties/X-Raym_Rename%20selected%20items%20with%20clipboard%20content.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2017-09-21T20:50:31Z">
+        <changelog><![CDATA[# Title]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d589f74a943e8f6898d353d539d3217746d597c9/Items%20Properties/X-Raym_Rename%20selected%20items%20with%20clipboard%20content.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Rename selected takes from CSV input.lua" type="script">
