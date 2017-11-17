@@ -8,11 +8,15 @@
  * Licence: GPL v3
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0.1
+ * Version: 2.0
 --]]
 
 --[[
  * Changelog:
+ * v2.0 (2017-09-26)
+  # Change CSV separator from . to , This is not compatible with v1 workflow
+  + Added channel infos
+  + Prevent muted notes to be exported
  * v1.0.1 (2017-09-26)
   # Fix MacOS folder creation issue
  * v1.0 (2016-09-19)
@@ -21,16 +25,6 @@
 
 local reaper = reaper
 notes_array = {}
-
-function FormatZero( number )
-  local prefix = ""
-  local length = string.len(number)
-
-  if length == 1 then prefix = "00"
-  elseif length == 2 then prefix = "0" end
-
-  return prefix .. number
-end
 
 function Main( take )
 
@@ -41,10 +35,12 @@ function Main( take )
 
     local retval, sel, muted, startppq, endppq, chan, pitch, vel = reaper.MIDI_GetNote( take, k )
 
-    notes_array[k+1] = {}
-    notes_array[k+1].pitch = FormatZero(pitch)
-    notes_array[k+1].vel = FormatZero(vel)
-
+  	if not muted then
+        notes_array[k+1] = {}
+        notes_array[k+1].pitch = pitch
+        notes_array[k+1].vel = vel
+        notes_array[k+1].chan = chan
+    end
 
   end
 
@@ -74,12 +70,14 @@ function export()
   --Msg(file)
 
   for i, note in ipairs(notes_array) do
-    f:write( tostring( note.pitch .. "." .. note.vel) )
+    f:write( tostring( note.pitch .. "," .. note.vel .. "," .. note.chan ) )
     if i == #notes_array then break end
     f:write("\n")
   end
 
   f:close() -- never forget to close the file
+
+  Msg("File exported: " .. file)
 
 end
 
