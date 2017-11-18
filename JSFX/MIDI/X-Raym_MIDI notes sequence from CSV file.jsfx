@@ -12,12 +12,15 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.0.1
  */
 
 /**
  * Changelog:
- * v2.0 (2017-09-2017)
+ * v2.0.1 (2017-09-18)
+  # Channel fix
+  # Sequence position reinitialized when file is changed
+ * v2.0 (2017-09-17)
   # Change CSV separator from . to , This is not compatible with v1 workflow
   + Works with MIDI channels in CSV files
   + Basic GUI
@@ -59,6 +62,7 @@ seqFile != slider20 ?
 (
   seqFile = slider20;
   seqSize = 0;
+  out_on = 0;
   fileHandle = file_open(slider20);
   fileHandle > 0 && file_text(fileHandle) ?
   (
@@ -130,7 +134,7 @@ while (
             out_on = out_on + 3; // +3 because the file parsing understand each "," as a step (it doesn't parse per line). 3 columns => +3 to go to the next note.
             out_on == seqSize + 1 ? out_on = 0;
             note_out = seq[out_on]; // Get Note Out
-            chan_out = seq[out_on+2] - 1; // 3 columns => +2 to go to the last one, but -1 to the midi channel to send MIDI
+            chan_out = seq[out_on+2]; // 3 columns => +2 to go to the last one, but -1 to the midi channel to send MIDI
             slider15 == 1 ? (
               vel_out = seq[out_on+1];
             );
@@ -141,7 +145,7 @@ while (
             out_off = out_off + 3;
             out_off == seqSize + 1 ? out_off = 0;
             note_out = seq[out_on]; // Get Note Out
-            chan_out = seq[out_on+2] - 1;
+            chan_out = seq[out_on+2];
             slider15 == 1 ? (
               vel_out = seq[out_on+1];
             );
@@ -159,7 +163,7 @@ while (
             out_on = out_on - 3;
             out_on < 0 ? out_on = seqSize-2;
             note_out = seq[out_on]; // Get Note Out
-            chan_out = seq[out_on+2] - 1;
+            chan_out = seq[out_on+2];
             slider15 == 1 ? (
               vel_out = seq[out_on+1];
             );
@@ -170,7 +174,7 @@ while (
             out_off = out_off - 3;
             out_off < 0 ? out_off = seqSize-2;
             note_out = seq[out_on]; // Get Note Out
-            chan_out = seq[out_on+2] - 1;
+            chan_out = seq[out_on+2];
             slider15 == 1 ? (
               vel_out = seq[out_on+1];
             );
