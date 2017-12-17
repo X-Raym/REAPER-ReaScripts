@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Select envelope points in visible armed envelope of selected tracks
+ * ReaScript Name: Invert envelope points selection
  * Description: See title.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Screenshot: https://i.imgur.com/96tJFtD.gifv
@@ -109,7 +109,7 @@ function Main()
 	
 	end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Select envelope points in visible armed envelope of selected tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Invert envelope point selection", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
