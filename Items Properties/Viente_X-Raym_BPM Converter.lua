@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=110780
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0.7
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2017-12-15)
+	# Works with cropped items
  * v1.0 (2015-05-13)
 	# Now in Lua
 	+ Works on multiple selected items (BPM detection based on first selected item)
@@ -29,7 +31,7 @@
 numItems = reaper.CountSelectedMediaItems(0)
 selItem = reaper.GetSelectedMediaItem(0, 0)
 
-function msg(m)					-- functionine function: console output alias for debugging
+function msg(m)                         -- functionine function: console output alias for debugging
 	reaper.ShowConsoleMsg(tostring(m) .. '\n')
 end
 --msg("")
@@ -106,7 +108,24 @@ function getTempo()
 		bpm = 1
 	end
 
-end	--reaper.ShowConsoleMsg(str(bpm) + "\n")
+end     --reaper.ShowConsoleMsg(str(bpm) + "\n")
+
+function SetItemFromBPMToBPM( item, bpm_source, bpm_target )
+
+	local take = reaper.GetActiveTake(item)
+
+	local rate = bpm_target / bpm_source
+
+	if take then
+		reaper.SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", rate)
+	end
+
+	local item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+	reaper.SetMediaItemInfo_Value(item, "D_LENGTH", item_len * ( bpm_source / bpm_target ) )
+
+	return rate
+
+end
 
 function setTempo()
 
@@ -118,36 +137,16 @@ function setTempo()
 	if retval == true then
 
 		-- PARSE THE STRING
-		answer1, answer2 = retvals_csv:match("([^,]+),([^,]+)")
-		answer1 = tonumber(answer1)
-		answer2 = tonumber(answer2)
+		bpm_source, bpm_target = retvals_csv:match("([^,]+),([^,]+)")
+		bpm_source = tonumber(bpm_source)
+		bpm_target = tonumber(bpm_target)
 
-		if answer1 > 20 and answer1 < 299 and answer2 > 20 and answer2 < 299 then
+		if bpm_source > 20 and bpm_source < 299 and bpm_target > 20 and bpm_target < 299 then
 
-			if answer2 > answer1 then
-
-				bpm_rate = (answer2 / answer1) -1
-				for i = 0, numItems - 1 do
-					item = reaper.GetSelectedMediaItem(0, i)
-					take = reaper.GetActiveTake(item)
-					currentrate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
-					reaper.SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", currentrate + bpm_rate)
-				end
-
-			elseif answer2 < answer1 then
-
-				bpm_rate = (answer2 / answer1)
-				bpm_calc = (1 - bpm_rate)
-				for i = 0, numItems - 1 do
-					item = reaper.GetSelectedMediaItem(0, i)
-					take = reaper.GetActiveTake(item)
-					currentrate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
-					reaper.SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", currentrate - bpm_calc)
-				end
-
+			for i = 0, numItems - 1 do
+				local item = reaper.GetSelectedMediaItem(0, i)
+				SetItemFromBPMToBPM( item, bpm_source, bpm_target )
 			end
-
-			reaper.Main_OnCommand(40612,0) -- Fix item length
 
 		else
 			reaper.ShowMessageBox("Incorrect tempo!", "Error", 0) -- 0=OK,2=OKCANCEL,2=ABORTRETRYIGNORE,3=YESNOCANCEL,4=YESNO,5=RETRYCANCEL : ret 1=OK,2=CANCEL,3=ABORT,4=RETRY,5=IGNORE,6=YES,7=NO
