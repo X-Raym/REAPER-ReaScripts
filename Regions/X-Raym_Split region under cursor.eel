@@ -6,8 +6,8 @@
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
 // Release Date : 04-01-2015
-// Version : 1.1
-// Version Date : 19-01-2015
+// Version : 1.2
+// Version Date : 22-12-2017
 // Required : Reaper 4.76
 
 function split_two_regions()
@@ -19,14 +19,14 @@ function split_two_regions()
 	time = GetCursorPosition();
 
 	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
-	EnumProjectMarkers(regionidxOut, isrgn, RegionStart_d, RegionEnd_d, #name_str, markrgnIndexNumber_int);
 
-	time < RegionEnd_d ? (
+	EnumProjectMarkers3(0, regionidxOut, isrgn, RegionStart_d, RegionEnd_d, #name_str, markrgnIndexNumber_int, color_int);
 	
-		SetProjectMarker(CurrentRegionID_int, 1, RegionStart_d, time, #name_str);
+	time < RegionEnd_d ? 
 	
-		AddProjectMarker(NULL, 1, time, RegionEnd_d, #name_str, desired_region_id);
-	)
+		SetProjectMarker3( 0, markrgnIndexNumber_int, 1, RegionStart_d, time, #name_str, color_int);
+	
+		AddProjectMarker2( 0, 1, time, RegionEnd_d, #name_str, desired_region_id, color_int);
 
 );
 
