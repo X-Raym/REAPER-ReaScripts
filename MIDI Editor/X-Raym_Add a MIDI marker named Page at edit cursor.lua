@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Duplicate selected notes as fifth and octave triad
+ * ReaScript Name: Add a MIDI marker named Page at edit cursor
  * Description: See title
  * Instructions: Run
  * Author: X-Raym
@@ -26,13 +26,13 @@ function Msg( value )
 end
 
 function Main( take )
-  
+
   edit_cur = reaper.GetCursorPosition()
-  
+
   edit_cur_ppq = reaper.MIDI_GetPPQPosFromProjTime( take, edit_cur )
-  
+
   reaper.MIDI_InsertTextSysexEvt( take, true, false, edit_cur_ppq, 6, "Page" )
-  
+
   reaper.MIDI_Sort( take )
 
 end
