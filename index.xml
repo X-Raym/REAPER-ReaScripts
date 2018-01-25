@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e3242b62297df773b493dd9fca40874ae9cb64fd" name="X-Raym Scripts">
+<index version="1" commit="0c1fdaeb63bf73935bbaecfaf9e0944216c48b42" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -847,6 +847,12 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/2a42303362aadeb4b5c89f36e6fc1780854b32a2/Items%20Editing/X-Raym_Multiply%20selected%20items%20length%20by%20two%20avoiding%20overlapping%20with%20next%20item.eel</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Quantize selected items edges at grid unit inside them if possible.lua" type="script" desc="Quantize selected items edges at grid unit inside them if possible">
+      <version name="1.0" author="X-Raym" time="2018-01-25T17:00:30Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c258a759b95b95580c7686a9c914cbc2188b9331/Items%20Editing/X-Raym_Quantize%20selected%20items%20edges%20at%20grid%20unit%20inside%20them%20if%20possible.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Quantize selected items start and end to closest frame inside them.lua" type="script">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -1553,6 +1559,11 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/MIDI%20Editor/X-Raym_Add%2010%20to%20selected%20notes%20velocity.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Add a MIDI marker named Page at edit cursor.lua" type="script" desc="Add a MIDI marker named Page at edit cursor">
+      <version name="1.0.1" author="X-Raym" time="2018-01-25T17:00:30Z">
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/c258a759b95b95580c7686a9c914cbc2188b9331/MIDI%20Editor/X-Raym_Add%20a%20MIDI%20marker%20named%20Page%20at%20edit%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Duplicate selected notes as fifth and octave triads.lua" type="script" desc="Duplicate selected notes as fifth and octave triads">
@@ -2626,6 +2637,33 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/67ae1b673d3d0b04f2aa5ab47f10358cef1f4d98/Various/X-Raym_Display%20script%20infos%20in%20the%20console.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Export first selected track MIDI as UltraStar txt file.lua" type="script" desc="Export first selected track MIDI as UltraStar txt file">
+      <metadata>
+        <link rel="screenshot">https://youtu.be/z1K98a7AWNA</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-01-25T17:02:21Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c1fdaeb63bf73935bbaecfaf9e0944216c48b42/Various/X-Raym_Export%20first%20selected%20track%20MIDI%20as%20UltraStar%20txt%20file.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Import UltraStar txt.lua" type="script" desc="Import UltraStar txt">
+      <metadata>
+        <link rel="screenshot">https://youtu.be/z1K98a7AWNA</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-01-25T17:00:30Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c258a759b95b95580c7686a9c914cbc2188b9331/Various/X-Raym_Import%20UltraStar%20txt.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Insert UltraStar lyrics from project to items MIDI notes on first selected track.lua" type="script" desc="Insert UltraStar lyrics from project to items MIDI notes on first selected track">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/ELPdgLn.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-01-25T17:00:45Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/13b257aaa7a95978f444fef6f1d3cdf8399261f8/Various/X-Raym_Insert%20UltraStar%20lyrics%20from%20project%20to%20items%20MIDI%20notes%20on%20first%20selected%20track.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Move edit cursor to time 0 or to project start.lua" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
         <changelog><![CDATA[+ Initial Release
@@ -2663,6 +2701,15 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Various/X-Raym_Ripple%20check.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set UltraStar project metadata.lua" type="script" desc="Set UltraStar project metadata">
+      <metadata>
+        <link rel="screenshot">https://youtu.be/z1K98a7AWNA</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-01-25T17:00:30Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c258a759b95b95580c7686a9c914cbc2188b9331/Various/X-Raym_Set%20UltraStar%20project%20metadata.lua</source>
       </version>
     </reapack>
   </category>
