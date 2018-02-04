@@ -10,12 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0
+ * Version: 1.0.1
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2018-02-04)
+  # Prevent return lines in lyrics export
+  # Artist and Title field fix
+  # No dash seperator
  * v1.0 (2018-25-01)
   + Initial Release
 --]]
@@ -48,9 +52,9 @@ function GetArtistAndTitle()
   if ( not artist or artist == "" ) and ( not title or title == "" )then
     artist, title = proj_name:match('(.+) %- (.+)')
     if not artist then artist = "Artist" end
-    if not title or title == "" then title = "Title" end
-    reaper.SetProjExtState( 0, "UltraStar", "TITLE", artist)
-    reaper.SetProjExtState( 0, "UltraStar", "ARTIST", title)
+    if not title or title == "" then title = "Title" else title = title:gsub('.rpp', '') end
+    reaper.SetProjExtState( 0, "UltraStar", "TITLE", title)
+    reaper.SetProjExtState( 0, "UltraStar", "ARTIST", artist)
   end
   if not proj_name then proj_name = artist .. " - " .. title end
   proj_name = proj_name:gsub('.rpp', '')
@@ -94,6 +98,8 @@ function ProcessTakeMIDI( take, j )
   for i = 0, count_textsyx - 1 do
     local retval, selected, muted, ppqpos, evt_type, msg = reaper.MIDI_GetTextSysexEvt( take, i, true, true, 0, 0, "" )
     if evt_type == 5 then
+      msg = msg:gsub("\r", "")
+      msg = msg:gsub("^%-", "")
       table.insert(lyrics, msg)
     end
   end

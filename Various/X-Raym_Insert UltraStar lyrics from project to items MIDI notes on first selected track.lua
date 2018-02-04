@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2018-02-03)
+  # "+" pattern is fixed
  * v1.0 (2018-01-25)
   + Initial Release
 --]]
@@ -31,13 +33,14 @@ function string:split(sep)
   self:gsub(pattern, function(c) fields[#fields+1] = c end)
   return fields
 end
-
+reaper.ClearConsole()
 var = reaper.GetSetProjectNotes( 0, false, '' )
 
 if not var or var == "" then return end
 
-var = var:gsub('%+', '%-')
+var = var:gsub('%+', '-')
 var = var:gsub('[ |%-|\n]', '|%1')
+--reaper.ShowConsoleMsg(var)
 
 sep = "|"
 test = var:split(sep)
@@ -67,11 +70,11 @@ function main()
 
   str = '' -- "1.1.2\tLyric\t2.1.1\tLyric"
   for i, pos in ipairs( events ) do
-	lyric = "bla"
-	if test[i] then lyric = test[i] end
-	console = true
-	lyric = lyric:gsub('\n', '') -- Maybe not necessary
-	str = str .. reaper.format_timestr_pos( pos, '', 1 ) .. '\t' .. lyric ..'\t'
+  lyric = "bla"
+  if test[i] then lyric = test[i] end
+  console = true
+  lyric = lyric:gsub('\n', '') -- Maybe not necessary
+  str = str .. reaper.format_timestr_pos( pos, '', 1 ) .. '\t' .. lyric ..'\t'
   end
   str = str:sub(1, -2)
   reaper.SetTrackMIDILyrics( track, 2, str )
