@@ -8,6 +8,23 @@
 
 @import ../Functions/spk_slider_class.eel
 
+function get_take_value() local (i)
+(
+  memset(t_val, 0, t_len);
+  t_len = 0;
+  loop(CountSelectedMediaItems(0),
+    ((item = GetSelectedMediaItem(0, i)) ? (
+      (take = GetActiveTake(item)) ? (
+        t_val[i] = GetMediaItemTakeInfo_Value(take, "D_PITCH");
+        buflen += 1;
+        ShowConsoleMsg(t_val[i]);
+        );
+      );
+    i += 1;
+    );
+  );
+);
+
 // init
 function init()
 (
@@ -20,6 +37,7 @@ function init()
   refresh_on_slider_change = 1;
   m.val = 0; // mean slider initial value
   s.val = 10; // standard_dev initial value
+  get_take_value();
 );
 
 
@@ -29,6 +47,8 @@ function set_default_colors()
   gfx_g = 0.8;
   gfx_b = 0.5;
 );
+
+
 
 function rand_pan(mean, standard_dev) local (i)
 (
@@ -62,7 +82,7 @@ function set_pan() local (i)
   loop(buflen,
     (item = GetSelectedMediaItem(0, i)) ? (
       (take = GetActiveTake(item)) ? (
-        cur_pitch = GetMediaItemTakeInfo_Value(take, "D_PITCH");
+        cur_pitch = t_val[i];
         //SetMediaItemTakeInfo_Value(take, "D_PAN", buf[i]); // -1.0 to 1.0 (100L to 100R)
         SetMediaItemTakeInfo_Value(take, "D_PITCH", cur_pitch + buf[i]); // -1.0 to 1.0 (100L to 100R)
       );
