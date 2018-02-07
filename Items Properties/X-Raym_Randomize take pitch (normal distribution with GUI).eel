@@ -62,8 +62,9 @@ function set_pan() local (i)
   loop(buflen,
     (item = GetSelectedMediaItem(0, i)) ? (
       (take = GetActiveTake(item)) ? (
+        cur_pitch = GetMediaItemTakeInfo_Value(take, "D_PITCH");
         //SetMediaItemTakeInfo_Value(take, "D_PAN", buf[i]); // -1.0 to 1.0 (100L to 100R)
-        SetMediaItemTakeInfo_Value(take, "D_PITCH", buf[i]); // -1.0 to 1.0 (100L to 100R)
+        SetMediaItemTakeInfo_Value(take, "D_PITCH", cur_pitch + buf[i]); // -1.0 to 1.0 (100L to 100R)
       );
     );
     i += 1;
