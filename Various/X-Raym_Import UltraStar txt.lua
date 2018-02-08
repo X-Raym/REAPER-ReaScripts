@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2018-02-08)
+  # Split name with MacOS separator
  * v1.0 (2018-01-25)
   + Initial Release
 --]]
@@ -27,7 +29,7 @@ end
 -- https://www.fhug.org.uk/wiki/wiki/doku.php?id=plugins:code_snippets:split_filename_in_to_path_filename_and_extension
 function SplitFilename(strFilename)
   -- Returns the Path, Filename, and Extension as 3 values
-  return string.match(strFilename, "(.-)([^\\]-([^\\%.]+))$")
+  return string.match(strFilename, "(.-)([^\\|/]-([^\\|/%.]+))$")
 end
 
 function InsertFile( file, folder, tag )

@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.1
+ * Version: 1.0.2
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2018-02-08)
+  # Split name with MacOS separator
  * v1.0.1 (2018-02-04)
   # Prevent return lines in lyrics export
   # Artist and Title field fix
@@ -39,7 +41,7 @@ prefix = {": ", "* ", "F "}
 -- https://www.fhug.org.uk/wiki/wiki/doku.php?id=plugins:code_snippets:split_filename_in_to_path_filename_and_extension
 function SplitFilename(strFilename)
   -- Returns the Path, Filename, and Extension as 3 values
-  return string.match(strFilename, "(.-)([^\\]-([^\\%.]+))$")
+  return string.match(strFilename, "(.-)([^\\|/]-([^\\|/%.]+))$")
 end
 
 function GetArtistAndTitle()
