@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1652366
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2018-03-15)
+	# Region index fix
  * v1.1 (2016-11-01)
 	+ Region engine
  * v1.0 (2016-03-16)
@@ -39,7 +41,7 @@ function GetRegionsRender_Index()
 		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
 		if iRetval >= 1 then
 			if bIsrgnOut == true and sNameOut == "=RENDER" then
-				region_idx = iRetval
+				region_idx = iMarkrgnindexnumberOut
 				break
 			end
 			i = i+1
