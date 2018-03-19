@@ -1,6 +1,6 @@
 /**
- * ReaScript Name: Snap selected empty items to the previous one on their track
- * Description: Snap selected empty items to the previous one on their track
+ * ReaScript Name: Snap selected items to the previous item end on their track
+ * Description: Snap selected items to the previous item end on their track
  * Instructions: Select items. Execute the script.
  * Author: X-Raym
  * Author URI: http://extremraym.com
@@ -12,32 +12,23 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157907
  * REAPER: 4.77
  * Extensions: None
- * Version: 1.0
+ * Version: 1.0.1
 */
 
 /**
  * Changelog:
+ * v1.0.1 (2018-03-19)
+	# User Config Area for offset
  * v1.0 (2015-03-29)
 	+ Initial Release
  */
 
-/*
-function MsgD(text, variable)
-(
-	ShowConsoleMsg(text);
-	sprintf(str, "%d", variable);
-	ShowConsoleMsg(str);
-	ShowConsoleMsg("\n");
-);
+/* USER CONFIG AREA */
 
-function MsgF(text, variable)
-(
-	ShowConsoleMsg(text);
-	sprintf(str, "%f", variable);
-	ShowConsoleMsg(str);
-	ShowConsoleMsg("\n");
-);
-*/
+offset = 0; // Offset time (seconds)
+
+/* END OF USER CONFIG AREA */
+
 
 function main()
 (
@@ -71,7 +62,7 @@ function main()
 
 			//MsgF("Previous item end: ", previous_item_end);
 
-			SetMediaItemInfo_Value(item, "D_POSITION", previous_item_end);
+			SetMediaItemInfo_Value(item, "D_POSITION", previous_item_end + offset);
 
 		);
 
