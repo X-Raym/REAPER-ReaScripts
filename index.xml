@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="188117d1109bacc09c22cf86a4d1819294cb8dd7" name="X-Raym Scripts">
+<index version="1" commit="111a07525638fa9fbe3576ece96b460f8dba1df3" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2348,10 +2348,16 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/54aaf26fb853765bb0c27c93ad2d1fac6065f33b/Track%20Properties/X-Raym_Import%20tracks%20from%20file.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Insert one new child track for each selected tracks.lua" type="script">
+    <reapack name="X-Raym_Insert one new child track for each selected tracks.lua" type="script" desc="Insert one new child track for each selected tracks">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Track%20Properties/X-Raym_Insert%20one%20new%20child%20track%20for%20each%20selected%20tracks.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2018-03-30T17:48:23Z">
+        <changelog><![CDATA[# Works with all selected tracks
+# Optimization
+# User Config Area]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/111a07525638fa9fbe3576ece96b460f8dba1df3/Track%20Properties/X-Raym_Insert%20one%20new%20child%20track%20for%20each%20selected%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Invert master track stereo left right width.eel" type="script">
