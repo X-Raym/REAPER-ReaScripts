@@ -1,21 +1,17 @@
-// ReaScript: Nudge active takes volume randomly (normal distribution) with GUI
-// Author : X-Raym
-// Author URI : http://extremraym.com
-// Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
-// Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
-// Licence : GPL v3
-// Release Date : 2014-12-17
-// Version : 1.0.2
-// Version Date : 2016-06-05
+// Create take pitch envelope (normal distr. random points)
+// NOTE: replaces all existing take pitch envelopes in selected items (active takes)
+// EEL script by spk77 23.11.2014
+// Version: 0.2014.11.23
 
-// Based on : Create take pitch envelope (random points - with GUI) by spk77
+// mod from X-Raym_Create take pitch envelope (random points - with GUI)
+// 2015-05-16
 
 @import ../Functions/spk_slider_class.eel
 
 // init
 function init()
 (
-  gfx_init("",440,200);
+  gfx_init("",420,200);
   gfx_setfont(1, "Arial", 14);
   lmb_click_outside_window = 1;
   buf = 10000;
@@ -26,6 +22,7 @@ function init()
   s.val = 10; // standard_dev initial value
 );
 
+
 function set_default_colors()
 (
   gfx_r = 0.5;
@@ -33,7 +30,22 @@ function set_default_colors()
   gfx_b = 0.5;
 );
 
-function rand_vol(mean, standard_dev) local (i)
+function get_take_value() local (i)
+(
+  memset(t_val, 0, t_len);
+  t_len = 0;
+  loop(CountSelectedMediaItems(0),
+    ((item = GetSelectedMediaItem(0, i)) ? (
+      (take = GetActiveTake(item)) ? (
+        t_val[i] = GetMediaItemTakeInfo_Value(take, "D_PITCH");
+        );
+      );
+    i += 1;
+    );
+  );
+);
+
+function rand_pan(mean, standard_dev) local (i)
 (
   mean /= 12;
   standard_dev /= 100;
@@ -41,15 +53,16 @@ function rand_vol(mean, standard_dev) local (i)
   memset(buf, 0, buflen);
   buflen = 0;
   loop(CountSelectedMediaItems(0),
+  //loop(2000,
     (item = GetSelectedMediaItem(0, i)) ? (
       (take = GetActiveTake(item)) ? (
         R = 0;
         G = rand(2) - 1 + rand(2) - 1 + rand(2) - 1;
         R = G * standard_dev + mean;
-
+        //R < -1 ? R += abs(R + 1);
+        //R > 1 ? R -= (R - 1);
         R < -1 ? R += abs(R - mean);
         R > 1 ? R -= (R - mean);
-        
         buf[i] = R*12;
         buflen += 1;
       );
@@ -58,65 +71,21 @@ function rand_vol(mean, standard_dev) local (i)
   );
 );
 
-
-function rand_one_seed_vol(mean, standard_dev) local (i)
-(
-  mean /= 12;
-  standard_dev /= 100;
-  i = 0;
-
-  loop(CountSelectedMediaItems(0),
-    (item = GetSelectedMediaItem(0, i)) ? (
-      (take = GetActiveTake(item)) ? (
-        R = 0;
-        G = rand(2) - 1 + rand(2) - 1 + rand(2) - 1;
-        R = G * standard_dev + mean;
-
-        R < -1 ? R += abs(R - mean);
-        R > 1 ? R -= (R - mean);
-      );
-    );
-    i += 1;
-  );
-);
-
-function set_vol() local (i)
+function set_pan() local (i)
 (
   i = 0;
   loop(buflen,
     (item = GetSelectedMediaItem(0, i)) ? (
       (take = GetActiveTake(item)) ? (
-
-        NudgeAmount = buf[i]; // You can modify this
-        
-        //5.70 "D_Vol" offsets existing gain values, not overwrite
-        
-        NudgeLin = 2^(NudgeAmount/6);
-        
-        SetMediaItemTakeInfo_Value(take, "D_VOL", NudgeLin);
-        
-/*
-        OldVol=GetMediaItemInfo_Value(item, "D_VOL");
-        OldVolDB=20*(log10(OldVol));
-
-        NewVol=OldVolDB+NudgeAmount;
-
-        NewVol >= 24 ? (
-          NewVol = 24 
-          ) : (
-          NewVol = NewVol;
-        );
-
-        NewVolGain=exp(NewVol*0.115129254);
-        
-        SetMediaItemTakeInfo_Value(take, "D_VOL", NewVolGain);
-*/
+        cur_pitch = t_val[i];
+        //SetMediaItemTakeInfo_Value(take, "D_PAN", buf[i]); // -1.0 to 1.0 (100L to 100R)
+        SetMediaItemTakeInfo_Value(take, "D_PITCH", cur_pitch + buf[i]); // -1.0 to 1.0 (100L to 100R)
       );
     );
     i += 1;
   );
   UpdateArrange();
-  Undo_OnStateChange("Pan active takes randomly");
+  Undo_OnStateChange("Pitch active takes randomly");
 );
 
 function randomize_btn(x, y, s_w, s_h, r, mean, standard_dev)
@@ -131,7 +100,7 @@ function randomize_btn(x, y, s_w, s_h, r, mean, standard_dev)
     mouse_cap == 1 && lmb_down == 0 ? (
       
       lmb_down = 1;
-      rand_vol(mean, standard_dev);
+      rand_pan(mean, standard_dev);
     );
   );
   gfx_printf("Randomize");
@@ -149,11 +118,12 @@ function apply_btn(x, y, s_w, s_h, r)
     mouse_cap == 1 && lmb_down == 0 ? (
       
       lmb_down = 1;
-      set_vol();
+      set_pan();
     );
   );
   gfx_printf("Apply");
 );
+
 
 function run() local (s_w, s_h, hue, sat, lum, v)
 (
@@ -192,18 +162,18 @@ function run() local (s_w, s_h, hue, sat, lum, v)
   randomize_btn(10, 150, 50, s_h, 6, mean, standard_dev);
   apply_btn(10, 170, 50, s_h, 6);
   
-  refresh_on_slider_change && (mean != last_mean || standard_dev != last_standard_dev) ? rand_vol(mean, standard_dev);
+  refresh_on_slider_change && (mean != last_mean || standard_dev != last_standard_dev) ? rand_pan(mean, standard_dev);
   
   mouse_cap == 5 && last_slider_id == 0 ? ( // ctrl+lmb to reset to center
     m.val = 0;
-    //rand_vol(mean, standard_dev) // update the preview window
+    //rand_pan(mean, standard_dev) // update the preview window
   );
   
   char = gfx_getchar();
   // ctrl+lmb to Undo
   
-  char == 114 ? ( // "r" pressed -> run function "rand_vol"
-    rand_vol(mean, standard_dev);
+  char == 114 ? ( // "r" pressed -> run function "rand_pan"
+    rand_pan(mean, standard_dev);
   );
   
   char == 26 ? (
