@@ -1,7 +1,7 @@
 // Pan active takes randomly (normal distr.) -> create take pan envelopes
 // NOTE: replaces all existing take pan envelopes in selected items (active takes)
 // EEL script by spk77 23.11.2014
-// Version: 0.2014.11.23
+// Version: 0.2018.04.19
 
 @import ../../Functions/spk_slider_class.eel
 
@@ -247,7 +247,7 @@ function run() local (s_w, s_h, hue, sat, lum, v)
 // init
 function init()
 (
-  gfx_init("",420,200);
+  gfx_init("Pan active takes randomly - One Seed",420,200);
   gfx_setfont(1, "Arial", 14);
   lmb_click_outside_window = 1;
   buf = 10000;

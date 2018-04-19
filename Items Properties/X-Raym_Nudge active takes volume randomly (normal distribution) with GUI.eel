@@ -5,8 +5,8 @@
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
 // Release Date : 2014-12-17
-// Version : 1.0.2
-// Version Date : 2016-06-05
+// Version : 1.0.3
+// Version Date : 2018-04-19
 
 // Based on : Create take pitch envelope (random points - with GUI) by spk77
 
@@ -15,12 +15,12 @@
 // init
 function init()
 (
-  gfx_init("",440,200);
+  gfx_init("Nudge active takes volume randomly",440,200);
   gfx_setfont(1, "Arial", 14);
   lmb_click_outside_window = 1;
   buf = 10000;
   gfx_measurestr("Randomize", s_w, s_h);
-  
+
   refresh_on_slider_change = 1;
   m.val = 0; // mean slider initial value
   s.val = 10; // standard_dev initial value
@@ -49,7 +49,7 @@ function rand_vol(mean, standard_dev) local (i)
 
         R < -1 ? R += abs(R - mean);
         R > 1 ? R -= (R - mean);
-        
+
         buf[i] = R*12;
         buflen += 1;
       );
@@ -95,11 +95,11 @@ function set_vol() local (i)
         NewVol=OldVolDB+NudgeAmount;
 
         NewVol >= 24 ? (
-          NewVol = 24 
+          NewVol = 24
           ) : (
           NewVol = NewVol;
         );
-      
+
         NewVolGain=exp(NewVol*0.115129254);
 
         SetMediaItemTakeInfo_Value(take, "D_VOL", NewVolGain);
@@ -112,7 +112,7 @@ function set_vol() local (i)
 );
 
 function randomize_btn(x, y, s_w, s_h, r, mean, standard_dev)
-( 
+(
   gfx_x = x; gfx_y = y;
   set_default_colors();
   mouse_x >= x && mouse_x <= x + s_w && mouse_y >= y && mouse_y <= y + gfx_texth/* && lmb_click_outside_window == 0/* && max_point_drag_started == 0 && min_point_drag_started* == 0*/ ? (
@@ -121,7 +121,7 @@ function randomize_btn(x, y, s_w, s_h, r, mean, standard_dev)
       gfx_g += 0.1;
       gfx_b += 0.1;
     mouse_cap == 1 && lmb_down == 0 ? (
-      
+
       lmb_down = 1;
       rand_vol(mean, standard_dev);
     );
@@ -130,7 +130,7 @@ function randomize_btn(x, y, s_w, s_h, r, mean, standard_dev)
 );
 
 function apply_btn(x, y, s_w, s_h, r)
-( 
+(
   gfx_x = x; gfx_y = y;
   set_default_colors();
   mouse_x >= x && mouse_x <= x + s_w && mouse_y >= y && mouse_y <= y + gfx_texth/* && lmb_click_outside_window == 0/* && max_point_drag_started == 0 && min_point_drag_started* == 0*/ ? (
@@ -139,7 +139,7 @@ function apply_btn(x, y, s_w, s_h, r)
       gfx_g += 0.1;
       gfx_b += 0.1;
     mouse_cap == 1 && lmb_down == 0 ? (
-      
+
       lmb_down = 1;
       set_vol();
     );
@@ -158,10 +158,10 @@ function run() local (s_w, s_h, hue, sat, lum, v)
   //draw_end_y = gfx_h - 80;
   gfx_x = 20;
   gfx_y = 20;
-  
+
   //center_x = floor(draw_start_x + (draw_end_x - draw_start_x) / 2 + 0.5);
   //center_y = floor(draw_start_y + (draw_end_y - draw_start_y) / 2 + 0.5);
-  
+
   //gfx_a = 0.4;
   //gfx_line(center_x, 20, center_x, gfx_h - 20);
 
@@ -172,36 +172,36 @@ function run() local (s_w, s_h, hue, sat, lum, v)
   ) : mouse_cap == 0 ? (
     lmb_click_outside_window = 0;
   );
-  
+
    mouse_cap == 0 ? (
     max_point_drag_started = 0; min_point_drag_started = 0; lmb_down = 0;
   );
-  
-  
+
+
   mean = (m.slider(20, 20, 6, m.val, -12, 12, gfx_w - 30, 0));
   standard_dev = s.slider(20, 20+30, 6, s.val, 0, 40, gfx_w - 30, 1);
 
   randomize_btn(10, 150, 50, s_h, 6, mean, standard_dev);
   apply_btn(10, 170, 50, s_h, 6);
-  
+
   refresh_on_slider_change && (mean != last_mean || standard_dev != last_standard_dev) ? rand_vol(mean, standard_dev);
-  
+
   mouse_cap == 5 && last_slider_id == 0 ? ( // ctrl+lmb to reset to center
     m.val = 0;
     //rand_vol(mean, standard_dev) // update the preview window
   );
-  
+
   char = gfx_getchar();
   // ctrl+lmb to Undo
-  
+
   char == 114 ? ( // "r" pressed -> run function "rand_vol"
     rand_vol(mean, standard_dev);
   );
-  
+
   char == 26 ? (
     Main_OnCommand(40029, 0); // undo
   );
-  
+
   // Esc to exit
   char == 27 ? (
     undo_block == 1 ? (
@@ -212,7 +212,7 @@ function run() local (s_w, s_h, hue, sat, lum, v)
   char >= 0 ? (
     defer("run();");
   );
-  
+
   i = 0;
   gfx_a = 1;
   loop(buflen,

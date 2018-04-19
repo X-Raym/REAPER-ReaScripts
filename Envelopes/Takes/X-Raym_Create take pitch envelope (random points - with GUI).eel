@@ -1,14 +1,14 @@
 // Create take pitch envelope (normal distr. random points)
 // NOTE: replaces all existing take pitch envelopes in selected items (active takes)
 // EEL script by spk77 23.11.2014
-// Version: 0.2014.11.23
+// Version: 0.2018.04.19
 
 @import ../../Functions/spk_slider_class.eel
 
 // init
 function init()
 (
-  gfx_init("",420,200);
+  gfx_init("Create randomized take pitch envelope",420,200);
   gfx_setfont(1, "Arial", 14);
   lmb_click_outside_window = 1;
   buf = 10000;
