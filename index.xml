@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="13d49db3c9b0b90988f23c9d4fd5f5bdb1d05c67" name="X-Raym Scripts">
+<index version="1" commit="815c359ad1e1a12a285441a10f61558a5ef05914" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1712,6 +1712,22 @@
     <reapack name="X-Raym_Select all MIDI notes and events right of mouse.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/MIDI%20Editor/X-Raym_Select%20all%20MIDI%20notes%20and%20events%20right%20of%20mouse.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Select only MIDI notes above active note row pitch cursor.lua" type="script" desc="Select only MIDI notes above active note row pitch cursor">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/pjjqMYN.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-05-06T20:39:51Z">
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/815c359ad1e1a12a285441a10f61558a5ef05914/MIDI%20Editor/X-Raym_Select%20only%20MIDI%20notes%20above%20active%20note%20row%20pitch%20cursor.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Select only MIDI notes below active note row pitch cursor.lua" type="script" desc="Select only MIDI notes below active note row pitch cursor">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/pjjqMYN.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-05-06T20:39:51Z">
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/815c359ad1e1a12a285441a10f61558a5ef05914/MIDI%20Editor/X-Raym_Select%20only%20MIDI%20notes%20below%20active%20note%20row%20pitch%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select-Unselect all MIDI notes over mouse based on grid.eel" type="script">
