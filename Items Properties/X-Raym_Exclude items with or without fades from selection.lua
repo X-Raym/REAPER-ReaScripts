@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163321
  * REAPER: 5.0 pre 36
  * Extensions: None
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2015-07-04)
+  # Bug fix (thx Lokasenna!)
  * v1.0 (2015-07-04)
   + Initial Release
 --]]
@@ -54,7 +56,7 @@ function main(input1, input2, input3, input4) -- local (i, j, item, take, track)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
   
-  Msg(input1 .. ", " .. input2 .. ", " .. input3 .. ", " .. input4)
+  -- Msg(input1 .. ", " .. input2 .. ", " .. input3 .. ", " .. input4)
   
   items_to_unsel = {}
   
