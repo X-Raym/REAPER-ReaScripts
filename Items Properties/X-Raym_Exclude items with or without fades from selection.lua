@@ -54,13 +54,15 @@ function main(input1, input2, input3, input4) -- local (i, j, item, take, track)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
   
+  Msg(input1 .. ", " .. input2 .. ", " .. input3 .. ", " .. input4)
+  
   items_to_unsel = {}
   
   -- INITIALIZE loop through selected items
   for i = 0, selected_items_count - 1  do
     -- GET ITEMS
     item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-    
+
     item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
     item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
     item_end = item_pos + item_len
@@ -70,8 +72,15 @@ function main(input1, input2, input3, input4) -- local (i, j, item, take, track)
     
     fadein_auto_len = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN_AUTO")
     fadeout_auto_len = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN_AUTO")
-    
-    if (fadein_auto_len > 0 and input3 == "with") or (fadein_auto_len == 0 and input3 == "without") or (fadeout_auto_len > 0 and input4 == "with") or (fadeout_auto_len == 0 and input4 == "without") or (fadein_len > 0 and input1 == "with") or (fadein_len == 0 and input1 == "without") or (fadeout_len > 0 and input2 == "with") or (fadeout_len == 0 and input2 == "without") then
+
+    if (fadein_auto_len > 0 and input2 == "with") 
+    or (fadein_auto_len == 0 and input2 == "without") 
+    or (fadeout_auto_len > 0 and input4 == "with") 
+    or (fadeout_auto_len == 0 and input4 == "without") 
+    or (fadein_len > 0 and input1 == "with") 
+    or (fadein_len == 0 and input1 == "without") 
+    or (fadeout_len > 0 and input3 == "with") 
+    or (fadeout_len == 0 and input3 == "without") then
        table.insert(items_to_unsel, item)
        --Msg(fadein_len)
     end
