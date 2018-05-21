@@ -10,7 +10,7 @@
 --    # (MPL) fix response to MsgBox
 
 --[[ * Licence: GPL v3
- * REAPER: 5.70
+ * REAPER: 5.90
  * Extensions: SWS 2.8.0
 --]]
 	
