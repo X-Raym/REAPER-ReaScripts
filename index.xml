@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="2936fd2f76214fcebb7c9b1b57f2437698ed9ba3" name="X-Raym Scripts">
+<index version="1" commit="80d974dccc0859d46eb684cbc94eda0882189958" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2507,6 +2507,15 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Track%20Properties/X-Raym_Rename%20and%20recolor%20tracks%20created%20by%20Vordio%20from%20a%20Premiere%20Pro%20XML%20export.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Rename selected track sends based on their source track name.lua" type="script" desc="Rename selected track sends based on their source track name">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/RXSUmi6.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-06-06T15:26:31Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/723b4a8da2a90c81e659e55391a9f23ccfe814fc/Track%20Properties/X-Raym_Rename%20selected%20track%20sends%20based%20on%20their%20source%20track%20name.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Rename tracks with first VSTi and its preset name.lua" type="script">
       <version name="1.1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[# Space in name]]></changelog>
@@ -2615,10 +2624,21 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Track%20Properties/X-Raym_Solo%20exclusive%20selected%20tracks.eel</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Sort all tracks alphabetically.lua" type="script">
+    <reapack name="X-Raym_Sort all tracks alphabetically.lua" type="script" desc="Sort all tracks alphabetically">
+      <metadata>
+        <link rel="website">http://forum.cockos.com/showpost.php?p=1574912&amp;postcount=1078</link>
+        <link rel="screenshot">http://i.giphy.com/3oEdv7ULuP7JOEeHUQ.gif</link>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Track%20Properties/X-Raym_Sort%20all%20tracks%20alphabetically.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym, MPL" time="2018-05-21T18:47:15Z">
+        <changelog><![CDATA[# (MPL) rebuild with ReorderSelectedTracks(), require REAPER 5.90rc7+
+# (MPL) perform comparing numbers, if they placed at the string start
+# (MPL) fix Undo
+# (MPL) fix response to MsgBox]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/efe485f7244174913b6adbdf357177779fc35dd0/Track%20Properties/X-Raym_Sort%20all%20tracks%20alphabetically.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle track compact state between normal and tiny children - Copie.eel" type="script" desc="Toggle track compact state between normal and tiny children">
