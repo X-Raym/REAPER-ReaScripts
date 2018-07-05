@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1652366
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1.1
+ * Version: 1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2 (2018-07-04)
+	# Better instructions
  * v1.1.1 (2018-03-15)
 	# Region index fix
  * v1.1 (2016-11-01)
@@ -47,8 +49,8 @@ function GetRegionsRender_Index()
 			i = i+1
 		end
 	until iRetval == 0
-	
-	return region_idx   
+
+	return region_idx
 
 end
 
@@ -56,8 +58,6 @@ end
 
 function main()
 
-	Msg("Set your render settings to source = Region, go to region matrix and set 'Master Mix' for all tracks, and add the $region wildcard to the output file name.")
-	Msg("Auto-render can be deactivated by editing the script.\n")
 	Msg("------")
 	Msg("Tracks added to render queue:")
 
@@ -69,7 +69,7 @@ function main()
 		reaper.Main_OnCommand(40728, 0) -- Solo track
 
 		retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "new track name", false) -- Get track info
-		
+
 		reaper.SetProjectMarker(region_idx, true, iPosOut, iRgnendOut, track_name) -- Set region to name of track
 
 		reaper.Main_OnCommand(41823, 0) -- Add to render queue
@@ -127,36 +127,50 @@ sel_tracks_count = reaper.CountSelectedTracks(0)
 
 if sel_tracks_count > 0 then
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+	instructions = [[
+1. Create region for rendering project stems called =RENDER.
+2. In Render To File window, set source to 'Region render matrix'.
+3. In Region Matrix window, check the 'Master Mix' box for the '=RENDER' region
+4. Add the $region wildcard to the output file name.
+5. Press 'Save changes and close', then press Continue below.
+	]]
 
-	reaper.PreventUIRefresh(1)
-	
-	reaper.ClearConsole()
+	retval = reaper.ShowMessageBox( instructions, "Render through master track - Instructions", 1 )
 
-	init_sel_tracks = {}
-	SaveSelectedTracks(init_sel_tracks)
-	
-	region_idx = GetRegionsRender_Index()
-	
-	if region_idx == nil then
-		Msg('Create a region named "=RENDER", from the size of your project.')
-		return
+	if retval == 1 then
+
+		reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+
+		reaper.PreventUIRefresh(1)
+
+		reaper.ClearConsole()
+
+		init_sel_tracks = {}
+		SaveSelectedTracks(init_sel_tracks)
+
+		region_idx = GetRegionsRender_Index()
+
+		if region_idx == nil then
+			Msg('Create a region named "=RENDER", from the size of your project.')
+			return
+		end
+
+		main() -- Execute your main function
+
+		if render then
+			reaper.Main_OnCommand(41207, 0)
+		end
+
+		reaper.SetProjectMarker(region_idx, true, iPosOut, iRgnendOut, "=RENDER")
+
+		RestoreSelectedTracks(init_sel_tracks)
+
+		reaper.UpdateArrange() -- Update the arrangement (often needed)
+
+		reaper.PreventUIRefresh(-1)
+
+		reaper.Undo_EndBlock("Render selected tracks individually through master", -1) -- End of the undo block. Leave it at the bottom of your main function.
+
 	end
-
-	main() -- Execute your main function
-
-	if render then
-		reaper.Main_OnCommand(41207, 0)
-	end
-	
-	reaper.SetProjectMarker(region_idx, true, iPosOut, iRgnendOut, "=RENDER")
-
-	RestoreSelectedTracks(init_sel_tracks)
-
-	reaper.UpdateArrange() -- Update the arrangement (often needed)
-
-	reaper.PreventUIRefresh(-1)
-
-	reaper.Undo_EndBlock("Render selected tracks individually through master", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
