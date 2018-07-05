@@ -10,13 +10,15 @@
  * Forum Thread: Scripts: FX Param Values (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=164796
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2018-07-05)
+  # Source FX has to be on selected tracks
  * v1.0 (2018-07-05)
-	+ Initial Release
+  + Initial Release
 --]]
 
  -- Set ToolBar Button ON
@@ -51,49 +53,53 @@ function main()
 
       local last_track = reaper.GetTrack(0, last_track_id - 1)
 
-      local last_fx_name_retval, last_fx_name = reaper.TrackFX_GetFXName(last_track, last_fx_id, "")
+      if reaper.IsTrackSelected( last_track ) then
 
-      -- LOOP IN SELECTED TRACK
-      for i = 0, count_sel_tracks - 1 do
+        local last_fx_name_retval, last_fx_name = reaper.TrackFX_GetFXName(last_track, last_fx_id, "")
 
-        local track = reaper.GetSelectedTrack(0, i)
+        -- LOOP IN SELECTED TRACK
+        for i = 0, count_sel_tracks - 1 do
 
-        -- TRACKS ARE DIFFERENT
-        if track ~= last_track then
+          local track = reaper.GetSelectedTrack(0, i)
 
-          -- FX LOOP
-          local count_fx = reaper.TrackFX_GetCount(track)
+          -- TRACKS ARE DIFFERENT
+          if track ~= last_track then
 
-          for j = 0, count_fx - 1 do
+            -- FX LOOP
+            local count_fx = reaper.TrackFX_GetCount(track)
 
-            local fx_name_retval, fx_name = reaper.TrackFX_GetFXName(track, j, "")
+            for j = 0, count_fx - 1 do
 
-            -- NAMES MATCH
-            if fx_name == last_fx_name then
+              local fx_name_retval, fx_name = reaper.TrackFX_GetFXName(track, j, "")
 
-              -- PARAMETERS LOOP
-              local count_params = reaper.TrackFX_GetNumParams(track, j)
+              -- NAMES MATCH
+              if fx_name == last_fx_name then
 
-              for k = 0, count_params - 1 do
+                -- PARAMETERS LOOP
+                local count_params = reaper.TrackFX_GetNumParams(track, j)
 
-                local param_retval, minval, maxval = reaper.TrackFX_GetParam(last_track, last_fx_id, k)
-                local param_retval_2, minval_2, maxval_2 = reaper.TrackFX_GetParam(track, j, k)
+                for k = 0, count_params - 1 do
 
-                if param_retval ~= param_retval_2 then
-                  reaper.TrackFX_SetParam(track, j, k, param_retval)
+                  local param_retval, minval, maxval = reaper.TrackFX_GetParam(last_track, last_fx_id, k)
+                  local param_retval_2, minval_2, maxval_2 = reaper.TrackFX_GetParam(track, j, k)
+
+                  if param_retval ~= param_retval_2 then
+                    reaper.TrackFX_SetParam(track, j, k, param_retval)
+                  end
+
                 end
 
-              end
+                break -- First fx with same name
 
-              break -- First fx with same name
+              end -- Names match
 
-            end -- Names match
+            end -- Loop in FX
 
-          end -- Loop in FX
+          end -- Track is different than last fx track
 
-        end -- Track is different than last fx track
+        end -- Loop in selected tracks
 
-      end -- Loop in selected tracks
+      end -- If last touched FX track is selected
 
     end -- Get last touched Fx
 
