@@ -13,11 +13,13 @@
  * Forum Thread URI: Script to move track up or down
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.7
- * Version: 1.0
+ * Version: 2.0
 --]]
  
 --[[
  * Changelog:
+ * v2.0 (2018-07-21)
+  # ReorderSelectedTracks API: faster performance
  * v1.0 (2018-04-29)
   + Initial Release
  --]]
@@ -121,7 +123,30 @@ local reaper = reaper
 
 count_selected_track = reaper.CountSelectedTracks( 0 )
 
-if count_selected_track > 0 and CheckSWS() then
+if count_selected_track > 0 then
+
+  if reaper.APIExists( 'ReorderSelectedTracks' ) then
+  
+  reaper.PreventUIRefresh(1)
+     reaper.Undo_BeginBlock()
+     
+     -- Save Tracks
+     sel_tracks = {}
+     SaveSelectedTracks( sel_tracks )
+     
+     id = reaper.GetMediaTrackInfo_Value( reaper.GetTrack(0, reaper.CountTracks(0)-1), "IP_TRACKNUMBER" )
+
+     reaper.ReorderSelectedTracks(id, 0)
+     
+     reaper.TrackList_AdjustWindows(0)
+     reaper.UpdateArrange()
+     
+     reaper.Undo_EndBlock("Move selected tracks down to the bottom on visible track list", -1)
+     
+     reaper.PreventUIRefresh(-1)
+   
+   elseif CheckSWS() then
+  
 
   reaper.PreventUIRefresh(1)
   
@@ -157,5 +182,7 @@ if count_selected_track > 0 and CheckSWS() then
   reaper.Undo_EndBlock("Move selected tracks down to the bottom on visible track list", -1)
   
   reaper.PreventUIRefresh(-1)
+
+end
 
 end

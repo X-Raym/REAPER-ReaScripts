@@ -7,17 +7,19 @@
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > REAPER Scripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
- * File URI:
+ * File URI: 
  * Licence: GPL v3
  * Forum Thread: http://forum.cockos.com/showthread.php?p=1704698&posted=1#post1704698
  * Forum Thread URI: Script to move track up or down
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.7
- * Version: 1.0
+ * Version: 2.0
 --]]
-
+ 
 --[[
  * Changelog:
+ * v2.0 (2018-07-21)
+  # ReorderSelectedTracks API: faster performance
  * v1.0 (2015-07-10)
   + Initial Release
  --]]
@@ -30,6 +32,15 @@ end
 function Is_Valid_Track(track)
   valid_track = reaper.ValidatePtr(track, "MediaTrack*")
   return valid_track
+end
+
+function ReverseTable(t)
+  local reversedTable = {}
+  local itemCount = #t
+  for k, v in ipairs(t) do
+      reversedTable[itemCount + 1 - k] = v
+  end
+  return reversedTable
 end
 
 function SaveSelectedTracks(table)
@@ -61,33 +72,29 @@ function CheckSWS()
 end
 
 function Main()
-
+  
   new_tracks = {}
-
-  reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_CREATETRK1"),0)-- insert track at top
-
-  local track_top = reaper.GetSelectedTrack(0, 0)
-
+  
+  sel_tracks = ReverseTable( sel_tracks )
+  
   for i, track in ipairs( sel_tracks ) do
-
+  
     reaper.SetOnlyTrackSelected( track )
-
+    
     reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_COPYSNDRCV1"),0) -- copy track with routing
-
-    reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELPREVTRACK"),0) -- Select Next T
-    local track_copy_1 = reaper.GetSelectedTrack(0, 0)
-    reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELPREVTRACK"),0) -- Select Next Track
+    
+    reaper.Main_OnCommand(reaper.NamedCommandLookup("_XENAKIOS_SELNEXTTRACK"),0) -- Select Next Track
     local track_copy = reaper.GetSelectedTrack(0, 0)
-
-    if track_copy_1 == track_copy then
-       table.insert( new_tracks, track )
+    
+    if track_copy == track then
+       table.insert( new_tracks, track ) 
       break
     end
     reaper.Main_OnCommand(40914, 0) -- set as last touch
     reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_PASTSNDRCV1"),0) -- paste track with routing
-
+    
     local track_copy = reaper.GetSelectedTrack(0, 0)
-
+    
     -- ADD SENDS ENVELOPE
     for category = -1, 1 do
       local sends_count = reaper.GetTrackNumSends( track, category )
@@ -100,44 +107,89 @@ function Main()
         end
       end
     end
-
+    
     reaper.DeleteTrack( track ) -- Delete Source Track
-
+    
     table.insert( new_tracks, track_copy )
-
+    
   end
-
-  reaper.DeleteTrack( track_top ) -- Delete Top Track
-
+  
+  return new_tracks
+  
 end
 
+function IsThereAnUnselectedTrackBefore( id )
+  local out = false
+  for i = 0, id - 1 do
+    local track = reaper.GetTrack(0, i)
+    if not reaper.IsTrackSelected( track ) then
+      Msg(i)
+      out = true
+      break
+    end
+  end
+  return out
+end
 -- INIT
 local reaper = reaper
 
 count_selected_track = reaper.CountSelectedTracks( 0 )
-
-if count_selected_track > 0 and CheckSWS() then
+if count_selected_track > 0 then
+  if reaper.APIExists( 'ReorderSelectedTracks' ) then
+    
+    reaper.PreventUIRefresh(1)
+    reaper.Undo_BeginBlock()
+    
+    -- Save Tracks
+    sel_tracks = {}
+    SaveSelectedTracks( sel_tracks )
+    
+    count_tracks = reaper.CountTracks(0)
+    
+    for i = 1, #sel_tracks do
+      local track = sel_tracks[i]
+      id = reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" )
+      if IsThereAnUnselectedTrackBefore( id ) then
+        reaper.SetOnlyTrackSelected( track )
+        reaper.ReorderSelectedTracks(id-2, 0)
+      end
+    end
+    
+    for i, track in ipairs( sel_tracks ) do
+      reaper.SetTrackSelected( track, true )
+    end
+    
+    reaper.TrackList_AdjustWindows(0)
+    reaper.UpdateArrange()
+    
+    reaper.Undo_EndBlock("Move selected tracks up on visible track list", -1)
+    
+    reaper.PreventUIRefresh(-1)
+  
+  elseif CheckSWS() then
 
   reaper.PreventUIRefresh(1)
+  
+  reaper.Undo_BeginBlock()
+  
+  reaper.ClearConsole() -- Clean the console
+  
   -- Avoid complex selection with Child and their Parents
   reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_UNSELPARENTS"),0) -- Unselect parent track
-  reaper.Undo_BeginBlock()
-
-  reaper.ClearConsole() -- Clean the console
-
+  
   -- Save Tracks
   sel_tracks = {}
   SaveSelectedTracks( sel_tracks )
-
+  
   Main()
-
+  
   -- Select New Tracks
   if new_tracks then
     for i, track in ipairs( new_tracks ) do
       reaper.SetTrackSelected( track, true )
     end
   end
-
+  
   -- Select Source Tracks if they still exist
   for i, track in ipairs( sel_tracks ) do
     if Is_Valid_Track( track ) then
@@ -146,9 +198,11 @@ if count_selected_track > 0 and CheckSWS() then
   end
   reaper.TrackList_AdjustWindows(0)
   reaper.UpdateArrange()
-
+  
   reaper.Undo_EndBlock("Move selected tracks up on visible track list", -1)
-
+  
   reaper.PreventUIRefresh(-1)
+
+end
 
 end

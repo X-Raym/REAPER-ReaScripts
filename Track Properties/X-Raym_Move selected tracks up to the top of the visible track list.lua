@@ -13,11 +13,13 @@
  * Forum Thread URI: how to move selected track/s to the top
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.7
- * Version: 1.0
+ * Version: 2.0
 --]]
-
+ 
 --[[
  * Changelog:
+ * v2.0 (2018-07-21)
+  # ReorderSelectedTracks API: faster performance
  * v1.0 (2015-07-16)
   + Initial Release
  --]]
@@ -99,6 +101,26 @@ count_selected_track = reaper.CountSelectedTracks( 0 )
 
 if count_selected_track > 0 then
 
+  if reaper.APIExists( 'ReorderSelectedTracks' ) then
+  
+  reaper.PreventUIRefresh(1)
+     reaper.Undo_BeginBlock()
+     
+     -- Save Tracks
+     sel_tracks = {}
+     SaveSelectedTracks( sel_tracks )
+
+     reaper.ReorderSelectedTracks(0, 0)
+     
+     reaper.TrackList_AdjustWindows(0)
+     reaper.UpdateArrange()
+     
+     reaper.Undo_EndBlock("Move selected tracks up to the top of the visible track list", -1)
+     
+     reaper.PreventUIRefresh(-1)
+   
+   elseif CheckSWS() then
+
   reaper.PreventUIRefresh(1)
   -- Avoid complex selection with Child and their Parents
   reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_UNSELPARENTS"),0) -- Unselect parent track
@@ -131,5 +153,7 @@ if count_selected_track > 0 then
   reaper.Undo_EndBlock("Move selected tracks up to the top of the visible track list", -1)
 
   reaper.PreventUIRefresh(-1)
+
+end
 
 end
