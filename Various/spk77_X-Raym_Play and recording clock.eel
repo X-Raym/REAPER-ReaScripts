@@ -12,11 +12,14 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0
+ * Version: 1.1
 */
  
 /**
  * Changelog:
+ * v1.1 (2015-03-20)
+  + Empty Clock
+  + Red background for recording play state
  * v1.0 (2015-03-20)
   + Initial release
  */
@@ -69,14 +72,27 @@ function run() local(time_range, time_sel_start, time_sel_end)
   
   mouse_state == 0 && mouse_cap == 2 && mouse_x > 5 && mouse_x < gfx_w - 5 && mouse_y > 5 && mouse_y < gfx_h - 5 ? (
     mouse_state = 1;
-    format < 5 ? format += 1 : format = 0;
+    format < 6 ? format += 1 : format = 0;
   );
   
   mouse_cap == 0 ? mouse_state = 0;
+  a = GetPlayState();
+  GetPlayState() == 5 ? (
+    gfx_r = 1;
+    gfx_b = 0;
+    gfx_g = 0;
+    gfx_rect( 0, 0, gfx_w, gfx_h, 1);
+  );
   
-  gfx_x = 0.5*(gfx_w-str_w);
-  gfx_y = 5;
-  gfx_printf(#buf);
+  format < 6 ? (
+    gfx_r = 1;
+    gfx_b = 1;
+    gfx_g = 1;
+    
+    gfx_x = 0.5*(gfx_w-str_w);
+    gfx_y = 5;
+    gfx_printf(#buf);
+  );
   
   gfx_update();
   gfx_getchar() >= 0 ? defer("run();");
