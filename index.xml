@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="94364ddae9720619db0f897012f3e2338cea3d87" name="X-Raym Scripts">
+<index version="1" commit="7423f51168594af3c4a39592939738d92ab61b51" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1407,6 +1407,15 @@
         <changelog><![CDATA[+ Randomize from snap offset position
 + Support for fades]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Properties/X-Raym_Randomize%20take%20playback%20rate.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Rename selected items active take from multiline clipboard content.lua" type="script" desc="Rename selected items active take from multiline clipboard content">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/z66OJnG.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-09-02T14:30:39Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cd89eef8660b987896a01da4ef07969a158fb18f/Items%20Properties/X-Raym_Rename%20selected%20items%20active%20take%20from%20multiline%20clipboard%20content.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Rename selected items active takes from REAPER MIDI notes to Kontakt notes.lua" type="script">
@@ -2825,7 +2834,7 @@
     </reapack>
   </category>
   <category name="Various">
-    <reapack name="spk77_X-Raym_Play and recording clock.eel" type="script" desc="Ripple check">
+    <reapack name="spk77_X-Raym_Play and recording clock.eel" type="script" desc="Play and recording clock">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Various/spk77_X-Raym_Play%20and%20recording%20clock.eel</source>
@@ -2834,6 +2843,10 @@
         <changelog><![CDATA[+ Empty Clock
 + Red background for recording play state]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/94364ddae9720619db0f897012f3e2338cea3d87/Various/spk77_X-Raym_Play%20and%20recording%20clock.eel</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2018-09-02T14:30:45Z">
+        <changelog><![CDATA[# Corrected name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7423f51168594af3c4a39592939738d92ab61b51/Various/spk77_X-Raym_Play%20and%20recording%20clock.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Check for common source sections between item under mouse and audio items selection.eel" type="script">
