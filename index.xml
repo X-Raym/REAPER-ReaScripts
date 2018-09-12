@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8e66cde42c0eb892ec5f49c815a4f178698c3ead" name="X-Raym Scripts">
+<index version="1" commit="c17f41a69299862aaf1301973b7a2c5b55c036d7" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1196,10 +1196,17 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Add%20all%20items%20on%20selected%20track%20into%20item%20selection.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Add stretch markers to selected items at grid divisions.eel" type="script">
+    <reapack name="X-Raym_Add stretch markers to selected items at grid divisions.eel" type="script" desc="Add stretch markers to selected items at grid divisions">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/9kX8HGY.gif</link>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release. ]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Properties/X-Raym_Add%20stretch%20markers%20to%20selected%20items%20at%20grid%20divisions.eel</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2018-09-12T10:59:14Z">
+        <changelog><![CDATA[+ Time selection support ]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c17f41a69299862aaf1301973b7a2c5b55c036d7/Items%20Properties/X-Raym_Add%20stretch%20markers%20to%20selected%20items%20at%20grid%20divisions.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add stretch markers to selected items at tempo markers.eel" type="script">
