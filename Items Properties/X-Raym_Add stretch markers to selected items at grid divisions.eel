@@ -2,7 +2,7 @@
  * ReaScript Name: Add stretch markers to selected items at grid divisions
  * Description: See name.
  * Instructions: Select items. Run.
- * Screenshot: http://i.giphy.com/xTk9ZCFxIPxoIwmDxm.gif
+ * Screenshot: https://i.imgur.com/9kX8HGY.gif
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -13,13 +13,15 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1511145
  * REAPER: 5.0
  * Extensions: SWS S&M 2.8.2
- * Version: 1.0
+ * Version: 1.1
 */
  
 /**
  * Changelog:
+ * v1.1 (2018-09-12)
+   + Time selection support 
  * v1.0 (2015-11-26)
- 	+ Initial release. 
+   + Initial release. 
  */
 
 // ----- DEBUGGING ====>
@@ -92,62 +94,72 @@ function src_offset(f_position, f_item, f_take) local(pos, spos)
 // THE THING
 function main() local (i, j, item, take, track)
 (
-	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
-	// LOOP THROUGH SELECTED TAKES
-	tempo_markers_count = CountTempoTimeSigMarkers(0);
-	selected_items_count = CountSelectedMediaItems(0);
+  // LOOP THROUGH SELECTED TAKES
+  tempo_markers_count = CountTempoTimeSigMarkers(0);
+  selected_items_count = CountSelectedMediaItems(0);
+  
+  GetSet_LoopTimeRange2( 0, 0, 0, start_time, end_time, 0); 
+  
+  start_time != end_time ? time_selection = 1;
 
+  i = 0; // INITIALIZE loop through selected items
+  loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+      item_start = GetMediaItemInfo_Value(item, "D_POSITION");
+      item_end = item_start + GetMediaItemInfo_Value(item, "D_LENGTH");
 
+      count_takes = CountTakes(item);
+      
+      // LOOP IN TAKES
+      k = 0;
+      loop(count_takes,
+      
+        take=GetTake(item, k);
 
-	i = 0; // INITIALIZE loop through selected items
-	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
-			item_start = GetMediaItemInfo_Value(item, "D_POSITION");
-			item_end = item_start + GetMediaItemInfo_Value(item, "D_LENGTH");
+        take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+        
+        time_selection == 1 ? (
+          start = max(start_time, item_start);
+          end = min(end_time, item_end);
+        ):(
+          start = item_start;
+          end = item_end; 
+        );
 
-			count_takes = CountTakes(item);
-			
-			// LOOP IN TAKES
-			k = 0;
-			loop(count_takes,
-			
-				take=GetTake(item, k);
+        first_grid = extension_api("BR_GetClosestGridDivision", start);
+        first_grid < start ? first_grid = extension_api("BR_GetNextGridDivision", first_grid);
 
-				take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+        first_marker = 0;
+        start <= first_grid && end >= first_grid ? (
+          offset = src_offset(first_grid, item, take);
+          SetTakeStretchMarker(take, -1, (first_grid-item_start)*take_playrate, offset);
+          first_marker = 1;
+          grid = first_grid;
+        );
 
-				first_grid = extension_api("BR_GetClosestGridDivision", item_start);
-				first_grid < item_start ? first_grid = extension_api("BR_GetNextGridDivision", first_grid);
+        first_marker == 1 ? (
 
-				first_marker = 0;
-				item_start <= first_grid && item_end >= first_grid ? (
-					offset = src_offset(first_grid, item, take);
-					SetTakeStretchMarker(take, -1, (first_grid-item_start)*take_playrate, offset);
-					first_marker = 1;
-					grid = first_grid;
-				);
+          while ( grid <= end ) (
+            grid = extension_api("BR_GetNextGridDivision", grid);
 
-				first_marker == 1 ? (
+            // Strech marker pos depends on take playrate
+            start <= grid && end >= grid ? (
+              offset = src_offset(grid, item, take);
+              SetTakeStretchMarker(take, -1, (grid-item_start)*take_playrate, offset);
+            );
 
-					while ( grid <= item_end ) (
-						grid = extension_api("BR_GetNextGridDivision", grid);
+          );
+        );
+        
+        k+=1; // Increment Take ID
+      );// END LOOP TAKES
+    ); // ENDIF selected items
+    
+    i += 1; // INCREMENT loop through selected items
+  ); // ENDLOOP through selected items
 
-						// Strech marker pos depends on take playrate
-						item_start <= grid && item_end >= grid ? (
-							offset = src_offset(grid, item, take);
-							SetTakeStretchMarker(take, -1, (grid-item_start)*take_playrate, offset);
-						);
-
-					);
-				);
-				
-				k+=1; // Increment Take ID
-			);// END LOOP TAKES
-		); // ENDIF selected items
-		
-		i += 1; // INCREMENT loop through selected items
-	); // ENDLOOP through selected items
-
-	Undo_EndBlock("Add stretch markers to selected items at grid divisions", -1); // End of the undo block. Leave it at the bottom of your main function.
+  Undo_EndBlock("Add stretch markers to selected items at grid divisions", -1); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 PreventUIRefresh(1);
