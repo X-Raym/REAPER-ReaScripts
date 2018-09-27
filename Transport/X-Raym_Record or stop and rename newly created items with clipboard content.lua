@@ -8,11 +8,13 @@
  * Forum Thread: Scripts: Transport (various)
  * Forum Thread URI: https://forums.cockos.com/showthread.php?t=189701
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2018-09-27)
+  # Pause fix
  * v1.0 (2018-09-26)
   + Initial Release
 --]]
@@ -35,7 +37,8 @@ function Main()
         end
       end
     end
-    reaper.Main_OnCommand( 40073, 0 ) -- Transport: Play/stop
+    reaper.Main_OnCommand( 40073, 0 ) -- Transport: Play/pause
+    reaper.Main_OnCommand( 1016, 0 ) -- Transport: Stop
   else
     reaper.Main_OnCommand( 1013,0 ) -- Transport: Record
   end
