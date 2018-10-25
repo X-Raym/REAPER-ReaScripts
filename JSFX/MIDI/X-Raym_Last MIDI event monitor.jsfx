@@ -1,0 +1,49 @@
+/**
+ * JSFX Name: Last MIDI event monitor
+ * About:
+     Utility tool for reaper.get_action_context channel support
+ * Author: X-Raym
+ * Author URI: http://www.extremraym.com
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ */
+
+/**
+ * Changelog:
+ * v1.0 (2018-10-22)
+  + Initial Release
+ */
+
+desc:Last MIDI event monitor
+
+slider1:1<1,16,1{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Channel
+
+
+////////////////////////////////////////////////////////////////////////////////
+@init
+statNoteOn = $x90;
+statNoteOff = $x80;
+
+////////////////////////////////////////////////////////////////////////////////
+@block
+
+while
+(
+
+  midirecv(offset,msg1,note,vel) ?
+  (
+    // Extract message type and channel
+    // status = msg1 & $xF0;
+    channel = msg1 & $x0F;
+        
+    slider1 = channel;
+    sliderchange( 1 );  
+
+    midisend(offset,msg1,note,vel); // Not a note, pass thru
+
+    1; // Force loop to continue until all messages have been processed
+
+  );
+
+);
