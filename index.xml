@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a6a23928488d31abfb259d234c236a178a88aca5" name="X-Raym Scripts">
+<index version="1" commit="93837f6a517e104c09c398769b879914e6c12f90" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1712,6 +1712,23 @@
         <changelog><![CDATA[# Channel fix
 # Sequence position reinitialized when file is changed]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/1ebdf34d373a5d3772d22e84070c0fa27da3149f/JSFX/MIDI/X-Raym_MIDI%20notes%20sequence%20from%20CSV%20file.jsfx</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_MIDI single note map.jsfx" type="effect" desc="MIDI single note map">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Quickly remap a MIDI note\par}
+}
+]]></description>
+        <link rel="screenshot">https://monosnap.com/image/HtvY0eslYZ72Hl6K0Nb8cf7psJPTJp.png</link>
+        <link rel="donation">http://www.extremraym.com/en/donation</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-11-10T23:48:23Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/93837f6a517e104c09c398769b879914e6c12f90/JSFX/MIDI/X-Raym_MIDI%20single%20note%20map.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Note On under X velocity to Note Off.jsfx" type="effect" desc="Note On under X velocity to Note Off">
