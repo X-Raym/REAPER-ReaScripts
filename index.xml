@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="93837f6a517e104c09c398769b879914e6c12f90" name="X-Raym Scripts">
+<index version="1" commit="16b597556e02ee120e4569b9687433a670c84e4f" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1996,6 +1996,12 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Regions/X-Raym_Create%20markers%20at%20selected%20items%20snap%20offset.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Create regions from selected items notes and color.lua" type="script" desc="Create regions from selected items notes and color">
+      <version name="1.0" author="X-Raym" time="2018-11-30T22:34:04Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/16b597556e02ee120e4569b9687433a670c84e4f/Regions/X-Raym_Create%20regions%20from%20selected%20items%20notes%20and%20color.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Create regions from selected takes and from track name.eel" type="script">
