@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.2
+ * Version: 1.0.3
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.3 (2018-12-02)
+  # MIDI Notes chan fix
  * v1.0.2 (2018-02-08)
   # Split name with MacOS separator
  * v1.0.1 (2018-02-04)
@@ -116,6 +118,7 @@ function ProcessTakeMIDI( take, j )
     local len_sec = end_sec - start_sec
     local len_beats = SecondToBeat(len_sec)
     if len_beats < 1 then len_beats = 1 end
+    if chan + 1 > #prefix then chan = 0 end
     local entry = {}
     entry.pos = start_sec
     entry.str = prefix[chan+1] .. SecondToBeat(start_sec) .. " " .. len_beats .. " " .. ( pitch -60 ) .. " " .. lyrics[i+1]
