@@ -10,12 +10,15 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.3
+ * Version: 1.0.4
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.4 (2018-12-02)
+  # Unsaved project named fix
+  # No SWS dependency required
  * v1.0.3 (2018-12-02)
   # MIDI Notes chan fix
  * v1.0.2 (2018-02-08)
@@ -49,7 +52,10 @@ end
 function GetArtistAndTitle()
   proj, project_path = reaper.EnumProjects( -1, 0 )
   proj_folder, proj_name, proj_ext = SplitFilename(project_path)
-  if not proj_folder then proj_folder = reaper.GetProjectPath('') .. "\\" end
+  if not proj_folder then
+    proj_folder = reaper.GetProjectPath('') .. "\\"
+    proj_name = "Unsaved"
+  end
 
   retval, artist = reaper.GetProjExtState( proj, "UltraStar", "ARTIST" )
   retval, title = reaper.GetProjExtState( proj, "UltraStar", "TITLE" )
@@ -191,8 +197,10 @@ function ExportData( elms )
   video_str = "#VIDEO:" .. proj_name .. ".mp4\n"
 
   txt_str = artist_str .. title_str .. metadata_str .. mp3_str .. cover_str .. video_str .. bpm_str .. gap_str .. txt_str .. "\nE\n"
-
-  reaper.CF_SetClipboard(txt_str)
+  
+  if reaper.CF_SetClipboard then
+    reaper.CF_SetClipboard(txt_str)
+  end
 
   file = proj_name .. '.txt'
   file_path = proj_folder .. file
