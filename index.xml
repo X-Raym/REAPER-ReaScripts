@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e7786f07154f19057d2efb3491f1b4f848f4918a" name="X-Raym Scripts">
+<index version="1" commit="b68d143ecfb3374e5a0a34969d85bf449a6d0e4e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1042,6 +1042,15 @@
       <version name="1.0" author="X-Raym" time="2017-01-25T23:55:35Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/458b49c024d33ba5bbcb6b5bcad6db6a03d0011c/Items%20Editing/X-Raym_Set%20selected%20takes%20playrate%20keeping%20snap%20offset%20position%20and%20adjusting%20length.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Shift selected takes source audio content position randomly.lua" type="script" desc="Shift selected takes source audio content position randomly">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/o7IlmwY.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2018-12-06T22:06:54Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b68d143ecfb3374e5a0a34969d85bf449a6d0e4e/Items%20Editing/X-Raym_Shift%20selected%20takes%20source%20audio%20content%20position%20randomly.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Shuffle order of selected items columns keeping snap offset positions and parent tracks.lua" type="script">
