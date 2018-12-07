@@ -6,17 +6,18 @@
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: 
  * Licence: GPL v3
  * Forum Thread: Scripts: Various
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1622146
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2018-12-07)
+	# Mac fix
  * v1.0 (2016-01-14)
 	+ Initial Release
 --]]
@@ -39,9 +40,9 @@ end
 function OpenURL(url)
   local OS = reaper.GetOS()
   if OS == "OSX32" or OS == "OSX64" then
-    os.execute('open "" "' .. url .. '"')
+    reaper.CF_ShellExecute('open "" "' .. url .. '"')
   else
-    os.execute('start "" "' .. url .. '"')
+    reaper.CF_ShellExecute('start "" "' .. url .. '"')
   end
 end
 
