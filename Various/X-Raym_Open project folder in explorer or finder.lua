@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1622146
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2018-12-08)
+	# Mac fix fixed
  * v1.1 (2018-12-07)
 	# Mac fix
  * v1.0 (2016-01-14)
@@ -31,21 +33,6 @@
 function Msg(g)
 	reaper.ShowConsoleMsg(tostring(g).."\n")
 end
-
-
---------------------------------------------------------
--- URL
--- ---
-
-function OpenURL(url)
-  local OS = reaper.GetOS()
-  if OS == "OSX32" or OS == "OSX64" then
-    reaper.CF_ShellExecute('open "" "' .. url .. '"')
-  else
-    reaper.CF_ShellExecute('start "" "' .. url .. '"')
-  end
-end
-
 
 --------------------------------------------------------
 -- PATHS
@@ -98,9 +85,9 @@ end
 -- MAIN FUNCTION
 -- -------------
 
-function main() -- local (i, j, item, take, track)
+function main()
 
-	OpenURL(dir)
+	reaper.CF_ShellExecute(dir)
 
 end -- ENDFUNCTION MAIN
 
