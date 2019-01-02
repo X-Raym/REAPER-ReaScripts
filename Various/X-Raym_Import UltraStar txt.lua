@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2019-01-02)
+  # All notes off fix
  * v1.0.1 (2018-02-08)
   # Split name with MacOS separator
  * v1.0 (2018-01-25)
@@ -130,6 +132,11 @@ end
 reaper.SetMediaItemInfo_Value( item, "D_POSITION", gap )
 reaper.SetMediaItemInfo_Value( item, "D_LENGTH", last_beat )
 
+-- Remove all notes off events added by the fact the item is created with arbitrary length and extended after
+retval, notecnt, ccs, textsyxevtcnt = reaper.MIDI_CountEvts( take )
+for i = 0, ccs - 1 do
+  reaper.MIDI_DeleteCC( take, ccs - i - 1 )
+end
 reaper.MIDI_Sort( take )
 
 reaper.Undo_EndBlock("Export first selected track MIDI as UltraStar txt file", 0) -- End of the undo block.
