@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="858b09f3f6131e6b360d7edca93670b428e7cd6b" name="X-Raym Scripts">
+<index version="1" commit="79639ce3de52c37ac4123451b0571d2b3ce925d5" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2817,10 +2817,25 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Track%20Properties/X-Raym_Select%20previous%20visible%20track%20only%20with%20conditional%20solo%20exclusive.eel</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Set parents tracks names to uppercase and childs ones to camelcase.lua" type="script">
+    <reapack name="X-Raym_Set parents tracks names to uppercase and childs ones to camelcase.lua" type="script" desc="Set parents tracks names to uppercase and childs ones to camelcase">
+      <metadata>
+        <link rel="screenshot">http://i.giphy.com/l41lMgnQVFZp2qfjW.gif</link>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Track%20Properties/X-Raym_Set%20parents%20tracks%20names%20to%20uppercase%20and%20childs%20ones%20to%20camelcase.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2019-01-03T21:22:32Z">
+        <changelog><![CDATA[+ UTF-8 support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/39aad13024546a72bcb37bc74284db8aa15e5b81/Track%20Properties/X-Raym_Set%20parents%20tracks%20names%20to%20uppercase%20and%20childs%20ones%20to%20camelcase.lua</source>
+        <source file="../Functions/utf8.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/39aad13024546a72bcb37bc74284db8aa15e5b81/Functions/utf8.lua</source>
+        <source file="../Functions/utf8data.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/39aad13024546a72bcb37bc74284db8aa15e5b81/Functions/utf8data.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2019-01-03T21:26:41Z">
+        <changelog><![CDATA[+ UTF-8 support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/79639ce3de52c37ac4123451b0571d2b3ce925d5/Track%20Properties/X-Raym_Set%20parents%20tracks%20names%20to%20uppercase%20and%20childs%20ones%20to%20camelcase.lua</source>
+        <source file="../Functions/utf8.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/79639ce3de52c37ac4123451b0571d2b3ce925d5/Functions/utf8.lua</source>
+        <source file="../Functions/utf8data.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/79639ce3de52c37ac4123451b0571d2b3ce925d5/Functions/utf8data.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected tracks channels number.lua" type="script" desc="Set selected tracks channel number">
