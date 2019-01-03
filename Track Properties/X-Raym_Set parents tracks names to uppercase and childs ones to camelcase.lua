@@ -11,16 +11,16 @@
  * Forum Thread: Scripts: Tracks Names (various) 
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1581214
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 2.0
  * Provides:
- *   ../Functions/utf8.lua
- *   ../Functions/utf8data.lua
+ *   [nomain] ../Functions/utf8.lua
+ *   [nomain] ../Functions/utf8data.lua
 ]]
  
  
 --[[
  * Changelog:
- * v1.1 (2019-03-01)
+ * v2.0 (2019-03-01)
   + UTF-8 support
  * v1.0 (2015-10-07)
   + Initial Release
