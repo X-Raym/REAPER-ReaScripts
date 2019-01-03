@@ -7,21 +7,29 @@
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI:
  * Licence: GPL v3
  * Forum Thread: Scripts: Tracks Names (various) 
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1581214
  * REAPER: 5.0
- * Extensions: None
- * Version: 1.0
+ * Version: 1.1
+ * Provides:
+ *   ../Functions/utf8.lua
+ *   ../Functions/utf8data.lua
 ]]
  
  
 --[[
  * Changelog:
+ * v1.1 (2019-03-01)
+  + UTF-8 support
  * v1.0 (2015-10-07)
   + Initial Release
 ]]
+
+local info = debug.getinfo(1,'S');
+script_path = info.source:match[[^@?(.*[\/])[^\/]-$]]
+dofile(script_path .. "../Functions/utf8.lua")
+dofile(script_path .. "../Functions/utf8data.lua")
 
 function main()
   
@@ -37,12 +45,11 @@ function main()
     
     if track_depth == 1 then
       
-      track_name = track_name:upper()
+      track_name = utf8upper(track_name)
   
     else
-      
-      track_name = track_name:lower()
-      track_name = track_name:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
+  
+      track_name = utf8upper( utf8.sub(track_name, 0, 1) ) .. utf8lower( utf8.sub(track_name, 2, utf8.len(track_name) ) )
     
     end
     
