@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
 
 --[[
  * Changelog:
+ * v1.0.3 (2019-01-03)
+  # video and audio track to Time timebase
  * v1.0.2 (2019-01-02)
   # All notes off fix
  * v1.0.1 (2018-02-08)
@@ -40,6 +42,7 @@ function InsertFile( file, folder, tag )
   track = reaper.GetTrack( 0 , count_track - 1 )
   local retval, stringNeedBig = reaper.GetSetMediaTrackInfo_String( track, "P_NAME", tag, true )
   if tag == "Video" then reaper.SetMediaTrackInfo_Value( track, "D_VOL", 0 ) end
+  reaper.SetMediaTrackInfo_Value( track, "C_BEATATTACHMODE", 0 )
 end
 
 function SetUltraStarMetadata( key, value )

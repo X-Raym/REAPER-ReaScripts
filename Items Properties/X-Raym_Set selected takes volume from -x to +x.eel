@@ -1,0 +1,246 @@
+/**
+ * ReaScript Name: Set selected takes volume from -x to +x
+ * Description: The idea is to use a GFX window to set volume of selected items sequentially and symmetrically, according to a spread and offset value.
+ * Instructions: Select your spread value, then the offset, and click on "Apply". Cmd/ctrl+click reset the slider.
+ * Author: X-Raym
+ * Author URI: http://extremraym.com
+ * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Licence: GPL v3
+ * Forum Thread: ReaScript: Pan selected takes from -x to +x
+ * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155940
+ * Version: 1.0
+ * REAPER: 4.76
+ * Extensions: None
+ */
+ 
+/**
+ * Changelog:
+ * v1.0 (2018-12-09)
+	+ Initial Release
+ */
+
+// ----- DEBUGGING ====>
+/*@import ../Functions/X-Raym_Functions - console debug messages.eel
+
+debug = 0; // 0 => No console. 1 => Display console messages for debugging.
+clean = 0; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
+
+msg_clean();*/
+// <==== DEBUGGING -----
+
+// ----- EXTERNAL FILE ====>
+// From the great spk77 => http://forum.cockos.com/showthread.php?p=1487374&posted=1#post1487374
+@import ../Functions/spk_slider_class.eel
+// <==== EXTERNAL FILE -----
+
+// DRAW THE WINDOW
+function init()
+(
+
+	gfx_init("Set selected takes volume from -x to +x",420,220);
+	gfx_setfont(1, "Arial", 15);
+	lmb_click_outside_window = 1;
+	buf = 10000;
+
+	refresh_on_slider_change = 1;
+	m.val = 0; // mean slider initial value
+	s.val = 0; // standard_dev initial value
+);
+
+// GFX COLORS
+function set_default_colors()
+(
+	gfx_r = 0.5;
+	gfx_g = 0.8;
+	gfx_b = 0.5;
+);
+
+
+// SET THE VOL
+function set_vol() local (i)
+(
+	Undo_BeginBlock(); 
+
+	selected_items_count = CountSelectedMediaItems(0);
+
+	selected_items_count == 1 ? (
+		selected_items_count = 2; // Else, there will be a division by 0
+	);
+
+	i = 0; // INITIALIZE loop through selected items
+	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+			(take = GetActiveTake(item)) ? (
+
+				// MODIFY INFOS
+				value_set = offset + (-1.0+((2.0/((selected_items_count-1)))*(i)))*spread;
+				
+				value_set > 24 ? (
+					value_set = 24;
+				);
+
+				value_set < -150 ? (
+					value_set = -150;
+				);
+				
+				value_set=exp(value_set*0.115129254);
+
+				// SET INFOS
+				SetMediaItemTakeInfo_Value(take, "D_VOL", value_set); // Set the value to the parameter
+			); // ENDIF active take
+		); // ENDIF inside loop selected items
+		i += 1; // INCREMENT loop through selected items
+	); // ENDLOOP through selected items
+	UpdateArrange();
+	Undo_EndBlock("Set selected takes volume from -x to +x", 0);
+);
+
+// DRAW APPLY BUTTON
+function apply_btn(x, y, s_w, s_h, r)
+( 
+	gfx_x = x; gfx_y = y;
+	set_default_colors();
+	
+	mouse_x >= x && mouse_x <= x + s_w && mouse_y >= y && mouse_y <= y + gfx_texth ? (
+	
+		gfx_a = 1;
+		gfx_r += 0.1;
+		gfx_g += 0.1;
+		gfx_b += 0.1;
+
+		mouse_cap == 1 && lmb_down == 0 ? (
+			lmb_down = 1;
+			set_vol();
+		);
+	);
+	gfx_printf("Apply");
+);
+
+// RUN THE ACTION
+function run() local (s_w, s_h, hue, sat, lum, v)
+(
+	set_default_colors();
+	gfx_a = 1;
+
+	gfx_x = 20;
+	gfx_y = 20;
+
+	// check if "lmb down" and "mouse cursor is not in window" and "not currently moving slider"
+	mouse_cap >= 1 && (mouse_x <= 0 || mouse_x >= gfx_w || mouse_y < 2 || mouse_y >= gfx_h) && drag_started == 0 ? (
+		lmb_click_outside_window = 1;
+	) : mouse_cap == 0 ? (
+		lmb_click_outside_window = 0;
+	);
+
+	mouse_cap == 0 ? (
+		max_point_drag_started = 0; min_point_drag_started = 0; lmb_down = 0;
+	);
+
+	gfx_r = 0.8;
+	gfx_g = 0.8;
+	gfx_b = 0.8;
+
+	gfx_x = 20;
+	gfx_y = 10;
+	gfx_drawstr("SPREAD");
+
+	spread = m.slider(29, 50, 6, m.val, -150, 24, gfx_w - 30, 1);
+
+	gfx_x = 20;
+	gfx_y = 70;
+	gfx_drawstr("OFFSET");
+
+	offset = s.slider(29, 110, 6, s.val, -150, 24, gfx_w - 30, 1);
+
+	// PAN X DSIPLAY
+	selected_items_count = 2;
+	i = 1;
+	calc = spread; // Prepare value output
+
+	pan_neg_x = offset - calc;
+	pan_x = offset + calc;
+
+	pan_neg_x > 24 ? (
+		pan_neg_x = 24;
+	);
+
+	pan_neg_x < -150 ? (
+		pan_neg_x = -150;
+	);
+
+	pan_x > 24 ? (
+		pan_x = 24
+	);
+
+	pan_x < -150 ? (
+		pan_x = -150;
+	);
+
+	// DRAW THE PAN VALUES
+	gfx_x = 20;
+	gfx_y = 180;
+	gfx_drawstr("VOLUME -X:");
+
+	gfx_x = 90;
+	gfx_y = 180;
+	gfx_printf("%f", pan_neg_x);
+
+	gfx_x = 200;
+	gfx_y = 180;
+	gfx_drawstr("VOLUME +X:");
+
+	gfx_x = 270;
+	gfx_y = 180;
+	gfx_printf("%f", pan_x);
+
+	// DRAW APPLY BUTTON - OBSOLETE
+	//apply_btn(20, 190, 50, s_h, 6);
+
+	mouse_cap == 5 && last_slider_id == 0 ? ( // ctrl+lmb to reset to center
+		m.val = 0;
+	);
+
+	gfx_r = 0.3;
+	gfx_g = 0.3;
+	gfx_b = 0.5;
+	gfx_rect(10,140,(gfx_w-20),20);
+
+	gfx_a = 0.5;
+	gfx_r = 0.8;
+	gfx_g = 0.8;
+	gfx_b = 0.8;
+	gfx_x = gfx_w/2 + gfx_w/2*0;
+	gfx_y = 130;
+	//gfx_line(gfx_x, gfx_y, gfx_x , gfx_y + 40, 1);
+
+	gfx_a = 1;
+	set_default_colors();
+	gfx_x = (gfx_w-20)/2 + (gfx_w-20)/2*(pan_neg_x/100)+10;
+	gfx_y = 140;
+	gfx_line(gfx_x, gfx_y, gfx_x , gfx_y + 20, 1);
+
+	gfx_x = (gfx_w-20)/2 + (gfx_w-20)/2*(pan_x/100)+10;
+	gfx_y = 140;
+	gfx_line(gfx_x, gfx_y, gfx_x , gfx_y + 20, 1);
+
+	char = gfx_getchar();
+	// ctrl+lmb to Undo
+
+	// Esc to exit
+	char == 27 ? (
+		gfx_quit();
+	);
+	set_vol();
+	char >= 0 ? (
+		defer("run();");
+	);
+
+	gfx_update();
+);
+
+//msg_start(); // Display characters in the console to show you the begining of the script execution.
+
+init();
+run(); // Execute your main function
+
+//msg_end(); // Display characters in the console to show you the end of the script execution.
