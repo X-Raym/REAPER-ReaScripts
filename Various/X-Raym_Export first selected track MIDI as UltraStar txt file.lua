@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.4
+ * Version: 1.0.5
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.5 (2019-01-08)
+  # Force BPM to 400
  * v1.0.4 (2018-12-02)
   # Unsaved project named fix
   # No SWS dependency required
@@ -34,7 +36,8 @@
 console = false
 offset_pages_by_one_beat = false
 
-bpm = reaper.Master_GetTempo()
+-- bpm = reaper.Master_GetTempo()
+bpm = 400
 
 -- GLOBALS
 
