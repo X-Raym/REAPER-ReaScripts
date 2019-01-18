@@ -11,11 +11,13 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=207622
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2018-06-08)
+  # Use native function to prevent bug
  * v1.0 (2018-06-08)
   + Initial release
 --]]
@@ -53,7 +55,7 @@ function Main()
         if take ~= active_take then
           local count_fx = reaper.BR_GetTakeFXCount( take )
           for z = 0, count_fx - 1 do
-            reaper.NF_TakeFX_SetOffline( take, z, true )
+            reaper.TakeFX_SetOffline( take, z,  true )
           end
         end
       end
