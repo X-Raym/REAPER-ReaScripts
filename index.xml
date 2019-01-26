@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="f5e6ab36535582ad15c541d1026e2183a6cf864d" name="X-Raym Scripts">
+<index version="1" commit="e04e796fc189d7d69916db0e8be0bc9b0b0f0534" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2163,6 +2163,10 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4a39de6711b647984c8997e633f74fdc73117211/Regions/X-Raym_Export%20markers%20and%20regions%20as%20tab-delimited%20CSV%20file.lua</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2019-01-26T14:29:48Z">
+        <changelog><![CDATA[# Extension]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a69c5dd33a8b9f68450c20e078844ca0a6fdb46d/Regions/X-Raym_Export%20markers%20and%20regions%20as%20tab-delimited%20CSV%20file.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Export markers as YouTube timecode for video description.lua" type="script" desc="Export markers as YouTube timecode for video description">
       <metadata>
@@ -3041,6 +3045,20 @@
     <reapack name="X-Raym_Increase-Decrease master playrate by x%.lua" type="script" desc="Increase-Decrease master playrate by x%">
       <version name="1.0" author="X-Raym" time="2017-03-20T22:44:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b238b5f1863ab875fe7375deb365777b2c57e4a7/Transport/X-Raym_Increase-Decrease%20master%20playrate%20by%20x%25.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Play from mouse cursor position and solo track under mouse for the duration - and select track.lua" type="script" desc="Play from mouse cursor position and solo track under mouse for the duration - and select track">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Just like the SWS action (which it runs), but with no undo and select track under mouse.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2019-01-26T17:21:29Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e04e796fc189d7d69916db0e8be0bc9b0b0f0534/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20for%20the%20duration%20-%20and%20select%20track.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Record or stop and rename newly created items with clipboard content.lua" type="script" desc="Record or stop and rename newly created items with clipboard content">
