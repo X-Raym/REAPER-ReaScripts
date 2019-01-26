@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2019-01-26)
+  # Extension
  * v1.0 (2019-01-26)
   + Initial Release
 --]]
@@ -69,7 +71,7 @@ if not reaper.JS_Dialog_BrowseForSaveFile then
   Msg("Please install JS_ReaScript REAPER extension")
 else
 
- retval, file = reaper.JS_Dialog_BrowseForSaveFile( "Save Markers and Regions", '', "", '.csv' )
+ retval, file = reaper.JS_Dialog_BrowseForSaveFile( "Save Markers and Regions", '', "", 'csv files (.csv)\0*.csv\0All Files (*.*)\0*.*\0' )
 
  if retval and file ~= '' then
   reaper.defer(Main)
