@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="4a39de6711b647984c8997e633f74fdc73117211" name="X-Raym Scripts">
+<index version="1" commit="f5e6ab36535582ad15c541d1026e2183a6cf864d" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2140,6 +2140,22 @@
     <reapack name="X-Raym_Create subtitles from regions names.eel" type="script">
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Regions/X-Raym_Create%20subtitles%20from%20regions%20names.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Export markers and regions as Davinci Resolve EDL file.lua" type="script" desc="Export markers and regions as Davinci Resolve EDL file">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This was designed to have a tempo map inside DaVinci Resolve\par}
+}
+]]></description>
+        <link rel="screenshot">https://i.imgur.com/xEsD5a8.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2019-01-26T10:22:48Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f5e6ab36535582ad15c541d1026e2183a6cf864d/Regions/X-Raym_Export%20markers%20and%20regions%20as%20Davinci%20Resolve%20EDL%20file.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Export markers and regions as tab-delimited CSV file.lua" type="script" desc="Export markers and regions from tab-delimited CSV file">
