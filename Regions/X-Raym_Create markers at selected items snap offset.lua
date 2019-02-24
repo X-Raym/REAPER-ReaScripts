@@ -12,42 +12,22 @@
  * Forum Thread URI: http://forum.cockos.com/***.html
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.7.1
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2019-02-24)
+  + Message Box
  * v1.0 (2015-06-09)
   + Initial Release
 --]]
-
---[[ ----- DEBUGGING ====>
-local info = debug.getinfo(1,'S');
-
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
-end
-
-require("X-Raym_Functions - console debug messages")
-
-
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-msg_clean()
-]]-- <==== DEBUGGING -----
 
 function main() -- local (i, j, item, take, track)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
   
-  retval, name = reaper.GetUserInputs("Name markers", 1, "Cancel => take name", "") -- We suppose that the user know the scale he want
+  retval = reaper.MB("Do you want to name from takes names (OK) or item notes (Cancel)?", "Create Markers", 1 ) -- We suppose that the user know the scale he want
 
   -- INITIALIZE loop through selected items
   for i = 0, reaper.CountSelectedMediaItems(0) - 1 do
@@ -65,12 +45,14 @@ function main() -- local (i, j, item, take, track)
       item_color = reaper.GetDisplayedMediaItemColor2(item, take)
     end
     
-    if retval == false then
+    if retval == 1 then
       if take ~= nil then
         name = reaper.GetTakeName(take)
       else
         name = reaper.ULT_GetMediaItemNote(item)
       end
+    else
+      name = reaper.ULT_GetMediaItemNote(item)
     end
     
     snap = item_pos + item_snap
