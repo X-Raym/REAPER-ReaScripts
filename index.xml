@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e04e796fc189d7d69916db0e8be0bc9b0b0f0534" name="X-Raym Scripts">
+<index version="1" commit="7ccf5a45713a51d8d5c8263bf76532830c66fb73" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2115,10 +2115,14 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Regions/X-Raym_Convert%20tempo%20and%20time%20signature%20markers%20into%20project%20markers.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Create markers at selected items snap offset.lua" type="script">
+    <reapack name="X-Raym_Create markers at selected items snap offset.lua" type="script" desc="Create markers at selected items snap offset">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Regions/X-Raym_Create%20markers%20at%20selected%20items%20snap%20offset.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2019-02-24T22:48:30Z">
+        <changelog><![CDATA[+ Message Box]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7ccf5a45713a51d8d5c8263bf76532830c66fb73/Regions/X-Raym_Create%20markers%20at%20selected%20items%20snap%20offset.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Create regions from selected items notes and color.lua" type="script" desc="Create regions from selected items notes and color">
