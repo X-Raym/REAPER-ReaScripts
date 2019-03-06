@@ -13,11 +13,13 @@
  * Forum Thread URI: Script to move track up or down
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.7
- * Version: 2.0
+ * Version: 2.0.1
 --]]
  
 --[[
  * Changelog:
+ * v2.0.1 (2019-03-06)
+  # prevent console messages
  * v2.0 (2018-07-21)
   # ReorderSelectedTracks API: faster performance
  * v1.0 (2015-07-10)
@@ -26,7 +28,9 @@
 
 -- DEBUG FUNCTIONS
 function Msg(variable)
-  reaper.ShowConsoleMsg(tostring(variable).."\n")
+  if console then
+    reaper.ShowConsoleMsg(tostring(variable).."\n")
+  end
 end
 
 function Is_Valid_Track(track)
