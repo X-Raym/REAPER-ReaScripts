@@ -1,6 +1,7 @@
 --[[
  * ReaScript Name: Scroll arrange view if mouse reaches screen edges
  * About: A template script for running in background REAPER ReaScript, with toolbar button ON/OFF state.
+ * Screenshot: https://i.imgur.com/0npTbEB.gifv
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -22,6 +23,7 @@
 -- TODO:
 -- Scroll Only if REAPER is in FOCUS
 -- MAJ + Scroll FAST
+-- Find on which screen is REAPER
  
  -- Set ToolBar Button State
 function SetButtonState( set )
