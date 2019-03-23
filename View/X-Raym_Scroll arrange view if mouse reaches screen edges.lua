@@ -11,11 +11,14 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1523568#post1523568
  * REAPER: 5.0
  * Extensions: js_extension
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2019-03-23)
+  + Scroll only if REAPER has focus (thanks Edgemeal!)
+  + Scroll at quarter (no need to be right on screen corners for diagonal scroll)
  * v1.0 (2019-03-22)
   + Initial Release
 --]]
@@ -34,33 +37,48 @@ function SetButtonState( set )
   reaper.RefreshToolbar2( sec, cmd )
 end
 
+function ReaperHasFocus()
+  hwnd = reaper.JS_Window_GetForeground() -- may be nil when switching windows, so check it!
+  if hwnd then
+    rea_hwnd = reaper.GetMainHwnd()
+    if hwnd == rea_hwnd or reaper.JS_Window_GetParent(hwnd) == rea_hwnd then
+      return true
+    end 
+  end 
+  return false
+end
+
 function Main()
 
-  mouse_x, mouse_y = reaper.GetMousePosition()
+  if ReaperHasFocus() then
+
+    mouse_x, mouse_y = reaper.GetMousePosition()
+    
+    val_x = 0
+    val_y = 0
+    
+    if mouse_x == 0 or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x <= screen_right * 0.25 ) then
+      val_x = -1
+      reaper.JS_Mouse_SetCursor( cursor_left )
+    end
+    
+    if mouse_x >= screen_right - 1 or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x >= screen_right * 0.75 )then
+     val_x = 1
+    end
+    
+    if mouse_y == 0 or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y <= screen_bottom * 0.25 ) then
+      val_y = -1
+      reaper.JS_Mouse_SetCursor( cursor_up )
+    end
+    
+    if mouse_y >= screen_bottom - 1 or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y >= screen_bottom * 0.75 ) then
+      val_y = 1
+    end
+    
+    if val_x ~= 0 or val_y ~= 0 then
+      reaper.CSurf_OnScroll( val_x, val_y )
+    end
   
-  val_x = 0
-  val_y = 0
-  
-  if mouse_x == 0 then
-    val_x = -1
-    reaper.JS_Mouse_SetCursor( cursor_left )
-  end
-  
-  if mouse_x >= screen_right - 1 then
-   val_x = 1
-  end
-  
-  if mouse_y == 0 then
-    val_y = -1
-    reaper.JS_Mouse_SetCursor( cursor_up )
-  end
-  
-  if mouse_y >= screen_bottom - 1 then
-    val_y = 1
-  end
-  
-  if val_x ~= 0 or val_y ~= 0 then
-    reaper.CSurf_OnScroll( val_x, val_y )
   end
   
   reaper.defer(Main)
