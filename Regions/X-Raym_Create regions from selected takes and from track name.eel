@@ -6,7 +6,7 @@
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
 // Release Date : 19-01-2015
-// Version : 1.1
+// Version : 1.2
 // Version Date : 08-06-2015
 // Required : Reaper 4.76
 
@@ -25,7 +25,7 @@
 // <==== CUSTOMIZATION -----
 
 function create_regions_from_takes() local(i, item, take)
-(	
+(     
 	i = 0;
 	loop(countItems = CountSelectedMediaItems(0),
 		(item = GetSelectedMediaItem(0, i)) ? (
@@ -62,6 +62,8 @@ function create_regions_from_takes() local(i, item, take)
 				):(
 					regionName = #retval;//... if no, then take name
 				);
+			) : nameWithTake ===  2 ? (
+				regionName = #stringNeedBig;
 			):(
 				regionName = #retval;
 			);
@@ -81,7 +83,7 @@ function create_regions_from_takes() local(i, item, take)
 function dialog()
 (
 	#dialog_ret_vals = "0,0"; //default values
-	GetUserInputs("Parameters", 2, "Color from Take ? 0 = Track, Name with Track Name ?", #dialog_ret_vals);
+	GetUserInputs("Parameters", 2, "Color from Take ? 0 = Track, Name(Take,Both,Trck)? (0/1/2)", #dialog_ret_vals);
 );
 
 function user_inputs()
