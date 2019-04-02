@@ -35,7 +35,11 @@
 							if a.name:match(p) and b.name:match(p) then
 								local a_num = tonumber(a.name:match(p))
 								local b_num = tonumber(b.name:match(p))
-								cond = a_num<b_num
+								if a_num ~= nil and b_num ~= nil then
+									cond = a_num<b_num
+								else
+									cond = false
+								end
 							end
 							return cond
 						end )
