@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
  * Extensions: ../Functions/spk77_Save table to file and load table from file_functions.lua
- * Version: 1.2.1
+ * Version: 1.2.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2.2 (2019-04-17)
+  # MacOS color fix
  * v1.2.1 (2017-03-17)
   + Project start offset support
  * v1.2 (2016-04-18)
@@ -84,9 +86,7 @@ end
 --// COLOR FUNCTIONS //--
 function INT2RGB(color_int)
   if color_int >= 0 then
-      R = color_int & 255
-      G = (color_int >> 8) & 255
-      B = (color_int >> 16) & 255
+      R, G, B = reaper.ColorFromNative(color_int)
   else
       R, G, B = 255, 255, 255
   end
