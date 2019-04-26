@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="1814a795ef4efc13ab50575c95bbe22c8e1d7255" name="X-Raym Scripts">
+<index version="1" commit="6c9052efb7298b1e443620a7f7c7b9b556f8f38d" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2883,10 +2883,14 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4f4563f691c3b235c2802f2f95d72d9dc59f044/Track%20Properties/X-Raym_Reset%20all%20tracks%20to%20default%20TCP%20height.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Restore all tracks visibility.lua" type="script">
+    <reapack name="X-Raym_Restore all tracks visibility.lua" type="script" desc="Restore all tracks visibility">
       <version name="1.0" author="X-Raym" time="2016-01-28T02:43:07Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/69ffc99f5bd4349a2f3ac289cf5d32c1e02c40cd/Track%20Properties/X-Raym_Restore%20all%20tracks%20visibility.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2019-04-26T18:08:02Z">
+        <changelog><![CDATA[# Use track GUID to avoid lots of bugs with track reordering, addition, etc...]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6c9052efb7298b1e443620a7f7c7b9b556f8f38d/Track%20Properties/X-Raym_Restore%20all%20tracks%20visibility.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Round selected tracks pan.eel" type="script">
@@ -2895,10 +2899,14 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/2a42303362aadeb4b5c89f36e6fc1780854b32a2/Track%20Properties/X-Raym_Round%20selected%20tracks%20pan.eel</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Save all tracks visibility.lua" type="script">
+    <reapack name="X-Raym_Save all tracks visibility.lua" type="script" desc="Save all tracks visibility">
       <version name="1.0" author="X-Raym" time="2016-01-28T02:43:07Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/69ffc99f5bd4349a2f3ac289cf5d32c1e02c40cd/Track%20Properties/X-Raym_Save%20all%20tracks%20visibility.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2019-04-26T18:08:02Z">
+        <changelog><![CDATA[# Use track GUID to avoid lots of bugs with track reordering, addition, etc...]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6c9052efb7298b1e443620a7f7c7b9b556f8f38d/Track%20Properties/X-Raym_Save%20all%20tracks%20visibility.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Search and replace in selected tracks names.lua" type="script">
@@ -3074,6 +3082,9 @@
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-01-26T17:21:29Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e04e796fc189d7d69916db0e8be0bc9b0b0f0534/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20for%20the%20duration%20-%20and%20select%20track.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2019-04-26T18:08:02Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6c9052efb7298b1e443620a7f7c7b9b556f8f38d/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20for%20the%20duration%20-%20and%20select%20track.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Record or stop and rename newly created items with clipboard content.lua" type="script" desc="Record or stop and rename newly created items with clipboard content">
