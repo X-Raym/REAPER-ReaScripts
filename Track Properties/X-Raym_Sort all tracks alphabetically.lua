@@ -2,7 +2,7 @@
 -- @author X-Raym, MPL
 -- @website http://forum.cockos.com/showpost.php?p=1574912&postcount=1078
 -- @screenshot http://i.giphy.com/3oEdv7ULuP7JOEeHUQ.gif
--- @version 1.1
+-- @version 1.2
 -- @changelog
 --    # (MPL) rebuild with ReorderSelectedTracks(), require REAPER 5.90rc7+
 --    # (MPL) perform comparing numbers, if they placed at the string start
@@ -35,7 +35,11 @@
 							if a.name:match(p) and b.name:match(p) then
 								local a_num = tonumber(a.name:match(p))
 								local b_num = tonumber(b.name:match(p))
-								cond = a_num<b_num
+								if a_num ~= nil and b_num ~= nil then
+									cond = a_num<b_num
+								else
+									cond = false
+								end
 							end
 							return cond
 						end )
