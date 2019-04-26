@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="6c9052efb7298b1e443620a7f7c7b9b556f8f38d" name="X-Raym Scripts">
+<index version="1" commit="810cecf11f843b7ba98c5cca8f66f3a60d56ad2c" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2228,7 +2228,10 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Regions/X-Raym_Merge%20region%20under%20cursor%20and%20the%20next%20one.eel</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Regions clock.lua" type="script">
+    <reapack name="X-Raym_Regions clock.lua" type="script" desc="Region's Clock">
+      <metadata>
+        <link rel="screenshot">http://i.giphy.com/3o85xpylrlY7MPzmo0.gif</link>
+      </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ User config area]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Regions/X-Raym_Regions%20clock.lua</source>
@@ -2249,6 +2252,10 @@
       <version name="1.2.1" author="X-Raym" time="2017-03-17T12:58:31Z">
         <changelog><![CDATA[+ Project start offset support]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/57cb34dac07187bd58130d8bfd1544e769996bf7/Regions/X-Raym_Regions%20clock.lua</source>
+      </version>
+      <version name="1.2.2" author="X-Raym" time="2019-04-17T19:28:58Z">
+        <changelog><![CDATA[# MacOS color fix]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/222e58b7ed38b84cb60e5408d1fc543421791764/Regions/X-Raym_Regions%20clock.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set closest edge of closest region to edit cursor.lua" type="script" desc="Set closest edge of closest region to edit cursor">
@@ -3017,6 +3024,13 @@
 # (MPL) fix Undo
 # (MPL) fix response to MsgBox]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/efe485f7244174913b6adbdf357177779fc35dd0/Track%20Properties/X-Raym_Sort%20all%20tracks%20alphabetically.lua</source>
+      </version>
+      <version name="1.2" author="X-Raym, MPL" time="2019-04-02T21:43:13Z">
+        <changelog><![CDATA[# (MPL) rebuild with ReorderSelectedTracks(), require REAPER 5.90rc7+
+# (MPL) perform comparing numbers, if they placed at the string start
+# (MPL) fix Undo
+# (MPL) fix response to MsgBox]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/24eb22e9e55df3a992c16b46c69a9532c1713eee/Track%20Properties/X-Raym_Sort%20all%20tracks%20alphabetically.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle track compact state between normal and tiny children - Copie.eel" type="script" desc="Toggle track compact state between normal and tiny children">
