@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 function main()
@@ -17,8 +17,9 @@ function main()
    if reaper.GetPlayState() > 0 then
     reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_TOGGLE_PLAY_MOUSE_SOLO_TRACK"),-1)
    end
-    reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_TOGGLE_PLAY_MOUSE_SOLO_TRACK"),-1)
-    reaper.SetOnlyTrackSelected( track )
+   reaper.Main_OnCommand(40340, 0)
+  reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_TOGGLE_PLAY_MOUSE_SOLO_TRACK"),-1)
+  reaper.SetOnlyTrackSelected( track )
   end
   reaper.PreventUIRefresh(-1)
 end

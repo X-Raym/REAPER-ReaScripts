@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Restore all tracks visibility
- * Description: A script to save tracks visibility. Use the save version of this script before. You can mod this script to restore only MCP or TCP.
+ * Description: A script to save tracks visibility. Use the save version of this script before. You can mod this script to restore only MCP or TCP. Note that newly created tracks are ignored by the restoration (they will not be hidden).
  * Instructions: Run.
  * Author: X-Raym
  * Author URI: http://extremraym.com
@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551
  * REAPER: 5.0
  * Extensions: None
- * Version: 1.0
+ * Version: 2.0
 --]]
  
 --[[
  * Changelog:
+ * v2.0 (2019-04-26)
+	# Use track GUID to avoid lots of bugs with track reordering, addition, etc...
  * v1.0 (2016-01-28)
 	+ Initial Release
 --]]
@@ -41,11 +43,11 @@ function main()
 	i = 0
 	repeat
 	
-		local retval, value = reaper.GetProjExtState(0, "Track_Visibility", i)
+		local retval, key, value = reaper.EnumProjExtState(0, "Track_Visibility", i)
 	
-		local track = reaper.GetTrack(0, i)
+		local track = reaper.BR_GetMediaTrackByGUID(0, key)
 		
-		if track and retval > 0 then
+		if track and retval then
 		
 			tcp_visibility, mcp_visibility = value:match("([^,]+),([^,]+)")
 			
@@ -60,7 +62,7 @@ function main()
 	
 		i = i + 1
 		
-	until retval == 0 or track == nil
+	until not retval
 	
 end
 
