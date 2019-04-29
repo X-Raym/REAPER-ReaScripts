@@ -12,11 +12,13 @@
  * Forum Thread: Render Stems (selected tracks) through master FX?
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1652366
  * REAPER: 5.0
- * Version: 2.0.1
+ * Version: 2.1
 --]]
 
 --[[
  * Changelog:
+ * v2.1 (2019-04-29)
+	# $tracknumber $parenttrack support
  * v2.0.1 (2019-04-29)
 	# Added sceenshot
  * v2.0 (2019-04-29)
@@ -42,11 +44,21 @@ render_action = 42230 -- -- File: Render project, using the most recent render s
 
 console = true -- display console messages
 
+-- Add Leading Zeros to A Number
+function AddZeros(number, zeros)
+	number = tostring(number)
+	number = string.format('%0' .. zeros .. 'd', number)
+	return number
+end
+
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 function main()
 
 	retval, pattern = reaper.GetSetProjectInfo_String( 0, "RENDER_PATTERN", "", false )
+	
+	count_tracks = reaper.CountTracks(0)
+	zeros = string.len(tostring(count_tracks))
 
 	-- LOOP TRHOUGH SELECTED TRACKS
 	local total = 0
@@ -56,8 +68,18 @@ function main()
 		reaper.Main_OnCommand(40728, 0) -- Solo track
 
 		local retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false) -- Get track info
-
-		local new_pattern = pattern:gsub("$track", track_name)
+		local track_id = reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" )
+		
+		local new_pattern = pattern:gsub("$tracknumber", AddZeros(track_id, zeros))
+		
+		parent_track = reaper.GetParentTrack( track )
+		parent_track_name = ""
+		if parent_track then
+			retval, parent_track_name = reaper.GetSetMediaTrackInfo_String(parent_track, "P_NAME", "", false) -- Get track info
+		end
+		new_pattern = new_pattern:gsub("$parenttrack", parent_track_name)
+		
+		new_pattern = new_pattern:gsub("$track", track_name)          
 
 		reaper.GetSetProjectInfo_String( 0, "RENDER_PATTERN", new_pattern, true )
 		

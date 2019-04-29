@@ -11,11 +11,13 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1523568#post1523568
  * REAPER: 5.0
  * Extensions: js_extension
- * Version: 1.2
+ * Version: 1.2.1
 --]]
  
 --[[
  * Changelog:
+ * v1.2.1 (2019-03-29)
+  # remove mouse cursor change because of menu bug
  * v1.2 (2019-03-28)
   + Shift Key for fast speed
   + Ctrl key for slow speed
@@ -77,7 +79,7 @@ function Main()
     
     if mouse_x == 0 or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x <= screen_right * 0.25 ) then
       val_x = -1 * multiplicator_x
-      reaper.JS_Mouse_SetCursor( cursor_left )
+      --reaper.JS_Mouse_SetCursor( cursor_left )
     end
     
     if mouse_x >= screen_right - 1 or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x >= screen_right * 0.75 )then
@@ -86,7 +88,7 @@ function Main()
     
     if mouse_y == 0 or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y <= screen_bottom * 0.25 ) then
       val_y = -1 * multiplicator_y
-      reaper.JS_Mouse_SetCursor( cursor_up )
+      -- reaper.JS_Mouse_SetCursor( cursor_up )
     end
     
     if mouse_y >= screen_bottom - 1 or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y >= screen_bottom * 0.75 ) then
