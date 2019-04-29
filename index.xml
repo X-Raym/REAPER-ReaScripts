@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="7419e7ad664af9d3cedc099899cff04744bb31d1" name="X-Raym Scripts">
+<index version="1" commit="a1d2942e64fcddc79b9493759522e39aa0dee11e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3447,6 +3447,50 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/View/X-Raym_Zoom%20to%20region%20at%20edit%20cursor.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Web Interfaces">
+    <reapack name="X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua" type="script" desc="Convert Lyrics track items notes for the dedicated web browser interface">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Have a track named lyrics and text items on it. Run the web interface.\par}
+}
+]]></description>
+        <link rel="website" href="https://forum.cockos.com/showthread.php?p=2127630#post2127630">Forum</link>
+        <link rel="screenshot">https://monosnap.com/file/kmpXyGbYgvYwUbrDe4ZsbbeNmSUR13</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2019-04-29T23:00:38Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a1d2942e64fcddc79b9493759522e39aa0dee11e/Web%20Interfaces/X-Raym_Convert%20Lyrics%20track%20items%20notes%20for%20dedicated%20web%20browser%20interface.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Convert region subtitles for dedicated web browser interface.lua" type="script" desc="Convert region subtitles for the dedicated web browser interface">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Have a track named lyrics and text items on it. Run the web interface.\par}
+}
+]]></description>
+        <link rel="website" href="https://forum.cockos.com/showthread.php?p=2127630#post2127630">Forum</link>
+        <link rel="screenshot">https://monosnap.com/file/lDLQNmSP9K6SHCdK7tMWXS3zW31lP7</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2019-04-29T23:00:38Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a1d2942e64fcddc79b9493759522e39aa0dee11e/Web%20Interfaces/X-Raym_Convert%20region%20subtitles%20for%20dedicated%20web%20browser%20interface.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Lyrics.www" type="webinterface" desc="Lyrics Web Interface">
+      <metadata>
+        <link rel="screenshot">https://monosnap.com/file/lDLQNmSP9K6SHCdK7tMWXS3zW31lP7#</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2019-04-29T23:00:38Z">
+        <source file="Lyrics/X-Raym_Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/a1d2942e64fcddc79b9493759522e39aa0dee11e/Web%20Interfaces/Lyrics/X-Raym_Lyrics.html</source>
       </version>
     </reapack>
   </category>
