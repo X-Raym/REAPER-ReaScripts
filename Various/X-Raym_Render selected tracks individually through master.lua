@@ -2,7 +2,7 @@
  * ReaScript Name: Render selected tracks individually through master
  * Description: A way to render tracks to master chain.
  * Instructions: Select tracks. Set render settings to source = master tracks, time selection, or custom time range.
- * Screenshot:
+ * Screenshot: https://i.imgur.com/v3UKS68.gifv
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -12,11 +12,13 @@
  * Forum Thread: Render Stems (selected tracks) through master FX?
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1652366
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.0.1
 --]]
 
 --[[
  * Changelog:
+ * v2.0.1 (2019-04-29)
+	# Added sceenshot
  * v2.0 (2019-04-29)
 	# New core: now works without regions. REAPER > v5.954 required.
  * v1.2 (2018-07-04)
