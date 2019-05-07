@@ -7,8 +7,8 @@
  * Licence: GPL v3
  * Forum Thread: EEL script: Toggle FX by suffix
  * Forum Thread URI: https:--forum.cockos.com/showthread.php?t=154742
- * Version: 1.0
- * Version Date: 2019-05-06
+ * Version: 1.1
+ * Version Date: 2019-05-07
  * Required: Reaper 4.60
 ]]
 
@@ -21,7 +21,7 @@ function ToggleTrackFX( tracki )
 	for k = 0, trackifxcount - 1 do                                        -- loop for all FX instances on each track
 		retval, fx_name = reaper.TrackFX_GetFXName(tracki, k, '');          -- get the name of the FX instance
 
-		if not fx_name:find(" (ON)") and not fx_name:find(" (OFF)") then                  -- if the name doesn't have the suffix...
+		if not (fx_name:find(" %(ON%)") or fx_name:find(" %(OFF%)") ) then                  -- if the name doesn't have the suffix...
 			if reaper.TrackFX_GetEnabled(tracki, k) then           -- FX is enabled.
 				reaper.TrackFX_SetEnabled(tracki, k, 0);      -- set FX to bypass 
 		    else                                                  -- if not... 
