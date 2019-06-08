@@ -3,7 +3,7 @@
  * Description:
  * Instructions: Select items with take. Run.
  * Screenshot: http://i.giphy.com/3o85xowNTqf8CYQrba.gif
- * Author: X-Raym
+ * Author: X-Raym, MPL
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
@@ -13,11 +13,14 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=165774
  * REAPER: 5.0 pre 15
  * Extensions: None
- * Version: 1.1
+ * Version: 1.2
 --]]
  
 --[[
  * Changelog:
+ * v.1.2 (2019-06-08)
+	# (MPL) fix reset stretch markers from end
+	# (MPL) obey startoffset
  * v1.1 (2019-01-02)
 	+ Also reset slope
  * v1.0 (2015-08-31)
@@ -40,12 +43,12 @@ function main() -- local (i, j, item, take, track)
 		if take ~= nil then -- if ==, it will work on "empty"/text items only
 		
 			strech_count = reaper.GetTakeNumStretchMarkers(take)
-			
-			for j = 0, strech_count - 1 do
+			local offs = reaper.GetMediaItemTakeInfo_Value( take, 'D_STARTOFFS' )
+			for j = strech_count,0,-1 do
 			
 				idx, strech_pos, srcpos = reaper.GetTakeStretchMarker(take, j)
 			
-				reaper.SetTakeStretchMarker(take, idx, srcpos)
+				reaper.SetTakeStretchMarker(take, idx, srcpos-offs)
 				reaper.SetTakeStretchMarkerSlope( take, idx, 0)
 				
 			end
