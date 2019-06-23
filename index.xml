@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a51c12846041966736aae449ed759d5d5671258f" name="X-Raym Scripts">
+<index version="1" commit="ba1b9f8627824c397118c7205495312940acaeab" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2934,6 +2934,15 @@
       <version name="2.0" author="X-Raym" time="2019-04-26T18:08:02Z">
         <changelog><![CDATA[# Use track GUID to avoid lots of bugs with track reordering, addition, etc...]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6c9052efb7298b1e443620a7f7c7b9b556f8f38d/Track%20Properties/X-Raym_Save%20all%20tracks%20visibility.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Scroll vertically to track by name and select it.lua" type="script" desc="Scroll vertically to track by name and select it">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/6qMLP2s.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2019-06-23T17:32:14Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/ba1b9f8627824c397118c7205495312940acaeab/Track%20Properties/X-Raym_Scroll%20vertically%20to%20track%20by%20name%20and%20select%20it.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Search and replace in selected tracks names.lua" type="script">
