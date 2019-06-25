@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="ba1b9f8627824c397118c7205495312940acaeab" name="X-Raym Scripts">
+<index version="1" commit="eafef161977fd6bc78c5104550b6eb5c56185bb3" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1813,11 +1813,19 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Based on X-Raym_Makey Makey MIDI Notes Map.jsfx\par}
 }
 ]]></description>
+        <link rel="screenshot">https://i.imgur.com/6kMft2l.gifv</link>
         <link rel="donation">http://www.extremraym.com/en/donation</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-10-30T12:43:20Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/a6a23928488d31abfb259d234c236a178a88aca5/JSFX/MIDI/X-Raym_16%20pads%20MIDI%20Notes%20Map.jsfx</source>
+      </version>
+      <version name="1.5" author="X-Raym" time="2019-06-25T11:51:51Z">
+        <changelog><![CDATA[+ Nice colored pads
++ Hide sliders, now offset with clicks
++ Infos on Pad
++ Pad brightness based on velocity]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/eafef161977fd6bc78c5104550b6eb5c56185bb3/JSFX/MIDI/X-Raym_16%20pads%20MIDI%20Notes%20Map.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Last MIDI event monitor.jsfx" type="effect" desc="Last MIDI event monitor">
