@@ -8,11 +8,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.5
+ * Version: 1.6
  */
 
 /**
  * Changelog:
+ * v1.6 (2019-06-26)
+  + Better pad sizing
  * v1.5 (2019-06-25)
   + Nice colored pads
   + Hide sliders, now offset with clicks
@@ -29,6 +31,8 @@ slider2:36<0,127,1>Base Note
 
 //slider4:/MIDINoteNames:none:Mapping File
 //slider5:0<0,1,1{---,Reload Now}>Reload Mapping
+
+// slider30:/track_icons:none:Icon
 
 slider10:36<0,127,1>-Pad 01
 slider11:37<0,127,1>-Pad 02
@@ -107,8 +111,10 @@ while
 
 @gfx 420 480
 
-gfx_setfont(1,"Tahoma Bold",gfx_w / 4 / 3);
-gfx_setfont(2,"Tahoma Bold",gfx_w / 4 / 5);
+gfx_size = min(gfx_w, gfx_h);
+
+gfx_setfont(1,"Tahoma Bold",gfx_size / 4 / 3);
+gfx_setfont(2,"Tahoma Bold",gfx_size / 4 / 5);
 
 function uix_getPitName(pit) (
   pit = pit == 0 ? "C" :
@@ -153,7 +159,7 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue)
   i = 3;
   border = 1;
   pad = 0; // zero based, up to 15
-  pad_w = gfx_w / 4;
+  pad_w = gfx_size / 4;
   pad_mouse = 0;
   loop( 4,
     j = 0;
@@ -218,7 +224,5 @@ mouse_cap > last_mouse_cap && pad_mouse > 0 ? (
 );
 
 last_mouse_cap = mouse_cap;
-
-// Notes names from files
 
 draw_pads();
