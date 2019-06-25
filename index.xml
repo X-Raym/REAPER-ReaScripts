@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="d41a66ae208276d91d96027d2f49e026e88f4875" name="X-Raym Scripts">
+<index version="1" commit="2cb3a14a3938ab6bece4c7fdd803cf85acff7bd6" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3152,6 +3152,20 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6c9052efb7298b1e443620a7f7c7b9b556f8f38d/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20for%20the%20duration%20-%20and%20select%20track.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Play from mouse cursor position and solo track under mouse parent and select track.lua" type="script" desc="Play from mouse cursor position and solo track under mouse for the duration - and select track">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Just like the SWS action (which it runs), but with no undo and select track under mouse.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0.1" author="X-Raym" time="2019-06-25T23:12:19Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2cb3a14a3938ab6bece4c7fdd803cf85acff7bd6/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20parent%20and%20select%20track.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Record or stop and rename newly created items with clipboard content.lua" type="script" desc="Record or stop and rename newly created items with clipboard content">
       <version name="1.0" author="X-Raym" time="2018-09-26T16:29:53Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3220,6 +3234,18 @@
     <reapack name="X-Raym_Set master playrate to x%.lua" type="script" desc="Set master playrate to x%">
       <version name="1.0" author="X-Raym" time="2017-03-20T22:44:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b238b5f1863ab875fe7375deb365777b2c57e4a7/Transport/X-Raym_Set%20master%20playrate%20to%20x%25.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Solo exclusive track under mouse and play.lua" type="script" desc="Solo exclusive track under mouse and play">
+      <version name="1.0" author="X-Raym" time="2019-06-25T23:12:19Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2cb3a14a3938ab6bece4c7fdd803cf85acff7bd6/Transport/X-Raym_Solo%20exclusive%20track%20under%20mouse%20and%20play.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Solo in place exclusive track under mouse and play.lua" type="script" desc="Solo in place exclusive track under mouse and play">
+      <version name="1.0" author="X-Raym" time="2019-06-25T23:12:19Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2cb3a14a3938ab6bece4c7fdd803cf85acff7bd6/Transport/X-Raym_Solo%20in%20place%20exclusive%20track%20under%20mouse%20and%20play.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle play from mouse cursor position and solo track under mouse for the duration - and select track.lua" type="script" desc="Toggle play from mouse cursor position and solo track under mouse for the duration - and select track">
