@@ -7,11 +7,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.7
+ * Version: 1.8
  */
 
 /**
  * Changelog:
+ * v1.8 (2019-06-27)
+  # Remap active toggle, so you an check how some beats could be performed on your remapped pad.
  * v1.7 (2019-06-27)
   + Image support. Image file mapping have to be put in REAPER/Data/MIDINotesImages and should contains note number followed by filename with extension (36 kick.png). Images have to be put in /Images from the effect path.
   # Fixed base note color offset
@@ -31,6 +33,7 @@ desc:16 pads MIDI Notes Map
 
 slider1:0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
 slider2:36<0,127,1>Pad1 Input Note
+slider3:1<0,1,1{Inactive,Active}>Remap
 
 slider4:/MIDINoteImages:none:Notes Out Mapping File
 slider5:0<0,1,1{---,Reload Now}>Reload Mapping
@@ -143,7 +146,9 @@ while
         // If note is in Makey Makey MIDI Range
         note >= slider2 && note <= slider2+15  ? (
           note_in = note;
-          note = slider( 10 + note - slider2 ); // Get Note Out
+          slider3 ? (
+            note = slider( 10 + note - slider2 ); // Get Note Out
+          );
 
         );
      
@@ -215,9 +220,15 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
     j = 0;
     loop( 4,
       //note_in >= slider2 && note_in <= slider2+15 && pad == note_in - slider2 ? (
-      note_buf[slider2 + pad] ? (
-        gfx_a = 0.5+note_buf[slider2 + pad]/127/2; // From 0.5, increase based on velocity
-        scale = note_buf[slider2 + pad]/127;
+      slider3 ? (
+        highlight = slider2 + pad;
+      ):(
+        highlight = slider(pad+10);
+      );
+      
+      note_buf[highlight] ? (
+        gfx_a = 0.5+note_buf[highlight]/127/2; // From 0.5, increase based on velocity
+        scale = note_buf[highlight]/127;
       ) : (
         gfx_a = 0.5;
         scale = 0;
