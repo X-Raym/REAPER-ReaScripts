@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="2cb3a14a3938ab6bece4c7fdd803cf85acff7bd6" name="X-Raym Scripts">
+<index version="1" commit="63061fb82e6c3b56d4363d2dc788dbe909789c08" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1806,13 +1806,6 @@
   <category name="JSFX/MIDI">
     <reapack name="X-Raym_16 pads MIDI Notes Map.jsfx" type="effect" desc="16 pads MIDI Notes Map">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 Based on X-Raym_Makey Makey MIDI Notes Map.jsfx\par}
-}
-]]></description>
         <link rel="screenshot">https://i.imgur.com/6kMft2l.gifv</link>
         <link rel="donation">http://www.extremraym.com/en/donation</link>
       </metadata>
@@ -1830,6 +1823,12 @@
       <version name="1.6" author="X-Raym" time="2019-06-25T22:12:37Z">
         <changelog><![CDATA[+ Better pad sizing]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/d41a66ae208276d91d96027d2f49e026e88f4875/JSFX/MIDI/X-Raym_16%20pads%20MIDI%20Notes%20Map.jsfx</source>
+      </version>
+      <version name="1.7" author="X-Raym" time="2019-06-27T09:49:04Z">
+        <changelog><![CDATA[+ Image support. Image file mapping have to be put in REAPER/Data/MIDINotesImages and should contains note number followed by filename with extension (36 kick.png). Images have to be put in /Images from the effect path.
+# Fixed base note color offset
+# minor UI tweaks]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/63061fb82e6c3b56d4363d2dc788dbe909789c08/JSFX/MIDI/X-Raym_16%20pads%20MIDI%20Notes%20Map.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Last MIDI event monitor.jsfx" type="effect" desc="Last MIDI event monitor">
