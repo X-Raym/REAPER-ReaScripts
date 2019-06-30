@@ -1,0 +1,74 @@
+/*
+ * JSFX Name: MIDI notes octave tranpose shift
+ * Author: X-Raym
+ * Author URI: http://www.extremraym.com
+ * Links:
+     Forum Thread http://forum.cockos.com/showthread.php?t=181105
+ * Donation: http://www.extremraym.com/en/donation
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ */
+
+/**
+ * Changelog:
+ * v1.0 (2019-07-01)
+  + Initial Release
+ */
+
+desc:MIDI Notes Octave Tranpose Shift
+
+slider1:0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
+
+slider5:0<-8,8,1>Octave Shift
+
+
+////////////////////////////////////////////////////////////////////////////////
+@init
+statNoteOn = $x90;
+statNoteOff = $x80;
+afterTouch = $xA0;
+
+
+////////////////////////////////////////////////////////////////////////////////
+@slider
+inChannel = slider1 - 1;
+
+////////////////////////////////////////////////////////////////////////////////
+@block
+
+while
+(
+
+  midirecv(offset,msg1,note,vel) ?
+  (
+
+    // Extract message type and channel
+    status = msg1 & $xF0;
+    channel = msg1 & $x0F;
+
+    // Is it on our channel?
+    channel == inChannel || inChannel == -1 ?
+    (
+      
+      // Is it a note event?
+      status == statNoteOn || status == statNoteOff || status == afterTouch ?
+      (
+        
+        
+          slider5 != 0 ? (
+            note = max(0,min(127,note + slider5*12)); // Get Note Out
+          );
+
+     
+      );
+    
+    );
+    
+    midisend(offset, msg1, note, vel);
+    
+    1; // Force loop to continue until all messages have been processed
+  
+  );
+
+);
