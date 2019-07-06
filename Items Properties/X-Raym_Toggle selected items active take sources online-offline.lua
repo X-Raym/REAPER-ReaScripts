@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Set selected items inactive takes sources offline
+ * ReaScript Name: Toggle selected items active take sources online-offline
  * Instructions: Run.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -9,14 +9,12 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=2154446#post2154446
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0
 --]]
 
 --[[
  * Changelog:
- * v1.0.1 (2019-07-06)
-  + Empty lane support
- * v1.0 (2019-07-05)
+ * v1.0 (2019-07-06)
   + Initial release
 --]]
 
@@ -45,17 +43,12 @@ function Main()
   for i = 0, count_selected_items - 1 do
 
     local item = reaper.GetSelectedMediaItem( 0, i )
-    local count_takes = reaper.CountTakes( item )
-    if count_takes > 0 then
       local active_take = reaper.GetActiveTake( item )
-      for j = 0, count_takes - 1 do
-        local take = reaper.GetTake(item, j)
-        if take and take ~= active_take then
-          local src = reaper.GetMediaItemTake_Source( take )
-          reaper.CF_SetMediaSourceOnline( src, false )
-        end
+      if active_take then
+        local src = reaper.GetMediaItemTake_Source( active_take )
+        offline = reaper.CF_GetMediaSourceOnline( src )
+        reaper.CF_SetMediaSourceOnline( src, not offline )
       end
-    end
 
   end
 
@@ -74,7 +67,7 @@ if count_selected_items > 0 then
 
   Main()
 
-  reaper.Undo_EndBlock("Set selected items inactive takes sources offline", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Set selected items active take sources offline", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
   reaper.UpdateArrange()
 

@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Set selected items inactive takes sources offline
+ * ReaScript Name: Set selected items inactive takes sources online
  * Instructions: Run.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -9,14 +9,12 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=2154446#post2154446
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0
 --]]
 
 --[[
  * Changelog:
- * v1.0.1 (2019-07-06)
-  + Empty lane support
- * v1.0 (2019-07-05)
+ * v1.0 (2019-07-06)
   + Initial release
 --]]
 
@@ -52,7 +50,7 @@ function Main()
         local take = reaper.GetTake(item, j)
         if take and take ~= active_take then
           local src = reaper.GetMediaItemTake_Source( take )
-          reaper.CF_SetMediaSourceOnline( src, false )
+          reaper.CF_SetMediaSourceOnline( src, true )
         end
       end
     end
@@ -74,7 +72,7 @@ if count_selected_items > 0 then
 
   Main()
 
-  reaper.Undo_EndBlock("Set selected items inactive takes sources offline", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Set selected items inactive takes sources online", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
   reaper.UpdateArrange()
 
