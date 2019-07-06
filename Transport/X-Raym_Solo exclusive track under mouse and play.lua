@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2019-06-26)
+  # Only check any track solo if needed
  * v1.0 (2019-06-26)
   + Initial Release
 --]]
@@ -23,14 +25,16 @@ function Main()
     if solo ~= solo_state then
       reaper.PreventUIRefresh(1)
       reaper.SetMediaTrackInfo_Value(track, "I_SOLO", solo_state)
-      count_track = reaper.CountTracks(0)
-      for i = 0, count_track - 1 do
-        tr = reaper.GetTrack(0,i)
-        if tr ~= track and reaper.GetMediaTrackInfo_Value(tr, "I_SOLO") ~=0 then
-          reaper.SetMediaTrackInfo_Value(tr, "I_SOLO", 0)
-        end
-      end
       reaper.SetOnlyTrackSelected( track )
+      --if reaper.AnyTrackSolo() then
+        count_track = reaper.CountTracks(0)
+        for i = 0, count_track - 1 do
+          tr = reaper.GetTrack(0,i)
+          if tr ~= track and reaper.GetMediaTrackInfo_Value(tr, "I_SOLO") ~=0 then
+            reaper.SetMediaTrackInfo_Value(tr, "I_SOLO", 0)
+          end
+        end
+      --end
       reaper.PreventUIRefresh(-1)
     end
     reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_PLAY_MOUSECURSOR"),0) -- SWS/BR: Play from mouse cursor position
