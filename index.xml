@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="08847a9a93385195278d5ec16c5a06371d6e610e" name="X-Raym Scripts">
+<index version="1" commit="54fe6f952cd18e00e82733ea56edfbf951162e7f" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -805,6 +805,11 @@
     <reapack name="X-Raym_Toggle all FX except those with (ON) and (OFF) suffixes.eel" type="script">
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/FX/X-Raym_Toggle%20all%20FX%20except%20those%20with%20(ON)%20and%20(OFF)%20suffixes.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Toggle JS Pitch Shifter and Reapitch on selected tracks according to record arm.lua" type="script" desc="TToggle JS Pitch Shifter and Reapitch on selected tracks according to record arm">
+      <version name="1.0" author="X-Raym" time="2019-07-06T00:51:55Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/54fe6f952cd18e00e82733ea56edfbf951162e7f/FX/X-Raym_Toggle%20JS%20Pitch%20Shifter%20and%20Reapitch%20on%20selected%20tracks%20according%20to%20record%20arm.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle selected tracks FX except those with (ON) and (OFF) suffixes.lua" type="script" desc="Toggle selected tracks FX except those with (ON) and (OFF) suffixes">
@@ -1898,6 +1903,10 @@
       <version name="1.0" author="X-Raym" time="2019-06-30T23:26:36Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/8b985bfe2259c0e6b1549bc43bcbd80d4f16d42a/JSFX/MIDI/X-Raym_MIDI%20notes%20octave%20tranpose%20shift.jsfx</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2019-07-06T00:50:35Z">
+        <changelog><![CDATA[+ Increase range]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/d0cdab69de0400258ac6851650b4d597a305709c/JSFX/MIDI/X-Raym_MIDI%20notes%20octave%20tranpose%20shift.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_MIDI notes sequence from CSV file.jsfx" type="effect" desc="MIDI notes sequence from CSV file">
@@ -3293,11 +3302,19 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2cb3a14a3938ab6bece4c7fdd803cf85acff7bd6/Transport/X-Raym_Solo%20exclusive%20track%20under%20mouse%20and%20play.lua</source>
       </version>
+      <version name="1.1" author="X-Raym" time="2019-07-06T00:50:28Z">
+        <changelog><![CDATA[# Only check any track solo if needed]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a984fe2030895532780b881e267801a2d0063308/Transport/X-Raym_Solo%20exclusive%20track%20under%20mouse%20and%20play.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Solo in place exclusive track under mouse and play.lua" type="script" desc="Solo in place exclusive track under mouse and play">
       <version name="1.0" author="X-Raym" time="2019-06-25T23:12:19Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2cb3a14a3938ab6bece4c7fdd803cf85acff7bd6/Transport/X-Raym_Solo%20in%20place%20exclusive%20track%20under%20mouse%20and%20play.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2019-07-06T00:50:28Z">
+        <changelog><![CDATA[# Only check any track solo if needed]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a984fe2030895532780b881e267801a2d0063308/Transport/X-Raym_Solo%20in%20place%20exclusive%20track%20under%20mouse%20and%20play.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle play from mouse cursor position and solo track under mouse for the duration - and select track.lua" type="script" desc="Toggle play from mouse cursor position and solo track under mouse for the duration - and select track">
