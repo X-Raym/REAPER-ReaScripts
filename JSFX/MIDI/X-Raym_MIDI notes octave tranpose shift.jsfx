@@ -7,11 +7,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
  */
 
 /**
  * Changelog:
+ * v1.1 (2019-07-01)
+  + Increase range
  * v1.0 (2019-07-01)
   + Initial Release
  */
@@ -20,7 +22,7 @@ desc:MIDI Notes Octave Tranpose Shift
 
 slider1:0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
 
-slider5:0<-8,8,1>Octave Shift
+slider5:0<-12,12,1>Octave Shift
 
 
 ////////////////////////////////////////////////////////////////////////////////
