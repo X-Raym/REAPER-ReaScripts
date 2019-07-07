@@ -7,11 +7,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.8
+ * Version: 1.9
  */
 
 /**
  * Changelog:
+ * v1.9 (2019-07-07)
+  # Mouse wheel support
  * v1.8 (2019-06-27)
   # Remap active toggle, so you an check how some beats could be performed on your remapped pad.
  * v1.7 (2019-06-27)
@@ -296,6 +298,13 @@ mouse_cap > last_mouse_cap && pad_mouse > 0 ? (
   mouse_cap == 1 ? offset = 1;
   mouse_cap == 2 ? offset = -1;
   slider(pad_mouse+10-1) = min(max(slider(pad_mouse+10-1) + offset,0),127);
+);
+
+mouse_wheel != 0 && pad_mouse > 0 ? (
+  mouse_wheel > 0 ? offset = 1;
+  mouse_wheel < 0 ? offset = -1;
+  slider(pad_mouse+10-1) = min(max(slider(pad_mouse+10-1) + offset,0),127);
+  mouse_wheel = 0;
 );
 
 last_mouse_cap = mouse_cap;
