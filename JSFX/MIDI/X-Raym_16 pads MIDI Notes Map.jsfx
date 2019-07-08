@@ -7,11 +7,15 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.9
+ * Version: 1.9.1
+ * Provides:
+  [nomain] X-Raym_16 pads MIDI Notes Map.rpl
  */
 
 /**
  * Changelog:
+ * v1.9.1 (2019-07-08)
+  # Presets
  * v1.9 (2019-07-07)
   # Mouse wheel support
  * v1.8 (2019-06-27)
