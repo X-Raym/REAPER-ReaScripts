@@ -18,3 +18,4 @@
 52 cymbal_small.png
 53 ride_bell.png
 55 cymbal_small.png
+57 cymbal_large.png
