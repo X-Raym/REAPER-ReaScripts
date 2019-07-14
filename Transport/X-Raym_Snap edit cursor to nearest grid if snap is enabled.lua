@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
@@ -16,7 +16,7 @@
   + Initial release
 --]]
 
-function main()
+function Main()
   local pos = reaper.GetCursorPosition()
   if reaper.GetToggleCommandState( 1157 ) then
     pos = reaper.SnapToGrid( 0, pos )
@@ -24,5 +24,5 @@ function main()
   end
 end
 
-reaper.Main()
+Main()
 
