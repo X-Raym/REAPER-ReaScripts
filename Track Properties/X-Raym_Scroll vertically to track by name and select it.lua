@@ -8,14 +8,16 @@
  * Forum Thread: Scripts: Track Selection (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
  * Screenshot: https://i.imgur.com/6qMLP2s.gifv
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2019-06-23)
+  + Also set as last touched
  * v1.0 (2019-06-23)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function Main()
@@ -31,6 +33,7 @@ function Main()
       if track_name:lower():match("^(" .. str .. ")") then
         reaper.SetTrackSelected(track, true)
         reaper.Main_OnCommand(40913,0) -- Track: Vertical scroll selected tracks into view
+        reaper.Main_OnCommand(40914,0) -- Track: Set first selected track as last touched track
         break
       end
     end
