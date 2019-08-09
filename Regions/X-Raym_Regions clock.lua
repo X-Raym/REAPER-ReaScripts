@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
  * Extensions: ../Functions/spk77_Save table to file and load table from file_functions.lua
- * Version: 1.2.2
+ * Version: 1.2.3
 --]]
 
 --[[
  * Changelog:
+ * v1.2.3 (2019-04-17)
+  # Kill script if GUI closed
  * v1.2.2 (2019-04-17)
   # MacOS color fix
  * v1.2.1 (2017-03-17)
@@ -280,7 +282,9 @@ function run()
   end
 
   gfx.update()
-  if gfx.getchar() ~= 27 then reaper.defer(run) else gfx.quit() end
+  
+  char = gfx.getchar()
+  if char == 27 or char == -1 then gfx.quit() else reaper.defer(run) end
 
 end -- END DEFER
 
