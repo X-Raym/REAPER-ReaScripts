@@ -1,6 +1,5 @@
 --[[
  * ReaScript Name: Rename selected items active take from multiline clipboard content
- * Description: See title.
  * Screenshot: https://i.imgur.com/z66OJnG.gifv
  * Author: X-Raym
  * Author URI: http://extremraym.com
@@ -10,11 +9,13 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166689
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2019-08-29)
+  # Return character bug fix
  * v1.0 (2018-09-01)
   + Initial Release
 --]]
@@ -69,7 +70,7 @@ function main()
   for i, item in ipairs(init_sel_items) do
     take = reaper.GetActiveTake(item)
     if take then
-      name_out = names[i]
+      name_out = names[i]:gsub("\r", "")
       if name_out then
         reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", name_out, true)
       else
@@ -101,6 +102,8 @@ if count_sel_items > 0 then
   if clipboard ~= "" then
   
     names_csv = clipboard
+    
+    reaper.ClearConsole()
   
     reaper.PreventUIRefresh(1)
   
