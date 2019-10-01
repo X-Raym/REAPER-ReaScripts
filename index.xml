@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="32decd7896c5d500a3586cd5f049895d8994fbc0" name="X-Raym Scripts">
+<index version="1" commit="140c63c2abc2259fb2824202b9dfcc89fe5b7640" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1101,6 +1101,15 @@
       <version name="1.0" author="X-Raym" time="2016-01-13T23:55:07Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Editing/X-Raym_Quantize%20selected%20items%20to%20previous%20marker%20position.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Remove item under mouse (restoring fades).lua" type="script" desc="Remove item under mouse (restoring fades)">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/JKg1ExJ.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2019-10-01T16:17:15Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/140c63c2abc2259fb2824202b9dfcc89fe5b7640/Items%20Editing/X-Raym_Remove%20item%20under%20mouse%20(restoring%20fades).lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Replace similar MIDI takes by pools.lua" type="script" desc="Replace similar MIDI Takes by pools">
