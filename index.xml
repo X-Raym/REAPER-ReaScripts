@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="140c63c2abc2259fb2824202b9dfcc89fe5b7640" name="X-Raym Scripts">
+<index version="1" commit="4b414c0d3466d81f3a9e9b995c69513c8f17f7bc" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3047,6 +3047,15 @@
       <version name="1.1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[# Space in name]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Track%20Properties/X-Raym_Rename%20tracks%20with%20first%20VSTi%20and%20its%20preset%20name.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Rename tracks with first VSTi preset name.lua" type="script" desc="Rename tracks with first VSTi preset name">
+      <metadata>
+        <link rel="screenshot">http://i.giphy.com/l41lMgnQVFZp2qfjW.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2019-10-03T19:26:04Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4b414c0d3466d81f3a9e9b995c69513c8f17f7bc/Track%20Properties/X-Raym_Rename%20tracks%20with%20first%20VSTi%20preset%20name.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Reset all tracks to default TCP height.lua" type="script">
