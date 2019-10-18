@@ -6,44 +6,24 @@
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Script: Script name
  * Forum Thread URI: http://forum.cockos.com/***.html
  * REAPER: 5.0 pre 15
- * Extensions: None
- * Version: 1.1
+ * Version: 1.1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2019-10-18)
+	# No track selected bug fix
+	# Few optimizations
+	# Error tootip
  * v1.1 (2015-04-01)
 	+ Works on selected multiple items
  * v1.0 (2015-04-01)
 	+ Initial Release
 --]]
-
--- ----- DEBUGGING ====>
---[[local info = debug.getinfo(1,'S');
-
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
-end
-
-require("X-Raym_Functions - console debug messages")
-
-
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-msg_clean()
-]]-- <==== DEBUGGING -----
 
 -- INIT
 split_pos={}
@@ -72,9 +52,7 @@ function save_item_selection()
 end
 
 -- MAIN
-function main() -- local (i, j, item, take, track)
-
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+function main()
 
 	-- GET FIRST SELECTED ITEMS & INFOS
 	sel_item_len = reaper.GetMediaItemInfo_Value(sel_item, "D_LENGTH")
@@ -164,21 +142,67 @@ function main() -- local (i, j, item, take, track)
 		reaper.SetMediaItemSelected(save_new_item[a], 1)
 	end
 
-	-- UNDO
-	reaper.Undo_EndBlock("Split selected items according to items on first selected track and keep new items at spaces", 0) -- End of the undo block. Leave it at the bottom of your main function.
-
 end
 
---msg_start() -- Display characters in the console to show you the begining of the script execution.
+function runloop()
+  local newtime=os.time()
+  
+  if (loopcount < 1) then
+    if newtime-lasttime >= wait_time_in_seconds then
+	 lasttime=newtime
+	 loopcount = loopcount+1
+    end
+  else
+    ----------------------------------------------------
+    -- PUT ACTION(S) YOU WANT TO RUN AFTER WAITING HERE
+    
+    reaper.TrackCtl_SetToolTip( "", x, y, true )
+    
+    ----------------------------------------------------
+    loopcount = loopcount+1
+  end
+  if 
+    (loopcount < 2) then reaper.defer(runloop) 
+  end
+end
+
+function DisplayTooltip(message)
+	wait_time_in_seconds = 2
+	lasttime=os.time()
+	loopcount=0
+	
+	x, y = reaper.GetMousePosition()
+	reaper.TrackCtl_SetToolTip( message, x, y, false )
+	
+	runloop()
+end
 
 reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
 
-save_item_selection()
+count_sel_tracks = reaper.CountSelectedTracks()
+
+if count_sel_tracks > 0 then
+
+	count_sel_items = reaper.CountSelectedMediaItems( 0 )
+	
+	if count_sel_items > 0 then
+
+		reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+	
+		save_item_selection()
+	
+		reaper.Undo_EndBlock("Split selected items according to items on first selected track and keep new items at spaces", 0) -- End of the undo block. Leave it at the bottom of your main function.
+		
+	else
+	
+		DisplayTooltip("No item selected.")
+		
+	end
+	
+else
+	DisplayTooltip("No track selected.")
+end
 
 reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
-
---msg_end() -- Display characters in the console to show you the end of the script execution.
-
--- do it for every selected items ? Could be a bit more over complicated.
