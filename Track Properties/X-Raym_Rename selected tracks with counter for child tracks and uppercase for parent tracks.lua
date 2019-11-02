@@ -11,15 +11,14 @@
  * Forum Thread: Scripts: Tracks Names (various) 
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1581214
  * REAPER: 5.0
- * Version: 1.1
- * Provides:
- *   [nomain] ../Functions/utf8.lua
- *   [nomain] ../Functions/utf8data.lua
+ * Version: 1.1.1
 ]]
  
  
 --[[
  * Changelog:
+ * v1.1.1 (2019-11-02)
+  # No provides
  * v1.1 (2019-10-04)
   + Suffix support for parent track
  * v1.0 (2019-08-27)
@@ -31,6 +30,13 @@ suffix = "S"
 
 local info = debug.getinfo(1,'S');
 script_path = info.source:match[[^@?(.*[\/])[^\/]-$]]
+
+--[[
+ * Old Provides Rules:
+ *   [nomain] ../Functions/utf8.lua
+ *   [nomain] ../Functions/utf8data.lua
+-- ]]
+
 dofile(script_path .. "../Functions/utf8.lua")
 dofile(script_path .. "../Functions/utf8data.lua")
 
