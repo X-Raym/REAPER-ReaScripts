@@ -6,17 +6,17 @@
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Extensions: None
- * Version: 1.1.1
+ * Version: 1.1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.1.2 (2019-10-20)
+	# Better undo
  * v1.1.1 (2016-05-12)
 	+ Bug fix
  * v1.1 (2016-04-19)
@@ -141,6 +141,6 @@ if count_sel_tracks > 0 and count_sel_items > 0 then
 
 	reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-	reaper.Undo_EndBlock("Split selected items according to items on selected tracks", 0) -- End of the undo block.
+	reaper.Undo_EndBlock("Split selected items according to items on selected tracks", -1) -- End of the undo block.
 
 end
