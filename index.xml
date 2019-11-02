@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="5b3792358cdd53a9f04bb016ed380c18bdf65a31" name="X-Raym Scripts">
+<index version="1" commit="6dee4c5172265e3645248dafa2cc543160797551" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3065,6 +3065,15 @@
       <version name="1.0" author="X-Raym" time="2018-06-06T15:26:31Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/723b4a8da2a90c81e659e55391a9f23ccfe814fc/Track%20Properties/X-Raym_Rename%20selected%20track%20sends%20based%20on%20their%20source%20track%20name.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Rename selected tracks with counter for child tracks and uppercase for parent tracks.lua" type="script" desc="Set parents tracks names to uppercase and childs ones to camelcase">
+      <metadata>
+        <link rel="screenshot">http://i.giphy.com/l41lMgnQVFZp2qfjW.gif</link>
+      </metadata>
+      <version name="1.1.1" author="X-Raym" time="2019-11-02T09:58:44Z">
+        <changelog><![CDATA[# No provides]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6dee4c5172265e3645248dafa2cc543160797551/Track%20Properties/X-Raym_Rename%20selected%20tracks%20with%20counter%20for%20child%20tracks%20and%20uppercase%20for%20parent%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Rename tracks with first VSTi and its preset name.lua" type="script">
