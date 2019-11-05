@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.3
+ * Version: 1.0.4
 --]]
 
 --[[
  * Changelog:
+ * v1.0.4 (2019-05-11)
+  # More flexible page pattern
  * v1.0.3 (2019-01-03)
   # video and audio track to Time timebase
  * v1.0.2 (2019-01-02)
@@ -122,7 +124,7 @@ for i, line in ipairs( lines ) do -- redundant but useful
       reaper.MIDI_InsertNote( take, false, false, startppqpos, endppqpos, chan, pitch, 100, true )
       reaper.MIDI_InsertTextSysexEvt( take, false, false, startppqpos, 5, lyric )
     elseif char == "-" then -- Add page
-      local beat = line:match(" (.+)")
+      local beat = line:match(" ?-?(.+)")
       beat = tonumber(beat)
       local beat_pos = reaper.TimeMap2_QNToTime( 0, beat ) / 4 -- / 4 because UltraStar needs it
       reaper.AddProjectMarker( 0, 0, beat_pos + gap, 0, "", -1 )
