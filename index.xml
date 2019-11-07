@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="0b46f609903de3d50a8ccd421fa8bd754d9ed2a1" name="X-Raym Scripts">
+<index version="1" commit="731a221624a2ab6c7778ea465d927560c5908914" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2294,6 +2294,18 @@
       <version name="1.0.1" author="X-Raym" time="2019-02-24T22:48:30Z">
         <changelog><![CDATA[+ Message Box]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7ccf5a45713a51d8d5c8263bf76532830c66fb73/Regions/X-Raym_Create%20markers%20at%20selected%20items%20snap%20offset.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Create named marker from selected items position.lua" type="script" desc="Create named marker from selected items position">
+      <version name="1.0" author="X-Raym" time="2019-11-07T14:32:16Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/731a221624a2ab6c7778ea465d927560c5908914/Regions/X-Raym_Create%20named%20marker%20from%20selected%20items%20position.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Create named marker X seconds after last item end.lua" type="script" desc="Create named marker X seconds after last item end">
+      <version name="1.0" author="X-Raym" time="2019-11-07T14:32:16Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/731a221624a2ab6c7778ea465d927560c5908914/Regions/X-Raym_Create%20named%20marker%20X%20seconds%20after%20last%20item%20end.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Create regions from selected items notes and color.lua" type="script" desc="Create regions from selected items notes and color">
