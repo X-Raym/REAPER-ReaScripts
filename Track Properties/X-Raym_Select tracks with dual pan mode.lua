@@ -8,11 +8,13 @@
  * Forum Thread: Scripts: Track Selection (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2019-11-12)
+  # Don't unselect other tracks
  * v1.0 (2019-11-12)
   + Initial Release
 --]]
@@ -33,10 +35,6 @@ function main() -- local (i, j, item, take, track)
     if track_mode == 6 then
 
       reaper.SetTrackSelected(track, true)
-    
-    else
-    
-      reaper.SetTrackSelected(track, false)
     
     end
         
