@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="731a221624a2ab6c7778ea465d927560c5908914" name="X-Raym Scripts">
+<index version="1" commit="40fa1a76f91fd38daa8e409c78fd687073f73924" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3231,6 +3231,12 @@
     <reapack name="X-Raym_Select track under mouse top level parent track.lua" type="script" desc="Select track under mouse top level parent track">
       <version name="2.0" author="X-Raym" time="2019-06-23T14:52:26Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a51c12846041966736aae449ed759d5d5671258f/Track%20Properties/X-Raym_Select%20track%20under%20mouse%20top%20level%20parent%20track.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Select tracks with dual pan mode.lua" type="script" desc="Select tracks with dual pan mode">
+      <version name="1.0" author="X-Raym" time="2019-11-12T14:18:02Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/40fa1a76f91fd38daa8e409c78fd687073f73924/Track%20Properties/X-Raym_Select%20tracks%20with%20dual%20pan%20mode.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set parents tracks names to uppercase and childs ones to camelcase.lua" type="script" desc="Set parents tracks names to uppercase and childs ones to camelcase">
