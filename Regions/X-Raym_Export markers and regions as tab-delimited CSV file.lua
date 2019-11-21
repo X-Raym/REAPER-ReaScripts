@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2019-11-20)
+  # Header tab
  * v1.0.1 (2019-01-26)
   # Extension
  * v1.0 (2019-01-26)
@@ -34,7 +36,7 @@ function Main()
 
   local f = io.open(file, "w")
   
-  export(f, "#  Name  Start  End  Length  Color")
+  export(f, "#\tName\tStart\tEnd\tLength\tColor")
   
   i=0
   repeat
