@@ -59,6 +59,8 @@ function Main()
       color = rgbToHex(r, g, b)
     end
     -- [start time HH:MM:SS.F] [end time HH:MM:SS.F] [name]
+    name = name:gsub('\r\n', '<br>')
+    name = name:gsub('\n', '<br>')
     line = t .. i .. "\t\"" .. name .. "\"\t" .. iPosOut .. "\t" .. iRgnendOut .. "\t" .. duration .. "\t" .. color
     export(f, line)
   end

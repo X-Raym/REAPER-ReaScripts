@@ -4,7 +4,7 @@
  * Instructions: Select at least one item or one track with items that you want to export. You can select items accross multiple tracks. Note that the initial cursor position is very important 
  * Authors: X-Raym
  * Author URI: http://extremraym.com
- * Version: 1.0
+ * Version: 1.4.1
  * Repository: X-Raym/REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * File URI: 
@@ -17,6 +17,11 @@
 
 --[[
  * Change log:
+ * v1.4.1 (2019-12-10)
+  + Better save dialog window
+ * v1.4 (2019-20-11)
+  + Fork from source
+  # Optimizaton
  * v1.3 (2015-10-06)
   # Bug fix if the project was not saved
  * v1.2 (2015-08-21)
@@ -101,7 +106,11 @@ end
     
     return string.format("%02d:%02d:%02d,%03d", hour, minute, second, millisecond)
   end
-  
+
+-- From yfyf https://gist.github.com/yfyf/6704830
+function rgbToHex(r, g, b)
+    return string.format("#%0.2X%0.2X%0.2X", r, g, b)
+end
   
 --------------------------------------------- End of TOOLS
 
@@ -109,42 +118,49 @@ function export_txt(file)
 
   initialtime = reaper.GetCursorPosition()  -- store initial cursor position as time origin 00:00:00
   cursor_pos = initialtime
-
-  local f = io.open(file, "w")
-  io.output(file)
-
-  first_item = reaper.GetSelectedMediaItem(0, 0)
-  first_itemstart = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION")
-  loop_count = new_item_selection_count - 1
   
-  if first_itemstart < initialtime then -- if first selected item start is before cursor
-    initialtime = first_itemstart -- consider the first item start as pos O
+  items = {}
+  for i = 0, new_item_selection_count - 1 do
+    local entry = {}
+    entry.item = reaper.GetSelectedMediaItem(0, i)
+    entry.pos_start = reaper.GetMediaItemInfo_Value(entry.item, "D_POSITION") - initialtime --get itemstart
+    entry.len = reaper.GetMediaItemInfo_Value(entry.item, "D_LENGTH") --get length
+    entry.pos_end = entry.pos_start + entry.len
+    entry.color = reaper.GetDisplayedMediaItemColor(entry.item)
+    local r, v, b = reaper.ColorFromNative( entry.color )
+    entry.color_hex = rgbToHex(r,v,b)
+    entry.notes = reaper.ULT_GetMediaItemNote(entry.item)
+    items[i+1] = entry
   end
+  
+  table.sort(items, function( a,b )
+      if (a.pos_start < b.pos_start) then
+        -- primary sort on position -> a before b
+        return true
+      elseif (a.pos_start > b.pos_start) then
+        -- primary sort on position -> b before a
+        return false
+      else
+        -- primary sort tied, resolve w secondary sort on rank
+        return a.pos_end < b.pos_end
+      end
+    end)
+  
+  local f = io.open(file, "w")
+  
+  for i, item in ipairs( items ) do
 
-  for i=0, loop_count do
-    
-    item = reaper.GetSelectedMediaItem(0, i) -- loop through selected items
-
-    --ref: number reaper.GetMediaItemInfo_Value(MediaItem item, string parmname)
-    itemstart = reaper.GetMediaItemInfo_Value(item, "D_POSITION") - initialtime --get itemstart
-    itemlength = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") --get length
-    itemend = itemstart + itemlength
-    
-    note = HeDaGetNote(item)  -- get the note text
-    
-    if note == nil then
-      note = "" 
-    end
     -- write item number 
+    -- f:write(i+1 .. "\n" .. item.color_hex .. "\n")
     f:write(i+1 .. "\n")
     
     -- write start and end   00:04:22,670 --> 00:04:26,670
-    str_start = tosrtformat(itemstart)
-    str_end = tosrtformat(itemend)
+    str_start = tosrtformat(item.pos_start)
+    str_end = tosrtformat(item.pos_end)
     f:write(str_start .. " --> " ..  str_end .. "\n")
 
     -- write text
-    f:write(note)
+    f:write(item.notes .. "\n")
     
     -- break line
     f:write("\n")
@@ -152,15 +168,6 @@ function export_txt(file)
   end
   
   f:close() -- never forget to close the file
-  
-  reaper.Main_OnCommand(40029,0) -- Undo implode
-
-  if no_selected_track == true then
-    reaper.Main_OnCommand(40297,0)
-  end
-  
-  --ref: reaper.SetEditCurPos(number time, boolean moveview, boolean seekplay)
-  reaper.SetEditCurPos(cursor_pos, 1, 1) -- move cursor to original position before running script
   
   if initialtime > 0 then
     offsetmsg= "\n\nThe file has been exported with an offset time of " .. initialtime .." seconds, relative to cursor project time."
@@ -195,110 +202,77 @@ local function RestoreSelectedItems (table)
   end
 end
 
--- TRACKS
--- SAVE INITIAL TRACKS SELECTION
-init_sel_tracks = {}
-local function SaveSelectedTracks (table)
-  for i = 0, reaper.CountSelectedTracks(0)-1 do
-    table[i+1] = reaper.GetSelectedTrack(0, i)
-  end
-end
-
--- RESTORE INITIAL TRACKS SELECTION
-local function RestoreSelectedTracks (table)
-  reaper.Main_OnCommand(40297, 0) -- Unselect all items
-  for _, track in ipairs(table) do
-    reaper.SetTrackSelected(track, true)
-  end
-end
-
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
 -- START -----------------------------------------------------
-if reaper.IsProjectDirty(0) == 1 then -- the project needs to be save in order to have a project path to determine what is the default output folder
-  
-  reaper.ShowMessageBox("Please save the project", "Information",0)
-  
-else
-  
-  reaper.PreventUIRefresh(-10) -- prevent refreshing
-  SaveSelectedItems(init_sel_items)
-  SaveSelectedTracks(init_sel_tracks)
 
-  -- the thing
-  selected_items_count = reaper.CountSelectedMediaItems(0)
-  selected_tracks_count = reaper.CountSelectedTracks(0)
+reaper.PreventUIRefresh(-1) -- prevent refreshing
+SaveSelectedItems(init_sel_items)
 
-  if selected_tracks_count > 0 or selected_items_count > 0 then -- if there is a track selected or an item selected
+-- the thing
+selected_items_count = reaper.CountSelectedMediaItems(0)
+selected_tracks_count = reaper.CountSelectedTracks(0)
+
+if selected_tracks_count > 0 or selected_items_count > 0 then -- if there is a track selected or an item selected
+  
+  if selected_tracks_count > 0 then
+  
+    -- loop through all tracks
+    for i = 0, selected_tracks_count-1 do
+      track = reaper.GetSelectedTrack(0, i)
+      selected_items_on_tracks(track)
+    end -- end loop through all tracks
+    track = reaper.GetSelectedTrack(0, 0)
+  
+  else
+  
+    item = reaper.GetSelectedMediaItem(0, 0)
+    track = reaper.GetMediaItemTrack(item)
+    no_selected_track = true
+  
+  end
+
+  new_item_selection_count = reaper.CountSelectedMediaItems(0) -- item selection count with all items to be export
+
+  if new_item_selection_count > 0 then -- if there is something to export
     
-    if selected_tracks_count > 0 then
-    
-      -- loop through all tracks
-      for i = 0, selected_tracks_count-1 do
-        track = reaper.GetSelectedTrack(0, i)
-        selected_items_on_tracks(track)
-      end -- end loop through all tracks
-      track = reaper.GetSelectedTrack(0, 0)
-    
+    retval, track_label = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
+    retval, project_path_name = reaper.EnumProjects(-1, "")
+    default_path = GetPath(project_path_name, separator) -- default folder export is project path
+    default_filename = project_path_name:gsub(".RPP", "") .. " - " .. track_label -- default file name is track name
+    defaultvals_csv = default_path .."," .. default_filename:gsub(default_path, "") --default values
+
+    if not reaper.JS_Dialog_BrowseForSaveFile then
+      Msg("Please install JS_ReaScript REAPER extension.")
     else
     
-      item = reaper.GetSelectedMediaItem(0, 0)
-      track = reaper.GetMediaItemTrack(item)
-      no_selected_track = true
+     retval, file = reaper.JS_Dialog_BrowseForSaveFile( "Export to SRT", default_path, "", 'SRT files (.srt)\0*.srt\0All Files (*.*)\0*.*\0' )
+      
+     if retval and file ~= '' then
+      
+      filenamefull = file:gsub('.srt') .. ".srt" -- contextual separator based on user inputs and regex can be nice
+      
+      filenamefull = filenamefull:gsub(separator..separator, separator)
+      
+      export_txt(filenamefull) -- export the file
+    
+    end -- enf if user completed the dialog box
     
     end
-    
-    -- Move all selected items on a last temporary track
-    reaper.Main_OnCommand(40914,0) -- Set first selected track as last touched track
-    reaper.Main_OnCommand(40644,0) -- Implode selected items into one track
 
-    new_item_selection_count = reaper.CountSelectedMediaItems(0) -- item selection count with all items to be export
+  else -- if there is no item to export
 
-    if new_item_selection_count > 0 then -- if there is something to export
-      
-      retval, track_label = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
-      retval, project_path_name = reaper.EnumProjects(-1, "")
-      default_path = GetPath(project_path_name, separator) -- default folder export is project path
-      default_filename = project_path_name:gsub(".RPP", "") .. " - " .. track_label -- default file name is track name
-      defaultvals_csv = default_path .."," .. default_filename:gsub(default_path, "") --default values
-
-      retval, retvals_csv = reaper.GetUserInputs("Where to save the file?", 2, "Enter full path of the folder:, File Name", defaultvals_csv) 
-        
-      if retval then -- if user complete the fields
-        --if track_label == "" then track_label="Exported subtitles" end
-        path, filename = retvals_csv:match("([^,]+),([^,]+)")
-        
-        if filename == "" then filename = default_filename end
-        if path == "" then path = default_path end
-        
-        filenamefull = path .. separator .. filename .. ".srt" -- contextual separator based on user inputs and regex can be nice
-        
-        filenamefull = filenamefull:gsub(separator..separator, separator)
-        
-        export_txt(filenamefull) -- export the file
-
-      else -- user cancelled the dialog box
-
-        reaper.ShowMessageBox("Cancelled and nothing was exported","Don't worry",0)
-      
-      end -- enf if user completed the dialog box
-
-    else -- if there is no item to export
-
-      reaper.ShowMessageBox("No items to export", "Information",0)
-    
-    end -- if there is item to export
-
-  else -- there is no selected track
-
-    reaper.ShowMessageBox("Select at least one track or one item","Please",0)
-
-  end -- end if there is selected track
-
-  -- restoration
-  RestoreSelectedItems(init_sel_items)
-  RestoreSelectedTracks(init_sel_tracks)
-
-  reaper.PreventUIRefresh(10) -- can refresh again
+    reaper.ShowMessageBox("No items to export", "Information",0)
   
-end
+  end -- if there is item to export
+
+else -- there is no selected track
+
+  reaper.ShowMessageBox("Select at least one track or one item","Please",0)
+
+end -- end if there is selected track
+
+-- restoration
+RestoreSelectedItems(init_sel_items)
+
+reaper.PreventUIRefresh(-1) -- can refresh again
