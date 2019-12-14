@@ -4,7 +4,7 @@
  * Instructions: Select at least one item or one track with items that you want to export. You can select items accross multiple tracks. Note that the initial cursor position is very important 
  * Authors: X-Raym
  * Author URI: http://extremraym.com
- * Version: 1.4.1
+ * Version: 1.4.2
  * Repository: X-Raym/REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * File URI: 
@@ -17,6 +17,8 @@
 
 --[[
  * Change log:
+ * v1.4.2 (2019-12-14)
+  # Bug fix
  * v1.4.1 (2019-12-10)
   + Better save dialog window
  * v1.4 (2019-20-11)
@@ -250,7 +252,7 @@ if selected_tracks_count > 0 or selected_items_count > 0 then -- if there is a t
       
      if retval and file ~= '' then
       
-      filenamefull = file:gsub('.srt') .. ".srt" -- contextual separator based on user inputs and regex can be nice
+      filenamefull = file:gsub('.srt', '') .. ".srt" -- contextual separator based on user inputs and regex can be nice
       
       filenamefull = filenamefull:gsub(separator..separator, separator)
       
