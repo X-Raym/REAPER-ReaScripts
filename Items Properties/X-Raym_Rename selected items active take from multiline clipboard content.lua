@@ -9,11 +9,13 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166689
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
  
 --[[
  * Changelog:
+ * v1.0.2 (2019-12-14)
+  # Not enough lines bug fix
  * v1.0.1 (2019-08-29)
   # Return character bug fix
  * v1.0 (2018-09-01)
@@ -70,11 +72,13 @@ function main()
   for i, item in ipairs(init_sel_items) do
     take = reaper.GetActiveTake(item)
     if take then
-      name_out = names[i]:gsub("\r", "")
-      if name_out then
-        reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", name_out, true)
-      else
-        break
+      if names[i] then
+        name_out = names[i]:gsub("\r", "")
+        if name_out then
+          reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", name_out, true)
+        else
+          break
+        end
       end
     end
   end
