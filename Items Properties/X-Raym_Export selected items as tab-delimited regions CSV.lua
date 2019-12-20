@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2019-12-20)
+  # Break lines for notes
  * v1.1 (2019-12-20)
   + Notes and Names
  * v1.0 (2019-11-20)
@@ -69,8 +71,8 @@ function Main()
       color = rgbToHex(r, g, b)
     end
     -- [start time HH:MM:SS.F] [end time HH:MM:SS.F] [name]
-    name = name:gsub('\r\n', '<br>')
-    name = name:gsub('\n', '<br>')
+    notes = notes:gsub('\r\n', '<br>')
+    notes = notes:gsub('\n', '<br>')
     line = t .. i .. "\t\"" .. name .. "\"\t" .. iPosOut .. "\t" .. iRgnendOut .. "\t" .. duration .. "\t" .. color .. "\t\"" .. notes .. "\""
     export(f, line)
   end
