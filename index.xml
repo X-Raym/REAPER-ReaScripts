@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="213ca697ad874f46f3153bd26ab57a0fab2b96c0" name="X-Raym Scripts">
+<index version="1" commit="a6d6eec4b262a71cd8935dc28e0d8c82f5da48dd" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2391,6 +2391,10 @@
       <version name="1.0.2" author="X-Raym" time="2019-11-21T11:44:44Z">
         <changelog><![CDATA[# Header tab]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/90a6ba3959bca8dc2685f07dda82d98f68217d16/Regions/X-Raym_Export%20markers%20and%20regions%20as%20tab-delimited%20CSV%20file.lua</source>
+      </version>
+      <version name="1.0.3" author="X-Raym" time="2019-12-20T08:58:27Z">
+        <changelog><![CDATA[# Msg]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a6d6eec4b262a71cd8935dc28e0d8c82f5da48dd/Regions/X-Raym_Export%20markers%20and%20regions%20as%20tab-delimited%20CSV%20file.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Export markers as YouTube timecode for video description.lua" type="script" desc="Export markers as YouTube timecode for video description">
