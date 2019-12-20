@@ -10,14 +10,19 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2019-12-20)
+  + Notes and Names
  * v1.0 (2019-11-20)
   + Initial Release
 --]]
+function Msg(val)
+  reaper.ShowConsoleMsg(tostring(val).."\n")
+end
 
 function export(f, variable)
   f:write(variable)
@@ -32,7 +37,7 @@ function Main()
 
   local f = io.open(file, "w")
   
-  export(f, "#\tName\tStart\tEnd\tLength\tColor")
+  export(f, "#\tName\tStart\tEnd\tLength\tColor\tNotes")
   
   for i = 0, count_sel_items - 1 do
     item = reaper.GetSelectedMediaItem(0, i)
@@ -40,7 +45,12 @@ function Main()
     duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") --get length
     iRgnendOut = iPosOut + duration
     iColorOur = reaper.GetDisplayedMediaItemColor(item)
-    name = reaper.ULT_GetMediaItemNote( item )
+    name = ''
+    take = reaper.GetActiveTake(item)
+    if take then
+      name = reaper.GetTakeName(take)
+    end
+    notes = reaper.ULT_GetMediaItemNote( item )
     bIsrgnOut = true
     
     local t, duration
@@ -61,7 +71,7 @@ function Main()
     -- [start time HH:MM:SS.F] [end time HH:MM:SS.F] [name]
     name = name:gsub('\r\n', '<br>')
     name = name:gsub('\n', '<br>')
-    line = t .. i .. "\t\"" .. name .. "\"\t" .. iPosOut .. "\t" .. iRgnendOut .. "\t" .. duration .. "\t" .. color
+    line = t .. i .. "\t\"" .. name .. "\"\t" .. iPosOut .. "\t" .. iRgnendOut .. "\t" .. duration .. "\t" .. color .. "\t\"" .. notes .. "\""
     export(f, line)
   end
 
@@ -71,14 +81,15 @@ end
 
 
 if not reaper.JS_Dialog_BrowseForSaveFile then
-  Msg("Please install JS_ReaScript REAPER extension")
+  Msg("Please install JS_ReaScript REAPER extension, available in Reapack extension, under ReaTeam Extensions repository.")
 else
  
  count_sel_items = reaper.CountSelectedMediaItems(0)
  if count_sel_items then
-   retval, file = reaper.JS_Dialog_BrowseForSaveFile( "Save Markers and Regions", '', "", 'csv files (.csv)\0*.csv\0All Files (*.*)\0*.*\0' )
+   retval, file = reaper.JS_Dialog_BrowseForSaveFile( "Export items to CSV", '', "", 'csv files (.csv)\0*.csv\0All Files (*.*)\0*.*\0' )
   
    if retval and file ~= '' then
+    if not file:find('.csv') then file = file .. ".csv" end
     reaper.defer(Main)
    end
 
