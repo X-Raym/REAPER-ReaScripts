@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
 
 --[[
  * Changelog:
+ * v1.0.3 (2019-12-20)
+  # Msg
  * v1.0.2 (2019-11-20)
   # Header tab
  * v1.0.1 (2019-01-26)
@@ -22,6 +24,10 @@
  * v1.0 (2019-01-26)
   + Initial Release
 --]]
+
+function Msg(val)
+  reaper.ShowConsoleMsg(tostring(val).."\n")
+end
 
 function export(f, variable)
   f:write(variable)
@@ -70,7 +76,7 @@ end
 
 
 if not reaper.JS_Dialog_BrowseForSaveFile then
-  Msg("Please install JS_ReaScript REAPER extension")
+  Msg("Please install JS_ReaScript REAPER extension, available in Reapack extension, under ReaTeam Extensions repository.")
 else
 
  retval, file = reaper.JS_Dialog_BrowseForSaveFile( "Save Markers and Regions", '', "", 'csv files (.csv)\0*.csv\0All Files (*.*)\0*.*\0' )
