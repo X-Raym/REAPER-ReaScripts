@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="9bb9109bca4b9c7836a215e737cc63be8faf40d8" name="X-Raym Scripts">
+<index version="1" commit="e0ac0fbe072d3dc6f69c7964274aa2c2133cce8e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -143,6 +143,10 @@
       <version name="1.8" author="X-Raym" time="2020-01-07T17:30:46Z">
         <changelog><![CDATA[+ Tempo marker support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9bb9109bca4b9c7836a215e737cc63be8faf40d8/Envelopes/X-Raym_Set%20or%20Offset%20selected%20envelope%20points%20value.lua</source>
+      </version>
+      <version name="1.8.1" author="X-Raym" time="2020-01-07T17:34:17Z">
+        <changelog><![CDATA[# No debug]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e0ac0fbe072d3dc6f69c7964274aa2c2133cce8e/Envelopes/X-Raym_Set%20or%20Offset%20selected%20envelope%20points%20value.lua</source>
       </version>
     </reapack>
   </category>
