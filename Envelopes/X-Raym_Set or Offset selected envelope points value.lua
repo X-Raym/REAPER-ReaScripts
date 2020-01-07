@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
  * REAPER: 5.0 pre 9
  * Extensions: None
- * Version: 1.8
+ * Version: 1.8.1
 ]]
 
 --[[
  * Changelog:
+ * v1.8.1 (2020-01-07)
+  # No debug
  * v1.8 (2020-01-07)
   + Tempo marker support
  * v1.7 (2016-07-18)
@@ -263,7 +265,7 @@ function set_point_value()
 
         for i = 0, env_point_count - 1 do
           retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
-            reaper.ShowConsoleMsg(valueOut .. "\n")
+            --reaper.ShowConsoleMsg(valueOut .. "\n")
                     if set == true then
                       valueOut = 0
                     end
