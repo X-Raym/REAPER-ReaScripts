@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e0ac0fbe072d3dc6f69c7964274aa2c2133cce8e" name="X-Raym Scripts">
+<index version="1" commit="df307778953f9c3df2e8744070bec42a47cdaec4" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1657,6 +1657,10 @@
       <version name="1.0.2" author="X-Raym" time="2019-12-14T14:02:54Z">
         <changelog><![CDATA[# Not enough lines bug fix]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b7d314210bdb7ea7718d4cdf1a13c985f5de8ec6/Items%20Properties/X-Raym_Rename%20selected%20items%20active%20take%20from%20multiline%20clipboard%20content.lua</source>
+      </version>
+      <version name="1.0.3" author="X-Raym" time="2020-01-11T01:21:09Z">
+        <changelog><![CDATA[# Bug fix if clipboard is not string]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/df307778953f9c3df2e8744070bec42a47cdaec4/Items%20Properties/X-Raym_Rename%20selected%20items%20active%20take%20from%20multiline%20clipboard%20content.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Rename selected items active takes from REAPER MIDI notes to Kontakt notes.lua" type="script">
