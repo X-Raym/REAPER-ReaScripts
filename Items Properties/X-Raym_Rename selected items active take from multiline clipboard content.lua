@@ -9,11 +9,13 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166689
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
  
 --[[
  * Changelog:
+ * v1.0.3 (2020-01-11)
+  # Bug fix if clipboard is not string
  * v1.0.2 (2019-12-14)
   # Not enough lines bug fix
  * v1.0.1 (2019-08-29)
@@ -103,7 +105,7 @@ if count_sel_items > 0 then
     clipboard = reaper.CF_GetClipboardBig('')
   end
 
-  if clipboard ~= "" then
+  if clipboard and clipboard ~= "" then
   
     names_csv = clipboard
     
