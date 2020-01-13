@@ -4,7 +4,7 @@
  * Instructions: Select at least one item or one track with items that you want to export. You can select items accross multiple tracks. Note that the initial cursor position is very important 
  * Authors: X-Raym
  * Author URI: http://extremraym.com
- * Version: 1.4.1
+ * Version: 1.4.2
  * Repository: X-Raym/REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * File URI: 
@@ -17,6 +17,9 @@
 
 --[[
  * Change log:
+ * v1.4.2 (2020-01-07)
+  # Bug fix
+  # Fixed index
  * v1.4.1 (2019-12-10)
   + Better save dialog window
  * v1.4 (2019-20-11)
@@ -151,7 +154,7 @@ function export_txt(file)
   for i, item in ipairs( items ) do
 
     -- write item number 
-    f:write(i+1 .. "\n" .. item.color_hex .. "\n")
+    f:write(i .. "\n" .. item.color_hex .. "\n")
     
     -- write start and end   00:04:22,670 --> 00:04:26,670
     str_start = tosrtformat(item.pos_start)
@@ -249,7 +252,7 @@ if selected_tracks_count > 0 or selected_items_count > 0 then -- if there is a t
       
      if retval and file ~= '' then
       
-      filenamefull = file:gsub('.srt') .. ".srt" -- contextual separator based on user inputs and regex can be nice
+      filenamefull = file:gsub('.srt', '') .. ".srt" -- contextual separator based on user inputs and regex can be nice
       
       filenamefull = filenamefull:gsub(separator..separator, separator)
       
