@@ -1,6 +1,7 @@
 --[[
  * ReaScript Name: Set or offset selected takes rate by semitone adjusting item length and fades and clearing preserve pitch
  * Description: Contrary to native actions, this one adjust fades. It also force non preserving pitch.
+ * Screenshot: https://i.imgur.com/2gGxOoH.gifv
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
