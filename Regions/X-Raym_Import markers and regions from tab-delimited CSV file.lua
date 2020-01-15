@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2020-01-15)
+  + Import at cursor position option
  * v1.0 (2019-01-26)
   + Initial Release
 --]]
@@ -25,6 +27,7 @@
 
 console = true -- true/false: display debug messages in the console
 sep = "\t" -- default sep
+popup = true
 
 col_pos = 3 -- Position column index in the CSV
 col_pos_end = 4 -- Length column index in the CS
@@ -152,7 +155,7 @@ function main()
       end
       
       if pos and pos_end and name and color then
-        reaper.AddProjectMarker2( 0, is_region, pos, pos_end, name, -1, color )
+        reaper.AddProjectMarker2( 0, is_region, pos + cur_pos, pos_end + cur_pos, name, -1, color )
       end
 
     end
@@ -173,6 +176,15 @@ if retval then
   reaper.ClearConsole()
 
   read_lines(filetxt)
+  
+  cur_pos = 0
+  
+  if popup and reaper.GetCursorPosition() > 0 then
+    from_cur_pos = reaper.MB("Import from Edit Cursor position?", "Option", 1)
+    if from_cur_pos == 1 then
+      cur_pos = reaper.GetCursorPosition()
+    end
+  end
   
   -- reaper.Main_OnCommand( reaper.NamedCommandLookup( "_SWSMARKERLIST10" ), -1) -- SWS: Delete all regions
 
