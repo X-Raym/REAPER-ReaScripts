@@ -10,11 +10,15 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2 (2020-16-01)
+  + Region support
+  # Fix davinci colors
+  # Add new davinci colors
  * v1.1 (2019-02-11)
   + Marker
   + User Input
@@ -174,11 +178,21 @@ color_names = {}
 color_names[9] = "Red"
 color_names[39] = "Yellow"
 color_names[120] = "Green"
-color_names[180] = "Cyan"
-color_names[206] = "Blue"
+color_names[181] = "Cyan"
+color_names[206] = "Blue" -- 
 color_names[271] = "Purple"
-color_names[317] = "Pink"
+color_names[318] = "Pink"
 color_names[369] = "Red"
+
+color_names[333] = "Fuchsia"
+color_names[345] = "Rose"
+color_names[256] = "Lavender"
+color_names[195] = "Sky"
+color_names[89] = "Mint"
+color_names[65] = "Lemon"
+color_names[30] = "Sand"
+color_names[20] = "Cocoa"
+color_names[30] = "Cream"
 
 function minTableKey( array, key )
   local min = math.huge
@@ -195,10 +209,11 @@ end
 function GetClosestColorNameByHue( hue )
   local name = ''
   local diffs = {}
-  for i, v in pairs(color_names) do
-    diffs[i] = math.abs( i - hue )
+  for k, v in pairs(color_names) do
+    diffs[k] = math.abs( k - hue )
   end
   local k, min = minTableKey(diffs)
+  a = diffs
   return color_names[k]
 end
 
@@ -224,29 +239,37 @@ function create(f)
   
   ts_start, ts_end = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)  
   
-  i=0
-  repeat
+  retval, num_markers, num_regions = reaper.CountProjectMarkers( 0 )
+  for i=0, retval - 1 do
     iRetval, bIsrgnOut, iPosOut, iRgnendOut, name, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
     if iRetval >= 1 then
-      if bIsrgnOut == false and iPosOut - ts_start > 0 then
-        if ts_end ~= 0 and iPosOut > ts_end then break end
+      if iPosOut - ts_start > 0 then -- if marker region is after time selection start
+        if ts_end ~= 0 and iPosOut > ts_end then break end -- if time selection and marker region_end is after
         start_time = "0" .. reaper.format_timestr_pos(iPosOut + vars.offset - ts_start, "",5)
         start_time_1 = "0" .. reaper.format_timestr_pos(iPosOut + vars.offset + frame_duration - ts_start, "",5)
         end_time =  reaper.format_timestr_pos(iRgnendOut, "",5)
         
+        duration = iRgnendOut - iPosOut
+        duration_frames = 1
+        if bIsrgnOut then
+          duration_frames = math.floor( (duration + frame_duration / 2)/ frame_duration )
+        end
+        
         local h, s, l = rgbToHsl( reaper.ColorFromNative(iColorOur) )
-        color_name = GetClosestColorNameByHue( h * 255 )
+        acolor_RGB = { reaper.ColorFromNative(iColorOur)}
+        acolor_HSL = {h * 360, s * 255, l * 255} -- 241 ?
+        color_name = GetClosestColorNameByHue(acolor_HSL[1] )
         -- [start time HH:MM:SS.F] [end time HH:MM:SS.F] [name]
         -- 001  001      V     C        01:00:00:00 01:00:00:01 01:00:00:00 01:00:00:01  
         -- |C:ResolveColorBlue |M:Marker 1 |D:1
         if name == "" then name = "Marker " .. i+1 end
-        line = i+1 .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. start_time .. " " .. start_time_1 .. "  " .. "\n |C:ResolveColor" .. color_name .. " |M:" .. name .. " |D:1\n"
+        line = i+1 .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. start_time .. " " .. start_time_1 .. "  " .. "\n |C:ResolveColor" .. color_name .. " |M:" .. name .. " |D:" .. duration_frames .. "\n"
         --line = i .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. start_time .. " " .. start_time_1 .. "  " .. "\n |C:ResolveColorBlue |M:" .. name .. " |D:1\n"
         export(f, line)
       end
       i = i+1
     end
-  until iRetval == 0
+  end
   
   export(f, "\n")
 
