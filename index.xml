@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e4fdc23344679783058488e0d0ec3fa970edfc3c" name="X-Raym Scripts">
+<index version="1" commit="852c377ed15202403ed30084ade9479ef74a1306" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1784,6 +1784,9 @@
       </version>
     </reapack>
     <reapack name="X-Raym_Set or offset selected takes rate by semitone adjusting item length and fades and clearing preserve pitch.lua" type="script" desc="Set or offset selected takes rate by semitone adjusting item length and fades and clearing preserve pitch">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/2gGxOoH.gifv</link>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2020-01-14T14:28:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/42ea785e67d1b4934929aac43583188c2cf079b9/Items%20Properties/X-Raym_Set%20or%20offset%20selected%20takes%20rate%20by%20semitone%20adjusting%20item%20length%20and%20fades%20and%20clearing%20preserve%20pitch.lua</source>
@@ -2403,6 +2406,12 @@
 + From Time Selection start if any
 + Better file handling]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5b3792358cdd53a9f04bb016ed380c18bdf65a31/Regions/X-Raym_Export%20markers%20and%20regions%20as%20Davinci%20Resolve%20EDL%20file.lua</source>
+      </version>
+      <version name="1.2" author="X-Raym" time="2020-01-16T21:13:45Z">
+        <changelog><![CDATA[+ Region support
+# Fix davinci colors
+# Add new davinci colors]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/852c377ed15202403ed30084ade9479ef74a1306/Regions/X-Raym_Export%20markers%20and%20regions%20as%20Davinci%20Resolve%20EDL%20file.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Export markers and regions as tab-delimited CSV file.lua" type="script" desc="Export markers and regions from tab-delimited CSV file">
