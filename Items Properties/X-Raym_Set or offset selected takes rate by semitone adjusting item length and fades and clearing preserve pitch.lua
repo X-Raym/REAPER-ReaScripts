@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-21-01)
+  # Fade out fix
  * v1.0 (2020-14-01)
   + Initial Release
 --]]
@@ -54,7 +56,7 @@ function main()
         original_len = item_length * original_rate -- consider that original len is what item 1 should be
         reaper.SetMediaItemInfo_Value( item, 'D_LENGTH', original_len / new_rate)
         reaper.SetMediaItemInfo_Value( item, "D_FADEINLEN", item_fade_in  / rate)
-        reaper.SetMediaItemInfo_Value( item, "D_FADEOUTLEN", item_fade_in / rate)
+        reaper.SetMediaItemInfo_Value( item, "D_FADEOUTLEN", item_fade_out / rate)
       else
         original_rate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
         new_rate = rate * original_rate
@@ -62,7 +64,7 @@ function main()
         original_len = item_length * original_rate
         reaper.SetMediaItemInfo_Value( item, 'D_LENGTH', original_len / new_rate)
         reaper.SetMediaItemInfo_Value( item, "D_FADEINLEN", item_fade_in  / rate)
-        reaper.SetMediaItemInfo_Value( item, "D_FADEOUTLEN", item_fade_in / rate)
+        reaper.SetMediaItemInfo_Value( item, "D_FADEOUTLEN", item_fade_out / rate)
       end
 
     end -- if take
