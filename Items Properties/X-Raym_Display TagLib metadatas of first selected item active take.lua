@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1534071
  * REAPER: 5.0 pre 36
  * Extensions: SWS/S&M 2.7.1 #0
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2020-01-30)
+  + Track number support
  * v1.0 (2015-06-12)
   + Initial Release
 --]]
@@ -24,13 +26,24 @@
 font_size = 20
 font_name = "Arial"
 window_w = 400
-window_h = 250
+window_h = 270
 marge = 20
 marge2 = 100
 line_height = 25
 
+local function Window_At_Center (w, h)
+  
+  local l, t, r, b = 0, 0, w, h
+  
+  local __, __, screen_w, screen_h = reaper.my_getViewport(l, t, r, b, l, t, r, b, 1)
+  
+  local x, y = (screen_w - w) / 2, (screen_h - h) / 2
+  
+  gfx.init("X-Raym's TagLib Viewer" , w, h, 0, x, y)
+
+end
 function init(window_w, window_h)
-  gfx.init("X-Raym's TagLib Viewer" , window_w, window_h)
+  Window_At_Center(window_w, window_h)
   gfx.setfont(1, font_name, font_size, 'b')
   gfx.a = 1
   gfx.r = 1
@@ -59,6 +72,7 @@ function run()
       retval_comment, tag_comment = reaper.SNM_ReadMediaFileTag(fn, "comment", "")
       retval_title, tag_title = reaper.SNM_ReadMediaFileTag(fn, "title", "")
       retval_year, tag_year = reaper.SNM_ReadMediaFileTag(fn, "year", "")
+      retval_number, tag_number = reaper.SNM_ReadMediaFileTag(fn, "track", "")
       
       gfx.x = marge
       
@@ -66,18 +80,18 @@ function run()
       gfx.r = 255/255
       gfx.g = 255/255
       gfx.b = 16/255
-	  
-	  line = line + 1
+    
+    line = line + 1
       gfx.x = marge
       gfx.y = line * line_height
       gfx.printf("Take: ")
-	  
-	  line = line + 1
+    
+    line = line + 1
       gfx.x = marge
       gfx.y = line * line_height
       gfx.printf("Source: ")
-	  
-	  gfx.r = 16/255
+    
+    gfx.r = 16/255
       gfx.g = 255/255
       gfx.b = 255/255
       
@@ -111,6 +125,11 @@ function run()
       gfx.y = line * line_height
       gfx.printf("Comment: ")
       
+      line = line + 1
+      gfx.x = marge
+      gfx.y = line * line_height
+      gfx.printf("Number: ")
+      
       line = 0
       gfx.r = 255/255
       gfx.g = 255/255
@@ -120,13 +139,13 @@ function run()
       gfx.x = marge + marge2
       gfx.y = line * line_height
       gfx.printf(take_name)
-	  
-	  line = line + 1
+    
+    line = line + 1
       gfx.x = marge + marge2
       gfx.y = line * line_height
       gfx.printf(fn)
-	  
-	  line = line + 1
+    
+    line = line + 1
       gfx.x = marge + marge2
       gfx.y = line * line_height
       gfx.printf(tag_title)
@@ -154,9 +173,14 @@ function run()
       line = line + 1
       gfx.x = marge + marge2
       gfx.y = line * line_height
-      gfx.printf(tag_comment)          
+      gfx.printf(tag_comment)         
+      
+      line = line + 1
+      gfx.x = marge + marge2
+      gfx.y = line * line_height
+      gfx.printf(tag_number)    
   
-	end
+  end
   end  
   
   gfx.update()

@@ -11,79 +11,40 @@
  * Forum Thread: Script: Scripts: TagLib (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1534071
  * REAPER: 5.0 pre 15
- * Extensions: None
- * Version: 1.0
+ * Extensions: SWS
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2020-01-30)
+	+ track number support
  * v1.0 (2015-06-13)
 	+ Initial Release
 --]]
-
---[[ ----- DEBUGGING ====>
-local info = debug.getinfo(1,'S');
-
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
-end
-
-require("X-Raym_Functions - console debug messages")
-
-
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-time_os = reaper.time_precise()
-
-msg_clean()
-]]-- <==== DEBUGGING -----
 
 function msg(var)
 	reaper.ShowConsoleMsg(tostring(var).."\n")
 end
 
---[[offline_items = {}
-function StoreOfflineItems()
-	for i = 0,  reaper.CountMediaItems(0) - 1 do
-		local item = reaper.GetMediaItem(0,i)
-		table.insert(offline_items, item)
-	end
-end
-
-function RestoreOfflineItems()
-	reaper.Main_OnCommand(40101, 0) -- set all media online
-	for i = 1, #offline_items do
-		reaper.SetMediaItemInfo_Value(offline_items[i], ,
-	end
-end
-]]--
-
 function main(number) -- local (i, j, item, take, track)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 	
-	--StoreOfflineItems()
-	
 	reaper.Main_OnCommand(40100, 0) -- set all media offline
 	
-	output_csv = output_csv:gsub(", ", "¤¤¤")
+	output_csv = output_csv:gsub(", ", "Ä¤Â¤")
 	
 	-- PARSE THE STRING
-	tag_title, tag_artist, tag_album, tag_year, tag_genre, tag_comment = output_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+	tag_title, tag_artist, tag_album, tag_year, tag_genre, tag_comment, tag_number = output_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
 	
-	if tag_title ~= nil then tag_title = tag_title:gsub("¤¤¤", ", ") end
-	if tag_artist ~= nil then tag_artist = tag_artist:gsub("¤¤¤", ", ") end
-	if tag_album ~= nil then tag_album = tag_album:gsub("¤¤¤", ", ") end
-	if tag_year ~= nil then tag_year = tag_year:gsub("¤¤¤", ", ") end
-	if tag_genre ~= nil then tag_genre = tag_genre:gsub("¤¤¤", ", ") end
-	if tag_comment ~= nil then tag_comment = tag_comment:gsub("¤¤¤", ", ") end
+	if tag_title ~= nil then tag_title = tag_title:gsub("Ä¤Â¤", ", ") end
+	if tag_artist ~= nil then tag_artist = tag_artist:gsub("Ä¤Â¤", ", ") end
+	if tag_album ~= nil then tag_album = tag_album:gsub("Ä¤Â¤", ", ") end
+	if tag_year ~= nil then tag_year = tag_year:gsub("Ä¤Â¤", ", ") end
+	if tag_genre ~= nil then tag_genre = tag_genre:gsub("Ä¤Â¤", ", ") end
+	if tag_comment ~= nil then tag_comment = tag_comment:gsub("Ä¤Â¤", ", ") end
+	if tag_number ~= nil then tag_number = tag_number:gsub("Ä¤Â¤", ", ") end
 
 	for i = 0, sel_items_count-1  do
 		
@@ -106,6 +67,7 @@ function main(number) -- local (i, j, item, take, track)
 			if tag_year == "/del" then tag_year = "" end
 			if tag_genre == "/del" then tag_genre = "" end
 			if tag_comment == "/del" then tag_comment = "" end
+			if tag_number == "/del" then tag_number = "" end
 			
 			if tag_title == "/notes" then tag_title = item_notes end
 			if tag_artist == "/notes" then tag_artist = item_notes end
@@ -127,6 +89,7 @@ function main(number) -- local (i, j, item, take, track)
 			if tag_year == nil or tag_year == "/keep" then retval_year, tag_year = reaper.SNM_ReadMediaFileTag(fn, "year", "") end
 			if tag_genre == nil or tag_genre == "/keep" then retval_genre, tag_genre = reaper.SNM_ReadMediaFileTag(fn, "genre", "") end
 			if tag_comment == nil or tag_comment == "/keep" then retval_comment, tag_comment = reaper.SNM_ReadMediaFileTag(fn, "comment", "") end
+			if tag_number == nil or tag_number == "/keep" then retval_number, tag_number = reaper.SNM_ReadMediaFileTag(fn, "track", "") end
 			
 			--SET INFOS
 			reaper.Main_OnCommand(40440, 0) -- set offline
@@ -137,6 +100,7 @@ function main(number) -- local (i, j, item, take, track)
 			reaper.SNM_TagMediaFile(fn, "year", tag_year)
 			reaper.SNM_TagMediaFile(fn, "genre", tag_genre)
 			reaper.SNM_TagMediaFile(fn, "comment", tag_comment)
+			reaper.SNM_TagMediaFile(fn, "track", tag_number)
 			reaper.Main_OnCommand(40439, 0) -- set online
 			reaper.Main_OnCommand(40441, 0) -- rebuild peak
 			
@@ -154,7 +118,7 @@ sel_items_count = reaper.CountSelectedMediaItems(0)
 
 if sel_items_count > 0 then
 	
-	retval, output_csv = reaper.GetUserInputs("Set TagLib Metadatas", 6, "Title: (/del for deletion),Artist: (/name for take name),Album: (/notes for item notes),Year: (/keep for keeping original),Genre:,Comment:", "/keep,/keep,/keep,/keep,/keep,/keep") 
+	retval, output_csv = reaper.GetUserInputs("Set TagLib Metadatas", 7, "Title: (/del for deletion),Artist: (/name for take name),Album: (/notes for item notes),Year: (/keep for keeping original),Genre:,Comment:,Number:", "/keep,/keep,/keep,/keep,/keep,/keep,/keep") 
 
 	if retval and output ~= "" then
 
