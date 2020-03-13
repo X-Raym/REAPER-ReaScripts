@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="630e1ea2c51cc21b2a8be0fb40b43ed9cceb2526" name="X-Raym Scripts">
+<index version="1" commit="77289c616097c45cd60d3158a1412dae649c5315" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3757,6 +3757,10 @@
       <version name="1.0.4" author="X-Raym" time="2019-11-05T22:58:47Z">
         <changelog><![CDATA[# More flexible page pattern]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/359e83eba04703f1f39af0e6a0019e624dd23fca/Various/X-Raym_Import%20UltraStar%20txt.lua</source>
+      </version>
+      <version name="1.0.5" author="X-Raym" time="2020-03-13T17:41:13Z">
+        <changelog><![CDATA[# Fix Marker beat error if invalid line]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/77289c616097c45cd60d3158a1412dae649c5315/Various/X-Raym_Import%20UltraStar%20txt.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Insert UltraStar lyrics from project to items MIDI notes on first selected track.lua" type="script" desc="Insert UltraStar lyrics from project to items MIDI notes on first selected track">
