@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.4
+ * Version: 1.0.5
 --]]
 
 --[[
  * Changelog:
+ * v1.0.5 (2019-05-11)
+  # Fix Marker beat error if invalid line
  * v1.0.4 (2019-05-11)
   # More flexible page pattern
  * v1.0.3 (2019-01-03)
@@ -124,11 +126,15 @@ for i, line in ipairs( lines ) do -- redundant but useful
       reaper.MIDI_InsertNote( take, false, false, startppqpos, endppqpos, chan, pitch, 100, true )
       reaper.MIDI_InsertTextSysexEvt( take, false, false, startppqpos, 5, lyric )
     elseif char == "-" then -- Add page
-      local beat = line:match(" ?-?(.+)")
+      local beat = line:match(" ?-?(%d+)") -- Note: this support [- XX] but not [- XX YY] where
       beat = tonumber(beat)
-      local beat_pos = reaper.TimeMap2_QNToTime( 0, beat ) / 4 -- / 4 because UltraStar needs it
-      reaper.AddProjectMarker( 0, 0, beat_pos + gap, 0, "", -1 )
-      last_beat = beat_pos
+      if beat then
+        local beat_pos = reaper.TimeMap2_QNToTime( 0, beat ) / 4 -- / 4 because UltraStar needs it
+        reaper.AddProjectMarker( 0, 0, beat_pos + gap, 0, "", -1 )
+        last_beat = beat_pos
+      else
+        Msg("Error in line :" .. i)
+      end
     else
     end
   end
