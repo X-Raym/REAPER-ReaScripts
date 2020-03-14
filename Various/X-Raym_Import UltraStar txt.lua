@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.5
+ * Version: 1.0.6
 --]]
 
 --[[
  * Changelog:
+ * v1.0.6 (2020-03-14)
+  + Override project notes with lyrics
  * v1.0.5 (2019-05-11)
   # Fix Marker beat error if invalid line
  * v1.0.4 (2019-05-11)
@@ -91,7 +93,8 @@ take = reaper.GetActiveTake( item )
 local retval, take_name = reaper.GetSetMediaItemTakeInfo_String( take, "P_NAME", "Lyrics", true )
 
 last_beat = 0
-
+lyrics = {}
+lyric_line = ""
 for i, line in ipairs( lines ) do -- redundant but useful
   local line = line:gsub(string.char(0), "")
   line = line:gsub("\n", "")
@@ -118,6 +121,7 @@ for i, line in ipairs( lines ) do -- redundant but useful
       local chan
       if char == "*" then chan = 1 elseif char == "F" then chan = 2 else chan = 0 end
       local prefix, beat, length, pitch, lyric = line:match('(%S) (%S+) (%S+) (%S+)%s?(.+)')
+      lyric_line = lyric_line .. lyric
       pitch = tonumber(pitch) + 60
       beat = reaper.TimeMap2_QNToTime( 0, tonumber( beat ) ) / 4 -- / 4 because UltraStar needs it
       length = reaper.TimeMap2_QNToTime( 0, tonumber(length) ) / 4 -- / 4 because UltraStar needs it
@@ -126,6 +130,8 @@ for i, line in ipairs( lines ) do -- redundant but useful
       reaper.MIDI_InsertNote( take, false, false, startppqpos, endppqpos, chan, pitch, 100, true )
       reaper.MIDI_InsertTextSysexEvt( take, false, false, startppqpos, 5, lyric )
     elseif char == "-" then -- Add page
+      table.insert( lyrics, lyric_line)
+      lyric_line = ""
       local beat = line:match(" ?-?(%d+)") -- Note: this support [- XX] but not [- XX YY] where
       beat = tonumber(beat)
       if beat then
@@ -139,6 +145,8 @@ for i, line in ipairs( lines ) do -- redundant but useful
     end
   end
 end
+
+retval = reaper.GetSetProjectNotes( 0, true, table.concat(lyrics, "\r\n") )
 
 reaper.SetMediaItemInfo_Value( item, "D_POSITION", gap )
 reaper.SetMediaItemInfo_Value( item, "D_LENGTH", last_beat )
