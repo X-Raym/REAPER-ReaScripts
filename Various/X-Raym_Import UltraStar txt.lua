@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.6
+ * Version: 1.0.7
 --]]
 
 --[[
  * Changelog:
+ * v1.0.7 (2020-03-15)
+  + Correction of lyrics format in project notes
  * v1.0.6 (2020-03-14)
   + Override project notes with lyrics
  * v1.0.5 (2019-05-11)
@@ -121,7 +123,7 @@ for i, line in ipairs( lines ) do -- redundant but useful
       local chan
       if char == "*" then chan = 1 elseif char == "F" then chan = 2 else chan = 0 end
       local prefix, beat, length, pitch, lyric = line:match('(%S) (%S+) (%S+) (%S+)%s?(.+)')
-      lyric_line = lyric_line .. lyric
+      lyric_line = lyric_line .. "+" .. lyric
       pitch = tonumber(pitch) + 60
       beat = reaper.TimeMap2_QNToTime( 0, tonumber( beat ) ) / 4 -- / 4 because UltraStar needs it
       length = reaper.TimeMap2_QNToTime( 0, tonumber(length) ) / 4 -- / 4 because UltraStar needs it
@@ -146,7 +148,10 @@ for i, line in ipairs( lines ) do -- redundant but useful
   end
 end
 
-retval = reaper.GetSetProjectNotes( 0, true, table.concat(lyrics, "\r\n") )
+for i, lyric in ipairs( lyrics ) do
+  lyrics[i] = lyric:sub(2, -1)
+end
+retval = reaper.GetSetProjectNotes( 0, true, string.gsub(table.concat(lyrics, "\r\n"), "+ ", " " ) )
 
 reaper.SetMediaItemInfo_Value( item, "D_POSITION", gap )
 reaper.SetMediaItemInfo_Value( item, "D_LENGTH", last_beat )
