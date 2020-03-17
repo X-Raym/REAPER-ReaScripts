@@ -4,7 +4,7 @@
  * Instructions: Select at least one item or one track with items that you want to export. You can select items accross multiple tracks. Note that the initial cursor position is very important 
  * Authors: X-Raym
  * Author URI: http://extremraym.com
- * Version: 1.4.2
+ * Version: 1.4.3
  * Repository: X-Raym/REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * File URI: 
@@ -17,6 +17,8 @@
 
 --[[
  * Change log:
+ * v1.4.3 (2020-03-17)
+  # Bug fix
  * v1.4.2 (2019-12-14)
   # Bug fix
  * v1.4.1 (2019-12-10)
@@ -56,6 +58,11 @@
 
 ]]
 
+function Msg( val )
+  reaper.ShowConsoleMsg(tostring(val) .. "\n")
+end
+
+reaper.ClearConsole()
 ------------------- INIT --------------------------------
 
 
@@ -242,6 +249,7 @@ if selected_tracks_count > 0 or selected_items_count > 0 then -- if there is a t
     retval, project_path_name = reaper.EnumProjects(-1, "")
     default_path = GetPath(project_path_name, separator) -- default folder export is project path
     default_filename = project_path_name:gsub(".RPP", "") .. " - " .. track_label -- default file name is track name
+    if not default_path then default_path = "" end
     defaultvals_csv = default_path .."," .. default_filename:gsub(default_path, "") --default values
 
     if not reaper.JS_Dialog_BrowseForSaveFile then
