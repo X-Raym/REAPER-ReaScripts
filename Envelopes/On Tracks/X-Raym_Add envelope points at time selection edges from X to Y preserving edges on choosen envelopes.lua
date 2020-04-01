@@ -13,13 +13,15 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.6.2
+ * Version: 1.6.3
 --]]
 
 --[[
  * Changelog:
+ * v1.6.3 (2020-04-10)
+   # FaderScaling fixes
  * v1.6.2 (2018-04-10)
- 	# FaderScaling support
+   # FaderScaling support
  * v1.6.1 (2016-03-02)
    # Delete points in area
  * v1.6 (2016-03-01)
@@ -253,26 +255,6 @@ function GetEnvelopeScaleType(envelopeName)
 
 end
 
-
--- Update the TCP envelope value at edit cursor position
-function HedaRedrawHack()
-  reaper.PreventUIRefresh(1)
-
-  track=reaper.GetTrack(0,0)
-
-  trackparam=reaper.GetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT")
-  if trackparam==0 then
-    reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 1)
-  else
-    reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 0)
-  end
-  reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", trackparam)
-
-  reaper.PreventUIRefresh(-1)
-
-end
-
-
 -------------------END OF ENVELOPE FUNCTIONS
 
 
@@ -292,7 +274,7 @@ function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, insi
     if faderScaling == true then
       minValue = reaper.ScaleToEnvelopeMode(1, minValue)
       maxValue = reaper.ScaleToEnvelopeMode(1, maxValue)
-     centerValue = reaper.ScaleToEnvelopeMode(1, centerValue)
+      centerValue = reaper.ScaleToEnvelopeMode(1, centerValue)
     end
 
     env_points_count = reaper.CountEnvelopePoints(env)
@@ -301,8 +283,8 @@ function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, insi
     UnselectAllEnvelopePoints(env, env_points_count)
 
     -- CLEAN TIME SELECTION
-	if start_time_offset < start_time then start_clean = start_time_offset else start_clean = start_time end
-	if end_time_offset > end_time then end_clean = end_time_offset else end_clean = end_time end
+  if start_time_offset < start_time then start_clean = start_time_offset else start_clean = start_time end
+  if end_time_offset > end_time then end_clean = end_time_offset else end_clean = end_time end
     first_start_val, last_start_val, first_end_val, last_end_val = GetDeleteTimeLoopPoints(env, env_points_count, start_clean, end_clean)
 
 
@@ -315,14 +297,14 @@ function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, insi
     valueOut_X = valueIn_X
     valueOut_Y = valueIn_Y
 
-	if valueIn_X == "min"    then valueOut_X = minValue    end
-	if valueIn_X == "max"    then valueOut_X = maxValue    end
+  if valueIn_X == "min"    then valueOut_X = minValue    end
+  if valueIn_X == "max"    then valueOut_X = maxValue    end
     if valueIn_X == "center" then valueOut_X = centerValue end
-	if valueIn_X == "cursor" then valueOut_X = cursor_val  end
-	if valueIn_Y == "min"    then valueOut_Y = minValue    end
-	if valueIn_Y == "max"    then valueOut_Y = maxValue    end
+  if valueIn_X == "cursor" then valueOut_X = cursor_val  end
+  if valueIn_Y == "min"    then valueOut_Y = minValue    end
+  if valueIn_Y == "max"    then valueOut_Y = maxValue    end
     if valueIn_Y == "center" then valueOut_Y = centerValue end
-	if valueIn_Y == "cursor" then valueOut_Y = cursor_val  end
+  if valueIn_Y == "cursor" then valueOut_Y = cursor_val  end
 
     -- SANITIZE VALUE X & Y
     if valueOut_X < minValue then valueOut_X = minValue end
@@ -331,28 +313,28 @@ function AddPoints(env, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X, insi
     if valueOut_Y > maxValue then valueOut_Y = maxValue end
 
     -- FADER SCALE
-    if env_scale == 1 then valueIn_X = reaper.ScaleToEnvelopeMode(1, valueOut_X) end
-    if env_scale == 1 then valueIn_Y = reaper.ScaleToEnvelopeMode(1, valueOut_Y) end
+    if faderScaling then valueOut_X = reaper.ScaleToEnvelopeMode(1, valueOut_X) end
+    if faderScaling then valueOut_Y = reaper.ScaleToEnvelopeMode(1, valueOut_Y) end
 
-	    -- INSERT RIGHT POINT
-	if inside_X == 0 then
+      -- INSERT RIGHT POINT
+  if inside_X == 0 then
       reaper.InsertEnvelopePoint(env, start_time_offset, first_start_val, 0, 0, true, true) -- INSERT startLoop point
-	  reaper.InsertEnvelopePoint(env, start_time, valueOut_X, 0, 0, true, true) -- INSERT X point
-	else
-	  reaper.InsertEnvelopePoint(env, start_time_offset, valueOut_X, 0, 0, true, true) -- INSERT startLoop point
-	  reaper.InsertEnvelopePoint(env, start_time, first_start_val, 0, 0, true, true) -- INSERT X point
-	end
+    reaper.InsertEnvelopePoint(env, start_time, valueOut_X, 0, 0, true, true) -- INSERT X point
+  else
+    reaper.InsertEnvelopePoint(env, start_time_offset, valueOut_X, 0, 0, true, true) -- INSERT startLoop point
+    reaper.InsertEnvelopePoint(env, start_time, first_start_val, 0, 0, true, true) -- INSERT X point
+  end
 
     -- INSERT RIGHT POINT
-	if inside_Y == 0 then
-	  reaper.InsertEnvelopePoint(env, end_time_offset, last_end_val, 0, 0, true, true) -- INSERT startLoop point
-	  reaper.InsertEnvelopePoint(env, end_time, valueOut_Y, 0, 0, true, true) -- INSERT Y point
-	else
-	  reaper.InsertEnvelopePoint(env, end_time_offset, valueOut_Y, 0, 0, true, true) -- INSERT startLoop point
-	  reaper.InsertEnvelopePoint(env, end_time, last_end_val, 0, 0, true, true) -- INSERT Y point
-	end
+  if inside_Y == 0 then
+    reaper.InsertEnvelopePoint(env, end_time_offset, last_end_val, 0, 0, true, true) -- INSERT startLoop point
+    reaper.InsertEnvelopePoint(env, end_time, valueOut_Y, 0, 0, true, true) -- INSERT Y point
+  else
+    reaper.InsertEnvelopePoint(env, end_time_offset, valueOut_Y, 0, 0, true, true) -- INSERT startLoop point
+    reaper.InsertEnvelopePoint(env, end_time, last_end_val, 0, 0, true, true) -- INSERT Y point
+  end
 
-	-- RELEASE ENVELOPE
+  -- RELEASE ENVELOPE
     reaper.BR_EnvFree(br_env, 0)
     reaper.Envelope_SortPoints(env)
 
@@ -373,16 +355,16 @@ function main(dest_env_name, valueIn_X, valueIn_Y, offset_X, offset_Y, inside_X,
 
   -- OFFSETS
   if inside_X == 0 then
-	start_time_offset = start_time - offset_X
+  start_time_offset = start_time - offset_X
   else
-	start_time_offset = start_time + offset_X
+  start_time_offset = start_time + offset_X
   end
 
   if inside_Y == 0 then
-	end_time_offset = end_time + offset_Y
+  end_time_offset = end_time + offset_Y
   else
-	end_time_offset = end_time - offset_Y
-	if end_time_offset < start_time_offset then end_time_offset = start_time_offset end
+  end_time_offset = end_time - offset_Y
+  if end_time_offset < start_time_offset then end_time_offset = start_time_offset end
   end
 
   -- LOOP TRHOUGH SELECTED TRACKS
@@ -492,12 +474,15 @@ if start_time ~= end_time and (sel_env or selected_tracks_count > 0) then
   end
 
   -- PROMPT
-  if prompt then
-    insertions[1].valueIn_X = tostring(insertions[1].valueIn_X)
-    insertions[1].valueIn_Y = tostring(insertions[1].valueIn_Y)
-	if not sel_env then dest_env_name = insertions[1].dest_env_name end
-	retval, retvals_csv = reaper.GetUserInputs("Set Envelope Points", 7, "Envelope Name,Value X (number),Value Y (number),Time Offset X (s),Time Offset Y (s),Inside TS Left (0/1),Inside TS Right(0,1)", dest_env_name .. "," .. insertions[1].valueIn_X .. "," .. insertions[1].valueIn_Y .. "," .. insertions[1].offset_X .. "," .. insertions[1].offset_Y .. "," .. insertions[1].inside_X .. "," .. insertions[1].inside_Y)
-  end
+if prompt then
+  insertions[1].valueIn_X = tostring(insertions[1].valueIn_X)
+  insertions[1].valueIn_Y = tostring(insertions[1].valueIn_Y)
+
+  if not sel_env then dest_env_name = insertions[1].dest_env_name end
+
+  retval, retvals_csv = reaper.GetUserInputs("Set Envelope Points", 7, "Envelope Name,Value X (number),Value Y (number),Time Offset X (s),Time Offset Y (s),Inside TS Left (0/1),Inside TS Right(0,1)", dest_env_name .. "," .. insertions[1].valueIn_X .. "," .. insertions[1].valueIn_Y .. "," .. insertions[1].offset_X .. "," .. insertions[1].offset_Y .. "," .. insertions[1].inside_X .. "," .. insertions[1].inside_Y)
+
+end
 
   if retval or prompt == false then -- if user complete the fields
 
@@ -509,43 +494,43 @@ if start_time ~= end_time and (sel_env or selected_tracks_count > 0) then
       insertions[1].dest_env_name, insertions[1].valueIn_X, insertions[1].valueIn_Y, insertions[1].offset_X, insertions[1].offset_Y, insertions[1].inside_X, insertions[1].inside_Y = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
     end
 
-    for i, insert in ipairs(insertions) do
+  for i, insert in ipairs(insertions) do
 
-      if insert.dest_env_name and insert.valueIn_X and insert.valueIn_Y and insert.offset_X and insert.offset_Y and insert.inside_X and insert.inside_Y then
+    if insert.dest_env_name and insert.valueIn_X and insert.valueIn_Y and insert.offset_X and insert.offset_Y and insert.inside_X and insert.inside_Y then
 
-        insert.dest_env_type = GetEnvelopeScaleType(insert.dest_env_name)
+      insert.dest_env_type = GetEnvelopeScaleType(insert.dest_env_name)
 
-        if insert.valueIn_X ~= "min" and insert.valueIn_X ~= "max" and insert.valueIn_X ~= "center" and insert.valueIn_X ~= "cursor" then
-          insert.valueIn_X = tonumber(insert.valueIn_X)
-          insert.valueIn_X = ConformValueToEnvelope(insert.valueIn_X, insert.dest_env_type)
-        end
+      if insert.valueIn_X ~= "min" and insert.valueIn_X ~= "max" and insert.valueIn_X ~= "center" and insert.valueIn_X ~= "cursor" then
+        insert.valueIn_X = tonumber(insert.valueIn_X)
+        insert.valueIn_X = ConformValueToEnvelope(insert.valueIn_X, insert.dest_env_type)
+      end
 
-        if insert.valueIn_Y ~= "min" and insert.valueIn_Y ~= "max" and insert.valueIn_Y ~= "center" and insert.valueIn_Y ~= "cursor" then
-          insert.valueIn_Y = tonumber(insert.valueIn_Y)
-          insert.valueIn_Y = ConformValueToEnvelope(insert.valueIn_Y, insert.dest_env_type)
-        end
+      if insert.valueIn_Y ~= "min" and insert.valueIn_Y ~= "max" and insert.valueIn_Y ~= "center" and insert.valueIn_Y ~= "cursor" then
+        insert.valueIn_Y = tonumber(insert.valueIn_Y)
+        insert.valueIn_Y = ConformValueToEnvelope(insert.valueIn_Y, insert.dest_env_type)
+      end
 
-        insert.offset_X = tonumber(insert.offset_X)
-        insert.offset_Y = tonumber(insert.offset_Y)
+      insert.offset_X = tonumber(insert.offset_X)
+      insert.offset_Y = tonumber(insert.offset_Y)
 
-		insert.inside_X = tonumber(insert.inside_X)
-		insert.inside_Y = tonumber(insert.inside_Y)
+      insert.inside_X = tonumber(insert.inside_X)
+      insert.inside_Y = tonumber(insert.inside_Y)
 
-		if insert.valueIn_X and insert.valueIn_Y and insert.offset_X and insert.offset_Y and insert.inside_X and insert.inside_Y then
+      if insert.valueIn_X and insert.valueIn_Y and insert.offset_X and insert.offset_Y and insert.inside_X and insert.inside_Y then
 
-			main(insert.dest_env_name, insert.valueIn_X, insert.valueIn_Y, insert.offset_X, insert.offset_Y, insert.inside_X, insert.inside_Y) -- Execute your main function
+        main(insert.dest_env_name, insert.valueIn_X, insert.valueIn_Y, insert.offset_X, insert.offset_Y, insert.inside_X, insert.inside_Y) -- Execute your main function
 
-        end
+      end
 
-        if prompt then break end
+      if prompt then break end
 
-      end -- ENDIF values
+    end -- ENDIF values
 
-    end -- LOOP insertions
+  end -- LOOP insertions
 
     reaper.Undo_EndBlock("Add envelope points at time selection edges from X to Y preserving edges on choosen envelopes", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
-    HedaRedrawHack()
+  reaper.TrackList_AdjustWindows(false)
 
     reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
