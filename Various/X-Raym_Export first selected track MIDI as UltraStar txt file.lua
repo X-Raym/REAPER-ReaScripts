@@ -10,14 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.5
+ * Version: 1.0.6
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
  * v1.0.6 (2020-04-06)
-  # Fix project suffix removal
+  # Fix project suffix removal with uppercase extension
   # Tighten lyric alignment based on note start/end
  * v1.0.5 (2019-01-08)
   # Force BPM to 400
@@ -68,12 +68,12 @@ function GetArtistAndTitle()
   if ( not artist or artist == "" ) and ( not title or title == "" )then
     artist, title = proj_name:match('(.+) %- (.+)')
     if not artist then artist = "Artist" end
-    if not title or title == "" then title = "Title" else title = title:gsub("(.*)%..*",'%1')  end
+    if not title or title == "" then title = "Title" else title = title:sub(0,-5)  end
     reaper.SetProjExtState( 0, "UltraStar", "TITLE", title)
     reaper.SetProjExtState( 0, "UltraStar", "ARTIST", artist)
   end
   if not proj_name then proj_name = artist .. " - " .. title end
-  proj_name = proj_name:gsub("(.*)%..*",'%1') 
+  proj_name = proj_name:sub(0,-5)
 end
 
 -- Display a message in the console for debugging
