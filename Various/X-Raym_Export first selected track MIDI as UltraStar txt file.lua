@@ -16,6 +16,9 @@
 
 --[[
  * Changelog:
+ * v1.0.6 (2020-04-06)
+  # Fix project suffix removal
+  # Tighten lyric alignment based on note start/end
  * v1.0.5 (2019-01-08)
   # Force BPM to 400
  * v1.0.4 (2018-12-02)
@@ -65,12 +68,12 @@ function GetArtistAndTitle()
   if ( not artist or artist == "" ) and ( not title or title == "" )then
     artist, title = proj_name:match('(.+) %- (.+)')
     if not artist then artist = "Artist" end
-    if not title or title == "" then title = "Title" else title = title:gsub('.rpp', '') end
+    if not title or title == "" then title = "Title" else title = title:gsub("(.*)%..*",'%1')  end
     reaper.SetProjExtState( 0, "UltraStar", "TITLE", title)
     reaper.SetProjExtState( 0, "UltraStar", "ARTIST", artist)
   end
   if not proj_name then proj_name = artist .. " - " .. title end
-  proj_name = proj_name:gsub('.rpp', '')
+  proj_name = proj_name:gsub("(.*)%..*",'%1') 
 end
 
 -- Display a message in the console for debugging
@@ -94,13 +97,14 @@ function SecondToBeat(second)
   return math.floor( ( beat_pos + (beat_duration / 2) ) )
 end
 
+
 function ProcessTakeMIDI( take, j )
   local syllables = {}
 
   local retval, count_notes, count_ccs, count_textsyx = reaper.MIDI_CountEvts( take )
 
   if count_notes == 0 or count_textsys == 0 then return end
-
+  
   if j == 0 then
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, 0 )
     gap = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos )
@@ -111,27 +115,66 @@ function ProcessTakeMIDI( take, j )
   for i = 0, count_textsyx - 1 do
     local retval, selected, muted, ppqpos, evt_type, msg = reaper.MIDI_GetTextSysexEvt( take, i, true, true, 0, 0, "" )
     if evt_type == 5 then
-      msg = msg:gsub("\r", "")
-      msg = msg:gsub("^%-", "")
-      table.insert(lyrics, msg)
+      msg = msg:gsub("\r", "")  -- remove carriage return
+      msg = msg:gsub("^%-", "") -- remove hyphen at the begining
+      msg = msg:gsub("%s+", "") -- remove space characters
+      msg = msg:gsub("~", "")   -- remove tildes
+      if msg:len()==0 then msg = "~" end 
+	  table.insert(lyrics,1,{pos=ppqpos,msg=msg})
     end
   end
 
   count = count_notes
   if #lyrics < count_notes then count = #lyrics end
+  logging = nil
+  
+  local lyric = nill 
 
   for i = 0, count - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
+		
     local start_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos ) - gap
     local end_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos ) - gap
     local len_sec = end_sec - start_sec
     local len_beats = SecondToBeat(len_sec)
     if len_beats < 1 then len_beats = 1 end
     if chan + 1 > #prefix then chan = 0 end
+	
     local entry = {}
     entry.pos = start_sec
-    entry.str = prefix[chan+1] .. SecondToBeat(start_sec) .. " " .. len_beats .. " " .. ( pitch -60 ) .. " " .. lyrics[i+1]
-    table.insert(syllables, entry)
+    entry.str = prefix[chan+1] .. SecondToBeat(start_sec) .. " " .. len_beats .. " " .. ( pitch - 60 )
+	
+	-- find all lyrics aligned with this MIDI note
+	local lyric = table.remove(lyrics)
+	while lyric do 
+	
+	  -- if lyric timing is later than this note 
+	  if lyric.pos >= endppqpos then
+	    -- put lyric back and skip scanning for more lyrics
+	    table.insert(lyrics,lyric)
+	    break 
+	  end
+	  
+	  if lyric.pos < startppqpos then
+	    -- do nothing
+	  else
+	    -- lyric is for this note
+	    entry.str = entry.str .. " " .. lyric.msg
+	  end
+	  
+	  -- get next lyric
+	  lyric = table.remove(lyrics)
+	end
+	
+    if logging and (i < 10 or i > count-10) then
+      b = reaper.MIDI_GetProjQNFromPPQPos(take, startppqpos) + 4
+      b = string.format("%03d.%5.3f", b // 4, (b % 4)+1)
+      entry.str = string.format("%s %06.3f %s",entry.str,start_sec+gap,b)      
+      --start_sec = start_sec + gap
+      --.. string.format(" gap=%03.3f t=%02d:%06.3f,%07.3f b=%s c=%02d p=%02d %s\n",gap,math.floor(start_sec/60),start_sec % 60,start_sec,b,chan,pitch-60,lyrics[i+1])
+    end
+	
+    table.insert(syllables,entry)    
   end
 
   return syllables
@@ -154,6 +197,12 @@ function ProcessMarkers()
           marker.pos = iPosOut - gap
         end
         marker.str = "- " .. SecondToBeat(marker.pos)
+        if logging then
+          proj, project_path = reaper.EnumProjects( -1, 0 )
+           -- b = reaper.MIDI_GetProjQNFromProjTime(take, iPosOut) + 4
+           -- b = string.format("%03d.%5.3f", b // 4, (b % 4)+1)        
+           marker.str = string.format("%s %06.3f s=%s", marker.str,iPosOut,iMarkrgnindexnumberOut)
+        end
         table.insert(markers, marker)
       end
       i = i+1
