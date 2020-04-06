@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.2
+ * Version: 1.3
 --]]
 
 --[[
  * Changelog:
+ * v1.3 (2020-16-01)
+  + Marker Only option
  * v1.2 (2020-16-01)
   + Region support
   # Fix davinci colors
@@ -34,6 +36,7 @@
 vars = {}
 vars.frame_rate = 25
 vars.offset = 3600
+vars.markers_only = "y"
 
 popup = true
 
@@ -265,7 +268,9 @@ function create(f)
         if name == "" then name = "Marker " .. i+1 end
         line = i+1 .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. start_time .. " " .. start_time_1 .. "  " .. "\n |C:ResolveColor" .. color_name .. " |M:" .. name .. " |D:" .. duration_frames .. "\n"
         --line = i .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. start_time .. " " .. start_time_1 .. "  " .. "\n |C:ResolveColorBlue |M:" .. name .. " |D:1\n"
-        export(f, line)
+        if vars.markers_only ~= "y" or (vars.markers_only == "y" and not bIsrgnOut) then
+          export(f, line)
+        end
       end
       i = i+1
     end
@@ -312,10 +317,11 @@ if count_regions > 0 or count_markers > 0 then
     if popup then
       vars.offset = GetExtState( "offset", vars.offset )
       vars.frame_rate = GetExtState( "frame_rate", vars.frame_rate )
+      vars.markers_only = GetExtState( "markers_only", vars.markers_only )
 
-      retval, retval_csv = reaper.GetUserInputs( "Export Markers to EDL", 2, "Framerate (fps):, Offset (s)", vars.frame_rate .. "," .. vars.offset)
+      retval, retval_csv = reaper.GetUserInputs( "Export Markers to EDL", 3, "Framerate (fps):, Offset (s),Markers Only (y/n)", vars.frame_rate .. "," .. vars.offset .. "," .. vars.markers_only)
       if retval then
-        vars.frame_rate, vars.offset = retval_csv:match("([^,]+),([^,]+)")
+        vars.frame_rate, vars.offset, vars.markers_only = retval_csv:match("([^,]+),([^,]+),([^,]+)")
         if vars.frame_rate then
           vars.frame_rate = tonumber( vars.frame_rate )
           vars.offset = tonumber( vars.offset )
