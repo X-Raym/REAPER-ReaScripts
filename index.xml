@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8c1138c0d5e0af8d43ea100786068dd0985487ed" name="X-Raym Scripts">
+<index version="1" commit="53a7588206a61da19b936a8ca43d1dd1f1a29881" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -980,6 +980,10 @@
       <version name="1.0" author="X-Raym" time="2020-04-09T10:22:16Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8c1138c0d5e0af8d43ea100786068dd0985487ed/Items%20Editing/X-Raym_Implode%20selected%20items%20on%20same%20track%20into%20takes%20preserving%20position.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2020-04-09T10:25:26Z">
+        <changelog><![CDATA[+ Auto fade]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/53a7588206a61da19b936a8ca43d1dd1f1a29881/Items%20Editing/X-Raym_Implode%20selected%20items%20on%20same%20track%20into%20takes%20preserving%20position.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Move item position of item under mouse to edit cursor according to ripple state preserving end.eel" type="script">
