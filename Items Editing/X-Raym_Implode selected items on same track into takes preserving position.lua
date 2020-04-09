@@ -10,14 +10,18 @@
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1538604
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-04-10)
+  + Auto fade
  * v1.0 (2020-04-09)
   + Initial Release
 --]]
+
+-- Note: Maybe not using the Loop section action would be intersting.
 
 function main() -- local (i, j, item, take, track)
 
@@ -102,7 +106,24 @@ end
 
 reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 
+auto_fade = reaper.GetToggleCommandState( 40041 )
+
+reaper.Main_OnCommand( 41119, 0 ) -- Options: Disable auto-crossfades
+
+grouping = reaper.GetToggleCommandState( 1156 ) -- Options: Toggle item grouping override
+if grouping == 1 then
+  reaper.Main_OnCommand( 1156, 0 ) -- Options: Toggle item grouping override
+end
+
 main() -- Execute your main function
+
+if grouping == 1 then
+  reaper.Main_OnCommand( 1156, 0 ) -- Options: Toggle item grouping override
+end
+
+if auto_fade == 1 then
+  reaper.Main_OnCommand( 41118, 0 ) -- Options: Enable auto-crossfades
+end
 
 reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
