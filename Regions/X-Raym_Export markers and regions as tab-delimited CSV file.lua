@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.3
+ * Version: 1.0.4
 --]]
 
 --[[
  * Changelog:
+ * v1.0.4 (2020-04-24)
+  # Force .csv extension
  * v1.0.3 (2019-12-20)
   # Msg
  * v1.0.2 (2019-11-20)
@@ -82,6 +84,7 @@ else
  retval, file = reaper.JS_Dialog_BrowseForSaveFile( "Save Markers and Regions", '', "", 'csv files (.csv)\0*.csv\0All Files (*.*)\0*.*\0' )
 
  if retval and file ~= '' then
+  if not file:find('.csv') then file = file .. ".csv" end
   reaper.defer(Main)
  end
   
