@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="fbe794ade01d5bb09dbe8a36d4fba91beb5bac69" name="X-Raym Scripts">
+<index version="1" commit="224fc2aa61bd625db548fcfd53818b9622e615b1" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1401,6 +1401,21 @@
       <version name="1.0" author="X-Raym" time="2016-01-11T11:48:18Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Add%20all%20items%20on%20selected%20track%20into%20item%20selection.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Add empty source take to selected items.lua" type="script" desc="Add empty source take to selected items">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Useful to put take markers on an empty items without using MIDI items\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2020-04-29T01:14:43Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/224fc2aa61bd625db548fcfd53818b9622e615b1/Items%20Properties/X-Raym_Add%20empty%20source%20take%20to%20selected%20items.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add named and colored take markers to selected takes at play cursor position.lua" type="script" desc="Add named and colored take markers to selected takes at play cursor position">
