@@ -8,11 +8,13 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1670961
  * REAPER: 6.09
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-04-28)
+  # Start offset
  * v1.0 (2020-04-28)
   + Initial Release
 --]]
@@ -66,7 +68,7 @@ function main()
       take_rate = reaper.GetMediaItemTakeInfo_Value( take, "D_PLAYRATE" )
       take_marker_count = reaper.GetNumTakeMarkers(take)
       take_offset = reaper.GetMediaItemTakeInfo_Value(take, "D_STARTOFFS")
-      take_pos = (pos - item_pos) * take_rate
+      take_pos = (pos - item_pos) * take_rate + take_offset
       if IsInTime( pos, item_pos, item_end ) then
          reaper.SetTakeMarker(take, -1, name, take_pos, color|16777216)
       end
