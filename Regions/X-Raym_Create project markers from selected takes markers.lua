@@ -9,14 +9,20 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1670961
  * REAPER: 6.09
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-04-28)
+  # Prevent marker generation if markers is outside item boundaries
  * v1.0 (2020-04-28)
   + Initial Release
 --]]
+function IsInTime( s, start_time, end_time )
+  if s >= start_time and s <= end_time then return true end
+  return false
+end
 
 function main()
 
@@ -29,13 +35,17 @@ function main()
     take = reaper.GetActiveTake(item)
     if take then
       item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+      item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
       item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
       take_rate = reaper.GetMediaItemTakeInfo_Value( take, "D_PLAYRATE" )
       take_marker_count = reaper.GetNumTakeMarkers(take)
       take_offset = reaper.GetMediaItemTakeInfo_Value(take, "D_STARTOFFS")
       for i = 0, take_marker_count - 1 do
         pos, name, color = reaper.GetTakeMarker(take, i)
-        reaper.AddProjectMarker2(0, false, item_pos - take_offset + pos / take_rate, 0, name, -1, color)
+        proj_pos = item_pos - take_offset + pos / take_rate
+        if IsInTime( proj_pos, item_pos, item_pos + item_len ) then
+          reaper.AddProjectMarker2(0, false, proj_pos, 0, name, -1, color)
+        end
       end
       
     end
