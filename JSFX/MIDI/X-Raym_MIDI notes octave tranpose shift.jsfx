@@ -7,11 +7,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.2
  */
 
 /**
  * Changelog:
+ * v1.2 (2020-05-13)
+  + All Notes off if slider change
  * v1.1 (2019-07-01)
   + Increase range
  * v1.0 (2019-07-01)
@@ -31,6 +33,31 @@ statNoteOn = $x90;
 statNoteOff = $x80;
 afterTouch = $xA0;
 
+// Thanks mschnell
+allOff1   = 0xB0;
+allOff2   = 0x7B;
+allOff3   = 0x00;
+holdOff1  = 0xB0;
+holdOff2  = 0x40;
+holdOff3  = 0x00;
+  
+last_chan = slider1;
+last_shift = slider5;
+
+function SendAllNotesOff() (
+  outChannel = 0;
+  opos = mpos;
+  opos >= samplesblock-32 ? (
+    opos = samplesblock-33;
+  );  
+  loop (16,
+    midisend(opos, holdOff1+outChannel, holdOff2, holdOff3);
+    opos +=1;
+    midisend(opos, allOff1+outChannel,  allOff2,  allOff3);
+    opos +=1;
+    outChannel += 1;
+  );
+);
 
 ////////////////////////////////////////////////////////////////////////////////
 @slider
@@ -41,7 +68,12 @@ inChannel = slider1 - 1;
 
 while
 (
-
+  
+  // Not Off if Slider Change
+  last_chan != slider1 || last_shift != slider5 ? (
+    SendAllNotesOff()
+  );
+  
   midirecv(offset,msg1,note,vel) ?
   (
 
@@ -68,6 +100,9 @@ while
     );
     
     midisend(offset, msg1, note, vel);
+    
+    last_chan = slider(1);
+    last_shift = slider(5);
     
     1; // Force loop to continue until all messages have been processed
   

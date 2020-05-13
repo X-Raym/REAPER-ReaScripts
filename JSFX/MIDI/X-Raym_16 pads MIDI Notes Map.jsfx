@@ -7,7 +7,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.9.4
+ * Version: 1.10
  * Provides: 
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
@@ -16,6 +16,8 @@
 
 /**
  * Changelog:
+ * v1.10 (2020-05-13)
+  + All Notes off if slider change
  * v1.9.4 (2019-07-11)
   # Presets update
  * v1.9.3 (2019-07-10)
@@ -83,6 +85,43 @@ afterTouch = $xA0;
 file = -1;
 note_buf = 1000;
 
+last_notes_sliders = 2000;
+
+// Thanks mschnell
+allOff1   = 0xB0;
+allOff2   = 0x7B;
+allOff3   = 0x00;
+holdOff1  = 0xB0;
+holdOff2  = 0x40;
+holdOff3  = 0x00;
+  
+last_chan = slider1;
+last_pad_in = slider2;
+last_remap = slider3;
+
+i = 0;
+loop( 16,
+  last_notes_sliders[i] = slider( 10 + i );
+  i += 1;
+);
+
+slider_is_diff = 0;
+
+function SendAllNotesOff() (
+  outChannel = 0;
+  opos = mpos;
+  opos >= samplesblock-32 ? (
+    opos = samplesblock-33;
+  );  
+  loop (16,
+    midisend(opos, holdOff1+outChannel, holdOff2, holdOff3);
+    opos +=1;
+    midisend(opos, allOff1+outChannel,  allOff2,  allOff3);
+    opos +=1;
+    outChannel += 1;
+  );
+);
+
 function ResetImages() local (i) (
   i = 0;
   loop( 127,
@@ -140,6 +179,19 @@ slider4 != file || reload == 1 ? (
 while
 (
 
+  i = 0;
+  loop( 16,
+    last_notes_sliders[i] != slider( 10 + i ) ? (
+      slider_is_diff = 1;
+    );
+    i += 1;
+  );
+  
+  // Not Off if Slider Change
+  last_chan != slider1 || last_pad_in != slider2 || last_remap != slider3 || slider_is_diff == 1 ? (
+    SendAllNotesOff();
+  );
+
   midirecv(offset,msg1,note,vel) ?
   (
 
@@ -171,6 +223,17 @@ while
     );
     
     midisend(offset, msg1, note, vel);
+    
+    last_chan = slider1;
+    last_pad_in = slider2;
+    last_remap = slider3;
+    
+    i = 0;
+    loop( 16,
+      last_notes_sliders[i] = slider( 10 + i );
+      i += 1;
+    );
+    slider_is_diff = 0;
     
     1; // Force loop to continue until all messages have been processed
   
