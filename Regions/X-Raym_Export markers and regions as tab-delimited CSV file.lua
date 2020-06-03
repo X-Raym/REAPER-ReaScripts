@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.4
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2020-06-03)
+  + Support for Markers and Regions subtitles notes
  * v1.0.4 (2020-04-24)
   # Force .csv extension
  * v1.0.3 (2019-12-20)
@@ -44,7 +46,12 @@ function Main()
 
   local f = io.open(file, "w")
   
-  export(f, "#\tName\tStart\tEnd\tLength\tColor")
+  sub_header = ""
+  if reaper.NF_GetSWSMarkerRegionSub then 
+    sub_header = "\tSubtitles"
+  end
+  
+  export(f, "#\tName\tStart\tEnd\tLength\tColor" .. sub_header)
   
   i=0
   repeat
@@ -65,8 +72,17 @@ function Main()
         r,g,b = reaper.ColorFromNative(iColorOur)
         color = rgbToHex(r, g, b)
       end
+      
+      sub = "\t"
+      if reaper.NF_GetSWSMarkerRegionSub then 
+       sub = sub .. reaper.NF_GetSWSMarkerRegionSub( i )
+       sub = sub:gsub('\r\n', '<br>')
+       sub = sub:gsub('\n\n', '<br>')
+       sub = sub:gsub('\n', '<br>')
+       sub = sub:gsub('\r', '<br>')
+      end
         -- [start time HH:MM:SS.F] [end time HH:MM:SS.F] [name]
-        line = t .. iMarkrgnindexnumberOut .. "\t\"" .. name .. "\"\t" .. iPosOut .. "\t" .. iRgnendOut .. "\t" .. duration .. "\t" .. color
+        line = t .. iMarkrgnindexnumberOut .. "\t\"" .. name .. "\"\t" .. iPosOut .. "\t" .. iRgnendOut .. "\t" .. duration .. "\t" .. color .. sub
         export(f, line)
       end
       i = i+1

@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2 (2020-06-03)
+  + Support for Markers and Regions subtitles notes
  * v1.1 (2020-01-15)
   + Import at cursor position option
  * v1.0 (2019-01-26)
@@ -34,6 +36,7 @@ col_pos_end = 4 -- Length column index in the CS
 col_len = 5 -- Length column index in the CSV
 col_name = 2 -- Name column index in the CSV
 col_color = 6
+col_sub = 7
 
 ------------------------------------------------------- END OF USER CONFIG AREA
 
@@ -134,6 +137,9 @@ end
 function main()
 
   folder = filetxt:match[[^@?(.*[\/])[^\/]-$]]
+  
+  subs = {}
+  subs_count = 0
 
   for i, line in ipairs( lines ) do
     if i > 1 then
@@ -147,6 +153,8 @@ function main()
       if line[col_color] ~= "0" then
         color = ColorHexToInt(line[col_color])|0x1000000
       end
+      sub = line[col_sub]
+      if sub then sub = sub:gsub("<br>", "\n") end
       
       local is_region = true
       
@@ -155,10 +163,27 @@ function main()
       end
       
       if pos and pos_end and name and color then
-        reaper.AddProjectMarker2( 0, is_region, pos + cur_pos, pos_end + cur_pos, name, -1, color )
+        idx = reaper.AddProjectMarker2( 0, is_region, pos + cur_pos, pos_end + cur_pos, name, -1, color )
+        if sub and reaper.NF_SetSWSMarkerRegionSub then
+          subs[idx] = sub
+          subs_count = subs_count + 1
+        end
       end
-
+      
     end
+  end
+  
+  -- This is because there is no Get marker by IDX...
+  if subs_count > 0 then
+    i=0
+    repeat
+      iRetval, bIsrgnOut, iPosOut, iRgnendOut, name, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
+      if iRetval >= 1 and subs[iMarkrgnindexnumberOut] then
+        reaper.NF_SetSWSMarkerRegionSub( subs[iMarkrgnindexnumberOut], i )
+      end
+      i = i+1
+    until iRetval == 0
+    reaper.NF_UpdateSWSMarkerRegionSubWindow()
   end
 
 end
