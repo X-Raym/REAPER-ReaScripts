@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2020-06-08)
+  # Preset files
  * v1.0.2 (2020-01-24)
   # Fade adjustement on already tweaked items fixed
  * v1.0.1 (2020-01-14)
@@ -76,52 +78,61 @@ function main()
 end
 
 -- START
-sel_items_count = reaper.CountSelectedMediaItems(0)
 
-if sel_items_count > 0 then
-
-  retval, user_input_str = reaper.GetUserInputs("Set/Offset Take Rate Value", 1, "Value (" .. mod2_prefix .." for " .. mod2 .. ")", input_default) 
-      
-  if retval then -- if user complete the fields
-    
-    x, y = string.find(user_input_str, mod2_prefix)
+function Init()
+  
+  sel_items_count = reaper.CountSelectedMediaItems(0)
+  
+  if sel_items_count > 0 then
+  
+    retval, user_input_str = reaper.GetUserInputs("Set/Offset Take Rate Value", 1, "Value (" .. mod2_prefix .." for " .. mod2 .. ")", input_default) 
         
-    if mod1 == "absolute" then
-      if x ~= nil then -- set
-        set = false
-      else -- offset
-        set = true 
-      end
-    end
-    
-    if mod1 == "relative" then
-      if x ~= nil then -- set
-        set = true
-      else -- offset
-        set = false 
-      end
-    end
-    
-    user_input_str = user_input_str:gsub(mod2_prefix, "")
-    
-    user_input_num = tonumber(user_input_str)
-
-    if user_input_num then
-    
-      reaper.PreventUIRefresh(1)
+    if retval then -- if user complete the fields
       
-      reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
-      main() -- Execute your main function
+      x, y = string.find(user_input_str, mod2_prefix)
+          
+      if mod1 == "absolute" then
+        if x ~= nil then -- set
+          set = false
+        else -- offset
+          set = true 
+        end
+      end
       
-      reaper.Undo_EndBlock("Set or offset selected takes rate by semitone adjusting item length and fades and clearing preserve pitch", -1) -- End of the undo block. Leave it at the bottom of your main function.
+      if mod1 == "relative" then
+        if x ~= nil then -- set
+          set = true
+        else -- offset
+          set = false 
+        end
+      end
+      
+      user_input_str = user_input_str:gsub(mod2_prefix, "")
+      
+      user_input_num = tonumber(user_input_str)
   
-      reaper.PreventUIRefresh(-1)
-  
-      reaper.UpdateArrange() -- Update the arrangement (often needed)
+      if user_input_num then
+      
+        reaper.PreventUIRefresh(1)
+        
+        reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
     
+        main() -- Execute your main function
+        
+        reaper.Undo_EndBlock("Set or offset selected takes rate by semitone adjusting item length and fades and clearing preserve pitch", -1) -- End of the undo block. Leave it at the bottom of your main function.
+    
+        reaper.PreventUIRefresh(-1)
+    
+        reaper.UpdateArrange() -- Update the arrangement (often needed)
+      
+      end
+  
     end
-
+    
   end
   
+end
+
+if not dofile_execution then
+  Init()
 end
