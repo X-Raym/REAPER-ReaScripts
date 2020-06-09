@@ -13,11 +13,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156757
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.1
- * Version: 1.2
+ * Version: 1.3
 --]]
  
 --[[
  * Changelog:
+ * v1.3 (2020-06-09)
+	+ /r for current regions
  * v1.2 (2016-04-12)
 	+ Added "Below" and Above keywords. "After" and "Before" now work without breaklines.
 	+ Argument for /E and /I (leading zeros and offset) like this /Eoffset_digits eg /E2_2 will output 03 for first selected items
@@ -35,6 +37,7 @@
 /I -- inverse enumerate in selection
 /T -- Track name
 /t -- Track number
+/r -- Item current region
 --]] -----------------------------------------------------
 
  
@@ -82,18 +85,17 @@ function ProcessKeyword(input, number, keyword)
 	return input
 	
 end
-
  
 function main(csv) -- local (i, j, item, take, track)
 	
-	csv = csv:gsub(", ", "¤¤¤")
+	csv = csv:gsub(", ", "Â¤Â¤Â¤")
 	
 	-- PARSE THE STRING
 	before_after, text = csv:match("([^,]+),([^,]+)")
 	
 	if text ~= nil then
 	
-		text = text:gsub("¤¤¤", ", ")
+		text = text:gsub("Â¤Â¤Â¤", ", ")
 		
 		before_after = string.lower(before_after)
 		
@@ -144,6 +146,10 @@ function main(csv) -- local (i, j, item, take, track)
 				
 				input = input:gsub("/T", track_name)
 				input = input:gsub("/t", tostring(track_id))
+				item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+				markeridx, regionidx = reaper.GetLastMarkerAndCurRegion( 0, item_pos )
+				retval, isrgn, pos, rgnend, name, idx = reaper.EnumProjectMarkers( regionidx )
+				input = input:gsub("/r", name )
 				
 				notes = reaper.ULT_GetMediaItemNote(item)
 				
@@ -198,7 +204,7 @@ if selected_items_count > 0 then
 	
 	default_csv = default_action .. "," .. default_text
 	
-	retval, output_csv = reaper.GetUserInputs("Item Notes Processor", 2, "Before/After/Replace/Above/Below:,Text (/Ex_x, /I, /T, /t):", default_csv) 
+	retval, output_csv = reaper.GetUserInputs("Item Notes Processor", 2, "Before/After/Replace/Above/Below:,Text (/Ex_x, /I, /T, /t, /r):", default_csv) 
 
 	if retval then
 	
