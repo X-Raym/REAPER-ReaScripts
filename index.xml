@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="4b72f42fa9176c556251bdffea76ba36a43db02f" name="X-Raym Scripts">
+<index version="1" commit="12d92d92fa476d8c6394e6c0868bf75f3a723d00" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3072,7 +3072,10 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Add%20musical%20notes%20to%20selected%20items%20notes.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Add text to selected items notes (Items Notes Processor).lua" type="script">
+    <reapack name="X-Raym_Add text to selected items notes (Items Notes Processor).lua" type="script" desc="Add text to selected items notes (Items Notes Processor)">
+      <metadata>
+        <link rel="screenshot">http://i.giphy.com/l41lPYdijt9494V5S.gif</link>
+      </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Replace
 + User config area
@@ -3084,6 +3087,10 @@
         <changelog><![CDATA[+ Added "Below" and Above keywords. "After" and "Before" now work without breaklines.
 + Argument for /E and /I (leading zeros and offset) like this /Eoffset_digits eg /E2_2 will output 03 for first selected items]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/c2f9ceead593e1ef8938e51fa4a87ca05ca4b6d3/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Add%20text%20to%20selected%20items%20notes%20(Items%20Notes%20Processor).lua</source>
+      </version>
+      <version name="1.3" author="X-Raym" time="2020-06-09T19:26:40Z">
+        <changelog><![CDATA[+ /r for current regions]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/12d92d92fa476d8c6394e6c0868bf75f3a723d00/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Add%20text%20to%20selected%20items%20notes%20(Items%20Notes%20Processor).lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add underline markup to selected items notes.lua" type="script">
