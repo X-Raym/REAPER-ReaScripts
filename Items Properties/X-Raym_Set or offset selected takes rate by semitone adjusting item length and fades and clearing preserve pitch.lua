@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2020-06-10)
+  + popup variable in user area
  * v1.1 (2020-06-08)
   # Preset files
  * v1.0.2 (2020-01-24)
@@ -30,6 +32,7 @@ mod1 = "absolute" -- Set the primary mod that will be defined if no prefix chara
 mod2 = "relative"
 mod2_prefix = "+" -- Prefix to enter the secondary mod
 input_default = "0" -- "" means no character aka relative per default.
+popup = true
 -- <===== USER AREA ------
  
 
@@ -85,9 +88,13 @@ function Init()
   
   if sel_items_count > 0 then
   
-    retval, user_input_str = reaper.GetUserInputs("Set/Offset Take Rate Value", 1, "Value (" .. mod2_prefix .." for " .. mod2 .. ")", input_default) 
+    if popup then
+      retval, user_input_str = reaper.GetUserInputs("Set/Offset Take Rate Value", 1, "Value (" .. mod2_prefix .." for " .. mod2 .. ")", input_default) 
+    else
+      user_input_str = input_default
+    end
         
-    if retval then -- if user complete the fields
+    if not popup or retval then -- if user complete the fields
       
       x, y = string.find(user_input_str, mod2_prefix)
           
