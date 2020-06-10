@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e4d9b728e71a243bf019d5df7872999cddca77e1" name="X-Raym Scripts">
+<index version="1" commit="f2e534c9ffd2beda4f187f278f4549e6ad90fcbb" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3078,6 +3078,13 @@
     </reapack>
     <reapack name="X-Raym_Add text to selected items notes (Items Notes Processor).lua" type="script" desc="Add text to selected items notes (Items Notes Processor)">
       <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Equivalent to SWS label processor, but for items notes. Select items. Run. See below for customization and wildcards references.\par}
+}
+]]></description>
         <link rel="screenshot">http://i.giphy.com/l41lPYdijt9494V5S.gif</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
@@ -3095,6 +3102,11 @@
       <version name="1.3" author="X-Raym" time="2020-06-09T19:26:40Z">
         <changelog><![CDATA[+ /r for current regions]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/12d92d92fa476d8c6394e6c0868bf75f3a723d00/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Add%20text%20to%20selected%20items%20notes%20(Items%20Notes%20Processor).lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2020-06-10T12:03:32Z">
+        <changelog><![CDATA[+ one single line input $notes wildcard based
++ \n for break lines]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f2e534c9ffd2beda4f187f278f4549e6ad90fcbb/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Add%20text%20to%20selected%20items%20notes%20(Items%20Notes%20Processor).lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add underline markup to selected items notes.lua" type="script">
