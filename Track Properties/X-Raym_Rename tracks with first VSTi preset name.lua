@@ -12,11 +12,13 @@
  * Forum Thread: Video & Sound Editors Will Really Like This
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1539710
  * Extensions: None
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2020-06-15)
+	# Remove other prefixes
  * v1.0 (2019-10-03)
 	+ Initial Release
 --]]
@@ -40,6 +42,19 @@ function main()
 			retval, fx_name = reaper.TrackFX_GetFXName(track, vsti_id, "")
 			
 			fx_name = fx_name:gsub("VSTi: ", "")
+
+			-- Just in case
+			fx_name = fx_name:gsub("VST: ", "")
+
+			fx_name = fx_name:gsub("AU: ", "")
+
+			fx_name = fx_name:gsub("AUi: ", "")
+
+			fx_name = fx_name:gsub("VST3i: ", "")
+
+			fx_name = fx_name:gsub("JS: ", "")
+
+			fx_name = fx_name:gsub("DX: ", "")
 			
 			fx_name = fx_name:gsub(" %(.-%)", "")
 			
