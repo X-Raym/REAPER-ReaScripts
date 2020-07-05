@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="3e84c553bdac4d00a2f8cc7437d8d2f5f115efeb" name="X-Raym Scripts">
+<index version="1" commit="b9d628a70bdfd96c6c2e6ae25658b1166c52d97d" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2503,6 +2503,10 @@
       <version name="1.0.1" author="X-Raym" time="2019-02-24T22:48:30Z">
         <changelog><![CDATA[+ Message Box]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7ccf5a45713a51d8d5c8263bf76532830c66fb73/Regions/X-Raym_Create%20markers%20at%20selected%20items%20snap%20offset.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2020-07-05T14:49:04Z">
+        <changelog><![CDATA[+ Cancel button]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b9d628a70bdfd96c6c2e6ae25658b1166c52d97d/Regions/X-Raym_Create%20markers%20at%20selected%20items%20snap%20offset.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Create named marker from selected items position.lua" type="script" desc="Create named marker from selected items position">
