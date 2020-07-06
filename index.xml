@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="b9d628a70bdfd96c6c2e6ae25658b1166c52d97d" name="X-Raym Scripts">
+<index version="1" commit="6f2a784b4961f6b2a9514ab5b94fabfa5376ca71" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1256,6 +1256,22 @@
       <version name="1.0" author="X-Raym" time="2020-01-31T14:29:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5869bdb018bfb6a6f2e6e5963226f0f8cd106656/Items%20Editing/X-Raym_Split%20first%20selected%20item%20at%20edit%20carret%20position%20in%20SWS%20notes%20window.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Split selected items according to items on first selected track and delete new items at spaces.lua" type="script" desc="Split selected items according to items on first selected track and delete new items at spaces">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 A script to do multi mic based editing using one single track.\par}
+}
+]]></description>
+        <link rel="screenshot">https://i.imgur.com/v507YbW.gifv</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2020-07-06T12:56:30Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6f2a784b4961f6b2a9514ab5b94fabfa5376ca71/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20first%20selected%20track%20and%20delete%20new%20items%20at%20spaces.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Split selected items according to items on first selected track and keep new items at spaces.lua" type="script" desc="Split selected items according to items on first selected track and keep new items at spaces">
