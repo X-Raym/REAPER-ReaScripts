@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="6f2a784b4961f6b2a9514ab5b94fabfa5376ca71" name="X-Raym Scripts">
+<index version="1" commit="cf06b9a48ee7cc523acdd918ced367f9d5990acb" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2360,6 +2360,15 @@
       <version name="1.0" author="X-Raym" time="2016-01-14T22:51:00Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/e3e725d7d3b524fffe901aeab4a3153933417e36/MIDI%20Editor/X-Raym_Insert%20MIDI%20notes%20at%20project%20markers.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Insert sysex events at time selection.lua" type="script" desc="Insert sysex events at time selection">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/dnAKtCX.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2020-07-12T13:13:33Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/cf06b9a48ee7cc523acdd918ced367f9d5990acb/MIDI%20Editor/X-Raym_Insert%20sysex%20events%20at%20time%20selection.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Mute selected notes in open MIDI take randomly.lua" type="script">
