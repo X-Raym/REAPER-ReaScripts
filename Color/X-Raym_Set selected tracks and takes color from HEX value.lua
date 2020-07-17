@@ -30,7 +30,7 @@ function main()
 
 	-- YOUR CODE BELOW
 
-	color_int =  reaper.ColorToNative( R, G, B )
+	color_int =  reaper.ColorToNative( R, G, B )|0x1000000 -- doesn't display the color in the arrange without it
 
 	countItems = reaper.CountSelectedMediaItems(0)
 
