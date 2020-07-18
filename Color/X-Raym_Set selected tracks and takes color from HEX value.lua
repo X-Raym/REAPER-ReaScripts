@@ -1,23 +1,21 @@
 --[[
  * ReaScript Name: Set selected tracks and takes color from HEX value
- * Description: Set selected tracks and takes color from HEX value. Use # or not. If no takes (aka, if Text items selected), it will work anyway.
- * Instructions: Select tracks or items. Execute the script.
+ * About: Set selected tracks and takes color from HEX value. Use # or not. If no takes (aka, if Text items selected), it will work anyway.
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Scripts (LUA): Create Text Items Actions (various)
- * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
- * Version: 1.1
- * Version Date: 2016-11-07
+ * Version: 1.1.1
+ * Version Date: 2020-07-18
  * REAPER: 5.0 pre 15
- * Extensions: None
 --]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2016-11-07)
+	# Bug fix (thx Buy-One !)
+	# minor optimization
  * v1.1 (2016-11-07)
 	# MacOS color fixed
  * v1.0 (2015-03-12)
@@ -62,7 +60,7 @@ end
 
 
 defaultvals_csv = "123456"
---msg_start() -- Display characters in the console to show you the begining of the script execution.
+
 retval, retvals_csv = reaper.GetUserInputs("Color selected Track and Takes", 1, "HEX Value", defaultvals_csv) 
 			
 if retval then -- if user complete the fields
@@ -73,7 +71,11 @@ if retval then -- if user complete the fields
 		G = tonumber("0x"..hex:sub(3,4))
 		B = tonumber("0x"..hex:sub(5,6))
 
-		main() -- Execute your main function
+		if R and G and B then
+
+			main() -- Execute your main function
+
+		end
 
 		reaper.UpdateArrange() -- Update the arrangement (often needed)
 
