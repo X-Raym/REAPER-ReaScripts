@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="cf06b9a48ee7cc523acdd918ced367f9d5990acb" name="X-Raym Scripts">
+<index version="1" commit="bbd065b0d01cfa48560a1c0ce094ad40bf7cfe71" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -19,7 +19,16 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Color/X-Raym_Set%20selected%20takes%20or%20items%20color%20from%20their%20visible%20color.eel</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Set selected tracks and takes color from HEX value.lua" type="script">
+    <reapack name="X-Raym_Set selected tracks and takes color from HEX value.lua" type="script" desc="Set selected tracks and takes color from HEX value">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Set selected tracks and takes color from HEX value. Use # or not. If no takes (aka, if Text items selected), it will work anyway.\par}
+}
+]]></description>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2015-03-12T13:46:13Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Color/X-Raym_Set%20selected%20tracks%20and%20takes%20color%20from%20HEX%20value.lua</source>
@@ -27,6 +36,11 @@
       <version name="1.1" author="X-Raym" time="2016-11-07T18:04:36Z">
         <changelog><![CDATA[# MacOS color fixed]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/d7f55cedb426b45a5ff8aa9c1099f606960a84be/Color/X-Raym_Set%20selected%20tracks%20and%20takes%20color%20from%20HEX%20value.lua</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2020-07-18T00:09:15Z">
+        <changelog><![CDATA[# Bug fix (thx Buy-One !)
+# minor optimization]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/bbd065b0d01cfa48560a1c0ce094ad40bf7cfe71/Color/X-Raym_Set%20selected%20tracks%20and%20takes%20color%20from%20HEX%20value.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected tracks and takes color.eel" type="script">
