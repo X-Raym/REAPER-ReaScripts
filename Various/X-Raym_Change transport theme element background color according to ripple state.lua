@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Change transport theme element background according to ripple state
+ * ReaScript Name: Change transport theme element background color according to ripple state
  * About: Change theme elements color base on ripple state. Edit the script to change value. Use custom action and SWS start up actions for loading this right at reaper startup. Thx nikolalkc for the inspiration!
  * Author: X-Raym
  * Author URI: http://extremraym.com
@@ -10,11 +10,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=164034
  * REAPER: 5.0
  * Extensions: SWS v2.10.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-08-18)
+  # New script name
  * v1.0 (2020-05-08)
   + Initial Release
 --]]
