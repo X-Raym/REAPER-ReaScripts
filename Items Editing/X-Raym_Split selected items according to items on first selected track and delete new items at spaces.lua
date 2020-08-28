@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-07-06)
+  # Actually delete items at spaces
  * v1.0 (2020-07-06)
   + Initial Release
  * v0.9 (2019-10-18)
@@ -111,7 +113,7 @@ function main()
   if last == false then
     for t = 0, count_selected_items-1 do
       item = reaper.GetSelectedMediaItem(0, count_selected_items-1-t) -- Get selected item i
-      if (t % 2 == 0) then
+      if (t % 2 == 1) then
         --reaper.SetMediaItemSelected(item, 0)
         reaper.DeleteTrackMediaItem(track_of_sel_item, item)
       else
@@ -123,7 +125,7 @@ function main()
   else -- ELSEIF THE LAST CUT WAS A ITEM END TIME
     for t = 0, count_selected_items-1 do
       item = reaper.GetSelectedMediaItem(0, count_selected_items-1-t) -- Get selected item i
-      if (t % 2 == 0) then
+      if (t % 2 == 1) then
         --reaper.SetMediaItemSelected(item, 1)
         count_new_item = count_new_item + 1
         save_new_item[count_new_item] = item
