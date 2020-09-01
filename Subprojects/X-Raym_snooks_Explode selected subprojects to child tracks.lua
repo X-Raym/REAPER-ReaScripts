@@ -8,17 +8,22 @@
     Forum Thread https://forum.cockos.com/showthread.php?t=193482
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2020-09-01)
+  # Correct track child indentation
  * v1.0 (2019-11-06)
-	+ Child Track
-	+ Mute item
-	+ Prevent UI Refresh
-	+ Multi item selected
+  + Child Track
+  + Mute item
+  + Prevent UI Refresh
+  + Multi item selected
 --]]
+
+-- TODO: no automation items support. (cause the script works with Track chunks and automation items are outside).
+-- TODO: explode at item position (doesn't work now cause it consider the position in the track chunk)
 
 -- From first Snooks version
 
@@ -185,6 +190,7 @@ local function explodeSubproject(filename, track, item)
   local take_offs = reaper.GetMediaItemTakeInfo_Value( take, "D_STARTOFFS" )
   local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
   local item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
+  
   reaper.Main_OnCommand(40289, 0) -- Item: Unselect all items
   reaper.SetMediaItemSelected( item, true )
   reaper.Main_OnCommand( 42228, 0 ) -- Item: Set item start/end to source media start/end
@@ -216,7 +222,7 @@ local function explodeSubproject(filename, track, item)
     tmp_t = {}
     SetTrackChunk(tptr, s)
   end
-  reaper.SetMediaTrackInfo_Value(reaper.GetTrack(0, count_child + #new_tracks+1)  , 'I_FOLDERDEPTH', last_depth)
+  reaper.SetMediaTrackInfo_Value(reaper.GetTrack(0, count_child + #new_tracks-1)  , 'I_FOLDERDEPTH', -1)
   if not child then
     reaper.DeleteTrack(track)
   else
