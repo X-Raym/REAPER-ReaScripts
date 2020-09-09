@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Version: 1.1.2
+ * Version: 1.1.3
 --]]
 
 --[[
  * Changelog:
+ * v1.1.3 (2019-10-20)
+	# Bug fix
  * v1.1.2 (2019-10-20)
 	# Better undo
  * v1.1.1 (2016-05-12)
@@ -108,7 +110,8 @@ function main()
 		for j, pos in ipairs(split_pos) do
 
 			if pos < item_end and pos > item_pos then
-				item = reaper.SplitMediaItem(item, pos)
+				local item_new = reaper.SplitMediaItem(item, pos)
+				if item_new then item = item_new end
 			end
 			if pos > item_end then break end
 
