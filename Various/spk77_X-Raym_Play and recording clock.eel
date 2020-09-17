@@ -1,17 +1,14 @@
 /**
  * ReaScript Name: Play and recording clock
- * Description: Check the state of the ripple editing mod.
- * Instructions: Run.
+ * Screenshot: https://i.imgur.com/P6Zr7lC.gif
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: 
  * Licence: GPL v3
  * Forum Thread:  EEL: Clock (shows project time) 
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.1.1
 */
  
