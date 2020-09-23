@@ -9,11 +9,14 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166689
  * REAPER: 5.0
- * Version: 1.0.3
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2020-09-2020)
+  + filter_empty_line user variable
+  + supports preset file
  * v1.0.3 (2020-01-11)
   # Bug fix if clipboard is not string
  * v1.0.2 (2019-12-14)
@@ -29,6 +32,7 @@
 console = true -- true/false: display debug messages in the console
 sep = "\n" -- default sep
 names_csv = "" -- default name
+filter_empty_lines = false
 
 ------------------------------------------------------- END OF USER CONFIG AREA
 
@@ -70,7 +74,15 @@ end
 
 -- Main function
 function main()
-
+  
+  if filter_empty_lines then
+    names_filtered= {}
+    for i, v in ipairs( names ) do
+      if v ~= "\r" and v ~= "" then table.insert( names_filtered, v ) end
+    end
+    names = names_filtered
+  end
+  
   for i, item in ipairs(init_sel_items) do
     take = reaper.GetActiveTake(item)
     if take then
@@ -89,49 +101,54 @@ end
 
 
 -- INIT
-
--- See if there is items selected
-count_sel_items = reaper.CountSelectedMediaItems(0)
-
-if count_sel_items > 0 then
-
-  if reaper.SNM_CreateFastString then
-
-    fs = reaper.SNM_CreateFastString('')
-
-    clipboard = reaper.CF_GetClipboardBig(fs)
-
-  else
-    clipboard = reaper.CF_GetClipboardBig('')
+function Init()
+  -- See if there is items selected
+  count_sel_items = reaper.CountSelectedMediaItems(0)
+  
+  if count_sel_items > 0 then
+  
+    if reaper.SNM_CreateFastString then
+  
+      fs = reaper.SNM_CreateFastString('')
+  
+      clipboard = reaper.CF_GetClipboardBig(fs)
+  
+    else
+      clipboard = reaper.CF_GetClipboardBig('')
+    end
+  
+    if clipboard and clipboard ~= "" then
+    
+      names_csv = clipboard
+      
+      reaper.ClearConsole()
+    
+      reaper.PreventUIRefresh(1)
+    
+      reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+      
+      init_sel_items =  {}
+      SaveSelectedItems(init_sel_items)
+      
+      names = split(names_csv,sep)
+    
+      main()
+    
+      reaper.Undo_EndBlock("Rename selected items active take from multiline clipboard content", -1) -- End of the undo block. Leave it at the bottom of your main function.
+    
+      reaper.UpdateArrange()
+    
+      reaper.PreventUIRefresh(-1)
+      
+    end
+  
+    if reaper.SNM_DeleteFastString then
+     reaper.SNM_DeleteFastString(fs)
+    end
+    
   end
+end
 
-  if clipboard and clipboard ~= "" then
-  
-    names_csv = clipboard
-    
-    reaper.ClearConsole()
-  
-    reaper.PreventUIRefresh(1)
-  
-    reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-    
-    init_sel_items =  {}
-    SaveSelectedItems(init_sel_items)
-    
-    names = split(names_csv,sep)
-  
-    main()
-  
-    reaper.Undo_EndBlock("Rename selected items active take from multiline clipboard content", -1) -- End of the undo block. Leave it at the bottom of your main function.
-  
-    reaper.UpdateArrange()
-  
-    reaper.PreventUIRefresh(-1)
-    
-  end
-
-  if reaper.SNM_DeleteFastString then
-   reaper.SNM_DeleteFastString(fs)
-  end
-  
+if not preset_file_init  then
+  Init()
 end
