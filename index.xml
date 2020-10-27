@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="6c5dd704d9e168342b5974f6151347b14c106edf" name="X-Raym Scripts">
+<index version="1" commit="4fffc502ea2921c774af9077422d7c3facf87a43" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1949,6 +1949,12 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Select%20all%20items%20below%20length%20threshold%20on%20selected%20tracks.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Select all items in current region at edit cursor.lua" type="script" desc="Select all items in current region at edit cursor">
+      <version name="1.0" author="X-Raym" time="2020-10-27T22:48:05Z">
+        <changelog><![CDATA[+ Initial release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4fffc502ea2921c774af9077422d7c3facf87a43/Items%20Properties/X-Raym_Select%20all%20items%20in%20current%20region%20at%20edit%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select item under mouse automatically (background).lua" type="script" desc="Select item under mouse automatically (background)">
