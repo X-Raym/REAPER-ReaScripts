@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1497832#post1497832
  * REAPER: 5.0 pre 18b
  * Extensions: SWS 2.6.3 #0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0 (2020-10-29)
+	+ Index fix
  * v1.0 (2020-10-27)
 	+ Initial release
 --]]
@@ -41,11 +43,8 @@ function AddPoints(env)
 
 		if cursor_point ~= -1 then
 
-			--GET POINT VALUE
-			retval2, timeOut2, valueOut2, shapeOutOptional2, tensionOutOptional2, selectedOutOptional2 = reaper.GetEnvelopePoint(env, cursor_point)
-
 			-- GET NEXT POINT VALUE
-			retval3, timeOut3, valueOut3, shapeOutOptional3, tensionOutOptional3, selectedOutOptional3 = reaper.GetEnvelopePoint(env, cursor_point-1)
+			retval3, timeOut3, valueOut3, shapeOutOptional3, tensionOutOptional3, selectedOutOptional3 = reaper.GetEnvelopePoint(env, cursor_point)
 
 			-- IF THERE IS A NEXT POINT
 			if retval3 == true then
