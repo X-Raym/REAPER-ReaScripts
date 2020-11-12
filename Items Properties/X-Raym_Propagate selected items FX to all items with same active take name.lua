@@ -13,32 +13,34 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574697#post1574697
  * REAPER: 5.0
  * Extensions: SWS 2.8.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
- 
+
 --[[
  * Changelog:
+ * v1.0.1 (2020-11-12)
+ 	# empty item fix
  * v1.0 (2015-09-22)
 	+ Initial Release
 --]]
 
 -- REQUEST BY Bernadette Michelle
- 
--- ---------- DEBUG =========> 
+
+-- ---------- DEBUG =========>
 function Msg(variable)
   reaper.ShowConsoleMsg(tostring(variable).."\n")
 end
--- <------------- END OF DEBUG 
+-- <------------- END OF DEBUG
 
 
 -- ---------- INIT ITEMS SELECTION =========>
 -- SAVE
 function SaveSelectedItems()
-	
+
 	sel_items = {} -- init table
 
 	for i = 0, count_sel_items - 1 do
-	
+
 		sel_item = reaper.GetSelectedMediaItem(0, i)
 
 		if reaper.GetActiveTake(sel_item) ~= nil then -- IF SEL ITEM HAS TAKE
@@ -60,7 +62,7 @@ end
 
 -- ---------- MAIN FUNCTION =========>
 function Main()
-  
+
 	reaper.Undo_BeginBlock()
 
 	SaveSelectedItems() -- Save item selection
@@ -75,38 +77,47 @@ function Main()
 		reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_COPYFXCHAIN1"), 0) -- Copy FX chain from selected item
 
 		sel_take = reaper.GetActiveTake(sel_item) -- get sel item take
-		sel_take_name = reaper.GetTakeName(sel_take) -- get sel item take name
 
-		-- LOOP IN ALL ITEMS
-		for j = 0, count_items - 1 do
+		if sel_take then
 
-			item = reaper.GetMediaItem(0, j) -- Get item
+			sel_take_name = reaper.GetTakeName(sel_take) -- get sel item take name
 
-			if item ~= sel_item then
+			-- LOOP IN ALL ITEMS
+			for j = 0, count_items - 1 do
 
-				-- LOOP IN TAKES
-				-- takes_count = reaper.CountTakes(item) -- Count takes
-				-- for v = 0, takes_count-1 do
+				item = reaper.GetMediaItem(0, j) -- Get item
 
-					-- item_take = reaper.GetTake(item, v) -- Get Take
-					item_take = reaper.GetActiveTake(item, v) -- Get Take
+				if item ~= sel_item then
 
-					name_item_take = reaper.GetTakeName(item_take) -- Get take name
+					-- LOOP IN TAKES
+					-- takes_count = reaper.CountTakes(item) -- Count takes
+					-- for v = 0, takes_count-1 do
 
-					if name_item_take == sel_take_name then -- Si le nom du take selectionné est similaire au take, alors
+						-- item_take = reaper.GetTake(item, v) -- Get Take
+						item_take = reaper.GetActiveTake(item, v) -- Get Take
 
-						reaper.SetMediaItemSelected(sel_item, false) -- Unselect current sel item
-						reaper.SetMediaItemSelected(item, true) -- Select items
-						reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_COPYFXCHAIN3"), 0) -- Paste (replace) FX chain to selected items
-          
-					end -- NAMES MATCH
-          
-				--end -- LOOP TAKES
-      
-			end -- IF DIFFERENT THAN CURRENT ITEM
-    
+						if item_take then
+
+							name_item_take = reaper.GetTakeName(item_take) -- Get take name
+
+							if name_item_take == sel_take_name then -- Si le nom du take selectionnï¿½ est similaire au take, alors
+
+								reaper.SetMediaItemSelected(sel_item, false) -- Unselect current sel item
+								reaper.SetMediaItemSelected(item, true) -- Select items
+								reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_COPYFXCHAIN3"), 0) -- Paste (replace) FX chain to selected items
+
+							end -- NAMES MATCH
+
+						end -- If take
+
+					--end -- LOOP TAKES
+
+				end -- IF DIFFERENT THAN CURRENT ITEM
+
+			end -- if take
+
 		end -- LOOP IN ITEMS
-    
+
 	end -- LOOP IN INIT SEL ITEMS
 
 	RestoreSelItems()
@@ -116,14 +127,14 @@ function Main()
 end
 -- <---------------------- END OF MAIN
 
--- ---------- COUNT SEL ITEMS =========> 
+-- ---------- COUNT SEL ITEMS =========>
 count_sel_items = reaper.CountSelectedMediaItems(0)
 if count_sel_items > 0 then -- IF item selected
-	
+
 	reaper.PreventUIRefresh(1)
-	
+
 	Main() -- Run
-	
+
 	reaper.UpdateArrange()
 	reaper.PreventUIRefresh(-1)
 

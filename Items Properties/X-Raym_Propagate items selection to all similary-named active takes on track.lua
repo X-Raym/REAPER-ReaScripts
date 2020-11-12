@@ -17,6 +17,8 @@
 
 --[[
  * Changelog:
+ * v1.0.1 (2020-11-12)
+ 	# empty item fix
  * v1.0 (2015-09-22)
 	+ Initial Release
 --]]
@@ -59,25 +61,33 @@ function Main()
 	for i, sel_item in ipairs(sel_items) do
 
 		sel_take = reaper.GetActiveTake(sel_item) -- get sel item take
-		sel_take_name = reaper.GetTakeName(sel_take) -- get sel item take name
-		sel_track = reaper.GetMediaItem_Track(sel_item)
-		count_items_on_track = reaper.CountTrackMediaItems(sel_track)
-		-- LOOP IN ALL ITEMS
-		for j = 0, count_items_on_track - 1 do
 
-			item = reaper.GetTrackMediaItem(sel_track, j) -- Get item
+		if sel_take then
+			sel_take_name = reaper.GetTakeName(sel_take) -- get sel item take name
+			sel_track = reaper.GetMediaItem_Track(sel_item)
+			count_items_on_track = reaper.CountTrackMediaItems(sel_track)
+			-- LOOP IN ALL ITEMS
+			for j = 0, count_items_on_track - 1 do
 
-			item_take = reaper.GetActiveTake(item, v) -- Get Take
+				item = reaper.GetTrackMediaItem(sel_track, j) -- Get item
 
-			name_item_take = reaper.GetTakeName(item_take) -- Get take name
+				item_take = reaper.GetActiveTake(item, v) -- Get
 
-			if name_item_take == sel_take_name then -- Si le nom du take selectionn� est similaire au take, alors
+				if item_take then
 
-				reaper.SetMediaItemSelected(item, true) -- Select items
+					name_item_take = reaper.GetTakeName(item_take) -- Get take name
 
-			end -- NAMES MATCH
+					if name_item_take == sel_take_name then -- Si le nom du take selectionn� est similaire au take, alors
 
-		end -- LOOP IN ITEMS
+						reaper.SetMediaItemSelected(item, true) -- Select items
+
+					end -- NAMES MATCH
+
+				end
+
+			end -- LOOP IN ITEMS
+
+		end
 
 	end -- LOOP IN INIT SEL ITEMS
 
