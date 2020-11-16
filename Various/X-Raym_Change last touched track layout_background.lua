@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.5
+ * Version: 2.0.6
 --]]
  
 --[[
  * Changelog:
+ * v2.0.6 (2020-11-16)
+  # Remove project dirty
  * v2.0.5 (2020-11-16)
   # Bug fix
  * v2.0.4 (2020-11-16)
@@ -60,13 +62,13 @@ function Exit()
   local cur_proj, projfn = reaper.EnumProjects( -1 )
   local proj
   local i = 0
-  -- console = true
+  console = true
   repeat
     proj, projfn = reaper.EnumProjects( i )
-    --reaper.SelectProjectInstance( proj )
+    reaper.SelectProjectInstance( proj )
     Msg("\n-------------")
     Msg(projfn)
-    if proj and reaper.IsProjectDirty( proj ) == 0 then
+    if proj then
       local ext_state_retval, last_track_guid = reaper.GetProjExtState(proj, ext_name, "track_guid")
       Msg(i)
       Msg(last_track_guid)
