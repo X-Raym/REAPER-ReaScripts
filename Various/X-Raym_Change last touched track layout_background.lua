@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.8
+ * Version: 2.0.9
 --]]
  
 --[[
  * Changelog:
+ * v2.0.9 (2020-11-16)
+  # Custom get GUID function
  * v2.0.6 (2020-11-16)
   # Remove project dirty
  * v2.0.5 (2020-11-16)
@@ -56,6 +58,17 @@ function SetButtonState( set )
   reaper.RefreshToolbar2( sec, cmd )
 end
 
+function GetTrackByGUID( proj, GUID )
+  local count_tracks = reaper.CountTracks( proj )
+  for i = 0, count_tracks - 1 do
+    local t = reaper.GetTrack( proj, i )
+    local retval, GUID_t = reaper.GetSetMediaTrackInfo_String( t, "GUID", '', false )    
+    if GUID == GUID_t then
+      return t
+    end
+  end
+end
+
 function Exit()
   SetButtonState()
   reaper.ClearConsole()
@@ -65,14 +78,14 @@ function Exit()
   -- console = true
   repeat
     proj, projfn = reaper.EnumProjects( i )
-    reaper.SelectProjectInstance( proj )
+    -- reaper.SelectProjectInstance( proj )
     Msg("\n-------------")
     Msg(projfn)
     if proj then
       local ext_state_retval, last_track_guid = reaper.GetProjExtState(proj, ext_name, "track_guid")
       Msg(i)
       Msg(last_track_guid)
-      local last_track = reaper.BR_GetMediaTrackByGUID( proj, last_track_guid )
+      local last_track = GetTrackByGUID( proj, last_track_guid )
       Msg(last_track)
       if last_track and reaper.ValidatePtr2(proj,last_track, 'MediaTrack*') then
         Msg("VALID")
@@ -102,7 +115,7 @@ end
 -- Main Function (which loop in background)
 function main()
 
-  local cur_proj, projfn = reaper.EnumProjects( -1 )
+  -- local cur_proj, projfn = reaper.EnumProjects( -1 )
 
   local track = reaper.GetLastTouchedTrack()
   local ext_state_retval, last_track_guid = reaper.GetProjExtState(-1, ext_name, "track_guid")
@@ -140,11 +153,11 @@ function main()
   
   if first_run then first_run = false end
   
-  if cur_proj ~= last_proj then
-    reaper.TrackList_AdjustWindows( false ) -- Update TCP and MCP -- Maybe not necessary
-  end
+  -- if cur_proj ~= last_proj then
+    -- reaper.TrackList_AdjustWindows( false ) -- Update TCP and MCP -- Maybe not necessary
+  -- end
   
-  last_proj = cur_proj
+  -- last_proj = cur_proj
   
   reaper.defer( main )
   
