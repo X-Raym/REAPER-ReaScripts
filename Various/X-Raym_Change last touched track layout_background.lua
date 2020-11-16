@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
  
 --[[
  * Changelog:
+ * v1.0.3 (2020-11-16)
+  + Better project tab
  * v1.0.2 (2020-11-16)
   + Better project tab but still buggy
  * v1.0.1 (2020-11-16)
@@ -71,7 +73,7 @@ function main()
       end
     end
     
-    if track ~= last_track then
+    if track ~= last_track or cur_proj ~= last_proj then
       retval, mcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", "", false )
       retval, tcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", "", false )
       if mcp_layout then
