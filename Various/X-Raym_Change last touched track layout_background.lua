@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-11-16)
+  + Be sure last track still exist
  * v1.0 (2020-11-16)
   + Initial Release
 --]]
@@ -36,7 +38,7 @@ end
 
 function Exit()
   SetButtonState()
-  if last_track then
+  if last_track and reaper.ValidatePtr(last_track, 'MediaTrack*') then
     if mcp_layout and mcp_layout_last then
       local retval, _ = reaper.GetSetMediaTrackInfo_String( last_track, "P_MCP_LAYOUT", mcp_layout_last, true )
     end
@@ -53,7 +55,7 @@ function main()
   
   if track and track ~= last_track then
 
-    if last_track then
+    if last_track and reaper.ValidatePtr(last_track, 'MediaTrack*') then
       if mcp_layout and mcp_layout_last then
         local retval, _ = reaper.GetSetMediaTrackInfo_String( last_track, "P_MCP_LAYOUT", mcp_layout_last, true )
       end
