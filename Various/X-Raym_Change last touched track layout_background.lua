@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.7
+ * Version: 2.0.8
 --]]
  
 --[[
@@ -72,14 +72,14 @@ function Exit()
       local ext_state_retval, last_track_guid = reaper.GetProjExtState(proj, ext_name, "track_guid")
       Msg(i)
       Msg(last_track_guid)
-      local last_track = reaper.BR_GetMediaTrackByGUID( i, last_track_guid )
+      local last_track = reaper.BR_GetMediaTrackByGUID( proj, last_track_guid )
       Msg(last_track)
-      if last_track and reaper.ValidatePtr2(i,last_track, 'MediaTrack*') then
+      if last_track and reaper.ValidatePtr2(proj,last_track, 'MediaTrack*') then
         Msg("VALID")
         retval, name = reaper.GetTrackName( last_track )
         Msg(name)
-        local ext_state_retval, last_track_mcp = reaper.GetProjExtState(i, ext_name, "mcp_layout")
-        local ext_state_retval, last_track_tcp = reaper.GetProjExtState(i, ext_name, "tcp_layout")
+        local ext_state_retval, last_track_mcp = reaper.GetProjExtState(proj, ext_name, "mcp_layout")
+        local ext_state_retval, last_track_tcp = reaper.GetProjExtState(proj, ext_name, "tcp_layout")
         Msg(last_track_mcp)
         Msg(last_track_tcp)
         if last_track_mcp == "Default" then last_track_mcp = "" end
@@ -126,7 +126,8 @@ function main()
     
     reaper.SetProjExtState(cur_proj, ext_name, "tcp_layout", tcp_layout_last)
     reaper.SetProjExtState(cur_proj, ext_name, "mcp_layout", mcp_layout_last)
-    reaper.SetProjExtState(cur_proj, ext_name, "track_guid", reaper.GetTrackGUID(track))
+    local retval, GUID = reaper.GetSetMediaTrackInfo_String( track, "GUID", "", false )
+    reaper.SetProjExtState(cur_proj, ext_name, "track_guid", GUID)
     
     if mcp_layout then
       local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", mcp_layout, true )
