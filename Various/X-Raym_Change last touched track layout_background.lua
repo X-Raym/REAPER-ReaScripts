@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.4
+ * Version: 2.0.5
 --]]
  
 --[[
  * Changelog:
+ * v2.0.5 (2020-11-16)
+  # Bug fix
  * v2.0.4 (2020-11-16)
   # Deactivate console
  * v2.0.3 (2020-11-16)
@@ -58,12 +60,13 @@ function Exit()
   local cur_proj, projfn = reaper.EnumProjects( -1 )
   local proj
   local i = 0
+  -- console = true
   repeat
     proj, projfn = reaper.EnumProjects( i )
-    reaper.SelectProjectInstance( proj )
+    --reaper.SelectProjectInstance( proj )
     Msg("\n-------------")
     Msg(projfn)
-    if proj then
+    if proj and reaper.IsProjectDirty( proj ) == 0 then
       local ext_state_retval, last_track_guid = reaper.GetProjExtState(proj, ext_name, "track_guid")
       Msg(i)
       Msg(last_track_guid)
@@ -88,14 +91,16 @@ function Exit()
           Msg(retval)
         end
       end
-      i = i + 1
     end
+    i = i + 1
   until not proj
   reaper.SelectProjectInstance( cur_proj )
 end
 
 -- Main Function (which loop in background)
 function main()
+
+  local cur_proj, projfn = reaper.EnumProjects( -1 )
 
   local track = reaper.GetLastTouchedTrack()
   local ext_state_retval, last_track_guid = reaper.GetProjExtState(-1, ext_name, "track_guid")
@@ -131,6 +136,12 @@ function main()
   end
   
   if first_run then first_run = false end
+  
+  if cur_proj ~= last_proj then
+    reaper.TrackList_AdjustWindows( false ) -- Update TCP and MCP -- Maybe not necessary
+  end
+  
+  last_proj = cur_proj
   
   reaper.defer( main )
   
