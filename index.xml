@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8cdf9889568644f3db45a0d812193f12bcdaab65" name="X-Raym Scripts">
+<index version="1" commit="7cdf0927df6026dcac09deb4f7be225e923101e4" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4035,6 +4035,10 @@
       <version name="2.0.4" author="X-Raym" time="2020-11-16T18:29:07Z">
         <changelog><![CDATA[# Deactivate console]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8cdf9889568644f3db45a0d812193f12bcdaab65/Various/X-Raym_Change%20last%20touched%20track%20layout_background.lua</source>
+      </version>
+      <version name="2.0.5" author="X-Raym" time="2020-11-16T20:18:07Z">
+        <changelog><![CDATA[# Bug fix]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7cdf0927df6026dcac09deb4f7be225e923101e4/Various/X-Raym_Change%20last%20touched%20track%20layout_background.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Change transport theme element background color according to ripple state.lua" type="script" desc="Change transport theme element background color according to ripple state">
