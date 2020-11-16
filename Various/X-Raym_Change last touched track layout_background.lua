@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
  
 --[[
  * Changelog:
+ * v1.0.2 (2020-11-16)
+  + Better project tab but still buggy
  * v1.0.1 (2020-11-16)
   + Be sure last track still exist
  * v1.0 (2020-11-16)
@@ -50,32 +52,40 @@ end
 
 -- Main Function (which loop in background)
 function main()
-  
-  track = reaper.GetLastTouchedTrack( 0 )
-  
-  if track and track ~= last_track then
-
-    if last_track and reaper.ValidatePtr(last_track, 'MediaTrack*') then
-      if mcp_layout and mcp_layout_last then
+  cur_proj, _ = reaper.EnumProjects( -1 )
+  track = reaper.GetLastTouchedTrack()
+  if track and (track ~= last_track or cur_proj ~= last_proj) then
+    local is_last_track_valid = false
+    if last_track and reaper.ValidatePtr2(cur_proj, last_track, 'MediaTrack*') then
+      is_last_track_valid = true
+    elseif last_track and last_proj and reaper.ValidatePtr(last_proj, 'ReaProject*') and reaper.ValidatePtr2(last_proj, last_track, 'MediaTrack*') then
+      is_last_track_valid = true
+    end
+    
+    if is_last_track_valid then
+      if mcp_layout_last then
         local retval, _ = reaper.GetSetMediaTrackInfo_String( last_track, "P_MCP_LAYOUT", mcp_layout_last, true )
       end
-      if tcp_layout and tcp_layout_last then
+      if tcp_layout_last then
         local retval, _ = reaper.GetSetMediaTrackInfo_String( last_track, "P_TCP_LAYOUT", tcp_layout_last, true )
       end
     end
-  
-    retval, mcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", "", false )
-    retval, tcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", "", false )
     
-    if mcp_layout then
-      local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", mcp_layout, true )
+    if track ~= last_track then
+      retval, mcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", "", false )
+      retval, tcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", "", false )
+      if mcp_layout then
+        local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", mcp_layout, true )
+      end
+      if tcp_layout then
+        local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", tcp_layout, true )
+      end
     end
-    if tcp_layout then
-      local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", tcp_layout, true )
-    end
+    
   end
   
   last_track = track
+  last_proj = cur_proj
   
   reaper.defer( main )
   
