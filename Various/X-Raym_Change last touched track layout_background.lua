@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.6
+ * Version: 2.0.7
 --]]
  
 --[[
@@ -62,7 +62,7 @@ function Exit()
   local cur_proj, projfn = reaper.EnumProjects( -1 )
   local proj
   local i = 0
-  console = true
+  -- console = true
   repeat
     proj, projfn = reaper.EnumProjects( i )
     reaper.SelectProjectInstance( proj )
