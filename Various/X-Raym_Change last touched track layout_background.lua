@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.3
+ * Version: 2.0.4
 --]]
  
 --[[
  * Changelog:
+ * v2.0.4 (2020-11-16)
+  # Deactivate console
  * v2.0.3 (2020-11-16)
   # ProjExtState base
  * v1.0.3 (2020-11-16)
@@ -25,6 +27,7 @@
 --]]
 
 -- NOTE: Known issue: Project tab have to be in focus for changing layout. https://forum.cockos.com/showthread.php?p=2365622#post2365622
+-- THis could be solve if ATexit could differentiate between script closed manually or closed at reaper exit
 
 -- USER CONFIG AREA ---------------------
 mcp_layout = "1. Classic Default MCP - Blue Fader"
@@ -35,7 +38,9 @@ console = false
 ext_name = "XR_LastTouchedTrackLayout"
 
 function Msg(val)
-  reaper.ShowConsoleMsg(tostring( val ).."\n")
+  if console then
+    reaper.ShowConsoleMsg(tostring( val ).."\n")
+  end
 end
  
  -- Set ToolBar Button State
