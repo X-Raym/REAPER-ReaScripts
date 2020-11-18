@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.9
+ * Version: 2.1
 --]]
  
 --[[
  * Changelog:
+ * v2.1 (2020-11-18)
+  # Performance optimization
  * v2.0.9 (2020-11-16)
   # Custom get GUID function
  * v2.0.6 (2020-11-16)
@@ -105,6 +107,7 @@ function Exit()
           local retval, _ = reaper.GetSetMediaTrackInfo_String( last_track, "P_TCP_LAYOUT", last_track_tcp, true )
           Msg(retval)
         end
+        local ext_state_retval, last_track_mcp = reaper.SetProjExtState(proj, ext_name, "", "")
       end
     end
     i = i + 1
@@ -120,7 +123,7 @@ function main()
   local track = reaper.GetLastTouchedTrack()
   local ext_state_retval, last_track_guid = reaper.GetProjExtState(-1, ext_name, "track_guid")
   local last_track = reaper.BR_GetMediaTrackByGUID( -1, last_track_guid )
-  if track and (track ~= last_track or not first_run) then
+  if track and (track ~= last_track or not last_track) then
     if last_track and reaper.ValidatePtr(last_track, 'MediaTrack*') then
       ext_state_retval, last_track_tcp = reaper.GetProjExtState(-1, ext_name, "tcp_layout")
       ext_state_retval, last_track_mcp = reaper.GetProjExtState(-1, ext_name, "mcp_layout")
@@ -132,26 +135,26 @@ function main()
     end
     
     -- Backup Track Layout
-    local retval, mcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", "", false )
-    local retval, tcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", "", false )
-    if mcp_layout_last == "" then mcp_layout_last = "Default" end
-    if tcp_layout_last == "" then tcp_layout_last = "Default" end
-    
-    reaper.SetProjExtState(cur_proj, ext_name, "tcp_layout", tcp_layout_last)
-    reaper.SetProjExtState(cur_proj, ext_name, "mcp_layout", mcp_layout_last)
-    local retval, GUID = reaper.GetSetMediaTrackInfo_String( track, "GUID", "", false )
-    reaper.SetProjExtState(cur_proj, ext_name, "track_guid", GUID)
-    
-    if mcp_layout then
-      local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", mcp_layout, true )
-    end
-    if tcp_layout then
-      local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", tcp_layout, true )
+    if track then
+      local retval, mcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", "", false )
+      local retval, tcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", "", false )
+      if mcp_layout_last == "" then mcp_layout_last = "Default" end
+      if tcp_layout_last == "" then tcp_layout_last = "Default" end
+      
+      reaper.SetProjExtState(cur_proj, ext_name, "tcp_layout", tcp_layout_last)
+      reaper.SetProjExtState(cur_proj, ext_name, "mcp_layout", mcp_layout_last)
+      local retval, GUID = reaper.GetSetMediaTrackInfo_String( track, "GUID", "", false )
+      reaper.SetProjExtState(cur_proj, ext_name, "track_guid", GUID)
+      
+      if mcp_layout then
+        local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", mcp_layout, true )
+      end
+      if tcp_layout then
+        local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", tcp_layout, true )
+      end
     end
     
   end
-  
-  if first_run then first_run = false end
   
   -- if cur_proj ~= last_proj then
     -- reaper.TrackList_AdjustWindows( false ) -- Update TCP and MCP -- Maybe not necessary
