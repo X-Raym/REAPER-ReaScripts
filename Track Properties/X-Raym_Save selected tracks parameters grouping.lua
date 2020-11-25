@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-11-25)
+  + Run from preset file
  * v1.0 (2020-11-24)
   + Initial Release
 --]]
@@ -24,7 +26,7 @@ ext_name = "XR_SaveTracksGroups"
 
 keys = {"VOLUME_LEAD" , "VOLUME_FOLLOW" , "VOLUME_VCA_LEAD" , "VOLUME_VCA_FOLLOW" , "PAN_LEAD" , "PAN_FOLLOW" , "WIDTH_LEAD" , "WIDTH_FOLLOW" , "MUTE_LEAD" , "MUTE_FOLLOW" , "SOLO_LEAD" , "SOLO_FOLLOW" , "RECARM_LEAD" , "RECARM_FOLLOW" , "POLARITY_LEAD" , "POLARITY_FOLLOW" , "AUTOMODE_LEAD" , "AUTOMODE_FOLLOW" , "VOLUME_REVERSE" , "PAN_REVERSE" , "WIDTH_REVERSE" , "NO_LEAD_WHEN_FOLLOW" , "VOLUME_VCA_FOLLOW_ISPREFX"}
 
-function Main()
+function Init()
   local count_sel_tracks = reaper.CountSelectedTracks(0)
   if count_sel_tracks > 0 and reset then
     reaper.SetProjExtState( 0, ext_name, "", "" ) -- Reset
@@ -44,4 +46,6 @@ function Main()
   end
 end
 
-reaper.defer(Main)
+if not preset_file_init then
+  reaper.defer(Init)
+end
