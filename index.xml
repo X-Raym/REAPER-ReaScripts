@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="1a7c758aec97421b41f71d970839f39a76ca38dc" name="X-Raym Scripts">
+<index version="1" commit="d6f946dc7b96236b1d991de1992bea5a4f753955" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3631,6 +3631,10 @@
       <version name="1.0" author="X-Raym" time="2020-11-24T16:40:59Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/1a7c758aec97421b41f71d970839f39a76ca38dc/Track%20Properties/X-Raym_Save%20selected%20tracks%20parameters%20grouping.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2020-11-25T11:49:51Z">
+        <changelog><![CDATA[+ Run from preset file]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d6f946dc7b96236b1d991de1992bea5a4f753955/Track%20Properties/X-Raym_Save%20selected%20tracks%20parameters%20grouping.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Scroll vertically to track by name and select it.lua" type="script" desc="Scroll vertically to track by name and select it">
