@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
  
 --[[
  * Changelog:
+ * v1.0.2 (2020-11-25)
+  + Undo
  * v1.0.1 (2020-11-25)
   + Run from preset file
  * v1.0 (2020-11-24)
@@ -47,5 +49,7 @@ function Init()
 end
 
 if not preset_file_init then
-  reaper.defer(Init)
+  reaper.Undo_BeginBlock()
+  Init()
+  reaper.Undo_BeginBlock("Save selected tracks grouping parameters",-1)
 end
