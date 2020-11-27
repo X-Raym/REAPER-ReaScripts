@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="509b1d15fe1e998443cf73c036ae78725d77e0b6" name="X-Raym Scripts">
+<index version="1" commit="e9f5ad47f22953e6003a9f758bb0def054a009d9" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4121,11 +4121,20 @@
       </version>
     </reapack>
     <reapack name="X-Raym_Click at X Y screen position.lua" type="script" desc="Click at X Y screen position">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/bWsnJET.gif</link>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2020-11-27T17:13:23Z">
         <source main="main" file="X-Raym_Click at X Y screen position_slot 1.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/509b1d15fe1e998443cf73c036ae78725d77e0b6/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
         <source main="main" file="X-Raym_Click at X Y screen position_slot 2.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/509b1d15fe1e998443cf73c036ae78725d77e0b6/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
         <source main="main" file="X-Raym_Click at X Y screen position_slot 3.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/509b1d15fe1e998443cf73c036ae78725d77e0b6/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
         <source main="main" file="X-Raym_Click at X Y screen position_slot 4.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/509b1d15fe1e998443cf73c036ae78725d77e0b6/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2020-11-27T17:33:05Z">
+        <source main="main" file="X-Raym_Click at X Y screen position_slot 1.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/e9f5ad47f22953e6003a9f758bb0def054a009d9/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
+        <source main="main" file="X-Raym_Click at X Y screen position_slot 2.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/e9f5ad47f22953e6003a9f758bb0def054a009d9/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
+        <source main="main" file="X-Raym_Click at X Y screen position_slot 3.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/e9f5ad47f22953e6003a9f758bb0def054a009d9/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
+        <source main="main" file="X-Raym_Click at X Y screen position_slot 4.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/e9f5ad47f22953e6003a9f758bb0def054a009d9/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Detect selected and master tracks clips - peaks over 0dB - position.lua" type="script">
