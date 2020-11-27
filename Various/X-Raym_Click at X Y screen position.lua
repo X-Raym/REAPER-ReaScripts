@@ -8,7 +8,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version:  1.0
+ * Version:  1.0.1
  * MetaPackage: true
  * Provides:
  *   [main] . > X-Raym_Click at X Y screen position_slot 1.lua
