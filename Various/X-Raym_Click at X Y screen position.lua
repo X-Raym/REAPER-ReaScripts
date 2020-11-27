@@ -1,5 +1,7 @@
 --[[
  * ReaScript Name: Click at X Y screen position
+ * Screenshot: https://i.imgur.com/bWsnJET.gif
+ * Description: Use this with the Save mouse pos toslot scripts. Useful to switch presets of VST which doesn't have other way to trigger next/previous buttons.
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -37,6 +39,9 @@ function Init()
     if x and y then
       reaper.Undo_BeginBlock()
       reaper.JS_Mouse_SetPosition( x, y )
+      hwnd = reaper.JS_Window_FromPoint( x, y )
+      reaper.JS_Window_SetFocus( hwnd )
+      reaper.JS_Window_SetForeground( hwnd )
       reaper.Main_OnCommand( reaper.NamedCommandLookup( "_S&M_MOUSE_L_CLICK" ), 0 ) -- SWS/S&M: Left mouse click at cursor position (use w/o modifier)
       reaper.Undo_EndBlock("Click", -1)
     end
