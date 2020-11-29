@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e9f5ad47f22953e6003a9f758bb0def054a009d9" name="X-Raym Scripts">
+<index version="1" commit="6a38d95e7f4ad0caaae9e51e758cdc4a46564bd1" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3615,6 +3615,10 @@
         <changelog><![CDATA[+ Undo]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69ecd6a5d6317ab0684eacf2fdda275fb33cb402/Track%20Properties/X-Raym_Restore%20selected%20tracks%20parameters%20grouping.lua</source>
       </version>
+      <version name="1.1" author="X-Raym" time="2020-11-29T10:41:09Z">
+        <changelog><![CDATA[# 64 groups]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6a38d95e7f4ad0caaae9e51e758cdc4a46564bd1/Track%20Properties/X-Raym_Restore%20selected%20tracks%20parameters%20grouping.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Round selected tracks pan.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3647,6 +3651,10 @@
       <version name="1.0.2" author="X-Raym" time="2020-11-25T14:40:12Z">
         <changelog><![CDATA[+ Undo]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69ecd6a5d6317ab0684eacf2fdda275fb33cb402/Track%20Properties/X-Raym_Save%20selected%20tracks%20parameters%20grouping.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2020-11-29T10:41:09Z">
+        <changelog><![CDATA[# 64 groups]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6a38d95e7f4ad0caaae9e51e758cdc4a46564bd1/Track%20Properties/X-Raym_Save%20selected%20tracks%20parameters%20grouping.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Scroll vertically to track by name and select it.lua" type="script" desc="Scroll vertically to track by name and select it">
