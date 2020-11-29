@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2020-11-28)
+  # 64 groups
  * v1.0.2 (2020-11-25)
   + Undo
  * v1.0.1 (2020-11-25)
@@ -36,11 +38,13 @@ function Init()
   end
   for i = 0, count_sel_tracks - 1 do
     local track = reaper.GetSelectedTrack( 0, i )
+    local retval, GUID = reaper.GetSetMediaTrackInfo_String( track, "GUID", "", false )
     for j, key in ipairs(keys) do
       local membership = reaper.GetSetTrackGroupMembership( track, key, 0, 0 )
-      if membership > 0 then
-        local retval, GUID = reaper.GetSetMediaTrackInfo_String( track, "GUID", "", false )
+      local membership_64 = reaper.GetSetTrackGroupMembershipHigh( track, key, 0, -1 ) -- Get
+      if membership > 0 or membership_64 > 0 then
         retval = reaper.SetProjExtState(0, ext_name, GUID .. " " .. key, membership)
+        retval = reaper.SetProjExtState(0, ext_name, GUID .. " " .. key .. " 64", membership_64)
       else
         -- reaper.SetProjExtState( 0, ext_name, GUID, "" ) -- Reset
       end
