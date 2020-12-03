@@ -10,31 +10,26 @@
  * Forum Thread: Scripts: FX Param Values (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=164796
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2020-04-12)
+  # Bug fix
  * v1.0.1 (2018-07-05)
   # Source FX has to be on selected tracks
  * v1.0 (2018-07-05)
   + Initial Release
 --]]
 
- -- Set ToolBar Button ON
-function SetButtonON()
-  is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
-  state = reaper.GetToggleCommandStateEx( sec, cmd )
-  reaper.SetToggleCommandState( sec, cmd, 1 ) -- Set ON
-  reaper.RefreshToolbar2( sec, cmd )
-end
-
--- Set ToolBar Button OFF
-function SetButtonOFF()
-  is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
-  state = reaper.GetToggleCommandStateEx( sec, cmd )
-  reaper.SetToggleCommandState( sec, cmd, 0 ) -- Set OFF
-  reaper.RefreshToolbar2( sec, cmd )
+-- Set ToolBar Button State
+function SetButtonState( set )
+ if not set then set = 0 end
+ local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
+ local state = reaper.GetToggleCommandStateEx( sec, cmd )
+ reaper.SetToggleCommandState( sec, cmd, set ) -- Set ON
+ reaper.RefreshToolbar2( sec, cmd )
 end
 
 local repaer = reaper
@@ -53,7 +48,7 @@ function main()
 
       local last_track = reaper.GetTrack(0, last_track_id - 1)
 
-      if reaper.IsTrackSelected( last_track ) then
+      if last_track and reaper.IsTrackSelected( last_track ) then
 
         local last_fx_name_retval, last_fx_name = reaper.TrackFX_GetFXName(last_track, last_fx_id, "")
 
@@ -110,6 +105,6 @@ function main()
 end
 
 -- RUN
-SetButtonON()
+SetButtonState( 1 )
 main()
-reaper.atexit( SetButtonOFF )
+reaper.atexit( SetButtonState )
