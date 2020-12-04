@@ -10,11 +10,13 @@
  * Forum Thread: Request, split selected item(s) to regions.
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=169127
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2020-12-04)
+  + Bug fix if similar pos points
  * v1.1 (2017-09-21)
   + Bug fix if similar pos points
  * v1.0 (2017-09-20)
@@ -70,7 +72,7 @@ function MultiSplitMediaItem(item, times)
   
     if time > item_end then break end
     
-    if time > item_pos and time < item_end then
+    if time > item_pos and time < item_end and item then
   
       -- store item so we can split it next time around
       item = reaper.SplitMediaItem(item, time)
