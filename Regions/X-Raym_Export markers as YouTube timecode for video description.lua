@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2020-12-09)
+  + Output marker at timecode 0
  * v1.1 (2017-01-03)
   # New format
   + Don't consider marker before project time 0
@@ -51,7 +53,7 @@ function main()
       if bIsrgnOut == false then
         -- ACTION ON MARKERS HERE
         abs_pos = tonumber( reaper.format_timestr_pos( math.floor( iPosOut ), "", 3 ) )
-        if abs_pos > 0 then
+        if abs_pos and abs_pos >= 0 then
           pos = reaper.format_timestr_pos( math.floor( iPosOut ), "", 5 )
           pos = pos:sub(0, -4)
           marker = {}
