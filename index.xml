@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="70fbd82eeba8e49a4d455904445a5f725c9860d8" name="X-Raym Scripts">
+<index version="1" commit="b99773dca5409328484dfed644cd4da45bab4a37" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2406,6 +2406,24 @@
       </version>
       <version name="1.0.3" author="X-Raym" time="2020-12-17T20:02:31Z">
         <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/c9b01524520f3ec2cb133441cc5b86c19635a255/Media%20Explorer/X-Raym_Play-Stop%20arrange%20view%20from%20media%20explorer%20context.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Reset media explorer volume to 0dB.lua" type="script" desc="Reset media explorer volume to 0dB">
+      <version name="1.0" author="X-Raym" time="2020-12-17T22:58:56Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/b99773dca5409328484dfed644cd4da45bab4a37/Media%20Explorer/X-Raym_Reset%20media%20explorer%20volume%20to%200dB.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set media explorer volume down a bit.lua" type="script" desc="Set media explorer volume down a bit">
+      <version name="1.0" author="X-Raym" time="2020-12-17T22:58:56Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/b99773dca5409328484dfed644cd4da45bab4a37/Media%20Explorer/X-Raym_Set%20media%20explorer%20volume%20down%20a%20bit.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set media explorer volume up a bit.lua" type="script" desc="Set media explorer volume up a bit">
+      <version name="1.0" author="X-Raym" time="2020-12-17T22:58:56Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/b99773dca5409328484dfed644cd4da45bab4a37/Media%20Explorer/X-Raym_Set%20media%20explorer%20volume%20up%20a%20bit.lua</source>
       </version>
     </reapack>
   </category>
