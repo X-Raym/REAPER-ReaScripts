@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="c9b01524520f3ec2cb133441cc5b86c19635a255" name="X-Raym Scripts">
+<index version="1" commit="0176cbdfde56d1489828fa0e0e302dd4c04910a8" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2393,6 +2393,12 @@
     </reapack>
   </category>
   <category name="Media Explorer">
+    <reapack name="X-Raym_Focus arrange view.lua" type="script" desc="Focus arrange view">
+      <version name="1.0" author="X-Raym" time="2020-12-17T20:11:19Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/0176cbdfde56d1489828fa0e0e302dd4c04910a8/Media%20Explorer/X-Raym_Focus%20arrange%20view.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Play-Stop arrange view from media explorer context.lua" type="script" desc="Play-Stop arrange view from media explorer context">
       <version name="1.0" author="X-Raym" time="2020-12-17T19:32:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
