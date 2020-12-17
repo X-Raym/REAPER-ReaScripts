@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
  * Provides: [main=mediaexplorer] .
 --]]
  
@@ -15,8 +15,6 @@
  * v1.0 (2020-12-17)
   + Initial Release
 --]]
-
-val = 1
 
 reaper.ClearConsole()
 
@@ -44,7 +42,7 @@ function Main(hwnd)
     elm_hwnd = reaper.JS_Window_HandleFromAddress( adr )
     title = reaper.JS_Window_GetTitle( elm_hwnd )
     if title == "vol" then
-        reaper.JS_WindowMessage_Send(      elm_hwnd, "WM_LBUTTONDBLCLK", mouse_events_count,val, 0, 0)
+        reaper.JS_WindowMessage_Send(      elm_hwnd, "WM_LBUTTONDBLCLK", 0,0, 0, 0)
       break
     end
   end
