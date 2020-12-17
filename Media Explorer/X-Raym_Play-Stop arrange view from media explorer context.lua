@@ -6,8 +6,8 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.2
- * Provides: mediaexplorer .
+ * Version: 1.0.3
+ * Provides: [main=mediaexplorer] .
 --]]
  
 --[[
