@@ -6,12 +6,14 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
  * Provides: [main=mediaexplorer] .
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-12-18)
+  + disable ignore mousewheel on all faders internally
  * v1.0 (2020-12-17)
   + Initial Release
 --]]
@@ -41,6 +43,8 @@ end
 
 function Main(hwnd)
   retval, list = reaper.JS_Window_ListAllChild( hwnd )
+  mouse_wheel_ignore_pref = reaper.SNM_GetIntConfigVar("mousewheelmode", -666)
+  reaper.SNM_SetIntConfigVar("mousewheelmode", 0 )
   for adr in list:gmatch("%w+") do
     elm_hwnd = reaper.JS_Window_HandleFromAddress( adr )
     title = reaper.JS_Window_GetTitle( elm_hwnd )
@@ -51,10 +55,11 @@ function Main(hwnd)
       break
     end
   end
+  reaper.SNM_SetIntConfigVar("mousewheelmode", mouse_wheel_ignore_pref )
 end
 
-if not reaper.JS_Window_ArrayFind then
-  reaper.ShowConsoleMsg('Please Install js_ReaScriptAPI extension.\nhttps://forum.cockos.com/showthread.php?t=212174\n')
+if not reaper.JS_Window_ArrayFind and not reaper.SNM_GetIntConfigVar then
+  reaper.ShowConsoleMsg('Please install js_ReaScriptAPI extension.\nhttps://forum.cockos.com/showthread.php?t=212174\nAnd SWS extension:\nhttps://www.sws-extension.org/')
 else
   hwnd = GetMediaExplorer()
 
