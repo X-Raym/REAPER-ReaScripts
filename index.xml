@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="77ac412abc007045d32271f297424b5f9b950b2c" name="X-Raym Scripts">
+<index version="1" commit="bf4d1f794a03ca05c472f642cb5a4c9f5199457e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2880,6 +2880,9 @@
       </version>
       <version name="1.0.1" author="X-Raym" time="2020-04-06T02:25:59Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d79eb5ad5d878873b45cb4115ad5bda55ed9725d/Regions/X-Raym_Insert%20markers%20at%20grid%20lines%20in%20time%20selection%20(named%20and%20colored%20with%20regions).lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2020-12-30T10:56:27Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/bf4d1f794a03ca05c472f642cb5a4c9f5199457e/Regions/X-Raym_Insert%20markers%20at%20grid%20lines%20in%20time%20selection%20(named%20and%20colored%20with%20regions).lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Insert markers at grid lines in time selection.lua" type="script">
