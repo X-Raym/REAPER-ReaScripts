@@ -6,9 +6,9 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2020-04-06)
@@ -42,16 +42,16 @@ function round( val, num )
 end
 
 function main()
-  
+
   last_time = ts_start
-  
+
   if measure_color ~= 0 then
     measure_color = reaper.ColorToNative( measure_r, measure_g, measure_b )|0x1000000
   end
   if beat_color ~= 0 then
     beat_color = reaper.ColorToNative( beat_r, beat_g, beat_b )|0x1000000
   end
-  
+
   time = reaper.BR_GetClosestGridDivision( last_time )
   if tostring(time) == tostring(ts_start) then
   local color = 0
@@ -59,7 +59,7 @@ function main()
   if beat_color ~=0 then
    color = beat_color
   end
-  
+
   if measure_color ~= 0 and round(retval, 10) % cml == 0 then
    color = measure_color
   end
@@ -69,24 +69,24 @@ function main()
     name = region_name .. " - " .. fullbeats
     if color == beat_color then color = region_color end
   end
-  reaper.AddProjectMarker2(0, false, time, 0, name, -1, color)
+  reaper.AddProjectMarker2(0, false, time, 0, name or "", -1, color)
   end
-  
+
   -- INITIALIZE loop through selected items
   repeat
 
     local time = reaper.BR_GetNextGridDivision( last_time )
     local color = 0
     local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats( proj, time )
-    
+
     if beat_color ~=0 then
   color = beat_color
     end
-    
+
     if measure_color ~= 0 and round(retval, 10) % cml == 0 then
   color = measure_color
     end
-    
+
     if time <= ts_end then
       name = ''
       markeridx, regionidx = reaper.GetLastMarkerAndCurRegion( 0, time )
@@ -99,7 +99,7 @@ function main()
     reaper.AddProjectMarker2(0, false, time, 0, name, -1, color)
     end
     last_time = time
-    
+
   until last_time > ts_end -- ENDLOOP through selected items
 
 end
@@ -107,9 +107,9 @@ end
 ts_start, ts_end = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
 if ts_start ~= ts_end then
-  
+
   reaper.ClearConsole()
-  
+
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock()
