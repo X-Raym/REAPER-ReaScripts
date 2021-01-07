@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2020-06-03)
+  # color fix
  * v1.2 (2020-06-03)
   + Support for Markers and Regions subtitles notes
  * v1.1 (2020-01-15)
@@ -150,7 +152,7 @@ function main()
       local len =  tonumber( line[col_len] )
       local name = line[col_name]
       local color = 0
-      if line[col_color] ~= "0" then
+      if line[col_color] and line[col_color] ~= "0" then
         color = ColorHexToInt(line[col_color])|0x1000000
       end
       sub = line[col_sub]
