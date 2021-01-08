@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.6
+ * Version: 1.0.7
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.7 (2020-04-01)
+  # lyrics pos dirty fix
  * v1.0.6 (2020-04-06)
   # Fix project suffix removal with uppercase extension
   # Tighten lyric alignment based on note start/end
@@ -87,7 +89,6 @@ function table.merge(t1, t2)
    for k,v in ipairs(t2) do
       table.insert(t1, v)
    end
-
    return t1
 end
 
@@ -99,7 +100,7 @@ end
 
 
 function ProcessTakeMIDI( take, j )
-  local syllables = {}
+  syllables = {}
 
   local retval, count_notes, count_ccs, count_textsyx = reaper.MIDI_CountEvts( take )
 
@@ -120,7 +121,7 @@ function ProcessTakeMIDI( take, j )
       msg = msg:gsub("%s+", "") -- remove space characters
       msg = msg:gsub("~", "")   -- remove tildes
       if msg:len()==0 then msg = "~" end 
-	  table.insert(lyrics,1,{pos=ppqpos,msg=msg})
+      table.insert(lyrics,1,{pos=ppqpos+5,msg=msg}) -- + 1 is for unexplained rounding error
     end
   end
 
@@ -132,40 +133,40 @@ function ProcessTakeMIDI( take, j )
 
   for i = 0, count - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
-		
+    
     local start_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos ) - gap
     local end_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos ) - gap
     local len_sec = end_sec - start_sec
     local len_beats = SecondToBeat(len_sec)
     if len_beats < 1 then len_beats = 1 end
     if chan + 1 > #prefix then chan = 0 end
-	
+    
     local entry = {}
     entry.pos = start_sec
     entry.str = prefix[chan+1] .. SecondToBeat(start_sec) .. " " .. len_beats .. " " .. ( pitch - 60 )
-	
-	-- find all lyrics aligned with this MIDI note
-	local lyric = table.remove(lyrics)
-	while lyric do 
-	
-	  -- if lyric timing is later than this note 
-	  if lyric.pos >= endppqpos then
-	    -- put lyric back and skip scanning for more lyrics
-	    table.insert(lyrics,lyric)
-	    break 
-	  end
-	  
-	  if lyric.pos < startppqpos then
-	    -- do nothing
-	  else
-	    -- lyric is for this note
-	    entry.str = entry.str .. " " .. lyric.msg
-	  end
-	  
-	  -- get next lyric
-	  lyric = table.remove(lyrics)
-	end
-	
+  
+    -- find all lyrics aligned with this MIDI note
+    local lyric = table.remove(lyrics)
+    while lyric do 
+        
+      -- if lyric timing is later than this note 
+      if lyric.pos >= endppqpos then
+        -- put lyric back and skip scanning for more lyrics
+        table.insert(lyrics,lyric)
+        break 
+      end
+      
+      if lyric.pos < startppqpos then
+        -- do nothing
+      else
+        -- lyric is for this note
+        entry.str = entry.str .. " " .. lyric.msg
+      end
+      
+      -- get next lyric
+      lyric = table.remove(lyrics)
+    end
+  
     if logging and (i < 10 or i > count-10) then
       b = reaper.MIDI_GetProjQNFromPPQPos(take, startppqpos) + 4
       b = string.format("%03d.%5.3f", b // 4, (b % 4)+1)
@@ -173,10 +174,9 @@ function ProcessTakeMIDI( take, j )
       --start_sec = start_sec + gap
       --.. string.format(" gap=%03.3f t=%02d:%06.3f,%07.3f b=%s c=%02d p=%02d %s\n",gap,math.floor(start_sec/60),start_sec % 60,start_sec,b,chan,pitch-60,lyrics[i+1])
     end
-	
+  
     table.insert(syllables,entry)    
   end
-
   return syllables
 end
 
@@ -236,8 +236,6 @@ function ExportData( elms )
 
   txt_str = table.concat(lines, "\n")
 
-  Msg(text_str)
-
   metadata_str = GetUltraStarMetadata() .. "\n"
   gap_str = string.gsub( tostring(math.floor(gap * 100000) / 100), "%.", ",")
   gap_str = "#GAP:" .. gap_str .. "\n"
@@ -262,7 +260,6 @@ function ExportData( elms )
   io.write(txt_str)
   io.close(f)
 
-  Msg(txt_str)
   console = true
   Msg(txt_str)
   Msg("Success! File:")
@@ -270,7 +267,9 @@ function ExportData( elms )
 
 end
 
-function Main( track ) -- local (i, j, item, take, track)
+function Main( track )
+
+  GetArtistAndTitle()
 
   elms = {}
 
@@ -320,8 +319,6 @@ if track then
   reaper.Undo_BeginBlock() -- Begining of the undo block.
 
   reaper.ClearConsole()
-
-  GetArtistAndTitle()
 
   Main( track ) -- Execute your main function
 
