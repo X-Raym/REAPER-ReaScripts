@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.3
+ * Version: 1.4
 --]]
 
 --[[
  * Changelog:
+ * v1.4 (2020-16-01)
+  + Timestart sel offset is now optionnal
  * v1.3 (2020-16-01)
   + Marker Only option
  * v1.2 (2020-16-01)
@@ -37,6 +39,7 @@ vars = {}
 vars.frame_rate = 25
 vars.offset = 3600
 vars.markers_only = "y"
+vars.timesel_start_offset = "y"
 
 popup = true
 
@@ -240,18 +243,29 @@ function create(f)
 
   frame_duration = 1 / vars.frame_rate
   
-  ts_start, ts_end = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)  
+  ts_start, ts_end = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
+  
+  ts_start_offset = ts_start
+  if vars.timesel_start_offset == "y" then ts_start_offset = 0 end
   
   retval, num_markers, num_regions = reaper.CountProjectMarkers( 0 )
   for i=0, retval - 1 do
     iRetval, bIsrgnOut, iPosOut, iRgnendOut, name, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
     if iRetval >= 1 then
-      if iPosOut - ts_start > 0 then -- if marker region is after time selection start
-        if ts_end ~= 0 and iPosOut > ts_end then break end -- if time selection and marker region_end is after
-        start_time = "0" .. reaper.format_timestr_pos(iPosOut + vars.offset - ts_start, "",5)
-        start_time_1 = "0" .. reaper.format_timestr_pos(iPosOut + vars.offset + frame_duration - ts_start, "",5)
-        end_time =  reaper.format_timestr_pos(iRgnendOut, "",5)
+      if iPosOut - ts_start >= 0 then -- if marker region is after time selection start
+      
+        if not bIsrgnOut then iRgnendOut = iPosOut end
         
+        if ts_end ~= 0 and iPosOut > ts_end then break end -- if time selection and marker region_end is after
+        
+        -- TODO: could be extended to support 10 hours + long projects
+        start_time = "0" .. reaper.format_timestr_pos(iPosOut + vars.offset - ts_start_offset, "",5)
+        start_time_1 = "0" .. reaper.format_timestr_pos(iPosOut + vars.offset + frame_duration - ts_start_offset, "",5)
+        
+        -- Not implemented yet
+        end_time =  "0" .. reaper.format_timestr_pos(iRgnendOut + vars.offset - ts_start_offset, "",5)
+        end_time_1 =  "0" .. reaper.format_timestr_pos(iRgnendOut + vars.offset + frame_duration - ts_start_offset, "",5)
+
         duration = iRgnendOut - iPosOut
         duration_frames = 1
         if bIsrgnOut then
@@ -266,7 +280,7 @@ function create(f)
         -- 001  001      V     C        01:00:00:00 01:00:00:01 01:00:00:00 01:00:00:01  
         -- |C:ResolveColorBlue |M:Marker 1 |D:1
         if name == "" then name = "Marker " .. i+1 end
-        line = i+1 .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. start_time .. " " .. start_time_1 .. "  " .. "\n |C:ResolveColor" .. color_name .. " |M:" .. name .. " |D:" .. duration_frames .. "\n"
+        line = i+1 .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. end_time .. " " .. end_time_1 .. "  " .. "\n |C:ResolveColor" .. color_name .. " |M:" .. name .. " |D:" .. duration_frames .. "\n"
         --line = i .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. start_time .. " " .. start_time_1 .. "  " .. "\n |C:ResolveColorBlue |M:" .. name .. " |D:1\n"
         if vars.markers_only ~= "y" or (vars.markers_only == "y" and not bIsrgnOut) then
           export(f, line)
@@ -318,10 +332,11 @@ if count_regions > 0 or count_markers > 0 then
       vars.offset = GetExtState( "offset", vars.offset )
       vars.frame_rate = GetExtState( "frame_rate", vars.frame_rate )
       vars.markers_only = GetExtState( "markers_only", vars.markers_only )
+      vars.timesel_start_offset = GetExtState( "timesel_start_offset", timesel_start_offset )
 
-      retval, retval_csv = reaper.GetUserInputs( "Export Markers to EDL", 3, "Framerate (fps):, Offset (s),Markers Only (y/n)", vars.frame_rate .. "," .. vars.offset .. "," .. vars.markers_only)
+      retval, retval_csv = reaper.GetUserInputs( "Export Markers to EDL", 4, "Framerate (fps):,Offset (s),Markers Only (y/n),Time selection start = 0?  (y/n)", vars.frame_rate .. "," .. vars.offset .. "," .. vars.markers_only .. "," .. vars.timesel_start_offset)
       if retval then
-        vars.frame_rate, vars.offset, vars.markers_only = retval_csv:match("([^,]+),([^,]+),([^,]+)")
+        vars.frame_rate, vars.offset, vars.markers_only, vars.timesel_start_offset = retval_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
         if vars.frame_rate then
           vars.frame_rate = tonumber( vars.frame_rate )
           vars.offset = tonumber( vars.offset )
@@ -330,7 +345,7 @@ if count_regions > 0 or count_markers > 0 then
       end
     end
 
-    if not popup or (retval and vars.frame_rate and vars.offset) then
+    if not popup or (retval and vars.frame_rate and vars.offset and vars.timesel_start_offset ) then
       reaper.defer(main) -- Execute your main function
     end
   end
