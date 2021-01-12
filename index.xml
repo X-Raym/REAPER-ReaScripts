@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="495d18337a4c1108ebf1862cef73a75bb8dcecf4" name="X-Raym Scripts">
+<index version="1" commit="4a4d2470fcd22195effdb535c8fbf0647ab2f49a" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2806,6 +2806,10 @@
       <version name="1.3" author="X-Raym" time="2020-04-06T02:25:59Z">
         <changelog><![CDATA[+ Marker Only option]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d79eb5ad5d878873b45cb4115ad5bda55ed9725d/Regions/X-Raym_Export%20markers%20and%20regions%20as%20Davinci%20Resolve%20EDL%20file.lua</source>
+      </version>
+      <version name="1.4" author="X-Raym" time="2021-01-12T22:27:13Z">
+        <changelog><![CDATA[+ Timestart sel offset is now optionnal]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4a4d2470fcd22195effdb535c8fbf0647ab2f49a/Regions/X-Raym_Export%20markers%20and%20regions%20as%20Davinci%20Resolve%20EDL%20file.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Export markers and regions as tab-delimited CSV file.lua" type="script" desc="Export markers and regions from tab-delimited CSV file">
