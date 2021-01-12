@@ -10,13 +10,15 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.7
+ * Version: 1.0.8
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
- * v1.0.7 (2020-04-01)
+ * v1.0.8 (2021-01-12)
+  # remove strip spaces and tilds
+ * v1.0.7 (2021-01-01)
   # lyrics pos dirty fix
  * v1.0.6 (2020-04-06)
   # Fix project suffix removal with uppercase extension
@@ -40,6 +42,7 @@
 
 console = false
 offset_pages_by_one_beat = false
+strip_spaces_and_tilds = false
 
 -- bpm = reaper.Master_GetTempo()
 bpm = 400
@@ -118,8 +121,10 @@ function ProcessTakeMIDI( take, j )
     if evt_type == 5 then
       msg = msg:gsub("\r", "")  -- remove carriage return
       msg = msg:gsub("^%-", "") -- remove hyphen at the begining
-      msg = msg:gsub("%s+", "") -- remove space characters
-      msg = msg:gsub("~", "")   -- remove tildes
+      if strip_spaces_and_tilds then
+        msg = msg:gsub("%s+", "") -- remove space characters
+        msg = msg:gsub("~", "")   -- remove tildes
+      end
       if msg:len()==0 then msg = "~" end 
       table.insert(lyrics,1,{pos=ppqpos+5,msg=msg}) -- + 1 is for unexplained rounding error
     end
