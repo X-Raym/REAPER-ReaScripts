@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="0a77eee0bf213d326fbbbc67df19d17462b35bf7" name="X-Raym Scripts">
+<index version="1" commit="e81c9bb46c4fa87ab7be74c3c70a3dac4a9cb766" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1259,7 +1259,16 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c3d42b8ccf1ecef9af86dc715f3ec78ed3804942/Items%20Editing/X-Raym_Shift%20selected%20takes%20source%20audio%20content%20position%20randomly.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Shuffle order of selected items columns keeping snap offset positions and parent tracks.lua" type="script">
+    <reapack name="X-Raym_Shuffle order of selected items columns keeping snap offset positions and parent tracks.lua" type="script" desc="Shuffle order of selected items columns keeping snap offset positions and parent tracks">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This works nicely only if there is as many items selected on each track, as it works on item selected ID on track and not "visual" columns\par}
+}
+]]></description>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Editing/X-Raym_Shuffle%20order%20of%20selected%20items%20columns%20keeping%20snap%20offset%20positions%20and%20parent%20tracks.lua</source>
@@ -1267,6 +1276,11 @@
       <version name="1.1" author="X-Raym" time="2016-01-11T14:55:43Z">
         <changelog><![CDATA[+ Preserve grouping if groups active. Treat first selected item (in position) in each group as group leader (other are ignored during the alignement).]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Editing/X-Raym_Shuffle%20order%20of%20selected%20items%20columns%20keeping%20snap%20offset%20positions%20and%20parent%20tracks.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2021-01-17T21:29:51Z">
+        <changelog><![CDATA[+ new core
+# remove group support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e81c9bb46c4fa87ab7be74c3c70a3dac4a9cb766/Items%20Editing/X-Raym_Shuffle%20order%20of%20selected%20items%20columns%20keeping%20snap%20offset%20positions%20and%20parent%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Shuffle order of selected items keeping snap offset positions and parent tracks.lua" type="script">
