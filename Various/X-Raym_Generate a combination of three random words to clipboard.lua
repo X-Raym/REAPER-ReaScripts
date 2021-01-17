@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 -- USER CONFIG AREA ------------------------------------------------------
@@ -20,6 +20,8 @@ strings[3] = {"Jabies", "Chird", "Sleaty", "Mactor", "Rade", "Cawn", "Fung", "Cr
 console = true
 
 -------------------------------------------------- END OF USER CONFIG AREA
+
+math.randomseed( os.time() )
 
 function Msg(val)
   if console then
