@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a0c38c91ff903c879b231cfc0a42c7d3e32b1d0d" name="X-Raym Scripts">
+<index version="1" commit="4088d7ce82d8f25dcb4804180ceaaf85076f73a0" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1481,6 +1481,12 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2dd7b8a8e5555dce1f45b8037dee03f4d4bc26d3/Items%20Editing/X-Raym_Trim%20selected%20items%20at%20first%20and%20last%20transient.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Unloop selected items.lua" type="script" desc="Unloop selected items">
+      <version name="1.0" author="X-Raym" time="2021-01-27T17:20:10Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/208c55fd1ce47126e3500f9675d062b91e2aa646/Items%20Editing/X-Raym_Unloop%20selected%20items.lua</source>
+      </version>
+    </reapack>
   </category>
   <category name="Items Properties">
     <reapack name="mpl_X-Raym_Unlock selected items for 5 seconds.lua" type="script">
@@ -1873,6 +1879,12 @@
         <changelog><![CDATA[+ Randomize from snap offset position
 + Support for fades]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Properties/X-Raym_Randomize%20take%20playback%20rate.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Remove selected items images.lua" type="script" desc="Remove selected items images">
+      <version name="1.0" author="X-Raym" time="2021-01-27T17:20:10Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/208c55fd1ce47126e3500f9675d062b91e2aa646/Items%20Properties/X-Raym_Remove%20selected%20items%20images.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Rename selected items active take from multiline clipboard content.lua" type="script" desc="Rename selected items active take from multiline clipboard content">
@@ -3925,6 +3937,15 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/24eb22e9e55df3a992c16b46c69a9532c1713eee/Track%20Properties/X-Raym_Sort%20all%20tracks%20alphabetically.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Sort selected tracks order according to their first iitem positions.lua" type="script" desc="Sort selected tracks order according to their first iitem positions">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/oeZNhFf.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2021-01-27T17:20:10Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/208c55fd1ce47126e3500f9675d062b91e2aa646/Track%20Properties/X-Raym_Sort%20selected%20tracks%20order%20according%20to%20their%20first%20iitem%20positions.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Toggle track compact state between normal and tiny children - Copie.eel" type="script" desc="Toggle track compact state between normal and tiny children">
       <version name="1.0" author="X-Raym" time="2017-03-20T22:44:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4213,6 +4234,9 @@
       <version name="2.1" author="X-Raym" time="2020-11-18T02:09:43Z">
         <changelog><![CDATA[# Performance optimization]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/899ed36eb925762fa45a7dce8cf6c485ae5bc888/Various/X-Raym_Change%20last%20touched%20track%20layout_background.lua</source>
+      </version>
+      <version name="2.1.1" author="X-Raym" time="2021-01-27T17:20:15Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4088d7ce82d8f25dcb4804180ceaaf85076f73a0/Various/X-Raym_Change%20last%20touched%20track%20layout_background.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Change transport theme element background color according to ripple state.lua" type="script" desc="Change transport theme element background color according to ripple state">
