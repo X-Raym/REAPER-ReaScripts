@@ -7,9 +7,9 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.1
+ * Version: 2.1.1
 --]]
- 
+
 --[[
  * Changelog:
  * v2.1 (2020-11-18)
@@ -37,6 +37,8 @@
 -- NOTE: Known issue: Project tab have to be in focus for changing layout. https://forum.cockos.com/showthread.php?p=2365622#post2365622
 -- THis could be solve if ATexit could differentiate between script closed manually or closed at reaper exit
 
+-- NOTE: It doest allows to click and drag fade on non last touched track
+
 -- USER CONFIG AREA ---------------------
 mcp_layout = "1. Classic Default MCP - Blue Fader"
 tcp_layout = "1. Classic Default TCP (vertical meters) - Blue Fader"
@@ -50,7 +52,7 @@ function Msg(val)
     reaper.ShowConsoleMsg(tostring( val ).."\n")
   end
 end
- 
+
  -- Set ToolBar Button State
 function SetButtonState( set )
   if not set then set = 0 end
@@ -64,7 +66,7 @@ function GetTrackByGUID( proj, GUID )
   local count_tracks = reaper.CountTracks( proj )
   for i = 0, count_tracks - 1 do
     local t = reaper.GetTrack( proj, i )
-    local retval, GUID_t = reaper.GetSetMediaTrackInfo_String( t, "GUID", '', false )    
+    local retval, GUID_t = reaper.GetSetMediaTrackInfo_String( t, "GUID", '', false )
     if GUID == GUID_t then
       return t
     end
@@ -133,37 +135,42 @@ function main()
       local retval, _ = reaper.GetSetMediaTrackInfo_String( last_track, "P_MCP_LAYOUT", last_track_mcp, true )
       local retval, _ = reaper.GetSetMediaTrackInfo_String( last_track, "P_TCP_LAYOUT", last_track_tcp, true )
     end
-    
+
     -- Backup Track Layout
     if track then
       local retval, mcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", "", false )
       local retval, tcp_layout_last = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", "", false )
       if mcp_layout_last == "" then mcp_layout_last = "Default" end
       if tcp_layout_last == "" then tcp_layout_last = "Default" end
-      
+
       reaper.SetProjExtState(cur_proj, ext_name, "tcp_layout", tcp_layout_last)
       reaper.SetProjExtState(cur_proj, ext_name, "mcp_layout", mcp_layout_last)
       local retval, GUID = reaper.GetSetMediaTrackInfo_String( track, "GUID", "", false )
       reaper.SetProjExtState(cur_proj, ext_name, "track_guid", GUID)
-      
+
       if mcp_layout then
         local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_MCP_LAYOUT", mcp_layout, true )
       end
       if tcp_layout then
         local retval, _ = reaper.GetSetMediaTrackInfo_String( track, "P_TCP_LAYOUT", tcp_layout, true )
       end
+      -- https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-mouse_event
+      local main = reaper.GetMainHwnd()
+      local TCPDisplay = reaper.JS_Window_FindEx( main, main, "REAPERTCPDisplay", "" )
+
+      reaper.JS_WindowMessage_Send(      TCPDisplay, "MOUSEEVENTF_LEFTDOWN", 0, 0, 0, 0)
     end
-    
+
   end
-  
+
   -- if cur_proj ~= last_proj then
     -- reaper.TrackList_AdjustWindows( false ) -- Update TCP and MCP -- Maybe not necessary
   -- end
-  
+
   -- last_proj = cur_proj
-  
+
   reaper.defer( main )
-  
+
 end
 
 first_run = true
