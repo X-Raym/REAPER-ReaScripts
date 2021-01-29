@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
+ * v1.0.1 (2020-12-17)
+  # Docked support
  * v1.0 (2020-12-17)
   + Initial Release
 --]]
@@ -23,8 +25,9 @@ function GetMediaExplorer()
   for j = 1, #adr do
     local hwnd = reaper.JS_Window_HandleFromAddress(adr[j])
     -- verify window by checking if it also has a specific child.
-    if reaper.JS_Window_FindChildByID(hwnd, 1045) then -- 1045:ID of volume control in media explorer.
-      return hwnd
+    local child_hwnd = reaper.JS_Window_FindChildByID(hwnd, 1045)
+    if child_hwnd then -- 1045:ID of volume control in media explorer.
+      return child_hwnd
     end 
   end
 end
@@ -35,6 +38,7 @@ else
 	hwnd = GetMediaExplorer()
 
 	if hwnd then
+
 		reaper.JS_Window_SetFocus( hwnd )
 	end
 end
