@@ -5,11 +5,13 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts 
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * REAPER: 5.0
- * Version: 0.9
+ * Version: 1.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0 (2021-02-04)
+  + Initial Release
  * v0.9 (2021-02-04)
   + Beta
 --]]
@@ -45,14 +47,14 @@ function GetSMData( take )
     local len_init = srcpos_b - srcpos_a
     if i == count-2 and len_init <= 0 then Msg("EDGE CASE (not fixed yet) in following take\n" .. reaper.GetTakeName( take) .. "\nSM are too close to last one.") end
     local len_after = pos_b - pos_a
-    local right_rate = len_init / len_after * (1+slope)
-    local left_rate = (len_init / len_after) * (1-slope)
+    local rate_right = len_init / len_after * (1+slope)
+    local rate_left = (len_init / len_after) * (1-slope)
     if i == count - 1 then
-      right_rate = 1
-      left_rate = 1
+      rate_right = 1
+      rate_left = 1
       slope = 0
     end
-    table.insert( sm, {slope = slope, pos = pos_a, srcpos = srcpos_a, len_init = len_init, len_after = len_after, right_rate = right_rate, left_rate = left_rate})
+    table.insert( sm, {slope = slope, pos = pos_a, srcpos = srcpos_a, len_init = len_init, len_after = len_after, rate_right = rate_right, rate_left = rate_left})
   end
   return sm
 end
@@ -81,71 +83,66 @@ function Main()
   
   for z = 0, count_sel_items - 1 do
   
-    item = reaper.GetSelectedMediaItem(0,z)
-    take = reaper.GetActiveTake( item )
+    local item = reaper.GetSelectedMediaItem(0,z)
+    local take = reaper.GetActiveTake( item )
     if take then
-      count =  reaper.GetTakeNumStretchMarkers( take )
-      -- Msg(count)
       SMs = GetSMData( take )
       cumulated_offset = 0
-      if count > 1 then
-        for i = 0, count - 1 do
-          slope = reaper.GetTakeStretchMarkerSlope( take, i )
-          retval, pos_a, srcpos_a = reaper.GetTakeStretchMarker( take, i )
-          retval, pos_b, srcpos_b = reaper.GetTakeStretchMarker( take, i+1 )
-
-          Print("i+1 = " .. i+1)
-          Print("pos = " .. pos_a)
-          
-          -- Test
+      if #SMs >= 2 then
+        for i, sm in ipairs( SMs ) do
+          local slope = sm.slope
+          local pos_a, srcpos_a = sm.pos, sm.srcpos
           pos_a = pos_a + cumulated_offset
-          pos_b = pos_b + cumulated_offset
-          Print("* new_pos = " .. pos_a)
-          -- if not retval for i+1 calcl will fail
-          len_init = srcpos_b - srcpos_a
-          len_after = pos_b - pos_a
-          right_rate = len_init / len_after * (1+slope)
-          left_rate = (len_init / len_after) * (1-slope)
-          
+
+          sm.new_pos = pos_a
+
+          Print("i = " .. i)
           Print("srcpos = " .. srcpos_a)
-          Print("len_init = " .. len_init)
-          Print("slope = " .. slope)
+          Print("pos = " .. pos_a)
+          Print("* new_pos = " .. pos_a)
+
+          if SMs[i+1] then -- if next marker
+            local pos_b, srcpos_b = SMs[i+1].pos, SMs[i+1].srcpos
+            pos_b = pos_b + cumulated_offset
+
+            local len_init = srcpos_b - srcpos_a
+            local len_after = pos_b - pos_a
+            local rate_right = (len_init / len_after) * (1+slope)
+            local rate_left = (len_init / len_after) * (1-slope)
           
-          if SMs[i+2] then -- if next marker, i is 0, SM is 1 based
-            ideal_right_rate = SMs[i+2].left_rate -- Next SM Left rate.  i is 1 based here, so next is 1 + 1 = 2
-            ideal_rate_ratio = ideal_right_rate / left_rate
-            ideal_slope = (ideal_rate_ratio-1)/(ideal_rate_ratio+1)
-            if dont_do_last and i == count-2 then -- avant dernier, on fait 
-              ideal_right_rate = SMs[i+1].right_rate
+            Print("len_init = " .. len_init)
+            Print("slope = " .. slope)
+          
+            local ideal_rate_right = SMs[i+1].rate_left -- Next SM Left rate.  i is 1 based here, so next is 1 + 1 = 2
+            local ideal_rate_ratio = ideal_rate_right / rate_left
+            local ideal_slope = (ideal_rate_ratio-1)/(ideal_rate_ratio+1)
+            if dont_do_last and i == #SMs - 1 then -- avant dernier, on fait 
+              ideal_rate_right = sm.rate_right
               ideal_rate_ratio = 1
-              ideal_slope = SMs[i+1].slope
+              ideal_slope = sm.slope
             end
-            new_pos_b = (1+ideal_slope)/ideal_right_rate * (srcpos_b-srcpos_a) + pos_a
-            offset = new_pos_b - pos_b
+            
+            sm.new_slope = ideal_slope
+            
+            local new_pos_b = (1+ideal_slope)/ideal_rate_right * (srcpos_b-srcpos_a) + pos_a
+            local offset = new_pos_b - pos_b
             cumulated_offset = cumulated_offset + offset
-          end
           
-          SMs[i+1].new_pos = pos_a
-          SMs[i+1].new_slope = ideal_slope
-          
-          if i == count - 1 then
-            SMs[i+1].new_slope = 0
-          end
-          
-          -- LOG
-          if ideal_slope then
             Print("* ideal_slope = " .. ideal_slope)
-          end
-          Print("* len_after = " .. len_after)
-          Print('* left_rate = ' .. left_rate)
-          Print('* right_rate = ' .. right_rate) -- this is rate right to stretch marker, not displayed if same as before
-          if SMs[i+2] then
+            Print("* len_after = " .. len_after)
+            Print('* rate_left = ' .. rate_left)
+            Print('* rate_right = ' .. rate_right) -- this is rate right to stretch marker, not displayed if same as before
             Print("* ideal_rate_ratio = " .. ideal_rate_ratio)
-            Print("* next_rate = " .. SMs[i+2].left_rate)
-            --Print("* new_next_pos = " .. new_pos_b)
+            Print("* next_rate = " .. SMs[i+1].rate_left)
+            Print("* new_next_pos = " .. new_pos_b)
             Print("* next_cumulated_offset = " .. cumulated_offset)
+
+          else -- laster marker
+            sm.new_slope = 0
           end
+
           Print('----------')
+        
         end
         
         if (gui and gfx.mouse_cap == 1 and gfx.mouse_cap ~= last_cap) or not gui then
@@ -161,9 +158,8 @@ function Main()
   
   if gui then
     last_cap = gfx.mouse_cap
-
     gfx.update()
-    if gfx.getchar() ~= 27 then reaper.defer(Main) else gfx.quit() end
+    if gfx.getchar() ~= 27 or gfx.getchar() == -1 then reaper.defer(Main) else gfx.quit() end
   end
   
 end
