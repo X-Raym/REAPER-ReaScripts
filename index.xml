@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e42148a7bafda4babebbded45036803fe4c59da4" name="X-Raym Scripts">
+<index version="1" commit="f964c2b1647d8235575aa60e8ef77e1bc298d7f7" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3972,6 +3972,9 @@
       <version name="1.0" author="X-Raym" time="2021-02-06T10:19:00Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e42148a7bafda4babebbded45036803fe4c59da4/Track%20Properties/X-Raym_Toggle%20selected%20tracks%20solo%20(no%20undo).lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2021-02-06T10:23:56Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f964c2b1647d8235575aa60e8ef77e1bc298d7f7/Track%20Properties/X-Raym_Toggle%20selected%20tracks%20solo%20(no%20undo).lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle track compact state between normal and tiny children - Copie.eel" type="script" desc="Toggle track compact state between normal and tiny children">
