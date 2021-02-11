@@ -9,11 +9,13 @@
  * Licence: GPL v3
  * REAPER: 5.0
  * Link: Forum https://forum.cockos.com/showthread.php?p=2127630#post2127630
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+* v1.1 (2021-02-11)
+  + Send dummy text if notes == "", for having instructions on web interface is script is not running.
  * v1.0 (2019-08-26)
   + Initial Release
  --]]
@@ -25,6 +27,11 @@ function SetButtonState( set )
   local state = reaper.GetToggleCommandStateEx( sec, cmd )
   reaper.SetToggleCommandState( sec, cmd, set ) -- Set ON
   reaper.RefreshToolbar2( sec, cmd )
+end
+
+function Exit()
+  reaper.SetProjExtState( 0, "XR_Lyrics", "text", "" )
+  SetButtonState()
 end
 
 
@@ -51,6 +58,7 @@ function main()
           no_item = false
           if item_notes ~= notes then
             notes = item_notes
+            if notes == "" then notes = "--XR-NO-TEXT--" end
             reaper.SetProjExtState( 0, "XR_Lyrics", "text", notes )
             break
           end
@@ -58,9 +66,11 @@ function main()
       end
     end
     
-    if no_item and notes then
-      notes = nil
-      reaper.SetProjExtState( 0, "XR_Lyrics", "text", "" )
+    if no_item then
+      if notes then
+        notes = nil
+      end
+      reaper.SetProjExtState( 0, "XR_Lyrics", "text", "--XR-NO-TEXT--" )
     end
     
   else
@@ -95,7 +105,7 @@ if lyrics_track then
   -- RUN
   SetButtonState( 1 )
   main()
-  reaper.atexit( SetButtonState )
+  reaper.atexit( Exit )
 else
   reaper.MB('No tracks named "Lyrics".', "Error", 0)
 end

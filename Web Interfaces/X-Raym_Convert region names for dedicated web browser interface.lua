@@ -9,11 +9,13 @@
  * Licence: GPL v3
  * Link: Forum https://forum.cockos.com/showthread.php?p=2127630#post2127630
  * REAPER: 5.0
- * Version: 1.0
+* Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2021-02-11)
+  + Send dummy text if notes == "", for having instructions on web interface is script is not running.
  * v1.0 (2019-08-30)
   + Initial Release
  --]]
@@ -25,6 +27,11 @@ function SetButtonState( set )
   local state = reaper.GetToggleCommandStateEx( sec, cmd )
   reaper.SetToggleCommandState( sec, cmd, set ) -- Set ON
   reaper.RefreshToolbar2( sec, cmd )
+end
+
+function Exit()
+  reaper.SetProjExtState( 0, "XR_Lyrics", "text", "" )
+  SetButtonState()
 end
 
 
@@ -44,6 +51,7 @@ function main()
     retval, is_region, region_start, region_end, region_name, markrgnindexnumber, region_color = reaper.EnumProjectMarkers3(0, region_idx)
     if region_name ~= notes then
       notes = region_name
+      if notes == "" then notes = "--XR-NO-TEXT--" end
       reaper.SetProjExtState( 0, "XR_Lyrics", "text", notes )
     end
     
@@ -51,8 +59,9 @@ function main()
     
     if notes then
       notes = nil
-      reaper.SetProjExtState( 0, "XR_Lyrics", "text", "" )
     end
+
+    reaper.SetProjExtState( 0, "XR_Lyrics", "text", "--XR-NO-TEXT--" )
     
   end
     
@@ -66,4 +75,4 @@ notes = nil
 -- RUN
 SetButtonState( 1 )
 main()
-reaper.atexit( SetButtonState )
+reaper.atexit( Exit )
