@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="50eca31358737da8b5d9c42041a2354da03330b0" name="X-Raym Scripts">
+<index version="1" commit="9a8a3486561cac1ca7c0080398ebcf2d940af77b" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4676,6 +4676,10 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a1d2942e64fcddc79b9493759522e39aa0dee11e/Web%20Interfaces/X-Raym_Convert%20Lyrics%20track%20items%20notes%20for%20dedicated%20web%20browser%20interface.lua</source>
       </version>
+      <version name="1.1" author="X-Raym" time="2021-02-11T13:25:15Z">
+        <changelog><![CDATA[+ Send dummy text if notes == "", for having instructions on web interface is script is not running.]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9a8a3486561cac1ca7c0080398ebcf2d940af77b/Web%20Interfaces/X-Raym_Convert%20Lyrics%20track%20items%20notes%20for%20dedicated%20web%20browser%20interface.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Convert region names for dedicated web browser interface.lua" type="script" desc="Convert region names for the dedicated web browser interface">
       <metadata>
@@ -4692,6 +4696,10 @@
       <version name="1.0" author="X-Raym" time="2019-04-30T12:29:09Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/3b29953f71072be554531b3fa295fa13712dec24/Web%20Interfaces/X-Raym_Convert%20region%20names%20for%20dedicated%20web%20browser%20interface.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2021-02-11T13:25:15Z">
+        <changelog><![CDATA[+ Send dummy text if notes == "", for having instructions on web interface is script is not running.]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9a8a3486561cac1ca7c0080398ebcf2d940af77b/Web%20Interfaces/X-Raym_Convert%20region%20names%20for%20dedicated%20web%20browser%20interface.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Convert region subtitles for dedicated web browser interface.lua" type="script" desc="Convert region subtitles for the dedicated web browser interface">
@@ -4710,6 +4718,10 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a1d2942e64fcddc79b9493759522e39aa0dee11e/Web%20Interfaces/X-Raym_Convert%20region%20subtitles%20for%20dedicated%20web%20browser%20interface.lua</source>
       </version>
+      <version name="1.1" author="X-Raym" time="2021-02-11T13:25:15Z">
+        <changelog><![CDATA[+ Send dummy text if notes == "", for having instructions on web interface is script is not running.]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9a8a3486561cac1ca7c0080398ebcf2d940af77b/Web%20Interfaces/X-Raym_Convert%20region%20subtitles%20for%20dedicated%20web%20browser%20interface.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Lyrics.www" type="webinterface" desc="Lyrics Web Interface">
       <metadata>
@@ -4720,6 +4732,9 @@
       </version>
       <version name="1.1" author="X-Raym" time="2021-02-10T23:47:08Z">
         <source file="X-Raym_Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/50eca31358737da8b5d9c42041a2354da03330b0/Web%20Interfaces/X-Raym_Lyrics.html</source>
+      </version>
+      <version name="1.2" author="X-Raym" time="2021-02-11T13:25:15Z">
+        <source file="X-Raym_Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/9a8a3486561cac1ca7c0080398ebcf2d940af77b/Web%20Interfaces/X-Raym_Lyrics.html</source>
       </version>
     </reapack>
   </category>
