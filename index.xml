@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="9a8a3486561cac1ca7c0080398ebcf2d940af77b" name="X-Raym Scripts">
+<index version="1" commit="8c1f4499bc8d7e3a2d131d2a130e68b4eb19246b" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4456,6 +4456,12 @@
       <version name="1.0.7" author="X-Raym" time="2020-03-15T18:56:02Z">
         <changelog><![CDATA[+ Correction of lyrics format in project notes]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4021e3ade261ee37fdc0499f55c84d98e9766b87/Various/X-Raym_Import%20UltraStar%20txt.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Insert empty space at edit cursor (popup).lua" type="script" desc="Insert empty space at edit cursor (popup)">
+      <version name="1.0" author="X-Raym" time="2021-02-12T10:44:07Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8c1f4499bc8d7e3a2d131d2a130e68b4eb19246b/Various/X-Raym_Insert%20empty%20space%20at%20edit%20cursor%20(popup).lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Insert UltraStar lyrics from project to items MIDI notes on first selected track.lua" type="script" desc="Insert UltraStar lyrics from project to items MIDI notes on first selected track">
