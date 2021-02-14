@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Set selected items take names by column according to track under mouse or first track with selected items
+ * ReaScript Name: Set selected items take names by columns according to track under mouse or first track with selected items
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -8,11 +8,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.0.1
 --]]
 
 --[[
  * Changelog:
+ * v2.0 (2021-02-14)
+  # Renamed
  * v2.0 (2021-02-14)
   # New core
  * v1.0 (2016-04-18)
@@ -85,7 +87,7 @@ function Init()
 
     Main() -- Execute your main function
 
-    reaper.Undo_EndBlock("Set selected items take names by column according to track under mouse or first track with selected items", -1) -- End of the undo block. Leave it at the bottom of your main function.
+    reaper.Undo_EndBlock("Set selected items take names by columns according to track under mouse or first track with selected items", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
     reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
