@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="00ef02a19bcf16d8e70f765b9c8fd169f3cdafaa" name="X-Raym Scripts">
+<index version="1" commit="a4c1ffa978a350a10e061e6c12a57e7cdb40fffe" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3969,6 +3969,15 @@
       <version name="1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Track%20Properties/X-Raym_Solo%20exclusive%20selected%20tracks.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Solo selected tracks unsoloing unselected ones or unsolo if already solo.lua" type="script" desc="Solo selected tracks unsoloing unselected ones or unsolo if already solo">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/I0EQB9U.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2021-02-14T13:31:55Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a4c1ffa978a350a10e061e6c12a57e7cdb40fffe/Track%20Properties/X-Raym_Solo%20selected%20tracks%20unsoloing%20unselected%20ones%20or%20unsolo%20if%20already%20solo.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Sort all tracks alphabetically.lua" type="script" desc="Sort all tracks alphabetically">
