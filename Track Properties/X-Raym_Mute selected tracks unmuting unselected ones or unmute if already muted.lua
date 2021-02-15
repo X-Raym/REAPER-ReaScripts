@@ -4,10 +4,10 @@
  * Author: X-Raym
  * Author URI: http://www.extremraym.com/
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository URI: hhttps://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 
@@ -18,7 +18,6 @@
 --]]
 
 function Main()
-  reaper.PreventUIRefresh(1)
   
   local all_mute = true
   for i = 0, count_sel_tracks - 1 do
