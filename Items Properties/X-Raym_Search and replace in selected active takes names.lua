@@ -1,23 +1,21 @@
 --[[
  * ReaScript Name: Search and replace in selected active takes names
- * Description: Search and replace in selected items names
- * Instructions: Select items. Run.
  * Screenshot: http://i.giphy.com/3oEdv3tKb0CpB7VCtq.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814#post1574814
  * REAPER: 5.0
- * Extensions: SWS/S&M 2.8.1
- * Version: 1.1
+ * Version: 1.1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2021-02-27)
+  + Preset file support
  * v1.1 (2015-12-10)
   + User Config Area
  * v1.0 (2015-10-08)
@@ -85,52 +83,58 @@ function main()
 
 end
 
--- START
-sel_items_count = reaper.CountSelectedMediaItems(0)
+function Init()
+	-- START
+	sel_items_count = reaper.CountSelectedMediaItems(0)
 
-if sel_items_count > 0 then
+	if sel_items_count > 0 then
 
-	if popup == true then
+		if popup == true then
 
-		defaultvals_csv = search .. "," .. replace .. "," .. truncate_start .. "," .. truncate_end .. "," .. ins_start_in .. "," .. ins_end_in
+			defaultvals_csv = search .. "," .. replace .. "," .. truncate_start .. "," .. truncate_end .. "," .. ins_start_in .. "," .. ins_end_in
 
-		retval, retvals_csv = reaper.GetUserInputs("Search & Replace", 6, "Search (% for escape char),Replace (/del for deletion),Truncate from start,Truncate from end,Insert at start (/E = Sel Num),Insert at end (/T = track name)", defaultvals_csv) 
+			retval, retvals_csv = reaper.GetUserInputs("Search & Replace", 6, "Search (% for escape char),Replace (/del for deletion),Truncate from start,Truncate from end,Insert at start (/E = Sel Num),Insert at end (/T = track name)", defaultvals_csv) 
+				  
+			if retval then -- if user complete the fields
 			  
-		if retval then -- if user complete the fields
-		  
-		  search, replace, truncate_start, truncate_end, ins_start_in, ins_end_in = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
-		  
-		  if replace == "/del" then replace = "" end
-		  if ins_start_in == "/no" then ins_start_in = "" end
-		  if ins_end_in == "/no" then ins_end_in = "" end
+			  search, replace, truncate_start, truncate_end, ins_start_in, ins_end_in = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+			  
+			  if replace == "/del" then replace = "" end
+			  if ins_start_in == "/no" then ins_start_in = "" end
+			  if ins_end_in == "/no" then ins_end_in = "" end
 
-		  if search ~= nil then
+			  if search ~= nil then
+				
+				reaper.PreventUIRefresh(1)
+
+				main() -- Execute your main function
+
+				reaper.PreventUIRefresh(-1)
+
+				reaper.UpdateArrange() -- Update the arrangement (often needed)
+			  end
+
+			end
 			
+		else
+		
 			reaper.PreventUIRefresh(1)
+			
+			if replace == "/del" then replace = "" end
+			if ins_start_in == "/no" then ins_start_in = "" end
+			if ins_end_in == "/no" then ins_end_in = "" end
 
 			main() -- Execute your main function
 
 			reaper.PreventUIRefresh(-1)
 
 			reaper.UpdateArrange() -- Update the arrangement (often needed)
-		  end
-
+		
 		end
 		
-	else
-	
-		reaper.PreventUIRefresh(1)
-		
-		if replace == "/del" then replace = "" end
-		if ins_start_in == "/no" then ins_start_in = "" end
-		if ins_end_in == "/no" then ins_end_in = "" end
-
-		main() -- Execute your main function
-
-		reaper.PreventUIRefresh(-1)
-
-		reaper.UpdateArrange() -- Update the arrangement (often needed)
-	
 	end
-	
+end
+
+if not preset_file_init then
+	Init()
 end
