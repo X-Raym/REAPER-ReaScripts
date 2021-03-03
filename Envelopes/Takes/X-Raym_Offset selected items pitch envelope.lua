@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0 (2021-03-02)
+  + Consider time selection
  * v1.0 (2021-02-09)
   + Initial Release
 --]]
@@ -100,7 +102,16 @@ function ValidateVals( vars )
   return validate
 end
 
+function IsInTime( s, start_time, end_time )
+  if s >= start_time and s <= end_time then return true end
+  return false
+end
+
 function Main()
+
+  time_start, time_end = reaper.GetSet_LoopTimeRange(false, false, 0, 0, false)
+  
+  if time_start ~= time_end then is_time_selection = true end
 
   for i = 0, count_sel_items - 1 do
     item = reaper.GetSelectedMediaItem( 0, i )
@@ -110,12 +121,15 @@ function Main()
     if take then
         
       env = reaper.GetTakeEnvelopeByName(take, "Pitch")
-      
+      rate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
+      pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
       if env then
         count_points = reaper.CountEnvelopePoints(env)
         for j = 0, count_points - 1 do
           retval, time, value, shape, tension, selected = reaper.GetEnvelopePoint( env, j )
-          reaper.SetEnvelopePoint( env, j, time, value + vars.offset, shape, tension, selected, false )
+          if not is_time_selection or (is_time_selection and IsInTime( pos + time * 1 / rate, time_start, time_end ) ) then
+            reaper.SetEnvelopePoint( env, j, time, value + vars.offset, shape, tension, selected, false )
+          end
         end
       
       end
