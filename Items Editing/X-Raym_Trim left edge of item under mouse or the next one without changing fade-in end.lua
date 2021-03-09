@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157698
  * REAPER: 5 pre 17
  * Extensions: SWS/S&M 2.6.3 #0
- * Version: 1.1
+ * Version: 1.1.1
 ]]
  
 --[[
  * Changelog:
+ * v1.1.1 (2021-03-09)
+	+ Fix start offset is rate isn't 0
  * v1.1 (2015-08-11)
 	+ Stretch Markers and Envelope Points positions preserved
  * v1.0 (2015-08-11)
@@ -142,8 +144,9 @@ function main()
 			if mouse_item_snap < 0 then
 				reaper.SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", 0)
 			end
-
-			reaper.SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", mouse_take_off - offset)
+			
+			take_rate = reaper.GetMediaItemTakeInfo_Value(mouse_take, "D_PLAYRATE")
+			reaper.SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", mouse_take_off - offset * take_rate)
 			
 			-- Envelopes
 			for i = 0, reaper.CountTakeEnvelopes( mouse_take ) - 1 do
