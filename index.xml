@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="b871b51beae4bfa0244476a57ba8a888ec6ccf21" name="X-Raym Scripts">
+<index version="1" commit="3c36170cca29503c6ad0c801bcf179011467fd82" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4434,6 +4434,12 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/67ae1b673d3d0b04f2aa5ab47f10358cef1f4d98/Various/X-Raym_Display%20script%20infos%20in%20the%20console.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Duplicate lines in clipboard content.lua" type="script" desc="Duplicate lines in clipboard content">
+      <version name="1.0" author="X-Raym" time="2021-03-09T21:32:59Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/3c36170cca29503c6ad0c801bcf179011467fd82/Various/X-Raym_Duplicate%20lines%20in%20clipboard%20content.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Export first selected track MIDI as UltraStar txt file.lua" type="script" desc="Export first selected track MIDI as UltraStar txt file">
