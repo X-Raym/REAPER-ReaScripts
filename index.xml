@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="3c36170cca29503c6ad0c801bcf179011467fd82" name="X-Raym Scripts">
+<index version="1" commit="9078efdbb82d5d354c691313efda70f668e0a4f7" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1463,6 +1463,15 @@
       </version>
     </reapack>
     <reapack name="X-Raym_Trim left edge of item under mouse or the next one without changing fade-in end.lua" type="script" desc="Trim left edge of item under mouse to edit cursor without changing fade-in end">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 A way to expand selected mdia item length based on edit cursor and item under mouse. Place edit cursor before an item. Place the mouse hover an item. Execute the script with a shortcut. Not that this script is also able to move left item edges if edit cursor is inside item under mouse.\par}
+}
+]]></description>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20without%20changing%20fade-in%20end.lua</source>
@@ -1474,6 +1483,10 @@
       <version name="1.1.1" author="X-Raym" time="2021-03-09T21:31:05Z">
         <changelog><![CDATA[+ Fix start offset is rate isn't 0]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b871b51beae4bfa0244476a57ba8a888ec6ccf21/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20without%20changing%20fade-in%20end.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2021-03-10T10:26:41Z">
+        <changelog><![CDATA[# Use SWS instead]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9078efdbb82d5d354c691313efda70f668e0a4f7/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20without%20changing%20fade-in%20end.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Trim left edge of item under mouse to edit cursor without changing fade-in end.eel" type="script">
