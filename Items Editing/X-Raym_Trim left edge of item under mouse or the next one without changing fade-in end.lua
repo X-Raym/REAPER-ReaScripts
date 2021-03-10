@@ -1,7 +1,6 @@
 --[[
  * ReaScript Name: Trim left edge of item under mouse to edit cursor without changing fade-in end
- * Description: A way to expand selected mdia item length based on edit cursor and item under mouse.
- * Instructions: Place edit cursor before an item. Place the mouse hover an item. Execute the script with a shortcut. Not that this script is also able to move left item edges if edit cursor is inside item under mouse.
+ * About: A way to expand selected mdia item length based on edit cursor and item under mouse. Place edit cursor before an item. Place the mouse hover an item. Execute the script with a shortcut. Not that this script is also able to move left item edges if edit cursor is inside item under mouse.
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -11,194 +10,167 @@
  * Forum Thread: Scripts (EEL): Move L/R edge of item under mouse to edit cursor (with ripple edit)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157698
  * REAPER: 5 pre 17
- * Extensions: SWS/S&M 2.6.3 #0
- * Version: 1.1.1
+ * Extensions: SWS/S&M 2.12.2 #0
+ * Version: 2.0
 ]]
- 
+
 --[[
  * Changelog:
+ * v2.0 (2021-03-10)
+  # Use SWS instead
  * v1.1.1 (2021-03-09)
-	+ Fix start offset is rate isn't 0
+  + Fix start offset is rate isn't 0
  * v1.1 (2015-08-11)
-	+ Stretch Markers and Envelope Points positions preserved
+  + Stretch Markers and Envelope Points positions preserved
  * v1.0 (2015-08-11)
-	+ Initial Release
+  + Initial Release
 ]]
 
 function Msg(variable)
-	reaper.ShowConsoleMsg(tostring(variable).."\n")
+  reaper.ShowConsoleMsg(tostring(variable).."\n")
 end
 
 function SaveItemRipple()
-	item_get_pos = reaper.GetMediaItemInfo_Value(item_get,"D_POSITION")
+  item_get_pos = reaper.GetMediaItemInfo_Value(item_get,"D_POSITION")
 
-	if mouse_item_pos > item_get_pos then
-		item[item_ar_len] = item_get
-		item_ar_len = item_ar_len + 1
-	end
+  if mouse_item_pos > item_get_pos then
+    item[item_ar_len] = item_get
+    item_ar_len = item_ar_len + 1
+  end
 end
 
 --MAIN
 function main()
 
-	reaper.Undo_BeginBlock()
+  mouse_item, mouse_pos = reaper.BR_ItemAtMouseCursor()
 
-	mouse_item, mouse_pos = reaper.BR_ItemAtMouseCursor()
+  if mouse_item == nil then -- Mouse in in arrange view
 
-	if mouse_item == nil then -- Mouse in in arrange view
+    mouse_track, track_context, mouse_pos = reaper.BR_TrackAtMouseCursor()
 
-		mouse_track, track_context, mouse_pos = reaper.BR_TrackAtMouseCursor()
-		
-		if track_context == 2 then
-		
-			count_items_on_tracks = reaper.CountTrackMediaItems(mouse_track)
-			
-			for i = 0, count_items_on_tracks - 1 do
-				
-				mouse_item = reaper.GetTrackMediaItem(mouse_track, i)
-				mouse_item_pos = reaper.GetMediaItemInfo_Value(mouse_item, "D_POSITION")
-				
-				if mouse_item_pos >= mouse_pos then
-					break
-				else
-					mouse_item = nil
-				end
-			
-			end
-		
-		end
-		
-	end
-		
-	if mouse_item ~= nil then
-	
-		reaper.SetMediaItemSelected(mouse_item, true)
-	
-		mouse_item_pos = reaper.GetMediaItemInfo_Value(mouse_item,"D_POSITION")
-		edit_pos = reaper.GetCursorPosition()
+    if track_context == 2 then
 
-		mouse_item_len = reaper.GetMediaItemInfo_Value(mouse_item,"D_LENGTH")
-		mouse_item_end = reaper.GetMediaItemInfo_Value(mouse_item,"D_POSITION")
-		mouse_item_snap = reaper.GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET")
+      count_items_on_tracks = reaper.CountTrackMediaItems(mouse_track)
 
-		mouse_item_end = mouse_item_pos + mouse_item_len
-		offset = mouse_item_pos - edit_pos
-		--offset = mouse_item_pos - mouse_pos
-		
-		track = reaper.GetMediaItem_Track(mouse_item)
+      for i = 0, count_items_on_tracks - 1 do
 
-		mouse_item_pos = reaper.GetMediaItemInfo_Value(mouse_item,"D_POSITION")
+        mouse_item = reaper.GetTrackMediaItem(mouse_track, i)
+        mouse_item_pos = reaper.GetMediaItemInfo_Value(mouse_item, "D_POSITION")
 
-		if mouse_item_end > edit_pos then
+        if mouse_item_pos >= mouse_pos then
+          break
+        else
+          mouse_item = nil
+        end
 
-			item = {}
-			item_ar_len = 0
+      end
 
-			--all = GetToggleCommandState(40311)
-			--one = GetToggleCommandState(40310)
-			ripple = reaper.SNM_GetIntConfigVar(projripedit, -666)
+    end
 
-			if ripple == 2 then
-			--all == 1 then
-				count_media_items = reaper.CountMediaItems(0)
+  end
 
-				for i = 0, count_media_items - 1 do 
+  if mouse_item ~= nil then
 
-					item_get = reaper.GetMediaItem(0, i)
-						
-					SaveItemRipple()
+    reaper.SetMediaItemSelected(mouse_item, true)
 
-				end
-			end
-			
-			if ripple == 1 then
-			--one == 1 then
-				count_item_on_track = reaper.CountTrackMediaItems(track)
+    mouse_item_pos = reaper.GetMediaItemInfo_Value(mouse_item,"D_POSITION")
+    edit_pos = reaper.GetCursorPosition()
 
-				for i = 0, count_item_on_track - 1 do 
+    mouse_item_len = reaper.GetMediaItemInfo_Value(mouse_item,"D_LENGTH")
+    mouse_item_end = reaper.GetMediaItemInfo_Value(mouse_item,"D_POSITION")
+    mouse_item_snap = reaper.GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET")
 
-					item_get = reaper.GetTrackMediaItem(track, i)     
-					
-					SaveItemRipple()
+    mouse_item_end = mouse_item_pos + mouse_item_len
+    offset = mouse_item_pos - edit_pos
+    --offset = mouse_item_pos - mouse_pos
 
-				end
-			
-			end
-			
-			mouse_fade_get = reaper.GetMediaItemInfo_Value(mouse_item, "D_FADEINLEN")
-			mouse_fade_absolute = mouse_item_pos + mouse_fade_get
-			new_fadeout = (mouse_fade_absolute) - (mouse_item_pos - offset)
-			
-			reaper.SetMediaItemInfo_Value(mouse_item, "D_FADEINLEN", new_fadeout)
-			
-			mouse_take = reaper.GetActiveTake(mouse_item)
+    track = reaper.GetMediaItem_Track(mouse_item)
 
-			mouse_take_off = reaper.GetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS")
+    mouse_item_pos = reaper.GetMediaItemInfo_Value(mouse_item,"D_POSITION")
 
-			reaper.SetMediaItemInfo_Value(mouse_item, "D_POSITION", mouse_item_pos - offset)
-			reaper.SetMediaItemInfo_Value(mouse_item, "D_LENGTH", mouse_item_len + offset)
-			reaper.SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", mouse_item_snap + offset)
+    if mouse_item_end > edit_pos then
 
-			mouse_item_snap = reaper.GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET")
-			
-			if mouse_item_snap < 0 then
-				reaper.SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", 0)
-			end
-			
-			take_rate = reaper.GetMediaItemTakeInfo_Value(mouse_take, "D_PLAYRATE")
-			reaper.SetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS", mouse_take_off - offset * take_rate)
-			
-			-- Envelopes
-			for i = 0, reaper.CountTakeEnvelopes( mouse_take ) - 1 do
-				env = reaper.GetTakeEnvelope( mouse_take, i )
-				-- LOOP THROUGH POINTS
-				env_points_count = reaper.CountEnvelopePoints(env)
-				
-				if env_points_count > 0 then
-					for k = 0, env_points_count-1 do
-						retval, time, value, shape, tensionl, selected = reaper.GetEnvelopePoint(env, env_points_count-1-k)                
-						reaper.SetEnvelopePoint(env, env_points_count-1-k, time + offset, value, shape, tensionl, selected, true)
-					end
-				end
-				reaper.Envelope_SortPoints(env)
-			end
-			
-			-- Stretch Markers
-			strech_count = reaper.GetTakeNumStretchMarkers(mouse_take)
-			
-			for j = 0, strech_count - 1 do
-			
-				idx, strech_pos, srcpos = reaper.GetTakeStretchMarker(mouse_take, j)
-			
-				reaper.SetTakeStretchMarker(mouse_take, idx, strech_pos+offset)
-				
-			end
+      item = {}
+      item_ar_len = 0
 
-			if ripple > 0 then
-			--all == 1 || one == 1 then
-				for j = 0, #item do 
+      --all = GetToggleCommandState(40311)
+      --one = GetToggleCommandState(40310)
+      ripple = reaper.SNM_GetIntConfigVar(projripedit, -666)
 
-					item_pos = reaper.GetMediaItemInfo_Value(item[j],"D_POSITION")
-					calc = item_pos - offset
-					if calc < 0 then calc = 0 end
-					reaper.SetMediaItemInfo_Value(item[j], "D_POSITION", calc)
+      if ripple == 2 then
+      --all == 1 then
+        count_media_items = reaper.CountMediaItems(0)
 
-				end
-			end
-		
-		end
-		
-		reaper.Undo_EndBlock("Trim left edge of item under mouse to edit cursor without changing fade-in end", -1)
+        for i = 0, count_media_items - 1 do
 
-		end
+          item_get = reaper.GetMediaItem(0, i)
 
-	end
+          SaveItemRipple()
 
+        end
+      end
 
+      if ripple == 1 then
+      --one == 1 then
+        count_item_on_track = reaper.CountTrackMediaItems(track)
+
+        for i = 0, count_item_on_track - 1 do
+
+          item_get = reaper.GetTrackMediaItem(track, i)
+
+          SaveItemRipple()
+
+        end
+
+      end
+            
+      mouse_item_snap reaper.GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET")
+      mouse_fade_get = reaper.GetMediaItemInfo_Value(mouse_item, "D_FADEINLEN")
+      mouse_fade_absolute = mouse_item_pos + mouse_fade_get
+      new_fadeout = (mouse_fade_absolute) - (mouse_item_pos - offset)
+            
+      reaper.BR_SetItemEdges( mouse_item, mouse_item_pos - offset, -1 )
+
+      reaper.SetMediaItemInfo_Value(mouse_item, "D_FADEINLEN", new_fadeout)
+
+      if ripple > 0 then
+      --all == 1 || one == 1 then
+        for j = 0, #item do
+
+          item_pos = reaper.GetMediaItemInfo_Value(item[j],"D_POSITION")
+          calc = item_pos - offset
+          if calc < 0 then calc = 0 end
+          reaper.SetMediaItemInfo_Value(item[j], "D_POSITION", calc)
+
+        end
+      end
+
+    end
+
+  end
+
+end
 
 reaper.PreventUIRefresh(1)
 
+reaper.Undo_BeginBlock()
+
+group_state = reaper.GetToggleCommandState(1156)
+if group_state == 1 then
+  reaper.Main_OnCommand(1156,0)
+end
+
+cur_pos = reaper.GetCursorPosition()
+
 main()
+
+reaper.SetEditCurPos( cur_pos, false, false)
+
+if group_state == 1 then
+  reaper.Main_OnCommand(1156,0)
+end
+
+reaper.Undo_EndBlock("Trim left edge of item under mouse to edit cursor without changing fade-in end", -1)
 
 reaper.UpdateArrange()
 
