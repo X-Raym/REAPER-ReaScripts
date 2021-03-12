@@ -10,7 +10,7 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.4
+ * Version: 1.4.1
 --]]
 
 --[[
@@ -332,7 +332,7 @@ if count_regions > 0 or count_markers > 0 then
       vars.offset = GetExtState( "offset", vars.offset )
       vars.frame_rate = GetExtState( "frame_rate", vars.frame_rate )
       vars.markers_only = GetExtState( "markers_only", vars.markers_only )
-      vars.timesel_start_offset = GetExtState( "timesel_start_offset", timesel_start_offset )
+      vars.timesel_start_offset = GetExtState( "timesel_start_offset", vars.timesel_start_offset )
 
       retval, retval_csv = reaper.GetUserInputs( "Export Markers to EDL", 4, "Framerate (fps):,Offset (s),Markers Only (y/n),Time selection start = 0?  (y/n)", vars.frame_rate .. "," .. vars.offset .. "," .. vars.markers_only .. "," .. vars.timesel_start_offset)
       if retval then
