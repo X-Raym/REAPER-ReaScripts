@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="58b577d84f910d1d4d9fcbb25dc61bdd82eee1f8" name="X-Raym Scripts">
+<index version="1" commit="9967ae60fe7833e214822628b71a1573285d7b3f" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4196,6 +4196,21 @@
         <changelog><![CDATA[+ Snap to grid
 # no SWS dependency]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/ed267c9fd8aad37f905df22f96f8848978355e81/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20parent%20and%20select%20track.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Play selected items once from first snap offset position.lua" type="script" desc="Play selected items once from first snap offset position">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Just like the SWS action Xenakios/SWS: Play selected items once but from snap offset pos\par}
+}
+]]></description>
+        <link rel="screenshot">https://i.imgur.com/80v4gQk.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2021-03-13T21:14:09Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9967ae60fe7833e214822628b71a1573285d7b3f/Transport/X-Raym_Play%20selected%20items%20once%20from%20first%20snap%20offset%20position.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Record or stop and rename newly created items with clipboard content.lua" type="script" desc="Record or stop and rename newly created items with clipboard content">
