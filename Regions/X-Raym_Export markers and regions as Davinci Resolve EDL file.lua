@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.4.1
+ * Version: 1.4.2
 --]]
 
 --[[
  * Changelog:
+ * v1.4.2 (2020-16-01)
+  # Fix hours format
  * v1.4 (2020-16-01)
   + Timestart sel offset is now optionnal
  * v1.3 (2020-16-01)
@@ -259,12 +261,12 @@ function create(f)
         if ts_end ~= 0 and iPosOut > ts_end then break end -- if time selection and marker region_end is after
         
         -- TODO: could be extended to support 10 hours + long projects
-        start_time = "0" .. reaper.format_timestr_pos(iPosOut + vars.offset - ts_start_offset, "",5)
-        start_time_1 = "0" .. reaper.format_timestr_pos(iPosOut + vars.offset + frame_duration - ts_start_offset, "",5)
+        start_time = reaper.format_timestr_pos(iPosOut + vars.offset - ts_start_offset, "",5)
+        start_time_1 = reaper.format_timestr_pos(iPosOut + vars.offset + frame_duration - ts_start_offset, "",5)
         
         -- Not implemented yet
-        end_time =  "0" .. reaper.format_timestr_pos(iRgnendOut + vars.offset - ts_start_offset, "",5)
-        end_time_1 =  "0" .. reaper.format_timestr_pos(iRgnendOut + vars.offset + frame_duration - ts_start_offset, "",5)
+        end_time =  reaper.format_timestr_pos(iRgnendOut + vars.offset - ts_start_offset, "",5)
+        end_time_1 = reaper.format_timestr_pos(iRgnendOut + vars.offset + frame_duration - ts_start_offset, "",5)
 
         duration = iRgnendOut - iPosOut
         duration_frames = 1
