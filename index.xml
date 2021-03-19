@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="f5298d9553a5ffcb0e981bf377257b721bae1b77" name="X-Raym Scripts">
+<index version="1" commit="d4b72d118d8c8b0a1590591100d3c0da03a7d140" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2088,6 +2088,10 @@
       <version name="1.1.1" author="X-Raym" time="2021-02-27T00:14:16Z">
         <changelog><![CDATA[+ Preset file support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/066b189ece834fcf792b7f5da89400b609b8dda2/Items%20Properties/X-Raym_Search%20and%20replace%20in%20selected%20active%20takes%20names.lua</source>
+      </version>
+      <version name="1.2" author="X-Raym" time="2021-03-19T21:54:18Z">
+        <changelog><![CDATA[+ Select item with matches]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4b72d118d8c8b0a1590591100d3c0da03a7d140/Items%20Properties/X-Raym_Search%20and%20replace%20in%20selected%20active%20takes%20names.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select all items below length threshold on selected tracks.lua" type="script">
