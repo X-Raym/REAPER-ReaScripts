@@ -8,12 +8,16 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
- * Version: 2.0
+ * Version: 2.0.1
 ]]
 
 --[[
  * Changelog:
- * v2.0 (2020-03-23)
+ * v2.0.1 (2021-03-23)
+  # Trim envelope support. Thx @daniboyle!
+  + -inf, min, max keywords
+  + comma decimal support
+ * v2.0 (2021-03-23)
   + new core
   + Automation items support
   + Save/restore last input
@@ -60,6 +64,7 @@ local env_width_db_scale = {}
 env_width_db_scale["Volume"] = true
 env_width_db_scale["Volume (Pre-FX)"] = true
 env_width_db_scale["Send Volume"] = true
+env_width_db_scale["Trim Volume"] = true
 
 local env_no_mulitply = {}
 env_no_mulitply["Mute"] = true
@@ -167,7 +172,7 @@ function Main()
     if not preset_file_init then
       input = reaper.GetExtState( ext_name, "input", input, true )
     end
-    retval, input = reaper.GetUserInputs("Set or Offset Selected Points Values", 1, "Value? (num, " .. mod2_prefix .." for " .. other_mod[mod1] .. ")", input) -- We suppose that the user know the scale he want
+    retval, input = reaper.GetUserInputs("Set or Offset Selected Points Values", 1, "Value? (num, " .. mod2_prefix .." " .. other_mod[mod1] .. ", min, max)", input)
   end
 
   if retval or not popup then
@@ -175,6 +180,8 @@ function Main()
     if not preset_file_init then
       reaper.SetExtState( ext_name, "input", input, true )
     end
+
+    input = input:gsub(',','.')
 
     local x, y = string.find(input, mod2_prefix)
 
@@ -187,6 +194,8 @@ function Main()
     end
 
     input = input:gsub(mod2_prefix, "")
+    if input == "-inf" or input == "min" then input = - math.huge end
+    if input == "max" then input = math.huge end
     user_input_num = tonumber(input)
 
     -- IF VALID INPUT
