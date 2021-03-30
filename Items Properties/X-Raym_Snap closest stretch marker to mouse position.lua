@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166702
  * REAPER: 5.0
  * Extensions: SWS 2.9.1
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2021-03-30)
+  + Snap to grid
  * v1.0 (2021-03-30)
   + Initial Release
 --]]
@@ -47,6 +49,10 @@ function main()
   end
   
   if mouse_pos == -1 then mouse_pos = reaper.GetCursorPosition() end
+  
+  if reaper.GetToggleCommandState( 1157 ) then
+    mouse_pos = reaper.SnapToGrid( 0, mouse_pos )
+  end
   
   if take then
   
