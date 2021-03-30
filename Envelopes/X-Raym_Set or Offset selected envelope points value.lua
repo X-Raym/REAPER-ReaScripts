@@ -8,11 +8,14 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
- * Version: 2.0.1
+ * Version: 2.0.2
 ]]
 
 --[[
  * Changelog:
+ * v2.0.2 (2021-03-30)
+  # Fix fader scaling
+  # Keep point selected
  * v2.0.1 (2021-03-23)
   # Trim envelope support. Thx @daniboyle!
   + -inf, min, max keywords
@@ -98,8 +101,9 @@ end
 
 function ProcessPoint( env, env_name, val, user_input_num, set, min, max )
   -- Pre Process val
+  local fader_scaling = reaper.GetEnvelopeScalingMode(env)
   if env_width_db_scale[env_name] then
-    if reaper.GetEnvelopeScalingMode(env) == 1 then val = reaper.ScaleFromEnvelopeMode(1, val) end
+    if fader_scaling == 1 then val = reaper.ScaleFromEnvelopeMode(1, val) end
     val = dBFromVal( val )
   end
 
@@ -116,11 +120,13 @@ function ProcessPoint( env, env_name, val, user_input_num, set, min, max )
 
   -- post Process val
   if env_width_db_scale[env_name] then
-    if reaper.GetEnvelopeScalingMode(env) == 1 then val = reaper.ScaleToEnvelopeMode(1, val) end
     val = ValFromdB( val )
+    val = LimitNumber( val, min, max )
+    if fader_scaling == 1 then val = reaper.ScaleToEnvelopeMode(1, val) end
+  else
+    val = LimitNumber( val, min, max )
   end
 
-  val = LimitNumber( val, min, max )
   return val
 end
 
@@ -144,7 +150,7 @@ function ProcessEnv(env, set, user_input_num)
         local retval, timepos, measurepos, beatpos, bpm, timesig_num, timesig_denom, lineartempo = reaper.GetTempoTimeSigMarker( 0, i )
         reaper.SetTempoTimeSigMarker( 0, i, timepos, measurepos, beatpos, val, timesig_num, timesig_denom, lineartempo )
       else
-        reaper.SetEnvelopePoint(env, i, nil, val, nil, nil, nil, nil)
+        reaper.SetEnvelopePoint(env, i, time, val, shape, tension, true, false)
       end
 
     end -- ENDIF point is selected
@@ -158,7 +164,7 @@ function ProcessEnv(env, set, user_input_num)
       local retval, time, val, shape, tension, selected = reaper.GetEnvelopePointEx( env, i, j )
       if selected then
         val = ProcessPoint( env, env_name, val, user_input_num, set, min, max )
-        reaper.SetEnvelopePointEx( env, i, j, nil, val, nil, nil, nil, nil )
+        reaper.SetEnvelopePointEx( env, i, j, time, val, shape, tension, true, false )
       end
       --reaper.Envelope_SortPointsEx(env, i )
     end
