@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6
+ * Version: 0.6.1
 --]]
 
 --[[
  * Changelog:
+ * v0.6.1 (2021-03-24)
+  + Warning for missing theme var files
  * v0.6 (2021-03-24)
   + Zip theme warning
  * v0.5 (2021-03-24)
@@ -53,7 +55,7 @@ function FilterTab( t, str )
   if str == "" then return t end
   local out, filtered_out = {}, {}
   for i, v in ipairs(t) do
-    if (theme_var_descriptions[v] and theme_var_descriptions[v]:find(str)) or v:find(str) then table.insert(out, v) else table.insert(filtered_out, v) end
+    if (theme_var_descriptions and theme_var_descriptions[v] and theme_var_descriptions[v]:find(str)) or v:find(str) then table.insert(out, v) else table.insert(filtered_out, v) end
   end
   return out, filtered_out
 end
@@ -216,10 +218,14 @@ function loop()
   reaper.ImGui_Separator(ctx)
   reaper.ImGui_Spacing( ctx )
   reaper.ImGui_Spacing( ctx )
-  
+
   reaper.ImGui_PushItemWidth(ctx, 100 )
-  local retval, color_descriptions_num_temp = r.ImGui_Combo(ctx, 'Labels', color_descriptions_num, "Text\31Variables\31")
-  if retval then color_descriptions_num = color_descriptions_num_temp end
+  if  theme_var_descriptions then
+    local retval, color_descriptions_num_temp = r.ImGui_Combo(ctx, 'Labels', color_descriptions_num, "Text\31Variables\31")
+    if retval then color_descriptions_num = color_descriptions_num_temp end
+  else
+    reaper.ImGui_TextWrapped(ctx, "WARNING: Missing theme labels description files.\nInstall ReaTeam ReaScripts repository via Reapack to have labels text.")
+  end
   
   reaper.ImGui_PushItemWidth(ctx,reaper.ImGui_GetWindowWidth( ctx )-113) -- Set max with of inputs
   retval_text, text = reaper.ImGui_InputText(ctx, 'Filter name', text)
@@ -294,7 +300,7 @@ function loop()
   
   for i, v in ipairs( tab ) do
     reaper.ImGui_PushItemWidth(ctx, 100) -- Set max with of inputs
-    retval, colors[v] = reaper.ImGui_ColorEdit3(ctx, (color_descriptions_num == 0 and theme_var_descriptions[v]) or v, colors[v],  reaper.ImGui_ColorEditFlags_DisplayHex() )
+    retval, colors[v] = reaper.ImGui_ColorEdit3(ctx, (color_descriptions_num == 0 and theme_var_descriptions and theme_var_descriptions[v]) or v, colors[v],  reaper.ImGui_ColorEditFlags_DisplayHex() )
     if retval then -- if changed
       reaper.SetThemeColor( v, IntToNative(colors[v]), 0 )
       reaper.ThemeLayout_RefreshAll()
