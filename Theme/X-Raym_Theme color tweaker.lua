@@ -6,14 +6,16 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.1
+ * Version: 0.6.2
 --]]
 
 --[[
  * Changelog:
- * v0.6.1 (2021-03-24)
+ * v0.6.2 (2021-03-30)
+  + Fix MacOS paths
+ * v0.6.1 (2021-03-30)
   + Warning for missing theme var files
- * v0.6 (2021-03-24)
+ * v0.6 (2021-03-30)
   + Zip theme warning
  * v0.5 (2021-03-24)
   + First beta
@@ -37,10 +39,12 @@ palette_toggle = false
 color_descriptions_num = 0 -- 0 for text, 1 for variables
 
 localize = true
-local theme_var_desc_path = reaper.GetResourcePath() .. "\\Scripts\\ReaTeam Scripts\\Development\\amagalma_Theme variable descriptions.lua"
+os_sep = package.config:sub(1,1)
+path_resource = reaper.GetResourcePath()
+local theme_var_desc_path = table.concat( {path_resource, "Scripts", "ReaTeam Scripts", "Development", "amagalma_Theme variable descriptions.lua"}, os_sep )
 if reaper.file_exists( theme_var_desc_path ) then dofile( theme_var_desc_path ) end
 
-local color_functions_path = reaper.GetResourcePath() .. "\\Scripts\\ReaTeam Scripts\\Development\\X-Raym_Color_functions.lua"
+local color_functions_path = table.concat( {path_resource, "Scripts", "ReaTeam Scripts", "Development", "X-Raym_Color_functions.lua"}, os_sep )
 if reaper.file_exists( color_functions_path ) then dofile( color_functions_path ) end
 
 export_text = "Theme saved."
