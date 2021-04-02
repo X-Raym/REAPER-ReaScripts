@@ -11,11 +11,13 @@
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.1
 --]]
  
 --[[
  * Changelog:
+ * v2.1 (2021-01-18)
+  + Multiply support with * or / prefix
  * v2.0 (2021-01-18)
   # Support relative mode
  * v1.0.1 (2020-01-18)
@@ -33,6 +35,7 @@
 mod1 = "absolute" -- Set the primary mod that will be defined if no prefix character. Values are "absolute" or "relative".
 mod2 = "relative"
 mod2_prefix = "+" -- Prefix to enter the secondary mod
+mod2_prefix_multiply = "*" -- Prefix to enter the secondary mod multiply
 input_default = "1" -- "" means no character aka relative per default.
 popup = true
 -- <===== USER AREA ------
@@ -80,7 +83,13 @@ function main()
         end
       else
         original_rate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
-        new_rate = rate + original_rate
+        if multiply then
+          new_rate = rate * original_rate
+        elseif divide then
+          new_rate = original_rate / rate
+        else
+          new_rate = rate + original_rate
+        end
         if new_rate > 0 then
           reaper.SetMediaItemTakeInfo_Value(take, "D_PLAYRATE",new_rate)
           original_len = item_length * original_rate
@@ -115,7 +124,7 @@ function Init()
       if reaper.HasExtState( ext_name, "input_default" ) then
         input_default = reaper.GetExtState( ext_name, "input_default" )
       end
-      retval, user_input_str = reaper.GetUserInputs("Set/Offset Take Rate Value", 1, "Value (" .. mod2_prefix .." for " .. mod2 .. ")", input_default) 
+      retval, user_input_str = reaper.GetUserInputs("Set/Offset Take Rate Value", 1, "Value (" .. mod2_prefix .." for " .. mod2 .. ", * and /)", input_default) 
     else
       user_input_str = input_default
     end
@@ -123,6 +132,9 @@ function Init()
     if not popup or retval then -- if user complete the fields
       
       x, y = string.find(user_input_str, mod2_prefix)
+      
+      multiply = string.find(user_input_str, "%*")
+      divide = string.find(user_input_str, "/")
           
       if mod1 == "absolute" then
         if x ~= nil then -- set
@@ -140,7 +152,11 @@ function Init()
         end
       end
       
+      if multiply or divide then set = false end
+      
       user_input_num = user_input_str:gsub(mod2_prefix, "")
+      user_input_num = user_input_num:gsub("%*", "")
+      user_input_num = user_input_num:gsub("/", "")
       user_input_num = tonumber(user_input_num)
   
       if user_input_num and user_input_num ~= 0 then
