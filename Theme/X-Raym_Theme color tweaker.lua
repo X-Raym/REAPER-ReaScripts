@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.2
+ * Version: 0.6.3
 --]]
 
 --[[
  * Changelog:
+ * v0.6.3 (2021-04-04)
+  # Add warning for missing dependencies
  * v0.6.2 (2021-03-30)
   + Fix MacOS paths
  * v0.6.1 (2021-03-30)
@@ -42,10 +44,25 @@ localize = true
 os_sep = package.config:sub(1,1)
 path_resource = reaper.GetResourcePath()
 local theme_var_desc_path = table.concat( {path_resource, "Scripts", "ReaTeam Scripts", "Development", "amagalma_Theme variable descriptions.lua"}, os_sep )
-if reaper.file_exists( theme_var_desc_path ) then dofile( theme_var_desc_path ) end
+if reaper.file_exists( theme_var_desc_path ) then
+  dofile( theme_var_desc_path )
+else
+  reaper.MB("Missing script dependency:\n" .. theme_var_desc_path .. "\nDownload it via Reapack ReaTeam ReaScripts repository.", "Error", 0)
+  return false
+end
 
 local color_functions_path = table.concat( {path_resource, "Scripts", "ReaTeam Scripts", "Development", "X-Raym_Color_functions.lua"}, os_sep )
-if reaper.file_exists( color_functions_path ) then dofile( color_functions_path ) end
+if reaper.file_exists( color_functions_path ) then
+  dofile( color_functions_path )
+else
+  reaper.MB("Missing script dependency:\n" .. color_functions_path .. "\nDownload it via Reapack ReaTeam ReaScripts repository.", "Error", 0)
+  return false
+end
+
+if not reaper.ImGui_Begin then 
+  reaper.MB("Missing dependency: ReaImGui extension.\nDownload it via Reapack ReaTeam extension repository.", "Error", 0)
+  return false
+end
 
 export_text = "Theme saved."
 
