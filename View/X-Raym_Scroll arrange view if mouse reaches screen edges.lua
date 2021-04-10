@@ -1,6 +1,5 @@
 --[[
  * ReaScript Name: Scroll arrange view if mouse reaches screen edges
- * About: A template script for running in background REAPER ReaScript, with toolbar button ON/OFF state.
  * Screenshot: https://i.imgur.com/0npTbEB.gifv
  * Author: X-Raym
  * Author URI: http://extremraym.com
@@ -11,11 +10,14 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1523568#post1523568
  * REAPER: 5.0
  * Extensions: js_extension
- * Version: 1.2.1
+ * Version: 1.2.2
 --]]
  
 --[[
  * Changelog:
+ * v1.2.2 (2021-04-10)
+  + margin support
+  + preset file support
  * v1.2.1 (2019-03-29)
   # remove mouse cursor change because of menu bug
  * v1.2 (2019-03-28)
@@ -29,9 +31,15 @@
 --]]
  
 -- TODO:
--- Scroll Only if REAPER is in FOCUS
--- MAJ + Scroll FAST
 -- Find on which screen is REAPER
+ 
+-- USER CONFIG AREA ----------------------------------
+margin_left = 0
+margin_right = 1
+margin_top = 0
+margin_bottom = 1
+
+------------------------------------------------------
  
  -- Set ToolBar Button State
 function SetButtonState( set )
@@ -43,9 +51,9 @@ function SetButtonState( set )
 end
 
 function ReaperHasFocus()
-  hwnd = reaper.JS_Window_GetForeground() -- may be nil when switching windows, so check it!
+  local hwnd = reaper.JS_Window_GetForeground() -- may be nil when switching windows, so check it!
   if hwnd then
-    rea_hwnd = reaper.GetMainHwnd()
+    local rea_hwnd = reaper.GetMainHwnd()
     if hwnd == rea_hwnd or reaper.JS_Window_GetParent(hwnd) == rea_hwnd then
       return true
     end 
@@ -77,21 +85,21 @@ function Main()
     val_x = 0
     val_y = 0    
     
-    if mouse_x == 0 or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x <= screen_right * 0.25 ) then
+    if mouse_x <= margin_left or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x <= screen_right * 0.25 ) then
       val_x = -1 * multiplicator_x
       --reaper.JS_Mouse_SetCursor( cursor_left )
     end
     
-    if mouse_x >= screen_right - 1 or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x >= screen_right * 0.75 )then
+    if mouse_x >= screen_right - margin_right or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x >= screen_right * 0.75 )then
      val_x = 1 * multiplicator_x
     end
     
-    if mouse_y == 0 or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y <= screen_bottom * 0.25 ) then
+    if mouse_y <= margin_top or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y <= screen_bottom * 0.25 ) then
       val_y = -1 * multiplicator_y
       -- reaper.JS_Mouse_SetCursor( cursor_up )
     end
     
-    if mouse_y >= screen_bottom - 1 or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y >= screen_bottom * 0.75 ) then
+    if mouse_y >= screen_bottom - margin_bottom or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y >= screen_bottom * 0.75 ) then
       val_y = 1 * multiplicator_y
     end
     
@@ -105,17 +113,22 @@ function Main()
   
 end
 
-if not reaper.JS_Window_MonitorFromRect then
-  reaper.ShowConsoleMsg('Please Install js_ReaScriptAPI extension.\nhttps://forum.cockos.com/showthread.php?t=212174\n')
-else
+function Init()
+  if not reaper.JS_Window_MonitorFromRect then
+    reaper.ShowConsoleMsg('Please Install js_ReaScriptAPI extension.\nhttps://forum.cockos.com/showthread.php?t=212174\n')
+  else
 
-  screen_left, screen_top, screen_right, screen_bottom = reaper.JS_Window_MonitorFromRect(0, 0, 0, 0, false)
+    screen_left, screen_top, screen_right, screen_bottom = reaper.JS_Window_MonitorFromRect(0, 0, 0, 0, false)
   
-  cursor_up = reaper.JS_Mouse_LoadCursor( 32516 )
-  cursor_left = reaper.JS_Mouse_LoadCursor( 32644 )
+    cursor_up = reaper.JS_Mouse_LoadCursor( 32516 )
+    cursor_left = reaper.JS_Mouse_LoadCursor( 32644 )
   
-  SetButtonState( 1 )
-  Main()
-  reaper.atexit( SetButtonState )
-  
+    SetButtonState( 1 )
+    Main()
+    reaper.atexit( SetButtonState )
+  end
+end
+
+if not preset_file_init then
+  Init()
 end
