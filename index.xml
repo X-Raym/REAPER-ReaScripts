@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="4f8682137f0edac3d92aea90e748131f93bcca9a" name="X-Raym Scripts">
+<index version="1" commit="4f367628d09f3893e22726fa18f1fe4936ab3544" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4836,13 +4836,6 @@
     </reapack>
     <reapack name="X-Raym_Scroll arrange view if mouse reaches screen edges.lua" type="script" desc="Scroll arrange view if mouse reaches screen edges">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 A template script for running in background REAPER ReaScript, with toolbar button ON/OFF state.\par}
-}
-]]></description>
         <link rel="screenshot">https://i.imgur.com/0npTbEB.gifv</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-03-22T19:08:00Z">
@@ -4862,6 +4855,11 @@
       <version name="1.2.1" author="X-Raym" time="2019-04-29T15:38:48Z">
         <changelog><![CDATA[# remove mouse cursor change because of menu bug]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7419e7ad664af9d3cedc099899cff04744bb31d1/View/X-Raym_Scroll%20arrange%20view%20if%20mouse%20reaches%20screen%20edges.lua</source>
+      </version>
+      <version name="1.2.2" author="X-Raym" time="2021-04-10T10:55:03Z">
+        <changelog><![CDATA[+ margin support
++ preset file support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4f367628d09f3893e22726fa18f1fe4936ab3544/View/X-Raym_Scroll%20arrange%20view%20if%20mouse%20reaches%20screen%20edges.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Scroll vertically down a little bit.lua" type="script" desc="Scroll vertically down a little bit">
