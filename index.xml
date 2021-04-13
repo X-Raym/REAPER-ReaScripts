@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="4f367628d09f3893e22726fa18f1fe4936ab3544" name="X-Raym Scripts">
+<index version="1" commit="6a46c58e6076ef8a63f894d5d558f7b416e9774e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1779,10 +1779,23 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e2f8cd0b30825b7e82b9c79274815cb57b0149bf/Items%20Properties/X-Raym_Export%20selected%20items%20as%20tab-delimited%20regions%20CSV.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Group selected items according to their order in selection per track.lua" type="script">
+    <reapack name="X-Raym_Group selected items according to their order in selection per track.lua" type="script" desc="Group selected items according to their order in selection per track">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Select item. Run. It will group and colorize item based on their position in selection per track (first selected items on selected track together, second together etc...)\par}
+}
+]]></description>
+      </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Group%20selected%20items%20according%20to%20their%20order%20in%20selection%20per%20track.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2021-04-13T16:40:10Z">
+        <changelog><![CDATA[# new core]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6a46c58e6076ef8a63f894d5d558f7b416e9774e/Items%20Properties/X-Raym_Group%20selected%20items%20according%20to%20their%20order%20in%20selection%20per%20track.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Group selected items vertically by position.lua" type="script" desc="Group selected items vertically by position">
