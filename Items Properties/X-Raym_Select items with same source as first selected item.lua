@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
  
 --[[
@@ -46,7 +46,7 @@ function main() -- local (i, j, item, take, track)
 			if reaper.TakeIsMIDI(first_take) == false then
 			
 				first_take_source = GetTakeFileSource(first_take)
-				if not first_take_source then
+				if first_take_source then
 					first_take_source_name = reaper.GetMediaSourceFileName(first_take_source, "")
 					
 					items_count = reaper.CountMediaItems(0)
