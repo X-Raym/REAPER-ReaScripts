@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="81c8193470322b6ba406de21805ef608fbc9f142" name="X-Raym Scripts">
+<index version="1" commit="b7face08e5983209bdf6dbdc30ccb45d87cdb3cc" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1916,6 +1916,15 @@
     <reapack name="X-Raym_Nudge selected items volume -0.5db.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/bd5f5f3d1dfc49e6e9756fd7a4b086794abb6e78/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20-0.5db.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Offset selected items volume by their track fader value.lua" type="script" desc="Offset selected items volume by their track fader value">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/OwhWpbn.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2021-04-30T11:47:38Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b7face08e5983209bdf6dbdc30ccb45d87cdb3cc/Items%20Properties/X-Raym_Offset%20selected%20items%20volume%20by%20their%20track%20fader%20value.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Offset selected media items source positions by snap offset length.lua" type="script" desc="Offset selected media items source positions by snap offset length">
