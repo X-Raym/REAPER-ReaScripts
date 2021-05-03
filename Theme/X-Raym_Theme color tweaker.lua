@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.3
+ * Version: 0.6.4
 --]]
 
 --[[
  * Changelog:
+ * v0.6.4 (2021-05-03)
+  # Better filter
  * v0.6.3 (2021-04-04)
   # Add warning for missing dependencies
  * v0.6.2 (2021-03-30)
@@ -72,11 +74,43 @@ function Msg( val )
   reaper.ShowConsoleMsg( tostring(val) .. "\n" )
 end
 
-function FilterTab( t, str )
+function FindByWordsInSTR( str, words, or_mode )
+  local out = true
+  str = str:lower()
+  for i, word in ipairs(words) do
+    if or_mode then
+      if str:find(word) then
+        out = true
+        break
+      else
+        out = false
+      end
+    else
+      if not str:find(word) then
+       out = false
+       break
+      end
+    end
+  end
+  return out
+end
+
+function SplitSTR( str, char )
+  local t = {}
+  local i = 0
+  for line in str:gmatch("[^" ..char .. "]*") do
+      i = i + 1
+      t[i] = line:lower()
+  end
+  return t
+end
+
+function FilterTab( t, str, or_mode )
   if str == "" then return t end
+  local words = SplitSTR(str, " ")
   local out, filtered_out = {}, {}
   for i, v in ipairs(t) do
-    if (theme_var_descriptions and theme_var_descriptions[v] and theme_var_descriptions[v]:find(str)) or v:find(str) then table.insert(out, v) else table.insert(filtered_out, v) end
+    if (theme_var_descriptions and theme_var_descriptions[v] and FindByWordsInSTR(theme_var_descriptions[v], words, or_mode)) or FindByWordsInSTR(v, words, or_mode) then table.insert(out, v) else table.insert(filtered_out, v) end
   end
   return out, filtered_out
 end
@@ -159,7 +193,7 @@ theme_is_zip =  not reaper.file_exists( theme_path )
 theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
 theme_mod_name = theme_name .. " - Mod"
 
-modes_tab, items_tab = FilterTab( all_tab, "mode" )
+modes_tab, items_tab = FilterTab( all_tab, "mode dm", true )
 
 colors, colors_backup = {}, {}
 for k, v in ipairs( items_tab ) do
