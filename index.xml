@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="08d42ef2962c92dcddf52b66340becb1a0949381" name="X-Raym Scripts">
+<index version="1" commit="eb55fbf09e92a69aabbb9cc3a22cf191caa0d287" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2801,6 +2801,14 @@
       <version name="1.0" author="X-Raym" time="2020-07-12T13:13:33Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/cf06b9a48ee7cc523acdd918ced367f9d5990acb/MIDI%20Editor/X-Raym_Insert%20sysex%20events%20at%20time%20selection.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Move selected notes to pitch under mouse.lua" type="script" desc="Move selected notes to pitch under mouse">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/zrwgpl1.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2021-05-04T22:14:46Z">
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/eb55fbf09e92a69aabbb9cc3a22cf191caa0d287/MIDI%20Editor/X-Raym_Move%20selected%20notes%20to%20pitch%20under%20mouse.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Mute selected notes in open MIDI take randomly.lua" type="script">
