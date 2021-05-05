@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.4
+ * Version: 0.6.5
 --]]
 
 --[[
  * Changelog:
+ * v0.6.5 (2021-05-05)
+  # Fix 4th color byte (thx cfillion!)
  * v0.6.4 (2021-05-03)
   # Better filter
  * v0.6.3 (2021-04-04)
@@ -37,7 +39,7 @@ local text = ''
 local ctx = reaper.ImGui_CreateContext('XR Theme Tweaker - Beta', 710, 400)
 local all_tab = {"col_main_bg2" , "col_main_text2" , "col_main_textshadow" , "col_main_3dhl" , "col_main_3dsh" , "col_main_resize2" , "col_main_text" , "col_main_bg" , "col_main_editbk" , "col_transport_editbk" , "col_toolbar_text" , "col_toolbar_text_on" , "col_toolbar_frame" , "toolbararmed_color" , "toolbararmed_drawmode" , "io_text" , "io_3dhl" , "io_3dsh" , "genlist_bg" , "genlist_fg" , "genlist_grid" , "genlist_selbg" , "genlist_selfg" , "genlist_seliabg" , "genlist_seliafg" , "genlist_hilite" , "genlist_hilite_sel" , "col_buttonbg" , "col_tcp_text" , "col_tcp_textsel" , "col_seltrack" , "col_seltrack2" , "tcplocked_color" , "tcplocked_drawmode" , "col_tracklistbg" , "col_mixerbg" , "col_arrangebg" , "arrange_vgrid" , "col_fadearm" , "col_fadearm2" , "col_fadearm3" , "col_tl_fg" , "col_tl_fg2" , "col_tl_bg" , "col_tl_bgsel" , "timesel_drawmode" , "col_tl_bgsel2" , "col_trans_bg" , "col_trans_fg" , "playrate_edited" , "col_mi_label" , "col_mi_label_sel" , "col_mi_label_float" , "col_mi_label_float_sel" , "col_mi_bg" , "col_mi_bg2" , "col_tr1_itembgsel" , "col_tr2_itembgsel" , "itembg_drawmode" , "col_tr1_peaks" , "col_tr2_peaks" , "col_tr1_ps2" , "col_tr2_ps2" , "col_peaksedge" , "col_peaksedge2" , "col_peaksedgesel" , "col_peaksedgesel2" , "cc_chase_drawmode" , "col_peaksfade" , "col_peaksfade2" , "col_mi_fades" , "fadezone_color" , "fadezone_drawmode" , "fadearea_color" , "fadearea_drawmode" , "col_mi_fade2" , "col_mi_fade2_drawmode" , "item_grouphl" , "col_offlinetext" , "col_stretchmarker" , "col_stretchmarker_h0" , "col_stretchmarker_h1" , "col_stretchmarker_h2" , "col_stretchmarker_b" , "col_stretchmarkerm" , "col_stretchmarker_text" , "col_stretchmarker_tm" , "take_marker" , "selitem_tag" , "activetake_tag" , "col_tr1_bg" , "col_tr2_bg" , "selcol_tr1_bg" , "selcol_tr2_bg" , "col_tr1_divline" , "col_tr2_divline" , "col_envlane1_divline" , "col_envlane2_divline" , "marquee_fill" , "marquee_drawmode" , "marquee_outline" , "marqueezoom_fill" , "marqueezoom_drawmode" , "marqueezoom_outline" , "areasel_fill" , "areasel_drawmode" , "areasel_outline" , "areasel_outlinemode" , "col_cursor" , "col_cursor2" , "playcursor_color" , "playcursor_drawmode" , "col_gridlines2" , "col_gridlines2dm" , "col_gridlines3" , "col_gridlines3dm" , "col_gridlines" , "col_gridlines1dm" , "guideline_color" , "guideline_drawmode" , "region" , "region_lane_bg" , "region_lane_text" , "marker" , "marker_lane_bg" , "marker_lane_text" , "col_tsigmark" , "ts_lane_bg" , "ts_lane_text" , "timesig_sel_bg" , "col_routinghl1" , "col_routinghl2" , "col_vudoint" , "col_vuclip" , "col_vutop" , "col_vumid" , "col_vubot" , "col_vuintcol" , "col_vumidi" , "col_vuind1" , "col_vuind2" , "col_vuind3" , "col_vuind4" , "mcp_sends_normal" , "mcp_sends_muted" , "mcp_send_midihw" , "mcp_sends_levels" , "mcp_fx_normal" , "mcp_fx_bypassed" , "mcp_fx_offlined" , "mcp_fxparm_normal" , "mcp_fxparm_bypassed" , "mcp_fxparm_offlined" , "tcp_list_scrollbar" , "tcp_list_scrollbar_mode" , "tcp_list_scrollbar_mouseover" , "tcp_list_scrollbar_mouseover_mode" , "mcp_list_scrollbar" , "mcp_list_scrollbar_mode" , "mcp_list_scrollbar_mouseover" , "mcp_list_scrollbar_mouseover_mode" , "midi_rulerbg" , "midi_rulerfg" , "midi_grid2" , "midi_griddm2" , "midi_grid3" , "midi_griddm3" , "midi_grid1" , "midi_griddm1" , "midi_trackbg1" , "midi_trackbg2" , "midi_trackbg_outer1" , "midi_trackbg_outer2" , "midi_selpitch1" , "midi_selpitch2" , "midi_selbg" , "midi_selbg_drawmode" , "midi_gridhc" , "midi_gridhcdm" , "midi_gridh" , "midi_gridhdm" , "midi_ccbut" , "midi_ccbut_text" , "midi_ccbut_arrow" , "midioct" , "midi_inline_trackbg1" , "midi_inline_trackbg2" , "midioct_inline" , "midi_endpt" , "midi_notebg" , "midi_notefg" , "midi_notemute" , "midi_notemute_sel" , "midi_itemctl" , "midi_ofsn" , "midi_ofsnsel" , "midi_editcurs" , "midi_pkey1" , "midi_pkey2" , "midi_pkey3" , "midi_noteon_flash" , "midi_leftbg" , "midifont_col_light_unsel" , "midifont_col_dark_unsel" , "midifont_mode_unsel" , "midifont_col_light" , "midifont_col_dark" , "midifont_mode" , "score_bg" , "score_fg" , "score_sel"
  , "score_timesel" , "score_loop" , "midieditorlist_bg" , "midieditorlist_fg" , "midieditorlist_grid" , "midieditorlist_selbg" , "midieditorlist_selfg" , "midieditorlist_seliabg" , "midieditorlist_seliafg" , "midieditorlist_bg2" , "midieditorlist_fg2" , "midieditorlist_selbg2" , "midieditorlist_selfg2" , "col_explorer_sel" , "col_explorer_seldm" , "col_explorer_seledge" , "docker_shadow" , "docker_selface" , "docker_unselface" , "docker_text" , "docker_text_sel" , "docker_bg" , "windowtab_bg" , "auto_item_unsel" , "col_env1" , "col_env2" , "env_trim_vol" , "col_env3" , "col_env4" , "env_track_mute" , "col_env5" , "col_env6" , "col_env7" , "col_env8" , "col_env9" , "col_env10" , "env_sends_mute" , "col_env11" , "col_env12" , "col_env13" , "col_env14" , "col_env15" , "col_env16" , "env_item_vol" , "env_item_pan" , "env_item_mute" , "env_item_pitch" , "wiring_grid2" , "wiring_grid" , "wiring_border" , "wiring_tbg" , "wiring_ticon" , "wiring_recbg" , "wiring_recitem" , "wiring_media" , "wiring_recv" , "wiring_send" , "wiring_fader" , "wiring_parent" , "wiring_parentwire_border" , "wiring_parentwire_master" , "wiring_parentwire_folder" , "wiring_pin_normal" , "wiring_pin_connected" , "wiring_pin_disconnected" , "wiring_horz_col" , "wiring_sendwire" , "wiring_hwoutwire" , "wiring_recinputwire" , "wiring_hwout" , "wiring_recinput" , "group_0" , "group_1" , "group_2" , "group_3" , "group_4" , "group_5" , "group_6" , "group_7" , "group_8" , "group_9" , "group_10" , "group_11" , "group_12" , "group_13" , "group_14" , "group_15" , "group_16" , "group_17" , "group_18" , "group_19" , "group_20" , "group_21" , "group_22" , "group_23" , "group_24" , "group_25" , "group_26" , "group_27" , "group_28" , "group_29" , "group_30" , "group_31" , "group_32" , "group_33" , "group_34" , "group_35" , "group_36" , "group_37" , "group_38" , "group_39" , "group_40" , "group_41" , "group_42" , "group_43" , "group_44" , "group_45" , "group_46" , "group_47" , "group_48" , "group_49" , "group_50" , "group_51" , "group_52" , "group_53" , "group_54" , "group_55" , "group_56" , "group_57" , "group_58" , "group_59" , "group_60" , "group_61" , "group_62" , "group_63"}
-table.sort(all_tab)
+--table.sort(all_tab)
 filter_color = 0
 palette_toggle = false
 color_descriptions_num = 0 -- 0 for text, 1 for variables
@@ -124,12 +126,6 @@ function FilterByTabValue( t, ref_tab,val )
   return out, filtered_out  
 end
 
-function IntToNative(int)
-  local col_r, col_g, col_b = reaper.ColorFromNative( int )
-  local col_rgb_2 = reaper.ColorToNative( col_b, col_g, col_r )
-  return col_rgb_2|16777216
-end
-
 function WriteFile( path, str )
   file = io.open ( path, 'w+' )
   file:write( str )
@@ -140,7 +136,7 @@ function ExportTheme()
   local theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
   local t = {"[color theme]"}
   for i, v in ipairs(all_tab) do
-    table.insert(t, v .. "=" .. (colors[v] or modes[v]) )
+    table.insert(t, v .. "=" .. ((colors[v] and reaper.ImGui_ColorConvertNative(colors[v])) or modes[v]) )
   end
   table.insert(t, "[REAPER]")
   for i, v in ipairs(fonts_tab) do
@@ -197,7 +193,7 @@ modes_tab, items_tab = FilterTab( all_tab, "mode dm", true )
 
 colors, colors_backup = {}, {}
 for k, v in ipairs( items_tab ) do
-  local col = IntToNative(reaper.GetThemeColor(v,0))
+  local col = reaper.ImGui_ColorConvertNative(reaper.GetThemeColor(v,0))
   colors[v] = col
   colors_backup[v] = col
 end
@@ -357,7 +353,7 @@ function loop()
     reaper.ImGui_PushItemWidth(ctx, 100) -- Set max with of inputs
     retval, colors[v] = reaper.ImGui_ColorEdit3(ctx, (color_descriptions_num == 0 and theme_var_descriptions and theme_var_descriptions[v]) or v, colors[v],  reaper.ImGui_ColorEditFlags_DisplayHex() )
     if retval then -- if changed
-      reaper.SetThemeColor( v, IntToNative(colors[v]), 0 )
+      reaper.SetThemeColor( v, reaper.ImGui_ColorConvertNative(colors[v]), 0 )
       reaper.ThemeLayout_RefreshAll()
     end
     reaper.ImGui_SameLine(ctx, math.max(reaper.ImGui_GetWindowWidth( ctx )-80, 310) )
@@ -376,7 +372,7 @@ function loop()
     
     if r.ImGui_Button(ctx, "Restore##3f"..i) then
       colors[v] = colors_backup[v]
-      reaper.SetThemeColor( v, IntToNative(colors[v]), 0 )
+      reaper.SetThemeColor( v, reaper.ImGui_ColorConvertNative(colors[v]), 0 )
       reaper.ThemeLayout_RefreshAll()
     end
     
