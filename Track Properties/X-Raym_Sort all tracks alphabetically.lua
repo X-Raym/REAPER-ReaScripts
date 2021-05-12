@@ -2,7 +2,7 @@
 -- @author X-Raym, MPL
 -- @website http://forum.cockos.com/showpost.php?p=1574912&postcount=1078
 -- @screenshot http://i.giphy.com/3oEdv7ULuP7JOEeHUQ.gif
--- @version 1.2
+-- @version 1.2.1
 -- @changelog
 --    # (MPL) rebuild with ReorderSelectedTracks(), require REAPER 5.90rc7+
 --    # (MPL) perform comparing numbers, if they placed at the string start
@@ -62,7 +62,10 @@
 		retval = reaper.MB('It is strongly recommended to make a backup.\nProcess sort tracks?', "Warning", 1)
 		if retval == 1 then          
 			reaper.Undo_BeginBlock()
+			reaper.PreventUIRefresh(1)
 			SortAllTracksAlphabetically()
+			reaper.PreventUIRefresh(-1)
+			reaper.UpdateArrange()
 			reaper.Undo_EndBlock( 'Sort all tracks alphabetically', -1 )
 		end
 	 else
