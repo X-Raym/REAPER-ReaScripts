@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="f7708f0b34091ae8dd0d70215463b21401504da1" name="X-Raym Scripts">
+<index version="1" commit="8d545c033219a3acbcf8c715470b8d721a8fa374" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4233,6 +4233,13 @@
 # (MPL) fix Undo
 # (MPL) fix response to MsgBox]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/24eb22e9e55df3a992c16b46c69a9532c1713eee/Track%20Properties/X-Raym_Sort%20all%20tracks%20alphabetically.lua</source>
+      </version>
+      <version name="1.2.1" author="X-Raym, MPL" time="2021-05-12T07:53:25Z">
+        <changelog><![CDATA[# (MPL) rebuild with ReorderSelectedTracks(), require REAPER 5.90rc7+
+# (MPL) perform comparing numbers, if they placed at the string start
+# (MPL) fix Undo
+# (MPL) fix response to MsgBox]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8d545c033219a3acbcf8c715470b8d721a8fa374/Track%20Properties/X-Raym_Sort%20all%20tracks%20alphabetically.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Sort selected tracks order according to their first iitem positions.lua" type="script" desc="Sort selected tracks order according to their first iitem positions">
