@@ -11,7 +11,7 @@
  * Forum Thread: Scripts: Tracks Names (various) 
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1581214
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.0.1
  * Provides:
  *   [nomain] ../Functions/utf8.lua
  *   [nomain] ../Functions/utf8data.lua
@@ -20,6 +20,8 @@
  
 --[[
  * Changelog:
+ * v2.0.1 (2021-05-13)
+  + Camel Case each words
  * v2.0 (2019-03-01)
   + UTF-8 support
  * v1.0 (2015-10-07)
@@ -48,8 +50,11 @@ function main()
       track_name = utf8upper(track_name)
   
     else
-  
-      track_name = utf8upper( utf8.sub(track_name, 0, 1) ) .. utf8lower( utf8.sub(track_name, 2, utf8.len(track_name) ) )
+      t = {}
+      for word in track_name:gmatch("[^ ]*") do
+          table.insert(t, utf8upper( utf8.sub(word, 0, 1) ) .. utf8lower( utf8.sub(word, 2, utf8.len(word) ) ) )
+      end
+      track_name = table.concat( t, " " )
     
     end
     
