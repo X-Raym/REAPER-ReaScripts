@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Add points on envelopes at regions
+ * ReaScript Name: Add points on envelopes at markers
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
@@ -12,9 +12,7 @@
  
 --[[
  * Changelog:
- * v1.1 (2021-05-19)
-	# Preserve ramps
- * v1.0 (2015-09-16)
+ * v1.0 (2021-05-19)
 	+ Initial release
 --]]
 
@@ -41,7 +39,7 @@ function AddPoints(env)
 		
 			retval, isrgn, pos, rgnend, name, markrgnindex = reaper.EnumProjectMarkers2(0, p)
 			
-			if isrgn == true then -- if name mtach activate take name
+			if isrgn == false then -- if name mtach activate take name
 				
 				--GET POINT VALUE
 				retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, pos, 0, 0)
@@ -103,7 +101,7 @@ function main()
 	
 	end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Add points on envelopes at regions", -1) -- End of the undo block. Leave it at the bottom of your main function.
+	reaper.Undo_EndBlock("Add points on envelopes at markers", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 
