@@ -7,7 +7,7 @@
  * Licence: GPL v3
  * REAPER: 5.0
  * Extensions: SWS 2.8.1
- * Version: 1.1
+ * Version: 1.1.1
 --]]
  
 --[[
@@ -43,10 +43,8 @@ function AddPoints(env)
 				
 				--GET POINT VALUE
 				retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, pos, 0, 0)
-				retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, rgnend, 0, 0)
 				
 				table.insert(new_points, {time = pos, val = valueOut, shape = dVdSOutOptional, tension = ddVdSOutOptional, dddVdSOutOptional})
-				table.insert(new_points, {time = rgnend, val = valueOut2, shape = dVdSOutOptional2, tension = ddVdSOutOptional2, dddVdSOutOptional2})
 			
 			end
 			
