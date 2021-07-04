@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
 
 --[[
  * Changelog:
+ * v1.0.3 (2021-07-04)
+  + SWS Warning
  * v1.0 (2020-04-06)
   + Initial Release
 --]]
@@ -26,6 +28,11 @@ beat_color = 1
 beat_r = 128
 beat_g = 0
 beat_b = 128
+
+if not reaper.BR_GetClosestGridDivision then
+  reaper.ShowMessageBox( 'Please Install last SWS extension.\nhttps://www.sws-extension.org', 'Migissing Dependency', 0 )
+  return false
+end
 
 ------- END OF USER CONFIG AREA --
 
