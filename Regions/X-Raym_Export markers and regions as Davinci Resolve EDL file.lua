@@ -10,11 +10,16 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.5
+ * Version: 1.5.2
 --]]
 
 --[[
  * Changelog:
+ * v1.5.2 (2021-07-11)
+  # Fix region
+  # Fix time selection offset
+ * v1.5.1 (2021-07-11)
+  # Change timecode formatting function
  * v1.5 (2021-07-11)
   # Remove framerate input. Set it via project setting.
  * v1.4.2 (2020-16-01)
@@ -37,6 +42,8 @@
   + Initial Release
 --]]
 
+--  # TODO: propper handling of non integer non drop frames timeline
+  
 -- USER CONFIG AREA ------------------------
 
 vars = {}
@@ -84,12 +91,31 @@ end
 -- NUMBER
 -- ------
 
+-- Add Leading Zeros to A Number
+function AddZeros(number, zeros)
+  number = tostring(number)
+  number = string.format('%0' .. zeros .. 'd', number)
+  return number
+end
+
 -- Format Seconds
-function Format(number)
-  str = reaper.format_timestr_pos(number, "", 5)
+function Format0(number)
+  local str = reaper.format_timestr_pos(number, "", 5)
   return str
 end
 
+
+function Format(number)
+  local hh  = math.floor(number / 3600)
+  local rest = number - (hh * 3600)
+  local mm = math.floor( rest / 60 )
+  rest = rest - (mm * 60)
+  local ss = math.floor(rest)
+  rest = rest - ss
+  local ff = math.floor(rest/frame_duration)
+  str = AddZeros(hh, 2) .. ":" .. AddZeros(mm, 2) .. ":" .. AddZeros(ss, 2) .. ":" .. AddZeros(ff, 2)
+  return str
+end
 
 
 --------------------------------------------------------
@@ -238,20 +264,20 @@ end
 
 -- Create File
 function create(f)
+
+  frame_rate, drop_frame = reaper.TimeMap_curFrameRate( 0 )
+  frame_duration = 1 / frame_rate
   
   title = "TITLE: Timeline 1"
-  FCM = "FCM: NON-DROP FRAME"
+  FCM = drop_frame and "FCM: DROP FRAME" or "FCM: NON-DROP FRAME"
   
   export(f, title)
   export(f, FCM .. "\n")
   
-  frame_rate, drop_frame = reaper.TimeMap_curFrameRate( 0 )
-  frame_duration = 1 / frame_rate
-  
   ts_start, ts_end = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
   
   ts_start_offset = ts_start
-  if vars.timesel_start_offset == "y" then ts_start_offset = 0 end
+  if vars.timesel_start_offset ~= "y" then ts_start_offset = 0 end
   
   retval, num_markers, num_regions = reaper.CountProjectMarkers( 0 )
   for i=0, retval - 1 do
@@ -263,13 +289,8 @@ function create(f)
         
         if ts_end ~= 0 and iPosOut > ts_end then break end -- if time selection and marker region_end is after
         
-        -- TODO: could be extended to support 10 hours + long projects
-        start_time = reaper.format_timestr_pos(iPosOut + vars.offset - ts_start_offset, "",5)
-        start_time_1 = reaper.format_timestr_pos(iPosOut + vars.offset + frame_duration - ts_start_offset, "",5)
-        
-        -- Not implemented yet
-        end_time =  reaper.format_timestr_pos(iRgnendOut + vars.offset - ts_start_offset, "",5)
-        end_time_1 = reaper.format_timestr_pos(iRgnendOut + vars.offset + frame_duration - ts_start_offset, "",5)
+        start_time = Format(iPosOut + vars.offset - ts_start_offset)
+        end_time = Format(iPosOut + vars.offset + frame_duration - ts_start_offset)
 
         duration = iRgnendOut - iPosOut
         duration_frames = 1
@@ -285,8 +306,7 @@ function create(f)
         -- 001  001      V     C        01:00:00:00 01:00:00:01 01:00:00:00 01:00:00:01  
         -- |C:ResolveColorBlue |M:Marker 1 |D:1
         if name == "" then name = "Marker " .. i+1 end
-        line = i+1 .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. end_time .. " " .. end_time_1 .. "  " .. "\n |C:ResolveColor" .. color_name .. " |M:" .. name .. " |D:" .. duration_frames .. "\n"
-        --line = i .. "  001      V     C        " .. start_time .. " " .. start_time_1 .. " " .. start_time .. " " .. start_time_1 .. "  " .. "\n |C:ResolveColorBlue |M:" .. name .. " |D:1\n"
+        line = i+1 .. "  001      V     C        " .. start_time .. " " .. end_time .. " " .. start_time .. " " .. end_time .. "  " .. "\n |C:ResolveColor" .. color_name .. " |M:" .. name .. " |D:" .. duration_frames .. "\n"
         if vars.markers_only ~= "y" or (vars.markers_only == "y" and not bIsrgnOut) then
           export(f, line)
         end
