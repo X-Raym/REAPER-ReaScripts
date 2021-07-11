@@ -10,11 +10,13 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.4.2
+ * Version: 1.5
 --]]
 
 --[[
  * Changelog:
+ * v1.5 (2021-07-11)
+  # Remove framerate input. Set it via project setting.
  * v1.4.2 (2020-16-01)
   # Fix hours format
  * v1.4 (2020-16-01)
@@ -38,7 +40,6 @@
 -- USER CONFIG AREA ------------------------
 
 vars = {}
-vars.frame_rate = 25
 vars.offset = 3600
 vars.markers_only = "y"
 vars.timesel_start_offset = "y"
@@ -240,10 +241,12 @@ function create(f)
   
   title = "TITLE: Timeline 1"
   FCM = "FCM: NON-DROP FRAME"
+  
   export(f, title)
   export(f, FCM .. "\n")
-
-  frame_duration = 1 / vars.frame_rate
+  
+  frame_rate, drop_frame = reaper.TimeMap_curFrameRate( 0 )
+  frame_duration = 1 / frame_rate
   
   ts_start, ts_end = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
   
@@ -295,6 +298,8 @@ function create(f)
   export(f, "\n")
 
   Msg("Regions Lists exported to:\n" .. file .."\n")
+  Msg("FPS: " .. math.floor(frame_rate*100)/100)
+  Msg("To change FPS, go to\nFile → Project Settings → Video → Framerate")
 
 end
 
@@ -332,22 +337,20 @@ if count_regions > 0 or count_markers > 0 then
   if project_saved then
     if popup then
       vars.offset = GetExtState( "offset", vars.offset )
-      vars.frame_rate = GetExtState( "frame_rate", vars.frame_rate )
       vars.markers_only = GetExtState( "markers_only", vars.markers_only )
       vars.timesel_start_offset = GetExtState( "timesel_start_offset", vars.timesel_start_offset )
 
-      retval, retval_csv = reaper.GetUserInputs( "Export Markers to EDL", 4, "Framerate (fps):,Offset (s),Markers Only (y/n),Time selection start = 0?  (y/n)", vars.frame_rate .. "," .. vars.offset .. "," .. vars.markers_only .. "," .. vars.timesel_start_offset)
+      retval, retval_csv = reaper.GetUserInputs( "Export Markers to EDL", 3, "Offset (s),Markers Only (y/n),Time selection start = 0?  (y/n)", vars.offset .. "," .. vars.markers_only .. "," .. vars.timesel_start_offset)
       if retval then
-        vars.frame_rate, vars.offset, vars.markers_only, vars.timesel_start_offset = retval_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
-        if vars.frame_rate then
-          vars.frame_rate = tonumber( vars.frame_rate )
+        vars.offset, vars.markers_only, vars.timesel_start_offset = retval_csv:match("([^,]+),([^,]+),([^,]+)")
+        if vars.offset then
           vars.offset = tonumber( vars.offset )
           SaveState()
         end
       end
     end
 
-    if not popup or (retval and vars.frame_rate and vars.offset and vars.timesel_start_offset ) then
+    if not popup or (retval and vars.offset and vars.timesel_start_offset ) then
       reaper.defer(main) -- Execute your main function
     end
   end
