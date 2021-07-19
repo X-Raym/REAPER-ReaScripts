@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
@@ -27,6 +27,12 @@ undo_text = "Move selected items to named tracks"
 ----------------- END OF USER CONFIG AREA
 
 ext_name = "XR_MoveItemsToNamedTrack"
+
+if not reaper.ImGui_CreateContext then 
+  reaper.MB("Missing dependency: ReaImGui extension.\nDownload it via Reapack ReaTeam extension repository.", "Error", 0)
+  return false
+end
+
 
 -- Console Message
 function Msg(g)
