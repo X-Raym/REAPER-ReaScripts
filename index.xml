@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e3c6555252c1419d3f1c56ba3de01dce4ef8d6b8" name="X-Raym Scripts">
+<index version="1" commit="78be666fa68d8983a1ac4873d787812630a6c52f" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1910,6 +1910,9 @@
 + Responsive button layouts
 # Ok label is now Move]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/1060ab287636099ded5a74010b4abfae8e084d04/Items%20Properties/X-Raym_Move%20selected%20items%20to%20named%20tracks.lua</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2021-07-23T12:52:56Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/78be666fa68d8983a1ac4873d787812630a6c52f/Items%20Properties/X-Raym_Move%20selected%20items%20to%20named%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Multiply selected items rate by X and adjust length.lua" type="script" desc="Multiply selected items rate by X and adjust length">
