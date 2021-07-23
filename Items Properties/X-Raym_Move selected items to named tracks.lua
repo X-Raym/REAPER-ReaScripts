@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
@@ -239,11 +239,9 @@ function Run()
     reaper.ImGui_Dummy( ctx, 50, 13*2 )
     reaper.ImGui_Spacing( ctx )
     if imgui_width > break_point then reaper.ImGui_SameLine(ctx, imgui_width / 6) end
-    if reaper.ImGui_Button(ctx, 'Move', button_width, 35) or reaper.ImGui_IsKeyPressed(ctx, 13) then -- Ok or Enter Key
+    if reaper.ImGui_Button(ctx, 'Move', button_width, 35) then -- Ok
       Main()
     end
-    reaper.ImGui_PushStyleColor( ctx, 1, 0x999999 )
-    reaper.ImGui_PopStyleColor( ctx, 1 )
     if imgui_width > break_point then reaper.ImGui_SameLine(ctx) end
     if reaper.ImGui_Button(ctx, 'Move & Quit', button_width, 35) or reaper.ImGui_IsKeyPressed(ctx, 13) then -- Ok or Enter Key
       Main()
