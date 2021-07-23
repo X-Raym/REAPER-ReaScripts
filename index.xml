@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="1060ab287636099ded5a74010b4abfae8e084d04" name="X-Raym Scripts">
+<index version="1" commit="e3c6555252c1419d3f1c56ba3de01dce4ef8d6b8" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2959,6 +2959,25 @@
       <version name="1.0.1" author="X-Raym" time="2016-02-11T00:53:46Z">
         <changelog><![CDATA[+ SWS fix]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/6a6852079533e619f93c4e95b90904314163e85f/MIDI%20Editor/X-Raym_Trim%20MIDI%20note%20under%20mouse%20start%20to%20edit%20cursor%20and%20ripple%20edit.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Project">
+    <reapack name="X-Raym_Save project and keep only X backups.lua" type="script" desc="Save project and keep only X backups">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 This action can replace your regular save action. Set CTRL+S as keyboard shortcode fr eg. Use REAPER config to save new backup at each save with timestamp and next to project\par}
+}
+]]></description>
+        <link rel="screenshot">https://i.imgur.com/URmnLmt.gif</link>
+      </metadata>
+      <version name="1.0.4" author="X-Raym" time="2021-07-23T11:56:37Z">
+        <changelog><![CDATA[* Small code optimization
++ Stricter pattern]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e3c6555252c1419d3f1c56ba3de01dce4ef8d6b8/Project/X-Raym_Save%20project%20and%20keep%20only%20X%20backups.lua</source>
       </version>
     </reapack>
   </category>
