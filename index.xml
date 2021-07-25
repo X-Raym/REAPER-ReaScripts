@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="78be666fa68d8983a1ac4873d787812630a6c52f" name="X-Raym Scripts">
+<index version="1" commit="5eb49edd36499ee4fbb64690f200bc9fb24de8ab" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2981,6 +2981,10 @@
         <changelog><![CDATA[* Small code optimization
 + Stricter pattern]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e3c6555252c1419d3f1c56ba3de01dce4ef8d6b8/Project/X-Raym_Save%20project%20and%20keep%20only%20X%20backups.lua</source>
+      </version>
+      <version name="1.0.6" author="X-Raym" time="2021-07-25T11:21:51Z">
+        <changelog><![CDATA[* Automatic backup support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5eb49edd36499ee4fbb64690f200bc9fb24de8ab/Project/X-Raym_Save%20project%20and%20keep%20only%20X%20backups.lua</source>
       </version>
     </reapack>
   </category>
