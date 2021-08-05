@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.6
+ * Version: 0.6.7
 --]]
 
 --[[
  * Changelog:
+ * v0.6.7 (2021-08-05)
+  # Fix MacOS export of modified colors
  * v0.6.6 (2021-07-03)
   # Compatibility with ReaImGUI v0.5
  * v0.6.5 (2021-05-05)
@@ -141,7 +143,11 @@ function ExportTheme()
   local theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
   local t = {"[color theme]"}
   for i, v in ipairs(all_tab) do
-    table.insert(t, v .. "=" .. ((colors[v] and reaper.ImGui_ColorConvertNative(colors[v])) or modes[v]) )
+    if os_sep == "/" and colors[v] ~= colors_backup[v] then
+      local r, g, b = reaper.ColorFromNative( colors[v] )
+      colors[v] = reaper.ColorToNative(b, g, r)
+    end
+    table.insert(t, v .. "=" .. (colors[v] or modes[v]) )
   end
   table.insert(t, "[REAPER]")
   for i, v in ipairs(fonts_tab) do
