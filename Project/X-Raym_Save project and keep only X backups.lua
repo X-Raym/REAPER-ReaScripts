@@ -8,17 +8,20 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.6
+ * Version: 1.0.7
 --]]
  
 --[[
  * Changelog:
+ * v1.0.7 (2021-08-09)
+  + Save only if project is dirty variable
+  # Pattern fine tuning for project name with dash and other lua esape characters
  * v1.0.6 (2021-07-25)
-  * Automatic backup support
+  + Automatic backup support
  * v1.0.5 (2021-07-23)
-  * Pattern in user config area
+  # Pattern in user config area
  * v1.0.4 (2021-07-23)
-  * Small code optimization
+  # Small code optimization
   + Stricter pattern
  * v1.0.3 (2021-02-10)
   * Preset file support
@@ -37,6 +40,7 @@
 limit = 5
 console = false
 do_automatic_backup_dir = true
+save_if_dirty_only = true
 
 -- Pattern
 -- DOn't change that if you are only using reaper default backup systems
@@ -117,6 +121,14 @@ function Process(folder)
   end
 end
 
+function EscapeLuaSpecialChar( str )
+  local chars = { "%", "(", ")", ".", "+", "-",  "[", "^", "$", "]" } -- percentage first
+  for i, char in ipairs( chars ) do
+    str = str:gsub( "%" .. char, "%%%%" .. char )
+  end
+  return str
+end
+
 function Main()
 
   -- SAVE PROJECT
@@ -129,6 +141,8 @@ function Main()
     return false
   end
   folder, proj_name, proj_ext = SplitFileName(proj_path)
+  
+  proj_name = EscapeLuaSpecialChar( proj_name )
   
   pattern = pattern:gsub("$proj_name", proj_name)
 
@@ -159,7 +173,9 @@ end
 
 function Init()
   reaper.ClearConsole()
-  reaper.defer(Main)
+  if not save_if_dirty_only or (save_if_dirty_only and reaper.IsProjectDirty() == 1 ) then
+    reaper.defer(Main)
+  end
 end
 
 if not preset_file_init then
