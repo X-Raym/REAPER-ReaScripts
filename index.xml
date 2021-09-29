@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="234a8d3f7fb2199da3a5ecf608853d8bddb54174" name="X-Raym Scripts">
+<index version="1" commit="cf7fa4bdaffad3f288c97ceb5bead8a2a8baccdc" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1730,12 +1730,23 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Apply%20volume%20of%20previous%20item%20on%20track%20to%20selected%20items.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Color selected items according to their MIDI content.lua" type="script" desc="Add a MIDI marker named Page at edit cursor">
+    <reapack name="X-Raym_Color selected items according to their MIDI content.lua" type="script" desc="Color selected items according to their MIDI content">
       <metadata>
         <link rel="screenshot">https://i.imgur.com/MrilibA.gif</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-09-05T21:39:37Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5a3e1589fb6a29bf967075c36ddae007d9e54d2b/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20MIDI%20content.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2021-09-29T08:34:58Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/afc0c170a0ac2f92894743536c46f0da9e4dd847/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20MIDI%20content.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Color selected items according to their source file name.lua" type="script" desc="Color selected items according to their source file name">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/cIgOvSi.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2021-09-29T08:35:06Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cf7fa4bdaffad3f288c97ceb5bead8a2a8baccdc/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20source%20file%20name.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Color selected items from regions at their middle position.lua" type="script" desc="Color selected items from regions at their middle position">
