@@ -1,13 +1,12 @@
 --[[
- * ReaScript Name: Add a MIDI marker named Page at edit cursor
+ * ReaScript Name: Color selected items according to their MIDI content
  * Screenshot: https://i.imgur.com/MrilibA.gif
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
