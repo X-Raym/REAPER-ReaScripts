@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="cf7fa4bdaffad3f288c97ceb5bead8a2a8baccdc" name="X-Raym Scripts">
+<index version="1" commit="1a7109cc2b286d97ea66d95f671af3e02ea3af26" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4347,6 +4347,10 @@
       </version>
       <version name="1.0.1" author="X-Raym" time="2021-02-15T23:33:24Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/306e90f5c9b89434208c161ebffc4059489eb39b/Track%20Properties/X-Raym_Solo%20selected%20tracks%20unsoloing%20unselected%20ones%20or%20unsolo%20if%20already%20solo.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2021-09-30T21:08:09Z">
+        <changelog><![CDATA[+ Performance]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/1a7109cc2b286d97ea66d95f671af3e02ea3af26/Track%20Properties/X-Raym_Solo%20selected%20tracks%20unsoloing%20unselected%20ones%20or%20unsolo%20if%20already%20solo.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Sort all tracks alphabetically.lua" type="script" desc="Sort all tracks alphabetically">
