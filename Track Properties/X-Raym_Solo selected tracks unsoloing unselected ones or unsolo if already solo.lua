@@ -7,15 +7,19 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
  
 
 --[[
  * Changelog:
+ * v1.0.2 (2021-30-09)
+  + Performance
  * v1.0 (2021-02-14)
   + Initial Release
 --]]
+
+local reaper = reaper
 
 function Main()
   
@@ -25,6 +29,7 @@ function Main()
     local solo = reaper.GetMediaTrackInfo_Value(track, "I_SOLO" )
     if solo == 0 then
       all_solo = false
+      break
     end
   end
   
@@ -34,13 +39,11 @@ function Main()
     local count_tracks = reaper.CountTracks(0)
     for i = 0, count_tracks - 1 do
       local track = reaper.GetTrack(0,i)
-      local solo = reaper.GetMediaTrackInfo_Value(track, "I_SOLO")
-      if reaper.IsTrackSelected(track) then
-        reaper.SetMediaTrackInfo_Value(track, "I_SOLO", 1)      
-      else
+      if not reaper.IsTrackSelected(track) and reaper.GetMediaTrackInfo_Value(track, "I_SOLO") ~= 0 then
         reaper.SetMediaTrackInfo_Value(track, "I_SOLO", 0)
       end
     end
+    reaper.Main_OnCommand( 40728, 0 ) -- Track: Solo tracks
   end -- Unsolo all tracks
 
 end
