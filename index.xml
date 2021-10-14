@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="1a7109cc2b286d97ea66d95f671af3e02ea3af26" name="X-Raym Scripts">
+<index version="1" commit="a41c7c4b33050240bc9cd1f3fff0118c57835fc4" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1636,6 +1636,9 @@
       <version name="1.1" author="Viente, X-Raym" time="2017-12-17T11:39:29Z">
         <changelog><![CDATA[# Works with cropped items]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/3f1f99a0a074eb83349550aa302cfaa9a1f2da5a/Items%20Properties/Viente_X-Raym_BPM%20Converter.lua</source>
+      </version>
+      <version name="1.1.1" author="Viente, X-Raym" time="2021-10-14T21:24:17Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a41c7c4b33050240bc9cd1f3fff0118c57835fc4/Items%20Properties/Viente_X-Raym_BPM%20Converter.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add all items left to selected items to items selection.lua" type="script" desc="Add all items left to selected items to items selection">
@@ -4384,13 +4387,12 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8d545c033219a3acbcf8c715470b8d721a8fa374/Track%20Properties/X-Raym_Sort%20all%20tracks%20alphabetically.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Sort selected tracks order according to their first iitem positions.lua" type="script" desc="Sort selected tracks order according to their first iitem positions">
+    <reapack name="X-Raym_Sort selected tracks order according to their first item positions.lua" type="script" desc="Sort selected tracks order according to their first item positions">
       <metadata>
         <link rel="screenshot">https://i.imgur.com/oeZNhFf.gif</link>
       </metadata>
-      <version name="1.0" author="X-Raym" time="2021-01-27T17:20:10Z">
-        <changelog><![CDATA[+ Initial Release]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/208c55fd1ce47126e3500f9675d062b91e2aa646/Track%20Properties/X-Raym_Sort%20selected%20tracks%20order%20according%20to%20their%20first%20iitem%20positions.lua</source>
+      <version name="1.0.1" author="X-Raym" time="2021-10-14T21:23:58Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4dbbd688c4ab456911dae374f7dddfb55abc985c/Track%20Properties/X-Raym_Sort%20selected%20tracks%20order%20according%20to%20their%20first%20item%20positions.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle selected tracks solo (no undo).lua" type="script" desc="Toggle selected tracks solo (no undo)">
