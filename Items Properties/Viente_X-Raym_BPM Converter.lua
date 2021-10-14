@@ -9,7 +9,7 @@
  * Forum Thread: Viente's BPM Converter
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=110780
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
