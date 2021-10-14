@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Sort selected tracks order according to their first iitem positions
+ * ReaScript Name: Sort selected tracks order according to their first item positions
  * Screenshot: https://i.imgur.com/oeZNhFf.gif
  * Author: X-Raym
  * Author URI: http://www.extremraym.com/
@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
@@ -83,5 +83,5 @@ if count_sel_tracks > 1 then
   reaper.TrackList_AdjustWindows(false)
   reaper.UpdateArrange()
   reaper.PreventUIRefresh(-1)
-  reaper.Undo_EndBlock("Sort selected tracks order according to their first iitem positions", -1)
+  reaper.Undo_EndBlock("Sort selected tracks order according to their first item positions", -1)
 end

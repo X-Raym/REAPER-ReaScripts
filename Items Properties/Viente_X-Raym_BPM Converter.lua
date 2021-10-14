@@ -1,7 +1,5 @@
 --[[
  * ReaScript Name: BPM Converter
- * Description: Insert FX on selected tracks. FX name is can be edited witing the script code.
- * Instructions: Run
  * Screenshot: https://s3.amazonaws.com/f.cl.ly/items/3j1g3Q050i010P3S0Y3c/bpmconverter.gif
  * Author: Viente, X-Raym
  * Author URI: http://extremraym.com
@@ -11,7 +9,6 @@
  * Forum Thread: Viente's BPM Converter
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=110780
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.1
 --]]
 
