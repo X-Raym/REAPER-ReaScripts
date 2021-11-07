@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Duplicate selected notes as fifth and octave triad
+ * ReaScript Name: Duplicate selected notes as fourth
  * Description: See title
  * Instructions: Run
  * Author: X-Raym
