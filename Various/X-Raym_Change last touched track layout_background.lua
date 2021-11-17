@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.1.1
+ * Version: 2.1.2
 --]]
 
 --[[
  * Changelog:
+ * v2.1.2 (2021-11-17)
+  # Select project instance nil issue fix attempt
  * v2.1 (2020-11-18)
   # Performance optimization
  * v2.0.9 (2020-11-16)
@@ -114,7 +116,9 @@ function Exit()
     end
     i = i + 1
   until not proj
-  reaper.SelectProjectInstance( cur_proj )
+  if cur_proj and reaper.ValidatePtr( cur_proj, "ReaProject*") then
+    reaper.SelectProjectInstance( cur_proj )
+  end
 end
 
 -- Main Function (which loop in background)
