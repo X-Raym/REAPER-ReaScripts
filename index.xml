@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a41c7c4b33050240bc9cd1f3fff0118c57835fc4" name="X-Raym Scripts">
+<index version="1" commit="15dd526af2785853d1f770190a19cc41b585eb87" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2803,7 +2803,7 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth%20and%20octave%20triads.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Duplicate selected notes as fifth.lua" type="script" desc="Duplicate selected notes as fifth and octave triad">
+    <reapack name="X-Raym_Duplicate selected notes as fifth.lua" type="script" desc="Duplicate selected notes as fifth">
       <version name="1.0" author="X-Raym" time="2016-06-06T15:49:43Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/60d6035026fa9be95257fb149eba8ce9ec1a91c2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth.lua</source>
       </version>
@@ -2811,7 +2811,7 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/4cde8cbd1d9f870cff255f333ce5095af0d0fe35/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Duplicate selected notes as fourth.lua" type="script" desc="Duplicate selected notes as fifth and octave triad">
+    <reapack name="X-Raym_Duplicate selected notes as fourth.lua" type="script" desc="Duplicate selected notes as fourth">
       <version name="1.0" author="X-Raym" time="2016-06-06T15:49:43Z">
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/60d6035026fa9be95257fb149eba8ce9ec1a91c2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fourth.lua</source>
       </version>
@@ -4743,6 +4743,10 @@
       </version>
       <version name="2.1.1" author="X-Raym" time="2021-01-27T17:20:15Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4088d7ce82d8f25dcb4804180ceaaf85076f73a0/Various/X-Raym_Change%20last%20touched%20track%20layout_background.lua</source>
+      </version>
+      <version name="2.1.2" author="X-Raym" time="2021-11-17T19:19:45Z">
+        <changelog><![CDATA[# Select project instance nil issue fix attempt]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/15dd526af2785853d1f770190a19cc41b585eb87/Various/X-Raym_Change%20last%20touched%20track%20layout_background.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Change transport theme element background color according to ripple state.lua" type="script" desc="Change transport theme element background color according to ripple state">
