@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts/
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
@@ -39,7 +39,7 @@ end
 function Main()
 
   is_sws_startup = reaper.GetExtState(ext_name, ext_key)
-  
+
   master_track = reaper.GetMasterTrack(0)
   fx_id = reaper.TrackFX_AddByName( master_track, fx_name, true, 0)
 
@@ -66,7 +66,7 @@ function Main()
 
 end
 
-reaper.ClearConsole()
+-- reaper.ClearConsole()
 
 if not preset_file_init then
   reaper.defer(Main)
