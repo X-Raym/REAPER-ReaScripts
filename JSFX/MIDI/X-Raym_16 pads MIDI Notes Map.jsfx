@@ -55,26 +55,45 @@ slider4:/MIDINoteImages:none:Notes Out Mapping File
 slider5:0<0,1,1{---,Reload Now}>Reload Mapping
 slider6:0<0,1,1{Numbers,Images}>Display
 
-slider10:36<0,127,1>-Pad 01
-slider11:37<0,127,1>-Pad 02
-slider12:38<0,127,1>-Pad 03
-slider13:39<0,127,1>-Pad 04
+slider10:36<0,127,1>-Pad 01 note
+slider11:37<0,127,1>-Pad 02 note
+slider12:38<0,127,1>-Pad 03 note
+slider13:39<0,127,1>-Pad 04 note
 
-slider14:40<0,127,1>-Pad 05
-slider15:41<0,127,1>-Pad 06
-slider16:42<0,127,1>-Pad 07
-slider17:43<0,127,1>-Pad 08
+slider14:40<0,127,1>-Pad 05 note
+slider15:41<0,127,1>-Pad 06 note
+slider16:42<0,127,1>-Pad 07 note
+slider17:43<0,127,1>-Pad 08 note
 
-slider18:44<0,127,1>-Pad 09
-slider19:45<0,127,1>-Pad 10
-slider20:46<0,127,1>-Pad 11
-slider21:47<0,127,1>-Pad 12
+slider18:44<0,127,1>-Pad 09 note
+slider19:45<0,127,1>-Pad 10 note
+slider20:46<0,127,1>-Pad 11 note
+slider21:47<0,127,1>-Pad 12 note
 
-slider22:48<0,127,1>-Pad 13
-slider23:49<0,127,1>-Pad 14
-slider24:50<0,127,1>-Pad 15
-slider25:51<0,127,1>-Pad 16
+slider22:48<0,127,1>-Pad 13 note
+slider23:49<0,127,1>-Pad 14 note
+slider24:50<0,127,1>-Pad 15 note
+slider25:51<0,127,1>-Pad 16 note
 
+slider26:-1<-1,15,1>-Pad 01 channel
+slider27:-1<-1,15,1>-Pad 02 channel
+slider28:-1<-1,15,1>-Pad 03 channel
+slider29:-1<-1,15,1>-Pad 04 channel
+
+slider30:-1<-1,15,1>-Pad 01 channel
+slider31:-1<-1,15,1>-Pad 02 channel
+slider32:-1<-1,15,1>-Pad 03 channel
+slider33:-1<-1,15,1>-Pad 04 channel
+
+slider34:-1<-1,15,1>-Pad 01 channel
+slider35:-1<-1,15,1>-Pad 02 channel
+slider36:-1<-1,15,1>-Pad 03 channel
+slider37:-1<-1,15,1>-Pad 04 channel
+
+slider38:-1<-1,15,1>-Pad 01 channel
+slider39:-1<-1,15,1>-Pad 02 channel
+slider40:-1<-1,15,1>-Pad 03 channel
+slider41:-1<-1,15,1>-Pad 04 channel
 
 ////////////////////////////////////////////////////////////////////////////////
 @init
@@ -214,6 +233,9 @@ while
           note_in = note;
           slider3 ? (
             note = slider( 10 + note - slider2 ); // Get Note Out
+            
+            outChannel = slider( 10 + 16 + note - slider2); // Get Channel Out
+            msg1 = status + (outChannel == -1 ? channel : outChannel);
           );
 
         );
@@ -346,6 +368,18 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
         gfx_x = j * pad_w + pad_w / 2 - w / 2;
         gfx_drawstr(note_name);
         
+        
+        out_channel_num = slider(pad+10+16);
+        out_channel_num != -1 ? (
+          gfx_setfont(3);
+          out_channel = sprintf(#, "%d", out_channel_num+1);
+          gfx_measurestr(out_channel,w,h);
+          gfx_y = i * pad_w + pad_w - h - 5;
+          gfx_x = j * pad_w + pad_w - w - 5;
+          gfx_drawstr(out_channel);
+        );
+
+        gfx_setfont(2);
         pad_note_in = sprintf(#, "%d", slider2+pad);
         gfx_measurestr(pad_note_in, h, w);
         pad_note_in_str_len = strlen(pad_note_in);
@@ -370,9 +404,13 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
 );
 
 mouse_cap > last_mouse_cap && pad_mouse > 0 ? (
-  mouse_cap == 1 ? offset = 1;
-  mouse_cap == 2 ? offset = -1;
-  slider(pad_mouse+10-1) = min(max(slider(pad_mouse+10-1) + offset,0),127);
+  mouse_cap & 1 == 1 ? offset = 1;
+  mouse_cap & 2 == 2 ? offset = -1;
+  mouse_cap & 8 == 8 ? ( // shift
+    slider(pad_mouse+10+16-1) = min(max(slider(pad_mouse+10+16-1) + offset,-1),15);
+  ) : (
+    slider(pad_mouse+10-1) = min(max(slider(pad_mouse+10-1) + offset,0),127);
+  );
 );
 
 mouse_wheel != 0 && pad_mouse > 0 ? (
