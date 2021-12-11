@@ -7,7 +7,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.11.1
+ * Version: 1.12
  * Provides: 
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
@@ -16,6 +16,8 @@
 
 /**
  * Changelog:
+ * v1.12 (2021-12-11)
+  # Flexible width and height (non square design)
  * v1.11.1 (2021-12-11)
   + Shift+mouse_wheel for channel offset
  * v1.11 (2021-12-11)
@@ -317,7 +319,8 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
   i = 3;
   border = 1;
   pad = 0; // zero based, up to 15
-  pad_w = floor(gfx_size / 4);
+  pad_w = floor(gfx_w / 4);
+  pad_h = floor(gfx_h / 4);
   pad_mouse = 0;
   loop( 4,
     j = 0;
@@ -340,12 +343,12 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
       hue = (slider(pad+10)+12)%16/16*360; // value of the pad, + offset, modulo 16, percentage, multiplied by hue total val
 
       uix_HSL2RGB(hue,1,0.5);
-      gfx_rect(j * pad_w, i * pad_w, pad_w - border, pad_w - border );
+      gfx_rect(j * pad_w, i * pad_h, pad_w - border, pad_h - border );
 
       x1 = j * pad_w;
       x2 = (j+1) * pad_w;
-      y1 = i * pad_w;
-      y2 = (i+1) * pad_w;
+      y1 = i * pad_h;
+      y2 = (i+1) * pad_h;
       mouse_x > x1 && mouse_x < x2 && mouse_y > y1 && mouse_y < y2 ? pad_mouse = pad+1; 
       
       gfx_getimgdim(slider(pad+10), w, h);
@@ -354,7 +357,7 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
         gfx_a = 0.7;
         uix_HSL2RGB(360,10,10);
         gfx_x = j * pad_w + 10;
-        gfx_y = i * pad_w + 10;
+        gfx_y = i * pad_h + 10;
         
         gfx_setfont(2);
         gfx_drawstr(sprintf(#, "%d", pad+1));
@@ -362,12 +365,12 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
         gfx_setfont(1);
         gfx_measurestr(sprintf(#, "%d", slider(pad+10)),w,h);
         gfx_x = j * pad_w + pad_w / 2 - w / 2;
-        gfx_y = i * pad_w + pad_w / 2 - h / 2;
+        gfx_y = i * pad_h + pad_h / 2 - h / 2;
         gfx_drawstr(sprintf(#, "%d", slider(pad+10)));
         
         gfx_setfont(2);
         note_name = uix_getPitName(slider(pad+10)%12);
-        gfx_y = i * pad_w + pad_w / 2 + h / 2;
+        gfx_y = i * pad_h + pad_h / 2 + h / 2;
         gfx_measurestr(note_name,w,h);
         gfx_x = j * pad_w + pad_w / 2 - w / 2;
         gfx_drawstr(note_name);
@@ -377,7 +380,7 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
         out_channel_num != -1 ? (
           out_channel = sprintf(#, "%d", out_channel_num+1);
           gfx_measurestr(out_channel,w,h);
-          gfx_y = i * pad_w + pad_w - h - 5;
+          gfx_y = i * pad_h + pad_h - h - 5;
           gfx_x = j * pad_w + pad_w - w - 5;
           gfx_drawstr(out_channel);
         );
@@ -387,14 +390,14 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
         gfx_measurestr(pad_note_in, h, w);
         pad_note_in_str_len = strlen(pad_note_in);
         gfx_x = j * pad_w + pad_w - w- w/(4-pad_note_in_str_len);
-        gfx_y = i * pad_w + 10;
+        gfx_y = i * pad_h + 10;
         gfx_drawstr(pad_note_in);
         
       ):( // Images
           gfx_getimgdim(slider(pad+10), w, h);
           destx = j * pad_w;
-          desty = i * pad_w;
-          gfx_blit(slider(pad+10), 1, 0, 0, -scale, w, h, destx, desty, pad_w, pad_w, 0, 0); // scale is in fact use for offset
+          desty = i * pad_h;
+          gfx_blit(slider(pad+10), 1, 0, 0, -scale, w, h, destx, desty, pad_w, pad_h, 0, 0); // scale is in fact use for offset
 
       );
       
