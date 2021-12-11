@@ -7,7 +7,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.10
+ * Version: 1.11
  * Provides: 
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
@@ -16,6 +16,8 @@
 
 /**
  * Changelog:
+ * v1.11 (2021-12-11)
+  + Note channel mapping via Shift+Click (thx abaco!)
  * v1.10 (2020-05-13)
   + All Notes off if slider change
  * v1.9.4 (2019-07-11)
@@ -232,9 +234,9 @@ while
         note >= slider2 && note <= slider2+15  ? (
           note_in = note;
           slider3 ? (
-            note = slider( 10 + note - slider2 ); // Get Note Out
-            
-            outChannel = slider( 10 + 16 + note - slider2); // Get Channel Out
+            cur_note = note - slider2;
+            note = slider( 10 + cur_note ); // Get Note Out
+            outChannel = slider( 10 + 16 + cur_note); // Get Channel Out
             msg1 = status + (outChannel == -1 ? channel : outChannel);
           );
 
@@ -313,7 +315,7 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
   i = 3;
   border = 1;
   pad = 0; // zero based, up to 15
-  pad_w = gfx_size / 4;
+  pad_w = floor(gfx_size / 4);
   pad_mouse = 0;
   loop( 4,
     j = 0;
@@ -371,7 +373,6 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
         
         out_channel_num = slider(pad+10+16);
         out_channel_num != -1 ? (
-          gfx_setfont(3);
           out_channel = sprintf(#, "%d", out_channel_num+1);
           gfx_measurestr(out_channel,w,h);
           gfx_y = i * pad_w + pad_w - h - 5;
