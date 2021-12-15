@@ -1,82 +1,60 @@
 --[[
  * ReaScript Name: Copy selected items and paste at mouse cursor
- * Description: A quick way to duplicate items
- * Instructions: Here is how to use it. (optional)
+ * About: A quick way to duplicate items
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URI: http://forum.cockos.com/***.html
  * REAPER: 5.0 pre 27
  * Extensions: SWS/S&M 2.7.1 #0
- * Version: 1.1
+ * Version: 1.2
 --]]
- 
+
 --[[
  * Changelog:
+ * v1.2 (2021-12-16)
+	# Select new items after copy
  * v1.1 (2015-05-08)
 	+ Snap
  * v1.0 (2015-05-08)
 	+ Initial Release
 --]]
 
---[[ ----- DEBUGGING ====>
-local info = debug.getinfo(1,'S');
+-- USER CONFIG AREA ----------------------------------------
+select_new_items = true
+------------------------------------ END OF USER CONFIG AREA
 
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
-end
-
-require("X-Raym_Functions - console debug messages")
-
-
-debug = 1 -- 0 => No console. 1 => Display console messages for debugging.
-clean = 1 -- 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
-
-msg_clean()
-]]-- <==== DEBUGGING -----
-
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 	-- YOUR CODE BELOW
 	reaper.BR_ItemAtMouseCursor()
-	
+
 	track, context, position = reaper.BR_TrackAtMouseCursor()
-	
+
 	if context == 2 then
-		
+
 		reaper.Main_OnCommand(40297, 0) -- Unselect all tracks (so that it can copy items)
 		reaper.Main_OnCommand(40698, 0) -- COpy selected items
-		
+
 		-- GET SNAP
-		if reaper.GetToggleCommandState(1157) == 1 then 
+		if reaper.GetToggleCommandState(1157) == 1 then
 			position = reaper.SnapToGrid(0, position)
 		end
-		
+
 		reaper.SetEditCurPos2(0, position, false, false)
 		reaper.SetOnlyTrackSelected(track)
 		reaper.Main_OnCommand(40914,0) -- Set first sleected track as last touched
 		reaper.Main_OnCommand(40058,0) -- Paste
-		
+
 	end
 
 	reaper.Undo_EndBlock("Copy selected items and paste at mouse cursor", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
-
--- The following functions may be passed as global if needed
 --[[ ----- INITIAL SAVE AND RESTORE ====> ]]
 
 -- ITEMS
@@ -113,19 +91,6 @@ local function RestoreSelectedTracks (table)
 	end
 end
 
--- LOOP AND TIME SELECTION
---[[ SAVE INITIAL LOOP AND TIME SELECTION
-function SaveLoopTimesel()
-	init_start_timesel, init_end_timesel = reaper.GetSet_LoopTimeRange(0, 0, 0, 0, 0)
-	init_start_loop, init_end_loop = reaper.GetSet_LoopTimeRange(0, 1, 0, 0, 0)
-end
-
--- RESTORE INITIAL LOOP AND TIME SELECTION
-function RestoreLoopTimesel()
-	reaper.GetSet_LoopTimeRange(1, 0, init_start_timesel, init_end_timesel, 0)
-	reaper.GetSet_LoopTimeRange(1, 1, init_start_loop, init_end_loop, 0)
-end]]
-
 -- CURSOR
 -- SAVE INITIAL CURSOR POS
 function SaveCursorPos()
@@ -151,29 +116,30 @@ end
 
 --[[ <==== INITIAL SAVE AND RESTORE ----- ]]
 
+function Init()
+	reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 
+	SaveView()
+	SaveCursorPos()
 
+	SaveSelectedItems(init_sel_items)
+	SaveSelectedTracks(init_sel_tracks)
 
---msg_start() -- Display characters in the console to show you the begining of the script execution.
+	main() -- Execute your main function
 
-reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
+	RestoreCursorPos()
+	
+	if not select_new_items then
+		RestoreSelectedItems(init_sel_items)
+	end
+	RestoreSelectedTracks(init_sel_tracks)
+	RestoreView()
 
-SaveView()
-SaveCursorPos()
---SaveLoopTimesel()
-SaveSelectedItems(init_sel_items)
-SaveSelectedTracks(init_sel_tracks)
+	reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
-main() -- Execute your main function
+	reaper.UpdateArrange() -- Update the arrangement (often needed)
+end
 
-RestoreCursorPos()
---RestoreLoopTimesel()
-RestoreSelectedItems(init_sel_items)
-RestoreSelectedTracks(init_sel_tracks)
-RestoreView()
-
-reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
-
-reaper.UpdateArrange() -- Update the arrangement (often needed)
-
---msg_end() -- Display characters in the console to show you the end of the script execution.
+if not preset_init_file then
+	Init()
+end
