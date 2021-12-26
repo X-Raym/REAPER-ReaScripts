@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="252b92d47bdb776f42a0ab9eaa230851d0085dda" name="X-Raym Scripts">
+<index version="1" commit="569b8c4a2decdb89841b5310fb40d5b69dc8c7ea" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2844,6 +2844,17 @@
       <version name="1.0.1" author="X-Raym" time="2020-12-18T15:36:27Z">
         <changelog><![CDATA[+ disable ignore mousewheel on all faders internally]]></changelog>
         <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/77ac412abc007045d32271f297424b5f9b950b2c/Media%20Explorer/X-Raym_Set%20media%20explorer%20volume%20up%20a%20bit.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="MIDI">
+    <reapack name="X-Raym_Remove selected items MIDI CC events lanes where all events are equal to 0.lua" type="script" desc="Remove selected items MIDI CC events lanes where all events are equal to 0">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/sallb63.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2021-12-26T14:33:38Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/569b8c4a2decdb89841b5310fb40d5b69dc8c7ea/MIDI/X-Raym_Remove%20selected%20items%20MIDI%20CC%20events%20lanes%20where%20all%20events%20are%20equal%20to%200.lua</source>
       </version>
     </reapack>
   </category>
