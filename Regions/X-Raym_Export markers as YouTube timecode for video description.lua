@@ -1,7 +1,5 @@
 --[[
  * ReaScript Name: Export markers as YouTube timecode for video description
- * Description: See title.
- * Instructions: Run
  * Screenshot: http://i.imgur.com/KFoTA3a.gif
  * Author: X-Raym
  * Author URI: http://www.extremraym.com/
@@ -11,11 +9,13 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
- * Version: 1.1.1
+ * Version: 1.1.2
 --]]
  
 --[[
  * Changelog:
+ * v1.1.2 (2021-31-12)
+  # Remove leading ":"
  * v1.1.1 (2020-12-09)
   + Output marker at timecode 0
  * v1.1 (2017-01-03)
@@ -55,7 +55,7 @@ function main()
         abs_pos = tonumber( reaper.format_timestr_pos( math.floor( iPosOut ), "", 3 ) )
         if abs_pos and abs_pos >= 0 then
           pos = reaper.format_timestr_pos( math.floor( iPosOut ), "", 5 )
-          pos = pos:sub(0, -4)
+          pos = pos:sub(2, -4)
           marker = {}
           marker.name = sNameOut
           marker.pos = pos
