@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="01cd864caf8b11095b6b5471d4a2d2356b3c57da" name="X-Raym Scripts">
+<index version="1" commit="8a20f6d12d0b9c0fc60aac1063ad6e3dfd2fd127" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2281,6 +2281,15 @@
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Snap to stretch marker if mouse over it]]></changelog>
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Properties/X-Raym_Set%20item%20under%20mouse%20snap%20offset%20at%20mouse%20cursor%20position.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set item under mouse snap offset value to selected items.lua" type="script" desc="Set item under mouse snap offset value to selected items">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/bzSneI8.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2022-01-03T11:52:35Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8a20f6d12d0b9c0fc60aac1063ad6e3dfd2fd127/Items%20Properties/X-Raym_Set%20item%20under%20mouse%20snap%20offset%20value%20to%20selected%20items.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set or offset selected takes pan.lua" type="script" desc="Set or offset selected takes pan">
