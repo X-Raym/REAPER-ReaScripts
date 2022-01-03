@@ -1,19 +1,15 @@
 --[[
  * ReaScript Name: Tap Tempo
- * Description: See title
- * Instructions: Select an item. Use it.
  * Screenshot: http://i.giphy.com/3oEduFGeA2lCw3Fh7y.gif
  * Author: X-Raym
  * Author URI: http://extremraym.com
  * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
  * Licence: GPL v3
  * Forum Thread: Tap Tempo Script
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1564860
  * REAPER: 5.0
- * Extensions: None
- * Version: 1.1
+ * Version: 1.1.2
 --]]
  
 --[[
@@ -312,7 +308,7 @@ function square(opacity, number, current)
   
   gfx.x = gfx.x + gfx.w/12 * column
   
-  gfx.rect(gfx.x, gfx.y, width, line_height, rgba(opacity,opacity,opacity,255))
+  gfx.rect(math.floor(gfx.x), math.floor(gfx.y), math.ceil(width), math.ceil(line_height), rgba(opacity,opacity,opacity,255))
   
   if number == current then
     gfx.rect(gfx.x, gfx.y, width, line_height/4, rgba(10,255,255,255))
@@ -530,8 +526,8 @@ function run()
     min_deviationBPM = average_timesBPM - deviationBPM
     
     precisionBPM = min_deviationBPM / average_timesBPM
-	
-	if precisionBPM <= 0.5 then color("Red") end
+  
+  if precisionBPM <= 0.5 then color("Red") end
     if precisionBPM > 0.5 and precisionBPM <= 0.95 then color("Yellow") end
     if precisionBPM > 0.95 then color("Lime") end
     
@@ -558,7 +554,7 @@ function run()
 
   ----------------------------- 
   
-  scrollBar()
+  --scrollBar()
   
   gfx.update()
   
