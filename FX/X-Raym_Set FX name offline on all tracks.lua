@@ -53,27 +53,27 @@ end
 -- INIT
 
 function Init()
-	-- See if there is items selected
-	count_tracks = reaper.CountTracks(0)
+  -- See if there is items selected
+  count_tracks = reaper.CountTracks(0)
 
-	if count_tracks > 0 then
+  if count_tracks > 0 then
 
-	  reaper.PreventUIRefresh(1)
+    reaper.PreventUIRefresh(1)
 
-	  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+    reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	  Main()
+    Main()
 
-	  reaper.Undo_EndBlock("Set FX name offline on all tracks", -1) -- End of the undo block. Leave it at the bottom of your main function.
+    reaper.Undo_EndBlock("Set FX name offline on all tracks", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
-	  reaper.UpdateArrange()
+    reaper.UpdateArrange()
 
-	  reaper.PreventUIRefresh(-1)
+    reaper.PreventUIRefresh(-1)
 
-	end
+  end
 end
 
 if not preset_file_init then
-	Init()
+  Init()
 end
 

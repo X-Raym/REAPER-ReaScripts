@@ -17,7 +17,7 @@
 /**
  * Changelog:
  * v1.0 (2015-04-05)
-	+ Initial Release
+  + Initial Release
  */
 
 // Many thanks to the generous spk77 for helping me with RGB and HEX values convertion!
@@ -35,22 +35,22 @@ msg_clean();*/
 function main() local (i, j)
 (
 
-	// SELECTED ITEMS LOOP
-	countItems = CountSelectedMediaItems(0);
+  // SELECTED ITEMS LOOP
+  countItems = CountSelectedMediaItems(0);
 
-	i = 0;
-	loop(countItems,
-		(item = GetSelectedMediaItem(0, i)) ? (
-			(take = GetActiveTake(item)) ? (
-					color_int = GetDisplayedMediaItemColor2(item, take);
-					SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", color_int);
-				):(
-					color_int = GetDisplayedMediaItemColor(item);
-					SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color_int);
-				);
-			);
-		i += 1;
-	);
+  i = 0;
+  loop(countItems,
+    (item = GetSelectedMediaItem(0, i)) ? (
+      (take = GetActiveTake(item)) ? (
+          color_int = GetDisplayedMediaItemColor2(item, take);
+          SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", color_int);
+        ):(
+          color_int = GetDisplayedMediaItemColor(item);
+          SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color_int);
+        );
+      );
+    i += 1;
+  );
 );
 
 //msg_start(); // Display characters in the console to show you the begining of the script execution.

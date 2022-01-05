@@ -13,97 +13,97 @@
 --[[
  * Changelog:
  * v1.1 (2021-05-19)
-	# Preserve ramps
+  # Preserve ramps
  * v1.0 (2015-09-16)
-	+ Initial release
+  + Initial release
 --]]
 
 function AddPoints(env)
-		-- GET THE ENVELOPE
-	br_env = reaper.BR_EnvAlloc(env, false)
+    -- GET THE ENVELOPE
+  br_env = reaper.BR_EnvAlloc(env, false)
 
-	active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
+  active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
 
-	if visible == true and armed == true then
+  if visible == true and armed == true then
 
-		env_points_count = reaper.CountEnvelopePoints(env)
+    env_points_count = reaper.CountEnvelopePoints(env)
 
-		if env_points_count > 0 then
-			for k = 0, env_points_count+1 do
-				reaper.SetEnvelopePoint(env, k, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, false, true)
-			end
-		end
+    if env_points_count > 0 then
+      for k = 0, env_points_count+1 do
+        reaper.SetEnvelopePoint(env, k, timeInOptional, valueInOptional, shapeInOptional, tensionInOptional, false, true)
+      end
+    end
 
-		-- LOOP IN REGIONS
-		new_points = {}
-		p=0
-		repeat
+    -- LOOP IN REGIONS
+    new_points = {}
+    p=0
+    repeat
 
-			retval, isrgn, pos, rgnend, name, markrgnindex = reaper.EnumProjectMarkers2(0, p)
+      retval, isrgn, pos, rgnend, name, markrgnindex = reaper.EnumProjectMarkers2(0, p)
 
-			if isrgn == true then -- if name mtach activate take name
+      if isrgn == true then -- if name mtach activate take name
 
-				--GET POINT VALUE
-				retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, pos, 0, 0)
-				retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, rgnend, 0, 0)
+        --GET POINT VALUE
+        retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, pos, 0, 0)
+        retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, rgnend, 0, 0)
 
-				table.insert(new_points, {time = pos, val = valueOut, shape = dVdSOutOptional, tension = ddVdSOutOptional, dddVdSOutOptional})
-				table.insert(new_points, {time = rgnend, val = valueOut2, shape = dVdSOutOptional2, tension = ddVdSOutOptional2, dddVdSOutOptional2})
+        table.insert(new_points, {time = pos, val = valueOut, shape = dVdSOutOptional, tension = ddVdSOutOptional, dddVdSOutOptional})
+        table.insert(new_points, {time = rgnend, val = valueOut2, shape = dVdSOutOptional2, tension = ddVdSOutOptional2, dddVdSOutOptional2})
 
-			end
+      end
 
-			p = p+1
+      p = p+1
 
-		until retval == 0 -- end loop regions and markers
+    until retval == 0 -- end loop regions and markers
 
-		for p, point in ipairs(new_points) do
-			reaper.InsertEnvelopePoint(env, point.time, point.val, point.shape, point.tension, true, true) -- INSERT startLoop point
-		end
+    for p, point in ipairs(new_points) do
+      reaper.InsertEnvelopePoint(env, point.time, point.val, point.shape, point.tension, true, true) -- INSERT startLoop point
+    end
 
-		reaper.BR_EnvFree(br_env, 0)
-		reaper.Envelope_SortPoints(env)
+    reaper.BR_EnvFree(br_env, 0)
+    reaper.Envelope_SortPoints(env)
 
-	end
+  end
 end
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- GET CURSOR POS
-	offset = reaper.GetCursorPosition()
+  -- GET CURSOR POS
+  offset = reaper.GetCursorPosition()
 
-	-- LOOP TRHOUGH SELECTED TRACKS
-	env = reaper.GetSelectedEnvelope(0)
+  -- LOOP TRHOUGH SELECTED TRACKS
+  env = reaper.GetSelectedEnvelope(0)
 
-	if env == nil then
+  if env == nil then
 
-		selected_tracks_count = reaper.CountSelectedTracks(0)
-		for i = 0, selected_tracks_count-1  do
+    selected_tracks_count = reaper.CountSelectedTracks(0)
+    for i = 0, selected_tracks_count-1  do
 
-			-- GET THE TRACK
-			track = reaper.GetSelectedTrack(0, i) -- Get selected track i
+      -- GET THE TRACK
+      track = reaper.GetSelectedTrack(0, i) -- Get selected track i
 
-			-- LOOP THROUGH ENVELOPES
-			env_count = reaper.CountTrackEnvelopes(track)
-			for j = 0, env_count-1 do
+      -- LOOP THROUGH ENVELOPES
+      env_count = reaper.CountTrackEnvelopes(track)
+      for j = 0, env_count-1 do
 
-				-- GET THE ENVELOPE
-				env = reaper.GetTrackEnvelope(track, j)
+        -- GET THE ENVELOPE
+        env = reaper.GetTrackEnvelope(track, j)
 
-				AddPoints(env)
+        AddPoints(env)
 
-			end -- ENDLOOP through envelopes
+      end -- ENDLOOP through envelopes
 
-		end -- ENDLOOP through selected tracks
+    end -- ENDLOOP through selected tracks
 
-	else
+  else
 
-		AddPoints(env)
+    AddPoints(env)
 
-	end -- endif sel envelope
+  end -- endif sel envelope
 
-	reaper.Undo_EndBlock("Add points on envelopes at regions", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Add points on envelopes at regions", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end -- end main()
 

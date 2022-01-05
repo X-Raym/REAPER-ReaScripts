@@ -42,12 +42,12 @@ function Action(env)
   -- IF ENVELOPE IS A CANDIDATE
   if visible == true and armed == true then
 
-	if active_out == nil then
-		if active then active = false
-		else active = true end
-	else
-		active = active_out
-	end
+  if active_out == nil then
+    if active then active = false
+    else active = true end
+  else
+    active = active_out
+  end
 
     reaper.BR_EnvSetProperties(br_env, active, visible, armed, inLane, laneHeight, defaultShape, faderScaling)
 
@@ -85,10 +85,10 @@ function main()
           -- GET THE ENVELOPE
           env = reaper.GetTrackEnvelope(track, j)
 
-          	retval, envName = reaper.GetEnvelopeName(env, "")
-			if envName == dest_env_name then
-			  Action(env)
-			end
+            retval, envName = reaper.GetEnvelopeName(env, "")
+      if envName == dest_env_name then
+        Action(env)
+      end
 
         end -- ENDLOOP through envelopes
 
@@ -98,8 +98,8 @@ function main()
 
   else
 
-	retval, envName = reaper.GetEnvelopeName(env, "")
-	if envName == dest_env_name then
+  retval, envName = reaper.GetEnvelopeName(env, "")
+  if envName == dest_env_name then
       Action(env)
     end
 

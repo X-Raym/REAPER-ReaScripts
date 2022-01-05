@@ -17,7 +17,7 @@
 /**
  * Changelog:
  * v1.0 (2015-03-03)
-	+ Mod by X-Raym
+  + Mod by X-Raym
  */
 
 function scale_x_to_slider_val(range_start, range_end, x_coord, x_start_offs, x_end_offs) local (scaled_x)

@@ -17,14 +17,14 @@
 /**
  * Changelog:
  * v1.3 (2015-09-09)
-	+ Fader scaling support
+  + Fader scaling support
  * v1.2 (2015-07-11)
-	+ Send support
+  + Send support
  * v1.1 (2015-02-26)
-	+ Pitch envelope are rounded at 0.5
-	+ Mute envelope are rounded at 0 or 1
+  + Pitch envelope are rounded at 0.5
+  + Mute envelope are rounded at 0 or 1
  * v1.0 (2015-02-09)
-	+ Initial Release
+  + Initial Release
  */
 
 // ----- DEBUGGING ====>
@@ -38,99 +38,99 @@ msg_clean();
 
 function floorPoint (value, type, scale)
 (
-	calc = 0;
-	stricmp("VOLUME", type) == 0 || stricmp("VOLUME (PRE-FX)", type) == 0 || stricmp("Send Volume", type) == 0 ? (
-			scale == 1 ? (
-				value = ScaleFromEnvelopeMode(1, value);
-			);
-			OldVol=value;
-			OldVolDB=20*(log10(OldVol));
+  calc = 0;
+  stricmp("VOLUME", type) == 0 || stricmp("VOLUME (PRE-FX)", type) == 0 || stricmp("Send Volume", type) == 0 ? (
+      scale == 1 ? (
+        value = ScaleFromEnvelopeMode(1, value);
+      );
+      OldVol=value;
+      OldVolDB=20*(log10(OldVol));
 
-			NewVolDB=floor(OldVolDB + 0.5);
-			calc=exp(NewVolDB*0.115129254);
-			scale == 1 ? (
-				calc = ScaleToEnvelopeMode(1, calc);
-			);
-			): stricmp("MUTE", type) == 0 || stricmp("Send Mute", type) == 0 ? (
-					value < 0 ? (
-						calc = 0;
-						msg_s("Mute = 0");
-					);
-					value >= 1 ? (
-						calc = 1;
-						msg_s("Mute = 1");
-					);
-					value < 0.5 ? (
-						calc = 0;
-						msg_s("Mute Floor < 0.5");
-					);
-					value >= 0.5 ? (
-						calc = 1;
-						msg_s("0.5 <= Mute Floor");
-					);
+      NewVolDB=floor(OldVolDB + 0.5);
+      calc=exp(NewVolDB*0.115129254);
+      scale == 1 ? (
+        calc = ScaleToEnvelopeMode(1, calc);
+      );
+      ): stricmp("MUTE", type) == 0 || stricmp("Send Mute", type) == 0 ? (
+          value < 0 ? (
+            calc = 0;
+            msg_s("Mute = 0");
+          );
+          value >= 1 ? (
+            calc = 1;
+            msg_s("Mute = 1");
+          );
+          value < 0.5 ? (
+            calc = 0;
+            msg_s("Mute Floor < 0.5");
+          );
+          value >= 0.5 ? (
+            calc = 1;
+            msg_s("0.5 <= Mute Floor");
+          );
 
-				): stricmp("PITCH", type) == 0 ? (
-					value <= -3 ? (
-						calc = -3;
-						msg_s("Pitch <= -3");
-					);
-					value >= 3 ? (
-						calc = 3;
-						msg_s("Pitch <= +3");
-					);
-					value > -3 && calc < 3 ? (
-						calc = floor((value)+0.5);
-						msg_s("-3 < Pitch < 3");
-					);
-			):(
-			calc = floor((value)*20+0.5)/20;
-		);
+        ): stricmp("PITCH", type) == 0 ? (
+          value <= -3 ? (
+            calc = -3;
+            msg_s("Pitch <= -3");
+          );
+          value >= 3 ? (
+            calc = 3;
+            msg_s("Pitch <= +3");
+          );
+          value > -3 && calc < 3 ? (
+            calc = floor((value)+0.5);
+            msg_s("-3 < Pitch < 3");
+          );
+      ):(
+      calc = floor((value)*20+0.5)/20;
+    );
 
-	calc;
+  calc;
 );
 
 function round_point_value() local (i)
 (
-	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
-	// GET SELECTED TRACK ?
-	envelope = GetSelectedEnvelope(0);
-	env_point_count = CountEnvelopePoints(envelope);
+  // GET SELECTED TRACK ?
+  envelope = GetSelectedEnvelope(0);
+  env_point_count = CountEnvelopePoints(envelope);
 
-	// GET ENVELOPE RANGE -- HERE IT IS
-	GetEnvelopeName(envelope, #buf);
-	match("%s", #buf, envelopeName);
+  // GET ENVELOPE RANGE -- HERE IT IS
+  GetEnvelopeName(envelope, #buf);
+  match("%s", #buf, envelopeName);
 
-	env_scale = GetEnvelopeScalingMode(envelope);
+  env_scale = GetEnvelopeScalingMode(envelope);
 
-	// VALUE
-	i = 0;
-	loop (env_point_count, i ? (
+  // VALUE
+  i = 0;
+  loop (env_point_count, i ? (
 
-			// IDX 0 doesnt seem to work
-			GetEnvelopePoint(envelope, i, timeOutOptional, valueOut, shapeOutOptional, tensionOutOptional, selectedOut);
+      // IDX 0 doesnt seem to work
+      GetEnvelopePoint(envelope, i, timeOutOptional, valueOut, shapeOutOptional, tensionOutOptional, selectedOut);
 
-			selectedOut == 1 ? (
+      selectedOut == 1 ? (
 
-				valueIn = floorPoint(valueOut, envelopeName, env_scale);
+        valueIn = floorPoint(valueOut, envelopeName, env_scale);
 
-				timeInOptional = timeOutOptional;
-				shapeInOptional = shapeOutOptional;
-				tensionInOptional = tensionOutOptional;
+        timeInOptional = timeOutOptional;
+        shapeInOptional = shapeOutOptional;
+        tensionInOptional = tensionOutOptional;
 
-				// SET POINT VALUE
-				SetEnvelopePoint(envelope, i, timeInOptional, valueIn, shapeInOptional, tensionInOptional, 1, noSortInOptional);
+        // SET POINT VALUE
+        SetEnvelopePoint(envelope, i, timeInOptional, valueIn, shapeInOptional, tensionInOptional, 1, noSortInOptional);
 
-			);
+      );
 
 
-		);
+    );
 
-		i += 1;
+    i += 1;
 
-	);
+  );
 
-	Undo_EndBlock("Round selected envelope points value", 0); // End of the undo block. Leave it at the bottom of your main function.
+  Undo_EndBlock("Round selected envelope points value", 0); // End of the undo block. Leave it at the bottom of your main function.
 
 );
 

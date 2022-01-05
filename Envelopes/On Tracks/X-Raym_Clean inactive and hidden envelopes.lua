@@ -21,7 +21,7 @@
 --]]
 
 function Msg(var)
-	reaper.ShowConsoleMsg(tostring(var))
+  reaper.ShowConsoleMsg(tostring(var))
 end
 
 function Action(env)
@@ -71,7 +71,7 @@ function main()
           -- xml_track = xml_track:gsub(xml_env, "")
 
           -- xml_track = xml_track:gsub("¤¤", "\n")
-		   -- Msg(xml_track)
+       -- Msg(xml_track)
 
           --retval = reaper.SetTrackStateChunk(track, xml_env, false)
 

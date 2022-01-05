@@ -17,50 +17,50 @@
 --[[
  * Changelog:
  * v1.0 (2018-09-04)
-	+ Initial Release
+  + Initial Release
 --]]
 
 console = false
 
 -- Display a message in the console for debugging
 function Msg(value)
-	if console then
-		reaper.ShowConsoleMsg(tostring(value) .. "\n")
-	end
+  if console then
+    reaper.ShowConsoleMsg(tostring(value) .. "\n")
+  end
 end
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	edit_pos = reaper.GetCursorPosition()
+  edit_pos = reaper.GetCursorPosition()
 
-	play = reaper.GetPlayState()
-	if play > 0 then
-		pos = reaper.GetPlayPosition()
-	else
-		pos = edit_pos
-	end
+  play = reaper.GetPlayState()
+  if play > 0 then
+    pos = reaper.GetPlayPosition()
+  else
+    pos = edit_pos
+  end
 
-	count_markers_regions, count_markersOut, count_regionsOut = reaper.CountProjectMarkers(0)
+  count_markers_regions, count_markersOut, count_regionsOut = reaper.CountProjectMarkers(0)
 
-	i=1
-	repeat
-		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,count_markers_regions-i)
-		if iRetval >= 1 then
-			if bIsrgnOut == true and iPosOut < pos then
-				if not first and ( iPosOut < pos and pos < iRgnendOut ) then -- if cursor inside region and first region
-					first = true
-				else
-					reaper.SetEditCurPos(iPosOut,true,true) -- moveview and seekplay
-					break
-				end
-			end
-			i = i+1
-		end
-	until iRetval == 0
+  i=1
+  repeat
+    iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,count_markers_regions-i)
+    if iRetval >= 1 then
+      if bIsrgnOut == true and iPosOut < pos then
+        if not first and ( iPosOut < pos and pos < iRgnendOut ) then -- if cursor inside region and first region
+          first = true
+        else
+          reaper.SetEditCurPos(iPosOut,true,true) -- moveview and seekplay
+          break
+        end
+      end
+      i = i+1
+    end
+  until iRetval == 0
 
-	reaper.Undo_EndBlock("Go to start of previous region (strict)", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Go to start of previous region (strict)", -1) -- End of the undo block. Leave it at the bottom of your main function.
 end
 
 main() -- Execute your main function

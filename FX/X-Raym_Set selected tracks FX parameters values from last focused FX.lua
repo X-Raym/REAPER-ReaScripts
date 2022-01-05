@@ -17,71 +17,71 @@
 --[[
  * Changelog:
  * v1.0 (2015-08-11)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function Main()
 
-	reaper.Undo_BeginBlock()
+  reaper.Undo_BeginBlock()
 
-	-- IF SELECTED TRACK
-	count_sel_tracks = reaper.CountSelectedTracks(0)
+  -- IF SELECTED TRACK
+  count_sel_tracks = reaper.CountSelectedTracks(0)
 
-	if count_sel_tracks > 0 then
+  if count_sel_tracks > 0 then
 
-		-- GET LAST TOUCHED FX
-		last_retval, last_track_id, last_fx_id, last_fx_param = reaper.GetLastTouchedFX()
+    -- GET LAST TOUCHED FX
+    last_retval, last_track_id, last_fx_id, last_fx_param = reaper.GetLastTouchedFX()
 
-		if last_retval and last_track_id >= 0 then
+    if last_retval and last_track_id >= 0 then
 
-			last_track = reaper.GetTrack(0, last_track_id - 1)
+      last_track = reaper.GetTrack(0, last_track_id - 1)
 
-			last_fx_name_retval, last_fx_name = reaper.TrackFX_GetFXName(last_track, last_fx_id, "")
+      last_fx_name_retval, last_fx_name = reaper.TrackFX_GetFXName(last_track, last_fx_id, "")
 
-			-- LOOP IN SELECTED TRACK
-			for i = 0, count_sel_tracks - 1 do
+      -- LOOP IN SELECTED TRACK
+      for i = 0, count_sel_tracks - 1 do
 
-				track = reaper.GetSelectedTrack(0, i)
+        track = reaper.GetSelectedTrack(0, i)
 
-				-- TRACKS ARE DIFFERENT
-				if track ~= last_track then
+        -- TRACKS ARE DIFFERENT
+        if track ~= last_track then
 
-					-- FX LOOP
-					count_fx = reaper.TrackFX_GetCount(track)
+          -- FX LOOP
+          count_fx = reaper.TrackFX_GetCount(track)
 
-					for j = 0, count_fx - 1 do
+          for j = 0, count_fx - 1 do
 
-						fx_name_retval, fx_name = reaper.TrackFX_GetFXName(track, j, "")
+            fx_name_retval, fx_name = reaper.TrackFX_GetFXName(track, j, "")
 
-						-- NAMES MATCH
-						if fx_name == last_fx_name then
+            -- NAMES MATCH
+            if fx_name == last_fx_name then
 
-							-- PARAMETERS LOOP
-							count_params = reaper.TrackFX_GetNumParams(track, j)
+              -- PARAMETERS LOOP
+              count_params = reaper.TrackFX_GetNumParams(track, j)
 
-							for k = 0, count_params - 1 do
+              for k = 0, count_params - 1 do
 
-								param_retval, minval, maxval = reaper.TrackFX_GetParam(last_track, last_fx_id, k)
+                param_retval, minval, maxval = reaper.TrackFX_GetParam(last_track, last_fx_id, k)
 
-								reaper.TrackFX_SetParam(track, j, k, param_retval)
+                reaper.TrackFX_SetParam(track, j, k, param_retval)
 
-							end
+              end
 
-							break -- First fx with same name
+              break -- First fx with same name
 
-						end -- Names match
+            end -- Names match
 
-					end -- Loop in FX
+          end -- Loop in FX
 
-				end -- Track is different than last fx track
+        end -- Track is different than last fx track
 
-			end -- Loop in selected tracks
+      end -- Loop in selected tracks
 
-		end -- Get last touched Fx
+    end -- Get last touched Fx
 
-	end -- Tracks are selected
+  end -- Tracks are selected
 
-	reaper.Undo_EndBlock("Set selected tracks FX parameters values from last focused FX", -1)
+  reaper.Undo_EndBlock("Set selected tracks FX parameters values from last focused FX", -1)
 
 end -- function
 

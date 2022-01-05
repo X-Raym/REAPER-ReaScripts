@@ -18,7 +18,7 @@
 /**
  * Changelog:
  * v1.0 (2015-15-02)
-	+ Initial Release
+  + Initial Release
  */
 
 /**
@@ -38,96 +38,96 @@ msg_clean();
 function main() local (i, j)
 (
 
-	// SELECTED ITEMS LOOP
-	countItems = CountSelectedMediaItems(0);
-	countTracks = CountSelectedTracks(0);
+  // SELECTED ITEMS LOOP
+  countItems = CountSelectedMediaItems(0);
+  countTracks = CountSelectedTracks(0);
 
-	countItems > 0 ? (
-		msg_tvoldi("SELECTED ITEMS = ", countItems, "%d", 0, debug, 1);
-	);
+  countItems > 0 ? (
+    msg_tvoldi("SELECTED ITEMS = ", countItems, "%d", 0, debug, 1);
+  );
 
-	msg_s("==========");
+  msg_s("==========");
 
-	i = 0;
-	loop(countItems,
-		(item = GetSelectedMediaItem(0, i)) ? (
-			(take = GetActiveTake(item)) ? (
-					GetTakeName(#retval, take);
-					msg_tvold("Take name:", #retval, "%s", 0, debug);
-					track = GetMediaItemTake_Track(take);// get track color
-					trackNumber = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
-					msg_tvold("On track number:", trackNumber, "%d", 0, debug);
-					itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
-					msg_tvold("At position:", itemPosition, "%f", 1, debug);
-					takeColor_int = GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")|16777216;
+  i = 0;
+  loop(countItems,
+    (item = GetSelectedMediaItem(0, i)) ? (
+      (take = GetActiveTake(item)) ? (
+          GetTakeName(#retval, take);
+          msg_tvold("Take name:", #retval, "%s", 0, debug);
+          track = GetMediaItemTake_Track(take);// get track color
+          trackNumber = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
+          msg_tvold("On track number:", trackNumber, "%d", 0, debug);
+          itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
+          msg_tvold("At position:", itemPosition, "%f", 1, debug);
+          takeColor_int = GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")|16777216;
 
-					takeColor_int === 0 ? ( // if the item has no color...
-						takeColor_int = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR"); // ... then take the track color
-						msg_tvold("Take color (from track) int:", takeColor_int, "%d", 1, debug);
-					):(
-						msg_tvold("Take color int:", takeColor_int, "%d", 1, debug);
-					);
+          takeColor_int === 0 ? ( // if the item has no color...
+            takeColor_int = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR"); // ... then take the track color
+            msg_tvold("Take color (from track) int:", takeColor_int, "%d", 1, debug);
+          ):(
+            msg_tvold("Take color int:", takeColor_int, "%d", 1, debug);
+          );
 
-					R = takeColor_int & 255;
-					G = (takeColor_int >> 8) & 255;
-					B = (takeColor_int >> 16) & 255;
+          R = takeColor_int & 255;
+          G = (takeColor_int >> 8) & 255;
+          B = (takeColor_int >> 16) & 255;
 
-					msg_s("RGB");
-					ShowConsoleMsg(sprintf(#,"R: %d\n", R));
-					ShowConsoleMsg(sprintf(#,"G: %d\n", G));
-					ShowConsoleMsg(sprintf(#,"B: %d\n", B));
-					msg_s("---");
+          msg_s("RGB");
+          ShowConsoleMsg(sprintf(#,"R: %d\n", R));
+          ShowConsoleMsg(sprintf(#,"G: %d\n", G));
+          ShowConsoleMsg(sprintf(#,"B: %d\n", B));
+          msg_s("---");
 
-					msg_s("HEX");
-					ShowConsoleMsg(sprintf(#,"%02x", R));
-					ShowConsoleMsg(sprintf(#,"%02x", G));
-					ShowConsoleMsg(sprintf(#,"%02x", B));
+          msg_s("HEX");
+          ShowConsoleMsg(sprintf(#,"%02x", R));
+          ShowConsoleMsg(sprintf(#,"%02x", G));
+          ShowConsoleMsg(sprintf(#,"%02x", B));
 
-					msg_s("\n\n\n=====");
-				);
-			);
-		i += 1;
-	);
+          msg_s("\n\n\n=====");
+        );
+      );
+    i += 1;
+  );
 
-	// SELECTED TRACKS LOOP
-	countTracks > 0 ? (
-		msg_s("==========");
-		msg_tvoldi("SELECTED TRACKS = ", countTracks, "%d", 1, debug, 1);
-	);
+  // SELECTED TRACKS LOOP
+  countTracks > 0 ? (
+    msg_s("==========");
+    msg_tvoldi("SELECTED TRACKS = ", countTracks, "%d", 1, debug, 1);
+  );
 
-	j = 0;
-	loop(countTracks,
-			(track = GetSelectedTrack(0, j)) ? (
-				GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
-				msg_tvold("Track name:", #stringNeedBig, "%s", 0, debug);
-				trackNumber = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
-				msg_tvold("Track number:", trackNumber, "%d", 1, debug);
-				trackColor_int = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR")|16777216;
-				msg_tvold("Track color:", trackColor_int, "%d", 1, debug);
+  j = 0;
+  loop(countTracks,
+      (track = GetSelectedTrack(0, j)) ? (
+        GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
+        msg_tvold("Track name:", #stringNeedBig, "%s", 0, debug);
+        trackNumber = GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER");
+        msg_tvold("Track number:", trackNumber, "%d", 1, debug);
+        trackColor_int = GetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR")|16777216;
+        msg_tvold("Track color:", trackColor_int, "%d", 1, debug);
 
-				R = trackColor_int & 255;
-				G = (trackColor_int >> 8) & 255;
-				B = (trackColor_int >> 16) & 255;
+        R = trackColor_int & 255;
+        G = (trackColor_int >> 8) & 255;
+        B = (trackColor_int >> 16) & 255;
 
-				msg_s("RGB");
-				ShowConsoleMsg(sprintf(#,"R: %d\n", R));
-				ShowConsoleMsg(sprintf(#,"G: %d\n", G));
-				ShowConsoleMsg(sprintf(#,"B: %d\n", B));
-				msg_s("---");
+        msg_s("RGB");
+        ShowConsoleMsg(sprintf(#,"R: %d\n", R));
+        ShowConsoleMsg(sprintf(#,"G: %d\n", G));
+        ShowConsoleMsg(sprintf(#,"B: %d\n", B));
+        msg_s("---");
 
-				msg_s("HEX");
-				ShowConsoleMsg(sprintf(#,"%02x", R));
-				ShowConsoleMsg(sprintf(#,"%02x", G));
-				ShowConsoleMsg(sprintf(#,"%02x", B));
+        msg_s("HEX");
+        ShowConsoleMsg(sprintf(#,"%02x", R));
+        ShowConsoleMsg(sprintf(#,"%02x", G));
+        ShowConsoleMsg(sprintf(#,"%02x", B));
 
-				msg_s("\n\n\n=====");
-			);
-		j += 1;
-	);
+        msg_s("\n\n\n=====");
+      );
+    j += 1;
+  );
 
-	countItems == 0 && countTracks == 0 ? (
-		msg_s("No item or track selected");
-	);
+  countItems == 0 && countTracks == 0 ? (
+    msg_s("No item or track selected");
+  );
 );
 
 msg_start(); // Display characters in the console to show you the begining of the script execution.

@@ -4,7 +4,7 @@
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
- * Forum Thread: 	Scripts: Transport (various)
+ * Forum Thread:  Scripts: Transport (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1601342
  * REAPER: 5.0
  * Version: 1.0
@@ -13,43 +13,43 @@
 --[[
  * Changelog:
  * v1.0 (2016-01-04)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function RoundToX(number, interval)
-	round = math.floor((number+(interval/2))/interval) * interval
+  round = math.floor((number+(interval/2))/interval) * interval
 
-	--msg_f(interval)
-	--msg_f(number)
-	--msg_f(round)
+  --msg_f(interval)
+  --msg_f(number)
+  --msg_f(round)
 
-	return round
+  return round
 end
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	frameRate, dropFrameOut = reaper.TimeMap_curFrameRate(0)
+  frameRate, dropFrameOut = reaper.TimeMap_curFrameRate(0)
 
-	frame_duration = 1/frameRate
+  frame_duration = 1/frameRate
 
-	cur_pos = reaper.GetCursorPosition()
+  cur_pos = reaper.GetCursorPosition()
 
-	-- MODIFY INFOS
-	pos_quantized = RoundToX(cur_pos, frame_duration)
+  -- MODIFY INFOS
+  pos_quantized = RoundToX(cur_pos, frame_duration)
 
-	if pos_quantized >= cur_pos then
+  if pos_quantized >= cur_pos then
 
-		reaper.SetEditCurPos(pos_quantized - frame_duration, true, true)
+    reaper.SetEditCurPos(pos_quantized - frame_duration, true, true)
 
-	else
+  else
 
-		reaper.SetEditCurPos(pos_quantized, true, true)
+    reaper.SetEditCurPos(pos_quantized, true, true)
 
-	end
+  end
 
-	reaper.Undo_EndBlock("Move edit cursor to previous frame", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Move edit cursor to previous frame", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

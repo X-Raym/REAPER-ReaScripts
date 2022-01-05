@@ -84,16 +84,16 @@ function Select_Alt_Takes()
     reaper.UpdateArrange()
     reaper.PreventUIRefresh(-1)
 
-	else
-		Msg("No item selected.")
-	end
+  else
+    Msg("No item selected.")
+  end
 
 end
 
 
 -- INIT
 if console == true then
-	reaper.ClearConsole()
+  reaper.ClearConsole()
 end
 
 Select_Alt_Takes()

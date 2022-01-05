@@ -7,7 +7,7 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Forum Thread:  Scripts: Item Fades (various)
+ * Forum Thread: Scripts: Item Fades (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1538659
  * REAPER: 5.0
  * Version: 1.0.1

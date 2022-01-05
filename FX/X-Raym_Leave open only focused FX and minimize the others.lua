@@ -15,7 +15,7 @@
 --[[
  * Changelog:
  * v1.0 (2015-08-26)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function Msg(text)
@@ -45,15 +45,15 @@ function Main()
 
          if j == focused_fx_id and i == focused_fx_track_id then
 
-		 Msg(j.." ~= "..(focused_fx_id) .." and "..i.." ~= ".. focused_fx_track_id)
+     Msg(j.." ~= "..(focused_fx_id) .." and "..i.." ~= ".. focused_fx_track_id)
 
-		  reaper.TrackFX_SetOpen(track, j, true)
+      reaper.TrackFX_SetOpen(track, j, true)
 
         else
 
-			reaper.TrackFX_SetOpen(track, j, false)
+      reaper.TrackFX_SetOpen(track, j, false)
 
-		end
+    end
 
       end
 

@@ -16,7 +16,7 @@
 --[[
  * Changelog:
  * v1.0 (2015-03-03)
-	+ Initial release
+  + Initial release
 --]]
 
 ------------- "class.lua" is copied from http://lua-users.org/wiki/SimpleLuaClasses -----------

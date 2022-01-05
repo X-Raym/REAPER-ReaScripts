@@ -13,7 +13,7 @@
 /**
  * Changelog:
  * v1.0 (2015-04-09)
-	+ Initial Release
+  + Initial Release
  */
 
 // ----- DEBUGGING ====>
@@ -27,32 +27,32 @@ msg_clean();*/
 
 function main() // local (i, j, item, take, track)
 (
-	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
-	edit_pos = GetCursorPosition();
+  edit_pos = GetCursorPosition();
 
-	play = GetPlayState();
-	play > 0 ? (
-		pos = GetPlayPosition();
-	):(
-		pos = edit_pos;
-	);
+  play = GetPlayState();
+  play > 0 ? (
+    pos = GetPlayPosition();
+  ):(
+    pos = edit_pos;
+  );
 
-	GetLastMarkerAndCurRegion(0, pos, markeridxOut, regionidxOut);
+  GetLastMarkerAndCurRegion(0, pos, markeridxOut, regionidxOut);
 
-	//msg_d(regionidxOut);
+  //msg_d(regionidxOut);
 
-	regionidxOut > -1 ? (
-		EnumProjectMarkers(regionidxOut, 1, posOut, rgnendOut, #nameOut, markrgnindexnumberOut);
+  regionidxOut > -1 ? (
+    EnumProjectMarkers(regionidxOut, 1, posOut, rgnendOut, #nameOut, markrgnindexnumberOut);
 
-		calc = rgnendOut - edit_pos;
+    calc = rgnendOut - edit_pos;
 
-		MoveEditCursor(calc, 0);
+    MoveEditCursor(calc, 0);
 
-		OnPlayButton();
-	);
+    OnPlayButton();
+  );
 
-	Undo_EndBlock("Move edit cursor to end of region under play or edit cursor and play", 0); // End of the undo block. Leave it at the bottom of your main function.
+  Undo_EndBlock("Move edit cursor to end of region under play or edit cursor and play", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 //msg_start(); // Display characters in the console to show you the begining of the script execution.

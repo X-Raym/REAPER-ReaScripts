@@ -17,7 +17,7 @@
 --[[
  * Changelog:
  * v1.6 (2015-09-09)
-	+ Fader-scaling support
+  + Fader-scaling support
  * v1.5.1 (2015-07-16)
   # Bug fix when Cancel
  * v1.5 (2015-07-11)
@@ -167,7 +167,7 @@ function SetValue(envelope)
       -- IDX 0 doesnt seem to work
       retval, time, valueOut, shape, tension, selectedOut = reaper.GetEnvelopePoint(envelope,i)
 
-	  if faderScaling == true then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
+    if faderScaling == true then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
 
       if set == true then
         valueOut = math.exp(0*0.115129254)
@@ -197,7 +197,7 @@ function SetValue(envelope)
       end
       ----msg_ftl("Value ouput", valueIn, 1)
       -- SET POINT VALUE
-	  if faderScaling == true then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
+    if faderScaling == true then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
 
       if time_selection == true then
         if time >= start_time and time <= end_time then

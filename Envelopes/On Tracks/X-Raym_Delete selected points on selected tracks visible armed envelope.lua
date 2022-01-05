@@ -17,9 +17,9 @@
 --[[
  * Changelog:
  * v1.0.1 (2015-05-07)
-	# Time selection bug fix
+  # Time selection bug fix
  * v1.0 (2015-03-21)
-	+ Initial Release
+  + Initial Release
 ]]
 
 
@@ -38,74 +38,74 @@ selectedOut = {}
 
 function main()
 
-	-- GET LOOP
-	start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
-	-- IF LOOP ?
-	if start_time ~= end_time then
-		time_selection = true
-	end
+  -- GET LOOP
+  start_time, end_time = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
+  -- IF LOOP ?
+  if start_time ~= end_time then
+    time_selection = true
+  end
 
-	-- LOOP TRHOUGH SELECTED TRACKS
-	selected_tracks_count = reaper.CountSelectedTracks(0)
-	for j = 0, selected_tracks_count-1  do
+  -- LOOP TRHOUGH SELECTED TRACKS
+  selected_tracks_count = reaper.CountSelectedTracks(0)
+  for j = 0, selected_tracks_count-1  do
 
-		-- GET THE TRACK
-		track = reaper.GetSelectedTrack(0, j) -- Get selected track i
+    -- GET THE TRACK
+    track = reaper.GetSelectedTrack(0, j) -- Get selected track i
 
-		env_count = reaper.CountTrackEnvelopes(track)
+    env_count = reaper.CountTrackEnvelopes(track)
 
-		for m = 0, env_count-1 do
+    for m = 0, env_count-1 do
 
-			-- GET THE ENVELOPE
-			env = reaper.GetTrackEnvelope(track, m)
-			--retval, env_name_dest = reaper.GetEnvelopeName(env, "")
+      -- GET THE ENVELOPE
+      env = reaper.GetTrackEnvelope(track, m)
+      --retval, env_name_dest = reaper.GetEnvelopeName(env, "")
 
-			-- IF VISIBLE AND ARMED
-			br_env = reaper.BR_EnvAlloc(env, false)
-			active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
+      -- IF VISIBLE AND ARMED
+      br_env = reaper.BR_EnvAlloc(env, false)
+      active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
 
-			if visible == true and armed == true then
+      if visible == true and armed == true then
 
-				if time_selection == true and preserve_edges == true then -- IF we want to preserve edges of time selection
-					retval3, valueOut3, dVdSOutOptional3, ddVdSOutOptional3, dddVdSOutOptional3 = reaper.Envelope_Evaluate(env, start_time, 0, 0)
-					retval4, valueOut4, dVdSOutOptional4, ddVdSOutOptional4, dddVdSOutOptional4 = reaper.Envelope_Evaluate(env, end_time, 0, 0)
-				end -- preserve edges of time selection
+        if time_selection == true and preserve_edges == true then -- IF we want to preserve edges of time selection
+          retval3, valueOut3, dVdSOutOptional3, ddVdSOutOptional3, dddVdSOutOptional3 = reaper.Envelope_Evaluate(env, start_time, 0, 0)
+          retval4, valueOut4, dVdSOutOptional4, ddVdSOutOptional4, dddVdSOutOptional4 = reaper.Envelope_Evaluate(env, end_time, 0, 0)
+        end -- preserve edges of time selection
 
-				-- GET LAST POINT TIME OF DEST TRACKS AND DELETE ALL
-				env_points_count = reaper.CountEnvelopePoints(env)
+        -- GET LAST POINT TIME OF DEST TRACKS AND DELETE ALL
+        env_points_count = reaper.CountEnvelopePoints(env)
 
-				-- LOOP POINTS AND INSERT
-				for p = 0, env_points_count-1 do
+        -- LOOP POINTS AND INSERT
+        for p = 0, env_points_count-1 do
 
-					retval, time, valueSource, shape, tension, selectedOut = reaper.GetEnvelopePoint(env, env_points_count-1-p)
-					--position, value, shape, selected, bezier = reaper.BR_EnvGetPoint(br_env, p, 0, 0, 0, true, 0)
+          retval, time, valueSource, shape, tension, selectedOut = reaper.GetEnvelopePoint(env, env_points_count-1-p)
+          --position, value, shape, selected, bezier = reaper.BR_EnvGetPoint(br_env, p, 0, 0, 0, true, 0)
 
-					-- TAKE SELECTED
-					if selectedOut == true then
-						--reaper.ShowConsoleMsg(tostring(env_points_count-1-p))
-						reaper.BR_EnvDeletePoint(br_env, (env_points_count-1-p))
-					end
-				end -- END LOOP THROUGH SAVED POINTS
+          -- TAKE SELECTED
+          if selectedOut == true then
+            --reaper.ShowConsoleMsg(tostring(env_points_count-1-p))
+            reaper.BR_EnvDeletePoint(br_env, (env_points_count-1-p))
+          end
+        end -- END LOOP THROUGH SAVED POINTS
 
-				-- PRESERVE EDGES INSERTION
-				if time_selection == true and preserve_edges == true then
+        -- PRESERVE EDGES INSERTION
+        if time_selection == true and preserve_edges == true then
 
-					reaper.DeleteEnvelopePointRange(env, start_time-0.000000001, start_time+0.000000001)
-					reaper.DeleteEnvelopePointRange(env, end_time-0.000000001, end_time+0.000000001)
+          reaper.DeleteEnvelopePointRange(env, start_time-0.000000001, start_time+0.000000001)
+          reaper.DeleteEnvelopePointRange(env, end_time-0.000000001, end_time+0.000000001)
 
-					reaper.InsertEnvelopePoint(env, start_time, valueOut3, 0, 0, true, true) -- INSERT startLoop point
-					reaper.InsertEnvelopePoint(env, end_time, valueOut4, 0, 0, true, true) -- INSERT startLoop point
+          reaper.InsertEnvelopePoint(env, start_time, valueOut3, 0, 0, true, true) -- INSERT startLoop point
+          reaper.InsertEnvelopePoint(env, end_time, valueOut4, 0, 0, true, true) -- INSERT startLoop point
 
-				end
+        end
 
-				reaper.BR_EnvFree(br_env, 1)
-				reaper.Envelope_SortPoints(env)
+        reaper.BR_EnvFree(br_env, 1)
+        reaper.Envelope_SortPoints(env)
 
-			end -- ENDIF envelope passed
+      end -- ENDIF envelope passed
 
-		end -- ENDLOOP selected tracks envelope
+    end -- ENDLOOP selected tracks envelope
 
-	end -- ENDLOOP selected tracks
+  end -- ENDLOOP selected tracks
 
 end -- end main()
 
