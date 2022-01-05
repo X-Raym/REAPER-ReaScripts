@@ -1,7 +1,6 @@
 --[[
  * ReaScript Name: Region's Clock
- * Description: Add a clock for regions, based on Play Cursor position.
- * Instructions: Run
+ * About: Add a clock for regions, based on Play Cursor position.
  * Screenshot: http://i.giphy.com/3o85xpylrlY7MPzmo0.gif
  * Author: X-Raym
  * Author URI: http://extremraym.com
@@ -11,12 +10,14 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
- * Extensions: ../Functions/spk77_Save table to file and load table from file_functions.lua
- * Version: 1.2.3
+ * Version: 1.3
 --]]
 
 --[[
  * Changelog:
+ * v1.3 (2022-01-05)
+  # Using ExtState rather than ini file for saving values
+  + Dock via right click and menu on region progressbar
  * v1.2.3 (2019-04-17)
   # Kill script if GUI closed
  * v1.2.2 (2019-04-17)
@@ -52,9 +53,14 @@ font_size = 40
 font_name = "Arial"
 format = 0
 
--- To Save in Preset filename
-window_w = 640
-window_h = 270
+vars = {}
+vars.wlen = 640
+vars.hlen = 270
+vars.docked = 0
+vars.xpos = 100
+vars.ypos = 100
+
+ext_name = "XR_RegionsClock"
 
 -- Performance
 local reaper = reaper
@@ -67,21 +73,11 @@ function Msg(value)
 end
 
 
--- Set ToolBar Button ON
-function SetButtonON()
- local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
- local state = reaper.GetToggleCommandStateEx( sec, cmd )
- reaper.SetToggleCommandState( sec, cmd, 1 ) -- Set ON
- reaper.RefreshToolbar2( sec, cmd )
-end
-
-
--- Set ToolBar Button OFF
-function SetButtonOFF()
- local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
- local state = reaper.GetToggleCommandStateEx( sec, cmd )
- reaper.SetToggleCommandState( sec, cmd, 0 ) -- Set OFF
- reaper.RefreshToolbar2( sec, cmd )
+ -- Set ToolBar Button State
+function SetButtonState( set )
+  local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
+  reaper.SetToggleCommandState( sec, cmd, set or 0 )
+  reaper.RefreshToolbar2( sec, cmd )
 end
 
 
@@ -191,33 +187,47 @@ end
 
 
 --// INIT //--
-function init(window_w, window_h, window_x, window_y, docked)
-  gfx.init("Region's Clock by X-Raym" , window_w, window_h, docked, window_x, window_y)  -- name,width,height,dockstate,xpos,ypos
+function init()
+  GetExtStates()
+  gfx.init("Region's Clock by X-Raym" , vars.wlen, vars.hlen, vars.docked, vars.xpos, vars.ypos)  -- name,width,height,dockstate,xpos,ypos
   gfx.setfont(1, font_name, font_size, 'b')
   --color(text_color)
 end
 
 
 function DoExitFunctions()
-  SetButtonOFF()
-  SaveWindow()
+  SetButtonState( -1 )
+  SaveState()
 end
 
 
-function SaveWindow()
-  docked, xpos, ypos, wlen, hlen = gfx.dock(-1, xpos, ypos, wlen, hlen)
-  presets = {
-             -- Preset 1
-             regions_clock =
-               {
-                 docked = docked,
-                 xpos = xpos,
-                 ypos = ypos,
-                 wlen = wlen,
-                 hlen = hlen
-               },
-            }
-  table.save(presets, presets_path) -- save "presets" table
+function SaveState()
+  vars.docked, vars.xpos, vars.ypos, vars.wlen, vars.hlen = gfx.dock(-1, 0, 0, 0, 0)
+  for k, v in pairs( vars ) do
+    SaveExtState( k, v )
+  end
+end
+
+function SaveExtState( var, val)
+  reaper.SetExtState( ext_name, var, tostring(val), true )
+end
+
+function GetExtState( var, val )
+  if reaper.HasExtState( ext_name, var ) then
+    local t = type( val )
+    val = reaper.GetExtState( ext_name, var )
+    if t == "boolean" then val = toboolean( val )
+    elseif t == "number" then val = tonumber( val )
+    else
+    end
+  end
+  return val
+end
+
+function GetExtStates()
+  for k, v in pairs(vars) do
+     vars[k] = GetExtState( k, v )
+  end
 end
 
 --// MAIN //--
@@ -247,6 +257,15 @@ function run()
     gfx.y = 0
   end -- IF LAST REGION
 
+  if gfx.mouse_cap == 2 and (not is_region or gfx.mouse_y < rect_h) then
+    local dock = gfx.dock(-1) == 0 and "Dock" or "Undock"
+    gfx.x = gfx.mouse_x
+    gfx.y = gfx.mouse_y
+    if gfx.showmenu( dock ) == 1 then
+      if gfx.dock(-1) == 0 then gfx.dock(1) else gfx.dock(0) end
+    end
+  end
+
   -- From SPK77's Clock script
   -- CHANGE FORMAT WITH A CLICK
   if mouse_state == 0 and gfx.mouse_cap == 2 and gfx.mouse_x > 5 and gfx.mouse_x < gfx.w - 5 and gfx.mouse_y > 5 and gfx.mouse_y < gfx.h - 5 then
@@ -264,8 +283,6 @@ function run()
       else
         reaper.Main_OnCommand(40616, 0)
       end
-    else
-      if gfx.dock(-1) == 0 then gfx.dock(1) else gfx.dock(0) end
     end
   end
 
@@ -282,57 +299,15 @@ function run()
   end
 
   gfx.update()
-  
+
   char = gfx.getchar()
   if char == 27 or char == -1 then gfx.quit() else reaper.defer(run) end
 
 end -- END DEFER
 
-
-function get_script_path()
-  local info = debug.getinfo(1,'S');
-  local script_path = info.source:match[[^@?(.*[\/])[^\/]-$]]
-  return script_path
-end
-
 --// RUN //--
 
----------------------------------------------------
--- Get script path and create "presets.txt" file --
----------------------------------------------------
-
-script_path = get_script_path()
-presets_path = script_path .. "../X-Raym_Scripts presets.lua"
-
--- Get External File
-dofile(script_path .. "../Functions/spk77_Save table to file and load table from file_functions.lua")
-
--- if "presets.txt" doesn't exist it will be created
-if not reaper.file_exists(presets_path) then
-  local file = io.open(presets_path, "w")
-  io.close(file)
-
-  -- Save presets according t
-  presets = {
-             -- Preset 1
-             regions_clock =
-               {
-                 wlen = window_w,
-                 hlen = window_h,
-                 xpos = 0, -- will display at left.
-                 ypos = 0, -- will display at bottom.
-                 docked = 0
-               },
-            }
-  table.save(presets, presets_path) -- save "presets" table
-
-end
-
--- Restore regions_clock table
-preset = table.load(presets_path).regions_clock -- load only the "other_preset" table
-
-SetButtonON()
--- init(window_w, window_h, window_x, window_y, docked)
-init(preset.wlen, preset.hlen, preset.xpos, preset.ypos, preset.docked)
+SetButtonState( 1 )
+init()
 run()
 reaper.atexit( DoExitFunctions )
