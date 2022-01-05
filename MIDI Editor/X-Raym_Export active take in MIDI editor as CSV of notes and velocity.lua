@@ -34,7 +34,7 @@ function Main( take )
 
     local retval, sel, muted, startppq, endppq, chan, pitch, vel = reaper.MIDI_GetNote( take, k )
 
-  	if not muted then
+    if not muted then
         notes_array[k+1] = {}
         notes_array[k+1].pitch = pitch
         notes_array[k+1].vel = vel

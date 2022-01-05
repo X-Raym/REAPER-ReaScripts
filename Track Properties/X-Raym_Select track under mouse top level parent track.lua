@@ -14,7 +14,7 @@
 --[[
  * Changelog:
  * v1.0 (2019-06-23)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function GetTopLevelParentTrack( track )

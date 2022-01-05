@@ -16,45 +16,45 @@
 --[[
  * Changelog:
  * v.1.2 (2019-06-08)
-	# (MPL) fix reset stretch markers from end
-	# (MPL) obey startoffset
+  # (MPL) fix reset stretch markers from end
+  # (MPL) obey startoffset
  * v1.1 (2019-01-02)
-	+ Also reset slope
+  + Also reset slope
  * v1.0 (2015-08-31)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- LOOP THROUGH SELECTED TAKES
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+  -- LOOP THROUGH SELECTED TAKES
+  selected_items_count = reaper.CountSelectedMediaItems(0)
 
-	for i = 0, selected_items_count-1  do
-		-- GET ITEMS
-		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+  for i = 0, selected_items_count-1  do
+    -- GET ITEMS
+    item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		take = reaper.GetActiveTake(item) -- Get the active take
+    take = reaper.GetActiveTake(item) -- Get the active take
 
-		if take ~= nil then -- if ==, it will work on "empty"/text items only
+    if take ~= nil then -- if ==, it will work on "empty"/text items only
 
-			strech_count = reaper.GetTakeNumStretchMarkers(take)
-			local offs = reaper.GetMediaItemTakeInfo_Value( take, 'D_STARTOFFS' )
-			for j = strech_count,0,-1 do
+      strech_count = reaper.GetTakeNumStretchMarkers(take)
+      local offs = reaper.GetMediaItemTakeInfo_Value( take, 'D_STARTOFFS' )
+      for j = strech_count,0,-1 do
 
-				idx, strech_pos, srcpos = reaper.GetTakeStretchMarker(take, j)
+        idx, strech_pos, srcpos = reaper.GetTakeStretchMarker(take, j)
 
-				reaper.SetTakeStretchMarker(take, idx, srcpos-offs)
-				reaper.SetTakeStretchMarkerSlope( take, idx, 0)
+        reaper.SetTakeStretchMarker(take, idx, srcpos-offs)
+        reaper.SetTakeStretchMarkerSlope( take, idx, 0)
 
-			end
+      end
 
-		end -- ENDIF active take
+    end -- ENDIF active take
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Reset selected items active take stretch markers position", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Reset selected items active take stretch markers position", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

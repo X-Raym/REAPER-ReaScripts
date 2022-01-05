@@ -18,9 +18,9 @@
 --[[
  * Changelog:
  * v1.0.1 (2020-11-12)
- 	# empty item fix
+   # empty item fix
  * v1.0 (2015-09-22)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- REQUEST BY Bernadette Michelle
@@ -36,92 +36,92 @@ end
 -- SAVE
 function SaveSelectedItems()
 
-	sel_items = {} -- init table
+  sel_items = {} -- init table
 
-	for i = 0, count_sel_items - 1 do
+  for i = 0, count_sel_items - 1 do
 
-		sel_item = reaper.GetSelectedMediaItem(0, i)
+    sel_item = reaper.GetSelectedMediaItem(0, i)
 
-		if reaper.GetActiveTake(sel_item) ~= nil then -- IF SEL ITEM HAS TAKE
-		  table.insert(sel_items, sel_item) -- insert it in the table
-		end
+    if reaper.GetActiveTake(sel_item) ~= nil then -- IF SEL ITEM HAS TAKE
+      table.insert(sel_items, sel_item) -- insert it in the table
+    end
 
-	end
+  end
 
 end
 
 -- RESTORE
 function RestoreSelItems()
-	reaper.SelectAllMediaItems(0, false) -- unselect all items
-	for i, sel_item in ipairs(sel_items) do
-	 reaper.SetMediaItemSelected(sel_item, true)
-	end
+  reaper.SelectAllMediaItems(0, false) -- unselect all items
+  for i, sel_item in ipairs(sel_items) do
+   reaper.SetMediaItemSelected(sel_item, true)
+  end
 end
 -- <-------------- END OF SAVE INIT ITEM SELECTION
 
 -- ---------- MAIN FUNCTION =========>
 function Main()
 
-	reaper.Undo_BeginBlock()
+  reaper.Undo_BeginBlock()
 
-	SaveSelectedItems() -- Save item selection
+  SaveSelectedItems() -- Save item selection
 
-	count_items = reaper.CountMediaItems(0) -- Count All Media items once
+  count_items = reaper.CountMediaItems(0) -- Count All Media items once
 
-	-- LOOP IN ALL ITEMS
-	for i, sel_item in ipairs(sel_items) do
+  -- LOOP IN ALL ITEMS
+  for i, sel_item in ipairs(sel_items) do
 
-		reaper.SelectAllMediaItems(0, false) -- unselect all items
-		reaper.SetMediaItemSelected(sel_item, true) -- Select only one item from init sel items
-		reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_COPYFXCHAIN1"), 0) -- Copy FX chain from selected item
+    reaper.SelectAllMediaItems(0, false) -- unselect all items
+    reaper.SetMediaItemSelected(sel_item, true) -- Select only one item from init sel items
+    reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_COPYFXCHAIN1"), 0) -- Copy FX chain from selected item
 
-		sel_take = reaper.GetActiveTake(sel_item) -- get sel item take
+    sel_take = reaper.GetActiveTake(sel_item) -- get sel item take
 
-		if sel_take then
+    if sel_take then
 
-			sel_take_name = reaper.GetTakeName(sel_take) -- get sel item take name
+      sel_take_name = reaper.GetTakeName(sel_take) -- get sel item take name
 
-			-- LOOP IN ALL ITEMS
-			for j = 0, count_items - 1 do
+      -- LOOP IN ALL ITEMS
+      for j = 0, count_items - 1 do
 
-				item = reaper.GetMediaItem(0, j) -- Get item
+        item = reaper.GetMediaItem(0, j) -- Get item
 
-				if item ~= sel_item then
+        if item ~= sel_item then
 
-					-- LOOP IN TAKES
-					-- takes_count = reaper.CountTakes(item) -- Count takes
-					-- for v = 0, takes_count-1 do
+          -- LOOP IN TAKES
+          -- takes_count = reaper.CountTakes(item) -- Count takes
+          -- for v = 0, takes_count-1 do
 
-						-- item_take = reaper.GetTake(item, v) -- Get Take
-						item_take = reaper.GetActiveTake(item, v) -- Get Take
+            -- item_take = reaper.GetTake(item, v) -- Get Take
+            item_take = reaper.GetActiveTake(item, v) -- Get Take
 
-						if item_take then
+            if item_take then
 
-							name_item_take = reaper.GetTakeName(item_take) -- Get take name
+              name_item_take = reaper.GetTakeName(item_take) -- Get take name
 
-							if name_item_take == sel_take_name then -- Si le nom du take selectionn� est similaire au take, alors
+              if name_item_take == sel_take_name then -- Si le nom du take selectionn� est similaire au take, alors
 
-								reaper.SetMediaItemSelected(sel_item, false) -- Unselect current sel item
-								reaper.SetMediaItemSelected(item, true) -- Select items
-								reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_COPYFXCHAIN3"), 0) -- Paste (replace) FX chain to selected items
+                reaper.SetMediaItemSelected(sel_item, false) -- Unselect current sel item
+                reaper.SetMediaItemSelected(item, true) -- Select items
+                reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_COPYFXCHAIN3"), 0) -- Paste (replace) FX chain to selected items
 
-							end -- NAMES MATCH
+              end -- NAMES MATCH
 
-						end -- If take
+            end -- If take
 
-					--end -- LOOP TAKES
+          --end -- LOOP TAKES
 
-				end -- IF DIFFERENT THAN CURRENT ITEM
+        end -- IF DIFFERENT THAN CURRENT ITEM
 
-			end -- if take
+      end -- if take
 
-		end -- LOOP IN ITEMS
+    end -- LOOP IN ITEMS
 
-	end -- LOOP IN INIT SEL ITEMS
+  end -- LOOP IN INIT SEL ITEMS
 
-	RestoreSelItems()
+  RestoreSelItems()
 
-	reaper.Undo_EndBlock("Propagate selected items FX to all items with same active take name", -1)
+  reaper.Undo_EndBlock("Propagate selected items FX to all items with same active take name", -1)
 
 end
 -- <---------------------- END OF MAIN
@@ -130,11 +130,11 @@ end
 count_sel_items = reaper.CountSelectedMediaItems(0)
 if count_sel_items > 0 then -- IF item selected
 
-	reaper.PreventUIRefresh(1)
+  reaper.PreventUIRefresh(1)
 
-	Main() -- Run
+  Main() -- Run
 
-	reaper.UpdateArrange()
-	reaper.PreventUIRefresh(-1)
+  reaper.UpdateArrange()
+  reaper.PreventUIRefresh(-1)
 
 end

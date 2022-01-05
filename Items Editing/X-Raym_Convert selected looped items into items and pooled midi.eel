@@ -10,9 +10,9 @@
 /**
  * Changelog:
  * v1.1 (2016-11-19)
-	# Remove dependency and debug infos
+  # Remove dependency and debug infos
  * v1.0 (2015-27-01)
-	+ Initial Release
+  + Initial Release
  */
 
 // ----- DEBUGGING ====>
@@ -29,73 +29,73 @@ msg_start();*/
 
 function convert_loop() local(i, item, j)
 (
-	i = 0;
-	loop(CountSelectedMediaItems(0),
-		    (item = GetSelectedMediaItem(0, i)) ? (
-      			(take = GetActiveTake(item)) ? (
+  i = 0;
+  loop(CountSelectedMediaItems(0),
+        (item = GetSelectedMediaItem(0, i)) ? (
+            (take = GetActiveTake(item)) ? (
 
-				// IF ITEM IS LOOPING ?
+        // IF ITEM IS LOOPING ?
 
-				// GET TRACK
-				track = GetMediaItem_Track(item);
-				//msg_dtl("Track ID", track, 1);
-				Main_OnCommand(40318, 0);
-				SetMediaTrackInfo_Value(track, "I_SELECTED", 1);
-				SetOnlyTrackSelected(track);
+        // GET TRACK
+        track = GetMediaItem_Track(item);
+        //msg_dtl("Track ID", track, 1);
+        Main_OnCommand(40318, 0);
+        SetMediaTrackInfo_Value(track, "I_SELECTED", 1);
+        SetOnlyTrackSelected(track);
 
-				// FIND ITEM LENGHT - LOOPS NUMBER - TAIL DURATION
-				itemDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
-				itemDurationInitial = itemDuration;
-				//msg_ftl("Item duration", itemDuration, 1);
-				Main_OnCommand(40612, 0); // Item to source lenght
-				Main_OnCommand(40698, 0); // Copy item
-				itemSourceDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
-				//msg_ftl("Item source duration", itemSourceDuration, 1);
+        // FIND ITEM LENGHT - LOOPS NUMBER - TAIL DURATION
+        itemDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
+        itemDurationInitial = itemDuration;
+        //msg_ftl("Item duration", itemDuration, 1);
+        Main_OnCommand(40612, 0); // Item to source lenght
+        Main_OnCommand(40698, 0); // Copy item
+        itemSourceDuration = GetMediaItemInfo_Value(item, "D_LENGTH");
+        //msg_ftl("Item source duration", itemSourceDuration, 1);
 
-				completeLoopsNumber = floor(itemDuration / itemSourceDuration) - 1;
-				//msg_dtl("Complete loops number", completeLoopsNumber, 1);
+        completeLoopsNumber = floor(itemDuration / itemSourceDuration) - 1;
+        //msg_dtl("Complete loops number", completeLoopsNumber, 1);
 
-				totalLoopsDuration = completeLoopsNumber * itemSourceDuration + itemSourceDuration;
-				//msg_ftl("Total completed loop duration", totalLoopsDuration, 1);
-				incompleteLoopsDuration = itemDurationInitial - totalLoopsDuration;
-				//msg_ftl("Incomplete loop duration", incompleteLoopsDuration, 1);
+        totalLoopsDuration = completeLoopsNumber * itemSourceDuration + itemSourceDuration;
+        //msg_ftl("Total completed loop duration", totalLoopsDuration, 1);
+        incompleteLoopsDuration = itemDurationInitial - totalLoopsDuration;
+        //msg_ftl("Incomplete loop duration", incompleteLoopsDuration, 1);
 
-				// SET CUSOR POS
-				itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
-				cursorPosition = itemPosition + itemSourceDuration;
-				SetEditCurPos(cursorPosition, 0, 0);
+        // SET CUSOR POS
+        itemPosition = GetMediaItemInfo_Value(item, "D_POSITION");
+        cursorPosition = itemPosition + itemSourceDuration;
+        SetEditCurPos(cursorPosition, 0, 0);
 
-				// PASTE COMPLETE AND INCOMPLETE LOOPS DEPENDING ON THE TAKE TYPE
-				TakeIsMIDI(take) === 1 ? (
-					j=0;
-					loop(completeLoopsNumber + 1, j ? (
-							Main_OnCommand(41072, 0); // Paste pooled MIDI items
-						);
-						j += 1;
-						//msg_d(j);
-					);
-					incompleteLoopsDuration > 0 ? (
-						Main_OnCommand(41072, 0); // Paste pooled MIDI items
-						selitem = GetSelectedMediaItem(0, 0);
-						SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
-					);
-				):(
-					loop(completeLoopsNumber + 1, j ? (
-							Main_OnCommand(40058, 0); // Paste item
-						);
-						j += 1;
-						//msg_d(j);
-					);
-					incompleteLoopsDuration > 0 ? (
-						Main_OnCommand(40058, 0); // Paste item
-						selitem = GetSelectedMediaItem(0, 0);
-						SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
-					);
-				);
-			);
-		);
-		i += 1;
-	);
+        // PASTE COMPLETE AND INCOMPLETE LOOPS DEPENDING ON THE TAKE TYPE
+        TakeIsMIDI(take) === 1 ? (
+          j=0;
+          loop(completeLoopsNumber + 1, j ? (
+              Main_OnCommand(41072, 0); // Paste pooled MIDI items
+            );
+            j += 1;
+            //msg_d(j);
+          );
+          incompleteLoopsDuration > 0 ? (
+            Main_OnCommand(41072, 0); // Paste pooled MIDI items
+            selitem = GetSelectedMediaItem(0, 0);
+            SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
+          );
+        ):(
+          loop(completeLoopsNumber + 1, j ? (
+              Main_OnCommand(40058, 0); // Paste item
+            );
+            j += 1;
+            //msg_d(j);
+          );
+          incompleteLoopsDuration > 0 ? (
+            Main_OnCommand(40058, 0); // Paste item
+            selitem = GetSelectedMediaItem(0, 0);
+            SetMediaItemInfo_Value(selitem, "D_LENGTH", incompleteLoopsDuration);
+          );
+        );
+      );
+    );
+    i += 1;
+  );
 );
 
 PreventUIRefresh(1);

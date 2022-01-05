@@ -20,18 +20,18 @@
 
 function MsgD(text, variable)
 (
-	ShowConsoleMsg(text);
-	sprintf(str, "%d", variable);
-	ShowConsoleMsg(str);
-	ShowConsoleMsg("\n");
+  ShowConsoleMsg(text);
+  sprintf(str, "%d", variable);
+  ShowConsoleMsg(str);
+  ShowConsoleMsg("\n");
 );
 
 function MsgF(text, variable)
 (
-	ShowConsoleMsg(text);
-	sprintf(str, "%f", variable);
-	ShowConsoleMsg(str);
-	ShowConsoleMsg("\n");
+  ShowConsoleMsg(text);
+  sprintf(str, "%f", variable);
+  ShowConsoleMsg(str);
+  ShowConsoleMsg("\n");
 );
 
 
@@ -44,7 +44,7 @@ MsgD("One=", one);
 all == 0 && one == 0 ?(
 ShowConsoleMsg("No Ripple\n");
 ):(
-	ShowConsoleMsg("Ripple\n");
+  ShowConsoleMsg("Ripple\n");
 );
 
 

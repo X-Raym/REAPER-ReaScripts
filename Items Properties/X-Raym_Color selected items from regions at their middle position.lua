@@ -26,32 +26,32 @@ console = false -- true/false: display debug messages in the console
 
 function main()
 
-	-- INITIALIZE loop through selected items
-	for i = 0, count_sel_items - 1 do
+  -- INITIALIZE loop through selected items
+  for i = 0, count_sel_items - 1 do
 
-		-- GET ITEMS
-		local item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+    -- GET ITEMS
+    local item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		local take = reaper.GetActiveTake(item)
+    local take = reaper.GetActiveTake(item)
 
-		local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-		local item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-		local pos = item_pos + item_len / 2
+    local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+    local item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+    local pos = item_pos + item_len / 2
 
-		local marker_idx, region_idx = reaper.GetLastMarkerAndCurRegion(0, pos)
+    local marker_idx, region_idx = reaper.GetLastMarkerAndCurRegion(0, pos)
 
-		local iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0, region_idx)
-		-- SETNAMES
+    local iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0, region_idx)
+    -- SETNAMES
 
-		if iRetval > 0 then
-			if take then
-				reaper.SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", iColorOur, true)
-			else
-				reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", iColorOur, true)
-			end
-		end
+    if iRetval > 0 then
+      if take then
+        reaper.SetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR", iColorOur, true)
+      else
+        reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", iColorOur, true)
+      end
+    end
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
 end
 
@@ -62,16 +62,16 @@ count_sel_items = reaper.CountSelectedMediaItems(0)
 
 if count_sel_items > 0 then
 
-	reaper.PreventUIRefresh(1)
+  reaper.PreventUIRefresh(1)
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	main()
+  main()
 
-	reaper.Undo_EndBlock("Color selected items from regions at their middle position", - 1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Color selected items from regions at their middle position", - 1) -- End of the undo block. Leave it at the bottom of your main function.
 
-	reaper.UpdateArrange()
+  reaper.UpdateArrange()
 
-	reaper.PreventUIRefresh(-1)
+  reaper.PreventUIRefresh(-1)
 
 end

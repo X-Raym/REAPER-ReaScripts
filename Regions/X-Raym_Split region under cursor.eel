@@ -13,20 +13,20 @@
 function split_two_regions()
 (
 
-	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
-	desired_region_id = num_regionsOut;
+  CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
+  desired_region_id = num_regionsOut;
 
-	time = GetCursorPosition();
+  time = GetCursorPosition();
 
-	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
+  GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
 
-	EnumProjectMarkers3(0, regionidxOut, isrgn, RegionStart_d, RegionEnd_d, #name_str, markrgnIndexNumber_int, color_int);
+  EnumProjectMarkers3(0, regionidxOut, isrgn, RegionStart_d, RegionEnd_d, #name_str, markrgnIndexNumber_int, color_int);
 
-	time < RegionEnd_d ?
+  time < RegionEnd_d ?
 
-		SetProjectMarker3( 0, markrgnIndexNumber_int, 1, RegionStart_d, time, #name_str, color_int);
+    SetProjectMarker3( 0, markrgnIndexNumber_int, 1, RegionStart_d, time, #name_str, color_int);
 
-		AddProjectMarker2( 0, 1, time, RegionEnd_d, #name_str, desired_region_id, color_int);
+    AddProjectMarker2( 0, 1, time, RegionEnd_d, #name_str, desired_region_id, color_int);
 
 );
 

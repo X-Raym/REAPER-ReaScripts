@@ -16,48 +16,48 @@
 /**
  * Changelog:
  * v1.0 (2015-04-11)
-	+ Initial Release
+  + Initial Release
  */
 
 //MAIN
 function main()
 (
-	Undo_BeginBlock();
+  Undo_BeginBlock();
 
-	count_sel_items = CountSelectedMediaItems(0);
+  count_sel_items = CountSelectedMediaItems(0);
 
-	i=0;
-	loop(count_sel_items,
+  i=0;
+  loop(count_sel_items,
 
-		item = GetSelectedMediaItem(0, i);
-		take = GetActiveTake(item);
+    item = GetSelectedMediaItem(0, i);
+    take = GetActiveTake(item);
 
-		item_pos = GetMediaItemInfo_Value(item,"D_POSITION");
-		item_len = GetMediaItemInfo_Value(item,"D_LENGTH");
-		item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
+    item_pos = GetMediaItemInfo_Value(item,"D_POSITION");
+    item_len = GetMediaItemInfo_Value(item,"D_LENGTH");
+    item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
 
-		take_off = GetMediaItemTakeInfo_Value(take, "D_STARTOFFS");
-		take_rate = GetMediaItemTakeInfo_Value(take,"D_PLAYRATE");
+    take_off = GetMediaItemTakeInfo_Value(take, "D_STARTOFFS");
+    take_rate = GetMediaItemTakeInfo_Value(take,"D_PLAYRATE");
 
-		take_off_comp = take_off * (1/take_rate);
+    take_off_comp = take_off * (1/take_rate);
 
-		SetMediaItemInfo_Value(item, "D_POSITION", item_pos - take_off_comp);
-		SetMediaItemInfo_Value(item, "D_LENGTH", item_len + take_off_comp);
-		SetMediaItemInfo_Value(item, "D_SNAPOFFSET", item_snap + take_off_comp);
+    SetMediaItemInfo_Value(item, "D_POSITION", item_pos - take_off_comp);
+    SetMediaItemInfo_Value(item, "D_LENGTH", item_len + take_off_comp);
+    SetMediaItemInfo_Value(item, "D_SNAPOFFSET", item_snap + take_off_comp);
 
-		SetMediaItemTakeInfo_Value(take, "D_STARTOFFS", 0);
+    SetMediaItemTakeInfo_Value(take, "D_STARTOFFS", 0);
 
-		item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
-		item_snap < 0 ? (
-			SetMediaItemInfo_Value(item, "D_SNAPOFFSET", 0);
-		);
+    item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
+    item_snap < 0 ? (
+      SetMediaItemInfo_Value(item, "D_SNAPOFFSET", 0);
+    );
 
-		Main_OnCommand(40612, 0);
+    Main_OnCommand(40612, 0);
 
-		i+=1;
-	);
+    i+=1;
+  );
 
-	Undo_EndBlock("Expand selected items length to start and end of their source", -1);
+  Undo_EndBlock("Expand selected items length to start and end of their source", -1);
 
 );
 

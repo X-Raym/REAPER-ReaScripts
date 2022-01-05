@@ -26,53 +26,53 @@ bpm_target = 120
 
 function Main()
 
-	points_id = {}
+  points_id = {}
 
-	for i = 0, reaper.CountEnvelopePoints( env ) - 1 do
+  for i = 0, reaper.CountEnvelopePoints( env ) - 1 do
 
-		retval, time, value, shape, tension, selected = reaper.GetEnvelopePoint( env, i )
+    retval, time, value, shape, tension, selected = reaper.GetEnvelopePoint( env, i )
 
-		if selected then table.insert(points_id, i) end
+    if selected then table.insert(points_id, i) end
 
-	end
+  end
 
-	for j, ptidx in ipairs( points_id ) do
-		retval, timepos, measurepos, beatpos, bpm, timesig_num, timesig_denom, lineartempo = reaper.GetTempoTimeSigMarker( 0, ptidx )
-		test = reaper.SetTempoTimeSigMarker( 0, ptidx, timepos, measurepos, beatpos, bpm_target, timesig_num, timesig_denom, lineartempo )
-	end
+  for j, ptidx in ipairs( points_id ) do
+    retval, timepos, measurepos, beatpos, bpm, timesig_num, timesig_denom, lineartempo = reaper.GetTempoTimeSigMarker( 0, ptidx )
+    test = reaper.SetTempoTimeSigMarker( 0, ptidx, timepos, measurepos, beatpos, bpm_target, timesig_num, timesig_denom, lineartempo )
+  end
 
 end
 
 env = reaper.GetSelectedEnvelope( 0 )
 if env then
-	retval, env_name = reaper.GetEnvelopeName( env, '' )
-	if env_name == "Tempo map" then
+  retval, env_name = reaper.GetEnvelopeName( env, '' )
+  if env_name == "Tempo map" then
 
-		if prompt == true then
+    if prompt == true then
 
-			retval, retval_csv = reaper.GetUserInputs("Tempo points value", 1, "BPM", bpm_target)
-			bpm_target = tonumber(retval_csv)
-		end
+      retval, retval_csv = reaper.GetUserInputs("Tempo points value", 1, "BPM", bpm_target)
+      bpm_target = tonumber(retval_csv)
+    end
 
-		if retval or prompt == false then
+    if retval or prompt == false then
 
 
-			if bpm_target then -- if user complete the fields
+      if bpm_target then -- if user complete the fields
 
-				reaper.PreventUIRefresh(1)
+        reaper.PreventUIRefresh(1)
 
-				reaper.Undo_BeginBlock()
+        reaper.Undo_BeginBlock()
 
-				Main()
+        Main()
 
-				reaper.UpdateArrange()
-				reaper.UpdateTimeline()
+        reaper.UpdateArrange()
+        reaper.UpdateTimeline()
 
-				reaper.Undo_EndBlock( "Set selected tempo envelope points value", - 1 )
+        reaper.Undo_EndBlock( "Set selected tempo envelope points value", - 1 )
 
-				reaper.PreventUIRefresh(-1)
+        reaper.PreventUIRefresh(-1)
 
-			end
-		end
-	end
+      end
+    end
+  end
 end

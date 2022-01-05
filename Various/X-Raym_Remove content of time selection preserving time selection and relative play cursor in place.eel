@@ -12,7 +12,7 @@
 /**
  * Changelog:
  * v1.0 (2015-06-07)
-	+ Initial Release
+  + Initial Release
  */
 
 GetSet_LoopTimeRange2(0, 0, 0, start_time, end_time, 0);

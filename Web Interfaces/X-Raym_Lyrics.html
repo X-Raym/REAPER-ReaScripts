@@ -52,9 +52,9 @@ a {
   </ol>
   <h2>Companion Scripts</h2>
   <dl>
-	<li><strong>Item Notes</strong>: X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua</li>
-	<li><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>
-	<li><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>
+  <li><strong>Item Notes</strong>: X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua</li>
+  <li><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>
+  <li><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>
   </dl>
 </div>
 <div id="playstate"></div>
@@ -94,24 +94,24 @@ function wwr_onreply(results) {
       /*if( lastDetectMultine !== detectMultiLine ) {
         lastDetectMultine = detectMultiLine;
       }*/
-	  if( text === '' ) { // If no script run on use side
-	   div.innerHTML = initial_text;
-	  } else {
+    if( text === '' ) { // If no script run on use side
+     div.innerHTML = initial_text;
+    } else {
       if( text === "--XR-NO-TEXT--") text = "";
-		  var html = text.split("\\n");
-		  div.innerHTML = html.join('<br>');
-		  var settings = {
-			alignVert: true, // if true, textFit will align vertically using css tables
-			alignHoriz: true, // if true, textFit will set text-align: center
-			multiLine: detectMultiLine, // if true, textFit will not set white-space: no-wrap
-			detectMultiLine: detectMultiLine, // disable to turn off automatic multi-line sensing
-			minFontSize: 10,
-			maxFontSize: 80,
-			//reProcess: true, // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
-			//alignVertWithFlexbox: true, // if true, textFit will use flexbox for vertical alignment
-		  };
-		  textFit(div, settings); // Known issue, if browser have been resized, display need to be refreshed.
-		}
+      var html = text.split("\\n");
+      div.innerHTML = html.join('<br>');
+      var settings = {
+      alignVert: true, // if true, textFit will align vertically using css tables
+      alignHoriz: true, // if true, textFit will set text-align: center
+      multiLine: detectMultiLine, // if true, textFit will not set white-space: no-wrap
+      detectMultiLine: detectMultiLine, // disable to turn off automatic multi-line sensing
+      minFontSize: 10,
+      maxFontSize: 80,
+      //reProcess: true, // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
+      //alignVertWithFlexbox: true, // if true, textFit will use flexbox for vertical alignment
+      };
+      textFit(div, settings); // Known issue, if browser have been resized, display need to be refreshed.
+    }
 
     }
     if (tok.length > 1 && tok[0] === "TRANSPORT" ){ // TRANSPORT \t playstate \t position_seconds \t isRepeatOn \t position_string \t position_string_beats

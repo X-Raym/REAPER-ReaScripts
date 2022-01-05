@@ -16,47 +16,47 @@
 --[[
  * Changelog:
  * v1.0 (2015-10-02)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function swap()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 
-	-- LOOP THROUGH SELECTED ITEMS
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+  -- LOOP THROUGH SELECTED ITEMS
+  selected_items_count = reaper.CountSelectedMediaItems(0)
 
-	-- INITIALIZE loop through selected items
-	for i = 0, selected_items_count-1  do
-		-- GET ITEMS
-		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-		take = reaper.GetActiveTake(item)
+  -- INITIALIZE loop through selected items
+  for i = 0, selected_items_count-1  do
+    -- GET ITEMS
+    item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+    take = reaper.GetActiveTake(item)
 
-		if take ~= nil then
+    if take ~= nil then
 
-			take_name = reaper.GetTakeName(take)
+      take_name = reaper.GetTakeName(take)
 
-			note, sep, key = take_name:match("([^,]+)([%s])([^,]+)")
+      note, sep, key = take_name:match("([^,]+)([%s])([^,]+)")
 
-			if key ~= nil then
+      if key ~= nil then
 
-				note = tonumber(note) + 12
-				note = tostring(note)
+        note = tonumber(note) + 12
+        note = tostring(note)
 
-				sep = "_"
+        sep = "_"
 
-				take_name = note .. sep .. key
+        take_name = note .. sep .. key
 
-				retval, take_name = reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", take_name, 1)
+        retval, take_name = reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", take_name, 1)
 
-			end
+      end
 
-		end
+    end
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Swap selected item notes and take name", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Swap selected item notes and take name", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

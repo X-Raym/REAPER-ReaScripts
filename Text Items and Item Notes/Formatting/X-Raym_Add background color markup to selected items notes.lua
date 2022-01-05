@@ -17,66 +17,66 @@
 --[[
  * Changelog:
  * v1.1 (2015-07-08)
-	# New core
+  # New core
  * v1.0 (2015-03-06)
-	+ Abble to update background tags if already set
-	+ Abble to delete background tag if item has not color
-	+ Initial Release
+  + Abble to update background tags if already set
+  + Abble to delete background tag if item has not color
+  + Initial Release
 --]]
 
 
 
 function background_notes()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- LOOP THROUGH SELECTED ITEMS
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+  -- LOOP THROUGH SELECTED ITEMS
+  selected_items_count = reaper.CountSelectedMediaItems(0)
 
-	-- INITIALIZE loop through selected items
-	for i = 0, selected_items_count-1  do
-		-- GET ITEMS
-		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+  -- INITIALIZE loop through selected items
+  for i = 0, selected_items_count-1  do
+    -- GET ITEMS
+    item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		-- GET NOTES
-		note = reaper.ULT_GetMediaItemNote(item)
-		--reaper.ShowConsoleMsg(note)
+    -- GET NOTES
+    note = reaper.ULT_GetMediaItemNote(item)
+    --reaper.ShowConsoleMsg(note)
 
-		-- MODIFY NOTES
+    -- MODIFY NOTES
 
-		color_int = reaper.GetDisplayedMediaItemColor(item)
-		if color_int > 0 then
-			R = color_int & 255
-			G = (color_int >> 8) & 255
-			B = (color_int >> 16) & 255
-			color_hex = "\"#" .. string.format("%02X", R) .. string.format("%02X", G) .. string.format("%02X", B) .. "\""
+    color_int = reaper.GetDisplayedMediaItemColor(item)
+    if color_int > 0 then
+      R = color_int & 255
+      G = (color_int >> 8) & 255
+      B = (color_int >> 16) & 255
+      color_hex = "\"#" .. string.format("%02X", R) .. string.format("%02X", G) .. string.format("%02X", B) .. "\""
 
-			x, y = string.find(note, "background=")
+      x, y = string.find(note, "background=")
 
-			if x == nil then
+      if x == nil then
 
-				note = note  .. "\n<background=" .. color_hex .. "/>"
+        note = note  .. "\n<background=" .. color_hex .. "/>"
 
-			else
+      else
 
-				note = note:gsub('%b""', color_hex) -- delete all formating
+        note = note:gsub('%b""', color_hex) -- delete all formating
 
-			end
+      end
 
-			-- SET NOTES
-			reaper.ULT_SetMediaItemNote(item, note)
+      -- SET NOTES
+      reaper.ULT_SetMediaItemNote(item, note)
 
-		else
+    else
 
-			note = note:gsub("<background=\"#.+\"/>", "")
+      note = note:gsub("<background=\"#.+\"/>", "")
 
-			reaper.ULT_SetMediaItemNote(item, note)
+      reaper.ULT_SetMediaItemNote(item, note)
 
-		end
+    end
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Add background markup to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Add background markup to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

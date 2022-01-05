@@ -16,34 +16,34 @@
 --[[
  * Changelog:
  * v1.0 (2015-02-28)
-	+ Initial Release
-	+ Thanks to benf for the help on format_timestr_pos
-	+ Thanks to spk77 for his Clock.eel script
+  + Initial Release
+  + Thanks to benf for the help on format_timestr_pos
+  + Thanks to spk77 for his Clock.eel script
 --]]
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	if reaper.GetPlayState() == 0 or reaper.GetPlayState == 2 then
-		cursor_pos = reaper.GetCursorPosition()
-		--msg_stl("proj time decimal", cursor_pos, 1)
+  if reaper.GetPlayState() == 0 or reaper.GetPlayState == 2 then
+    cursor_pos = reaper.GetCursorPosition()
+    --msg_stl("proj time decimal", cursor_pos, 1)
 
-		buf = reaper.format_timestr_pos(cursor_pos, "", 3)
-		--msg_stl("proj time string", buf, 1)
+    buf = reaper.format_timestr_pos(cursor_pos, "", 3)
+    --msg_stl("proj time string", buf, 1)
 
-		time = tonumber(buf)
-		--msg_ftl("proj time decimal", time, 1)
+    time = tonumber(buf)
+    --msg_ftl("proj time decimal", time, 1)
 
-		offset = cursor_pos - time
-		--msg_ftl("offset", time, 1)
+    offset = cursor_pos - time
+    --msg_ftl("offset", time, 1)
 
-		reaper.SetEditCurPos(offset, 1, 0)
-	end
+    reaper.SetEditCurPos(offset, 1, 0)
+  end
 
 
 
-	reaper.Undo_EndBlock("Move edit cursor to time 0 or to project start", 0) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Move edit cursor to time 0 or to project start", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

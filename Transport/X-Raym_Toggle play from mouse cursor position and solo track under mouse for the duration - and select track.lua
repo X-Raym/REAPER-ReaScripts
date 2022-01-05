@@ -21,8 +21,8 @@ function main()
 end
 
 if not reaper.BR_TrackAtMouseCursor then
-	reaper.ShowMessageBox("Please install SWS extension", "Warning", 1)
+  reaper.ShowMessageBox("Please install SWS extension", "Warning", 1)
 else
-	reaper.defer(main)
+  reaper.defer(main)
 end
 

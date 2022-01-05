@@ -10,7 +10,7 @@
 --]]
 
 function Main()
-	reaper.CSurf_OnScroll( 0, -1 )
+  reaper.CSurf_OnScroll( 0, -1 )
 end
 
 reaper.defer(Main)

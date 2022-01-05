@@ -16,7 +16,7 @@
 --[[
  * Changelog:
  * v1.0 (2015-06-12)
-	+ Initial Release
+  + Initial Release
 --]]
 
 

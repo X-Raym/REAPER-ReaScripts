@@ -12,7 +12,7 @@
 --[[
  * Changelog:
  * v1.0 (2022-01-23)
-	+ Initial Release
+  + Initial Release
 --]]
 
 

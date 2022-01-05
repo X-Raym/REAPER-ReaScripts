@@ -48,11 +48,11 @@ end
 function PreviousValue(table, number)
   local smallestSoFar, smallestIndex
   for i, y in ipairs(table) do
-	if y < number then
+  if y < number then
       index = i
     else
-	  break
-	end
+    break
+  end
   end
   return index, table[index]
 end
@@ -81,7 +81,7 @@ groups = {}
     else -- no group
       index, pos = PreviousValue(markers_pos, item_pos+item_snap)
       if index ~= nil then
-		reaper.SetMediaItemInfo_Value(item, "D_POSITION", pos-item_snap)
+    reaper.SetMediaItemInfo_Value(item, "D_POSITION", pos-item_snap)
       end
     end
   end
@@ -90,11 +90,11 @@ groups = {}
   -- Transform Min Pos in Groups into Offset Settings
   for key, min_pos in pairs(groups) do
     index, closest_grid = PreviousValue(markers_pos, min_pos)
-	if index ~= nil then
-		offset = closest_grid - min_pos
-		--Msg(closest_grid .. "-" .. min_pos .. "=" .. "offset")
-		offsets[key] = offset
-	end
+  if index ~= nil then
+    offset = closest_grid - min_pos
+    --Msg(closest_grid .. "-" .. min_pos .. "=" .. "offset")
+    offsets[key] = offset
+  end
   end
 
   SaveAllItems(all_items)

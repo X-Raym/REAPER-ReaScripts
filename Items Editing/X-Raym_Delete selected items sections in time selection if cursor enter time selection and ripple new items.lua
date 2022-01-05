@@ -16,14 +16,14 @@
 --[[
  * Changelog:
  * v1.0 (2015-12-02)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- Requested by Vanhaze
 -- Need X-Raym_Delete selected items and ripple edit adjacent items.lua
 
 function Msg(val)
-	reaper.ShowConsoleMsg(tostring(val).."\n")
+  reaper.ShowConsoleMsg(tostring(val).."\n")
 end
 
  -- Set ToolBar Button ON
@@ -45,34 +45,34 @@ end
 
 function main()
 
-	mouse_pos = reaper.BR_PositionAtMouseCursor(false)
-	start_time, end_time =  reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
+  mouse_pos = reaper.BR_PositionAtMouseCursor(false)
+  start_time, end_time =  reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
 
-	if mouse_pos > start_time and mouse_pos < end_time then
+  if mouse_pos > start_time and mouse_pos < end_time then
 
-		if in_time == false then
+    if in_time == false then
 
-			in_time = true
+      in_time = true
 
-			if in_time == true then
-				count_selected_items = reaper.CountSelectedMediaItems(0)
-				if count_selected_items > 0 then
-					reaper.PreventUIRefresh(1)
-					reaper.Main_OnCommand(40061, 0) -- Split Items at Time Selection // This action performs on all tracks if no items selected
-					reaper.Main_OnCommand( reaper.NamedCommandLookup( "_RSa1ea364b73053e605ddc565b0eda487f79df6ad1" ), 0 ) -- Ripple Edit
-					reaper.PreventUIRefresh(-1)
-				end
-			end
+      if in_time == true then
+        count_selected_items = reaper.CountSelectedMediaItems(0)
+        if count_selected_items > 0 then
+          reaper.PreventUIRefresh(1)
+          reaper.Main_OnCommand(40061, 0) -- Split Items at Time Selection // This action performs on all tracks if no items selected
+          reaper.Main_OnCommand( reaper.NamedCommandLookup( "_RSa1ea364b73053e605ddc565b0eda487f79df6ad1" ), 0 ) -- Ripple Edit
+          reaper.PreventUIRefresh(-1)
+        end
+      end
 
-		end
+    end
 
-	else
+  else
 
-		in_time = false
+    in_time = false
 
-	end
+  end
 
-	reaper.defer(main)
+  reaper.defer(main)
 end
 
 SetButtonON()

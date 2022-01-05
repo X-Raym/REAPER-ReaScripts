@@ -15,37 +15,37 @@
 --[[
  * Changelog:
  * v2.0 (2019-04-26)
-	# Use track GUID to avoid lots of bugs with track reordering, addition, etc...
+  # Use track GUID to avoid lots of bugs with track reordering, addition, etc...
  * v1.0 (2016-01-28)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function main()
 
-	-- Delete Previous Save
-	reaper.SetProjExtState(0, "Track_Visibility", "", "", "")
+  -- Delete Previous Save
+  reaper.SetProjExtState(0, "Track_Visibility", "", "", "")
 
-	-- Loop in Tracks
-	for i = 0, count_tracks - 1 do
+  -- Loop in Tracks
+  for i = 0, count_tracks - 1 do
 
-		local track = reaper.GetTrack(0, i)
+    local track = reaper.GetTrack(0, i)
 
-		guid = reaper.GetTrackGUID( track )
+    guid = reaper.GetTrackGUID( track )
 
-		tcp_visibility = reaper.GetMediaTrackInfo_Value(track, "B_SHOWINTCP")
-		mcp_visibility = reaper.GetMediaTrackInfo_Value(track, "B_SHOWINMIXER")
+    tcp_visibility = reaper.GetMediaTrackInfo_Value(track, "B_SHOWINTCP")
+    mcp_visibility = reaper.GetMediaTrackInfo_Value(track, "B_SHOWINMIXER")
 
-		tcp_visibility = math.floor(tcp_visibility)
-		mcp_visibility = math.floor(mcp_visibility)
+    tcp_visibility = math.floor(tcp_visibility)
+    mcp_visibility = math.floor(mcp_visibility)
 
-		reaper.SetProjExtState(0, "Track_Visibility", guid, tcp_visibility .. "," .. mcp_visibility)
+    reaper.SetProjExtState(0, "Track_Visibility", guid, tcp_visibility .. "," .. mcp_visibility)
 
-	end
+  end
 
 end
 
 count_tracks = reaper.CountTracks(0)
 
 if count_tracks > 0 then
-	reaper.defer(main)
+  reaper.defer(main)
 end

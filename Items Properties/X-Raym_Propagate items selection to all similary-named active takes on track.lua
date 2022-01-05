@@ -17,9 +17,9 @@
 --[[
  * Changelog:
  * v1.0.1 (2020-11-12)
- 	# empty item fix
+   # empty item fix
  * v1.0 (2015-09-22)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- ---------- DEBUG =========>
@@ -32,17 +32,17 @@ end
 -- SAVE
 function SaveSelectedItems()
 
-	sel_items = {} -- init table
+  sel_items = {} -- init table
 
-	for i = 0, count_sel_items - 1 do
+  for i = 0, count_sel_items - 1 do
 
-		sel_item = reaper.GetSelectedMediaItem(0, i)
+    sel_item = reaper.GetSelectedMediaItem(0, i)
 
-		if reaper.GetActiveTake(sel_item) ~= nil then -- IF SEL ITEM HAS TAKE
-		  table.insert(sel_items, sel_item) -- insert it in the table
-		end
+    if reaper.GetActiveTake(sel_item) ~= nil then -- IF SEL ITEM HAS TAKE
+      table.insert(sel_items, sel_item) -- insert it in the table
+    end
 
-	end
+  end
 
 end
 -- <-------------- END OF SAVE INIT ITEM SELECTION
@@ -51,46 +51,46 @@ end
 -- ---------- MAIN FUNCTION =========>
 function Main()
 
-	reaper.Undo_BeginBlock()
+  reaper.Undo_BeginBlock()
 
-	SaveSelectedItems() -- Save item selection
-	reaper.SelectAllMediaItems(0, false) -- unselect all items
+  SaveSelectedItems() -- Save item selection
+  reaper.SelectAllMediaItems(0, false) -- unselect all items
 
-	-- LOOP IN ALL ITEMS
-	for i, sel_item in ipairs(sel_items) do
+  -- LOOP IN ALL ITEMS
+  for i, sel_item in ipairs(sel_items) do
 
-		sel_take = reaper.GetActiveTake(sel_item) -- get sel item take
+    sel_take = reaper.GetActiveTake(sel_item) -- get sel item take
 
-		if sel_take then
-			sel_take_name = reaper.GetTakeName(sel_take) -- get sel item take name
-			sel_track = reaper.GetMediaItem_Track(sel_item)
-			count_items_on_track = reaper.CountTrackMediaItems(sel_track)
-			-- LOOP IN ALL ITEMS
-			for j = 0, count_items_on_track - 1 do
+    if sel_take then
+      sel_take_name = reaper.GetTakeName(sel_take) -- get sel item take name
+      sel_track = reaper.GetMediaItem_Track(sel_item)
+      count_items_on_track = reaper.CountTrackMediaItems(sel_track)
+      -- LOOP IN ALL ITEMS
+      for j = 0, count_items_on_track - 1 do
 
-				item = reaper.GetTrackMediaItem(sel_track, j) -- Get item
+        item = reaper.GetTrackMediaItem(sel_track, j) -- Get item
 
-				item_take = reaper.GetActiveTake(item, v) -- Get
+        item_take = reaper.GetActiveTake(item, v) -- Get
 
-				if item_take then
+        if item_take then
 
-					name_item_take = reaper.GetTakeName(item_take) -- Get take name
+          name_item_take = reaper.GetTakeName(item_take) -- Get take name
 
-					if name_item_take == sel_take_name then -- Si le nom du take selectionn� est similaire au take, alors
+          if name_item_take == sel_take_name then -- Si le nom du take selectionn� est similaire au take, alors
 
-						reaper.SetMediaItemSelected(item, true) -- Select items
+            reaper.SetMediaItemSelected(item, true) -- Select items
 
-					end -- NAMES MATCH
+          end -- NAMES MATCH
 
-				end
+        end
 
-			end -- LOOP IN ITEMS
+      end -- LOOP IN ITEMS
 
-		end
+    end
 
-	end -- LOOP IN INIT SEL ITEMS
+  end -- LOOP IN INIT SEL ITEMS
 
-	reaper.Undo_EndBlock("Propagate items selection to all similary-named active takes on track", -1)
+  reaper.Undo_EndBlock("Propagate items selection to all similary-named active takes on track", -1)
 
 end
 -- <---------------------- END OF MAIN
@@ -99,11 +99,11 @@ end
 count_sel_items = reaper.CountSelectedMediaItems(0)
 if count_sel_items > 0 then -- IF item selected
 
-	reaper.PreventUIRefresh(1)
+  reaper.PreventUIRefresh(1)
 
-	Main() -- Run
+  Main() -- Run
 
-	reaper.UpdateArrange()
-	reaper.PreventUIRefresh(-1)
+  reaper.UpdateArrange()
+  reaper.PreventUIRefresh(-1)
 
 end

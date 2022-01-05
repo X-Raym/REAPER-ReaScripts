@@ -32,7 +32,7 @@ function main()
 
   for i=0, selected_items_count - 1 do
 
-	  item = reaper.GetSelectedMediaItem(0, i)
+    item = reaper.GetSelectedMediaItem(0, i)
 
       -- GET INFOS
       item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION") -- Get the value of a the parameter
@@ -43,9 +43,9 @@ function main()
       -- GET ID ON TRACK
       item_id = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
 
-	  item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+    item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 
-	  item_end = item_pos + item_len
+    item_end = item_pos + item_len
 
       -- GET NEXT ITEM
       next_item = reaper.GetTrackMediaItem(item_track, item_id+1)
@@ -55,24 +55,24 @@ function main()
 
         next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
 
-		distance = next_item_pos - item_end
+    distance = next_item_pos - item_end
 
-		if distance < threshold then
-			-- MODIFY INFOS
-			item_len_input = next_item_pos - item_pos -- Prepare value output
+    if distance < threshold then
+      -- MODIFY INFOS
+      item_len_input = next_item_pos - item_pos -- Prepare value output
 
-			-- SET INFOS
-			reaper.SetMediaItemInfo_Value(item, "D_LENGTH", item_len_input) -- Set the value to the parameter
+      -- SET INFOS
+      reaper.SetMediaItemInfo_Value(item, "D_LENGTH", item_len_input) -- Set the value to the parameter
 
-		else
+    else
 
-			if distance < threshold * 2 then
+      if distance < threshold * 2 then
 
-				reaper.SetMediaItemInfo_Value(item, "D_LENGTH", item_len + threshold)
+        reaper.SetMediaItemInfo_Value(item, "D_LENGTH", item_len + threshold)
 
-			end
+      end
 
-		end
+    end
 
       end
 
@@ -86,18 +86,18 @@ retval, user_input = reaper.GetUserInputs("Consecutivity Threshold",1,"Consecuti
 
 if retval then
 
-	threshold = tonumber(user_input)
+  threshold = tonumber(user_input)
 
-	if threshold ~= nil then
+  if threshold ~= nil then
 
-		reaper.PreventUIRefresh(1)
+    reaper.PreventUIRefresh(1)
 
-		main() -- Execute your main function
+    main() -- Execute your main function
 
-		reaper.UpdateArrange() -- Update the arrangement (often needed)
+    reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-		reaper.PreventUIRefresh(-1)
-	end
+    reaper.PreventUIRefresh(-1)
+  end
 
 end
 

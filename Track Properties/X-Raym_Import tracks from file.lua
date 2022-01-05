@@ -18,48 +18,48 @@
 --[[
  * Changelog:
  * v1.1.1 (2015-08-27)
-	# .csv file extension for MacOS
+  # .csv file extension for MacOS
  * v1.1 (2015-08-27)
-	# Track order
+  # Track order
  * v1.0 (2015-08-27)
-	+ Initial Release
+  + Initial Release
 ]]
 
 
 function Msg(variable)
-	reaper.ShowConsoleMsg(tostring(variable).."\n")
+  reaper.ShowConsoleMsg(tostring(variable).."\n")
 end
 
 ----------------------------------------------------------------------
 
 function read_lines(filepath)
 
-	reaper.Undo_BeginBlock() -- Begin undo group
+  reaper.Undo_BeginBlock() -- Begin undo group
 
-	local f = io.input(filepath)
-	repeat
+  local f = io.input(filepath)
+  repeat
 
-		s = f:read ("*l") -- read one line
+    s = f:read ("*l") -- read one line
 
-		if s then  -- if not end of file (EOF)
+    if s then  -- if not end of file (EOF)
 
-			count_tracks = reaper.CountTracks(0)
+      count_tracks = reaper.CountTracks(0)
 
-			i = 0
+      i = 0
 
-			last_track_id = count_tracks + i
-			reaper.InsertTrackAtIndex(last_track_id, true)
-			last_track = reaper.GetTrack(0, last_track_id)
+      last_track_id = count_tracks + i
+      reaper.InsertTrackAtIndex(last_track_id, true)
+      last_track = reaper.GetTrack(0, last_track_id)
 
-			retval, track_name = reaper.GetSetMediaTrackInfo_String(last_track, "P_NAME", s, true)
+      retval, track_name = reaper.GetSetMediaTrackInfo_String(last_track, "P_NAME", s, true)
 
-		end
+    end
 
-	until not s  -- until end of file
+  until not s  -- until end of file
 
-	f:close()
+  f:close()
 
-	reaper.Undo_EndBlock("Display script infos in the console", -1) -- End undo group
+  reaper.Undo_EndBlock("Display script infos in the console", -1) -- End undo group
 
 end
 
@@ -70,14 +70,14 @@ retval, filetxt = reaper.GetUserFileNameForRead("", "Import tracks from file", "
 
 if retval then
 
-	reaper.PreventUIRefresh(1)
-	read_lines(filetxt)
+  reaper.PreventUIRefresh(1)
+  read_lines(filetxt)
 
-	-- Update TCP
-	reaper.TrackList_AdjustWindows(false)
-	reaper.UpdateTimeline()
+  -- Update TCP
+  reaper.TrackList_AdjustWindows(false)
+  reaper.UpdateTimeline()
 
-	reaper.UpdateArrange()
-	reaper.PreventUIRefresh(-1)
+  reaper.UpdateArrange()
+  reaper.PreventUIRefresh(-1)
 
 end

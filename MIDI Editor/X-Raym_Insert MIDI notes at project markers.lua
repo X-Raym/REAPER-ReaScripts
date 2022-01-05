@@ -16,7 +16,7 @@
 --[[
  * Changelog:
  * v1.0 (2016-01-14)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- USER CONFIG AREA ---------------------
@@ -48,39 +48,39 @@ function main()
 
   if take ~= nil then
 
-	i=0
-	repeat
-		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOut = reaper.EnumProjectMarkers3(0, i)
+  i=0
+  repeat
+    iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOut = reaper.EnumProjectMarkers3(0, i)
 
-		if iRetval >= 1 then
-			if bIsrgnOut == false then
+    if iRetval >= 1 then
+      if bIsrgnOut == false then
 
-				next_iRetval, next_bIsrgnOut, next_iPosOut, next_iRgnendOut, next_sNameOut, next_iMarkrgnindexnumberOut, next_iColorOut = reaper.EnumProjectMarkers3(0, i+1)
+        next_iRetval, next_bIsrgnOut, next_iPosOut, next_iRgnendOut, next_sNameOut, next_iMarkrgnindexnumberOut, next_iColorOut = reaper.EnumProjectMarkers3(0, i+1)
 
-				-- TODO add conditions to check if it is in item boudnaries
+        -- TODO add conditions to check if it is in item boudnaries
 
-				if next_iRetval >= 1 and next_bIsrgnOut == false then
-					if next_iPosOut - iPosOut < length then
-						end_time = next_iPosOut
-					else
-						end_time = iPosOut + length
-					end
-				else
-					end_time = iPosOut + length
-				end
+        if next_iRetval >= 1 and next_bIsrgnOut == false then
+          if next_iPosOut - iPosOut < length then
+            end_time = next_iPosOut
+          else
+            end_time = iPosOut + length
+          end
+        else
+          end_time = iPosOut + length
+        end
 
-				iPosOut = reaper.MIDI_GetPPQPosFromProjTime(take, iPosOut)
-				end_time = reaper.MIDI_GetPPQPosFromProjTime(take, end_time)
+        iPosOut = reaper.MIDI_GetPPQPosFromProjTime(take, iPosOut)
+        end_time = reaper.MIDI_GetPPQPosFromProjTime(take, end_time)
 
-				--reaper.MIDI_InsertNote(take, selected, muted, startppqpos, endppqpos, chan, pitch, vel, NoSortInOptional)
-				retval = reaper.MIDI_InsertNote(take, selected, false, iPosOut, end_time, chan, pitch, vel, true)
+        --reaper.MIDI_InsertNote(take, selected, muted, startppqpos, endppqpos, chan, pitch, vel, NoSortInOptional)
+        retval = reaper.MIDI_InsertNote(take, selected, false, iPosOut, end_time, chan, pitch, vel, true)
 
-			end
-			i = i+1
-		end
-	until iRetval == 0
+      end
+      i = i+1
+    end
+  until iRetval == 0
 
-	reaper.MIDI_Sort(take)
+  reaper.MIDI_Sort(take)
 
   end -- ENFIF Take is MIDI
 
@@ -99,8 +99,8 @@ if retval or prompt == false then -- if user complete the fields
   if pitch ~= nil then
 
     pitch = math.floor(pitch)
-	if pitch < 0 then pitch = 0 end
-	if pitch > 127 then pitch = 127 end
+  if pitch < 0 then pitch = 0 end
+  if pitch > 127 then pitch = 127 end
 
     main() -- Execute your main function
 

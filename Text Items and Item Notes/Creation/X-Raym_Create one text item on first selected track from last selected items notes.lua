@@ -17,18 +17,18 @@
 --[[
  * Changelog:
  * v1.5 (2016-01-22)
-	# Better item creation
+  # Better item creation
  * v1.4 (2015-07-29)
-	# Better Set notes
+  # Better Set notes
  * v1.3 (2015-25-05)
-	+ Now with item color preservation
+  + Now with item color preservation
  * v1.2 (2015-04-14)
-	# Even better item selection and time selection/loop restoration
+  # Even better item selection and time selection/loop restoration
  * v1.1.1 (2015-03-11)
-	# Better item selection restoration
-	# First selected track as last touched
+  # Better item selection restoration
+  # First selected track as last touched
  * v1.0 (2015-03-11)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
@@ -36,96 +36,96 @@
 -- text and color are optional
 function CreateTextItem(track, position, length, text, color)
 
-	local item = reaper.AddMediaItemToTrack(track)
+  local item = reaper.AddMediaItemToTrack(track)
 
-	reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
-	reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
+  reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
+  reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
 
-	if text ~= nil then
-		reaper.ULT_SetMediaItemNote(item, text)
-	end
+  if text ~= nil then
+    reaper.ULT_SetMediaItemNote(item, text)
+  end
 
-	if color ~= nil then
-		reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
-	end
+  if color ~= nil then
+    reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+  end
 
-	return item
+  return item
 
 end
 
 
 function main()
 
-	text_output = ""
+  text_output = ""
 
-	selected_tracks_count = reaper.CountSelectedTracks(0)
+  selected_tracks_count = reaper.CountSelectedTracks(0)
 
-	if selected_tracks_count > 0 then
+  if selected_tracks_count > 0 then
 
-		selected_items_count = reaper.CountSelectedMediaItems(0)
+    selected_items_count = reaper.CountSelectedMediaItems(0)
 
-		if selected_items_count > 0 then
-			-- THE THING
+    if selected_items_count > 0 then
+      -- THE THING
 
-			--track = reaper.GetSelectedTrack(0, i)
-			reaper.Main_OnCommand(40914,0) -- Set first selected track as last touched track
-			reaper.Main_OnCommand(40644,0) -- Implode selected items into one track
+      --track = reaper.GetSelectedTrack(0, i)
+      reaper.Main_OnCommand(40914,0) -- Set first selected track as last touched track
+      reaper.Main_OnCommand(40644,0) -- Implode selected items into one track
 
-			track = reaper.GetLastTouchedTrack()
+      track = reaper.GetLastTouchedTrack()
 
-			selected_items_count = reaper.CountSelectedMediaItems(0) -- Get selected item on track
+      selected_items_count = reaper.CountSelectedMediaItems(0) -- Get selected item on track
 
-			first_item = reaper.GetSelectedMediaItem(0, 0)
-			first_item_start = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION")
+      first_item = reaper.GetSelectedMediaItem(0, 0)
+      first_item_start = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION")
 
-			last_item = reaper.GetSelectedMediaItem(0, selected_items_count-1)
-			last_item_duration = reaper.GetMediaItemInfo_Value(last_item, "D_LENGTH")
-			last_item_start = reaper.GetMediaItemInfo_Value(last_item, "D_POSITION")
-			last_item_end = last_item_start + last_item_duration
-			last_item_color = reaper.GetMediaItemInfo_Value(last_item, "I_CUSTOMCOLOR")
+      last_item = reaper.GetSelectedMediaItem(0, selected_items_count-1)
+      last_item_duration = reaper.GetMediaItemInfo_Value(last_item, "D_LENGTH")
+      last_item_start = reaper.GetMediaItemInfo_Value(last_item, "D_POSITION")
+      last_item_end = last_item_start + last_item_duration
+      last_item_color = reaper.GetMediaItemInfo_Value(last_item, "I_CUSTOMCOLOR")
 
-			duration = last_item_end - first_item_start
+      duration = last_item_end - first_item_start
 
-			-- GET ITEMS
-			loop_item = reaper.GetSelectedMediaItem(0, selected_items_count-1) -- Get last elected item i
-			loop_item_track = reaper.GetMediaItem_Track(loop_item)
+      -- GET ITEMS
+      loop_item = reaper.GetSelectedMediaItem(0, selected_items_count-1) -- Get last elected item i
+      loop_item_track = reaper.GetMediaItem_Track(loop_item)
 
-			text_output = reaper.ULT_GetMediaItemNote(loop_item)
+      text_output = reaper.ULT_GetMediaItemNote(loop_item)
 
-			reaper.Main_OnCommand(40029,0)
+      reaper.Main_OnCommand(40029,0)
 
-			--reaper.Main_OnCommand(40697, 0) -- DELETE all selected items
-			reaper.Undo_BeginBlock()
+      --reaper.Main_OnCommand(40697, 0) -- DELETE all selected items
+      reaper.Undo_BeginBlock()
 
-			CreateTextItem(track, first_item_start, duration, text_output, last_item_color)
+      CreateTextItem(track, first_item_start, duration, text_output, last_item_color)
 
-			--end
-			reaper.Undo_EndBlock("Create one text item on first selected track from last selected items notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
+      --end
+      reaper.Undo_EndBlock("Create one text item on first selected track from last selected items notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
-		else -- no selected item
-			reaper.ShowMessageBox("Select at least one item","Please",0)
-		end -- if select item
+    else -- no selected item
+      reaper.ShowMessageBox("Select at least one item","Please",0)
+    end -- if select item
 
-	else -- no selected track
-		reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
-	end
+  else -- no selected track
+    reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
+  end
 
 end
 
 -- SAVE INITIAL SELECTED ITEMS
 init_sel_items = {}
 local function SaveSelectedItems (table)
-	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
-		table[i+1] = reaper.GetSelectedMediaItem(0, i)
-	end
+  for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+    table[i+1] = reaper.GetSelectedMediaItem(0, i)
+  end
 end
 
 -- RESTORE INITIAL SELECTED ITEMS
 local function RestoreSelectedItems (table)
-	reaper.Main_OnCommand(40289, 0) -- Unselect all items
-	for _, item in ipairs(table) do
-		reaper.SetMediaItemSelected(item, true)
-	end
+  reaper.Main_OnCommand(40289, 0) -- Unselect all items
+  for _, item in ipairs(table) do
+    reaper.SetMediaItemSelected(item, true)
+  end
 end
 
 

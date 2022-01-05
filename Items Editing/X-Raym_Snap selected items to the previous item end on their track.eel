@@ -16,9 +16,9 @@
 /**
  * Changelog:
  * v1.0.1 (2018-03-19)
-	# User Config Area for offset
+  # User Config Area for offset
  * v1.0 (2015-03-29)
-	+ Initial Release
+  + Initial Release
  */
 
 /* USER CONFIG AREA */
@@ -30,43 +30,43 @@ offset = 0; // Offset time (seconds)
 
 function main()
 (
-	// RESET
-	//ShowConsoleMsg("");
+  // RESET
+  //ShowConsoleMsg("");
 
-	// COUNT SEL ITEMS
-	count_sel_items = CountSelectedMediaItems(0);
-	//MsgD("Number of selected items: ", count_sel_items);
+  // COUNT SEL ITEMS
+  count_sel_items = CountSelectedMediaItems(0);
+  //MsgD("Number of selected items: ", count_sel_items);
 
-	i = 0;
-	loop(count_sel_items,
+  i = 0;
+  loop(count_sel_items,
 
-		item = GetSelectedMediaItem(0, i);
-		item_pos = GetMediaItemInfo_Value(item, "D_POSITION");
+    item = GetSelectedMediaItem(0, i);
+    item_pos = GetMediaItemInfo_Value(item, "D_POSITION");
 
-		new_item_pos = item_pos +1;
+    new_item_pos = item_pos +1;
 
-		item_id = GetMediaItemInfo_Value(item, "IP_ITEMNUMBER");
+    item_id = GetMediaItemInfo_Value(item, "IP_ITEMNUMBER");
 
-		item_id != 0 ? (
+    item_id != 0 ? (
 
-			track = GetMediaItemTrack(item);
+      track = GetMediaItemTrack(item);
 
-			previous_item_id = item_id - 1;
+      previous_item_id = item_id - 1;
 
-			previous_item = GetTrackMediaItem(track, previous_item_id);
-			previous_item_pos = GetMediaItemInfo_Value(previous_item, "D_POSITION");
-			previous_item_len = GetMediaItemInfo_Value(previous_item, "D_LENGTH");
-			previous_item_end = previous_item_pos + previous_item_len;
+      previous_item = GetTrackMediaItem(track, previous_item_id);
+      previous_item_pos = GetMediaItemInfo_Value(previous_item, "D_POSITION");
+      previous_item_len = GetMediaItemInfo_Value(previous_item, "D_LENGTH");
+      previous_item_end = previous_item_pos + previous_item_len;
 
-			//MsgF("Previous item end: ", previous_item_end);
+      //MsgF("Previous item end: ", previous_item_end);
 
-			SetMediaItemInfo_Value(item, "D_POSITION", previous_item_end + offset);
+      SetMediaItemInfo_Value(item, "D_POSITION", previous_item_end + offset);
 
-		);
+    );
 
-		i = i+1;
+    i = i+1;
 
-	); // END of loop through selected items
+  ); // END of loop through selected items
 
 ); // END of main
 

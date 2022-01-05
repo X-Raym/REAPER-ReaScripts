@@ -15,9 +15,9 @@
 --[[
  * Changelog:
  * v2.0 (2019-04-26)
-	# Use track GUID to avoid lots of bugs with track reordering, addition, etc...
+  # Use track GUID to avoid lots of bugs with track reordering, addition, etc...
  * v1.0 (2016-01-28)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- USER CONFIG AREA ----------------
@@ -36,41 +36,41 @@ end
 function main()
 
 
-	-- Loop in Save
-	i = 0
-	repeat
+  -- Loop in Save
+  i = 0
+  repeat
 
-		local retval, key, value = reaper.EnumProjExtState(0, "Track_Visibility", i)
+    local retval, key, value = reaper.EnumProjExtState(0, "Track_Visibility", i)
 
-		local track = reaper.BR_GetMediaTrackByGUID(0, key)
+    local track = reaper.BR_GetMediaTrackByGUID(0, key)
 
-		if track and retval then
+    if track and retval then
 
-			tcp_visibility, mcp_visibility = value:match("([^,]+),([^,]+)")
+      tcp_visibility, mcp_visibility = value:match("([^,]+),([^,]+)")
 
-			if tcp then
-				reaper.SetMediaTrackInfo_Value(track, "B_SHOWINTCP", tcp_visibility)
-			end
-			if mcp then
-				reaper.SetMediaTrackInfo_Value(track, "B_SHOWINMIXER", mcp_visibility)
-			end
+      if tcp then
+        reaper.SetMediaTrackInfo_Value(track, "B_SHOWINTCP", tcp_visibility)
+      end
+      if mcp then
+        reaper.SetMediaTrackInfo_Value(track, "B_SHOWINMIXER", mcp_visibility)
+      end
 
-		end
+    end
 
-		i = i + 1
+    i = i + 1
 
-	until not retval
+  until not retval
 
 end
 
 count_tracks = reaper.CountTracks(0)
 
 if count_tracks > 0 then
-	reaper.PreventUIRefresh(1)
-	reaper.Undo_BeginBlock()
-	main()
-	reaper.Undo_EndBlock("Restore All Tracks Visibility", -1)
-	reaper.TrackList_AdjustWindows(false)
-	reaper.UpdateArrange()
-	reaper.PreventUIRefresh(-1)
+  reaper.PreventUIRefresh(1)
+  reaper.Undo_BeginBlock()
+  main()
+  reaper.Undo_EndBlock("Restore All Tracks Visibility", -1)
+  reaper.TrackList_AdjustWindows(false)
+  reaper.UpdateArrange()
+  reaper.PreventUIRefresh(-1)
 end

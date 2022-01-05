@@ -11,22 +11,22 @@
 
 function nudge_item_vol() local(i, item)
 (
-	i = 0;
-	loop(CountSelectedMediaItems(0),
-		(item = GetSelectedMediaItem(0, i)) ? (
+  i = 0;
+  loop(CountSelectedMediaItems(0),
+    (item = GetSelectedMediaItem(0, i)) ? (
 
-			OldVol=GetMediaItemInfo_Value(item, "D_VOL");
-			OldVolDB=20*(log10(OldVol));
+      OldVol=GetMediaItemInfo_Value(item, "D_VOL");
+      OldVolDB=20*(log10(OldVol));
 
-			NewVolDB=floor((OldVolDB + 0.05) * 10) / 10;
-	    	NewVolGain=exp(NewVolDB*0.115129254);
+      NewVolDB=floor((OldVolDB + 0.05) * 10) / 10;
+        NewVolGain=exp(NewVolDB*0.115129254);
 
-			SetMediaItemInfo_Value(item, "D_VOL", NewVolGain);
-		);
-	i += 1;
-	);
-	UpdateArrange();
-	Undo_OnStateChange("Nudge Item Vol +1");
+      SetMediaItemInfo_Value(item, "D_VOL", NewVolGain);
+    );
+  i += 1;
+  );
+  UpdateArrange();
+  Undo_OnStateChange("Nudge Item Vol +1");
 );
 
 nudge_item_vol();

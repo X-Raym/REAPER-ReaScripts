@@ -16,40 +16,40 @@
 --[[
  * Changelog:
  * v1.0 (2015-09-09)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	count_sel_items = reaper.CountSelectedMediaItems(0)
+  count_sel_items = reaper.CountSelectedMediaItems(0)
 
-	for i = 1, count_sel_items do
+  for i = 1, count_sel_items do
 
-		item = reaper.GetSelectedMediaItem(0, count_sel_items - i)
+    item = reaper.GetSelectedMediaItem(0, count_sel_items - i)
 
-		track = reaper.GetMediaItem_Track(item)
+    track = reaper.GetMediaItem_Track(item)
 
-		item_id = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
+    item_id = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
 
-		next_item = reaper.GetTrackMediaItem(track, item_id + 1)
+    next_item = reaper.GetTrackMediaItem(track, item_id + 1)
 
-		if next_item ~= nil then
+    if next_item ~= nil then
 
-			item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-			item_length = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+      item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+      item_length = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 
-			next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
+      next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
 
-			reaper.SetMediaItemInfo_Value(item, "D_POSITION", next_item_pos - item_length)
+      reaper.SetMediaItemInfo_Value(item, "D_POSITION", next_item_pos - item_length)
 
-		end
+    end
 
-	end
+  end
 
-	reaper.Undo_EndBlock("Move selected items to next item on their track", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Move selected items to next item on their track", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

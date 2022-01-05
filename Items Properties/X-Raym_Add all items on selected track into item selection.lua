@@ -17,35 +17,35 @@
 --[[
  * Changelog:
  * v1.1 (2015-03-05)
-	+ Rename
+  + Rename
  * v1.0 (2015-02-27)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function selected_items_on_tracks()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- LOOP TRHOUGH SELECTED TRACKS
+  -- LOOP TRHOUGH SELECTED TRACKS
 
-	selected_tracks_count = reaper.CountSelectedTracks(0)
+  selected_tracks_count = reaper.CountSelectedTracks(0)
 
-	for i = 0, selected_tracks_count-1  do
-		-- GET THE TRACK
-		track_sel = reaper.GetSelectedTrack(0, i) -- Get selected track i
+  for i = 0, selected_tracks_count-1  do
+    -- GET THE TRACK
+    track_sel = reaper.GetSelectedTrack(0, i) -- Get selected track i
 
-		item_num = reaper.CountTrackMediaItems(track_sel)
+    item_num = reaper.CountTrackMediaItems(track_sel)
 
-		-- ACTIONS
-		for j = 0, item_num-1 do
-			item = reaper.GetTrackMediaItem(track_sel, j)
-			reaper.SetMediaItemSelected(item, 1)
-		end
+    -- ACTIONS
+    for j = 0, item_num-1 do
+      item = reaper.GetTrackMediaItem(track_sel, j)
+      reaper.SetMediaItemSelected(item, 1)
+    end
 
-	end -- ENDLOOP through selected tracks
+  end -- ENDLOOP through selected tracks
 
 
-	reaper.Undo_EndBlock("Select all items on selected tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Select all items on selected tracks", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

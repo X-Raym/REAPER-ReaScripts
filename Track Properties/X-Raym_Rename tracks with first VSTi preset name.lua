@@ -16,9 +16,9 @@
 --[[
  * Changelog:
  * v1.1 (2020-06-15)
-	# Remove other prefixes
+  # Remove other prefixes
  * v1.0 (2019-10-03)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- ------ USER CONFIG AREA =====>
@@ -29,48 +29,48 @@
 
 function main()
 
-	for i = 0, tracks_count - 1 do
+  for i = 0, tracks_count - 1 do
 
-		track = reaper.GetSelectedTrack(0, i)
+    track = reaper.GetSelectedTrack(0, i)
 
-		vsti_id = reaper.TrackFX_GetInstrument(track)
+    vsti_id = reaper.TrackFX_GetInstrument(track)
 
-		if vsti_id >= 0 then
+    if vsti_id >= 0 then
 
-			retval, fx_name = reaper.TrackFX_GetFXName(track, vsti_id, "")
+      retval, fx_name = reaper.TrackFX_GetFXName(track, vsti_id, "")
 
-			fx_name = fx_name:gsub("VSTi: ", "")
+      fx_name = fx_name:gsub("VSTi: ", "")
 
-			-- Just in case
-			fx_name = fx_name:gsub("VST: ", "")
+      -- Just in case
+      fx_name = fx_name:gsub("VST: ", "")
 
-			fx_name = fx_name:gsub("AU: ", "")
+      fx_name = fx_name:gsub("AU: ", "")
 
-			fx_name = fx_name:gsub("AUi: ", "")
+      fx_name = fx_name:gsub("AUi: ", "")
 
-			fx_name = fx_name:gsub("VST3i: ", "")
+      fx_name = fx_name:gsub("VST3i: ", "")
 
-			fx_name = fx_name:gsub("JS: ", "")
+      fx_name = fx_name:gsub("JS: ", "")
 
-			fx_name = fx_name:gsub("DX: ", "")
+      fx_name = fx_name:gsub("DX: ", "")
 
-			fx_name = fx_name:gsub(" %(.-%)", "")
+      fx_name = fx_name:gsub(" %(.-%)", "")
 
-			retval, presetname = reaper.TrackFX_GetPreset(track, vsti_id, "")
+      retval, presetname = reaper.TrackFX_GetPreset(track, vsti_id, "")
 
-			if retval == 0 then
+      if retval == 0 then
 
-				track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", fx_name, true)
+        track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", fx_name, true)
 
-			else
+      else
 
-				track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", presetname, true)
+        track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", presetname, true)
 
-			end
+      end
 
-		end
+    end
 
-	end
+  end
 
 end
 

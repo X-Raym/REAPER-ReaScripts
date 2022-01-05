@@ -20,7 +20,7 @@ function Main()
   local pos = reaper.GetCursorPosition()
   if reaper.GetToggleCommandState( 1157 ) then
     pos = reaper.SnapToGrid( 0, pos )
-	reaper.SetEditCurPos( pos, false, false )
+  reaper.SetEditCurPos( pos, false, false )
   end
 end
 

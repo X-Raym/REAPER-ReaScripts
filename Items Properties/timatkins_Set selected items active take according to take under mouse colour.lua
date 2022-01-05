@@ -17,72 +17,72 @@
 --[[
  * Changelog:
  * v1.0(2016-01-04)
-	+ Initial Release
+  + Initial Release
 ]]
 
 console = false -- true/false: display the messages in the console
 
 function Msg(param)
-	if console == true then
-			reaper.ShowConsoleMsg(tostring(param).."\n")
-		end
+  if console == true then
+      reaper.ShowConsoleMsg(tostring(param).."\n")
+    end
 end
 
 
 function Select_Alt_Takes()
 
-	-- get take under mouse
-	item_take, item_pos = reaper.BR_TakeAtMouseCursor()
+  -- get take under mouse
+  item_take, item_pos = reaper.BR_TakeAtMouseCursor()
 
-	-- if there is a take under mouse, get its color and do the next part of the scriot
-	if item_take ~= nil then
+  -- if there is a take under mouse, get its color and do the next part of the scriot
+  if item_take ~= nil then
 
-		reaper.PreventUIRefresh(1)
-		reaper.Undo_BeginBlock()
+    reaper.PreventUIRefresh(1)
+    reaper.Undo_BeginBlock()
 
-		reaper.SetActiveTake(item_take)
+    reaper.SetActiveTake(item_take)
 
-		item_mouse = reaper.GetMediaItemTake_Item(item_take)
+    item_mouse = reaper.GetMediaItemTake_Item(item_take)
 
-		reaper.SetMediaItemSelected(item_mouse, true)
+    reaper.SetMediaItemSelected(item_mouse, true)
 
-		mouse_item_col = reaper.GetMediaItemTakeInfo_Value(item_take, "I_CUSTOMCOLOR")
+    mouse_item_col = reaper.GetMediaItemTakeInfo_Value(item_take, "I_CUSTOMCOLOR")
 
-		--count selected media items
-		count_sel_item = reaper.CountSelectedMediaItems(0)
+    --count selected media items
+    count_sel_item = reaper.CountSelectedMediaItems(0)
 
-		-- for each seleceted items do
-		for i = 0, count_sel_item -1 do
+    -- for each seleceted items do
+    for i = 0, count_sel_item -1 do
 
-			item = reaper.GetSelectedMediaItem(0,i)
+      item = reaper.GetSelectedMediaItem(0,i)
 
-			-- count its number of takes
-			take_count = reaper.CountTakes(item)
+      -- count its number of takes
+      take_count = reaper.CountTakes(item)
 
-			-- for each takes, compare its color with color of take undermouse
-			for i = 0, take_count - 1 do
+      -- for each takes, compare its color with color of take undermouse
+      for i = 0, take_count - 1 do
 
-				take = reaper.GetMediaItemTake(item, i)
+        take = reaper.GetMediaItemTake(item, i)
 
-				take_col = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
+        take_col = reaper.GetMediaItemTakeInfo_Value(take, "I_CUSTOMCOLOR")
 
-				-- if matchs, then set as active take and break take loop
-				if take_col == mouse_item_col then
+        -- if matchs, then set as active take and break take loop
+        if take_col == mouse_item_col then
 
-					reaper.SetActiveTake(take)
+          reaper.SetActiveTake(take)
 
-					break
+          break
 
-				end
+        end
 
-			end
+      end
 
-		end
+    end
 
-		reaper.Undo_EndBlock("Set selected items active take according to take under mouse colour", -1)
-		-- update arrange
-		reaper.UpdateArrange()
-		reaper.PreventUIRefresh(-1)
+    reaper.Undo_EndBlock("Set selected items active take according to take under mouse colour", -1)
+    -- update arrange
+    reaper.UpdateArrange()
+    reaper.PreventUIRefresh(-1)
 
 	else
 		Msg("No item selected.")

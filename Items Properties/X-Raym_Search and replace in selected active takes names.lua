@@ -49,53 +49,53 @@ function main()
     -- GET ITEMS
     item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-	take = reaper.GetActiveTake(item)
+  take = reaper.GetActiveTake(item)
 
-	if take ~= nil then
+  if take ~= nil then
 
-		-- GET NAMES
-		take_name = reaper.GetTakeName(take)
-		original_take_name = take_name
+    -- GET NAMES
+    take_name = reaper.GetTakeName(take)
+    original_take_name = take_name
 
-		track = reaper.GetMediaItem_Track(item)
-		retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
-
-
-		-- MODIFY NAMES
-		replace = replace:gsub("/T", track_name)
-		take_name = take_name:gsub(search, replace)
-
-		truncate_start = tonumber(truncate_start)
-		truncate_end = tonumber(truncate_end)
-		if truncate_start > 0 and truncate_start ~= nil then take_name = take_name:sub(truncate_start+1) end
-		if truncate_end > 0 and truncate_end ~= nil then
-			take_name_len = take_name:len()
-			take_name = take_name:sub(0, take_name_len-truncate_end)
-		end
-		ins_start = ins_start_in:gsub("/E", tostring(i + 1))
-		ins_end = ins_end_in:gsub("/E", tostring(i + 1))
-		ins_start = ins_start_in:gsub("/T", track_name)
-		ins_end = ins_end_in:gsub("/T", track_name)
+    track = reaper.GetMediaItem_Track(item)
+    retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
 
 
-		new_take_name = ins_start..take_name..ins_end
+    -- MODIFY NAMES
+    replace = replace:gsub("/T", track_name)
+    take_name = take_name:gsub(search, replace)
 
-		if select_renamed == "y" and original_take_name ~= new_take_name then
-			table.insert(select_renamed_items, item)
-		end
+    truncate_start = tonumber(truncate_start)
+    truncate_end = tonumber(truncate_end)
+    if truncate_start > 0 and truncate_start ~= nil then take_name = take_name:sub(truncate_start+1) end
+    if truncate_end > 0 and truncate_end ~= nil then
+      take_name_len = take_name:len()
+      take_name = take_name:sub(0, take_name_len-truncate_end)
+    end
+    ins_start = ins_start_in:gsub("/E", tostring(i + 1))
+    ins_end = ins_end_in:gsub("/E", tostring(i + 1))
+    ins_start = ins_start_in:gsub("/T", track_name)
+    ins_end = ins_end_in:gsub("/T", track_name)
 
-		-- SETNAMES
-		reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", new_take_name, true)
 
-	end
+    new_take_name = ins_start..take_name..ins_end
+
+    if select_renamed == "y" and original_take_name ~= new_take_name then
+      table.insert(select_renamed_items, item)
+    end
+
+    -- SETNAMES
+    reaper.GetSetMediaItemTakeInfo_String(take, "P_NAME", new_take_name, true)
+
+  end
 
   end -- ENDLOOP through selected items
 
   if select_renamed == "y" then
-	reaper.SelectAllMediaItems(0, false)
-	for i, item in ipairs(select_renamed_items) do
-		reaper.SetMediaItemSelected( item, true )
-	end
+  reaper.SelectAllMediaItems(0, false)
+  for i, item in ipairs(select_renamed_items) do
+    reaper.SetMediaItemSelected( item, true )
+  end
   end
 
   reaper.Undo_EndBlock("Search and replace in selected active takes names", -1) -- End of the undo block. Leave it at the bottom of your main function.
@@ -103,57 +103,57 @@ function main()
 end
 
 function Init()
-	-- START
-	sel_items_count = reaper.CountSelectedMediaItems(0)
+  -- START
+  sel_items_count = reaper.CountSelectedMediaItems(0)
 
-	if sel_items_count > 0 then
+  if sel_items_count > 0 then
 
-		if popup == true then
+    if popup == true then
 
-			defaultvals_csv = search .. "," .. replace .. "," .. truncate_start .. "," .. truncate_end .. "," .. ins_start_in .. "," .. ins_end_in .. "," .. select_renamed
+      defaultvals_csv = search .. "," .. replace .. "," .. truncate_start .. "," .. truncate_end .. "," .. ins_start_in .. "," .. ins_end_in .. "," .. select_renamed
 
-			retval, retvals_csv = reaper.GetUserInputs("Search & Replace", 7, "Search (% for escape char),Replace (/del for deletion),Truncate from start,Truncate from end,Insert at start (/E = Sel Num),Insert at end (/T = track name),Select renamed only? (y/n)", defaultvals_csv)
+      retval, retvals_csv = reaper.GetUserInputs("Search & Replace", 7, "Search (% for escape char),Replace (/del for deletion),Truncate from start,Truncate from end,Insert at start (/E = Sel Num),Insert at end (/T = track name),Select renamed only? (y/n)", defaultvals_csv)
 
-			if retval then -- if user complete the fields
+      if retval then -- if user complete the fields
 
-			  search, replace, truncate_start, truncate_end, ins_start_in, ins_end_in, select_renamed = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+        search, replace, truncate_start, truncate_end, ins_start_in, ins_end_in, select_renamed = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
 
-			  if replace == "/del" then replace = "" end
-			  if ins_start_in == "/no" then ins_start_in = "" end
-			  if ins_end_in == "/no" then ins_end_in = "" end
+        if replace == "/del" then replace = "" end
+        if ins_start_in == "/no" then ins_start_in = "" end
+        if ins_end_in == "/no" then ins_end_in = "" end
 
-			  if search ~= nil then
+        if search ~= nil then
 
-				reaper.PreventUIRefresh(1)
+        reaper.PreventUIRefresh(1)
 
-				main() -- Execute your main function
+        main() -- Execute your main function
 
-				reaper.PreventUIRefresh(-1)
+        reaper.PreventUIRefresh(-1)
 
-				reaper.UpdateArrange() -- Update the arrangement (often needed)
-			  end
+        reaper.UpdateArrange() -- Update the arrangement (often needed)
+        end
 
-			end
+      end
 
-		else
+    else
 
-			reaper.PreventUIRefresh(1)
+      reaper.PreventUIRefresh(1)
 
-			if replace == "/del" then replace = "" end
-			if ins_start_in == "/no" then ins_start_in = "" end
-			if ins_end_in == "/no" then ins_end_in = "" end
+      if replace == "/del" then replace = "" end
+      if ins_start_in == "/no" then ins_start_in = "" end
+      if ins_end_in == "/no" then ins_end_in = "" end
 
-			main() -- Execute your main function
+      main() -- Execute your main function
 
-			reaper.PreventUIRefresh(-1)
+      reaper.PreventUIRefresh(-1)
 
-			reaper.UpdateArrange() -- Update the arrangement (often needed)
+      reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-		end
+    end
 
-	end
+  end
 end
 
 if not preset_file_init then
-	Init()
+  Init()
 end

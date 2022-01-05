@@ -40,33 +40,33 @@ function select()
   (take = MIDIEditor_GetTake(MIDIEditor_GetActive())) ? (
     MIDI_CountEvts(take, notes, ccs, sysex);
 
-	// DETERMINE WHAT IS LOWEST PITCH
+  // DETERMINE WHAT IS LOWEST PITCH
     min_pitch = 127;
     i = 0;
     loop(notes,
     MIDI_EnumSelNotes(take, i);
     MIDI_GetNote(take, i, sel, muted, start, end, chan, pitch, vel);
       pitch < min_pitch ? (
-      	min_pitch = pitch;
+        min_pitch = pitch;
       );
       i += 1;
     );
 
-	// DETERMINE THE NOTES SELECTION IN LOWEST PITCH
-	all_selected = 1;
-	k = 0;
+  // DETERMINE THE NOTES SELECTION IN LOWEST PITCH
+  all_selected = 1;
+  k = 0;
     loop(notes,
-		MIDI_GetNote(take, k, sel, muted, start, end, chan, pitch, vel);
-		pitch == min_pitch ? (
-			sel == 0 ? (
-			  all_selected = 0;
-			);
-		);
+    MIDI_GetNote(take, k, sel, muted, start, end, chan, pitch, vel);
+    pitch == min_pitch ? (
+      sel == 0 ? (
+        all_selected = 0;
+      );
+    );
 
-		k += 1;
-	);
+    k += 1;
+  );
 
-	// SELECT OR UNSELECT NOTES
+  // SELECT OR UNSELECT NOTES
     j = 0;
     loop(notes,
       MIDI_GetNote(take, j, sel, muted, start, end, chan, pitch, vel);

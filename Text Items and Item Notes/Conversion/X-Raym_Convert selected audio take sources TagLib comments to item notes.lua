@@ -16,43 +16,43 @@
 --[[
  * Changelog:
  * v1.0 (2015-06-12)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
 function convert()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- LOOP THROUGH SELECTED ITEMS
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+  -- LOOP THROUGH SELECTED ITEMS
+  selected_items_count = reaper.CountSelectedMediaItems(0)
 
-	-- INITIALIZE loop through selected items
-	for i = 0, selected_items_count-1  do
-		-- GET ITEMS
-		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-		take = reaper.GetActiveTake(item)
+  -- INITIALIZE loop through selected items
+  for i = 0, selected_items_count-1  do
+    -- GET ITEMS
+    item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+    take = reaper.GetActiveTake(item)
 
-		if take ~= nil then
+    if take ~= nil then
 
-			src = reaper.GetMediaItemTake_Source(take)
+      src = reaper.GetMediaItemTake_Source(take)
 
-			if src ~= nil then
-				fn = reaper.GetMediaSourceFileName(src, "")
+      if src ~= nil then
+        fn = reaper.GetMediaSourceFileName(src, "")
 
-				-- GET NOTES
-				retval, tagval = reaper.SNM_ReadMediaFileTag(fn, "Comment", "")
+        -- GET NOTES
+        retval, tagval = reaper.SNM_ReadMediaFileTag(fn, "Comment", "")
 
-				-- MODIFY TAKE
-				name = name
-				reaper.ULT_SetMediaItemNote(item, tagval)
-			end
+        -- MODIFY TAKE
+        name = name
+        reaper.ULT_SetMediaItemNote(item, tagval)
+      end
 
-		end
+    end
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Convert selected audio take sources TagLib comments to item notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Convert selected audio take sources TagLib comments to item notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

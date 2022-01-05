@@ -11,7 +11,7 @@
 --[[
  * Changelog:
  * v1.0 (2020-09-24)
-	+ Initial Release
+  + Initial Release
 --]]
 
 

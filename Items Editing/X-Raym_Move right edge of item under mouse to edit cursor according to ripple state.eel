@@ -17,120 +17,120 @@
 /**
  * Changelog:
  * v1.2 (2015-03-25)
- 	# Better ripple
+   # Better ripple
  * v1.1 (2015-03-24)
- 	# Get ripple state optimization (thanks to Breeder!)
+   # Get ripple state optimization (thanks to Breeder!)
  * v1.0 (2015-03-23)
-	+ Initial Release
+  + Initial Release
  */
 
 function SaveItemRipple()
 (
-	item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
+  item_get_pos = GetMediaItemInfo_Value(item_get,"D_POSITION");
 
-	mouse_item_end < item_get_pos ? (
-		item[item_ar_len] = item_get;
-		item_ar_len +=1;
-	);
+  mouse_item_end < item_get_pos ? (
+    item[item_ar_len] = item_get;
+    item_ar_len +=1;
+  );
 );
 
 //MAIN
 function main()
 (
-	Undo_BeginBlock();
+  Undo_BeginBlock();
 
-	mouse_pos = extension_api("BR_PositionAtMouseCursor", 0);
-	count_sel_items = CountSelectedMediaItems(0);
+  mouse_pos = extension_api("BR_PositionAtMouseCursor", 0);
+  count_sel_items = CountSelectedMediaItems(0);
 
-	mouse_pos >= 0 ? ( // Mouse in in arrange view
+  mouse_pos >= 0 ? ( // Mouse in in arrange view
 
-		mouse_item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
+    mouse_item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
 
-		mouse_item != 0 ? (
+    mouse_item != 0 ? (
 
-		mouse_item_pos = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
-		edit_pos = GetCursorPosition();
+    mouse_item_pos = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
+    edit_pos = GetCursorPosition();
 
-		mouse_item_len = GetMediaItemInfo_Value(mouse_item,"D_LENGTH");
-		mouse_item_snap = GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET");
+    mouse_item_len = GetMediaItemInfo_Value(mouse_item,"D_LENGTH");
+    mouse_item_snap = GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET");
 
-		mouse_item_end = mouse_item_pos + mouse_item_len;
-		offset = edit_pos-mouse_item_pos;
+    mouse_item_end = mouse_item_pos + mouse_item_len;
+    offset = edit_pos-mouse_item_pos;
 
-		track = GetMediaItem_Track(mouse_item);
-		count_item_on_track = CountTrackMediaItems(track);
-		mouse_item_id = GetMediaItemInfo_Value(mouse_item,"IP_ITEMNUMBER");
+    track = GetMediaItem_Track(mouse_item);
+    count_item_on_track = CountTrackMediaItems(track);
+    mouse_item_id = GetMediaItemInfo_Value(mouse_item,"IP_ITEMNUMBER");
 
-		mouse_item_pos < edit_pos ?(
+    mouse_item_pos < edit_pos ?(
 
-			item = 10000;
-			item_ar_len = 0;
+      item = 10000;
+      item_ar_len = 0;
 
-			//all = GetToggleCommandState(40311);
-			//one = GetToggleCommandState(40310);
-			ripple = extension_api("SNM_GetIntConfigVar", "projripedit", -666);
+      //all = GetToggleCommandState(40311);
+      //one = GetToggleCommandState(40310);
+      ripple = extension_api("SNM_GetIntConfigVar", "projripedit", -666);
 
-			ripple == 2 ? (
-			//all == 1 ?(
-				count_media_items = CountMediaItems(0);
+      ripple == 2 ? (
+      //all == 1 ?(
+        count_media_items = CountMediaItems(0);
 
-				i=0;
-				loop(count_media_items,
+        i=0;
+        loop(count_media_items,
 
-					item_get = GetMediaItem(0, i);
+          item_get = GetMediaItem(0, i);
 
- 					SaveItemRipple();
+           SaveItemRipple();
 
-					i+=1;
-				);
-			);
+          i+=1;
+        );
+      );
 
-			ripple == 1 ? (
-			//one == 1 ? (
-				count_item_on_track = CountTrackMediaItems(track);
+      ripple == 1 ? (
+      //one == 1 ? (
+        count_item_on_track = CountTrackMediaItems(track);
 
-				i=0;
-				loop(count_item_on_track,
+        i=0;
+        loop(count_item_on_track,
 
-					item_get = GetTrackMediaItem(track, i);
+          item_get = GetTrackMediaItem(track, i);
 
-					SaveItemRipple();
+          SaveItemRipple();
 
-					i+=1;
-				);
-			);
+          i+=1;
+        );
+      );
 
-			mouse_take = GetActiveTake(mouse_item);
+      mouse_take = GetActiveTake(mouse_item);
 
-			mouse_take_off = GetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS");
+      mouse_take_off = GetMediaItemTakeInfo_Value(mouse_take, "D_STARTOFFS");
 
-			SetMediaItemInfo_Value(mouse_item, "D_LENGTH", offset);
-			SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", 0);
+      SetMediaItemInfo_Value(mouse_item, "D_LENGTH", offset);
+      SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", 0);
 
-			mouse_item_snap < offset ? (
-				SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", mouse_item_snap);
-			);
+      mouse_item_snap < offset ? (
+        SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", mouse_item_snap);
+      );
 
-			new_mouse_item_end = GetMediaItemInfo_Value(mouse_item,"D_POSITION") + GetMediaItemInfo_Value(mouse_item,"D_LENGTH");
-			new_offset = new_mouse_item_end - mouse_item_end;
+      new_mouse_item_end = GetMediaItemInfo_Value(mouse_item,"D_POSITION") + GetMediaItemInfo_Value(mouse_item,"D_LENGTH");
+      new_offset = new_mouse_item_end - mouse_item_end;
 
-			ripple > 0 ? (
-			//all == 1 || one == 1 ? (
-				j=0;
-				loop(item_ar_len,
+      ripple > 0 ? (
+      //all == 1 || one == 1 ? (
+        j=0;
+        loop(item_ar_len,
 
-					item_pos = GetMediaItemInfo_Value(item[j],"D_POSITION");
-					calc = item_pos + new_offset;
-					calc < 0 ? calc = 0;
-					SetMediaItemInfo_Value(item[j], "D_POSITION", calc);
+          item_pos = GetMediaItemInfo_Value(item[j],"D_POSITION");
+          calc = item_pos + new_offset;
+          calc < 0 ? calc = 0;
+          SetMediaItemInfo_Value(item[j], "D_POSITION", calc);
 
-					j+=1;
-				);
-			);
-		);
-		Undo_EndBlock("Move right edge of item under mouse to edit cursor according to ripple state", -1);
-		);
-	);
+          j+=1;
+        );
+      );
+    );
+    Undo_EndBlock("Move right edge of item under mouse to edit cursor according to ripple state", -1);
+    );
+  );
 );
 
 PreventUIRefresh(1);

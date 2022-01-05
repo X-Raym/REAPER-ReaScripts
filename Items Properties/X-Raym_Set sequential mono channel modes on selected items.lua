@@ -17,9 +17,9 @@
 --[[
  * Changelog:
  * v1.0.1 (2017-08-29)
-	# Title
+  # Title
  * v1.0 (2017-08-29)
-	+ Initial Release
+  + Initial Release
 --]]
 
 reaper.PreventUIRefresh(1)

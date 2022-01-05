@@ -21,25 +21,25 @@ msg_clean();
 
 function add_musical_notes_to_region()
 (
-	msg_s("=====>");
-	msg_s("INSTRUCTIONS : Be sure to have the cursor inside a region.");
-	msg_s("-----");
+  msg_s("=====>");
+  msg_s("INSTRUCTIONS : Be sure to have the cursor inside a region.");
+  msg_s("-----");
 
-	time = GetCursorPosition();
-	msg_s("Cursor Position:");
-	msg_f(time);
-	msg_s("-----");
+  time = GetCursorPosition();
+  msg_s("Cursor Position:");
+  msg_f(time);
+  msg_s("-----");
 
-	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
-	EnumProjectMarkers(regionidxOut, isRegion_b, currentRegionStart_d, currentRegionEnd_d, #name_str, currentRegionID_int);
-	currentRegionName = #name_str;
-	currentRegionName_str = sprintf(#dest3, "%s", currentRegionName);
+  GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
+  EnumProjectMarkers(regionidxOut, isRegion_b, currentRegionStart_d, currentRegionEnd_d, #name_str, currentRegionID_int);
+  currentRegionName = #name_str;
+  currentRegionName_str = sprintf(#dest3, "%s", currentRegionName);
 
-	italicStart = "<i>";
-	italicEnd = "</i>";
-	merged_name = sprintf(#dest, "%s%s%s", italicStart, currentRegionName_str, italicEnd);
+  italicStart = "<i>";
+  italicEnd = "</i>";
+  merged_name = sprintf(#dest, "%s%s%s", italicStart, currentRegionName_str, italicEnd);
 
-	SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, currentRegionEnd_d, merged_name);
+  SetProjectMarker(currentRegionID_int, 1, currentRegionStart_d, currentRegionEnd_d, merged_name);
 
 );
 

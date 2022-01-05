@@ -15,37 +15,37 @@
 --[[
  * Changelog:
  * v1.0 (2015-06-26)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- LOOP THROUGH SELECTED ITEMS
+  -- LOOP THROUGH SELECTED ITEMS
 
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+  selected_items_count = reaper.CountSelectedMediaItems(0)
 
-	-- INITIALIZE loop through selected items
-	for i = 0, selected_items_count-1  do
-		-- GET ITEMS
-		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+  -- INITIALIZE loop through selected items
+  for i = 0, selected_items_count-1  do
+    -- GET ITEMS
+    item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		-- GET INFOS
-		item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-		item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
+    -- GET INFOS
+    item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+    item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
 
-		fadein_len = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN")
+    fadein_len = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN")
 
-		if fadein_len >= item_snap then reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", item_snap) end
+    if fadein_len >= item_snap then reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", item_snap) end
 
-		-- SET INFOS
-		reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", item_len - item_snap) -- Set the value to the parameter
-	end -- ENDLOOP through selected items
+    -- SET INFOS
+    reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", item_len - item_snap) -- Set the value to the parameter
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Set selected items fade-out to snap offset", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Set selected items fade-out to snap offset", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

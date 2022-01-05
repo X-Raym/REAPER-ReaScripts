@@ -17,50 +17,50 @@
 --[[
  * Changelog:
  * v1.0 (2015-31-07)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	item = reaper.GetSelectedMediaItem(0,0)
+  item = reaper.GetSelectedMediaItem(0,0)
 
-	if item ~= nil then
+  if item ~= nil then
 
-		UnselectAllItems()
+    UnselectAllItems()
 
-		track = reaper.GetMediaItem_Track(item)
+    track = reaper.GetMediaItem_Track(item)
 
-		item_id = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
+    item_id = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
 
-		next_item = reaper.GetTrackMediaItem(track, item_id + 1)
+    next_item = reaper.GetTrackMediaItem(track, item_id + 1)
 
-		if next_item ~= nil then
+    if next_item ~= nil then
 
-			item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-			item_length = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-			item_end = item_pos + item_length
+      item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+      item_length = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+      item_end = item_pos + item_length
 
-			next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
-			next_item_length = reaper.GetMediaItemInfo_Value(next_item, "D_LENGTH")
-			next_item_end = next_item_pos + next_item_length
+      next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
+      next_item_length = reaper.GetMediaItemInfo_Value(next_item, "D_LENGTH")
+      next_item_end = next_item_pos + next_item_length
 
-			if next_item_end > item_end then
+      if next_item_end > item_end then
 
-				reaper.BR_SetItemEdges(item, item_pos, next_item_end)
+        reaper.BR_SetItemEdges(item, item_pos, next_item_end)
 
-			end
+      end
 
-			reaper.DeleteTrackMediaItem(track, next_item)
+      reaper.DeleteTrackMediaItem(track, next_item)
 
-		end
+    end
 
-		reaper.SetMediaItemSelected(item, true)
+    reaper.SetMediaItemSelected(item, true)
 
-	end
+  end
 
-	reaper.Undo_EndBlock("Expand first selected item to next item end", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Expand first selected item to next item end", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -68,9 +68,9 @@ end
 -- ITEMS
 -- UNSELECT ALL ITEMS
 function UnselectAllItems()
-	for  i = 0, reaper.CountMediaItems(0) - 1 do
-		reaper.SetMediaItemSelected(reaper.GetMediaItem(0, i), false)
-	end
+  for  i = 0, reaper.CountMediaItems(0) - 1 do
+    reaper.SetMediaItemSelected(reaper.GetMediaItem(0, i), false)
+  end
 end
 
 reaper.PreventUIRefresh(1)

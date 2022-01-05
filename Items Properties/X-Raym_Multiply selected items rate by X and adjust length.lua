@@ -15,9 +15,9 @@
 --[[
  * Changelog:
  * v1.1 (2016-11-25)
-	+ User config area for moding
+  + User config area for moding
  * v1.0 (2015-11-25)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- ------ USER AREA =====>
@@ -29,76 +29,76 @@ prompt = true -- true/false
 
 function main( coef )
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	SaveSelectedItems( init_sel_items )
+  SaveSelectedItems( init_sel_items )
 
-	-- INITIALIZE loop through selected items
-	for i = 1, #init_sel_items  do
-		-- GET ITEMS
-		item = init_sel_items[i] -- Get selected item i
+  -- INITIALIZE loop through selected items
+  for i = 1, #init_sel_items  do
+    -- GET ITEMS
+    item = init_sel_items[i] -- Get selected item i
 
-		take = reaper.GetActiveTake( item )
+    take = reaper.GetActiveTake( item )
 
-		if take ~= nil then
+    if take ~= nil then
 
-			take_rate = reaper.GetMediaItemTakeInfo_Value( take, "D_PLAYRATE" )
+      take_rate = reaper.GetMediaItemTakeInfo_Value( take, "D_PLAYRATE" )
 
-			take_rate = take_rate * coef
+      take_rate = take_rate * coef
 
-			reaper.SetMediaItemTakeInfo_Value( take, "D_PLAYRATE", take_rate )
+      reaper.SetMediaItemTakeInfo_Value( take, "D_PLAYRATE", take_rate )
 
-		end
+    end
 
-		item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
+    item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
 
-		item_len = item_len / coef
+    item_len = item_len / coef
 
-		reaper.SetMediaItemInfo_Value( item, "D_LENGTH", item_len )
+    reaper.SetMediaItemInfo_Value( item, "D_LENGTH", item_len )
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Multiply selected items rate and length by X", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Multiply selected items rate and length by X", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
 -- SAVE INITIAL SELECTED ITEMS
 init_sel_items = {}
 function SaveSelectedItems (table)
-	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
-		table[i+1] = reaper.GetSelectedMediaItem(0, i)
-	end
+  for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+    table[i+1] = reaper.GetSelectedMediaItem(0, i)
+  end
 end
 
 selected_items_count = reaper.CountSelectedMediaItems(0)
 
 if selected_items_count > 0 then
 
-  	if prompt then
-		retval, coef = reaper.GetUserInputs("Multiply Rate", 1, "Rate Coefficient ( > 0 )", tostring(coef))
-	end
+    if prompt then
+    retval, coef = reaper.GetUserInputs("Multiply Rate", 1, "Rate Coefficient ( > 0 )", tostring(coef))
+  end
 
-	if retval or prompt == false then
+  if retval or prompt == false then
 
-		coef = tonumber(coef)
+    coef = tonumber(coef)
 
-		if coef ~= nil then
+    if coef ~= nil then
 
-			coef = math.abs(coef)
+      coef = math.abs(coef)
 
-			if coef ~= 0 then
+      if coef ~= 0 then
 
-				reaper.PreventUIRefresh(1)
+        reaper.PreventUIRefresh(1)
 
-				main( coef ) -- Execute your main function
+        main( coef ) -- Execute your main function
 
-				reaper.PreventUIRefresh(-1)
+        reaper.PreventUIRefresh(-1)
 
-				reaper.UpdateArrange() -- Update the arrangement (often needed)
+        reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-			end
+      end
 
-		end
+    end
 
     end
 

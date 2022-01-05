@@ -17,17 +17,17 @@
 --[[
  * Changelog:
  * v1.4 (2016-01-22)
-	# Better item creation
+  # Better item creation
  * v1.3 (2015-07-29)
-	# Better Set notes
+  # Better Set notes
  * v1.1.1 (2015-03-11)
-	# Better item selection restoration
-	# First selected track as last touched
+  # Better item selection restoration
+  # First selected track as last touched
  * v1.1 (2015-03-06)
-	+ Multiple lines support
-	+ Dialog box if no track selected
+  + Multiple lines support
+  + Dialog box if no track selected
  * v1.0 (2015-02-28)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
@@ -35,49 +35,49 @@
 -- text and color are optional
 function CreateTextItem(track, position, length, text, color)
 
-	local item = reaper.AddMediaItemToTrack(track)
+  local item = reaper.AddMediaItemToTrack(track)
 
-	reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
-	reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
+  reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
+  reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
 
-	if text ~= nil then
-		reaper.ULT_SetMediaItemNote(item, text)
-	end
+  if text ~= nil then
+    reaper.ULT_SetMediaItemNote(item, text)
+  end
 
-	if color ~= nil then
-		reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
-	end
+  if color ~= nil then
+    reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+  end
 
-	return item
+  return item
 
 end
 
 
 function main()
 
-	track = reaper.GetSelectedTrack(0, 0) -- Get selected track i
+  track = reaper.GetSelectedTrack(0, 0) -- Get selected track i
 
-	-- IF THERE IS A TRACK SELECTED
-	if track ~= nil then
+  -- IF THERE IS A TRACK SELECTED
+  if track ~= nil then
 
-		reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+    reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-		-- LOOP THROUGH REGIONS
-		i=0
-		repeat
-			iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOut = reaper.EnumProjectMarkers3(0, i)
-			if iRetval >= 1 then
-				if bIsrgnOut == true then
-					length = iRgnendOut - iPosOut
-					CreateTextItem(track, iPosOut, length, sNameOut, iColorOut)
-				end
-				i = i+1
-			end
-		until iRetval == 0
-		reaper.Undo_EndBlock("Create text items on first selected track from regions", -1) -- End of the undo block. Leave it at the bottom of your main function.
-	else -- no selected track
-		reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
-	end
+    -- LOOP THROUGH REGIONS
+    i=0
+    repeat
+      iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOut = reaper.EnumProjectMarkers3(0, i)
+      if iRetval >= 1 then
+        if bIsrgnOut == true then
+          length = iRgnendOut - iPosOut
+          CreateTextItem(track, iPosOut, length, sNameOut, iColorOut)
+        end
+        i = i+1
+      end
+    until iRetval == 0
+    reaper.Undo_EndBlock("Create text items on first selected track from regions", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  else -- no selected track
+    reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
+  end
 
 end
 

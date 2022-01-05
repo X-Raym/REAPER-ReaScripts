@@ -17,7 +17,7 @@
 --[[
  * Changelog:
  * v1.0 ( 2017-02-07 )
-	+ Initial Release
+  + Initial Release
 --]]
 
 
@@ -38,77 +38,77 @@ local string = string
 
 -- Save item selection, and get midi infos right away
 function SaveSelectedMIDITakes ( array )
-	for i = 0, reaper.CountSelectedMediaItems( 0 )-1 do
-		local item = reaper.GetSelectedMediaItem( 0, i )
-		local take = reaper.GetActiveTake( item )
-		if take then
-			if reaper.TakeIsMIDI( take ) then
-				local retval, take_midi = reaper.MIDI_GetAllEvts( take, "" )
-				if take_midi:len() > 0 then
-					local take_midi_decode = MIDI_Decode( take_midi )
-					new_entry = {}
-					new_entry['midi'] = take_midi_decode
-					new_entry['take'] = take
-					new_entry['item'] = item
-					table.insert( array, new_entry )
-				end
-			end
-		end
-	end
+  for i = 0, reaper.CountSelectedMediaItems( 0 )-1 do
+    local item = reaper.GetSelectedMediaItem( 0, i )
+    local take = reaper.GetActiveTake( item )
+    if take then
+      if reaper.TakeIsMIDI( take ) then
+        local retval, take_midi = reaper.MIDI_GetAllEvts( take, "" )
+        if take_midi:len() > 0 then
+          local take_midi_decode = MIDI_Decode( take_midi )
+          new_entry = {}
+          new_entry['midi'] = take_midi_decode
+          new_entry['take'] = take
+          new_entry['item'] = item
+          table.insert( array, new_entry )
+        end
+      end
+    end
+  end
 end
 
 function RestoreSelectedItems ( table )
-	reaper.Main_OnCommand( 40289 , 0 ) -- Unselect all items
-	for _, item in ipairs( table ) do
-		reaper.SetMediaItemSelected( item, true )
-	end
+  reaper.Main_OnCommand( 40289 , 0 ) -- Unselect all items
+  for _, item in ipairs( table ) do
+    reaper.SetMediaItemSelected( item, true )
+  end
 end
 
 -- Display a message in the console for debugging
 function Msg( value )
-	if console then
-		reaper.ShowConsoleMsg( tostring( value ) .. "\n" )
-	end
+  if console then
+    reaper.ShowConsoleMsg( tostring( value ) .. "\n" )
+  end
 end
 
 function is_in_array( tab, val )
-	for index, value in ipairs ( tab ) do
-		if value == val then
-			return true
-		end
-	end
+  for index, value in ipairs ( tab ) do
+    if value == val then
+      return true
+    end
+  end
 
-	return false
+  return false
 end
 
 function SetOnlyItemSelected( item )
-	reaper.Main_OnCommand( 40289 , 0 ) -- Unselect all items
-	reaper.SetMediaItemSelected( item, true )
+  reaper.Main_OnCommand( 40289 , 0 ) -- Unselect all items
+  reaper.SetMediaItemSelected( item, true )
 end
 
 -- TRACKS
 -- SAVE INITIAL TRACKS SELECTION
 function SaveSelectedTracks ( table )
-	for i = 0, reaper.CountSelectedTracks( 0 )-1 do
-		table[i+1] = reaper.GetSelectedTrack( 0, i )
-	end
+  for i = 0, reaper.CountSelectedTracks( 0 )-1 do
+    table[i+1] = reaper.GetSelectedTrack( 0, i )
+  end
 end
 -- RESTORE INITIAL TRACKS SELECTION
 function RestoreSelectedTracks ( table )
-	reaper.Main_OnCommand( 40297, 0 ) -- Track: Unselect all tracks
-	for _, track in ipairs( table ) do
-		reaper.SetTrackSelected( track, true )
-	end
+  reaper.Main_OnCommand( 40297, 0 ) -- Track: Unselect all tracks
+  for _, track in ipairs( table ) do
+    reaper.SetTrackSelected( track, true )
+  end
 end
 
 -- VIEW
 -- SAVE INITIAL VIEW
 function SaveView()
-	start_time_view, end_time_view = reaper.BR_GetArrangeView( 0 )
+  start_time_view, end_time_view = reaper.BR_GetArrangeView( 0 )
 end
 -- RESTORE INITIAL VIEW
 function RestoreView()
-	reaper.BR_SetArrangeView( 0, start_time_view, end_time_view )
+  reaper.BR_SetArrangeView( 0, start_time_view, end_time_view )
 end
 
 --------------------------------------------------------- END OF UTILITIES
@@ -117,122 +117,122 @@ end
 -- Main function
 function Main()
 
-	similar = {}
-	duplicates = {}
+  similar = {}
+  duplicates = {}
 
-	-- For each takes
-	for i = 1, #midi_takes do
+  -- For each takes
+  for i = 1, #midi_takes do
 
-		-- If it has not already be marked as a duplicate of another take
-		if not is_in_array( duplicates, i ) then
+    -- If it has not already be marked as a duplicate of another take
+    if not is_in_array( duplicates, i ) then
 
-			take_A = midi_takes[i].take
-			take_A_midi = midi_takes[i].midi
+      take_A = midi_takes[i].take
+      take_A_midi = midi_takes[i].midi
 
-			-- For all other midi takes after it
-			for j = i +1, #midi_takes do
+      -- For all other midi takes after it
+      for j = i +1, #midi_takes do
 
-				take_B = midi_takes[j].take
-				take_B_midi = midi_takes[j].midi
+        take_B = midi_takes[j].take
+        take_B_midi = midi_takes[j].midi
 
-				console = false
+        console = false
 
-				Msg( "Compare " .. i .. " with " .. j )
+        Msg( "Compare " .. i .. " with " .. j )
 
-				-- If a similarity is found between the two takes
-				if take_A_midi == take_B_midi then
+        -- If a similarity is found between the two takes
+        if take_A_midi == take_B_midi then
 
-					Msg( "--------->Similar\n" )
+          Msg( "--------->Similar\n" )
 
-					if not similar[i] then similar[i] = {} end
+          if not similar[i] then similar[i] = {} end
 
-					table.insert( duplicates, j )
+          table.insert( duplicates, j )
 
-					table.insert( similar[i], j )
+          table.insert( similar[i], j )
 
-				end
+        end
 
-				console = true
+        console = true
 
-			end -- is take MIDI
+      end -- is take MIDI
 
-		end
+    end
 
-	end -- loops of items
+  end -- loops of items
 
-	-- COMPARE DUPLICATES
-	sel_items = {}
-	pools_count = 0
-	items_count = 0
+  -- COMPARE DUPLICATES
+  sel_items = {}
+  pools_count = 0
+  items_count = 0
 
-	-- For each similarity groups
-	for z, index in pairs( similar ) do
-		items_count = items_count + 1
-		out = ""
+  -- For each similarity groups
+  for z, index in pairs( similar ) do
+    items_count = items_count + 1
+    out = ""
 
-		-- Get reference take and items
-		source_take = midi_takes[z].take
-		source_item = midi_takes[z].item
-		SetOnlyItemSelected( source_item )
-		reaper.Main_OnCommand( 40698 , 0 ) -- Copy
+    -- Get reference take and items
+    source_take = midi_takes[z].take
+    source_item = midi_takes[z].item
+    SetOnlyItemSelected( source_item )
+    reaper.Main_OnCommand( 40698 , 0 ) -- Copy
 
-		-- For the other items in the similarity groups
-		for w, double in ipairs( index ) do
-			items_count = items_count + 1
-			out = out .. double .. ","
-			dest_take = midi_takes[double].take
-			dest_item = midi_takes[double].item
+    -- For the other items in the similarity groups
+    for w, double in ipairs( index ) do
+      items_count = items_count + 1
+      out = out .. double .. ","
+      dest_take = midi_takes[double].take
+      dest_item = midi_takes[double].item
 
-			dest_track = reaper.GetMediaItemTake_Track( dest_take )
+      dest_track = reaper.GetMediaItemTake_Track( dest_take )
 
-			reaper.SetOnlyTrackSelected( dest_track )
+      reaper.SetOnlyTrackSelected( dest_track )
 
-			reaper.Main_OnCommand( 40914, 0 ) -- Track: Set first selected track as last touched track
+      reaper.Main_OnCommand( 40914, 0 ) -- Track: Set first selected track as last touched track
 
-			dest_pos = reaper.GetMediaItemInfo_Value( dest_item, "D_POSITION" ) -- No need to take about SnapOffset : handles by native action
+      dest_pos = reaper.GetMediaItemInfo_Value( dest_item, "D_POSITION" ) -- No need to take about SnapOffset : handles by native action
 
-			reaper.SetEditCurPos( dest_pos, false, false )
+      reaper.SetEditCurPos( dest_pos, false, false )
 
-			reaper.Main_OnCommand( 41072 , 0 ) -- Paste Pool
+      reaper.Main_OnCommand( 41072 , 0 ) -- Paste Pool
 
-			reaper.DeleteTrackMediaItem( dest_track, dest_item )
-		end
+      reaper.DeleteTrackMediaItem( dest_track, dest_item )
+    end
 
-		table.insert( sel_items, source_item )
-		Msg( "Takes " .. z ..', ' .. out .." had similar MIDI.\n" )
-		pools_count = pools_count + 1
+    table.insert( sel_items, source_item )
+    Msg( "Takes " .. z ..', ' .. out .." had similar MIDI.\n" )
+    pools_count = pools_count + 1
 
-	end
+  end
 
-	Msg( pools_count .. ' MIDI pools were created from ' .. items_count .. ' media items.')
+  Msg( pools_count .. ' MIDI pools were created from ' .. items_count .. ' media items.')
 
 end
 
 -- MIDI Get All Evts to String, based on schwa code snippet
 function MIDI_Decode( midi )
-	local pos=1
-	local midi_string = ""
-	while pos <= midi:len() do
+  local pos=1
+  local midi_string = ""
+  while pos <= midi:len() do
 
-	local offs,flag,msg=string.unpack( "IBs4",midi,pos )
-	local adv=4+1+4+msg:len() -- int+char+int+msg
+  local offs,flag,msg=string.unpack( "IBs4",midi,pos )
+  local adv=4+1+4+msg:len() -- int+char+int+msg
 
-	local out="+"..offs.."\t"
+  local out="+"..offs.."\t"
 
 
-	for j=1,msg:len() do
-		out=out..string.format( "%02X ",msg:byte( j ))
-	end
-		if flag ~= 0 then out=out.."\t" end
-		if flag&1 == 1 then out=out.."sel " end
-		if flag&2 == 2 then out=out.."mute " end
-		midi_string = midi_string .. out.."\n"
+  for j=1,msg:len() do
+    out=out..string.format( "%02X ",msg:byte( j ))
+  end
+    if flag ~= 0 then out=out.."\t" end
+    if flag&1 == 1 then out=out.."sel " end
+    if flag&2 == 2 then out=out.."mute " end
+    midi_string = midi_string .. out.."\n"
 
-		pos=pos+adv
+    pos=pos+adv
 
-	end
+  end
 
-	return midi_string
+  return midi_string
 end
 
 
@@ -243,32 +243,32 @@ count_sel_items = reaper.CountSelectedMediaItems( 0 )
 
 if count_sel_items > 0 then
 
-	reaper.PreventUIRefresh( 1 )
+  reaper.PreventUIRefresh( 1 )
 
-	reaper.ClearConsole()
+  reaper.ClearConsole()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	SaveView()
+  SaveView()
 
-	init_sel_tracks = {}
-	SaveSelectedTracks ( init_sel_tracks )
+  init_sel_tracks = {}
+  SaveSelectedTracks ( init_sel_tracks )
 
-	midi_takes = {}
-	SaveSelectedMIDITakes( midi_takes )
+  midi_takes = {}
+  SaveSelectedMIDITakes( midi_takes )
 
-	Main()
+  Main()
 
-	RestoreSelectedTracks( init_sel_tracks )
+  RestoreSelectedTracks( init_sel_tracks )
 
-	RestoreSelectedItems( sel_items )
+  RestoreSelectedItems( sel_items )
 
-	RestoreView()
+  RestoreView()
 
-	reaper.Undo_EndBlock( "Replace similar MIDI takes by pools", -1 ) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock( "Replace similar MIDI takes by pools", -1 ) -- End of the undo block. Leave it at the bottom of your main function.
 
-	reaper.UpdateArrange()
+  reaper.UpdateArrange()
 
-	reaper.PreventUIRefresh(-1 )
+  reaper.PreventUIRefresh(-1 )
 
 end

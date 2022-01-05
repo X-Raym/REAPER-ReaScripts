@@ -18,11 +18,11 @@
 --]]
 
 function PlayFromMouse()
-	local pos_init = reaper.GetCursorPosition()
-	reaper.SetEditCurPos( pos, false, false )
-	reaper.OnPlayButton()
-	reaper.SetEditCurPos( pos_init, false, false )
-	reaper.PreventUIRefresh(-1)
+  local pos_init = reaper.GetCursorPosition()
+  reaper.SetEditCurPos( pos, false, false )
+  reaper.OnPlayButton()
+  reaper.SetEditCurPos( pos_init, false, false )
+  reaper.PreventUIRefresh(-1)
 end
 
 function main()
@@ -36,7 +36,7 @@ function main()
    if not parent then parent = track end
    count_tracks = reaper.CountTracks()
    for i = 0, count_tracks - 1 do
-	reaper.SetMediaTrackInfo_Value( reaper.GetTrack(0,i), "I_SOLO", 0)
+  reaper.SetMediaTrackInfo_Value( reaper.GetTrack(0,i), "I_SOLO", 0)
    end
 
    reaper.SetMediaTrackInfo_Value( parent, "I_SOLO", 1)
@@ -47,8 +47,8 @@ function main()
 end
 
 if not reaper.BR_TrackAtMouseCursor then
-	reaper.ShowMessageBox("Please install SWS extension", "Warning", 1)
+  reaper.ShowMessageBox("Please install SWS extension", "Warning", 1)
 else
-	reaper.defer(main)
+  reaper.defer(main)
 end
 

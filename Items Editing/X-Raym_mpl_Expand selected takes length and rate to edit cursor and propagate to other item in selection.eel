@@ -37,130 +37,130 @@ msg_start();*/
 
 function main() local(i, mouse_item, mouse_take, item, take)
 (
-	// GET MOUSE ITEM AND MOUSE TAKE
+  // GET MOUSE ITEM AND MOUSE TAKE
     (mouse_item = extension_api("BR_ItemAtMouseCursor", mouse_pos)) ? (
 
-		// CHECK IF ITEM HAS TAKE OR IF IT IS EMPTY ITEM
-		(mouse_take = GetActiveTake(mouse_item)) ?(
-			take_rate = GetMediaItemTakeInfo_Value(mouse_take, "D_PLAYRATE");
-		):(
-			take_rate = 1;
-		);
+    // CHECK IF ITEM HAS TAKE OR IF IT IS EMPTY ITEM
+    (mouse_take = GetActiveTake(mouse_item)) ?(
+      take_rate = GetMediaItemTakeInfo_Value(mouse_take, "D_PLAYRATE");
+    ):(
+      take_rate = 1;
+    );
 
-		// GET CURSOR POS
-		cursor_pos = GetCursorPositionEx(0);
+    // GET CURSOR POS
+    cursor_pos = GetCursorPositionEx(0);
 
-		// INITIAL ITEM INFOS
-		item_fadein = GetMediaItemInfo_Value(mouse_item, "D_FADEINLEN");
-		item_fadeout = GetMediaItemInfo_Value(mouse_item, "D_FADEOUTLEN");
-		item_position = GetMediaItemInfo_Value(mouse_item, "D_POSITION");
-		item_length = GetMediaItemInfo_Value(mouse_item, "D_LENGTH");
-		item_snap = GetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET");
+    // INITIAL ITEM INFOS
+    item_fadein = GetMediaItemInfo_Value(mouse_item, "D_FADEINLEN");
+    item_fadeout = GetMediaItemInfo_Value(mouse_item, "D_FADEOUTLEN");
+    item_position = GetMediaItemInfo_Value(mouse_item, "D_POSITION");
+    item_length = GetMediaItemInfo_Value(mouse_item, "D_LENGTH");
+    item_snap = GetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET");
 
-		// SNAP
-		item_snap_absolute = item_snap + item_position;
-		inv_snap_offset = item_length - item_snap;
+    // SNAP
+    item_snap_absolute = item_snap + item_position;
+    inv_snap_offset = item_length - item_snap;
 
-		abs_beetween = abs(item_snap_absolute - cursor_pos);
+    abs_beetween = abs(item_snap_absolute - cursor_pos);
 
-		cursor_pos < item_snap_absolute ? (
-			item_snap == 0 ? (
-				new_length = (item_position - cursor_pos) + item_length;
-				k = new_length / item_length;
-				mouse_item_snap = 1; // bolean
-			):(
-				k = abs_beetween / item_snap;
-				new_length = item_length * k;
-			);
-			new_pos = cursor_pos;
-		);
+    cursor_pos < item_snap_absolute ? (
+      item_snap == 0 ? (
+        new_length = (item_position - cursor_pos) + item_length;
+        k = new_length / item_length;
+        mouse_item_snap = 1; // bolean
+      ):(
+        k = abs_beetween / item_snap;
+        new_length = item_length * k;
+      );
+      new_pos = cursor_pos;
+    );
 
-		cursor_pos > item_snap_absolute ? (
-			k = abs_beetween / inv_snap_offset;
-			new_length = item_length * k;
-			new_pos = cursor_pos - new_length;
-		);
+    cursor_pos > item_snap_absolute ? (
+      k = abs_beetween / inv_snap_offset;
+      new_length = item_length * k;
+      new_pos = cursor_pos - new_length;
+    );
 
-		new_rate = take_rate / k;
-		new_snap_offset = item_snap * k;
-		new_fadein = item_fadein * k;
-		new_fadeout = item_fadeout * k;
+    new_rate = take_rate / k;
+    new_snap_offset = item_snap * k;
+    new_fadein = item_fadein * k;
+    new_fadeout = item_fadeout * k;
 
-		SetMediaItemTakeInfo_Value(mouse_take, "D_PLAYRATE", new_rate);
-		SetMediaItemInfo_Value(mouse_item, "D_POSITION", new_pos);
-		SetMediaItemInfo_Value(mouse_item, "D_LENGTH", new_length);
-		SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", new_snap_offset);
-		SetMediaItemInfo_Value(mouse_item, "D_FADEINLEN", new_fadein);
-		SetMediaItemInfo_Value(mouse_item, "D_FADEOUTLEN", new_fadeout);
-
-
-
-		// PROPAGATE TRANSFORMATION
-
-		// IF MOUSE ITEM ISE SELCTED, THEN UNSELECT
-		IsMediaItemSelected(mouse_item) ?(
-			selected = 1;
-			SetMediaItemSelected(mouse_item, 0);
-		);
-
-		i = 0;
-		loop(CountSelectedMediaItems(0),
-
-			item = GetSelectedMediaItem(0,i);
-			// CHECK IF ITEM HAS TAKE OR IF IT IS EMPTY ITEM
-			(take = GetActiveTake(item)) ?(
-				take_rate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
-			):(
-				take_rate = 1;
-			);
-
-			// INITIAL ITEM INFOS
-			item_fadein = GetMediaItemInfo_Value(item, "D_FADEINLEN");
-			item_fadeout = GetMediaItemInfo_Value(item, "D_FADEOUTLEN");
-			item_position = GetMediaItemInfo_Value(item, "D_POSITION");
-			item_length = GetMediaItemInfo_Value(item, "D_LENGTH");
-			item_snap = GetMediaItemInfo_Value(item, "D_SNAPOFFSET");
-
-			// SNAP
-			item_snap_absolute = item_snap + item_position;
-
-			new_length = item_length * k;
-
-			new_rate = take_rate / k;
-			new_snap_offset = item_snap * k;
-			new_fadein = item_fadein * k;
-			new_fadeout = item_fadeout * k;
-
-			new_pos = item_snap_absolute - new_snap_offset;
-
-			mouse_item_snap == 1 ? (
-				new_pos = item_position - abs_beetween;
-			);
-
-			mouse_item_snap == 1 && item_snap == 0 ? (
-				new_pos = item_position;
-			);
-
-			SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", new_rate);
-			SetMediaItemInfo_Value(item, "D_POSITION", new_pos);
-			SetMediaItemInfo_Value(item, "D_LENGTH", new_length);
-			SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap_offset);
-			SetMediaItemInfo_Value(item, "D_FADEINLEN", new_fadein);
-			SetMediaItemInfo_Value(item, "D_FADEOUTLEN", new_fadeout);
-
-			i += 1;
-
-		);
-
-		selected == 1 ? (
-			SetMediaItemSelected(mouse_item, 1);
-		);
+    SetMediaItemTakeInfo_Value(mouse_take, "D_PLAYRATE", new_rate);
+    SetMediaItemInfo_Value(mouse_item, "D_POSITION", new_pos);
+    SetMediaItemInfo_Value(mouse_item, "D_LENGTH", new_length);
+    SetMediaItemInfo_Value(mouse_item, "D_SNAPOFFSET", new_snap_offset);
+    SetMediaItemInfo_Value(mouse_item, "D_FADEINLEN", new_fadein);
+    SetMediaItemInfo_Value(mouse_item, "D_FADEOUTLEN", new_fadeout);
 
 
-		UpdateArrange(); // refresh arrange view
-		Undo_OnStateChange("Expand selected takes length and rate to edit cursor and propagate to other item in selection");
 
-	); // ENDIF ITEM UNDER MOUSE
+    // PROPAGATE TRANSFORMATION
+
+    // IF MOUSE ITEM ISE SELCTED, THEN UNSELECT
+    IsMediaItemSelected(mouse_item) ?(
+      selected = 1;
+      SetMediaItemSelected(mouse_item, 0);
+    );
+
+    i = 0;
+    loop(CountSelectedMediaItems(0),
+
+      item = GetSelectedMediaItem(0,i);
+      // CHECK IF ITEM HAS TAKE OR IF IT IS EMPTY ITEM
+      (take = GetActiveTake(item)) ?(
+        take_rate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+      ):(
+        take_rate = 1;
+      );
+
+      // INITIAL ITEM INFOS
+      item_fadein = GetMediaItemInfo_Value(item, "D_FADEINLEN");
+      item_fadeout = GetMediaItemInfo_Value(item, "D_FADEOUTLEN");
+      item_position = GetMediaItemInfo_Value(item, "D_POSITION");
+      item_length = GetMediaItemInfo_Value(item, "D_LENGTH");
+      item_snap = GetMediaItemInfo_Value(item, "D_SNAPOFFSET");
+
+      // SNAP
+      item_snap_absolute = item_snap + item_position;
+
+      new_length = item_length * k;
+
+      new_rate = take_rate / k;
+      new_snap_offset = item_snap * k;
+      new_fadein = item_fadein * k;
+      new_fadeout = item_fadeout * k;
+
+      new_pos = item_snap_absolute - new_snap_offset;
+
+      mouse_item_snap == 1 ? (
+        new_pos = item_position - abs_beetween;
+      );
+
+      mouse_item_snap == 1 && item_snap == 0 ? (
+        new_pos = item_position;
+      );
+
+      SetMediaItemTakeInfo_Value(take, "D_PLAYRATE", new_rate);
+      SetMediaItemInfo_Value(item, "D_POSITION", new_pos);
+      SetMediaItemInfo_Value(item, "D_LENGTH", new_length);
+      SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap_offset);
+      SetMediaItemInfo_Value(item, "D_FADEINLEN", new_fadein);
+      SetMediaItemInfo_Value(item, "D_FADEOUTLEN", new_fadeout);
+
+      i += 1;
+
+    );
+
+    selected == 1 ? (
+      SetMediaItemSelected(mouse_item, 1);
+    );
+
+
+    UpdateArrange(); // refresh arrange view
+    Undo_OnStateChange("Expand selected takes length and rate to edit cursor and propagate to other item in selection");
+
+  ); // ENDIF ITEM UNDER MOUSE
 
 );
 

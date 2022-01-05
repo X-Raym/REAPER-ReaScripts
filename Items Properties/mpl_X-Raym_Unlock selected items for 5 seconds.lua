@@ -16,7 +16,7 @@
 --[[
  * Changelog:
  * v1.0 (2015-06-15)
-	+ Initial Release
+  + Initial Release
 --]]
 
 time = 5 -- time in seconds you need for pause

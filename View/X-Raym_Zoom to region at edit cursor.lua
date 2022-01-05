@@ -14,23 +14,23 @@
 --[[
  * Changelog:
  * v1.0 (2015-05-19)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function main()
 
-	markeridx, regionidx = reaper.GetLastMarkerAndCurRegion(0, reaper.GetCursorPosition())
+  markeridx, regionidx = reaper.GetLastMarkerAndCurRegion(0, reaper.GetCursorPosition())
 
-	if regionidx ~= nil then
+  if regionidx ~= nil then
 
-		reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+    reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,regionidx)
-		reaper.BR_SetArrangeView(0, iPosOut, iRgnendOut)
+    iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,regionidx)
+    reaper.BR_SetArrangeView(0, iPosOut, iRgnendOut)
 
-		reaper.Undo_EndBlock("Zoom to region at edit cursor", -1) -- End of the undo block. Leave it at the bottom of your main function.
+    reaper.Undo_EndBlock("Zoom to region at edit cursor", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
-	end
+  end
 
 end
 

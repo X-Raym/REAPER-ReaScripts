@@ -15,44 +15,44 @@
 --[[
  * Changelog:
  * v1.0 (2016-03-21)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
 -- Main function
 function main()
 
-	-- LOOP THROUGH REGIONS
-	i=0
-	repeat
-		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
-		if iRetval >= 1 then
-			if sNameOut == '=START' then
-				start_delete = iMarkrgnindexnumberOut
-			end
-			if sNameOut == '=END' then
-				end_delete = iMarkrgnindexnumberOut
-			end
-			if start_delete and end_delete then
-				break
-			end
-			i = i+1
-		end
-	until iRetval == 0
+  -- LOOP THROUGH REGIONS
+  i=0
+  repeat
+    iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
+    if iRetval >= 1 then
+      if sNameOut == '=START' then
+        start_delete = iMarkrgnindexnumberOut
+      end
+      if sNameOut == '=END' then
+        end_delete = iMarkrgnindexnumberOut
+      end
+      if start_delete and end_delete then
+        break
+      end
+      i = i+1
+    end
+  until iRetval == 0
 
-	if start_delete then
-		reaper.DeleteProjectMarker(0, start_delete, false)
-	end
+  if start_delete then
+    reaper.DeleteProjectMarker(0, start_delete, false)
+  end
 
-	if end_delete then
-		reaper.DeleteProjectMarker(0, end_delete, false)
-	end
+  if end_delete then
+    reaper.DeleteProjectMarker(0, end_delete, false)
+  end
 
-	timeselstart, timeselend = reaper.GetSet_LoopTimeRange(false, false, 0, 0, false)
-	if timeselstart < timeselend then
-		reaper.AddProjectMarker2(0, false, timeselstart, 0, "=START", -1, 0)
-		reaper.AddProjectMarker2(0, false, timeselend, 0, "=END", -1, 0)
-	end
+  timeselstart, timeselend = reaper.GetSet_LoopTimeRange(false, false, 0, 0, false)
+  if timeselstart < timeselend then
+    reaper.AddProjectMarker2(0, false, timeselstart, 0, "=START", -1, 0)
+    reaper.AddProjectMarker2(0, false, timeselend, 0, "=END", -1, 0)
+  end
 
 end
 

@@ -17,19 +17,19 @@
 --[[
  * Changelog:
  * v1.4 (2016-01-22)
-	# Better item creation
+  # Better item creation
  * v1.3 (2015-07-29)
-	# Better Set notes
+  # Better Set notes
  * v1.2 (2015-05-08)
-	# Better view restoration
+  # Better view restoration
  * v1.1.1 (2015-03-11)
-	# Better item selection restoration
-	# First selected track as last touched
+  # Better item selection restoration
+  # First selected track as last touched
  * v1.1. (2015-03-06)
-	+ Multiple lines support
-	+ Dialog box if no track selected
+  + Multiple lines support
+  + Dialog box if no track selected
  * v1.0 (2015-02-28)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
@@ -37,20 +37,20 @@
 -- text and color are optional
 function CreateTextItem(track, position, length, text, color)
 
-	local item = reaper.AddMediaItemToTrack(track)
+  local item = reaper.AddMediaItemToTrack(track)
 
-	reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
-	reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
+  reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
+  reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
 
-	if text ~= nil then
-		reaper.ULT_SetMediaItemNote(item, text)
-	end
+  if text ~= nil then
+    reaper.ULT_SetMediaItemNote(item, text)
+  end
 
-	if color ~= nil then
-		reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
-	end
+  if color ~= nil then
+    reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+  end
 
-	return item
+  return item
 
 end
 
@@ -61,51 +61,51 @@ local setSelectedMediaItem = {}
 -- MAIN
 function main()
 
-	selected_tracks_count = reaper.CountSelectedTracks(0)
+  selected_tracks_count = reaper.CountSelectedTracks(0)
 
-	if selected_tracks_count > 0 then
+  if selected_tracks_count > 0 then
 
-		-- DEFINE TRACK DESTINATION
-		selected_track = reaper.GetSelectedTrack(0,0)
+    -- DEFINE TRACK DESTINATION
+    selected_track = reaper.GetSelectedTrack(0,0)
 
-		-- COUNT SELECTED ITEMS
-		selected_items_count = reaper.CountSelectedMediaItems(0)
+    -- COUNT SELECTED ITEMS
+    selected_items_count = reaper.CountSelectedMediaItems(0)
 
-		if selected_items_count > 0 then
+    if selected_items_count > 0 then
 
-			reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+      reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-			-- SAVE TAKES SELECTION
-			for j = 0, selected_items_count-1  do
-				setSelectedMediaItem[j] = reaper.GetSelectedMediaItem(0, j)
-			end
+      -- SAVE TAKES SELECTION
+      for j = 0, selected_items_count-1  do
+        setSelectedMediaItem[j] = reaper.GetSelectedMediaItem(0, j)
+      end
 
-			-- LOOP THROUGH TAKE SELECTION
-			for i = 0, selected_items_count-1  do
-				-- GET ITEMS AND TAKES AND PARENT TRACK
-				item = setSelectedMediaItem[i] -- Get selected item i
+      -- LOOP THROUGH TAKE SELECTION
+      for i = 0, selected_items_count-1  do
+        -- GET ITEMS AND TAKES AND PARENT TRACK
+        item = setSelectedMediaItem[i] -- Get selected item i
 
-				-- GET INFOS
-				item_color = reaper.GetDisplayedMediaItemColor(item)
+        -- GET INFOS
+        item_color = reaper.GetDisplayedMediaItemColor(item)
 
-				text = reaper.ULT_GetMediaItemNote(item)
+        text = reaper.ULT_GetMediaItemNote(item)
 
-				-- TIMES
-				item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-				item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+        -- TIMES
+        item_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+        item_duration = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 
-				-- ACTION
-				CreateTextItem(selected_track, item_start, item_duration, text)
+        -- ACTION
+        CreateTextItem(selected_track, item_start, item_duration, text)
 
-			end -- ENDLOOP through selected items
-			reaper.Main_OnCommand(40421, 0)
-			reaper.Undo_EndBlock("Create text items on first selected track from selected items notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
-		else -- no selected item
-			reaper.ShowMessageBox("Select at least one item","Please",0)
-		end -- if select item
-	else -- no selected track
-		reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
-	end -- if selected track
+      end -- ENDLOOP through selected items
+      reaper.Main_OnCommand(40421, 0)
+      reaper.Undo_EndBlock("Create text items on first selected track from selected items notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
+    else -- no selected item
+      reaper.ShowMessageBox("Select at least one item","Please",0)
+    end -- if select item
+  else -- no selected track
+    reaper.ShowMessageBox("Select a destination track before running the script","Please",0)
+  end -- if selected track
 end
 
 

@@ -17,140 +17,140 @@
 --[[
  * Changelog:
  * v1.0 (2015-08-21)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
 function Msg(variable)
-	reaper.ShowConsoleMsg(tostring(variable).."\n")
+  reaper.ShowConsoleMsg(tostring(variable).."\n")
 end
 
 ----------------------------------------------------------------------
 
 function read_lines(filepath)
 
-	reaper.Undo_BeginBlock() -- Begin undo group
+  reaper.Undo_BeginBlock() -- Begin undo group
 
-	name = ""
-	folder = ""
-	author = ""
-	release = ""
-	required = ""
-	extensions = ""
-	thread = ""
-	thread_URIs = ""
-	screenshot = ""
-	folder = ""
-	version = ""
-	version_date = ""
+  name = ""
+  folder = ""
+  author = ""
+  release = ""
+  required = ""
+  extensions = ""
+  thread = ""
+  thread_URIs = ""
+  screenshot = ""
+  folder = ""
+  version = ""
+  version_date = ""
 
-	local f = io.input(filepath)
-	repeat
+  local f = io.input(filepath)
+  repeat
 
-		s = f:read ("*l") -- read one line
+    s = f:read ("*l") -- read one line
 
-		if s then  -- if not end of file (EOF)
+    if s then  -- if not end of file (EOF)
 
-			-- REASCRIPT NAME
-			if string.find(s,'%s%*%sReaScript Name: ') then
+      -- REASCRIPT NAME
+      if string.find(s,'%s%*%sReaScript Name: ') then
 
-				name = tostring(s:match("ReaScript Name: (.*)"))
-				Msg(" * ReaScript Name: " .. name)
+        name = tostring(s:match("ReaScript Name: (.*)"))
+        Msg(" * ReaScript Name: " .. name)
 
-			end
+      end
 
-			-- AUTHOR
-			if string.find(s,' * Author: ') then
+      -- AUTHOR
+      if string.find(s,' * Author: ') then
 
-				author = tostring(s:match("Author: (.*)"))
-				Msg(" * Author: " .. author)
+        author = tostring(s:match("Author: (.*)"))
+        Msg(" * Author: " .. author)
 
-			end
+      end
 
-			-- THREAD
-			if string.find(s,'%s%*%sForum Thread: ') then
+      -- THREAD
+      if string.find(s,'%s%*%sForum Thread: ') then
 
-				thread = tostring(s:match("Forum Thread: (.*)"))
-				Msg(" * Forum Thread: " .. thread)
+        thread = tostring(s:match("Forum Thread: (.*)"))
+        Msg(" * Forum Thread: " .. thread)
 
-			else
-				thread = " "
-			end
+      else
+        thread = " "
+      end
 
-			-- THREAD URI
-			if string.find(s,'%s%*%sForum Thread URI: ') then
+      -- THREAD URI
+      if string.find(s,'%s%*%sForum Thread URI: ') then
 
-				thread_URI = tostring(s:match("Forum Thread URI: (.*)"))
-				Msg(" * Forum Thread URI: " .. thread_URI)
+        thread_URI = tostring(s:match("Forum Thread URI: (.*)"))
+        Msg(" * Forum Thread URI: " .. thread_URI)
 
-			else
-				thread_URI = " "
-			end
+      else
+        thread_URI = " "
+      end
 
-			-- REAPER
-			if string.find(s,'%s%*%sREAPER: ') then
+      -- REAPER
+      if string.find(s,'%s%*%sREAPER: ') then
 
-				required = tostring(s:match("REAPER: (.*)"))
-				Msg(" * REAPER: " .. required)
+        required = tostring(s:match("REAPER: (.*)"))
+        Msg(" * REAPER: " .. required)
 
-			end
+      end
 
-			-- EXTENSIONS
-			if string.find(s,'%s%*%sExtensions: ') then
+      -- EXTENSIONS
+      if string.find(s,'%s%*%sExtensions: ') then
 
-				extensions = tostring(s:match("Extensions: (.*)"))
-				Msg(" * Extensions: " .. extensions)
+        extensions = tostring(s:match("Extensions: (.*)"))
+        Msg(" * Extensions: " .. extensions)
 
-			end
+      end
 
-			-- SCREENSHOT
-			if string.find(s,'%s%*%sScreenshot: ') then
+      -- SCREENSHOT
+      if string.find(s,'%s%*%sScreenshot: ') then
 
-				screenshot = tostring(s:match("Screenshot: (.*)"))
-				Msg(" * Screenshot: " .. screenshot)
+        screenshot = tostring(s:match("Screenshot: (.*)"))
+        Msg(" * Screenshot: " .. screenshot)
 
-			end
+      end
 
-			-- VERSION
-			if string.find(s,'%s%*%sv') then
+      -- VERSION
+      if string.find(s,'%s%*%sv') then
 
-				version = tostring(string.match(s, "v(%S*)"))
-				version_date = tostring(string.match(s, "%d%d%d%d%-%d%d%-%d%d"))
+        version = tostring(string.match(s, "v(%S*)"))
+        version_date = tostring(string.match(s, "%d%d%d%d%-%d%d%-%d%d"))
 
-				--Msg(" * Last Version: " .. version)
-				if version ~= "" then Msg(" * Last Version: " .. version) end
-				if version_date ~= "" then Msg(" * Last Version Date: " .. version_date) end
+        --Msg(" * Last Version: " .. version)
+        if version ~= "" then Msg(" * Last Version: " .. version) end
+        if version_date ~= "" then Msg(" * Last Version Date: " .. version_date) end
 
-			end
+      end
 
-			-- VERSION
-			if string.find(s,'%s%*%sv1.0') then
+      -- VERSION
+      if string.find(s,'%s%*%sv1.0') then
 
-				release_date = tostring(string.match(s, "%d%d%d%d%-%d%d%-%d%d"))
+        release_date = tostring(string.match(s, "%d%d%d%d%-%d%d%-%d%d"))
 
-				if release_date ~= "" then Msg(" * Initial Release Date: " .. release_date) end
+        if release_date ~= "" then Msg(" * Initial Release Date: " .. release_date) end
 
-				break
+        break
 
-			end
+      end
 
-		end
+    end
 
-	until not s  -- until end of file
+  until not s  -- until end of file
 
-	f:close()
+  f:close()
 
-	sep = "	" -- Tab
+  sep = "  " -- Tab
 
-	Msg("\n\nCSV OUTPUT\n".. name .. sep .. folder .. sep .. author .. sep .. version.. sep.. version_date .. sep .. release_date .. sep .. required .. " / " .. extensions .. sep .. thread .. sep .. thread_URI .. sep .. screenshot)
+  Msg("\n\nCSV OUTPUT\n".. name .. sep .. folder .. sep .. author .. sep .. version.. sep.. version_date .. sep .. release_date .. sep .. required .. " / " .. extensions .. sep .. thread .. sep .. thread_URI .. sep .. screenshot)
 
-	Msg("\n\nFORUM OUTPUT\n".. "[b]EDIT: " .. version_date .."[/b]")
-	Msg("[List]")
-	Msg("[*][b]" .. name .."[/b]")
-	Msg("[/list]")
-	Msg("[img]" .. screenshot .."[/img]")
+  Msg("\n\nFORUM OUTPUT\n".. "[b]EDIT: " .. version_date .."[/b]")
+  Msg("[List]")
+  Msg("[*][b]" .. name .."[/b]")
+  Msg("[/list]")
+  Msg("[img]" .. screenshot .."[/img]")
 
-	reaper.Undo_EndBlock("Display script infos in the console", -1) -- End undo group
+  reaper.Undo_EndBlock("Display script infos in the console", -1) -- End undo group
 
 end
 
@@ -161,7 +161,7 @@ retval, filetxt = reaper.GetUserFileNameForRead("", "Select Script file", "lua")
 
 if retval then
 
-	reaper.ShowConsoleMsg("")
-	read_lines(filetxt)
+  reaper.ShowConsoleMsg("")
+  read_lines(filetxt)
 
 end

@@ -16,7 +16,7 @@
 /**
  * Changelog:
  * v0.5 (2015-04-13)
-	+ Initial release
+  + Initial release
  */
 
 /**
@@ -55,13 +55,13 @@ msg_start();*/
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 function setrecordmode() (
-	//extension_api("BR_GetArrangeView", 0, screen_start, screen_end);
-	zoom = GetHZoomLevel(); // because it has to be zoom dependant. Results in pixel per seconds.
-	play_pos = GetPlayPosition(); // because it has to scroll. Results in time.
+  //extension_api("BR_GetArrangeView", 0, screen_start, screen_end);
+  zoom = GetHZoomLevel(); // because it has to be zoom dependant. Results in pixel per seconds.
+  play_pos = GetPlayPosition(); // because it has to scroll. Results in time.
 
-	GetToggleCommandState(41817) == 1 && GetToggleCommandState(40036) == 0 ? ( // NO continuous playback and no auto-view scroll
-		extension_api("BR_SetArrangeView", 0, play_pos - 2, play_pos + 10);
-	);
+  GetToggleCommandState(41817) == 1 && GetToggleCommandState(40036) == 0 ? ( // NO continuous playback and no auto-view scroll
+    extension_api("BR_SetArrangeView", 0, play_pos - 2, play_pos + 10);
+  );
 );
 
 //V5 >>>
@@ -73,11 +73,11 @@ RefreshToolbar2(sec, cmd);
 //V5 <<<
 
 function run () (
-	time_precise() - t1 > interval ? (
-		setrecordmode();
-		time_precise(t1);
-	);
-	runloop("run()");
+  time_precise() - t1 > interval ? (
+    setrecordmode();
+    time_precise(t1);
+  );
+  runloop("run()");
 );
 
 //V5 >>>

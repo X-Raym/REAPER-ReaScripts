@@ -15,7 +15,7 @@
 /**
  * Changelog:
  * v1.0 (2015-03-19)
-	+ Initial Release
+  + Initial Release
  */
 
 // ----- DEBUGGING ====>
@@ -29,32 +29,32 @@ msg_clean();*/
 
 function main() // local (i, j, item, take, track)
 (
-	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
-	// LOOP TRHOUGH SELECTED TRACKS
+  // LOOP TRHOUGH SELECTED TRACKS
 
-	tracks_count = CountTracks(0);
+  tracks_count = CountTracks(0);
 
-	i = 0; // INITIALIZE loop through selected tracks
-	loop(tracks_count, (track = GetTrack(0, i)) ? (
+  i = 0; // INITIALIZE loop through selected tracks
+  loop(tracks_count, (track = GetTrack(0, i)) ? (
 
-			//GET INFOS
-			//track = GetTrack(0, i);
-			//msg_dtl("i", i, 1);
-			rec_armed = GetMediaTrackInfo_Value(track, "I_RECARM");
+      //GET INFOS
+      //track = GetTrack(0, i);
+      //msg_dtl("i", i, 1);
+      rec_armed = GetMediaTrackInfo_Value(track, "I_RECARM");
 
-			rec_armed == 0 ?(
-				// UNSELECT
-				SetMediaTrackInfo_Value(track, "I_SELECTED", 0);
-			):(
-				//SELECT
-				SetMediaTrackInfo_Value(track, "I_SELECTED", 1);
-			);
-		); // ENDIF inside loop
-		i += 1; // INCREMENT loop through selected tracks
-	); // ENDLOOP through selected tracks
+      rec_armed == 0 ?(
+        // UNSELECT
+        SetMediaTrackInfo_Value(track, "I_SELECTED", 0);
+      ):(
+        //SELECT
+        SetMediaTrackInfo_Value(track, "I_SELECTED", 1);
+      );
+    ); // ENDIF inside loop
+    i += 1; // INCREMENT loop through selected tracks
+  ); // ENDLOOP through selected tracks
 
-	Undo_EndBlock("Select all rec armed tracks and unselect the others", 0); // End of the undo block. Leave it at the bottom of your main function.
+  Undo_EndBlock("Select all rec armed tracks and unselect the others", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 //msg_start(); // Display characters in the console to show you the begining of the script execution.

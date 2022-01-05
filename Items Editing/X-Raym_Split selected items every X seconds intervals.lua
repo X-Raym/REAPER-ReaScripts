@@ -37,7 +37,7 @@ function main()
         it = reaper.GetSelectedMediaItem(0, i - 1 + splitCounter)
         length = reaper.GetMediaItemInfo_Value(it, "D_LENGTH")
         split_position = reaper.GetMediaItemInfo_Value(it, "D_POSITION") + numSplitItems
-		split_number = math.floor(length/numSplitItems)
+    split_number = math.floor(length/numSplitItems)
         for j = 1,(split_number - 1) do
           it = reaper.SplitMediaItem(it, split_position)
           split_position = split_position + numSplitItems

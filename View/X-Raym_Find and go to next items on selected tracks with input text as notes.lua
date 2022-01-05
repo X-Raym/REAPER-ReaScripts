@@ -26,83 +26,83 @@
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	reaper.SelectAllMediaItems(0, false) -- Unselect all items
+  reaper.SelectAllMediaItems(0, false) -- Unselect all items
 
-	edit_pos = reaper.GetCursorPosition()
+  edit_pos = reaper.GetCursorPosition()
 
-	items = {}
-	items_total = 0
+  items = {}
+  items_total = 0
 
-	-- LOOP THROUGH TRACKS
-	for i = 0, sel_tracks_count - 1 do
+  -- LOOP THROUGH TRACKS
+  for i = 0, sel_tracks_count - 1 do
 
-		track = reaper.GetSelectedTrack(0, i)
+    track = reaper.GetSelectedTrack(0, i)
 
-		count_items_tracks = reaper.GetTrackNumMediaItems(track)
+    count_items_tracks = reaper.GetTrackNumMediaItems(track)
 
-		for j = 0, count_items_tracks - 1 do
+    for j = 0, count_items_tracks - 1 do
 
-			item = reaper.GetTrackMediaItem(track, j)
+      item = reaper.GetTrackMediaItem(track, j)
 
-			items_total = items_total + 1
+      items_total = items_total + 1
 
-			items[items_total] = {}
+      items[items_total] = {}
 
-			items[items_total].item = item
-			items[items_total].pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+      items[items_total].item = item
+      items[items_total].pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 
-		end
+    end
 
-	end
+  end
 
-	table.sort(items, function( a,b )
-		if (a.pos < b.pos) then
-				-- primary sort on position -> a before b
-			return true
-			elseif (a.pos > b.pos) then
-				-- primary sort on position -> b before a
-			return false
-		else
-			-- primary sort tied, resolve w secondary sort on rank
-			return a.pos < b.pos
-		end
-	end)
+  table.sort(items, function( a,b )
+    if (a.pos < b.pos) then
+        -- primary sort on position -> a before b
+      return true
+      elseif (a.pos > b.pos) then
+        -- primary sort on position -> b before a
+      return false
+    else
+      -- primary sort tied, resolve w secondary sort on rank
+      return a.pos < b.pos
+    end
+  end)
 
 
-	-- INITIALIZE loop through items
-	for i = 1, #items do
-		-- GET ITEMS
-		item = items[i].item -- Get selected item i
+  -- INITIALIZE loop through items
+  for i = 1, #items do
+    -- GET ITEMS
+    item = items[i].item -- Get selected item i
 
-		item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+    item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 
-		if item_pos > edit_pos then
-				-- GET NOTES
-			notes = reaper.ULT_GetMediaItemNote(item)
+    if item_pos > edit_pos then
+        -- GET NOTES
+      notes = reaper.ULT_GetMediaItemNote(item)
 
-			if notes ~= nil and notes ~= "" then
+      if notes ~= nil and notes ~= "" then
 
-				x, y = string.find(notes, search)
+        x, y = string.find(notes, search)
 
-				if x then
+        if x then
 
-					reaper.SetEditCurPos(item_pos, true, true)
+          reaper.SetEditCurPos(item_pos, true, true)
 
-					reaper.SetMediaItemSelected(item, true)
+          reaper.SetMediaItemSelected(item, true)
 
-					break
+          break
 
-				end
+        end
 
-			end
+      end
 
-		end
+    end
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Find and go to next items on selected tracks with input text as notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Find and go to next items on selected tracks with input text as notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -111,22 +111,22 @@ sel_tracks_count = reaper.CountSelectedTracks(0)
 
 if sel_tracks_count > 0 then
 
-	retval, search = reaper.GetUserInputs("Find and Go", 1, "Search (% for escape char)", "")
+  retval, search = reaper.GetUserInputs("Find and Go", 1, "Search (% for escape char)", "")
 
-	if retval then -- if user complete the fields
+  if retval then -- if user complete the fields
 
-		if search ~= nil and search ~= "" then
+    if search ~= nil and search ~= "" then
 
-			reaper.PreventUIRefresh(1)
+      reaper.PreventUIRefresh(1)
 
-			main() -- Execute your main function
+      main() -- Execute your main function
 
-			reaper.PreventUIRefresh(-1)
+      reaper.PreventUIRefresh(-1)
 
-			reaper.UpdateArrange() -- Update the arrangement (often needed)
+      reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-		end
+    end
 
-	end
+  end
 
 end

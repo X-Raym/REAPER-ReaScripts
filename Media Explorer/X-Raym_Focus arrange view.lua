@@ -39,5 +39,5 @@ end
 sws = CheckSWS()
 
 if sws then
-	reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_FOCUS_ARRANGE_WND"), 0) -- Preview: Play/stop
+  reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_FOCUS_ARRANGE_WND"), 0) -- Preview: Play/stop
 end

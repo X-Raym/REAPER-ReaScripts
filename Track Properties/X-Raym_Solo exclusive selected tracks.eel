@@ -21,8 +21,8 @@
 function solo() local(track, i) (
   i=0;
   loop(CountSelectedTracks(0),
-  	SetMediaTrackInfo_Value(GetSelectedTrack(0, i), "I_SOLO", 1);
-  	i+=1;
+    SetMediaTrackInfo_Value(GetSelectedTrack(0, i), "I_SOLO", 1);
+    i+=1;
   );
 
   i=0;

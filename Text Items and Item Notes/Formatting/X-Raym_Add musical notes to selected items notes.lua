@@ -17,41 +17,41 @@
 --[[
  * Changelog:
  * v1.2 (2015-07-29)
-	# Better Set Notes
+  # Better Set Notes
  * v1.1 (2015-03-03)
-	+ Multiline support
-	+ Prevent duplicated tags
+  + Multiline support
+  + Prevent duplicated tags
  * v1.0 (2015-03-03)
-	+ Initial Release
+  + Initial Release
 --]]
 
 
 function musical()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 
-	-- LOOP THROUGH SELECTED ITEMS
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+  -- LOOP THROUGH SELECTED ITEMS
+  selected_items_count = reaper.CountSelectedMediaItems(0)
 
-	-- INITIALIZE loop through selected items
-	for i = 0, selected_items_count-1  do
-		-- GET ITEMS
-		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+  -- INITIALIZE loop through selected items
+  for i = 0, selected_items_count-1  do
+    -- GET ITEMS
+    item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		-- GET NOTES
-		note = reaper.ULT_GetMediaItemNote(item)
+    -- GET NOTES
+    note = reaper.ULT_GetMediaItemNote(item)
 
-		-- MODIFY NOTES
-		note = "♪ " .. note .. " ♪"
+    -- MODIFY NOTES
+    note = "♪ " .. note .. " ♪"
 
-		-- SET NOTES
-		reaper.ULT_SetMediaItemNote(item, note)
+    -- SET NOTES
+    reaper.ULT_SetMediaItemNote(item, note)
 
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Add musical notes to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Add musical notes to selected items notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

@@ -12,11 +12,11 @@
 local info = debug.getinfo(1,'S');
 local retval, val = reaper.GetUserInputs("Increase-Decrease master playrate by...", 1, "Speed (%)", "100")
 if retval then
-	val = tonumber( val )
-	if val then
-		reaper.Undo_BeginBlock()
-		local playrate = reaper.Master_GetPlayRate( project )
-		reaper.CSurf_OnPlayRateChange( playrate + val / 100 )
-		reaper.Undo_EndBlock( "Increase-Decrease master playrate by " .. val .. "%", -1 )
-	end
+  val = tonumber( val )
+  if val then
+    reaper.Undo_BeginBlock()
+    local playrate = reaper.Master_GetPlayRate( project )
+    reaper.CSurf_OnPlayRateChange( playrate + val / 100 )
+    reaper.Undo_EndBlock( "Increase-Decrease master playrate by " .. val .. "%", -1 )
+  end
 end

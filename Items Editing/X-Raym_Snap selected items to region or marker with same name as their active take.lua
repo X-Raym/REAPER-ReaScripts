@@ -17,7 +17,7 @@
 --[[
  * Changelog:
  * v1.0 (2015-09-13)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- ---------- USER CONFIG AREA ====>
@@ -28,53 +28,53 @@ unselect = true -- keep only selected items that didn't move
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- SAVE ITEMS SELECTION
-	sel_items = {}
-	for i = 0, selected_items_count do
-		sel_items[i+1] = reaper.GetSelectedMediaItem(0, i)
-	end
+  -- SAVE ITEMS SELECTION
+  sel_items = {}
+  for i = 0, selected_items_count do
+    sel_items[i+1] = reaper.GetSelectedMediaItem(0, i)
+  end
 
-	-- INITIALIZE loop through selected items
-	for j = 0, #sel_items - 1  do
-		-- GET ITEMS
-		item = sel_items[j+1] -- Get selected item i
+  -- INITIALIZE loop through selected items
+  for j = 0, #sel_items - 1  do
+    -- GET ITEMS
+    item = sel_items[j+1] -- Get selected item i
 
-		take = reaper.GetActiveTake(item) -- Get the active take
+    take = reaper.GetActiveTake(item) -- Get the active take
 
-		if take ~= nil then
+    if take ~= nil then
 
-			-- GET INFOS
-			take_name = reaper.GetTakeName(take)
+      -- GET INFOS
+      take_name = reaper.GetTakeName(take)
 
-			-- LOOP IN REGIONS
-			i=0
-			repeat
+      -- LOOP IN REGIONS
+      i=0
+      repeat
 
-				retval, isrgn, pos, rgnend, name, markrgnindex = reaper.EnumProjectMarkers2(0, i)
+        retval, isrgn, pos, rgnend, name, markrgnindex = reaper.EnumProjectMarkers2(0, i)
 
-				if name == take_name then -- if name mtach activate take name
+        if name == take_name then -- if name mtach activate take name
 
-					reaper.SetMediaItemInfo_Value(item, "D_POSITION", pos) -- Set the value to the parameter
+          reaper.SetMediaItemInfo_Value(item, "D_POSITION", pos) -- Set the value to the parameter
 
-					if unselect == true then
-						reaper.SetMediaItemSelected(item, false) -- unselect if there is a match
-					end
+          if unselect == true then
+            reaper.SetMediaItemSelected(item, false) -- unselect if there is a match
+          end
 
-					break -- prevent moving item several times if there is several regions with same name
+          break -- prevent moving item several times if there is several regions with same name
 
-				end
+        end
 
-				i = i+1
+        i = i+1
 
-			until retval == 0 -- end loop regions and markers
+      until retval == 0 -- end loop regions and markers
 
-		end -- if active take
+    end -- if active take
 
-	end -- selected items loop
+  end -- selected items loop
 
-	reaper.Undo_EndBlock("Snap selected items to region or marker with same name as their active take", -1)
+  reaper.Undo_EndBlock("Snap selected items to region or marker with same name as their active take", -1)
 
 end -- of function
 
@@ -85,10 +85,10 @@ retval, markers_count, regions_count = reaper.CountProjectMarkers(0)
 
 if selected_items_count > 0 and (markers_count > 0 or regions_count > 0) then
 
-	reaper.PreventUIRefresh(1)
+  reaper.PreventUIRefresh(1)
 
-	main() -- Execute your main function
+  main() -- Execute your main function
 
-	reaper.PreventUIRefresh(-1)
+  reaper.PreventUIRefresh(-1)
 
 end

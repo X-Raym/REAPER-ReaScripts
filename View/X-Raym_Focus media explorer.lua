@@ -35,10 +35,10 @@ end
 if not reaper.JS_Window_ArrayFind then
   reaper.ShowConsoleMsg('Please Install js_ReaScriptAPI extension.\nhttps://forum.cockos.com/showthread.php?t=212174\n')
 else
-	hwnd = GetMediaExplorer()
+  hwnd = GetMediaExplorer()
 
-	if hwnd then
+  if hwnd then
 
-		reaper.JS_Window_SetFocus( hwnd )
-	end
+    reaper.JS_Window_SetFocus( hwnd )
+  end
 end

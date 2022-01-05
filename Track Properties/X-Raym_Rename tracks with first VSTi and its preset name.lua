@@ -16,12 +16,12 @@
 --[[
  * Changelog:
  * v1.1.1 (2015-07-25)
-	# Space in name
+  # Space in name
  * v1.1 (2015-07-25)
-	+ Delete author and version in name
-	# bug fix
+  + Delete author and version in name
+  # bug fix
  * v1.0 (2015-07-22)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- ------ USER CONFIG AREA =====>
@@ -32,35 +32,35 @@ separator = "-"
 
 function main()
 
-	for i = 0, tracks_count - 1 do
+  for i = 0, tracks_count - 1 do
 
-		track = reaper.GetSelectedTrack(0, i)
+    track = reaper.GetSelectedTrack(0, i)
 
-		vsti_id = reaper.TrackFX_GetInstrument(track)
+    vsti_id = reaper.TrackFX_GetInstrument(track)
 
-		if vsti_id >= 0 then
+    if vsti_id >= 0 then
 
-			retval, fx_name = reaper.TrackFX_GetFXName(track, vsti_id, "")
+      retval, fx_name = reaper.TrackFX_GetFXName(track, vsti_id, "")
 
-			fx_name = fx_name:gsub("VSTi: ", "")
+      fx_name = fx_name:gsub("VSTi: ", "")
 
-			fx_name = fx_name:gsub(" %(.-%)", "")
+      fx_name = fx_name:gsub(" %(.-%)", "")
 
-			retval, presetname = reaper.TrackFX_GetPreset(track, vsti_id, "")
+      retval, presetname = reaper.TrackFX_GetPreset(track, vsti_id, "")
 
-			if retval == 0 then
+      if retval == 0 then
 
-				track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", fx_name, true)
+        track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", fx_name, true)
 
-			else
+      else
 
-				track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", fx_name .. " " .. separator .. " " .. presetname, true)
+        track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", fx_name .. " " .. separator .. " " .. presetname, true)
 
-			end
+      end
 
-		end
+    end
 
-	end
+  end
 
 end
 

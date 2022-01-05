@@ -16,7 +16,7 @@
 /**
  * Changelog:
  * v1.0 (2015-04-15)
-	+ Initial release
+  + Initial release
  */
 
 // EEL-select/unselect notes in grid space under mouse at or below (see note1) mouse cursor

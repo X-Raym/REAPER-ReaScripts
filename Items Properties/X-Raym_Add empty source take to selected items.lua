@@ -13,28 +13,28 @@
 --[[
  * Changelog:
  * v1.0 (2020-04-29)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- LOOP THROUGH SELECTED ITEMS
+  -- LOOP THROUGH SELECTED ITEMS
 
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+  selected_items_count = reaper.CountSelectedMediaItems(0)
 
-	-- INITIALIZE loop through selected items
-	for i = 0, selected_items_count-1  do
+  -- INITIALIZE loop through selected items
+  for i = 0, selected_items_count-1  do
 
-		-- GET ITEMS
-		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+    -- GET ITEMS
+    item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		reaper.AddTakeToMediaItem(item)
+    reaper.AddTakeToMediaItem(item)
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	reaper.Undo_EndBlock("Add empty source take to selected items", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Add empty source take to selected items", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

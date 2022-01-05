@@ -14,23 +14,23 @@
 --[[
  * Changelog:
  * v1.0 (2021-03-10)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- SAVE INITIAL TRACKS SELECTION
 init_sel_tracks = {}
 local function SaveSelectedTracks (table)
-	for i = 0, reaper.CountSelectedTracks(0)-1 do
-		table[i+1] = reaper.GetSelectedTrack(0, i)
-	end
+  for i = 0, reaper.CountSelectedTracks(0)-1 do
+    table[i+1] = reaper.GetSelectedTrack(0, i)
+  end
 end
 
 -- RESTORE INITIAL TRACKS SELECTION
 local function RestoreSelectedTracks (table)
-	reaper.Main_OnCommand( 40297 , 0) -- Track: Unselect all tracks
-	for _, track in ipairs(table) do
-		reaper.SetTrackSelected(track, true)
-	end
+  reaper.Main_OnCommand( 40297 , 0) -- Track: Unselect all tracks
+  for _, track in ipairs(table) do
+    reaper.SetTrackSelected(track, true)
+  end
 end
 
 function main()

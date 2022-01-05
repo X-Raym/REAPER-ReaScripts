@@ -18,64 +18,64 @@
 /**
  * Changelog:
  * v1.0 (2013-03-23)
-	+ Initial Release
+  + Initial Release
  */
 
 //MAIN
 function main()
 (
-	Undo_BeginBlock();
+  Undo_BeginBlock();
 
-	mouse_pos = extension_api("BR_PositionAtMouseCursor", 0);
-	count_sel_items = CountSelectedMediaItems(0);
+  mouse_pos = extension_api("BR_PositionAtMouseCursor", 0);
+  count_sel_items = CountSelectedMediaItems(0);
 
-	mouse_pos >= 0 && count_sel_items > 0 ? ( // Mouse in in arrange view
+  mouse_pos >= 0 && count_sel_items > 0 ? ( // Mouse in in arrange view
 
-		mouse_item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
+    mouse_item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
 
-		mouse_item != 0 ? (
+    mouse_item != 0 ? (
 
-		mouse_item_pos = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
-		edit_pos = GetCursorPosition();
+    mouse_item_pos = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
+    edit_pos = GetCursorPosition();
 
-		mouse_item_len = GetMediaItemInfo_Value(mouse_item,"D_LENGTH");
-		mouse_item_end = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
-		mouse_item_snap = GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET");
+    mouse_item_len = GetMediaItemInfo_Value(mouse_item,"D_LENGTH");
+    mouse_item_end = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
+    mouse_item_snap = GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET");
 
-		mouse_item_end = mouse_item_pos + mouse_item_len;
-		offset = mouse_item_pos - edit_pos;
+    mouse_item_end = mouse_item_pos + mouse_item_len;
+    offset = mouse_item_pos - edit_pos;
 
-		mouse_item_end > edit_pos ?(
+    mouse_item_end > edit_pos ?(
 
-			i=0;
-			loop(count_sel_items,
+      i=0;
+      loop(count_sel_items,
 
-				item = GetSelectedMediaItem(0, i);
-				take = GetActiveTake(item);
+        item = GetSelectedMediaItem(0, i);
+        take = GetActiveTake(item);
 
-				item_pos = GetMediaItemInfo_Value(item,"D_POSITION");
-				item_len = GetMediaItemInfo_Value(item,"D_LENGTH");
-				item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
+        item_pos = GetMediaItemInfo_Value(item,"D_POSITION");
+        item_len = GetMediaItemInfo_Value(item,"D_LENGTH");
+        item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
 
-				take_off = GetMediaItemTakeInfo_Value(take, "D_STARTOFFS");
+        take_off = GetMediaItemTakeInfo_Value(take, "D_STARTOFFS");
 
-				SetMediaItemInfo_Value(item, "D_POSITION", item_pos - offset);
-				SetMediaItemInfo_Value(item, "D_LENGTH", item_len + offset);
-				SetMediaItemInfo_Value(item, "D_SNAPOFFSET", item_snap + offset);
+        SetMediaItemInfo_Value(item, "D_POSITION", item_pos - offset);
+        SetMediaItemInfo_Value(item, "D_LENGTH", item_len + offset);
+        SetMediaItemInfo_Value(item, "D_SNAPOFFSET", item_snap + offset);
 
-				item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
-				item_snap < 0 ? (
-					SetMediaItemInfo_Value(item, "D_SNAPOFFSET", 0);
-				);
+        item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
+        item_snap < 0 ? (
+          SetMediaItemInfo_Value(item, "D_SNAPOFFSET", 0);
+        );
 
-				SetMediaItemTakeInfo_Value(take, "D_STARTOFFS", take_off - offset);
+        SetMediaItemTakeInfo_Value(take, "D_STARTOFFS", take_off - offset);
 
-				i+=1;
-			);
-		);
-		Undo_EndBlock("Expand left edge of item under mouse to edit cursor keeping snap offset position and apply to other selected items", -1);
-		);
-	);
+        i+=1;
+      );
+    );
+    Undo_EndBlock("Expand left edge of item under mouse to edit cursor keeping snap offset position and apply to other selected items", -1);
+    );
+  );
 );
 
 PreventUIRefresh(1);

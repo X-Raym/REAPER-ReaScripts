@@ -14,9 +14,9 @@
 /**
  * Changelog:
  * v1.1 (2017-05-30)
-	# Various fixes (Thanks MPL !)
+  # Various fixes (Thanks MPL !)
  * v1.0 (2015-04-24)
-	+ Initial Release
+  + Initial Release
  */
 
 // ----- DEBUGGING ====>
@@ -30,17 +30,17 @@ msg_clean();*/
 
 function main() // local (i, j, item, take, track)
 (
-	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
-	count_tempo_markers = CountTempoTimeSigMarkers(0);
-	i = count_tempo_markers;
-	loop(count_tempo_markers,
-		DeleteTempoTimeSigMarker(0, i);
-		i-=1;
-	);
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+  count_tempo_markers = CountTempoTimeSigMarkers(0);
+  i = count_tempo_markers;
+  loop(count_tempo_markers,
+    DeleteTempoTimeSigMarker(0, i);
+    i-=1;
+  );
 
-	// YOUR CODE ABOVE
+  // YOUR CODE ABOVE
 
-	Undo_EndBlock("Delete all tempo markers", 0); // End of the undo block. Leave it at the bottom of your main function.
+  Undo_EndBlock("Delete all tempo markers", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 //msg_start(); // Display characters in the console to show you the begining of the script execution.

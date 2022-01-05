@@ -82,60 +82,60 @@ function opengui()
 (
 
 // text in the UI
-	gfx_x = 20;
-	gfx_y = 10;
-	gfx_drawstr("==== INSTRUCTIONS ====");
+  gfx_x = 20;
+  gfx_y = 10;
+  gfx_drawstr("==== INSTRUCTIONS ====");
 
-	gfx_x = 20;
-	gfx_y = 25;
-	gfx_drawstr("0. Execute the script");
+  gfx_x = 20;
+  gfx_y = 25;
+  gfx_drawstr("0. Execute the script");
 
-	gfx_x = 20;
-	gfx_y = 40;
-	gfx_drawstr("1. Select all console log");
+  gfx_x = 20;
+  gfx_y = 40;
+  gfx_drawstr("1. Select all console log");
 
-	gfx_x = 20;
-	gfx_y = 55;
-	gfx_drawstr("2. Copy console log (Righ click/copy)");
+  gfx_x = 20;
+  gfx_y = 55;
+  gfx_drawstr("2. Copy console log (Righ click/copy)");
 
-	gfx_x = 20;
-	gfx_y = 70;
-	gfx_drawstr("3. Save and close the project");
+  gfx_x = 20;
+  gfx_y = 70;
+  gfx_drawstr("3. Save and close the project");
 
-	gfx_x = 20;
-	gfx_y = 85;
-	gfx_drawstr("4. Open the project in a code editor");
+  gfx_x = 20;
+  gfx_y = 85;
+  gfx_drawstr("4. Open the project in a code editor");
 
-	gfx_x = 20;
-	gfx_y = 100;
-	gfx_drawstr("5. Find <EXTENSIONS at the bottom");
+  gfx_x = 20;
+  gfx_y = 100;
+  gfx_drawstr("5. Find <EXTENSIONS at the bottom");
 
-	gfx_x = 20;
-	gfx_y = 115;
-	gfx_drawstr("6. Paste the console log after it and save");
+  gfx_x = 20;
+  gfx_y = 115;
+  gfx_drawstr("6. Paste the console log after it and save");
 
-	gfx_x = 20;
-	gfx_y = 130;
-	gfx_drawstr("7. Open project in REAPER");
+  gfx_x = 20;
+  gfx_y = 130;
+  gfx_drawstr("7. Open project in REAPER");
 
-	gfx_x = 20;
-	gfx_y = 145;
-	gfx_drawstr("8. Enjoy!");
+  gfx_x = 20;
+  gfx_y = 145;
+  gfx_drawstr("8. Enjoy!");
 
-	//-------
-	char = gfx_getchar();
-	// ctrl+lmb to Undo
-	char == 26 ? (
-	Main_OnCommand(40029, 0); // undo
-	);
-	// Esc to exit
-	char == 27 ? (
-	gfx_quit();
-	);
-	char >= 0 ? (					// if window is visible
-	defer("opengui();");		// execute loop constantly
-	);
-	gfx_update();
+  //-------
+  char = gfx_getchar();
+  // ctrl+lmb to Undo
+  char == 26 ? (
+  Main_OnCommand(40029, 0); // undo
+  );
+  // Esc to exit
+  char == 27 ? (
+  gfx_quit();
+  );
+  char >= 0 ? (          // if window is visible
+  defer("opengui();");    // execute loop constantly
+  );
+  gfx_update();
 
 );
 

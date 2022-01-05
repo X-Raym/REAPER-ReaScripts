@@ -34,12 +34,12 @@ function solo() local(track, i) (
 );
 
 function previous() (
-	GetMediaTrackInfo_Value(GetLastTouchedTrack(), "I_SOLO") == 0 ? (
-		Main_OnCommand(40286, 0);
-		):(
-		Main_OnCommand(40286, 0);
-		solo();
-	);
+  GetMediaTrackInfo_Value(GetLastTouchedTrack(), "I_SOLO") == 0 ? (
+    Main_OnCommand(40286, 0);
+    ):(
+    Main_OnCommand(40286, 0);
+    solo();
+  );
 );
 
 Undo_BeginBlock();

@@ -15,7 +15,7 @@
 /**
  * Changelog:
  * v1.0 (2015-05-30)
-	+ Initial Release
+  + Initial Release
  */
 
 // ----- DEBUGGING ====>
@@ -29,14 +29,14 @@ msg_clean();*/
 
 function main() // local (i, j, item, take, track)
 (
-	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
-	track = GetMasterTrack(0);
-	width_initial = GetMediaTrackInfo_Value(track, "D_WIDTH");
-	width_output = - width_initial;
-	SetMediaTrackInfo_Value(track, "D_WIDTH", width_output);
+  track = GetMasterTrack(0);
+  width_initial = GetMediaTrackInfo_Value(track, "D_WIDTH");
+  width_output = - width_initial;
+  SetMediaTrackInfo_Value(track, "D_WIDTH", width_output);
 
-	Undo_EndBlock("Invert master track stereo left right width", 0); // End of the undo block. Leave it at the bottom of your main function.
+  Undo_EndBlock("Invert master track stereo left right width", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 //msg_start(); // Display characters in the console to show you the begining of the script execution.

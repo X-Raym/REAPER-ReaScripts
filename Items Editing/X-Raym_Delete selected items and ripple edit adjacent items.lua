@@ -16,55 +16,55 @@
 --[[
  * Changelog:
  * v1.0 (2015-12-02)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function msg(val)
-	reaper.ShowConsoleMsg(tostring(val).."\n")
+  reaper.ShowConsoleMsg(tostring(val).."\n")
 end
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	-- LOOP THROUGH SELECTED TAKES
-	selected_items_count = reaper.CountSelectedMediaItems(0)
+  -- LOOP THROUGH SELECTED TAKES
+  selected_items_count = reaper.CountSelectedMediaItems(0)
 
-	delete_items = {}
+  delete_items = {}
 
-	for i = 0, selected_items_count-1  do
-		-- GET ITEMS
-		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
+  for i = 0, selected_items_count-1  do
+    -- GET ITEMS
+    item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-		track = reaper.GetMediaItemTrack(item) -- Get the active take
+    track = reaper.GetMediaItemTrack(item) -- Get the active take
 
-		-- GET INFOS
-		item_idx = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
-		item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-		item_len =  reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-		item_end = item_pos + item_len
+    -- GET INFOS
+    item_idx = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
+    item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+    item_len =  reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+    item_end = item_pos + item_len
 
-		next_item = reaper.GetTrackMediaItem(track, item_idx + 1)
+    next_item = reaper.GetTrackMediaItem(track, item_idx + 1)
 
-		if next_item ~= nil then
-			next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
+    if next_item ~= nil then
+      next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
 
-			if next_item_pos <= item_end + 0.0000000000001 then
-				reaper.SetMediaItemInfo_Value(next_item, "D_POSITION", item_pos)
-				table.insert(delete_items, item)
-			end
+      if next_item_pos <= item_end + 0.0000000000001 then
+        reaper.SetMediaItemInfo_Value(next_item, "D_POSITION", item_pos)
+        table.insert(delete_items, item)
+      end
 
-		end
+    end
 
 
-	end -- ENDLOOP through selected items
+  end -- ENDLOOP through selected items
 
-	for i = 1, #delete_items do
-		track = reaper.GetMediaItemTrack(delete_items[i])
-		reaper.DeleteTrackMediaItem(track, delete_items[i])
-	end
+  for i = 1, #delete_items do
+    track = reaper.GetMediaItemTrack(delete_items[i])
+    reaper.DeleteTrackMediaItem(track, delete_items[i])
+  end
 
-	reaper.Undo_EndBlock("Delete selected items and ripple edit adjacent items", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Delete selected items and ripple edit adjacent items", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 

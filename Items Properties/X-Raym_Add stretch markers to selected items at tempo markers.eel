@@ -17,9 +17,9 @@
 /**
  * Changelog:
  * v1.1 (2014-04-16)
- 	# Work with all takes.
+   # Work with all takes.
  * v1.0 (2014-04-15)
- 	+ Initial release.
+   + Initial release.
  */
 
 // ----- DEBUGGING ====>
@@ -92,49 +92,49 @@ function src_offset(f_position, f_item, f_take) local(pos, spos)
 // THE THING
 function main() local (i, j, item, take, track)
 (
-	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
+  Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
-	// LOOP THROUGH SELECTED TAKES
-	tempo_markers_count = CountTempoTimeSigMarkers(0);
-	selected_items_count = CountSelectedMediaItems(0);
+  // LOOP THROUGH SELECTED TAKES
+  tempo_markers_count = CountTempoTimeSigMarkers(0);
+  selected_items_count = CountSelectedMediaItems(0);
 
 
 
-	i = 0; // INITIALIZE loop through selected items
-	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
-			item_start = GetMediaItemInfo_Value(item, "D_POSITION");
-			item_end = item_start + GetMediaItemInfo_Value(item, "D_LENGTH");
+  i = 0; // INITIALIZE loop through selected items
+  loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
+      item_start = GetMediaItemInfo_Value(item, "D_POSITION");
+      item_end = item_start + GetMediaItemInfo_Value(item, "D_LENGTH");
 
-			count_takes = CountTakes(item);
+      count_takes = CountTakes(item);
 
-			// LOOP IN TAKES
-			k = 0;
-			loop(count_takes,
+      // LOOP IN TAKES
+      k = 0;
+      loop(count_takes,
 
-				take=GetTake(item, k);
+        take=GetTake(item, k);
 
-				j = 0;
-				loop(tempo_markers_count,
+        j = 0;
+        loop(tempo_markers_count,
 
-					GetTempoTimeSigMarker(0, j, timeposOut, measureposOut, beatposOut, bpmOut, timesig_numOut, timesig_denomOut, lineartempoOut);
+          GetTempoTimeSigMarker(0, j, timeposOut, measureposOut, beatposOut, bpmOut, timesig_numOut, timesig_denomOut, lineartempoOut);
 
-					item_start <= timeposOut && item_end >= timeposOut ? (
-						// Strech marker pos depends on take playrate
-						take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
-						offset = src_offset(timeposOut, item, take);
+          item_start <= timeposOut && item_end >= timeposOut ? (
+            // Strech marker pos depends on take playrate
+            take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
+            offset = src_offset(timeposOut, item, take);
 
-						SetTakeStretchMarker(take, -1, (timeposOut-item_start)*take_playrate, offset);
-					);// ENF IF TEMPO MARKER IS INSIDE ITEM
-					j += 1;
-				);// END LOOP TEMPO MARKES
-				k+=1;
-			);// END LOOP TAKES
-		); // ENDIF selected items
+            SetTakeStretchMarker(take, -1, (timeposOut-item_start)*take_playrate, offset);
+          );// ENF IF TEMPO MARKER IS INSIDE ITEM
+          j += 1;
+        );// END LOOP TEMPO MARKES
+        k+=1;
+      );// END LOOP TAKES
+    ); // ENDIF selected items
 
-		i += 1; // INCREMENT loop through selected items
-	); // ENDLOOP through selected items
+    i += 1; // INCREMENT loop through selected items
+  ); // ENDLOOP through selected items
 
-	Undo_EndBlock("Add stretch markers to selected items at tempo markers", 0); // End of the undo block. Leave it at the bottom of your main function.
+  Undo_EndBlock("Add stretch markers to selected items at tempo markers", 0); // End of the undo block. Leave it at the bottom of your main function.
 );
 
 //msg_start(); // Display characters in the console to show you the begining of the script execution.

@@ -16,7 +16,7 @@
 /**
  * Changelog:
  * v1.0 (2015-04-13)
-	+ Initial release
+  + Initial release
  */
 
 /**
@@ -36,103 +36,103 @@ msg_clean();*/
 // <==== DEBUGGING -----
 
 function select()
-	local(take, i, cursor_ppq_pos, notes, ccs, sysex, sel, muted, start, end, chan, pitch, vel, chanmsg, msg2, msg3, type)
+  local(take, i, cursor_ppq_pos, notes, ccs, sysex, sel, muted, start, end, chan, pitch, vel, chanmsg, msg2, msg3, type)
 (
-	(take = MIDIEditor_GetTake(MIDIEditor_GetActive())) ? (
-	//MIDIEditor_OnCommand(MIDIEditor_GetActive(), 40214); // unselect all
-	extension_api("BR_GetMouseCursorContext", #window, #segment, #details, char_sz);
-	pos = extension_api("BR_GetMouseCursorContext_Position");
-	cursor_ppq_pos = MIDI_GetPPQPosFromProjTime(take, pos);
+  (take = MIDIEditor_GetTake(MIDIEditor_GetActive())) ? (
+  //MIDIEditor_OnCommand(MIDIEditor_GetActive(), 40214); // unselect all
+  extension_api("BR_GetMouseCursorContext", #window, #segment, #details, char_sz);
+  pos = extension_api("BR_GetMouseCursorContext_Position");
+  cursor_ppq_pos = MIDI_GetPPQPosFromProjTime(take, pos);
 
-	//msg_ftl("pos", pos, 1);
+  //msg_ftl("pos", pos, 1);
 
-	grid = MIDI_GetGrid(take, swingOutOptional, noteLenOutOptional);// MAYBE BE TEMPO
-	grid_time = TimeMap_QNToTime(grid);
+  grid = MIDI_GetGrid(take, swingOutOptional, noteLenOutOptional);// MAYBE BE TEMPO
+  grid_time = TimeMap_QNToTime(grid);
 
-	//msg_ftl("grid", grid, 1);
-	//msg_ftl("grid_time", grid_time, 1);
+  //msg_ftl("grid", grid, 1);
+  //msg_ftl("grid_time", grid_time, 1);
 
-	// Thanks to FnA !
-	pos_min = grid_time*floor((pos - grid_time)/grid_time)+grid_time;
-	pos_max = pos_min + grid_time;
+  // Thanks to FnA !
+  pos_min = grid_time*floor((pos - grid_time)/grid_time)+grid_time;
+  pos_max = pos_min + grid_time;
 
-	//msg_ftl("pos_min", pos_min, 1);
-	//msg_ftl("pos_max", pos_max, 1);
-
-
-	MIDI_CountEvts(take, notes, ccs, sysex);
-
-	extension_api("BR_GetMouseCursorContext_MIDI", inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId);
-
-	all_selected = 1;
-	i = 0;
-	loop(notes,
-	MIDI_EnumSelNotes(take, i);
-	MIDI_GetNote(take, i, sel, muted, start, end, chan, pitch, vel);
-		noteRow <= pitch ? (
-			start_compare = MIDI_GetProjTimeFromPPQPos(take, start);
-			end_compare = MIDI_GetProjTimeFromPPQPos(take, end);
-			(start_compare >= pos_min && start_compare < pos_max) || (end_compare > pos_min && end_compare <= pos_max) || (start_compare < pos_min && end_compare > pos_max) ? (
-				sel == 0 ? (
-					all_selected = 0;
-				);
-			);
-		);
-		i += 1;
-	);
-
-	j = 0;
-	loop(notes,
-		MIDI_GetNote(take, j, sel, muted, start, end, chan, pitch, vel);
-		//msg_d(pitch);
-		//(start >= pos_min && start <= pos_max) || (end >= pos_min && end <= pos_max) ? (
-
-		noteRow <= pitch ? (
-			start_compare = MIDI_GetProjTimeFromPPQPos(take, start);
-			end_compare = MIDI_GetProjTimeFromPPQPos(take, end);
-
-			//msg_ftl("start_compare", start_compare, 1);
-			//msg_ftl("end_compare", end_compare, 1);
-
-			/*msg_ftl("j", j, 0);
-			start_compare >= pos_min && start_compare < pos_max ?(
-			msg_s("start inside grid");
-			);
-			end_compare > pos_min && end_compare <= pos_max ?(
-			msg_s("end inside grid");
-			);
-			start_compare < pos_min && end_compare > pos_max ?(
-			msg_s("length inside grid");
-			);*/
-
-			(start_compare >= pos_min && start_compare < pos_max) || (end_compare > pos_min && end_compare <= pos_max) || (start_compare < pos_min && end_compare > pos_max) ? (
-				 all_selected == 0 ? (
-				 MIDI_SetNote(take, j, 1, muted, start, end, chan, pitch, vel);
-				):(
-				 MIDI_SetNote(take, j, 0, muted, start, end, chan, pitch, vel);
-				);
-			);
-		);
-		j += 1;
-	);
-
-	/*i = 0;
-	loop(ccs,
-		MIDI_GetCC(take, i, sel, muted, start, chanmsg, chan, msg2, msg3);
-		start >= cursor_ppq_pos ? MIDI_SetCC(take, i, 1, muted, start, chanmsg, chan, msg2, msg3);
-		i += 1;
-	);
-
-	i = 0;
-	loop(sysex,
-		MIDI_GetTextSysexEvt(take, i, sel, muted, start, type, #msg);
-		start >= cursor_ppq_pos ? MIDI_SetTextSysexEvt(take, i, 1, muted, start, type, #msg);
-		i += 1;
-	);*/
+  //msg_ftl("pos_min", pos_min, 1);
+  //msg_ftl("pos_max", pos_max, 1);
 
 
-	);
-	Undo_OnStateChange("Select-Unselect all MIDI notes over mouse based on grid");
+  MIDI_CountEvts(take, notes, ccs, sysex);
+
+  extension_api("BR_GetMouseCursorContext_MIDI", inlineEditor, noteRow, ccLane, ccLaneVal, ccLaneId);
+
+  all_selected = 1;
+  i = 0;
+  loop(notes,
+  MIDI_EnumSelNotes(take, i);
+  MIDI_GetNote(take, i, sel, muted, start, end, chan, pitch, vel);
+    noteRow <= pitch ? (
+      start_compare = MIDI_GetProjTimeFromPPQPos(take, start);
+      end_compare = MIDI_GetProjTimeFromPPQPos(take, end);
+      (start_compare >= pos_min && start_compare < pos_max) || (end_compare > pos_min && end_compare <= pos_max) || (start_compare < pos_min && end_compare > pos_max) ? (
+        sel == 0 ? (
+          all_selected = 0;
+        );
+      );
+    );
+    i += 1;
+  );
+
+  j = 0;
+  loop(notes,
+    MIDI_GetNote(take, j, sel, muted, start, end, chan, pitch, vel);
+    //msg_d(pitch);
+    //(start >= pos_min && start <= pos_max) || (end >= pos_min && end <= pos_max) ? (
+
+    noteRow <= pitch ? (
+      start_compare = MIDI_GetProjTimeFromPPQPos(take, start);
+      end_compare = MIDI_GetProjTimeFromPPQPos(take, end);
+
+      //msg_ftl("start_compare", start_compare, 1);
+      //msg_ftl("end_compare", end_compare, 1);
+
+      /*msg_ftl("j", j, 0);
+      start_compare >= pos_min && start_compare < pos_max ?(
+      msg_s("start inside grid");
+      );
+      end_compare > pos_min && end_compare <= pos_max ?(
+      msg_s("end inside grid");
+      );
+      start_compare < pos_min && end_compare > pos_max ?(
+      msg_s("length inside grid");
+      );*/
+
+      (start_compare >= pos_min && start_compare < pos_max) || (end_compare > pos_min && end_compare <= pos_max) || (start_compare < pos_min && end_compare > pos_max) ? (
+         all_selected == 0 ? (
+         MIDI_SetNote(take, j, 1, muted, start, end, chan, pitch, vel);
+        ):(
+         MIDI_SetNote(take, j, 0, muted, start, end, chan, pitch, vel);
+        );
+      );
+    );
+    j += 1;
+  );
+
+  /*i = 0;
+  loop(ccs,
+    MIDI_GetCC(take, i, sel, muted, start, chanmsg, chan, msg2, msg3);
+    start >= cursor_ppq_pos ? MIDI_SetCC(take, i, 1, muted, start, chanmsg, chan, msg2, msg3);
+    i += 1;
+  );
+
+  i = 0;
+  loop(sysex,
+    MIDI_GetTextSysexEvt(take, i, sel, muted, start, type, #msg);
+    start >= cursor_ppq_pos ? MIDI_SetTextSysexEvt(take, i, 1, muted, start, type, #msg);
+    i += 1;
+  );*/
+
+
+  );
+  Undo_OnStateChange("Select-Unselect all MIDI notes over mouse based on grid");
 );
 
 PreventUIRefresh(1);

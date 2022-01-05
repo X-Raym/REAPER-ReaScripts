@@ -39,17 +39,17 @@ function main()
     -- GET ITEMS
     item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
-	take = reaper.GetActiveTake(item)
+  take = reaper.GetActiveTake(item)
 
-	if take ~= nil then
+  if take ~= nil then
 
-		if set == true then
-			reaper.SetMediaItemTakeInfo_Value(take, "D_PAN", pan_value)
-		else
-			offset = reaper.GetMediaItemTakeInfo_Value(take, "D_PAN")
-			reaper.SetMediaItemTakeInfo_Value(take, "D_PAN", pan_value + offset)
-		end
-	end
+    if set == true then
+      reaper.SetMediaItemTakeInfo_Value(take, "D_PAN", pan_value)
+    else
+      offset = reaper.GetMediaItemTakeInfo_Value(take, "D_PAN")
+      reaper.SetMediaItemTakeInfo_Value(take, "D_PAN", pan_value + offset)
+    end
+  end
 
   end -- ENDLOOP through selected items
 
@@ -62,43 +62,43 @@ sel_items_count = reaper.CountSelectedMediaItems(0)
 
 if sel_items_count > 0 then
 
-	retval, user_input_str = reaper.GetUserInputs("Set/Offset Take Pan Value", 1, "Value (" .. mod2_prefix .." for " .. mod2 .. ")", "")
+  retval, user_input_str = reaper.GetUserInputs("Set/Offset Take Pan Value", 1, "Value (" .. mod2_prefix .." for " .. mod2 .. ")", "")
 
-	if retval then -- if user complete the fields
+  if retval then -- if user complete the fields
 
-	  x, y = string.find(user_input_str, mod2_prefix)
+    x, y = string.find(user_input_str, mod2_prefix)
 
-	  if mod1 == "absolute" then
-	    if x ~= nil then -- set
-		 set = false
-	    else -- offset
-		 set = true
-	    end
-	  end
+    if mod1 == "absolute" then
+      if x ~= nil then -- set
+     set = false
+      else -- offset
+     set = true
+      end
+    end
 
-	  if mod1 == "relative" then
-	    if x ~= nil then -- set
-		 set = true
-	    else -- offset
-		 set = false
-	    end
-	  end
+    if mod1 == "relative" then
+      if x ~= nil then -- set
+     set = true
+      else -- offset
+     set = false
+      end
+    end
 
-	  user_input_str = user_input_str:gsub(mod2_prefix, "")
+    user_input_str = user_input_str:gsub(mod2_prefix, "")
 
-	  user_input_num = tonumber(user_input_str)
+    user_input_num = tonumber(user_input_str)
 
-	  if user_input_num ~= nil then
+    if user_input_num ~= nil then
 
-		reaper.PreventUIRefresh(1)
+    reaper.PreventUIRefresh(1)
 
-		main() -- Execute your main function
+    main() -- Execute your main function
 
-		reaper.PreventUIRefresh(-1)
+    reaper.PreventUIRefresh(-1)
 
-		reaper.UpdateArrange() -- Update the arrangement (often needed)
-	  end
+    reaper.UpdateArrange() -- Update the arrangement (often needed)
+    end
 
-	end
+  end
 
 end

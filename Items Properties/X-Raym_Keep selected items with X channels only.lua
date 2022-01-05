@@ -15,56 +15,56 @@
 --[[
  * Changelog:
  * v1.0 (2015-06-25)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function main(output)
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 
-	-- GET SELECTED NOTES (from 0 index)
-	for i = 0, count_sel_items-1 do
+  -- GET SELECTED NOTES (from 0 index)
+  for i = 0, count_sel_items-1 do
 
-		item = reaper.GetSelectedMediaItem(0, count_sel_items-1-i)
-		take = reaper.GetActiveTake(item)
+    item = reaper.GetSelectedMediaItem(0, count_sel_items-1-i)
+    take = reaper.GetActiveTake(item)
 
-		if take ~= nil then
+    if take ~= nil then
 
-			if reaper.TakeIsMIDI(take) == false then
+      if reaper.TakeIsMIDI(take) == false then
 
-				take_pcm = reaper.GetMediaItemTake_Source(take)
+        take_pcm = reaper.GetMediaItemTake_Source(take)
 
-				take_pcm_chan = reaper.GetMediaSourceNumChannels(take_pcm)
-				take_chan_mod = reaper.GetMediaItemTakeInfo_Value(take, "I_CHANMODE")
+        take_pcm_chan = reaper.GetMediaSourceNumChannels(take_pcm)
+        take_chan_mod = reaper.GetMediaItemTakeInfo_Value(take, "I_CHANMODE")
 
-				select = 0
+        select = 0
 
-				if output == 1 and ((take_chan_mod > 1 and take_chan_mod < 67) or take_pcm_chan == 1) then
-					select = 1
-				end
+        if output == 1 and ((take_chan_mod > 1 and take_chan_mod < 67) or take_pcm_chan == 1) then
+          select = 1
+        end
 
-				if output == 2 and (take_chan_mod > 66 or (take_chan_mod <= 1 and take_pcm_chan == output)) then
-					select = 1
-				end
+        if output == 2 and (take_chan_mod > 66 or (take_chan_mod <= 1 and take_pcm_chan == output)) then
+          select = 1
+        end
 
-				if output > 1 and take_chan_mod <= 1 and take_pcm_chan == output then
-					select = 1
-				end
+        if output > 1 and take_chan_mod <= 1 and take_pcm_chan == output then
+          select = 1
+        end
 
-				if select == 0 then reaper.SetMediaItemSelected(item, false) end
+        if select == 0 then reaper.SetMediaItemSelected(item, false) end
 
-			else
-				reaper.SetMediaItemSelected(item, false)
-			end
+      else
+        reaper.SetMediaItemSelected(item, false)
+      end
 
-		else
-			reaper.SetMediaItemSelected(item, false)
-		end
+    else
+      reaper.SetMediaItemSelected(item, false)
+    end
 
-	end
+  end
 
-	reaper.Undo_EndBlock("Keep selected items with X channels only", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Keep selected items with X channels only", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
@@ -74,16 +74,16 @@ retval, output = reaper.GetUserInputs("Keep selected items with X channels only"
 
 if retval and count_sel_items > 0 and output ~= "" then
 
-	reaper.PreventUIRefresh(1)
+  reaper.PreventUIRefresh(1)
 
-	output = tonumber(output)
+  output = tonumber(output)
 
-	if output ~= nil then
-		main(output) -- Execute your main function
-	end
+  if output ~= nil then
+    main(output) -- Execute your main function
+  end
 
-	reaper.UpdateArrange() -- Update the arrangement (often needed)
+  reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-	reaper.PreventUIRefresh(-1)
+  reaper.PreventUIRefresh(-1)
 
 end

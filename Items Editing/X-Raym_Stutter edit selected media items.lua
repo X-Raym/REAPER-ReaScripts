@@ -17,7 +17,7 @@
 --[[
  * Changelog:
  * v1.0 (2016-02-29)
-	+ Initial Release
+  + Initial Release
 --]]
 
 -- Notes : it doesn't work with groups items
@@ -34,46 +34,46 @@ divider = 2
 
 -- Save item selection
 function SaveSelectedItems (table)
-	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
-		table[i+1] = reaper.GetSelectedMediaItem(0, i)
-	end
+  for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+    table[i+1] = reaper.GetSelectedMediaItem(0, i)
+  end
 end
 
 function RestoreSelectedItems (table)
-	for i, item in ipairs(table) do
-		reaper.SetMediaItemSelected(item, true)
-	end
+  for i, item in ipairs(table) do
+    reaper.SetMediaItemSelected(item, true)
+  end
 end
 
 
 -- Display a message in the console for debugging
 function Msg(value)
-	if console then
-		reaper.ShowConsoleMsg(tostring(value) .. "\n")
-	end
+  if console then
+    reaper.ShowConsoleMsg(tostring(value) .. "\n")
+  end
 end
 
 
 -- Copy selected media items
 function CopySelectedMediaItems(track, pos)
 
-	local cursor_pos = reaper.GetCursorPosition()
+  local cursor_pos = reaper.GetCursorPosition()
 
-	reaper.SetOnlyTrackSelected(track)
+  reaper.SetOnlyTrackSelected(track)
 
-	reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
+  reaper.Main_OnCommand(40914, 0) -- Select first track as last touched
 
-	reaper.SetEditCurPos(pos, false, false)
+  reaper.SetEditCurPos(pos, false, false)
 
-	reaper.Main_OnCommand(40698, 0) -- Copy Items
+  reaper.Main_OnCommand(40698, 0) -- Copy Items
 
-	reaper.Main_OnCommand(40058, 0) -- Paste Items
+  reaper.Main_OnCommand(40058, 0) -- Paste Items
 
-	new_item = reaper.GetSelectedMediaItem(0, 0) -- Get First Selected Item
+  new_item = reaper.GetSelectedMediaItem(0, 0) -- Get First Selected Item
 
-	reaper.SetEditCurPos(cursor_pos, false, false)
+  reaper.SetEditCurPos(cursor_pos, false, false)
 
-	return new_item
+  return new_item
 
 end
 
@@ -81,12 +81,12 @@ end
 -- VIEW
 -- SAVE INITIAL VIEW
 function SaveView()
-	start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
+  start_time_view, end_time_view = reaper.BR_GetArrangeView(0)
 end
 
 -- RESTORE INITIAL VIEW
 function RestoreView()
-	reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
+  reaper.BR_SetArrangeView(0, start_time_view, end_time_view)
 end
 --------------------------------------------------------- END OF UTILITIES
 
@@ -94,33 +94,33 @@ end
 -- Main function
 function main()
 
-	new_items = {}
+  new_items = {}
 
-	for i, item in ipairs(init_sel_items) do
+  for i, item in ipairs(init_sel_items) do
 
-		reaper.SelectAllMediaItems(0, false) -- Unselect all media items
+    reaper.SelectAllMediaItems(0, false) -- Unselect all media items
 
-		reaper.SetMediaItemSelected(item, true) -- Select only desired item
+    reaper.SetMediaItemSelected(item, true) -- Select only desired item
 
-		new_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") / divider
+    new_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") / divider
 
-		reaper.SetMediaItemInfo_Value(item, "D_LENGTH", new_len) -- Set item to its new length
+    reaper.SetMediaItemInfo_Value(item, "D_LENGTH", new_len) -- Set item to its new length
 
-		pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
+    pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 
-		track = reaper.GetMediaItemTrack(item) -- Get destination track (in this case, item parent track)
+    track = reaper.GetMediaItemTrack(item) -- Get destination track (in this case, item parent track)
 
-		for j = 1, divider - 1 do
+    for j = 1, divider - 1 do
 
-			new_pos = pos + new_len * j
+      new_pos = pos + new_len * j
 
-			new_item = CopySelectedMediaItems(track, new_pos)
+      new_item = CopySelectedMediaItems(track, new_pos)
 
-			table.insert(new_items, new_item)
+      table.insert(new_items, new_item)
 
-		end
+    end
 
-	end
+  end
 
 end
 
@@ -132,26 +132,26 @@ count_sel_items = reaper.CountSelectedMediaItems(0)
 
 if count_sel_items > 0 then
 
-	reaper.PreventUIRefresh(1)
+  reaper.PreventUIRefresh(1)
 
-	SaveView()
+  SaveView()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	init_sel_items =  {}
-	SaveSelectedItems(init_sel_items)
+  init_sel_items =  {}
+  SaveSelectedItems(init_sel_items)
 
-	main()
+  main()
 
-	RestoreSelectedItems(init_sel_items)
-	RestoreSelectedItems(new_items)
+  RestoreSelectedItems(init_sel_items)
+  RestoreSelectedItems(new_items)
 
-	reaper.Undo_EndBlock("Stutter edit selected media items", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Stutter edit selected media items", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
-	reaper.UpdateArrange()
+  reaper.UpdateArrange()
 
-	RestoreView()
+  RestoreView()
 
-	reaper.PreventUIRefresh(-1)
+  reaper.PreventUIRefresh(-1)
 
 end

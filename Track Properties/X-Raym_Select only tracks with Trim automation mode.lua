@@ -16,35 +16,35 @@
 --[[
  * Changelog:
  * v1.0 (2015-09-07)
-	+ Initial Release
+  + Initial Release
 --]]
 
 function main()
 
-	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-	count_tracks = reaper.CountTracks(0)
+  count_tracks = reaper.CountTracks(0)
 
-	for i = 0, count_tracks - 1  do
-		-- GET ITEMS
-		track = reaper.GetTrack(0, i)
+  for i = 0, count_tracks - 1  do
+    -- GET ITEMS
+    track = reaper.GetTrack(0, i)
 
-		track_mode = reaper.GetMediaTrackInfo_Value(track, "I_AUTOMODE")
-		--(0=trim/off, 1=read, 2=touch, 3=write, 4=latch
+    track_mode = reaper.GetMediaTrackInfo_Value(track, "I_AUTOMODE")
+    --(0=trim/off, 1=read, 2=touch, 3=write, 4=latch
 
-		if track_mode == 0 then
+    if track_mode == 0 then
 
-			reaper.SetTrackSelected(track, true)
+      reaper.SetTrackSelected(track, true)
 
-		else
+    else
 
-			reaper.SetTrackSelected(track, false)
+      reaper.SetTrackSelected(track, false)
 
-		end
+    end
 
-	end -- ENDLOOP through selected tracks
+  end -- ENDLOOP through selected tracks
 
-	reaper.Undo_EndBlock("Select only tracks with Trim automation mode", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Select only tracks with Trim automation mode", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
