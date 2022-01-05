@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="5871363975f1b22d087657989e1992dc93b78488" name="X-Raym Scripts">
+<index version="1" commit="504902572238e8cf6074f8fab18d43cb17a7fe83" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3412,6 +3412,13 @@
     </reapack>
     <reapack name="X-Raym_Regions clock.lua" type="script" desc="Region's Clock">
       <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Add a clock for regions, based on Play Cursor position.\par}
+}
+]]></description>
         <link rel="screenshot">http://i.giphy.com/3o85xpylrlY7MPzmo0.gif</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
@@ -3442,6 +3449,11 @@
       <version name="1.2.3" author="X-Raym" time="2019-08-09T06:09:57Z">
         <changelog><![CDATA[# Kill script if GUI closed]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/96cb0d6678bc29fc86dd7f66acbd2e35d4919b93/Regions/X-Raym_Regions%20clock.lua</source>
+      </version>
+      <version name="1.3" author="X-Raym" time="2022-01-05T17:12:55Z">
+        <changelog><![CDATA[# Using ExtState rather than ini file for saving values
++ Dock via right click and menu on region progressbar]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/504902572238e8cf6074f8fab18d43cb17a7fe83/Regions/X-Raym_Regions%20clock.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set closest edge of closest region to edit cursor.lua" type="script" desc="Set closest edge of closest region to edit cursor">
