@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Replace similar MIDI Takes by pools
- * Description: Check selected items active takes MIDI content, and see if there is similar content. If yes, then replace by a pool instance. Very handy when you import and split guitar tabs or any instrument score, and you already split your midi items by riffs-patterns.
+ * About: Check selected items active takes MIDI content, and see if there is similar content. If yes, then replace by a pool instance. Very handy when you import and split guitar tabs or any instrument score, and you already split your midi items by riffs-patterns.
  * Instructions: Select MIDI items. Run.
  * Screenshot: http://i.imgur.com/N2fcs9k.gifv
  * Author: X-Raym

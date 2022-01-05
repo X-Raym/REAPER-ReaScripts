@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Align selected items across tracks
- * Description: A way to align items across tracks, with their snap offset. Useful for layering in sound design.
+ * About: A way to align items across tracks, with their snap offset. Useful for layering in sound design.
  * Instructions Select two items minimum on two different tracks minimum. Run. Items that don't have pairs will not be moved.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Shuffle Items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
@@ -14,7 +13,7 @@
  * Extensions: SWS/S&M 2.8.2
  * Version: 1.2
 --]]
- 
+
 --[[
  * Changelog:
  * v1.2 (2016-01-05)
@@ -36,7 +35,7 @@ end
 
 
 function KeepSelOnlyFirstItemInGroups()
-	
+
 	-- Count Sel Items (maybe it is already in GLobal variable)
 	if count_sel_items == nil then
 		count_sel_items = reaper.CountSelectedMediaItems(0)
@@ -48,11 +47,11 @@ function KeepSelOnlyFirstItemInGroups()
 	-- Loop in Sel Items
 	for i = 0, count_sel_items - 1 do
 	  item = reaper.GetSelectedMediaItem(0, i)
-	  
+
 	  -- Check Group
 	  group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
 	  if group > 0 then
-	  
+
 		pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 		-- If group is new, then create one
 		if groups[group] == nil then
@@ -63,7 +62,7 @@ function KeepSelOnlyFirstItemInGroups()
 			groups[group].pos = pos -- Min item pos of the group
 
 			else -- if group exists in table, check item pos against min group item pos
-			
+
 				if pos < groups[group].pos then -- unselect previous item and set new one as reference
 					table.insert(unselect, groups[group].item)
 					groups[group].item = item
@@ -77,7 +76,7 @@ function KeepSelOnlyFirstItemInGroups()
 		end -- END IF GROUP (no else)
 
 	end -- END LOOP sel items
-	
+
 	-- Unselect Items
 	for i, item in ipairs(unselect) do
 	  reaper.SetMediaItemSelected(item, false)
@@ -86,18 +85,18 @@ function KeepSelOnlyFirstItemInGroups()
 
 end -- End of KeepSelOnlyFirstItemInGroups()
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-	
+
 	reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_SELTRKWITEM"), 0) -- Select only track with selected items
-	
+
 	selected_tracks = reaper.CountSelectedTracks(0)
-	
+
 	if selected_tracks >= 2 then
-		
+
 		-- Get the first selected track and save item selected
-		
+
 		-- Get track under mouse
 		first_sel_track, context, position = reaper.BR_TrackAtMouseCursor()
 		-- If no track under mouse
@@ -109,53 +108,53 @@ function main() -- local (i, j, item, take, track)
 				first_sel_track = reaper.GetSelectedTrack(0, 0)
 			end
 		end
-		
+
 		first_snap_abs = {}
-		
+
 		for i = 0, reaper.CountTrackMediaItems(first_sel_track)-1 do
-		
+
 			item = reaper.GetTrackMediaItem(first_sel_track, i)
-			
+
 			if reaper.IsMediaItemSelected(item) == true then
-				
+
 				snap_abs = reaper.GetMediaItemInfo_Value(item, "D_POSITION") + reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
 				table.insert(first_snap_abs, snap_abs)
-			
+
 			end -- end if item on first track is selected
-		
+
 		end -- loop through item on first track
-		
+
 		-- LOOP ON SELECTED TRACKS
 		for i = 0, selected_tracks - 1 do
-			
+
 			track = reaper.GetSelectedTrack(0, i)
 			if track ~= first_sel_track then
-			
+
 				sel_items = {} -- init table of selected items on track
-				
+
 				for j = 0, reaper.CountTrackMediaItems(track)-1 do
-			
+
 					item = reaper.GetTrackMediaItem(track, j)
-				
+
 					if reaper.IsMediaItemSelected(item) == true then
-						
+
 						table.insert(sel_items, item)
-				
+
 					end -- end if item on first track is selected
-			
+
 				end -- loop through item on first track
-				
+
 				-- LOOP THROUGH SAVE ITEMS ON TRACKS
 				for k = 1, #first_snap_abs do
-					
+
 					item = sel_items[k]
-					
+
 					if item ~= nil then
-						
+
 						item_abs_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 						reaper.SetMediaItemInfo_Value(sel_items[k], "D_POSITION", first_snap_abs[k] - reaper.GetMediaItemInfo_Value(sel_items[k], "D_SNAPOFFSET"))
 						offset = reaper.GetMediaItemInfo_Value(item, "D_POSITION") - item_abs_pos
-						
+
 						if group_state == 1 then
 							-- Check Group
 							group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
@@ -164,13 +163,13 @@ function main() -- local (i, j, item, take, track)
 							end
 						end
 					end
-				
+
 				end
-				
+
 			end
-		
+
 		end -- loop tracks with selected items
-		
+
 		if group_state == 1 then
 			-- Loop all items in table (cause they will move)
 			all_items = {}
@@ -191,7 +190,7 @@ function main() -- local (i, j, item, take, track)
 					end
 				end
 			end
-			
+
 			if reselect_groups == true then
 				-- Unselect Items
 				for i, item in ipairs(unselect) do
@@ -199,7 +198,7 @@ function main() -- local (i, j, item, take, track)
 				end
 			end
 		end
-		
+
 	end -- more than two tracks selected
 
 	reaper.Undo_EndBlock("Align selected items across tracks", -1) -- End of the undo block. Leave it at the bottom of your main function.

@@ -1,10 +1,9 @@
 --[[
  * ReaScript Name: Toggle selected items inactive takes sources online-offline
- * Instructions: Run.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Forum Thread: Online / Offline takes
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=2154446#post2154446
  * Licence: GPL v3

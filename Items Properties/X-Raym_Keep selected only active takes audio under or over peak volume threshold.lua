@@ -1,13 +1,11 @@
 --[[
  * ReaScript Name: Keep selected only active audio takes under or over peak volume threshold
- * Description: See title
  * Instructions: Select items. Run.
  * Screenshot: http://i.imgur.com/nKlFUCZ.gifv
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI:
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: REQ: Copy & Paste Peak/RMS values of items to different items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527

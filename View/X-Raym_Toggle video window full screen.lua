@@ -33,7 +33,7 @@ function GetWindow(name)
     -- verify window by checking if it also has a specific child.
     --if reaper.JS_Window_FindChildByID(hwnd, 1045) then -- 1045:ID of volume control in media explorer.
       return hwnd
-    --end 
+    --end
   end
 end
 

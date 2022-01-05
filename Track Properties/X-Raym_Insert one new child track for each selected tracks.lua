@@ -1,20 +1,16 @@
 --[[
  * ReaScript Name: Insert one new child track for each selected tracks
- * Description: A way to quickly insert child tracks.
+ * About: A way to quickly insert child tracks.
  * Instructions: Select tracks. Execute the script.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URI: http://forum.cockos.com/***.html
  * REAPER: 5.0 pre 15
- * Extensions: None
  * Version: 1.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1 (2018-03-30)
@@ -33,7 +29,7 @@ suffix = " — Child" -- suffix or new name if preserve_track_name is false
 ------------- END OF USER CONFIG AREA
 
 -- Adaptation of DoSpeadSelItemsOverNewTx in SWS Xenakios ItemTakeCommands.cpp, for the function Explode selected items to new tracks (keeping positions)
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -42,7 +38,7 @@ function main() -- local (i, j, item, take, track)
 		track = reaper.GetTrack(0, i)
 		id = reaper.CSurf_TrackToID(track, false)
 		depth = reaper.GetMediaTrackInfo_Value(track, "I_FOLDERDEPTH")
-		
+
 		found = reaper.IsTrackSelected(track)
 
 		if found == true then
@@ -58,7 +54,7 @@ function main() -- local (i, j, item, take, track)
 			reaper.GetSetMediaTrackInfo_String(next_track, "P_NAME", new_name, true)
 			id = id +1
 			i = i+1
-			
+
 		end
 
 		if found == true and depth ~= 1 then -- make children out of newly created tracks

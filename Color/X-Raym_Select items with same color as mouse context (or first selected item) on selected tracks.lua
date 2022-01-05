@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Select items with same color as mouse context (or first selected item) on selected tracks
- * Description: A way to select items based on color sample.
- * Instructions: Mouse over a colored item, track, regions or marker. Run with a keyboard shortcut. If you don't run from a keyboard shortcut, it will sample color from first selected item. 
+ * About: A way to select items based on color sample.
+ * Instructions: Mouse over a colored item, track, regions or marker. Run with a keyboard shortcut. If you don't run from a keyboard shortcut, it will sample color from first selected item.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Set selected tracks, items and takes color from mouse context
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=158358
@@ -14,7 +13,7 @@
  * Extensions: SWS/S&M 2.6.3 #0
  * Version: 1.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1 (2015-04-13)
@@ -66,7 +65,7 @@ function main()
 	if segment == "region_lane" or segment == "marker_lane" then
 		mouse_pos = reaper.BR_GetMouseCursorContext_Position()
 		markeridxOut, regionidxOut = reaper.GetLastMarkerAndCurRegion(0, mouse_pos)
-		
+
 		-- COLOR FROM REGION OR MARKER
 		if segment == "region_lane" then
 			idx = regionidxOut
@@ -96,7 +95,7 @@ function main()
 		if countTracks > 0 then
 			for j = 0, countTracks-1 do
 				track = reaper.GetSelectedTrack(0, j)
-				
+
 				count_items = reaper.CountTrackMediaItems(track)
 				-- SELECTED ITEMS LOOP
 				if count_items > 0 then

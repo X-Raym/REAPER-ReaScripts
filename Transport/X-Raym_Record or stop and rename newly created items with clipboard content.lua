@@ -22,13 +22,13 @@
 function Main()
 
   play_state = reaper.GetPlayState()
-  
+
   if play_state == 5 and reaper.CF_GetClipboard then -- Need SWS
-    
+
     reaper.Main_OnCommand( 1013,0 ) -- Transport: Record
-  
+
     clipboard = reaper.CF_GetClipboard('')
-    
+
     if clipboard ~= "" then
       for i = 0, reaper.CountSelectedMediaItems(0) - 1 do
         local take = reaper.GetActiveTake( reaper.GetSelectedMediaItem(0, i) )
@@ -42,7 +42,7 @@ function Main()
   else
     reaper.Main_OnCommand( 1013,0 ) -- Transport: Record
   end
-  
+
 end
 
 reaper.defer(Main)

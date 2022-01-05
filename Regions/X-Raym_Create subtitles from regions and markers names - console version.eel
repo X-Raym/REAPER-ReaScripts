@@ -1,7 +1,7 @@
 // Create subtitles from regions and markers names
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -33,13 +33,13 @@ function create_subtitles_from_regions_names()
     // This action below may be required for debugging
     //msg_d(is_region);
     //msg_f(pos);
-    //msg_f(rgn_end);    
-    
+    //msg_f(rgn_end);
+
     is_region == 1 ? (
       sub_id = 1073741824 + markrgn_index_number; // SWS Region Subtitles ID start at 1073741824
 
       sub_string = sprintf(#dest, "%s%d", sub_prefix, sub_id); // Mix sub prefix and sub ID. Thanks to planetnine
-    
+
       msg_s(sub_string);
 
       value = #name; // This add quotes before and after the name. Manually deleting these in the .rpp file is required.
@@ -47,7 +47,7 @@ function create_subtitles_from_regions_names()
       msg_tvoldi("      |", value, "%s", 0, 1, 1);
       msg_s("    >");
     );
-    
+
     i += 1;
   );
 
@@ -58,34 +58,34 @@ function create_subtitles_from_regions_names()
     // This action below may be required for debugging
     //msg_d(is_region);
     //msg_f(pos);
-    //msg_f(rgn_end);    
-      
+    //msg_f(rgn_end);
+
     is_region != 1 ? (
       sub_id = markrgn_index_number; // SWS markers Subtitles ID start at 0
 
       sub_string = sprintf(#dest, "%s%d", sub_prefix, sub_id); // Mix sub prefix and sub ID. Thanks to planetnine
-    
+
       msg_s(sub_string);
 
       value = #name; // This add quotes before and after the name. Manually deleting these in the .rpp file is required.
-    
+
       msg_tvoldi("      |", value, "%s", 0, 1, 1);
       msg_s("    >");
     );
     i += 1;
-  );  
+  );
 );
 
 
 // MANY THANKS TO HEDA! YOU ROCK!!
-function opengui() 
+function opengui()
 (
 
 // text in the UI
 	gfx_x = 20;
 	gfx_y = 10;
 	gfx_drawstr("==== INSTRUCTIONS ====");
-	
+
 	gfx_x = 20;
 	gfx_y = 25;
 	gfx_drawstr("0. Execute the script");
@@ -116,13 +116,13 @@ function opengui()
 
 	gfx_x = 20;
 	gfx_y = 130;
-	gfx_drawstr("7. Open project in REAPER");	
+	gfx_drawstr("7. Open project in REAPER");
 
 	gfx_x = 20;
 	gfx_y = 145;
-	gfx_drawstr("8. Enjoy!");	
+	gfx_drawstr("8. Enjoy!");
 
-	//------- 
+	//-------
 	char = gfx_getchar();
 	// ctrl+lmb to Undo
 	char == 26 ? (
@@ -134,13 +134,13 @@ function opengui()
 	);
 	char >= 0 ? (					// if window is visible
 	defer("opengui();");		// execute loop constantly
-	);	
+	);
 	gfx_update();
-	
+
 );
 
 
-gfx_init("Create subtitles from regions and markers names", 420,200); // open window 
+gfx_init("Create subtitles from regions and markers names", 420,200); // open window
 opengui();
 
 create_subtitles_from_regions_names();

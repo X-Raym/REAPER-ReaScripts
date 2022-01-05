@@ -50,20 +50,20 @@ end
 function main()
 
   for i, item in ipairs(init_sel_items) do
-    
+
     local take = reaper.GetActiveTake( item )
     if take and not reaper.TakeIsMIDI( take ) then
       local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
       local item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-      
+
       reaper.SetEditCurPos( item_pos, false, false)
       reaper.Main_OnCommand(40375,0) -- Item navigation: Move cursor to next transient in items
       local new_start_item = reaper.GetCursorPosition()
-      
+
       reaper.BR_SetItemEdges( item, new_start_item -fade, item_pos + item_len )
-      
+
       reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", fade)
-      
+
     end
 
   end
@@ -81,7 +81,7 @@ if count_sel_items > 0 then
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   init_sel_items =  {}
   SaveSelectedItems(init_sel_items)
 
@@ -89,15 +89,15 @@ if count_sel_items > 0 then
   if group_state == 1 then
     reaper.Main_OnCommand(1156,0)
   end
-  
-  cur_pos = reaper.GetCursorPosition()  
+
+  cur_pos = reaper.GetCursorPosition()
 
   main()
-  
+
   if group_state == 1 then
     reaper.Main_OnCommand(1156,0)
   end
-  
+
   reaper.SetEditCurPos( cur_pos, false, false)
 
   reaper.Undo_EndBlock("Trim right edge of selected items to last transient", -1) -- End of the undo block. Leave it at the bottom of your main function.
@@ -105,5 +105,5 @@ if count_sel_items > 0 then
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end

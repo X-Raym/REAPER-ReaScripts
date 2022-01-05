@@ -9,7 +9,7 @@
  * Version: 1.0
  * Provides: [main=mediaexplorer] .
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2020-12-17)
@@ -26,7 +26,7 @@ function Open_URL(url)
 end
 
 function CheckSWS()
-  if reaper.NamedCommandLookup("_BR_VERSION_CHECK") == 0 then 
+  if reaper.NamedCommandLookup("_BR_VERSION_CHECK") == 0 then
     local retval = reaper.ShowMessageBox("SWS extension is required by this script.\nHowever, it doesn't seem to be present for this REAPER installation.\n\nDo you want to download it now ?", "Warning", 1)
     if retval == 1 then
       Open_URL("http://www.sws-extension.org/download/pre-release/")

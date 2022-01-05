@@ -1,11 +1,10 @@
 --[[
  * ReaScript Name: Script: Export selected items as tab-delimited regions CSV
- * Description: See title.
  * Instructions: Select a track. Run.
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Links
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
@@ -45,13 +44,13 @@ function rgbToHex(r, g, b)
 end
 
 function Main()
-    
+
   if offset_edit_cursor then offset_edit_cursor = reaper.GetCursorPosition() end
 
   local f = io.open(file, "w")
-  
+
   export(f, "#\tName\tStart\tEnd\tLength\tColor\tNotes")
-  
+
   for i = 0, count_sel_items - 1 do
     item = reaper.GetSelectedMediaItem(0, i)
     iPosOut = reaper.GetMediaItemInfo_Value(item, "D_POSITION") --get itemstart
@@ -66,17 +65,17 @@ function Main()
     end
     notes = reaper.ULT_GetMediaItemNote( item )
     bIsrgnOut = true
-    
+
     local t, duration
     if bIsrgnOut then
       t = "R"
       duration = iRgnendOut - iPosOut
-    else 
+    else
       t = "M"
       duration = 0
       iRgnendOut = iPosOut
     end
-    
+
     local color = 0
     if iColorOur > 0 then
       r,g,b = reaper.ColorFromNative(iColorOur)
@@ -97,11 +96,11 @@ function Init()
  if not reaper.JS_Dialog_BrowseForSaveFile then
    Msg("Please install JS_ReaScript REAPER extension, available in Reapack extension, under ReaTeam Extensions repository.")
  else
-  
+
   count_sel_items = reaper.CountSelectedMediaItems(0)
   if count_sel_items then
     retval, file = reaper.JS_Dialog_BrowseForSaveFile( "Export items to CSV", '', "", 'csv files (.csv)\0*.csv\0All Files (*.*)\0*.*\0' )
-   
+
     if retval and file ~= '' then
      if not file:find('.csv') then file = file .. ".csv" end
      reaper.defer(Main)

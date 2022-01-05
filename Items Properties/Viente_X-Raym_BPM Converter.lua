@@ -2,9 +2,9 @@
  * ReaScript Name: BPM Converter
  * Screenshot: https://s3.amazonaws.com/f.cl.ly/items/3j1g3Q050i010P3S0Y3c/bpmconverter.gif
  * Author: Viente, X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Viente's BPM Converter
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=110780

@@ -17,7 +17,7 @@ function pan_takes_randomly(mean, standard_dev) local(i, item, take, c)
 (
   mean < -1.0 ? mean = -1.0;
   mean > 1.0 ? mean = 1.0;
-  //standard_dev > 
+  //standard_dev >
   i = 0;
   loop(CountSelectedMediaItems(0),
     (item = GetSelectedMediaItem(0, i)) ? (
@@ -78,7 +78,7 @@ function create_points(take)
   #new_chunk_points = "";
   #new_chunk_points += "PT ";
   #new_chunk_points += sprintf(#, "%f ", 0);
-  #new_chunk_points += sprintf(#, "%f ", -GetMediaItemTakeInfo_Value(take, "D_PAN")); 
+  #new_chunk_points += sprintf(#, "%f ", -GetMediaItemTakeInfo_Value(take, "D_PAN"));
   #new_chunk_points += "0 0 1";
   #new_chunk_points += "\n";
   //#new_chunk_points != "" ? 1 : 0;
@@ -88,7 +88,7 @@ function create_points(take)
 function add_envelope() local(i, item, take)
 (
   i = 0;
-  loop(CountSelectedMediaItems(0), 
+  loop(CountSelectedMediaItems(0),
     (item = GetSelectedMediaItem(0, i)) ? (
       (take = GetActiveTake(item)) ? (
         create_points(take);

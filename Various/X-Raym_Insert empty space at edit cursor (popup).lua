@@ -119,13 +119,13 @@ end
 function Main()
   value = ConvertValToSeconds(vars.value, vars.unit)
   time_start, time_end = reaper.GetSet_LoopTimeRange( false, false, 0, 0, false )
-  
+
   cur_pos = reaper.GetCursorPosition()
-  
+
   reaper.GetSet_LoopTimeRange( true, false, cur_pos, cur_pos + value, false )
-  
+
   reaper.Main_OnCommand(40200,0) -- Time selection: Insert empty space at time selection (moving later items)
-  
+
   reaper.GetSet_LoopTimeRange( true, false, time_start, time_end, false )
 end
 
@@ -133,8 +133,8 @@ function Init()
   if popup then
 
     GetValsFromExtState()
-    
-    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, table.concat(instructions, "\n"), ConcatenateVarsVals() ) 
+
+    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, table.concat(instructions, "\n"), ConcatenateVarsVals() )
     if retval then
       vars = ParseRetvalCSV( retvals_csv )
       if vars.value then
@@ -148,11 +148,11 @@ function Init()
       reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
       Main() -- Execute your main function
-      
+
       if popup then
         SaveState()
       end
-      
+
       reaper.Undo_EndBlock(undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.
 
       reaper.UpdateArrange() -- Update the arrangement (often needed)

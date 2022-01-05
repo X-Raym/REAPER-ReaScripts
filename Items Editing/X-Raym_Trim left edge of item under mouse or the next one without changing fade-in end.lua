@@ -2,9 +2,9 @@
  * ReaScript Name: Trim left edge of item under mouse or the next one without changing fade-in end
  * About: A way to expand selected mdia item length based on edit cursor and item under mouse. Place edit cursor before an item. Place the mouse hover an item. Execute the script with a shortcut. Not that this script is also able to move left item edges if edit cursor is inside item under mouse.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts (EEL): Move L/R edge of item under mouse to edit cursor (with ripple edit)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157698
@@ -122,12 +122,12 @@ function main()
         end
 
       end
-      
+
       mouse_item_snap = reaper.GetMediaItemInfo_Value(mouse_item,"D_SNAPOFFSET")
       mouse_fade_get = reaper.GetMediaItemInfo_Value(mouse_item, "D_FADEINLEN")
       mouse_fade_absolute = mouse_item_pos + mouse_fade_get
       new_fadeout = (mouse_fade_absolute) - (mouse_item_pos - offset)
-            
+
       reaper.BR_SetItemEdges( mouse_item, mouse_item_pos - offset, -1 )
 
       reaper.SetMediaItemInfo_Value(mouse_item, "D_FADEINLEN", new_fadeout)

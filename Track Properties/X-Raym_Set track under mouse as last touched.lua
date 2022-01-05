@@ -1,16 +1,16 @@
 --[[
  * ReaScript Name: Set track under mouse as last touched
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Track Selection (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551
  * REAPER: 5.0
  * Version: 2.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2021-03-10)

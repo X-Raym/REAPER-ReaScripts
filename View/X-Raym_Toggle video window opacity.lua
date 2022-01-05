@@ -13,7 +13,7 @@
  * v1.0 (2020-12-13)
   # Initial release
 --]]
-  
+
 -- USER CONFIG AREA ----------------
 
 opacity_default = 0.5
@@ -39,7 +39,7 @@ function GetWindow(name)
     -- verify window by checking if it also has a specific child.
     --if reaper.JS_Window_FindChildByID(hwnd, 1045) then -- 1045:ID of volume control in media explorer.
       return hwnd
-    --end 
+    --end
   end
 end
 
@@ -54,7 +54,7 @@ if hwnd then
   else
     opacity = 1
   end
-  
+
   if opacity == 1 then
     opacity = opacity_default
   else

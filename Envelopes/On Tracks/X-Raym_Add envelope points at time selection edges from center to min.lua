@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Add envelope points at time selection edges from center to min
- * Description: Insert points at time selection edges.
+ * About: Insert points at time selection edges.
  * Instructions: Make a selection area. Execute the script. Works on selected envelope or selected tracks envelope with armed visible envelope.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
@@ -119,7 +118,7 @@ function AddPoints(env)
 	end
 end
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 

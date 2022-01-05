@@ -1,20 +1,16 @@
 --[[
  * ReaScript Name: Display notes length at edit cursor.lua
- * Description:
- * Instructions: Run
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Tempo Calculator tool for Extensions menu?
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=116061
  * REAPER: 5.0 pre 36
- * Extensions: None
  * Version: 1.0
 --]]
- 
+
 --[[ CREDITS
   This script is an adaptation in Lua of Note Lengths at Cursor.py by michaeltonight
   http://stash.reaper.fm/v/14427/Note%20Lengths%20at%20Cursor.py

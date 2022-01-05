@@ -17,22 +17,22 @@ function ToggleTrackFX( tracki )
   trackifxcount = reaper.TrackFX_GetCount(tracki);          -- count number of FX instances on the track
   record_state =  reaper.GetMediaTrackInfo_Value( tracki, "I_RECARM" )
 
-  for k = 0, trackifxcount - 1 do        
+  for k = 0, trackifxcount - 1 do
 
     retval, fx_name = reaper.TrackFX_GetFXName(tracki, k, '');          -- get the name of the FX instance
 
     if fx_name:find("Pitch Shifter") then
-      if record_state == 0 then           
-        reaper.TrackFX_SetEnabled(tracki, k, 0)    
-      else                                                
-        reaper.TrackFX_SetEnabled(tracki, k, 1)     
+      if record_state == 0 then
+        reaper.TrackFX_SetEnabled(tracki, k, 0)
+      else
+        reaper.TrackFX_SetEnabled(tracki, k, 1)
       end
     end
     if fx_name:find("(ReaPitch)") then
-      if record_state >= 1 then           
-        reaper.TrackFX_SetEnabled(tracki, k, 0)    
-      else                                                
-        reaper.TrackFX_SetEnabled(tracki, k, 1)    
+      if record_state >= 1 then
+        reaper.TrackFX_SetEnabled(tracki, k, 0)
+      else
+        reaper.TrackFX_SetEnabled(tracki, k, 1)
       end
     end
   end
@@ -43,9 +43,9 @@ function ToggleFXbySuffix()
 NumberTracks = reaper.CountSelectedTracks(0);
 
 for i = 0, NumberTracks - 1 do                                        -- loop for all tracks
-    
+
   tracki = reaper.GetSelectedTrack(0, i);                                   -- which track
-  
+
   ToggleTrackFX( tracki );
 end
 

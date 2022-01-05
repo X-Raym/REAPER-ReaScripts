@@ -125,15 +125,15 @@ end
 -----------------------------------------------------------
 function ProcessInputMath( str )
   local x, y = string.find(str, mod_prefix)
-  
+
   local multiply = string.find(str, "%*")
   local divide = string.find(str, "/")
-  
+
   local set = "set"
   if multiply then set = "multiply" end
   if divide then set = "divide" end
   if x then set = "offset" end
-  
+
   local user_input_num = str:gsub(mod_prefix, "")
   user_input_num = user_input_num:gsub("%*", "")
   user_input_num = user_input_num:gsub("/", "")
@@ -191,7 +191,7 @@ end
 -- INIT --
 -----------------------------------------------------------
 function Init()
-  
+
   count_sel_tracks = reaper.CountSelectedTracks(0)
   if count_sel_tracks == 0 then return false end
 
@@ -200,8 +200,8 @@ function Init()
     if not preset_file_init and not reset then
       GetValsFromExtState()
     end
-    
-    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, ConcatenateVarsVals(instructions, sep, vars_order) .. sep .. extrawidth .. sep .. separator, ConcatenateVarsVals(vars, sep, vars_order) ) 
+
+    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, ConcatenateVarsVals(instructions, sep, vars_order) .. sep .. extrawidth .. sep .. separator, ConcatenateVarsVals(vars, sep, vars_order) )
     if retval then
       vars = ParseRetvalCSV( retvals_csv, sep, vars_order )
       -- CUSTOM SANITIZATION HERE
@@ -219,7 +219,7 @@ function Init()
       if popup then SaveState() end
 
       Main() -- Execute your main function
-      
+
       reaper.Undo_EndBlock(undo_text, -1)
 
       reaper.UpdateArrange()

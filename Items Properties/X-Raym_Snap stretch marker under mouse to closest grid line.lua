@@ -1,14 +1,12 @@
 --[[
  * ReaScript Name: Snap stretch marker under mouse to closest grid line
- * Description:
  * Instructions: Put this on a keyboard shortcut. Run.
  * Notes : Only work if take rate is 1. SWS issue.
  * Screenshot: http://i.giphy.com/l41m5L3XNjRhjDyww.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: http://i.giphy.com/l41m5L3XNjRhjDyww.gif
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: REQ: Snap stretch marker closest to mouse cursor to grid
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166702
@@ -39,49 +37,49 @@ function GetStretchMarkerAtPosition( take, pos )
 	return retval, srcpos
 end
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-	
+
 	window, segment, details = reaper.BR_GetMouseCursorContext()
-	
+
 	if details == "item_stretch_marker" then
-		
+
 		take, mouse_pos = reaper.BR_TakeAtMouseCursor()
-		
+
 		if take ~= nil then
-				
+
 			idx = reaper.BR_GetMouseCursorContext_StretchMarker()
-			
+
 			if idx ~= nil then
-			
+
 				reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-	
+
 				idx, strech_pos, srcpos = reaper.GetTakeStretchMarker(take, idx)
-				
+
 				item = reaper.GetMediaItemTake_Item(take)
 				item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-				
+
 				rate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
-				
+
 				strech_pos = strech_pos / rate
-				
+
 				srcpos = (reaper.BR_GetClosestGridDivision(strech_pos+item_pos) - item_pos)*rate
-				
+
 				reaper.SetTakeStretchMarker(take, idx, srcpos)
 
 				group_state = reaper.GetToggleCommandState(1156, 0)
-				
+
 				if group_state == 1 then
-				
+
 					-- Get Item Take
 					item = reaper.GetMediaItemTake_Item( take )
-					
+
 					-- Get Group
 					group = reaper.GetMediaItemInfo_Value( item, "I_GROUPID" )
 
 					if group > 0 then
-						
+
 						-- Loop others item in in items group
 						for j = 0, reaper.CountMediaItems( 0 ) - 1 do
 							item_next = reaper.GetMediaItem( 0, j )
@@ -96,17 +94,17 @@ function main() -- local (i, j, item, take, track)
 								end
 							end
 						end
-					
+
 					end
-				
+
 				end
-			
+
 			end
-			
+
 		end
-				
+
 	end
-	
+
 	reaper.Undo_EndBlock("Snap stretch marker under mouse to closest grid line", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 end

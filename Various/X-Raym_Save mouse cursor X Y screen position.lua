@@ -1,9 +1,9 @@
 --[[
  * ReaScript Name: Save mouse cursor X Y screen position
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version:  1.0
@@ -14,7 +14,7 @@
  *   [main] . > X-Raym_Save mouse cursor X Y screen position_slot 3.lua
  *   [main] . > X-Raym_Save mouse cursor X Y screen position_slot 4.lua
 --]]
- 
+
 ext_name = "XR_MousePositions"
 
 script_name = ({reaper.get_action_context()})[2]:match("([^/\\_]+)%.lua$")
@@ -29,7 +29,7 @@ end
 
 function runloop()
   local newtime=os.time()
-  
+
   if (loopcount < 1) then
     if newtime-lasttime >= wait_time_in_seconds then
    lasttime=newtime
@@ -38,14 +38,14 @@ function runloop()
   else
     ----------------------------------------------------
     -- PUT ACTION(S) YOU WANT TO RUN AFTER WAITING HERE
-    
+
     reaper.TrackCtl_SetToolTip( "", x, y, true )
-    
+
     ----------------------------------------------------
     loopcount = loopcount+1
   end
-  if 
-    (loopcount < 2) then reaper.defer(runloop) 
+  if
+    (loopcount < 2) then reaper.defer(runloop)
   end
 end
 
@@ -53,10 +53,10 @@ function DisplayTooltip(message)
   wait_time_in_seconds = 2
   lasttime=os.time()
   loopcount=0
-  
+
   x, y = reaper.GetMousePosition()
   reaper.TrackCtl_SetToolTip( message, x, y, false )
-  
+
   runloop()
 end
 

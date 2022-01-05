@@ -36,7 +36,7 @@ function main()
    if not parent then parent = track end
    count_tracks = reaper.CountTracks()
    for i = 0, count_tracks - 1 do
-	reaper.SetMediaTrackInfo_Value( reaper.GetTrack(0,i), "I_SOLO", 0) 
+	reaper.SetMediaTrackInfo_Value( reaper.GetTrack(0,i), "I_SOLO", 0)
    end
 
    reaper.SetMediaTrackInfo_Value( parent, "I_SOLO", 1)

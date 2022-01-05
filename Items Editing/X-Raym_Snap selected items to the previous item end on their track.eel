@@ -1,17 +1,15 @@
 /**
  * ReaScript Name: Snap selected items to the previous item end on their track
- * Description: Snap selected items to the previous item end on their track
+ * About: Snap selected items to the previous item end on their track
  * Instructions: Select items. Execute the script.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: 
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: ReaScript: EEL Script. Item_Connect
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157907
  * REAPER: 4.77
- * Extensions: None
  * Version: 1.0.1
 */
 
@@ -48,7 +46,7 @@ function main()
 		new_item_pos = item_pos +1;
 
 		item_id = GetMediaItemInfo_Value(item, "IP_ITEMNUMBER");
-		
+
 		item_id != 0 ? (
 
 			track = GetMediaItemTrack(item);

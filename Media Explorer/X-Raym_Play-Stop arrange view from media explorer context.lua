@@ -9,7 +9,7 @@
  * Version: 1.0.3
  * Provides: [main=mediaexplorer] .
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2020-12-17)

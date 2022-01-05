@@ -1,21 +1,19 @@
 /**
  * ReaScript Name: Round selected envelope points value
- * Description: It will behave differently, depending on the encelope type.
+ * About: It will behave differently, depending on the encelope type.
  * Instructions: Use it.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: ReaScript: ReaScript: Round selected envelope points value
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487899#post1487899
  * Version: 1.1
  * Version Date: 2015-02-26
  * REAPER: 5.0 pre 9
- * Extensions: None
  */
- 
+
 /**
  * Changelog:
  * v1.3 (2015-09-09)
@@ -47,7 +45,7 @@ function floorPoint (value, type, scale)
 			);
 			OldVol=value;
 			OldVolDB=20*(log10(OldVol));
-			
+
 			NewVolDB=floor(OldVolDB + 0.5);
 			calc=exp(NewVolDB*0.115129254);
 			scale == 1 ? (
@@ -60,15 +58,15 @@ function floorPoint (value, type, scale)
 					);
 					value >= 1 ? (
 						calc = 1;
-						msg_s("Mute = 1");	
+						msg_s("Mute = 1");
 					);
 					value < 0.5 ? (
 						calc = 0;
-						msg_s("Mute Floor < 0.5");	
+						msg_s("Mute Floor < 0.5");
 					);
 					value >= 0.5 ? (
 						calc = 1;
-						msg_s("0.5 <= Mute Floor");	
+						msg_s("0.5 <= Mute Floor");
 					);
 
 				): stricmp("PITCH", type) == 0 ? (
@@ -102,16 +100,16 @@ function round_point_value() local (i)
 	// GET ENVELOPE RANGE -- HERE IT IS
 	GetEnvelopeName(envelope, #buf);
 	match("%s", #buf, envelopeName);
-	
+
 	env_scale = GetEnvelopeScalingMode(envelope);
 
 	// VALUE
 	i = 0;
 	loop (env_point_count, i ? (
-			
+
 			// IDX 0 doesnt seem to work
 			GetEnvelopePoint(envelope, i, timeOutOptional, valueOut, shapeOutOptional, tensionOutOptional, selectedOut);
-			
+
 			selectedOut == 1 ? (
 
 				valueIn = floorPoint(valueOut, envelopeName, env_scale);
@@ -125,11 +123,11 @@ function round_point_value() local (i)
 
 			);
 
-			
+
 		);
 
 		i += 1;
-	
+
 	);
 
 	Undo_EndBlock("Round selected envelope points value", 0); // End of the undo block. Leave it at the bottom of your main function.

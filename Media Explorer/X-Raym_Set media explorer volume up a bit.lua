@@ -9,7 +9,7 @@
  * Version: 1.0.1
  * Provides: [main=mediaexplorer] .
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0.1 (2020-12-18)
@@ -37,7 +37,7 @@ function GetMediaExplorer()
     -- verify window by checking if it also has a specific child.
     if reaper.JS_Window_FindChildByID(hwnd, 1045) then -- 1045:ID of volume control in media explorer.
       return hwnd
-    end 
+    end
   end
 end
 

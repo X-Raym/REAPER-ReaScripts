@@ -7,7 +7,7 @@
 // Pan active takes randomly (approx normal distribution)
 // EEL script by spk77 15.11.2014
 
-// Moded by X-Raym (http://extremraym.com) 23.11.2014 to handle "one seed only"
+// Moded by X-Raym (https://www.extremraym.com) 23.11.2014 to handle "one seed only"
 
 // Edit these ///////////////////////////////////////////////////////////////////
 mean = 0.5; // range = 0 to 1.0 (-1.0 = 100%L, 0.0 = center and 1.0 = 100%R)
@@ -22,14 +22,14 @@ function pan_takes_randomly(mean, standard_dev) local(i, item, take, c)
 
   R = 0;
   G = rand(2) - 1 + rand(2) - 1 + rand(2) - 1;
-  
+
   //X-Raym mod start > Random Variables
   R = G * standard_dev + mean;
   R < -1 ? R += abs(R + 1);
   R > 1 ? R -= (R - 1);
   //X-Raym mod end
-  
-  //standard_dev > 
+
+  //standard_dev >
   i = 0;
   loop(CountSelectedMediaItems(0),
     (item = GetSelectedMediaItem(0, i)) ? (
@@ -86,7 +86,7 @@ function create_points(take)
   #new_chunk_points = "";
   #new_chunk_points += "PT ";
   #new_chunk_points += sprintf(#, "%f ", 0);
-  #new_chunk_points += sprintf(#, "%f ", -GetMediaItemTakeInfo_Value(take, "D_PAN")); 
+  #new_chunk_points += sprintf(#, "%f ", -GetMediaItemTakeInfo_Value(take, "D_PAN"));
   #new_chunk_points += "0 0 1";
   #new_chunk_points += "\n";
   //#new_chunk_points != "" ? 1 : 0;
@@ -96,7 +96,7 @@ function create_points(take)
 function add_envelope() local(i, item, take)
 (
   i = 0;
-  loop(CountSelectedMediaItems(0), 
+  loop(CountSelectedMediaItems(0),
     (item = GetSelectedMediaItem(0, i)) ? (
       (take = GetActiveTake(item)) ? (
         create_points(take);

@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Set selected items active take according to take under mouse colour
- * Description: Gets colour of take under mouse cursor, then makes any takes of the same colour in all selected items the selected take, or first take if multiples of same colour in an item. Disable console message by changing if console == true to false.
+ * About: Gets colour of take under mouse cursor, then makes any takes of the same colour in all selected items the selected take, or first take if multiples of same colour in an item. Disable console message by changing if console == true to false.
  * Instructions: Select all items, hover mouse over take of colour required,
  * Author: timatkins & X-Raym
- * Author URI: http://www.iamtimatkins.com and http://extremraym.com
+ * Author URI: http://www.iamtimatkins.com and https://www.extremraym.com
  * Repository:
  * Repository URI:
- * File URI:
  * Licence: GPL v3
  * Forum Thread: Show takes of a set colour
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166143

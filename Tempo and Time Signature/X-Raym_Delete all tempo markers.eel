@@ -1,20 +1,16 @@
 /**
  * ReaScript Name: Delete all tempo markers
- * Description: See title.
- * Instructions: Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Feature Action: Clear Tempo Envelope.
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1514132
  * REAPER: 5 pre 17
- * Extensions: None
  * Version: 1.1
 */
- 
+
 /**
  * Changelog:
  * v1.1 (2017-05-30)

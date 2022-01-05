@@ -1,10 +1,10 @@
 --[[
  * ReaScript Name: Create regions from selected items notes and color
- * Description: Like the SWS action but with color
+ * About: Like the SWS action but with color
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Links
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3

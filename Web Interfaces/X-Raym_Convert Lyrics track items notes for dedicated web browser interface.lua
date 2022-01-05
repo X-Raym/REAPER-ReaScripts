@@ -3,15 +3,15 @@
  * About: Have a track named lyrics and text items on it. Run the web interface.
  * Screenshot: https://monosnap.com/file/kmpXyGbYgvYwUbrDe4ZsbbeNmSUR13
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Link: Forum https://forum.cockos.com/showthread.php?p=2127630#post2127630
  * Version: 1.1
 --]]
- 
+
 --[[
  * Changelog:
 * v1.1 (2021-02-11)
@@ -19,7 +19,7 @@
  * v1.0 (2019-08-26)
   + Initial Release
  --]]
- 
+
  -- Set ToolBar Button State
 function SetButtonState( set )
   if not set then set = 0 end
@@ -37,14 +37,14 @@ end
 
 -- Main Function (which loop in background)
 function main()
-  
+
   -- Get play or edit cursor
   if reaper.GetPlayState() > 0 then
     cur_pos = reaper.GetPlayPosition()
   else
     cur_pos = reaper.GetCursorPosition()
   end
-  
+
   if reaper.ValidatePtr(lyrics_track, 'MediaTrack*') then
     track_items = reaper.GetTrackNumMediaItems( lyrics_track )
     no_item = true
@@ -65,22 +65,22 @@ function main()
         end
       end
     end
-    
+
     if no_item then
       if notes then
         notes = nil
       end
       reaper.SetProjExtState( 0, "XR_Lyrics", "text", "--XR-NO-TEXT--" )
     end
-    
+
   else
-    
+
     GetLyricsTrack()
-    
+
   end
-    
+
   reaper.defer( main )
-  
+
 end
 
 function GetLyricsTrack()

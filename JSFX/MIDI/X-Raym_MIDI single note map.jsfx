@@ -50,7 +50,7 @@ while
     // Is it on our channel?
     channel == inChannel || inChannel == -1 ?
     (
-      
+
       // Is it a note event?
       status == statNoteOn || status == statNoteOff || status == afterTouch ?
       (
@@ -61,15 +61,15 @@ while
           note = slider( 11 ); // Get Note Out
 
         );
-     
+
       );
-    
+
     );
-    
+
     midisend(offset, msg1, note, vel);
-    
+
     1; // Force loop to continue until all messages have been processed
-  
+
   );
 
 );

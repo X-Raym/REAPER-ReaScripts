@@ -1,13 +1,11 @@
 --[[
  * ReaScript Name: Move selected tracks up to the top of the visible track list
- * Description: See title.
  * Instructions: Select tracks. Run.
  * Screenshot: http://i.imgur.com/SPfJoQp.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER Scripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
- * File URI:
  * Licence: GPL v3
  * Forum Thread: http://forum.cockos.com/showthread.php?t=179122
  * Forum Thread URI: how to move selected track/s to the top
@@ -15,7 +13,7 @@
  * Extensions: SWS/S&M 2.8.7
  * Version: 2.0
 --]]
- 
+
 --[[
  * Changelog:
  * v2.0 (2018-07-21)
@@ -102,23 +100,23 @@ count_selected_track = reaper.CountSelectedTracks( 0 )
 if count_selected_track > 0 then
 
   if reaper.APIExists( 'ReorderSelectedTracks' ) then
-  
+
   reaper.PreventUIRefresh(1)
      reaper.Undo_BeginBlock()
-     
+
      -- Save Tracks
      sel_tracks = {}
      SaveSelectedTracks( sel_tracks )
 
      reaper.ReorderSelectedTracks(0, 0)
-     
+
      reaper.TrackList_AdjustWindows(0)
      reaper.UpdateArrange()
-     
+
      reaper.Undo_EndBlock("Move selected tracks up to the top of the visible track list", -1)
-     
+
      reaper.PreventUIRefresh(-1)
-   
+
    elseif CheckSWS() then
 
   reaper.PreventUIRefresh(1)

@@ -12,7 +12,7 @@
  * REAPER: 5.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2018-10-03)
@@ -77,7 +77,7 @@ if count_sel_items > 0 then
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   init_sel_items =  {}
   SaveSelectedItems(init_sel_items)
 
@@ -88,5 +88,5 @@ if count_sel_items > 0 then
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end

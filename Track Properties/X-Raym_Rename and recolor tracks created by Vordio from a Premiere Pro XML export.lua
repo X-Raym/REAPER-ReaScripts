@@ -1,26 +1,24 @@
 --[[
  * ReaScript Name: Rename and recolor tracks created by Vordio from a Premiere Pro XML export
- * Description: A way to quickly rename and recolor tracks in a REAPER project created by Vordio from a Premiere Pro project. Note that track recogbnition is based on track name, so try to avoid track name that contains a premiere pro label ID, if you don't wont them to be renamed/colorized.
+ * About: A way to quickly rename and recolor tracks in a REAPER project created by Vordio from a Premiere Pro project. Note that track recogbnition is based on track name, so try to avoid track name that contains a premiere pro label ID, if you don't wont them to be renamed/colorized.
  * Instructions: Edit the User Area part of the script if you want to change the default naming and colors. Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI:
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Video & Sound Editors Will Really Like This
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1539710
- * Extensions: None
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2015-07-01)
   + Initial Release
 --]]
 
- 
+
 --> >>>>> USER AREA =========>
 
   -- NAMES
@@ -66,11 +64,11 @@ end
 function main(csv)
 
   violet, iris, caribbean, lavender, cerulean, forest, rose, mango = csv:match("([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
-  
+
   if violet ~= nil then -- if match
-  
+
   recolor = reaper.ShowMessageBox("Recolor tracks with Premiere Pro label colors?", "Recolor", 4)
-  
+
   if violet == "/del" then violet = "" end
   if iris == "/del" then iris = "" end
   if caribbean == "/del" then caribbean = "" end
@@ -79,12 +77,12 @@ function main(csv)
   if forest == "/del" then forest = "" end
   if rose == "/del" then rose = "" end
   if mango == "/del" then mango = "" end
-  
+
   for i = 0, tracks_count - 1 do
-    
+
     track = reaper.GetTrack(0, i)
     track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false)
-    
+
     x_violet, y_violet = track_name:find("Violet")
     if x_violet ~= nil then
     track_name = track_name:gsub("Violet", violet)
@@ -92,7 +90,7 @@ function main(csv)
       ColorHexTrack(track, violet_hex)
     end
     end
-    
+
     x_iris, y_iris = track_name:find("Iris")
     if x_iris ~= nil then
     track_name = track_name:gsub("Iris", iris)
@@ -100,7 +98,7 @@ function main(csv)
       ColorHexTrack(track, iris_hex)
     end
     end
-    
+
     x_caribbean, y_caribbean = track_name:find("Caribbean")
     if x_caribbean ~= nil then
     track_name = track_name:gsub("Caribbean", caribbean)
@@ -108,7 +106,7 @@ function main(csv)
       ColorHexTrack(track, caribbean_hex)
     end
     end
-    
+
     x_lavender, y_lavender = track_name:find("Lavender")
     if x_lavender ~= nil then
     track_name = track_name:gsub("Lavender", lavender)
@@ -116,7 +114,7 @@ function main(csv)
       ColorHexTrack(track, lavender_hex)
     end
     end
-    
+
     x_cerulean, y_cerulean = track_name:find("Cerulean")
     if x_cerulean ~= nil then
     track_name = track_name:gsub("Cerulean", cerulean)
@@ -124,7 +122,7 @@ function main(csv)
       ColorHexTrack(track, cerulean_hex)
     end
     end
-    
+
     x_forest, y_forest = track_name:find("Forest")
     if x_forest ~= nil then
     track_name = track_name:gsub("Forest", forest)
@@ -132,7 +130,7 @@ function main(csv)
       ColorHexTrack(track, forest_hex)
     end
     end
-    
+
     x_rose, y_rose = track_name:find("Rose")
     if x_rose ~= nil then
     track_name = track_name:gsub("Rose", rose)
@@ -140,7 +138,7 @@ function main(csv)
       ColorHexTrack(track, rose_hex)
     end
     end
-    
+
     x_mango, y_mango = track_name:find("Mango")
     if x_mango ~= nil then
     track_name = track_name:gsub("Mango", mango)
@@ -150,9 +148,9 @@ function main(csv)
     end
 
     track_name_retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", track_name, true)
-    
+
   end
-    
+
   end
 
 end
@@ -163,20 +161,20 @@ tracks_count = reaper.CountTracks(0)
 
 if tracks_count > 0 then
 
-  retval, output_csv = reaper.GetUserInputs("Vordio PPro XML Tracks Renamer", 8, "Violet (/del for deletion),Iris,Caribbean,Lavender,Cerulean,Forest,Rose,Mango", violet .. ','.. iris .. ','.. caribbean .. ','..lavender .. ','..cerulean .. ','..forest .. ','..rose .. ','..mango) 
-  
+  retval, output_csv = reaper.GetUserInputs("Vordio PPro XML Tracks Renamer", 8, "Violet (/del for deletion),Iris,Caribbean,Lavender,Cerulean,Forest,Rose,Mango", violet .. ','.. iris .. ','.. caribbean .. ','..lavender .. ','..cerulean .. ','..forest .. ','..rose .. ','..mango)
+
   if retval then
-  
+
   reaper.PreventUIRefresh(1)
-   
+
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
- 
+
   main(output_csv)
-   
+
   reaper.Undo_EndBlock("Rename and recolor tracks created by Vordio from a Premiere Pro XML export", -1) -- End of the undo block. Leave it at the bottom of your main function.
-   
+
   reaper.PreventUIRefresh(-1)
-  
+
   end
-  
+
 end

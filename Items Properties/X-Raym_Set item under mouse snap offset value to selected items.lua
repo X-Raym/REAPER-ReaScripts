@@ -2,9 +2,9 @@
  * ReaScript Name: Set item under mouse snap offset value to selected items
  * Screenshot: https://i.imgur.com/bzSneI8.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * REAPER: 5.0
  * Version: 1.0
 --]]

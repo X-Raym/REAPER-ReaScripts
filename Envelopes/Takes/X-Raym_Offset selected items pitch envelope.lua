@@ -3,8 +3,8 @@
  * Screenshot: https://i.imgur.com/C7AqMt5.gif
  * Author: X-Raym
  * Author URI: https://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.1
@@ -110,7 +110,7 @@ end
 function Main()
 
   time_start, time_end = reaper.GetSet_LoopTimeRange(false, false, 0, 0, false)
-  
+
   if time_start ~= time_end then is_time_selection = true end
 
   for i = 0, count_sel_items - 1 do
@@ -119,7 +119,7 @@ function Main()
     take = reaper.GetActiveTake( item )
 
     if take then
-        
+
       env = reaper.GetTakeEnvelopeByName(take, "Pitch")
       rate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
       pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
@@ -131,12 +131,12 @@ function Main()
             reaper.SetEnvelopePoint( env, j, time, value + vars.offset, shape, tension, selected, false )
           end
         end
-      
+
       end
 
     end
-  
-    
+
+
   end
 end
 
@@ -144,8 +144,8 @@ function Init()
   if popup then
 
     GetValsFromExtState()
-    
-    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, table.concat(instructions, "\n"), ConcatenateVarsVals() ) 
+
+    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, table.concat(instructions, "\n"), ConcatenateVarsVals() )
     if retval then
       vars = ParseRetvalCSV( retvals_csv )
       if vars.offset then
@@ -158,7 +158,7 @@ function Init()
   if not popup or ( retval and ValidateVals(vars) ) then -- if user complete the fields
 
       reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-      
+
       count_sel_items = reaper.CountSelectedMediaItems(0)
 
       if vars.offset ~= 0 and count_sel_items > 0 then
@@ -166,11 +166,11 @@ function Init()
         Main() -- Execute your main function
 
       end
-      
+
       if popup then
         SaveState()
       end
-      
+
       reaper.Undo_EndBlock(undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.
 
       reaper.UpdateArrange() -- Update the arrangement (often needed)

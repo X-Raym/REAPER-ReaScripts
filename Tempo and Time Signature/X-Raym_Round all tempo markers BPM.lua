@@ -1,16 +1,15 @@
 --[[
  * ReaScript Name: Round all tempo markers BPM
- * Description: Tempo markers imported from another app at 109.98 BPM instead of 110? This script is for you!
- * Instructions: Run
+ * About: Tempo markers imported from another app at 109.98 BPM instead of 110? This script is for you!
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
 ]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2017-07-16)

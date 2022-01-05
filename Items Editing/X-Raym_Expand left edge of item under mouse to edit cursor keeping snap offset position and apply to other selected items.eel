@@ -1,12 +1,11 @@
 /**
  * ReaScript Name: Expand left edge of item under mouse to edit cursor keeping snap offset position and apply to other selected items
- * Description: A way to expand selected mdia item length based on edit cursor and item under mouse.
+ * About: A way to expand selected mdia item length based on edit cursor and item under mouse.
  * Instructions: Select items. Place edit cursor before an item. Place the mouse hover an item. Execute the script with a shortcut. Not that this script is also able to move left item edges if edit cursor is inside item under mouse.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: REQ: Nudge left item edge of sel items to the left / keep their snap offsets in place
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157655
@@ -15,7 +14,7 @@
  * REAPER: 5 pre 17
  * Extensions: SWS/S&M 2.6.3 #0
  */
- 
+
 /**
  * Changelog:
  * v1.0 (2013-03-23)
@@ -35,7 +34,7 @@ function main()
 		mouse_item = extension_api("BR_ItemAtMouseCursor", mouse_pos);
 
 		mouse_item != 0 ? (
-		
+
 		mouse_item_pos = GetMediaItemInfo_Value(mouse_item,"D_POSITION");
 		edit_pos = GetCursorPosition();
 
@@ -63,7 +62,7 @@ function main()
 				SetMediaItemInfo_Value(item, "D_POSITION", item_pos - offset);
 				SetMediaItemInfo_Value(item, "D_LENGTH", item_len + offset);
 				SetMediaItemInfo_Value(item, "D_SNAPOFFSET", item_snap + offset);
-				
+
 				item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
 				item_snap < 0 ? (
 					SetMediaItemInfo_Value(item, "D_SNAPOFFSET", 0);

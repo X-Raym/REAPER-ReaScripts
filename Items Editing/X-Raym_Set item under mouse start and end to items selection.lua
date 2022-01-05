@@ -1,21 +1,18 @@
 --[[
  * ReaScript Name: Set item under mouse start and end to items selection
- * Description: Useful if you need to adjust regions created with empty items. If you had to resize thiese regions, you can do it easily with this script.
- * Instructions: Run
+ * About: Useful if you need to adjust regions created with empty items. If you had to resize thiese regions, you can do it easily with this script.
  * Screenshot: http://i.imgur.com/iFUNNCC.gifv
  * Author: X-Raym
  * Author URI: http://www.extremraym.com/
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: 
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2016-04-01)
@@ -57,16 +54,16 @@ end
 function main()
 
 	for i, item in ipairs(init_sel_items) do
-		
+
 		local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 		local item_end = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") + item_pos
 
-		if not min_pos then 
-			min_pos = item_pos 
+		if not min_pos then
+			min_pos = item_pos
 		else
 			if item_pos < min_pos then min_pos = item_pos end
 		end
-		
+
 		if not max_end then
 			max_end = item_end
 		else
@@ -94,7 +91,7 @@ if count_sel_items > 0 and mouse_item then
 	reaper.PreventUIRefresh(1)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-	
+
 	init_sel_items =  {}
 	SaveSelectedItems(init_sel_items)
 
@@ -105,5 +102,5 @@ if count_sel_items > 0 and mouse_item then
 	reaper.UpdateArrange()
 
 	reaper.PreventUIRefresh(-1)
-	
+
 end

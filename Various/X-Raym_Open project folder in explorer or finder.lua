@@ -1,16 +1,13 @@
 --[[
  * ReaScript Name: Open project folder in explorer or finder
- * Description: See title.
- * Instructions: Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Various
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1622146
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.1.1
 --]]
 
@@ -24,7 +21,7 @@
 	+ Initial Release
 --]]
 
- 
+
 --------------------------------------------------------
 -- DEBUG
 -- -----
@@ -57,14 +54,14 @@ function IsProjectSaved()
 
 	retval, project_path_name = reaper.EnumProjects(-1, "")
 	if project_path_name ~= "" then
-		
+
 		dir = GetPath(project_path_name, separator)
 		--msg(name)
 		name = string.sub(project_path_name, string.len(dir) + 1)
 		name = string.sub(name, 1, -5)
 
 		name = name:gsub(dir, "")
-		
+
 		--msg(name)
 		project_saved = true
 		return project_saved

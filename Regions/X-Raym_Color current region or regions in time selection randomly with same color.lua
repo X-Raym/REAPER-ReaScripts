@@ -3,8 +3,8 @@
  * Screenshot: https://i.imgur.com/DBqWE6Y.gifv
  * Author: X-Raym
  * Author URI: htt://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
@@ -82,7 +82,6 @@ end
  * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
  * Assumes r, g, and b are contained in the set [0, 255] and
  * returns h, s, and l in the set [0, 1].
- *
  * @param   Number  r       The red color value
  * @param   Number  g       The green color value
  * @param   Number  b       The blue color value
@@ -118,7 +117,6 @@ end
  * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
  * Assumes h, s, and l are contained in the set [0, 1] and
  * returns r, g, and b in the set [0, 255].
- *
  * @param   Number  h       The hue
  * @param   Number  s       The saturation
  * @param   Number  l       The lightness
@@ -195,13 +193,13 @@ if #regions > 0 then
     reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
     reaper.ClearConsole()
-    
+
     main()
-    
+
     reaper.Undo_EndBlock("Color current region or regions in time selection randomly with same color", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
     reaper.UpdateArrange()
-    
+
     reaper.UpdateTimeline()
 
     reaper.PreventUIRefresh(-1)

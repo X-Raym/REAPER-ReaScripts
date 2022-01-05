@@ -1,9 +1,9 @@
 --[[
  * ReaScript Name: Propagate last focused FX parameters values but bypass to similarly named FX on child tracks (real-time)
- * Description: A way to propagate FX param value from last touched FX to others childs of its parent track in real-time. The propagate values algorithm overcome spk77 scripts which works on last touch parameter, cause some GUI controllers modify several parameters at the same time but the last touch parameter as returned by ReaScript functions is only one value.
- * Screenshot: 
+ * About: A way to propagate FX param value from last touched FX to others childs of its parent track in real-time. The propagate values algorithm overcome spk77 scripts which works on last touch parameter, cause some GUI controllers modify several parameters at the same time but the last touch parameter as returned by ReaScript functions is only one value.
+ * Screenshot:
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > Scripts for Cockos REAPER
  * Repository URI: https://github.com/X-Raym/REAPER-Scripts
  * Licence: GPL v3
@@ -38,7 +38,7 @@ end
 function GetChildTracks( track )
   local id = reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER")
   local depth =  reaper.GetTrackDepth( track )
-  
+
   local tracks = {}
   local count_tracks = reaper.CountTracks()
   for i = id, count_tracks - 1 do
@@ -63,7 +63,7 @@ function main()
   if last_retval and last_track_id >= 0 then
 
     local last_track = reaper.GetTrack(0, last_track_id - 1)
-    
+
     local child_tracks = GetChildTracks( last_track )
 
     if #child_tracks > 0 then
@@ -87,11 +87,11 @@ function main()
             local count_params = reaper.TrackFX_GetNumParams(track, j)
 
             for k = 0, count_params - 1 do
-              
+
               if k ~= count_params - 2 then
                 local param_retval, minval, maxval = reaper.TrackFX_GetParam(last_track, last_fx_id, k)
                 local param_retval_2, minval_2, maxval_2 = reaper.TrackFX_GetParam(track, j, k)
-  
+
                 if param_retval ~= param_retval_2 then
                   reaper.TrackFX_SetParam(track, j, k, param_retval)
                 end

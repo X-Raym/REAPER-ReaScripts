@@ -1,12 +1,10 @@
 --[[
  * ReaScript Name: Shuffle order of selected items keeping snap offset positions and parent tracks
- * Description: See title.
  * Instructions: Select items. Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: 
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Shuffle Items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
@@ -14,7 +12,7 @@
  * Extensions: SWS/S&M 2.8.2.
  * Version: 1.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1 (2016-01-07)
@@ -22,7 +20,7 @@
  * v1.0 (2015-05-11)
 	+ Initial Release
 --]]
- 
+
 -- ----- DEBUGGING ====>
 reselect_groups = true
 -- <==== DEBUGGING -----
@@ -30,7 +28,7 @@ reselect_groups = true
 
 -- FUNCTION TO EXECUTE BEFORE MAIN LOOPS
 function KeepSelOnlyFirstItemInGroups()
-	
+
 	-- Count Sel Items (maybe it is already in GLobal variable)
 	if count_sel_items == nil then
 		count_sel_items = reaper.CountSelectedMediaItems(0)
@@ -42,11 +40,11 @@ function KeepSelOnlyFirstItemInGroups()
 	-- Loop in Sel Items
 	for i = 0, count_sel_items - 1 do
 	  local item = reaper.GetSelectedMediaItem(0, i)
-	  
+
 	  -- Check Group
 	  local group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
 	  if group > 0 then
-	  
+
 		local pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 		-- If group is new, then create one
 		if groups[group] == nil then
@@ -57,7 +55,7 @@ function KeepSelOnlyFirstItemInGroups()
 			groups[group].pos = pos -- Min item pos of the group
 
 			else -- if group exists in table, check item pos against min group item pos
-			
+
 				if pos < groups[group].pos then -- unselect previous item and set new one as reference
 					table.insert(unselect, groups[group].item)
 					groups[group].item = item
@@ -71,7 +69,7 @@ function KeepSelOnlyFirstItemInGroups()
 		end -- END IF GROUP (no else)
 
 	end -- END LOOP sel items
-	
+
 	-- Unselect Items
 	for i, item in ipairs(unselect) do
 	  reaper.SetMediaItemSelected(item, false)
@@ -87,11 +85,11 @@ end -- End of KeepSelOnlyFirstItemInGroups()
 math.randomseed( os.time() )
 
 local function ShuffleTable( t )
-	local rand = math.random 
-	
+	local rand = math.random
+
 	local iterations = #t
 	local w
-	
+
 	for z = iterations, 2, -1 do
 		w = rand(z)
 		t[z], t[w] = t[w], t[z]
@@ -99,7 +97,7 @@ local function ShuffleTable( t )
 end
 
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -108,7 +106,7 @@ function main() -- local (i, j, item, take, track)
 
 	-- LOOP THROUGH SELECTED ITEMS
 	selected_items_count = reaper.CountSelectedMediaItems(0)
-	
+
 	-- INITIALIZE loop through selected items
 	-- Select tracks with selected items
 	for i = 0, selected_items_count - 1  do
@@ -118,7 +116,7 @@ function main() -- local (i, j, item, take, track)
 		-- GET ITEM PARENT TRACK AND SELECT IT
 		track = reaper.GetMediaItem_Track(item)
 		reaper.SetTrackSelected(track, true)
-		
+
 	end -- ENDLOOP through selected items
 
 
@@ -134,7 +132,7 @@ function main() -- local (i, j, item, take, track)
 		-- REINITILIAZE THE TABLE
 		sel_items_on_track = {}
 		snap_sel_items_on_track = {}
-		snap_sel_items_on_tracks_len = 1 
+		snap_sel_items_on_tracks_len = 1
 
 		-- LOOP THROUGH ITEMS ON TRACKS AND STORE SELECTED ITEMS (for later moving) AND OFFSET
 		for j = 0, count_items_on_track - 1  do
@@ -145,7 +143,7 @@ function main() -- local (i, j, item, take, track)
 				sel_items_on_track[snap_sel_items_on_tracks_len] = item
 				snap_sel_items_on_track[snap_sel_items_on_tracks_len] = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET") + reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 				snap_sel_items_on_tracks_len = snap_sel_items_on_tracks_len + 1
-			end     
+			end
 
 		end
 
@@ -155,15 +153,15 @@ function main() -- local (i, j, item, take, track)
 
 		-- LOOP THROUGH SELECTED ITEMS ON TRACKS
 		for k = 1, snap_sel_items_on_tracks_len - 1 do
-			
+
 			--reaper.ShowConsoleMsg(tostring(snap_sel_items_on_track[k]).. "\n")
-			
+
 			item = sel_items_on_track[k]
 			item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
 			item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 
 			reaper.SetMediaItemInfo_Value(item, "D_POSITION", snap_sel_items_on_track[k] - item_snap)
-			
+
 			offset = reaper.GetMediaItemInfo_Value(item, "D_POSITION") - item_pos
 			if group_state == 1 then
 				-- Check Group
@@ -172,11 +170,11 @@ function main() -- local (i, j, item, take, track)
 					groups[group].offset = offset
 				end
 			end
-			
+
 		end
-		
+
 	end -- ENDLOOP through selected tracks
-	
+
 	if group_state == 1 then
 		-- Loop all items in table (cause they will move)
 		all_items = {}
@@ -197,7 +195,7 @@ function main() -- local (i, j, item, take, track)
 				end
 			end
 		end
-		
+
 		if reselect_groups == true then
 			-- Unselect Items
 			for i, item in ipairs(unselect) do
@@ -261,5 +259,5 @@ if selected_items_count >= 2 then
 	reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
 	reaper.UpdateArrange() -- Update the arrangement (often needed)
-	
+
 end

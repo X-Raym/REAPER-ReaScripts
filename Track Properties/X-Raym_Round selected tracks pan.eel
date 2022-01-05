@@ -1,20 +1,18 @@
 /**
  * ReaScript Name: Round selected tracks pan
- * Description: Round selected track pan (don't support enveloppe).
+ * About: Round selected track pan (don't support enveloppe).
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: Round selected tracks pan
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1482055
  * Version: 1.0
  * Version Date: 2015-02-17
  * REAPER: 4.76
- * Extensions: None
  */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-02-17)
@@ -35,7 +33,7 @@ function main() // local (i, j, item, take, track)
 	Undo_BeginBlock(); // Begining of the undo block. Leave it at the top of your main function.
 
 	// LOOP TRHOUGH SELECTED TRACKS
-	
+
 	selected_tracks_count = CountSelectedTracks(0);
 
 	i = 0; // INITIALIZE loop through selected tracks

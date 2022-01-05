@@ -1,7 +1,7 @@
 // Insert time signature markers from selected items
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -21,7 +21,7 @@ msg_start();
 // <==== DEBUGGING -----
 
 function insert_time_marker() local(i, item)
-(	
+(
 	i = 0;
 	loop(CountSelectedMediaItems(0),
 		(item = GetSelectedMediaItem(0, i)) ? (
@@ -32,7 +32,7 @@ function insert_time_marker() local(i, item)
 			TimeMap_GetTimeSigAtTime(NULL, timepos, timesig_numOut, timesig_denomOut,tempoOut);
 			bpm = tempoOut;
 			msg_dtl("Current BPM :", bpm, 1);
-			
+
 			lengthSeconds = GetMediaItemInfo_Value(item, "D_LENGTH");
 			msg_ftl("Item length (seconds) :", lengthSeconds, 1);
 
@@ -45,12 +45,12 @@ function insert_time_marker() local(i, item)
 			// don't handle half
 			lenghtBeatFloor = floor(lengthBeat + 0.5);
 			msg_dtl("Round Lenght Beat :", lenghtBeatFloor, 1);
-			
+
 			timesig_num = lenghtBeatFloor;
 			msg_dtl("Time Signature Num :", timesig_num, 1);
 			timesig_denom = timesig_denomOut;
 			msg_dtl("Time Signature Denom :", timesig_denomOut, 1);
-			
+
 			previous_timesig_num !=  timesig_num ? (
 				SetTempoTimeSigMarker(NULL, -1, timepos, -1, -1, bpm, timesig_num, timesig_denom, 0);
 			);

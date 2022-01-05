@@ -1,17 +1,17 @@
 --[[
  * ReaScript Name: Move selected items on first selected tracks
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Screenshot: https://i.imgur.com/NCQM0YA.gifv
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1538604
  * REAPER: 5.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2020-06-21)
@@ -60,7 +60,7 @@ if count_sel_items > 0 and count_sel_items then
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   init_sel_items =  {}
   SaveSelectedItems(init_sel_items)
 
@@ -71,6 +71,6 @@ if count_sel_items > 0 and count_sel_items then
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end
 

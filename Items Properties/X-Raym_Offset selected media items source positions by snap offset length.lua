@@ -3,8 +3,8 @@
  * About: Use this with Xenakios/SWS: Switch item contents to next cue. Note: the cue shouldn't be visible.
  * Author: X-Raym
  * Author URI: https://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
@@ -21,27 +21,27 @@ function main()
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
   -- LOOP THROUGH SELECTED ITEMS
-  
+
   selected_items_count = reaper.CountSelectedMediaItems(0)
-  
+
   -- INITIALIZE loop through selected items
   for i = 0, selected_items_count-1  do
     -- GET ITEMS
     local item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-    
-    
+
+
     local take = reaper.GetActiveTake( item )
-    
+
     if take and not reaper.TakeIsMIDI( take ) then
-      
+
       -- GET INFOS
       local item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
-      
+
       local source_offset = reaper.GetMediaItemTakeInfo_Value(take, "D_STARTOFFS")
-    
+
       -- SET SNAP OFFSET
       reaper.SetMediaItemTakeInfo_Value(take, "D_STARTOFFS", source_offset+item_snap)
-      
+
     end
 
   end -- ENDLOOP through selected items

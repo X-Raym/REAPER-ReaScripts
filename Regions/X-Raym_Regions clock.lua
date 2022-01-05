@@ -3,9 +3,9 @@
  * About: Add a clock for regions, based on Play Cursor position.
  * Screenshot: http://i.giphy.com/3o85xpylrlY7MPzmo0.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819

@@ -1,14 +1,14 @@
 --[[
  * ReaScript Name: Create named marker from selected items position
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2019-11-07)
@@ -21,23 +21,23 @@ function main()
 
   -- INITIALIZE loop through selected items
   for i = 0, count_sel_items - 1 do
-  
+
     -- GET ITEMS
     item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-    
+
     item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
     item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
-    
+
     take = reaper.GetActiveTake(item)
     if take == nil then
       item_color = reaper.GetDisplayedMediaItemColor(item)
     else
       item_color = reaper.GetDisplayedMediaItemColor2(item, take)
     end
-    
+
     snap = item_pos + item_snap
     reaper.AddProjectMarker2(0, false, snap, 0, name, -1, item_color)
-    
+
   end -- ENDLOOP through selected items
 
 end

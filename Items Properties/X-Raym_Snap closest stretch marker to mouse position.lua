@@ -3,9 +3,9 @@
  * About: Put this on a keyboard shortcut. Run.
  * Screenshot: https://i.imgur.com/AagpwDy.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: REQ: Snap stretch marker closest to mouse cursor to grid
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166702
@@ -40,51 +40,51 @@ function GetClosestStretchMarker( take, pos )
 end
 
 function main()
-  
+
   -- Fallback to first selected item and edit cursor pos if not found, to allow debug within IDE
   take, mouse_pos = reaper.BR_TakeAtMouseCursor()
   if not take then
     item = reaper.GetSelectedMediaItem(0,0)
     if item then take = reaper.GetActiveTake(item) end
   end
-  
+
   if mouse_pos == -1 then mouse_pos = reaper.GetCursorPosition() end
-  
+
   if reaper.GetToggleCommandState( 1157 ) then
     mouse_pos = reaper.SnapToGrid( 0, mouse_pos )
   end
-  
+
   if take then
-  
+
     item = reaper.GetMediaItemTake_Item(take)
     item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-    
+
     mouse_pos_item = mouse_pos - item_pos
-    
+
     idx = GetClosestStretchMarker( take, mouse_pos_item)
-    
+
     if idx ~= nil and idx > -1 then
-    
+
       retval, strech_pos, srcpos = reaper.GetTakeStretchMarker( take, idx )
-      
+
       rate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
-      
+
       strech_pos = mouse_pos_item / rate
-      
+
       reaper.SetTakeStretchMarker(take, idx, strech_pos, srcpos)
 
       group_state = reaper.GetToggleCommandState(1156, 0)
-      
+
       if group_state == 1 then
-      
+
         -- Get Item Take
         item = reaper.GetMediaItemTake_Item( take )
-        
+
         -- Get Group
         group = reaper.GetMediaItemInfo_Value( item, "I_GROUPID" )
 
         if group > 0 then
-          
+
           -- Loop others item in in items group
           for j = 0, reaper.CountMediaItems( 0 ) - 1 do
             item_next = reaper.GetMediaItem( 0, j )
@@ -99,13 +99,13 @@ function main()
               end
             end
           end
-        
+
         end
-      
+
       end
-    
+
     end
-    
+
   end
 
 end

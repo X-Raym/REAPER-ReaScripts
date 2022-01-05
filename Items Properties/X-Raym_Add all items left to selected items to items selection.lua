@@ -8,7 +8,7 @@
  * Licence: GPL v3
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2021-02-16)
@@ -46,17 +46,17 @@ count_sel_items = reaper.CountSelectedMediaItems(0)
 
 if count_sel_items > 0 then
   reaper.PreventUIRefresh(1)
-  
+
   reaper.Undo_BeginBlock()
-  
+
   init_sel_items =  {}
   SaveSelectedItems(init_sel_items)
-    
+
   Main()
-  
+
   reaper.UpdateArrange()
-  
+
   reaper.Undo_EndBlock("Add all left right to selected items to items selection", 0)
-  
+
   reaper.PreventUIRefresh(1)
 end

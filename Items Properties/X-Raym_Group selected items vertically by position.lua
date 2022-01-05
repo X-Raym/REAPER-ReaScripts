@@ -10,7 +10,7 @@
  * REAPER: 5.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2021-02-10)
@@ -61,15 +61,15 @@ end
 
 -- Main function
 function Main()
-  
+
   for pos, items in pairs( init_sel_items ) do
-    
+
     reaper.SelectAllMediaItems( 0, false )
     for i, item in ipairs( items ) do
       reaper.SetMediaItemSelected( item , true )
     end
     reaper.Main_OnCommand( 40032, 0 )-- Item grouping: Group items
-  
+
   end
 
 end
@@ -85,12 +85,12 @@ if count_sel_items > 0 then
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   init_sel_items =  {}
   SaveSelectedItemsByPositions(init_sel_items)
 
   Main()
-  
+
   RestoreSelectedItemsByKey(init_sel_items)
 
   reaper.Undo_EndBlock("Group selected items vertically by position", -1) -- End of the undo block. Leave it at the bottom of your main function.
@@ -98,5 +98,5 @@ if count_sel_items > 0 then
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end

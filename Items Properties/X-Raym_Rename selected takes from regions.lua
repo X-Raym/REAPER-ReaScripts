@@ -1,6 +1,5 @@
 --[[
  * ReaScript Name: Rename selected takes from regions
- * Description: See title
  * Author: X-Raym
  * Author URI: https://extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

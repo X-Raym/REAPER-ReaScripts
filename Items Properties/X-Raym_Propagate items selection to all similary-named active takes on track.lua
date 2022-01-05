@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Propagate items selection to all similary-named active takes on track
- * Description: Select items with similary-named active take of selected items on tracks.
+ * About: Select items with similary-named active take of selected items on tracks.
  * Instructions: Select items. Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Items selection (Various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163321

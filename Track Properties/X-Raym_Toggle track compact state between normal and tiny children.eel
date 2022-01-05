@@ -1,20 +1,16 @@
 /**
  * ReaScript Name: Toggle track compact state between normal and tiny children
- * Description: Toggle track compact/collapse state.
+ * About: Toggle track compact/collapse state.
  * Instructions: Select tracks. Run
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URI: http://forum.cockos.com/***.html
  * REAPER: 4.76
- * Extensions: None
  * Version: 1.0
 */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-05-14)
@@ -28,7 +24,7 @@ debug = 1; // 0 => No console. 1 => Display console messages for debugging.
 clean = 1; // 0 => No console cleaning before every script execution. 1 => Console cleaning before every script execution.
 
 msg_clean();*/
-// <==== DEBUGGING ----- 
+// <==== DEBUGGING -----
 
 function main() // local (i, j, item, take, track)
 (

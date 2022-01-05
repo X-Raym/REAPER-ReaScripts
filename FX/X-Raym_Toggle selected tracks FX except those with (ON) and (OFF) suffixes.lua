@@ -23,9 +23,9 @@ function ToggleTrackFX( tracki )
 
 		if not (fx_name:find(" %(ON%)") or fx_name:find(" %(OFF%)") ) then                  -- if the name doesn't have the suffix...
 			if reaper.TrackFX_GetEnabled(tracki, k) then           -- FX is enabled.
-				reaper.TrackFX_SetEnabled(tracki, k, 0);      -- set FX to bypass 
-		    else                                                  -- if not... 
-				reaper.TrackFX_SetEnabled(tracki, k, 1);      --set FX to enabled 
+				reaper.TrackFX_SetEnabled(tracki, k, 0);      -- set FX to bypass
+		    else                                                  -- if not...
+				reaper.TrackFX_SetEnabled(tracki, k, 1);      --set FX to enabled
 			end
 		end
 	end
@@ -36,9 +36,9 @@ function ToggleFXbySuffix()
 NumberTracks = reaper.CountSelectedTracks(0);
 
 for i = 0, NumberTracks - 1 do                                        -- loop for all tracks
-		
+
 	tracki = reaper.GetSelectedTrack(0, i);                                   -- which track
-	
+
 	ToggleTrackFX( tracki );
 end
 

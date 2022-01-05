@@ -1,6 +1,6 @@
 /**
  * JSFX Name: MIDI CC Channel Router
- * Description: Route CC messages to one of several channel
+ * About: Route CC messages to one of several channel
  * Screenshot: https://i.imgur.com/ve4YpmO.png
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
@@ -9,7 +9,6 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
  */
 
@@ -62,40 +61,40 @@ while
     // Extract message type and channel
     status = msg1 & $xF0;
     channel = msg1 & $x0F;
-    
+
     statusHi = (msg1/16)|0;
 
     // Is it on our channel?
     (channel == inChannel || inChannel == -1) && statusHi == CC_MSG ?
     (
-        
+
       i = 3;
-      
+
       loop(16,
-      
+
         slider( i ) == 1 ? (
-        
+
           chan_out = i - 3; // Get Note Out
 
           msg1 =  status + chan_out;
-          
+
           midisend(offset, msg1, note, vel);
-        
+
         );
-        
+
         i = i + 1;
-      
+
       );
 
-    
+
     ):(
-    
+
       midisend(offset, msg1, note, vel);
-    
+
     );
 
     1; // Force loop to continue until all messages have been processed
-  
+
   );
 
 );

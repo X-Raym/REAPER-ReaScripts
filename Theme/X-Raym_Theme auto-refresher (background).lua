@@ -2,16 +2,16 @@
  * ReaScript Name: Theme auto-refresher (background)
  * Screenshot: https://i.imgur.com/yJnbHLQ.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Forum Thread: Script: Theme auto-refresher
  * Forum Thread URL: https://forum.cockos.com/showthread.php?p=2436611#post2436611
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2021-04-25)
@@ -46,7 +46,7 @@ end
 
 -- Main Function (which loop in background)
 function Main()
-    
+
     time = reaper.time_precise()
     if time - init_time >= refresh_rate then
       local retval, size, accessedTime, modifiedTime, cTime, deviceID, deviceSpecialID, inode, mode, numLinks, ownerUserID, ownerGroupID = reaper.JS_File_Stat( rt_config_path )
@@ -63,14 +63,14 @@ function Main()
 
     reaper.defer(Main)
 
-  
+
 end
 
 -- INIT
 reaper.ClearConsole()
 
 theme_path = reaper.GetLastColorThemeFile()
-for line in io.lines(theme_path) do 
+for line in io.lines(theme_path) do
   folder = line:match("ui_img=(.+)")
   if folder then
     break

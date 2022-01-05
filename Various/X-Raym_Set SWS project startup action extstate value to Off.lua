@@ -1,7 +1,7 @@
 --[[
 * ReaScript Name: Set SWS project startup action extstate value to Off
 * About: Put this action at start of your SWS Project startup action, to allow other scripts to check if they are being run from this.
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts/
  * Licence: GPL v3

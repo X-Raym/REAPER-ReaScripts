@@ -3,9 +3,8 @@
  * Instructions: https://i.imgur.com/qWRVINF.gifv
  * Author: X-Raym
  * Author URI: https://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Track Selection (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551

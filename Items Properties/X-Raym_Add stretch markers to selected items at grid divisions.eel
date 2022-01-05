@@ -1,13 +1,12 @@
 /**
  * ReaScript Name: Add stretch markers to selected items at grid divisions
- * Description: See name.
+ * About: See name.
  * Instructions: Select items. Run.
  * Screenshot: https://i.imgur.com/9kX8HGY.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts (EEL): Add stretch markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1511145
@@ -15,13 +14,13 @@
  * Extensions: SWS S&M 2.8.2
  * Version: 1.1
 */
- 
+
 /**
  * Changelog:
  * v1.1 (2018-09-12)
-   + Time selection support 
+   + Time selection support
  * v1.0 (2015-11-26)
-   + Initial release. 
+   + Initial release.
  */
 
 // ----- DEBUGGING ====>
@@ -46,9 +45,9 @@ function src_offset(f_position, f_item, f_take) local(pos, spos)
   item_length = GetMediaItemInfo_value(f_item, "D_LENGTH");
   take_offset = GetMediaItemTakeInfo_value(f_take, "D_STARTOFFS");
   take_playrate = GetMediaItemTakeInfo_value(f_take, "D_PLAYRATE");
-  
+
   cmip = (f_position - item_pos) * take_playrate; //+ take_offset; //compensated *item* position
-  
+
   num_sm = GetTakeNumStretchMarkers(f_take); // num of SMs
   num_sm !=0 ?
   (
@@ -62,7 +61,7 @@ function src_offset(f_position, f_item, f_take) local(pos, spos)
         smi = smc; // sm index = sm count
         sp1 = spos; // source-pos1 = source pos of this sm
         p1 = pos // pos1 = pos of this sm
-      ):( 
+      ):(
         sp2 = spos; // else source-pos2 = source pos of this sm
         p2 = pos; // pos2 = pos of this sm
         smc = num_sm+1; // exit loop
@@ -70,7 +69,7 @@ function src_offset(f_position, f_item, f_take) local(pos, spos)
       smc +=1;
     );
     GetTakeStretchMarker(lm_take, smi, p1, sp1); // get LHS SM
-    smi < num_sm -1 ? 
+    smi < num_sm -1 ?
     (
       ucmip = rev_sm_comp(sp1, p1, sp2, p2, cmip);  // calc uncompensated mkr item position (*item* time)
       section_playrate = ((sp2-sp1)/(p2-p1))*take_playrate;
@@ -81,7 +80,7 @@ function src_offset(f_position, f_item, f_take) local(pos, spos)
     // ORIGINAL = position_source_offset = ucmip + take_offset;
     position_source_offset = ucmip; // convert from item pos to source position
     sm_dev_flag = num_sm>=3 && (sp1 != p1 || sp2 != p2) && (sp1-p1) != (sp2-p2) && smi < num_sm-1; // set SM deviated flag (either side SM moved)
-    
+
   ):(
   // Calculate a position's source offset, using item & take parameters...
     sp1 =0; p1 =0; sp2 =0; p2 =0; sm_dev_flag =0; // reset values if no SMs
@@ -99,9 +98,9 @@ function main() local (i, j, item, take, track)
   // LOOP THROUGH SELECTED TAKES
   tempo_markers_count = CountTempoTimeSigMarkers(0);
   selected_items_count = CountSelectedMediaItems(0);
-  
-  GetSet_LoopTimeRange2( 0, 0, 0, start_time, end_time, 0); 
-  
+
+  GetSet_LoopTimeRange2( 0, 0, 0, start_time, end_time, 0);
+
   start_time != end_time ? time_selection = 1;
 
   i = 0; // INITIALIZE loop through selected items
@@ -110,21 +109,21 @@ function main() local (i, j, item, take, track)
       item_end = item_start + GetMediaItemInfo_Value(item, "D_LENGTH");
 
       count_takes = CountTakes(item);
-      
+
       // LOOP IN TAKES
       k = 0;
       loop(count_takes,
-      
+
         take=GetTake(item, k);
 
         take_playrate = GetMediaItemTakeInfo_Value(take, "D_PLAYRATE");
-        
+
         time_selection == 1 ? (
           start = max(start_time, item_start);
           end = min(end_time, item_end);
         ):(
           start = item_start;
-          end = item_end; 
+          end = item_end;
         );
 
         first_grid = extension_api("BR_GetClosestGridDivision", start);
@@ -151,11 +150,11 @@ function main() local (i, j, item, take, track)
 
           );
         );
-        
+
         k+=1; // Increment Take ID
       );// END LOOP TAKES
     ); // ENDIF selected items
-    
+
     i += 1; // INCREMENT loop through selected items
   ); // ENDLOOP through selected items
 

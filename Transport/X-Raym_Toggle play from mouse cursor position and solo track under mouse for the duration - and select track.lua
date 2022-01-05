@@ -11,7 +11,7 @@
 --]]
 
 function main()
-  
+
   track, pos = reaper.BR_TrackAtMouseCursor()
   if track then
     reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_TOGGLE_PLAY_MOUSE_SOLO_TRACK"),-1)

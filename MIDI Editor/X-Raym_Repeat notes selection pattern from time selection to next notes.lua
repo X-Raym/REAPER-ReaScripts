@@ -11,7 +11,7 @@
  * REAPER: 5.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2018-05-11)
@@ -21,20 +21,20 @@
 local reaper = reaper
 
 function Main( take )
-      
+
   retval, notes, ccs, sysex = reaper.MIDI_CountEvts( take )
-  
+
   local time_startppq = reaper.MIDI_GetPPQPosFromProjTime( take, start_time )
   local time_endppq = reaper.MIDI_GetPPQPosFromProjTime( take, end_time )
-  
+
   pattern = {}
   local j = 0
   -- GET SELECTED NOTES (from 0 index)
   for k = 0, notes - 1 do
-        
+
     local retval, sel, muted, startppq, endppq, chan, pitch, vel = reaper.MIDI_GetNote( take, k )
 
-    
+
       if startppq >= time_startppq and startppq < time_endppq and endppq > time_startppq and endppq <= time_endppq then
         local offset = k
         if pattern[1] then offset = pattern[1] end
@@ -47,7 +47,7 @@ function Main( take )
           j = j + 1
          reaper.MIDI_SetNote( take, k, pattern[j], muted, startppq, endppq, chan, pitch, vel )
         end
-        
+
       end
 
   end
@@ -62,15 +62,15 @@ take = reaper.MIDIEditor_GetTake( reaper.MIDIEditor_GetActive() )
 start_time, end_time =  reaper.GetSet_LoopTimeRange( false, false, 0, 0, false )
 
 if take and start_time ~= end_time then
-  
+
   reaper.ClearConsole()
-  
+
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   Main( take ) -- Execute your main function
-  
+
   reaper.Undo_EndBlock("Repeat notes selection pattern from time selection to next notes", 0) -- End of the undo block. Leave it at the bottom of your main function.
-  
+
   reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 end -- ENDIF Take is MIDI

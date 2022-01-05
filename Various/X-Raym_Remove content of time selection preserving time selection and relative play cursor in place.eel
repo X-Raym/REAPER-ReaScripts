@@ -1,15 +1,14 @@
 /**
  * ReaScript Name: Remove content of time selection preserving time sleection and relative play cursor in place
- * Description: See title.
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 4.76
  * Version: 1.0.1
 */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-06-07)

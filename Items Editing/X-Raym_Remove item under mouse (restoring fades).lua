@@ -79,12 +79,12 @@ count_sel_items = reaper.CountSelectedMediaItems(0)
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   init_sel_items =  {}
   SaveSelectedItems(init_sel_items)
 
   main()
-  
+
   RestoreSelectedItems (init_sel_items)
 
   reaper.Undo_EndBlock("Remove item under mouse (restoring fades)", -1) -- End of the undo block. Leave it at the bottom of your main function.
@@ -92,5 +92,5 @@ count_sel_items = reaper.CountSelectedMediaItems(0)
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 

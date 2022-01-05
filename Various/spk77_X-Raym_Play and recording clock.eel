@@ -2,16 +2,16 @@
  * ReaScript Name: Play and recording clock
  * Screenshot: https://i.imgur.com/P6Zr7lC.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Forum Thread:  EEL: Clock (shows project time) 
+ * Forum Thread:  EEL: Clock (shows project time)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=155542
  * REAPER: 5.0
  * Version: 1.1.1
 */
- 
+
 /**
  * Changelog:
  * v1.1.1 (2018-09-01)
@@ -57,23 +57,23 @@ function init(window_w, window_h)
 );
 
 function run() local(time_range, time_sel_start, time_sel_end)
-(  
+(
 
   GetPlayState() == 0 || GetPlayState() == 2 ? (
-    format_timestr_pos(last_value, #buf, format) 
+    format_timestr_pos(last_value, #buf, format)
     ):(
       format_timestr_pos(GetPlayPosition2()-GetCursorPosition(), #buf, format);
       last_value = GetPlayPosition2()-GetCursorPosition();
     );
   gfx_measurestr(#buf, str_w, str_h);
-  
+
   mouse_wheel != 0 ? adjust_font_size(mouse_wheel);
-  
+
   mouse_state == 0 && mouse_cap == 2 && mouse_x > 5 && mouse_x < gfx_w - 5 && mouse_y > 5 && mouse_y < gfx_h - 5 ? (
     mouse_state = 1;
     format < 6 ? format += 1 : format = 0;
   );
-  
+
   mouse_cap == 0 ? mouse_state = 0;
   a = GetPlayState();
   GetPlayState() == 5 ? (
@@ -82,17 +82,17 @@ function run() local(time_range, time_sel_start, time_sel_end)
     gfx_g = 0;
     gfx_rect( 0, 0, gfx_w, gfx_h, 1);
   );
-  
+
   format < 6 ? (
     gfx_r = 1;
     gfx_b = 1;
     gfx_g = 1;
-    
+
     gfx_x = 0.5*(gfx_w-str_w);
     gfx_y = 5;
     gfx_printf(#buf);
   );
-  
+
   gfx_update();
   gfx_getchar() >= 0 ? defer("run();");
 );

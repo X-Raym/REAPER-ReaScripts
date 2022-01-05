@@ -3,8 +3,8 @@
  * Screenshot: https://i.imgur.com/zrwgpl1.gif
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
@@ -17,7 +17,7 @@
 
 console = true
 
-if not reaper.BR_GetMouseCursorContext_MIDI then 
+if not reaper.BR_GetMouseCursorContext_MIDI then
   reaper.ShowMessageBox("SWS extension is required by this script.\nHowever, it doesn't seem to be present for this REAPER installation.\n\nDownload: http://www.sws-extension.org/", "Warning", 0)
   return false
 end

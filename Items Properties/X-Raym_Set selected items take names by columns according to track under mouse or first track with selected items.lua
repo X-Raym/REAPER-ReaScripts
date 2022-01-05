@@ -2,8 +2,8 @@
  * ReaScript Name: Set selected items take names by columns according to track under mouse or first track with selected items
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814
  * Licence: GPL v3
@@ -50,7 +50,7 @@ function Main()
   for i = 0, count_sel_tems - 1 do
     local item = reaper.GetSelectedMediaItem(0, i)
     local take = reaper.GetActiveTake( item )
-    if take then 
+    if take then
       local track = reaper.GetMediaItem_Track( item )
       local track_id = reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER")
       if track_id == ref_track_id then

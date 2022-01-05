@@ -5415,7 +5415,7 @@ index.xml
 }}}
  link from the Import a repository window.\line {\f1 https://raw.githubusercontent.com/X-Raym/REAPER-ReaScripts/master/index.xml}\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Manual Download Instructions\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 Please download the whole archive on my website => {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/my-reaper-scripts/"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa180 \li0 \fi0 Please download the whole archive on my website => {\field{\*\fldinst{HYPERLINK "https://www.extremraym.com/en/my-reaper-scripts/"}}{\fldrslt{\ul
 My REAPER Scripts
 }}}
 .\par}
@@ -5423,7 +5423,7 @@ My REAPER Scripts
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab The whole archive can also be downloaded from here by clicking on the Download Master button.\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab For one script in particular: click on one script, then click on the Raw button, then File > Save (via Menu, Right Click or CTRL/CMD +S).\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Support\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 Please consider making a {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/donation/"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa180 \li0 \fi0 Please consider making a {\field{\*\fldinst{HYPERLINK "https://www.extremraym.com/en/donation/"}}{\fldrslt{\ul
 donation
 }}}
  if you like my work and if you use some of these scripts in your projects, or consider buying some of my {\field{\*\fldinst{HYPERLINK "http://www.extremraym.com/en/downloads/category/reascripts/"}}{\fldrslt{\ul
@@ -5431,15 +5431,15 @@ premium scripts
 }}}
 .\line This will help me continue sharing and maintaining these scripts for free, and even code new ones.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \b \fs32 Detailed Articles\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/my-reaper-scripts/"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.extremraym.com/en/my-reaper-scripts/"}}{\fldrslt{\ul
 My REAPER Scripts
 }}}
 \par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://extremraym.com/en/learn-reascript-reaper/"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.extremraym.com/en/learn-reascript-reaper/"}}{\fldrslt{\ul
 How to Learn ReaScript
 }}}
 \par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "http://extremraym.com/reaper-randomisation-takes/"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.extremraym.com/reaper-randomisation-takes/"}}{\fldrslt{\ul
 REAPER Scripts : Take Properties Randomization
 }}}
 \sa180\par}

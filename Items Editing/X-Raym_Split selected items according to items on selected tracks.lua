@@ -1,11 +1,11 @@
 --[[
  * ReaScript Name: Split selected items according to items on selected tracks
- * Description: A script designed for splitting long items at regions when regions are created from items, thanks to Heda's script.
+ * About: A script designed for splitting long items at regions when regions are created from items, thanks to Heda's script.
  * Instructions: Select an item. Select a track. The item will be split according to the item starts and item ends on track.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363

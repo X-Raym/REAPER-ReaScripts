@@ -1,20 +1,18 @@
 /**
  * ReaScript Name: Randomize take playback rate (normal distribution)
- * Description: Randomize take playback rate from snap offset, with fade length ratio preservation. Customization of the randomization have to be edited int he script itself.
+ * About: Randomize take playback rate from snap offset, with fade length ratio preservation. Customization of the randomization have to be edited int he script itself.
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts (EEL): Randomize Take Playback Rate
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1520462
  * REAPER: 4.76
- * Extensions: None
  * Version: 1.1
 */
- 
+
 /**
  * Changelog:
  * v1.1 (2015-05-12)
@@ -24,7 +22,7 @@
   + Initial Release
  */
 
-// Based on spk77 initial code snippet in REAPER Forum Thread : 
+// Based on spk77 initial code snippet in REAPER Forum Thread :
 // Takes Random Action - Pan and More > #23
 // and EEL: Pan active takes randomly (in selected items) > #09
 
@@ -54,17 +52,17 @@ function rand_take_pb_rate(mean, standard_dev) local(i, item, take, c)
   standard_dev > 10 ? standard_dev = 10;
 //ShowConsoleMsg("");
   i = 0;
-  loop(CountSelectedMediaItems(0), 
+  loop(CountSelectedMediaItems(0),
     (item = GetSelectedMediaItem(0, i)) ? (
       (take = GetActiveTake(item)) ? (
         R = 0;
         G = rand(2) - 1 + rand(2) - 1 + rand(2) - 1;
         R = G * standard_dev + mean;
-        
+
         // Constrain result
         R < 0 ? R += abs(R + 1);
         R > 10 ? R -= (R - 1);
-        
+
         // INITIAL ITEM INFOS
         init_fadein = GetMediaItemInfo_Value(item, "D_FADEINLEN");
         init_fadeout = GetMediaItemInfo_Value(item, "D_FADEOUTLEN");
@@ -84,12 +82,12 @@ function rand_take_pb_rate(mean, standard_dev) local(i, item, take, c)
 
         new_snap = src_snap / R;
         SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap);
-        
+
         snap_dif = init_snap - new_snap;
         SetMediaItemInfo_Value(item, "D_POSITION", init_position + snap_dif);
-        
+
         SetMediaItemInfo_Value(item, "D_LENGTH", src_length / R);
-        
+
         init_fadein > 0 ? (
           SetMediaItemInfo_Value(item, "D_FADEINLEN", src_fadein / R);
         );

@@ -1,7 +1,5 @@
 --[[
  * ReaScript Name: Select only MIDI notes above active note row pitch cursor
- * Description: See title
- * Instructions: Run
  * Screenshot: https://i.imgur.com/pjjqMYN.gifv
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
@@ -10,7 +8,6 @@
  * Forum Thread: Scripts: MIDI (Various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=187555
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
 --]]
 

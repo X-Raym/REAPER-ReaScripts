@@ -1,13 +1,10 @@
 --[[
  * ReaScript Name: Duplicate selected notes as fourth
- * Description: See title
- * Instructions: Run
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0.1
 --]]
 

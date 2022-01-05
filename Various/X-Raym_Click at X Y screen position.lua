@@ -1,11 +1,11 @@
 --[[
  * ReaScript Name: Click at X Y screen position
  * Screenshot: https://i.imgur.com/bWsnJET.gif
- * Description: Use this with the Save mouse pos toslot scripts. Useful to switch presets of VST which doesn't have other way to trigger next/previous buttons.
+ * About: Use this with the Save mouse pos toslot scripts. Useful to switch presets of VST which doesn't have other way to trigger next/previous buttons.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version:  1.0.1
@@ -16,7 +16,7 @@
  *   [main] . > X-Raym_Click at X Y screen position_slot 3.lua
  *   [main] . > X-Raym_Click at X Y screen position_slot 4.lua
 --]]
- 
+
 ext_name = "XR_MousePositions"
 
 script_name = ({reaper.get_action_context()})[2]:match("([^/\\_]+)%.lua$")

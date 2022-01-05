@@ -4,12 +4,12 @@
  * Author: X-Raym
  * Author URI: http://www.extremraym.com/
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2020-01-06)
@@ -45,8 +45,8 @@ function Main()
       positions[i] = {id = i, pos = reaper.GetMediaItemInfo_Value(first_item, "D_POSITION"), track = track, track_id =  track_id}
     end
   end
-  
-  
+
+
   table.sort(positions, function( a,b )
     if (a.pos < b.pos) then
       -- primary sort on position -> a before b
@@ -59,17 +59,17 @@ function Main()
       return a.id < b.id
     end
   end)
-  
+
   idx = {}
   for i, track in ipairs( sel_tracks ) do
     idx[i] = reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER")
   end
-  
+
   for i = 1, #positions do
     reaper.SetOnlyTrackSelected( positions[i].track )
     reaper.ReorderSelectedTracks( idx[i], 0 )
   end
-  
+
 end
 
 count_sel_tracks = reaper.CountSelectedTracks()

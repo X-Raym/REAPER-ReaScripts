@@ -1,21 +1,17 @@
 /**
  * ReaScript Name: Multiply selected items length by two avoiding overlapping with next item
- * Description: Multiply selected items length by two avoiding overlapping with next item
+ * About: Multiply selected items length by two avoiding overlapping with next item
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Forum Thread: Script: Script name
- * Forum Thread URI: http://forum.cockos.com/***.html
  * Version: 1.0
  * Version Date: 2015-03-14
  * REAPER: 4.76
- * Extensions: None
  */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-03-14)
@@ -37,7 +33,7 @@ function main() // local (i, j, item, take, track)
 
 	// LOOP THROUGH SELECTED ITEMS
 	selected_items_count = CountSelectedMediaItems(0);
-	
+
 	i = 0; // INITIALIZE loop through selected items
 	loop(selected_items_count, (item = GetSelectedMediaItem(0, i)) ? (
 			// GET INFOS
@@ -66,7 +62,7 @@ function main() // local (i, j, item, take, track)
 				);
 
 			);
-			
+
 			// SET INFOS
 			SetMediaItemInfo_Value(item, "D_LENGTH", item_multiplied_length); // Set the value to the parameter
 		); // ENDIF inside loop selected items

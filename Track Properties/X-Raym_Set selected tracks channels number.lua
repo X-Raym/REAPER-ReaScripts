@@ -1,16 +1,15 @@
 --[[
  * ReaScript Name: Set selected tracks channel number
- * Description: Select tracks. Run.
+ * About: Select tracks. Run.
  * Author: X-Raym
  * Author URl: https://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * Version: 1.1
  * REAPER: 5.0 pre 15
- * Extensions: None
  --]]
- 
+
 --[[
  * Changelog:
  * v1.1 (2016-11-25)
@@ -27,7 +26,7 @@ prompt = true -- true/false
 
 -- END OF USER CONFIG AREA
 
-function main(number) -- local (i, j, item, take, track)
+function main(number)
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -37,7 +36,7 @@ function main(number) -- local (i, j, item, take, track)
 
 		--SET INFOS
 		reaper.SetMediaTrackInfo_Value(track, "I_NCHAN", number)
-		
+
 	end -- ENDLOOP through selected tracks
 
 	reaper.Undo_EndBlock("Set selected tracks channel number", -1) -- End of the undo block. Leave it at the bottom of your main function.
@@ -54,7 +53,7 @@ end
 if ( retval or prompt == false ) and selected_tracks_count > 0 then
 
 	reaper.PreventUIRefresh(1)
-	
+
 	output = tonumber(number)
 	if not output then return end
 
@@ -66,7 +65,7 @@ if ( retval or prompt == false ) and selected_tracks_count > 0 then
 	reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 	reaper.PreventUIRefresh(-1)
-	
+
 	reaper.UpdateArrange() -- Update the arrangement (often needed)
-	
+
 end

@@ -3,8 +3,8 @@
  * Screenshot: https://i.imgur.com/dnAKtCX.gif
  * Author: X-Raym
  * Author URI: https://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
@@ -62,22 +62,22 @@ function Msg(g)
 end
 
 
-function main() -- local (i, j, item, take, track)
-  
+function main()
+
   start_pos, end_pos = reaper.GetSet_LoopTimeRange2( 0, false, false, 0, 0, false )
 
   take = reaper.MIDIEditor_GetTake(reaper.MIDIEditor_GetActive())
 
   if take and start_pos ~= end_pos then
-  
+
     iPosOut = reaper.MIDI_GetPPQPosFromProjTime(take, start_pos)
     end_time = reaper.MIDI_GetPPQPosFromProjTime(take, end_pos)
 
     retval = reaper.MIDI_InsertTextSysexEvt( take, true, false, iPosOut, vars.type_start, vars.bytestr_start )
     retval = reaper.MIDI_InsertTextSysexEvt( take, true, false, end_time, vars.type_end, vars.bytestr_end )
-  
+
     reaper.MIDI_Sort(take)
-  
+
   end -- ENFIF Take is MIDI
 
 end
@@ -86,20 +86,20 @@ if prompt then
   for k, v in pairs( vars ) do
     vars[k] = GetExtState( k, vars[k] )
   end
-  
+
   vals = {}
   for i, v in ipairs( vars_order ) do
     vals[i] = vars[v]
   end
   vals = table.concat(vals, ",")
-  
+
   instructions = {
     "Type Start",
     "Type End",
     "STR Start",
     "STR End"
   }
-  retval, user_input_str = reaper.GetUserInputs("Insert SYSEX", #instructions, table.concat(instructions, ","), vals ) 
+  retval, user_input_str = reaper.GetUserInputs("Insert SYSEX", #instructions, table.concat(instructions, ","), vals )
   if retval then
         vars = {}
         vars.type_start, vars.type_end, vars.bytestr_start, vars.bytestr_end = user_input_str:match("([^,]+),([^,]+),([^,]+),([^,]+)")
@@ -111,11 +111,11 @@ if not prompt or ( retval and vars.type_start ) then -- if user complete the fie
     reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
     main() -- Execute your main function
-    
+
     if prompt then
       SaveState()
     end
-    
+
     reaper.Undo_EndBlock("Insert sysex events at time selection", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
     reaper.UpdateArrange() -- Update the arrangement (often needed)

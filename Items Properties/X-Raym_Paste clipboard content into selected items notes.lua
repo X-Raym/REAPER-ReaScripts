@@ -1,6 +1,5 @@
 --[[
  * ReaScript Name: Paste clipboard content into selected items notes
- * Description: See title
  * Author: X-Raym
  * Author URI: https://extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

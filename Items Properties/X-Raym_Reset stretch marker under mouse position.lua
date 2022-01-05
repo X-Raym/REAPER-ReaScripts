@@ -1,13 +1,12 @@
 --[[
  * ReaScript Name: Reset stretch marker under mouse position
- * Description: See title
  * Instructions: Put this on a keyboard shortcut. Run.
  * Screenshot: http://i.imgur.com/vbEHtuz.gif
  * Notes : Only work if take rate is 1. SWS issue.
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: REQ: Reset stretch markers value
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=165774
@@ -59,17 +58,17 @@ function main()
 				reaper.SetTakeStretchMarker(take, idx, srcpos)
 
 				group_state = reaper.GetToggleCommandState(1156, 0)
-				
+
 				if group_state == 1 then
-				
+
 					-- Get Item Take
 					item = reaper.GetMediaItemTake_Item( take )
-					
+
 					-- Get Group
 					group = reaper.GetMediaItemInfo_Value( item, "I_GROUPID" )
 
 					if group > 0 then
-						
+
 						-- Loop others item in in items group
 						for j = 0, reaper.CountMediaItems( 0 ) - 1 do
 							item_next = reaper.GetMediaItem( 0, j )
@@ -84,9 +83,9 @@ function main()
 								end
 							end
 						end
-					
+
 					end
-				
+
 				end
 
 				reaper.Undo_EndBlock("Reset stretch marker under mouse position", -1) -- End of the undo block. Leave it at the bottom of your main function.

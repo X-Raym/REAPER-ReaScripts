@@ -3,16 +3,16 @@
  * About: A script to do multi mic based editing using one single track.
  * Screenshot: https://i.imgur.com/v507YbW.gifv
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
  * Version: 1.0.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0.1 (2020-07-06)
@@ -69,7 +69,7 @@ function main()
   -- INITIALIZE loop through selected items
   item_on_tracks = reaper.CountTrackMediaItems(track)
   for j = 0, item_on_tracks-1  do
-    
+
     -- GET ITEM
     item = reaper.GetTrackMediaItem(track, j) -- Get selected item i
 
@@ -84,7 +84,7 @@ function main()
       -- IF FIRST ITEM, INSERT AUTOMATICALLY
       save_time(item_pos)
       last = false
-    
+
     end
 
     -- IF ITEM END IS INSIDE OUR SELECTED ITEM
@@ -95,7 +95,7 @@ function main()
       last = true
 
     end
-  
+
   end -- END LOOP ITEMS ON TRACK
 
   -- SORT THE TABLE
@@ -144,7 +144,7 @@ end
 
 function runloop()
   local newtime=os.time()
-  
+
   if (loopcount < 1) then
     if newtime-lasttime >= wait_time_in_seconds then
    lasttime=newtime
@@ -153,14 +153,14 @@ function runloop()
   else
     ----------------------------------------------------
     -- PUT ACTION(S) YOU WANT TO RUN AFTER WAITING HERE
-    
+
     reaper.TrackCtl_SetToolTip( "", x, y, true )
-    
+
     ----------------------------------------------------
     loopcount = loopcount+1
   end
-  if 
-    (loopcount < 2) then reaper.defer(runloop) 
+  if
+    (loopcount < 2) then reaper.defer(runloop)
   end
 end
 
@@ -168,10 +168,10 @@ function DisplayTooltip(message)
   wait_time_in_seconds = 2
   lasttime=os.time()
   loopcount=0
-  
+
   x, y = reaper.GetMousePosition()
   reaper.TrackCtl_SetToolTip( message, x, y, false )
-  
+
   runloop()
 end
 
@@ -182,21 +182,21 @@ count_sel_tracks = reaper.CountSelectedTracks()
 if count_sel_tracks > 0 then
 
   count_sel_items = reaper.CountSelectedMediaItems( 0 )
-  
+
   if count_sel_items > 0 then
 
     reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
     save_item_selection()
-  
+
     reaper.Undo_EndBlock("Split selected items according to items on first selected track and delete new items at spaces", 0) -- End of the undo block. Leave it at the bottom of your main function.
-    
+
   else
-  
+
     DisplayTooltip("No item selected.")
-    
+
   end
-  
+
 else
   DisplayTooltip("No track selected.")
 end

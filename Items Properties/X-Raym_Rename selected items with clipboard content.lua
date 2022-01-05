@@ -1,6 +1,5 @@
 --[[
  * ReaScript Name: Rename selected items with clipboard content
- * Description: See title
  * Author: X-Raym
  * Author URI: https://extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

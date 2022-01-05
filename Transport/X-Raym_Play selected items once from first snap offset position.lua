@@ -19,7 +19,7 @@ console = false
 ext_name = "XR_PlayItemsOnce"
 
 function Main_OnCommand( val )
-  if not tonumber(val) then 
+  if not tonumber(val) then
     val = reaper.NamedCommandLookup(val)
   end
   reaper.Main_OnCommand( val, 0 )
@@ -29,7 +29,7 @@ function GetItemsEdges()
 	local max, min = 0, math.huge
 	for i = 0, count_sel_items - 1 do
 		local item = reaper.GetSelectedMediaItem(0,i)
-		local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")          
+		local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 		local item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
 		local item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 		min = math.min( min, item_pos + item_snap)
@@ -39,7 +39,7 @@ function GetItemsEdges()
 end
 
 function Run()
-	local cur_play = reaper.GetPlayPosition() 
+	local cur_play = reaper.GetPlayPosition()
 	local play_state = reaper.GetPlayState()
 	local max = reaper.GetExtState(ext_name, "max")
 	max = tonumber(max)

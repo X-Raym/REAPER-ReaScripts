@@ -1,20 +1,18 @@
 /**
  * ReaScript Name: Randomize take playback rate
- * Description: This script is a demonstration of how we can randomize take playback rate. It is not meant to be use without modifications of the R value.
+ * About: This script is a demonstration of how we can randomize take playback rate. It is not meant to be use without modifications of the R value.
  * Instructions: Here is how to use it. (optional)
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts (EEL): Randomize Take Playback Rate
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1520462
  * REAPER: 4.76
- * Extensions: None
  * Version: 1.1
 */
- 
+
 /**
  * Changelog:
  * v1.1 (2015-05-12)
@@ -27,13 +25,13 @@
 function rand_take_pb_rate() local(i, item, take)
 (
   i = 0;
-  loop(CountSelectedMediaItems(0), 
+  loop(CountSelectedMediaItems(0),
     (item = GetSelectedMediaItem(0, i)) ? (
       (take = GetActiveTake(item)) ? (
 
         R = rand(2);
         // USER INPUT => MODIFY R HERE
-        // R = 
+        // R =
         // USER INPUT => END OF R MODIFICATIONS
 
         // INITIAL ITEM INFOS
@@ -55,12 +53,12 @@ function rand_take_pb_rate() local(i, item, take)
 
         new_snap = src_snap / R;
         SetMediaItemInfo_Value(item, "D_SNAPOFFSET", new_snap);
-        
+
         snap_dif = init_snap - new_snap;
         SetMediaItemInfo_Value(item, "D_POSITION", init_position + snap_dif);
-        
+
         SetMediaItemInfo_Value(item, "D_LENGTH", src_length / R);
-        
+
         init_fadein > 0 ? (
           SetMediaItemInfo_Value(item, "D_FADEINLEN", src_fadein / R);
         );

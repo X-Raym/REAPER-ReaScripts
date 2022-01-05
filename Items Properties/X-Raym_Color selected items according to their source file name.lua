@@ -40,16 +40,16 @@ function GetStringFromMIDIbytes( buf )
   local pos=1
   local main_out = ""
   while pos <= buf:len() do
-  
+
     local offs,flag,msg=string.unpack("IBs4",buf,pos)
     local adv=4+1+4+msg:len() -- int+char+int+msg
-    
+
     local out="+"..offs.."\t"
     for j=1,msg:len() do out=out..string.format("%02X ",msg:byte(j)) end
     if flag ~= 0 then out=out.."\t" end
     if flag&1 == 1 then out=out.."sel " end          if flag&2 == 2 then out=out.."mute " end
     main_out = main_out .. "\n" .. out
-    pos=pos+adv          
+    pos=pos+adv
   end
   return main_out
 end
@@ -102,7 +102,7 @@ if count_sel_items > 0 then
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   reaper.ClearConsole()
 
   Main()
@@ -112,5 +112,5 @@ if count_sel_items > 0 then
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end

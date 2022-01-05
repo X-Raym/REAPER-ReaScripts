@@ -1,7 +1,7 @@
 // Create regions from selected takes and from track name
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -25,7 +25,7 @@
 // <==== CUSTOMIZATION -----
 
 function create_regions_from_takes() local(i, item, take)
-(     
+(
 	i = 0;
 	loop(countItems = CountSelectedMediaItems(0),
 		(item = GetSelectedMediaItem(0, i)) ? (

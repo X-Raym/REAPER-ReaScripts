@@ -1,7 +1,7 @@
 // Merge consecutive regions as dialog lines
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -64,7 +64,7 @@ function merge_two_regions()
 	time = GetCursorPosition();
 
 	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
-	
+
 	EnumProjectMarkers(regionidxOut, isRegion_b, nextRegionStart_d, nextRegionEnd_d, #name_str, nextRegionID_int);
 	nextRegionName = #name_str;
 	nextRegionName_str = sprintf(#dest2, "%s", nextRegionName);
@@ -90,7 +90,7 @@ function merge_two_regions()
 		msg_s("and:");
 		msg_d(nextRegionID_int);
 		msg_s("<=====");*/
-		
+
 		CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
 		/*msg_s("Number of region after script:");
 		msg_d(num_regionsOut2);
@@ -100,9 +100,9 @@ function merge_two_regions()
 
 			msg_s("No regions merged.");
 			msg("<=====\n\n");
-			
+
 		);
-	);	
+	);
 );
 
 merge_two_regions();

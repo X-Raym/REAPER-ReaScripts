@@ -3,9 +3,9 @@
  * EEL Script for Reaper
  * A template for adding custom color button.
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Source URI: https://github.com/X-Raym/REAPER-EEL-Scripts/Display selected tracks and takes color in the console.eel
  * Licence: GPL v3
  * Forum Thread: Script: Display selected tracks and takes color in the console
@@ -14,7 +14,7 @@
  * Version Date: 2015-02-15
  * REAPER: 4.76
  */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-15-02)
@@ -72,10 +72,10 @@ function main() local (i, j)
 			);
 		i += 1;
 	);
-		
+
 	// SELECTED TRACKS LOOP
 	j = 0;
-	loop(countTracks, 
+	loop(countTracks,
 			(track = GetSelectedTrack(0, j)) ? (
 				SetMediaTrackInfo_Value(track, "I_CUSTOMCOLOR", color_int);
 			);

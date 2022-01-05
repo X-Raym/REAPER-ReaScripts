@@ -1,7 +1,6 @@
 /**
  * JSFX Name: MIDI notes sequence from CSV file
- * Description: Play a melody from a notes list, based on one single keyboard input
- * About:
+ * About: Play a melody from a notes list, based on one single keyboard input
      Designed for use with Makey Makey, but can be used for any workflow.
  * Screenshot: https://www.youtube.com/watch?v=mUqEd67xNZw
  * Author: X-Raym

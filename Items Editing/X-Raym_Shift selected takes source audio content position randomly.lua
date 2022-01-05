@@ -11,7 +11,7 @@
  * REAPER: 5.0
  * Version: 1.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1 (2018-12-07)
@@ -40,7 +40,7 @@ function main()
       local source = reaper.GetMediaItemTake_Source( take )
       local retval, lengthIsQN = reaper.GetMediaSourceLength( source )
       local value = randomFloat( 0, retval - reaper.GetMediaItemInfo_Value( item, "D_LENGTH") )
-      if snap == 1 then -- if Snap on 
+      if snap == 1 then -- if Snap on
         -- NOTE: only for fix grid
         -- Quantize the offset
         offset = reaper.GetMediaItemTakeInfo_Value( take, "D_STARTOFFS" )
@@ -55,7 +55,7 @@ function main()
         end
       end
       reaper.SetMediaItemTakeInfo_Value( take, "D_STARTOFFS", value )
-      
+
     end
   end
 
@@ -80,5 +80,5 @@ if count_sel_items > 0 then
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end

@@ -1,17 +1,15 @@
 --[[
  * ReaScript Name: Export regions as txt file
- * Description: See title.
  * Instructions: Save project. Have regions. Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URl: 
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
+ * File URl:
  * Licence: GPL v3
  * Forum Thread: Export regions as file
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
 --]]
 
@@ -21,7 +19,7 @@
 	+ Initial Release
 --]]
 
- 
+
 --------------------------------------------------------
 -- DEBUG
 -- -----
@@ -71,7 +69,7 @@ function IsProjectSaved()
 
 	retval, project_path_name = reaper.EnumProjects(-1, "")
 	if project_path_name ~= "" then
-		
+
 		dir = GetPath(project_path_name, separator)
 		--msg(name)
 		name = string.sub(project_path_name, string.len(dir) + 1)
@@ -116,7 +114,7 @@ end
 function create(f)
 	-- CREATE THE FILE
 	io.output(file)
-	
+
 	i=0
 	repeat
 		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
@@ -145,7 +143,7 @@ end
 -- MAIN FUNCTION
 -- -------------
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	local f = io.open(file, "w")
 

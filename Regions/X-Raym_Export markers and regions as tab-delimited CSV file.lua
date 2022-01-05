@@ -1,11 +1,10 @@
 --[[
  * ReaScript Name: Export markers and regions from tab-delimited CSV file
- * Description: See title.
  * Instructions: Select a track. Run.
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Links
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
@@ -45,14 +44,14 @@ end
 function Main()
 
   local f = io.open(file, "w")
-  
+
   sub_header = ""
-  if reaper.NF_GetSWSMarkerRegionSub then 
+  if reaper.NF_GetSWSMarkerRegionSub then
     sub_header = "\tSubtitles"
   end
-  
+
   export(f, "#\tName\tStart\tEnd\tLength\tColor" .. sub_header)
-  
+
   i=0
   repeat
     iRetval, bIsrgnOut, iPosOut, iRgnendOut, name, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
@@ -61,20 +60,20 @@ function Main()
       if bIsrgnOut then
         t = "R"
         duration = iRgnendOut - iPosOut
-      else 
+      else
         t = "M"
         duration = 0
         iRgnendOut = iPosOut
       end
-      
+
       local color = 0
       if iColorOur > 0 then
         r,g,b = reaper.ColorFromNative(iColorOur)
         color = rgbToHex(r, g, b)
       end
-      
+
       sub = "\t"
-      if reaper.NF_GetSWSMarkerRegionSub then 
+      if reaper.NF_GetSWSMarkerRegionSub then
        sub = sub .. reaper.NF_GetSWSMarkerRegionSub( i )
        sub = sub:gsub('\r\n', '<br>')
        sub = sub:gsub('\n\n', '<br>')
@@ -103,5 +102,5 @@ else
   if not file:find('.csv') then file = file .. ".csv" end
   reaper.defer(Main)
  end
-  
+
 end

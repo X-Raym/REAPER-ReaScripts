@@ -9,7 +9,7 @@
  * REAPER: 5.0
  * Version: 1.0.2
 --]]
- 
+
 
 --[[
  * Changelog:
@@ -22,17 +22,17 @@
 local reaper = reaper
 
 function Main()
-  
+
   local all_solo = true
   for i = 0, count_sel_tracks - 1 do
-    local track = reaper.GetSelectedTrack(0,i)    
+    local track = reaper.GetSelectedTrack(0,i)
     local solo = reaper.GetMediaTrackInfo_Value(track, "I_SOLO" )
     if solo == 0 then
       all_solo = false
       break
     end
   end
-  
+
   if all_solo then
     reaper.SoloAllTracks(0)
   else
@@ -60,9 +60,9 @@ if count_sel_tracks > 0 then
   Main()
 
   reaper.Undo_EndBlock("Solo selected tracks unsoloing unselected ones or unsolo if already solo", -1) -- End of the undo block. Leave it at the bottom of your main function.
-  
+
   reaper.TrackList_AdjustWindows(false)
 
   reaper.PreventUIRefresh(-1)
-  
+
 end

@@ -1,20 +1,16 @@
 /**
  * ReaScript Name: Select-Unselect lowest MIDI notes in active take
- * Description: See title.
- * Instructions: Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: 
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Forum Thread: 
- * Forum Thread URI: 
+ * Forum Thread:
+ * Forum Thread URI:
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
 */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-04-08)

@@ -1,18 +1,16 @@
 --[[
  * ReaScript Name: Stutter edit selected media items
- * Description: Divide selected items length and duplicate
+ * About: Divide selected items length and duplicate
  * Instructions: Select items. Run.
  * Screenshot: https://youtu.be/Uz09ifB7atg
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
 --]]
 

@@ -2,13 +2,13 @@
  * ReaScript Name: Solo in place exclusive track under mouse and play
  * Author: X-Raym
  * Author URI: https://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.2
 --]]
- 
+
 --[[
  * Changelog:
  * v1.2 (2019-07-14)
@@ -27,7 +27,6 @@ function Main()
   if track then
     local solo = reaper.GetMediaTrackInfo_Value(track, "I_SOLO")
     if solo ~= solo_state then
-      --reaper.PreventUIRefresh(1)
       reaper.SetMediaTrackInfo_Value(track, "I_SOLO", solo_state)
       reaper.SetOnlyTrackSelected( track )
       --if reaper.AnyTrackSolo( 0 ) then
@@ -39,7 +38,6 @@ function Main()
           end
         end
       --end
-      --reaper.PreventUIRefresh(-1)
     end
     --reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_PLAY_MOUSECURSOR"),0) -- SWS/BR: Play from mouse cursor position
     if reaper.GetToggleCommandState( 1157 ) then

@@ -1,21 +1,19 @@
 --[[
  * ReaScript Name: Move items to start preserving groups timing relative positions
- * Description: A template script for REAPER ReaScript.
+ * About: A template script for REAPER ReaScript.
  * Instructions: Leader of groups is first selected item (in time position) for a group.
  * Screenshot: http://i.giphy.com/3o6UBfWs5qRzh0r3b2.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: 
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Lua: Move selected items preserving groups timing relative positions
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1620740
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2016-01-11)
@@ -36,7 +34,7 @@ dest_pos = 0
 -- <==== DEBUGGING -----
 
 
--------------------------------------------------------------------------------------------------------------		
+-------------------------------------------------------------------------------------------------------------
 -- CONSOLE MSG
 
 function Msg(variable)
@@ -44,12 +42,12 @@ function Msg(variable)
 end
 
 
--------------------------------------------------------------------------------------------------------------		
+-------------------------------------------------------------------------------------------------------------
 -- FUNCTION TO EXECUTE BEFORE MAIN LOOPS
 -- A WAY TO UNSELECT ITEMS NOT CONSIDERED IN THE TRANSFORMATION (aka, items in groups that are lot Leader)
 
 function KeepSelOnlyFirstItemInGroups()
-	
+
 	-- Count Sel Items (maybe it is already in GLobal variable)
 	if count_sel_items == nil then
 		count_sel_items = reaper.CountSelectedMediaItems(0)
@@ -67,7 +65,7 @@ function KeepSelOnlyFirstItemInGroups()
 		if group > 0 then
 
 			local pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-			
+
 			-- If group is new, then create one
 			if groups[group] == nil then
 
@@ -85,13 +83,13 @@ function KeepSelOnlyFirstItemInGroups()
 				else -- unselect the current item
 					table.insert(unselect, item)
 				end
-			
+
 			end
 
 		end -- END IF GROUP (no else)
 
 	end -- END LOOP sel items
-	
+
 	-- Unselect Items
 	for i, item in ipairs(unselect) do
 	  reaper.SetMediaItemSelected(item, false)
@@ -100,7 +98,7 @@ function KeepSelOnlyFirstItemInGroups()
 end -- End of KeepSelOnlyFirstItemInGroups()
 
 
--------------------------------------------------------------------------------------------------------------	
+-------------------------------------------------------------------------------------------------------------
 -- FOR EACH ITEM TRANSFORMATION, CHECK GROUP AND STORE OFFSET IF NEEDED
 function StoreOffsetInGroups(item, item_pos)
 	local offset = reaper.GetMediaItemInfo_Value(item, "D_POSITION") - item_pos
@@ -114,7 +112,7 @@ function StoreOffsetInGroups(item, item_pos)
 end
 
 
--------------------------------------------------------------------------------------------------------------		
+-------------------------------------------------------------------------------------------------------------
 -- APPLY ITEM GROUPS OFFSET
 
 function ApplyItemsGroupsOffset()
@@ -138,18 +136,18 @@ function ApplyItemsGroupsOffset()
 			end
 		end
 	end
-	
+
 	if reselect_groups == true then
 		-- Unselect Items
 		for i, item in ipairs(unselect) do
 		  reaper.SetMediaItemSelected(item, true)
 		end
 	end
-	
+
 end
 
 
--------------------------------------------------------------------------------------------------------------		
+-------------------------------------------------------------------------------------------------------------
 -- SAVE
 function SaveSelectedItems(table)
 	for i = 0, reaper.CountSelectedMediaItems(0)-1 do
@@ -158,61 +156,61 @@ function SaveSelectedItems(table)
 end
 
 
--------------------------------------------------------------------------------------------------------------		
+-------------------------------------------------------------------------------------------------------------
 -- MAIN
 
 function Main()
-	
+
 	-- Save items in selection in a table because they will move
 	sel_items = {}
 	SaveSelectedItems(sel_items)
-	
+
 	-- LOOP THROUGH SELECTED ITEMS
 	for i, item in ipairs(sel_items) do
-		
+
 		-- Store Initial Pos
 		item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
-		
+
 		-- Snap Offset
 		-- item_snap = reaper.GetMediaItemInfo_Value(item, "D_SNAPOFFSET")
 		item_snap = 0 -- In this script template, because dest_pos = 0, item_snap doesn't matter.
 
 		 -- Transformation
 		reaper.SetMediaItemInfo_Value(item, "D_POSITION", dest_pos - item_snap)
-		
+
 		-- Store offset in a table
 		StoreOffsetInGroups(item, item_pos)
-		
+
 	end -- END LOOP selected items
 
 end -- END FUNCTION ain()
 
 
--------------------------------------------------------------------------------------------------------------		
+-------------------------------------------------------------------------------------------------------------
 -- INIT
 
 count_sel_items = reaper.CountSelectedMediaItems(0)
 
 if count_sel_items > 0 then
-	
+
 	reaper.PreventUIRefresh(1)
-	
+
 	reaper.Undo_BeginBlock()
 	-- If group active keep only first selected items of each groups
 	group_state = reaper.GetToggleCommandState(1156, 0)
 	if group_state == 1 then
 		KeepSelOnlyFirstItemInGroups()
 	end
-	
+
 	Main() -- Execute your main function
 
 	-- If group active, apply offset on items of same groups
 	if group_state == 1 then
 		ApplyItemsGroupsOffset()
 	end
-	
+
 	reaper.Undo_EndBlock("Move items to start preserving groups timing relative positions", -1)
-	
+
 	reaper.UpdateArrange()
 	reaper.PreventUIRefresh(-1)
 

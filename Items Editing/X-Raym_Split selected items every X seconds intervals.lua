@@ -1,18 +1,14 @@
 --[[
  * ReaScript Name: Split selected items every X seconds intervals
- * Description: See title
  * Instructions: Select Items. Run.
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Lua Script: Split Media Into Into X Equal Parts
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1609741#post1609741
  * REAPER: 5.0
- * Extensions: None
- *
  * Version: 1.0
  * Changelog: (2015-12-19)
  *   + Initial Release
@@ -30,7 +26,7 @@ end
 
 function main()
   reaper.Undo_BeginBlock()
-  
+
   if reaper.CountSelectedMediaItems(0) > 0 then
     numSplitItems = getNumSplitItems()
     if numSplitItems == nil then
@@ -52,7 +48,7 @@ function main()
   else
       ShowMessage("Error: No Media Item selected.")
   end
-  
+
   reaper.Undo_EndBlock("Split Items X times", 0)
 end
 

@@ -1,6 +1,5 @@
 --[[
  * ReaScript Name: Split selected items at regions
- * Description: See title
  * Instructions: Select items. Run.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -12,7 +11,7 @@
  * REAPER: 5.0
  * Version: 1.1.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1.1 (2020-12-04)
@@ -34,7 +33,7 @@ pos = {}
 
 -- UTILITIES -------------------------------------------------------------
 
--- Count the number of times a value occurs in a table 
+-- Count the number of times a value occurs in a table
 function table_count(tt, item)
   local count
   count = 0
@@ -60,26 +59,26 @@ function MultiSplitMediaItem(item, times)
 
   local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
   local item_end = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") + item_pos
-  
+
   -- create array then reserve some space in array
   local items = {}
-  
+
   -- add 'item' to 'items' array
   table.insert(items, item)
-  
+
   -- for each time in times array do...
   for i, time in ipairs(times) do
-  
+
     if time > item_end then break end
-    
+
     if time > item_pos and time < item_end and item then
-  
+
       -- store item so we can split it next time around
       item = reaper.SplitMediaItem(item, time)
-      
+
       -- add resulting item to array
       table.insert(items, item)
-      
+
     end
 
   end
@@ -125,7 +124,7 @@ end
 
 -- Main function
 function main()
-  
+
   GetRegionsPoints()
   for idx, item in ipairs(init_sel_items) do
       MultiSplitMediaItem(item, pos)
@@ -143,7 +142,7 @@ if count_sel_items > 0 then
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   init_sel_items =  {}
   SaveSelectedItems(init_sel_items)
 
@@ -154,5 +153,5 @@ if count_sel_items > 0 then
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end

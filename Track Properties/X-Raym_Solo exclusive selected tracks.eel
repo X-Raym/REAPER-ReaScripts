@@ -1,20 +1,17 @@
 /**
  * ReaScript Name: Solo exclusive selected tracks
- * Description: See title.
  * Instructions: Run. Run again to stop it.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Forum Thread: 
- * Forum Thread URI: 
+ * Forum Thread:
+ * Forum Thread URI:
  * REAPER: 5 pre 21
- * Extensions: None
  * Version: 1
 */
- 
+
 /**
  * Changelog:
  * v1 (2015-04-16)

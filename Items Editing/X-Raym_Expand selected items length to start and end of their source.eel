@@ -1,20 +1,18 @@
 /**
  * ReaScript Name: Expand selected items length to start and end of their source
- * Description: Just like Set items length to source media lengths or Xenakios: Reset item length and media offset, but keeping item position and snap offset.
+ * About: Just like Set items length to source media lengths or Xenakios: Reset item length and media offset, but keeping item position and snap offset.
  * Instructions: Select items. Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: REQ: Nudge left item edge of sel items to the left / keep their snap offsets in place
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157655
  * REAPER: 5 pre 17
- * Extensions: None
  * Version: 1.0
 */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-04-11)
@@ -37,7 +35,7 @@ function main()
 		item_pos = GetMediaItemInfo_Value(item,"D_POSITION");
 		item_len = GetMediaItemInfo_Value(item,"D_LENGTH");
 		item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
-		
+
 		take_off = GetMediaItemTakeInfo_Value(take, "D_STARTOFFS");
 		take_rate = GetMediaItemTakeInfo_Value(take,"D_PLAYRATE");
 
@@ -48,7 +46,7 @@ function main()
 		SetMediaItemInfo_Value(item, "D_SNAPOFFSET", item_snap + take_off_comp);
 
 		SetMediaItemTakeInfo_Value(take, "D_STARTOFFS", 0);
-		
+
 		item_snap = GetMediaItemInfo_Value(item,"D_SNAPOFFSET");
 		item_snap < 0 ? (
 			SetMediaItemInfo_Value(item, "D_SNAPOFFSET", 0);
@@ -58,7 +56,7 @@ function main()
 
 		i+=1;
 	);
-	
+
 	Undo_EndBlock("Expand selected items length to start and end of their source", -1);
 
 );

@@ -8,7 +8,7 @@
  * REAPER: 5.0
  * Version: 1.0.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0.1 (2020-12-17)
@@ -28,7 +28,7 @@ function GetMediaExplorer()
     local child_hwnd = reaper.JS_Window_FindChildByID(hwnd, 1045)
     if child_hwnd then -- 1045:ID of volume control in media explorer.
       return child_hwnd
-    end 
+    end
   end
 end
 

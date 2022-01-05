@@ -12,7 +12,7 @@
 // Hosted by X-Raym
 // Thanks to spk77 for having succeed to do this !
 
-function merge_track_take_names(track_pointer, apply_to_first_take) 
+function merge_track_take_names(track_pointer, apply_to_first_take)
   local(first_take, merged_name, sel_item_count, i, item, take)
 (
   first_take = 0;
@@ -43,7 +43,7 @@ function merge_track_take_names(track_pointer, apply_to_first_take)
 
 
 // This function applies "merged take names" to the first takes of tracks
-// 
+//
 function glue() local(merged_name)
 (
   Undo_BeginBlock();
@@ -53,10 +53,10 @@ function glue() local(merged_name)
     merged_name = merge_track_take_names(GetTrack(0, i), 1);
     i += 1;
   );
-  
+
   // GLUE ITEMS WITHOUT TIME SELECTION
   Main_OnCommand(40362, 0);
-  
+
   i = 0;
   // remove "glued" string from take names
   loop(CountSelectedMediaItems(0),

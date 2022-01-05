@@ -4,14 +4,14 @@
  * Author: X-Raym
  * Author URI: http://www.extremraym.com/
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
  * Version: 1.1.2
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1.2 (2021-31-12)
@@ -61,27 +61,27 @@ function main()
           marker.pos = pos
           table.insert( markers, marker )
           if abs_pos >= 3600 then
-            hour = true 
+            hour = true
           end
         end
       end
       i = i+1
     end
-  until iRetval == 0  
-  
+  until iRetval == 0
+
   for i, marker in ipairs( markers ) do
-    
+
     local pos = ""
     if hour then
       pos = marker.pos
     else
       pos = marker.pos:sub(3)
     end
-    
+
     Msg(pos .. " - " .. marker.name)
-    
+
   end
-  
+
 end
 
 -- INIT ---------------------------------------------------------------------
@@ -91,20 +91,20 @@ total, num_markers, num_regions = reaper.CountProjectMarkers( -1 )
 if num_markers > 0 then
 
   reaper.PreventUIRefresh(1)
-  
+
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   reaper.ClearConsole()
-  
+
   markers = {}
-  
+
   main()
-  
+
   reaper.Undo_EndBlock("Export markers as YouTube timecode for video description", -1) -- End of the undo block. Leave it at the bottom of your main function.
-  
+
   reaper.UpdateArrange()
-  
+
   reaper.PreventUIRefresh(-1)
-  
+
 end
 

@@ -1,6 +1,6 @@
 /**
  * JSFX Name: Note to CC
- * Description: Convert all notes of a certain pitch into a MIDI CC signal.
+ * About: Convert all notes of a certain pitch into a MIDI CC signal.
  * Screenshot: https://monosnap.com/file/ACQYbCyNYHRgJA9dfnHGGOr0mUqU9a.png
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
@@ -57,38 +57,38 @@ while
     // Is it on our channel?
     channel == inChannel || inChannel == -1 ?
     (
-      
+
       // Is it a note event?
       status == statNoteOn || status == statNoteOff ?
       (
 
           // If note is good
           note == slider3 - 1 || slider3 == 0 ? (
-            
+
             send = 0; // Don't send MIDI
-            
+
             status == statNoteOn ? ( // Send Only if Note On
-              
+
               slider5 < 128 ? (
-                msg2 = slider5; 
+                msg2 = slider5;
               ):(
                 msg2 = note;
-              );                             
-              
+              );
+
               msg23 = (msg2+256*vel)|0;
-              
+
               midisend(offset, 11*16, msg23);
-          
+
           );
-         
+
         );
 
       );
 
-    ); 
-    
+    );
+
     send == 1 ? midisend(offset,msg1,note,vel);
-    
+
     1; // Force loop to continue until all messages have been processed
 
   );

@@ -3,9 +3,9 @@
  * About: This was designed to have a tempo map inside DaVinci Resolve
  * Screenshot: https://i.imgur.com/xEsD5a8.gifv
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Links
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
@@ -43,7 +43,7 @@
 --]]
 
 --  # TODO: propper handling of non integer non drop frames timeline
-  
+
 -- USER CONFIG AREA ------------------------
 
 vars = {}
@@ -144,7 +144,7 @@ function IsProjectSaved()
 
   retval, project_path_name = reaper.EnumProjects(-1, "")
   if project_path_name ~= "" then
-    
+
     dir = GetPath(project_path_name, separator)
     --msg(name)
     name = string.sub(project_path_name, string.len(dir) + 1)
@@ -178,7 +178,6 @@ end
  * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
  * Assumes r, g, and b are contained in the set [0, 255] and
  * returns h, s, and l in the set [0, 1].
- *
  * @param   Number  r       The red color value
  * @param   Number  g       The green color value
  * @param   Number  b       The blue color value
@@ -214,7 +213,7 @@ color_names[9] = "Red"
 color_names[39] = "Yellow"
 color_names[120] = "Green"
 color_names[181] = "Cyan"
-color_names[206] = "Blue" -- 
+color_names[206] = "Blue" --
 color_names[271] = "Purple"
 color_names[318] = "Pink"
 color_names[369] = "Red"
@@ -267,28 +266,28 @@ function create(f)
 
   frame_rate, drop_frame = reaper.TimeMap_curFrameRate( 0 )
   frame_duration = 1 / frame_rate
-  
+
   title = "TITLE: Timeline 1"
   FCM = drop_frame and "FCM: DROP FRAME" or "FCM: NON-DROP FRAME"
-  
+
   export(f, title)
   export(f, FCM .. "\n")
-  
+
   ts_start, ts_end = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
-  
+
   ts_start_offset = ts_start
   if vars.timesel_start_offset ~= "y" then ts_start_offset = 0 end
-  
+
   retval, num_markers, num_regions = reaper.CountProjectMarkers( 0 )
   for i=0, retval - 1 do
     iRetval, bIsrgnOut, iPosOut, iRgnendOut, name, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
     if iRetval >= 1 then
       if iPosOut - ts_start >= 0 then -- if marker region is after time selection start
-      
+
         if not bIsrgnOut then iRgnendOut = iPosOut end
-        
+
         if ts_end ~= 0 and iPosOut > ts_end then break end -- if time selection and marker region_end is after
-        
+
         start_time = Format(iPosOut + vars.offset - ts_start_offset)
         end_time = Format(iPosOut + vars.offset + frame_duration - ts_start_offset)
 
@@ -297,13 +296,13 @@ function create(f)
         if bIsrgnOut then
           duration_frames = math.floor( (duration + frame_duration / 2)/ frame_duration )
         end
-        
+
         local h, s, l = rgbToHsl( reaper.ColorFromNative(iColorOur) )
         acolor_RGB = { reaper.ColorFromNative(iColorOur)}
         acolor_HSL = {h * 360, s * 255, l * 255} -- 241 ?
         color_name = GetClosestColorNameByHue(acolor_HSL[1] )
         -- [start time HH:MM:SS.F] [end time HH:MM:SS.F] [name]
-        -- 001  001      V     C        01:00:00:00 01:00:00:01 01:00:00:00 01:00:00:01  
+        -- 001  001      V     C        01:00:00:00 01:00:00:01 01:00:00:00 01:00:00:01
         -- |C:ResolveColorBlue |M:Marker 1 |D:1
         if name == "" then name = "Marker " .. i+1 end
         line = i+1 .. "  001      V     C        " .. start_time .. " " .. end_time .. " " .. start_time .. " " .. end_time .. "  " .. "\n |C:ResolveColor" .. color_name .. " |M:" .. name .. " |D:" .. duration_frames .. "\n"
@@ -314,7 +313,7 @@ function create(f)
       i = i+1
     end
   end
-  
+
   export(f, "\n")
 
   Msg("Regions Lists exported to:\n" .. file .."\n")
@@ -337,7 +336,7 @@ function main()
   if f ~= nil then
     create(f)
   end
-  
+
   -- CLOSE FILE
   f:close()
 

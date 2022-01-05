@@ -33,7 +33,7 @@ undo_text = "Move selected items to named tracks"
 
 ext_name = "XR_MoveItemsToNamedTrack"
 
-if not reaper.ImGui_CreateContext then 
+if not reaper.ImGui_CreateContext then
   reaper.MB("Missing dependency: ReaImGui extension.\nDownload it via Reapack ReaTeam extension repository.", "Error", 0)
   return false
 end
@@ -134,8 +134,8 @@ function SaveTracks( t )
     end
     track_name = i .. ": " .. indent .. track_name
     local color = reaper.GetMediaTrackInfo_Value( track, "I_CUSTOMCOLOR")
-    t[i+1] = { 
-      track = track, 
+    t[i+1] = {
+      track = track,
       color =  color > 0 and reaper.ImGui_ColorConvertNative( color ) or 0,
       name = track_name
     }
@@ -146,13 +146,13 @@ end
 
 function Main()
   reaper.PreventUIRefresh(1)
-  
+
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
   reaper.ClearConsole()
-  
+
   Process() -- Execute your main function
-  
+
   reaper.Undo_EndBlock(undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.
 
   reaper.UpdateArrange() -- Update the arrangement (often needed)
@@ -167,13 +167,13 @@ function colorSquare(ctx, color)
   local x, y = reaper.ImGui_GetCursorScreenPos(ctx)
   local size = reaper.ImGui_GetTextLineHeight(ctx)
   reaper.ImGui_DrawList_AddRectFilled(draw_list, x, y, x + size, y + size, color)
-  
+
   local pad = reaper.ImGui_GetStyleVar(ctx, reaper.ImGui_StyleVar_FramePadding())
   reaper.ImGui_SetCursorScreenPos(ctx, x + size + pad, y)
 end
 
 function Run()
-  
+
   -- TODO: dock
   --[[
   dock_id = -2
@@ -184,41 +184,41 @@ function Run()
   ]]
   local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, input_title, true, reaper.ImGui_WindowFlags_NoCollapse())
   if imgui_visible then
-  
+
     count_sel_items = reaper.CountSelectedMediaItems(0)
-  
+
     imgui_width, imgui_height = reaper.ImGui_GetWindowSize( ctx )
-    
+
     tracks = SaveTracks()
-    
+
     -- CUSTOM COMBO
     reaper.ImGui_SetNextItemWidth( ctx, imgui_width -25 )
     if not current_track and vars.track_id and tracks[vars.track_id] then current_track = vars.track_id end
-        
+
     local combo_pos = {reaper.ImGui_GetCursorScreenPos(ctx)}
-    
+
     if reaper.ImGui_BeginCombo(ctx, '##combo_tracks', '') then
-    
+
       for i,v in ipairs(tracks) do
         reaper.ImGui_PushID(ctx, i)
-    
+
         colorSquare(ctx, v.color)
-        
+
         if reaper.ImGui_Selectable(ctx, v.name, current_track == i, reaper.ImGui_SelectableFlags_SpanAllColumns()) then
           current_track = i
         end
-        
+
         reaper.ImGui_PopID(ctx)
       end
-      
+
       reaper.ImGui_EndCombo(ctx)
     end
-    
+
     -- move the cursor back to the beginning of the combo box
     local backup_pos = {reaper.ImGui_GetCursorScreenPos(ctx)}
     local pad_x, pad_y = reaper.ImGui_GetStyleVar(ctx, reaper.ImGui_StyleVar_FramePadding())
     reaper.ImGui_SetCursorScreenPos(ctx, combo_pos[1] + pad_x, combo_pos[2] + pad_y)
-    
+
     -- do the custom preview
     local v = tracks[current_track]
     if v then
@@ -227,12 +227,12 @@ function Run()
       reaper.ImGui_Text(ctx, v.name)
       reaper.ImGui_PopClipRect( ctx ) -- remove clipping
     end
-    
+
     -- restore the cursor to the end of the combo box
     reaper.ImGui_SetCursorScreenPos(ctx, table.unpack(backup_pos))
-  
+
     ------
-    
+
     -- OK BUTTON
     local break_point = 270
     local button_width = imgui_width > break_point and imgui_width / 3 or imgui_width - 15
@@ -249,13 +249,13 @@ function Run()
     end
     reaper.ImGui_End(ctx)
   end
-  
+
   if process or not imgui_open then
     reaper.ImGui_DestroyContext(ctx)
   else
     reaper.defer(Run)
   end
-  
+
 end
 
 function Init()
@@ -263,7 +263,7 @@ function Init()
     if not preset_file_init then
       GetValsFromExtState()
     end
-    
+
     SetButtonState( 1 )
     reaper.atexit( Exit )
     ctx = reaper.ImGui_CreateContext(input_title)

@@ -2,7 +2,7 @@
  * ReaScript Name: Scroll arrange view if mouse reaches screen edges
  * Screenshot: https://i.imgur.com/0npTbEB.gifv
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
@@ -12,7 +12,7 @@
  * Extensions: js_extension
  * Version: 1.2.2
 --]]
- 
+
 --[[
  * Changelog:
  * v1.2.2 (2021-04-10)
@@ -29,10 +29,10 @@
  * v1.0 (2019-03-22)
   + Initial Release
 --]]
- 
+
 -- TODO:
 -- Find on which screen is REAPER
- 
+
 -- USER CONFIG AREA ----------------------------------
 margin_left = 0
 margin_right = 1
@@ -40,7 +40,7 @@ margin_top = 0
 margin_bottom = 1
 
 ------------------------------------------------------
- 
+
  -- Set ToolBar Button State
 function SetButtonState( set )
   if not set then set = 0 end
@@ -56,8 +56,8 @@ function ReaperHasFocus()
     local rea_hwnd = reaper.GetMainHwnd()
     if hwnd == rea_hwnd or reaper.JS_Window_GetParent(hwnd) == rea_hwnd then
       return true
-    end 
-  end 
+    end
+  end
   return false
 end
 
@@ -68,49 +68,49 @@ function Main()
     mouse_x, mouse_y = reaper.GetMousePosition()
     shift = reaper.JS_Mouse_GetState( 8 )
     ctrl = reaper.JS_Mouse_GetState( 4 )
-    
+
     multiplicator_x = 1
     multiplicator_y = 3
-    
+
     if shift == 8 then
       multiplicator_x = 5
       multiplicator_y = 10
     end
-    
+
     if ctrl == 4 then
       multiplicator_x = 1
       multiplicator_y = 1
     end
-    
+
     val_x = 0
-    val_y = 0    
-    
+    val_y = 0
+
     if mouse_x <= margin_left or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x <= screen_right * 0.25 ) then
       val_x = -1 * multiplicator_x
       --reaper.JS_Mouse_SetCursor( cursor_left )
     end
-    
+
     if mouse_x >= screen_right - margin_right or ((mouse_y == 0 or mouse_y >= screen_bottom - 1 ) and mouse_x >= screen_right * 0.75 )then
      val_x = 1 * multiplicator_x
     end
-    
+
     if mouse_y <= margin_top or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y <= screen_bottom * 0.25 ) then
       val_y = -1 * multiplicator_y
       -- reaper.JS_Mouse_SetCursor( cursor_up )
     end
-    
+
     if mouse_y >= screen_bottom - margin_bottom or ((mouse_x == 0 or mouse_x >= screen_right - 1 ) and mouse_y >= screen_bottom * 0.75 ) then
       val_y = 1 * multiplicator_y
     end
-    
+
     if val_x ~= 0 or val_y ~= 0 then
       reaper.CSurf_OnScroll( val_x, val_y )
     end
-  
+
   end
-  
+
   reaper.defer(Main)
-  
+
 end
 
 function Init()
@@ -119,10 +119,10 @@ function Init()
   else
 
     screen_left, screen_top, screen_right, screen_bottom = reaper.JS_Window_MonitorFromRect(0, 0, 0, 0, false)
-  
+
     cursor_up = reaper.JS_Mouse_LoadCursor( 32516 )
     cursor_left = reaper.JS_Mouse_LoadCursor( 32644 )
-  
+
     SetButtonState( 1 )
     Main()
     reaper.atexit( SetButtonState )

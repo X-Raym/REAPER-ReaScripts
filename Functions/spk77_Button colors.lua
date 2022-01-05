@@ -1,17 +1,14 @@
 --[[
  * ReaScript Name: Button colors
- * Description: See title.
  * Instructions:
  * Author: spk77
  * Author URI:
  * Repository:
  * Repository URI:
- * File URI:
  * Licence: GPL v3
  * Forum Thread:
  * Forum Thread URI:
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
  * Main: False
 --]]

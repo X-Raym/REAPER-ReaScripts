@@ -1,8 +1,8 @@
 --[[
  * ReaScript Name: Smooth selected items stretch markers transitions by adjusting slope and right rate
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > REAPER-ReaScripts 
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * REAPER: 5.0
  * Version: 1.0
@@ -78,11 +78,11 @@ function Main()
     gfx.r, gfx.g, gfx.b = 1,1,1
     gfx.y = 0
   end
-  
+
   count_sel_items = reaper.CountSelectedMediaItems(0)
-  
+
   for z = 0, count_sel_items - 1 do
-  
+
     local item = reaper.GetSelectedMediaItem(0,z)
     local take = reaper.GetActiveTake( item )
     if take then
@@ -109,25 +109,25 @@ function Main()
             local len_after = pos_b - pos_a
             local rate_right = (len_init / len_after) * (1+slope)
             local rate_left = (len_init / len_after) * (1-slope)
-          
+
             Print("len_init = " .. len_init)
             Print("slope = " .. slope)
-          
+
             local ideal_rate_right = SMs[i+1].rate_left -- Next SM Left rate.  i is 1 based here, so next is 1 + 1 = 2
             local ideal_rate_ratio = ideal_rate_right / rate_left
             local ideal_slope = (ideal_rate_ratio-1)/(ideal_rate_ratio+1)
-            if dont_do_last and i == #SMs - 1 then -- avant dernier, on fait 
+            if dont_do_last and i == #SMs - 1 then -- avant dernier, on fait
               ideal_rate_right = sm.rate_right
               ideal_rate_ratio = 1
               ideal_slope = sm.slope
             end
-            
+
             sm.new_slope = ideal_slope
-            
+
             local new_pos_b = (1+ideal_slope)/ideal_rate_right * (srcpos_b-srcpos_a) + pos_a
             local offset = new_pos_b - pos_b
             cumulated_offset = cumulated_offset + offset
-          
+
             Print("* ideal_slope = " .. ideal_slope)
             Print("* len_after = " .. len_after)
             Print('* rate_left = ' .. rate_left)
@@ -142,26 +142,26 @@ function Main()
           end
 
           Print('----------')
-        
+
         end
-        
+
         if (gui and gfx.mouse_cap == 1 and gfx.mouse_cap ~= last_cap) or not gui then
           ApplySMData(take, SMs)
           item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH")
           reaper.SetMediaItemInfo_Value( item, "D_LENGTH", item_len + cumulated_offset)
         end
-        
+
       end -- if more than 2 SM
     end -- if take
-    
+
   end -- loop item
-  
+
   if gui then
     last_cap = gfx.mouse_cap
     gfx.update()
     if gfx.getchar() ~= 27 or gfx.getchar() == -1 then reaper.defer(Main) else gfx.quit() end
   end
-  
+
 end
 
 function InitGFX(window_w, window_h, window_x, window_y, docked)
@@ -177,23 +177,23 @@ end
 -- See if there is items selected
 function Init()
   count_sel_items = reaper.CountSelectedMediaItems(0)
-  
+
   if count_sel_items > 0 then
-  
+
     reaper.ClearConsole()
-  
+
     reaper.PreventUIRefresh(1)
-  
+
     reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-    
+
     if gui then InitGFX(window_w, window_h, 1080) end
-  
+
     Main()
-  
+
     reaper.UpdateArrange()
-  
+
     reaper.PreventUIRefresh(-1)
-    
+
   end
 end
 

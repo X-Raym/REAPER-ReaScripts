@@ -1,18 +1,15 @@
 --[[
  * ReaScript Name: Insert MIDI notes at project markers
- * Description: See title.
  * Instructions: Open a MIDI take in MIDI Editor. Run.
  * Screenshot: http://i.giphy.com/xTcnSXojAqCRl0dD8Y.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script Request Sticky? - Page 32
  * Forum Thread URI: http://forum.cockos.com/showpost.php?p=1617117&postcount=1265
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
 --]]
 
@@ -43,25 +40,25 @@ function Msg(g)
 end
 
 
-function main() -- local (i, j, item, take, track)
+function main()
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
   take = reaper.MIDIEditor_GetTake(reaper.MIDIEditor_GetActive())
 
   if take ~= nil then
-  
+
 	i=0
 	repeat
 		iRetval, bIsrgnOut, iPosOut, iRgnendOut, sNameOut, iMarkrgnindexnumberOut, iColorOut = reaper.EnumProjectMarkers3(0, i)
-		
+
 		if iRetval >= 1 then
 			if bIsrgnOut == false then
-				
+
 				next_iRetval, next_bIsrgnOut, next_iPosOut, next_iRgnendOut, next_sNameOut, next_iMarkrgnindexnumberOut, next_iColorOut = reaper.EnumProjectMarkers3(0, i+1)
-				
+
 				-- TODO add conditions to check if it is in item boudnaries
-				
+
 				if next_iRetval >= 1 and next_bIsrgnOut == false then
 					if next_iPosOut - iPosOut < length then
 						end_time = next_iPosOut
@@ -71,20 +68,20 @@ function main() -- local (i, j, item, take, track)
 				else
 					end_time = iPosOut + length
 				end
-				
+
 				iPosOut = reaper.MIDI_GetPPQPosFromProjTime(take, iPosOut)
 				end_time = reaper.MIDI_GetPPQPosFromProjTime(take, end_time)
-				
+
 				--reaper.MIDI_InsertNote(take, selected, muted, startppqpos, endppqpos, chan, pitch, vel, NoSortInOptional)
 				retval = reaper.MIDI_InsertNote(take, selected, false, iPosOut, end_time, chan, pitch, vel, true)
-			
+
 			end
 			i = i+1
 		end
 	until iRetval == 0
-	
+
 	reaper.MIDI_Sort(take)
-	
+
   end -- ENFIF Take is MIDI
 
   reaper.Undo_EndBlock("Insert MIDI notes at project markers", -1) -- End of the undo block. Leave it at the bottom of your main function.

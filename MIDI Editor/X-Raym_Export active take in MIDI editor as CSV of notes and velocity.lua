@@ -1,13 +1,12 @@
 --[[
  * ReaScript Name: Export active take in MIDI editor as CSV of notes and velocity
- * Description: Designed for my MIDI CSV as notes sequence JSFX.
+ * About: Designed for my MIDI CSV as notes sequence JSFX.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Links:
     Forum Thread http://forum.cockos.com/showthread.php?t=181105
  * Licence: GPL v3
  * REAPER: 5.0
- * Extensions: None
  * Version: 2.0
 --]]
 

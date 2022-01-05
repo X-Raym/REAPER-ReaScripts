@@ -2,15 +2,15 @@
  * ReaScript Name: Set selected tracks and takes color from HEX value
  * About: Set selected tracks and takes color from HEX value. Use # or not. If no takes (aka, if Text items selected), it will work anyway.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Version: 1.1.1
  * Version Date: 2020-07-18
  * REAPER: 5.0 pre 15
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1.1 (2016-11-07)
@@ -61,8 +61,8 @@ end
 
 defaultvals_csv = "123456"
 
-retval, retvals_csv = reaper.GetUserInputs("Color selected Track and Takes", 1, "HEX Value", defaultvals_csv) 
-			
+retval, retvals_csv = reaper.GetUserInputs("Color selected Track and Takes", 1, "HEX Value", defaultvals_csv)
+
 if retval then -- if user complete the fields
 
 	if retvals_csv ~= nil then

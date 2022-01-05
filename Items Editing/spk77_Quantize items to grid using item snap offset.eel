@@ -1,12 +1,10 @@
 /**
  * ReaScript Name: Quantize items to grid using item snap offset
- * Description: See title.
  * Instructions: Assign the script to a keyboard shortcut, and load it into MIDI actions, from the MIDI editor Action window.
  * Author: spk77
- * Author URI: 
- * Repository: 
- * Repository URI: 
- * File URI:
+ * Author URI:
+ * Repository:
+ * Repository URI:
  * Licence: GPL v3
  * Forum Thread: EEL: Quantize tool (for item positions)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=145243
@@ -14,7 +12,7 @@
  * Extensions: SWS/S&M 2.6.3 #0
  * Version: 1.0
 */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-02-10)
@@ -34,7 +32,7 @@ function set_default_colors()
   gfx_g = 0.8;
   gfx_b = 0.5;
 );
-  
+
 function scale_x_to_range(range_start, range_end, x_coord, x_start_offs, x_end_offs) local (scaled_x)
 (
   scaled_x = range_end - (range_end - range_start) * (x_coord - x_start_offs) / (gfx_w - x_start_offs - x_end_offs);
@@ -66,10 +64,10 @@ function slider (x,y,r) local (m_x, fill, s_w, s_h)
       fill = 1;
     );
   );
-  
+
   slider_val = 100 - scale_x_to_range (0, 200, m_x, draw_start_x, gfx_w - draw_end_x);
   gfx_circle(m_x, y, r, fill);
-  
+
   gfx_measurestr(sprintf(slider_val_str, "%d", slider_val), s_w, s_h);
   gfx_a = 1;
   gfx_x = m_x - r/2 - s_w/2;
@@ -127,7 +125,7 @@ function quantize() local (item, pos)
 
 function run() local (s_w, s_h)
 (
-  
+
   set_default_colors();
   gfx_a = 1;
 
@@ -135,10 +133,10 @@ function run() local (s_w, s_h)
   draw_end_y = gfx_h - 80;
   gfx_x = draw_start_x;
   gfx_y = draw_start_y;
-  
+
   center_x = floor(draw_start_x + (draw_end_x - draw_start_x) / 2 + 0.5);
   center_y = floor(draw_start_y + (draw_end_y - draw_start_y) / 2 + 0.5);
-  
+
   gfx_w != last_w ? (
     center_x = floor(draw_start_x + (draw_end_x - draw_start_x) / 2 + 0.5);
     slider_last_x = center_x;
@@ -158,29 +156,29 @@ function run() local (s_w, s_h)
   gfx_g = 0.7;
   gfx_b = 1;
   gfx_a = 0.2;
-  
+
   gfx_line(draw_start_x, gfx_h - center_y, draw_end_x, gfx_h - center_y);
   gfx_line(draw_start_x, gfx_h - center_y - 10, draw_start_x, gfx_h - center_y + 10);
   gfx_line(draw_end_x, gfx_h - center_y - 10, draw_end_x, gfx_h - center_y + 10);
 
   gfx_a = 0.8;
   gfx_y = gfx_h - center_y - 3 * gfx_texth;
-  
+
   gfx_measurestr("<- Unquantize | Quantize ->  ", e_w, e_h);
   gfx_x = center_x - floor(e_w / 2 + 0.5);
-  
+
   gfx_drawstr("<- Unquantize | Quantize ->  ");
 
-  
+
   // call the quantize function
   quantize();
-  
+
   // add "undo point" if necessary
   undo_block == 1 && drag_started == 0 ? (
     undo_block = 0;
     Undo_OnStateChange("Quantize item positions by X percent");
   );
-  
+
   char = gfx_getchar();
   // ctrl+lmb to Undo
   char == 26 ? (
@@ -222,7 +220,7 @@ function init()
   slider_last_x = draw_start_x;
   lmb_click_outside_window = 0;
   last_clicked_cc_lane == -1;
-  
+
   sel_item_array = 10000;
 );
 

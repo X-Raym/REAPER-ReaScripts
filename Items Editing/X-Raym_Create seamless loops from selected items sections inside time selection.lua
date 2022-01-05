@@ -1,21 +1,19 @@
 --[[
  * ReaScript Name: Create seamless loops from selected items sections inside time selection
- * Description: Seamless loop in one click. Multiple items at once.
+ * About: Seamless loop in one click. Multiple items at once.
  * Instructions: Create a loop section. Select items that have sections in that loop. Run.
  * Screenshot: https://youtu.be/yjGDW4wVkEQ
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > X-Raym's ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
- * File URI:
  * Licence: GPL v3
  * Forum Thread: Script: Scripts (LUA): Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2016-04-01)
@@ -60,7 +58,7 @@ end
 function DeleteItem(item)
 	local track = reaper.GetMediaItem_Track(item)
 	local retval reaper.DeleteTrackMediaItem(track, item)
-	
+
 	return retval
 end
 
@@ -70,12 +68,12 @@ function SplitItemAtSection(item, start_time, end_time, delete)
 
 	local middle_item = reaper.SplitMediaItem(item, start_time)
 	local last_item = reaper.SplitMediaItem(middle_item, end_time)
-	
+
 	if delete then
 		DeleteItem(item)
 		DeleteItem(last_item)
 	end
-	
+
 	reaper.SetMediaItemInfo_Value(middle_item, "D_FADEINLEN", 0)
 	reaper.SetMediaItemInfo_Value(middle_item, "D_FADEOUTLEN", 0)
 
@@ -97,41 +95,41 @@ end
 
 -- Main function
 function main(item)
-	
+
 	-- Split at Time Selection Edges
-	
+
 	item = SplitItemAtSection(item, start_time, end_time, true)
-	
+
 	item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 	item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-	
+
 	-- Cut in Middle of Time Selection
 	new_item_pos = item_pos + item_len / 2
 	new_item = reaper.SplitMediaItem(item, new_item_pos)
-	
+
 	-- Set Fades
 	reaper.SetMediaItemInfo_Value(new_item, "D_FADEINLEN", 0)
 	reaper.SetMediaItemInfo_Value(new_item, "D_FADEOUTLEN", 0)
 	reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", 0)
 	reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", 0)
-	
+
 	-- Invert items
 	reaper.SetMediaItemInfo_Value(item, "D_POSITION", new_item_pos)
 	reaper.SetMediaItemInfo_Value(new_item, "D_POSITION", item_pos)
-	
+
 	-- Offset
 	if offset then
 		length = item_len / offset / 2
 	else
 		length = item_len / 2
 	end
-	
+
 	reaper.BR_SetItemEdges(item, new_item_pos - length, end_time)
-	
+
 	reaper.Main_OnCommand(41059, 0) -- Crossfade any overlappin items
-	
+
 	--reaper.Main_OnCommand(41827, 0) -- View crossfada editor
-	
+
 	--reaper.Main_OnCommand(41588, 0) -- Glue Items
 
 end
@@ -148,46 +146,46 @@ if start_time ~= end_time then time_selection = true end
 if time_selection then
 
 	count_sel_items = reaper.CountSelectedMediaItems(0)
-	
+
 	if count_sel_items > 0 then
-	
+
 		reaper.PreventUIRefresh(1)
 
 		reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-		
+
 		init_sel_items = {}
 		SaveSelectedItems(init_sel_items)
-		
+
 		offset = SanitizeOffset(offset)
-		
+
 		for i, item in ipairs(init_sel_items) do
-		
+
 			item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 			item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 			item_end = item_pos + item_len
-			
+
 			-- If time selection is inside item
 			if item_pos < start_time and start_time < item_end and item_pos < end_time and end_time < item_end then
-				
+
 				reaper.SelectAllMediaItems(0, false)
-				
+
 				reaper.SetMediaItemSelected(item, true)
 
 				main(item)
-			
+
 			end
-		
+
 		end
-		
+
 		reaper.SelectAllMediaItems(0, false)
-		
+
 		reaper.Undo_EndBlock("Create seamless loops from selected items sections inside time selection", -1) -- End of the undo block. Leave it at the bottom of your main function.
 
 		reaper.UpdateArrange()
 
 		reaper.PreventUIRefresh(-1)
 
-		
+
 	end -- if item selected
-	
+
 end -- if time selection

@@ -2,8 +2,8 @@
  * ReaScript Name: Scroll vertically to track by name and select it
  * Author: X-Raym
  * Author URI: https://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Track Selection (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551
@@ -11,7 +11,7 @@
  * Version: 1.2
  * Screenshot: https://i.imgur.com/6qMLP2s.gifv
 --]]
- 
+
 --[[
  * Changelog:
  * v1.2 (2019-09-27)

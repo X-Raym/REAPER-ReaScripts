@@ -1,7 +1,7 @@
 // Create subtitles from regions names
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -33,7 +33,7 @@ function create_subtitles_from_regions_names()
 |
   6. Save and close the code editor
   7. Open the REAPER project file in REAPER");
- 
+
   msg_s("==== OUTPUT LOG ====");
   msg_s("=====>");
 
@@ -43,33 +43,33 @@ function create_subtitles_from_regions_names()
     // This action below may be required for debugging
     //msg_d(is_region);
     //msg_f(pos);
-    //msg_f(rgn_end);    
-    
+    //msg_f(rgn_end);
+
     sub_prefix = "S&M_SUBTITLE "; // Prefix of individual subtitles
     sub_id = 1073741825 + i; // SWS Subtitles ID start at 1073741825
-    
+
     sub_string = sprintf(#dest, "%s%d", sub_prefix, sub_id); // Mix sub prefix and sub ID. Thanks to planetnine
-    
+
     extname = sub_string; // SWS String ID for individual subtitles
-    
+
     key = "|"; // Can't be NULL or "". There is space bewteen key and value.
     // Trying to mix key and value tentative below :
     //value = strcat(#str, "|");
     //value = strcat(#str, #name);
-    
+
     value = #name; // This add quotes before and after the name. Manually deleting these in the .rpp file is required.
-    
+
     SetProjExtState(0, extname, key, value); // Write infos in file.
-    
+
     msg_d(markrgn_index_number); // Displays region index in console
     msg_s(#name); // Diplays regions name in console
     msg_s("<=====");
-    
+
     i += 1;
   );
-  
+
   Main_SaveProject(0, 0); // Save the project
-  
+
 );
 
 create_subtitles_from_regions_names();

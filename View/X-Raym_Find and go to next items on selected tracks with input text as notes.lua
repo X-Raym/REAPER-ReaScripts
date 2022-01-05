@@ -1,13 +1,12 @@
 --[[
  * ReaScript Name: Find and go to next items on selected tracks with input text as notes
- * Description: A way to find a certain text in the project.
+ * About: A way to find a certain text in the project.
  * Instructions: Run. Enter text.
  * Screenshot: http://i.giphy.com/3oEdv3QtgRpelKaaNa.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: View and Zoom (Various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=160800
@@ -25,7 +24,7 @@
 -- TO DO: MAke it Work with - chracter in search
 -- make it save last search
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 

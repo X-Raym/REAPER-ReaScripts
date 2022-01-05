@@ -1,6 +1,6 @@
 /**
  * JSFX Name: Note On under X velocity to Note Off
- * Description: Converts Notes On to Note Off
+ * About: Converts Notes On to Note Off
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
  * Links:
@@ -9,7 +9,6 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0
  */
 
@@ -51,25 +50,25 @@ while
     // Is it on our channel?
     channel == inChannel || inChannel == -1 ?
     (
-      
+
       // Is it a note event?
       status == statNoteOn ?
       (
 
           // If note is good
           vel <= slider3 ? (
-              
+
               vel = 0;
               msg1 = statNoteOff;
-         
+
           );
 
       );
 
-    ); 
-    
+    );
+
     midisend(offset,msg1,note,vel);
-    
+
     1; // Force loop to continue until all messages have been processed
 
   );

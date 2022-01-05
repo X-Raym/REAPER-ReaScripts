@@ -1,7 +1,7 @@
 // Split region under cursor
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -21,11 +21,11 @@ function split_two_regions()
 	GetLastMarkerAndCurRegion(NULL, time, markeridxOut, regionidxOut);
 
 	EnumProjectMarkers3(0, regionidxOut, isrgn, RegionStart_d, RegionEnd_d, #name_str, markrgnIndexNumber_int, color_int);
-	
-	time < RegionEnd_d ? 
-	
+
+	time < RegionEnd_d ?
+
 		SetProjectMarker3( 0, markrgnIndexNumber_int, 1, RegionStart_d, time, #name_str, color_int);
-	
+
 		AddProjectMarker2( 0, 1, time, RegionEnd_d, #name_str, desired_region_id, color_int);
 
 );

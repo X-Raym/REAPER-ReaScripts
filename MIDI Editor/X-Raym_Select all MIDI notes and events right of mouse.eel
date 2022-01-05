@@ -1,7 +1,7 @@
 // Select all MIDI notes and events right of mouse
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -14,7 +14,7 @@
 // by spk77
 // http://forum.cockos.com/showthread.php?p=1465307#post1465307
 
-function select() 
+function select()
   local(take, i, cursor_ppq_pos, notes, ccs, sysex, sel, muted, start, end, chan, pitch, vel, chanmsg, msg2, msg3, type)
 (
   (take = MIDIEditor_GetTake(MIDIEditor_GetActive())) ? (
@@ -23,21 +23,21 @@ function select()
     time = extension_api("BR_GetMouseCursorContext_Position");
     cursor_ppq_pos = MIDI_GetPPQPosFromProjTime(take, time);
     MIDI_CountEvts(take, notes, ccs, sysex);
-    
+
     i = 0;
     loop(notes,
       MIDI_GetNote(take, i, sel, muted, start, end, chan, pitch, vel);
       start >= cursor_ppq_pos ? MIDI_SetNote(take, i, 1, muted, start, end, chan, pitch, vel);
       i += 1;
     );
-    
+
     i = 0;
     loop(ccs,
       MIDI_GetCC(take, i, sel, muted, start, chanmsg, chan, msg2, msg3);
       start >= cursor_ppq_pos ? MIDI_SetCC(take, i, 1, muted, start, chanmsg, chan, msg2, msg3);
       i += 1;
     );
-    
+
     i = 0;
     loop(sysex,
       MIDI_GetTextSysexEvt(take, i, sel, muted, start, type, #msg);

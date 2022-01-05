@@ -1,13 +1,12 @@
 --[[
  * ReaScript Name: Render selected tracks individually through master
- * Description: A way to render tracks to master chain.
+ * About: A way to render tracks to master chain.
  * Instructions: Select tracks. Set render settings to source = master tracks, time selection, or custom time range.
  * Screenshot: https://i.imgur.com/v3UKS68.gifv
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-Scripts
- * File URI:
  * Licence: GPL v3
  * Forum Thread: Render Stems (selected tracks) through master FX?
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1652366
@@ -56,7 +55,7 @@ end
 function main()
 
 	retval, pattern = reaper.GetSetProjectInfo_String( 0, "RENDER_PATTERN", "", false )
-	
+
 	count_tracks = reaper.CountTracks(0)
 	zeros = string.len(tostring(count_tracks))
 
@@ -69,22 +68,22 @@ function main()
 
 		local retval, track_name = reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "", false) -- Get track info
 		local track_id = reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" )
-		
+
 		local new_pattern = pattern:gsub("$tracknumber", AddZeros(track_id, zeros))
-		
+
 		parent_track = reaper.GetParentTrack( track )
 		parent_track_name = ""
 		if parent_track then
 			retval, parent_track_name = reaper.GetSetMediaTrackInfo_String(parent_track, "P_NAME", "", false) -- Get track info
 		end
 		new_pattern = new_pattern:gsub("$parenttrack", parent_track_name)
-		
-		new_pattern = new_pattern:gsub("$track", track_name)          
+
+		new_pattern = new_pattern:gsub("$track", track_name)
 
 		reaper.GetSetProjectInfo_String( 0, "RENDER_PATTERN", new_pattern, true )
-		
+
 		if add_queue then
-			reaper.Main_OnCommand(41823, 0) -- Add to render queue               
+			reaper.Main_OnCommand(41823, 0) -- Add to render queue
 		else
 			reaper.Main_OnCommand( render_action, 0)
 		end
@@ -92,7 +91,7 @@ function main()
 		total = total + 1
 
 	end
-	
+
 	retval, pattern = reaper.GetSetProjectInfo_String( 0, "RENDER_PATTERN", pattern, true ) -- Restore initial pattern
 
 	reaper.Main_OnCommand(40340, 0) -- Unsolo all tracks

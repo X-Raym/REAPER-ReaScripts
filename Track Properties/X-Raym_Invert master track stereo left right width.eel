@@ -1,19 +1,17 @@
 /**
  * ReaScript Name: Invert master track stereo left right width
- * Description: Invert selected track pan (don't support enveloppe).
+ * About: Invert selected track pan (don't support enveloppe).
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: Invert selected tracks pan
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1482050#post1482050
  * REAPER: 4.76
- * Extensions: None
  * Version: 1.0
 */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-05-30)

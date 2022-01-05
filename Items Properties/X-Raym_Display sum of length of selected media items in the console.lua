@@ -1,6 +1,5 @@
 --[[
  * ReaScript Name: Display sum of length of selected media items in the console
- * Instructions: Run.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Licence: GPL v3

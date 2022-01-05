@@ -1,7 +1,7 @@
 // Merge overlapping regions with same name
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -23,7 +23,7 @@ function merge_overlapping_regions()
 (
 
 	i = 0;
-	
+
 	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
 	regions_number_before = num_regionsOut;
 
@@ -35,18 +35,18 @@ function merge_overlapping_regions()
 	msg_s("-----");
 
 	// EEL: int EnumProjectMarkers(int idx, bool &isrgnOut, &posOut, &rgnendOut, #nameOut, int &markrgnindexnumberOut)
-	while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number)) (    
+	while (EnumProjectMarkers(i, is_region, pos, rgn_end, #name, markrgn_index_number)) (
 
 	region_start = pos;
 	region_end = rgn_end;
 	region_id = markrgn_index_number;
-		
+
 	region_name = #name;
 	region_name_string = sprintf(#dest, "%s", region_name);
 
 	compare_name = strcmp(region_name_string, region_name_previous_string);
 
-	// If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1 
+	// If two regions overlapp and if they have the same name - based on strcmp(str, str2) -- compares str to str2, case sensitive, returns -1, 0, or 1
 		region_start < region_end_previous ? (
 			compare_name === 0 ? (
 
@@ -61,7 +61,7 @@ function merge_overlapping_regions()
 
 				SetProjectMarker(region_previous_id, 1, region_start_previous, region_end, region_name_previous_string);
 				DeleteProjectMarker(NULL, region_id, 1);
-		
+
 				merged_regions_total += 1;
 
 		);
@@ -80,20 +80,20 @@ function merge_overlapping_regions()
 
 	CountProjectMarkers(NULL, num_markersOut, num_regionsOut);
 	regions_number_after = num_regionsOut;
-	
+
 	msg_s("Regions before the script:");
 	msg_d(regions_number_before);
 	msg_s("Regions after the script:");
 	msg_d(regions_number_after);
 	msg_s("Total of regions which have been merged:");
 	msg_d(merged_regions_total);
-	
+
 	merged_regions_total > 0 ? (
 		msg_s("Please execute the script again.");
 	):(
 		msg_s("You can close the console.");
 	);
-	
+
 	msg_s("<=====\n");
 
 );

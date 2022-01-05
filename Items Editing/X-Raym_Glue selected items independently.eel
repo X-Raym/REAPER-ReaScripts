@@ -1,7 +1,7 @@
 // Glue selected items independently
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -24,15 +24,15 @@ msg_clean();
  <==== DEBUGGING -----*/
 
 function glue_independently() local(i, item, j)
-(	
+(
 	// BEGIN
 	Undo_BeginBlock();
 	countSelectedMediaItem = CountSelectedMediaItems(0);
 	//msg_dtl("Nombre d'objet sélectionné", countSelectedMediaItem, 0);
-	
+
 	setSelectedMediaItem = 0; // memory address
 	setSelectedMediaItem_length = 0;
-	
+
 	// PUT SELECTED ITEMS IN ARRAY
 	i = 0;
 	//msg_s("Item Selection List");
@@ -40,7 +40,7 @@ function glue_independently() local(i, item, j)
 	(item = GetSelectedMediaItem(0, i)) ? (
 			setSelectedMediaItem[i] = item;
 			//msg_d(setSelectedMediaItem[i]);
-			
+
 			setSelectedMediaItem_length += 1;
 		);
 		i += 1;
@@ -56,7 +56,7 @@ function glue_independently() local(i, item, j)
 
 			// UNSELECT ALL ITEMS
 			Main_OnCommand(40289, 0);
-		
+
 			//msg_dtl("Selection",setSelectedMediaItem[j-1],1);// why -1 ? Don't know but seem to work
 			SetMediaItemSelected(setSelectedMediaItem[j-1], 1);
 

@@ -2,16 +2,16 @@
  * ReaScript Name: Group selected items according to their order in selection per track
  * About: Select item. Run. It will group and colorize item based on their position in selection per track (first selected items on selected track together, second together etc...)
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Shuffle Items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
  * REAPER: 5.0
  * Version: 2.0
 --]]
- 
+
 --[[
  * Changelog:
  * v2.0 (2021-04-13)
@@ -68,7 +68,7 @@ function Main()
       reaper.Main_OnCommand(40032, 0) -- Item grouping; Group items
     end
   end
-  
+
   -- Reselect
   for i, column in ipairs( columns ) do
     for j, item in ipairs( column.items ) do
@@ -82,21 +82,21 @@ end
 
 function Init()
   count_sel_items = reaper.CountSelectedMediaItems(0)
-  
+
   if count_sel_items > 1 then
-  
+
     reaper.PreventUIRefresh(1)
-  
+
     reaper.Undo_BeginBlock()
-  
+
     Main()
-  
+
     reaper.Undo_EndBlock(undo_text, -1)
-  
+
     reaper.PreventUIRefresh(-1)
-  
+
     reaper.UpdateArrange()
-  
+
   end
 end
 

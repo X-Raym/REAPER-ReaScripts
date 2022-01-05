@@ -1,11 +1,10 @@
 --[[
  * ReaScript Name: Import markers and regions from tab-delimited CSV file
- * Description: See title.
  * Instructions: Select a track. Run.
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Links
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
@@ -139,7 +138,7 @@ end
 function main()
 
   folder = filetxt:match[[^@?(.*[\/])[^\/]-$]]
-  
+
   subs = {}
   subs_count = 0
 
@@ -157,13 +156,13 @@ function main()
       end
       sub = line[col_sub]
       if sub then sub = sub:gsub("<br>", "\n") end
-      
+
       local is_region = true
-      
+
       if pos_end == pos then
         is_region = false
       end
-      
+
       if pos and pos_end and name and color then
         idx = reaper.AddProjectMarker2( 0, is_region, pos + cur_pos, pos_end + cur_pos, name, -1, color )
         if sub and reaper.NF_SetSWSMarkerRegionSub then
@@ -171,10 +170,10 @@ function main()
           subs_count = subs_count + 1
         end
       end
-      
+
     end
   end
-  
+
   -- This is because there is no Get marker by IDX...
   if subs_count > 0 then
     i=0
@@ -199,20 +198,20 @@ if retval then
   reaper.PreventUIRefresh(1)
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   reaper.ClearConsole()
 
   read_lines(filetxt)
-  
+
   cur_pos = 0
-  
+
   if popup and reaper.GetCursorPosition() > 0 then
     from_cur_pos = reaper.MB("Import from Edit Cursor position?", "Option", 1)
     if from_cur_pos == 1 then
       cur_pos = reaper.GetCursorPosition()
     end
   end
-  
+
   -- reaper.Main_OnCommand( reaper.NamedCommandLookup( "_SWSMARKERLIST10" ), -1) -- SWS: Delete all regions
 
   main()

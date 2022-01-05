@@ -1,6 +1,5 @@
 --[[
  * ReaScript Name: Display list of selected media items active take names in the console
- * Instructions: Run.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts

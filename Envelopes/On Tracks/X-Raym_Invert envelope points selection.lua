@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Invert envelope points selection
- * Description: See title.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Screenshot: https://i.imgur.com/96tJFtD.gifv
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
@@ -14,7 +13,7 @@
  * Extensions: SWS 2.7.1 #0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2017-12-17)
@@ -24,7 +23,7 @@
 -- For hopi
 
 function SetAtTimeSelection(env, k, point_time, value, shape, tension, sel)
-	
+
 	if time_selection then
 
 		if point_time >= start_time and point_time <= end_time then
@@ -32,15 +31,15 @@ function SetAtTimeSelection(env, k, point_time, value, shape, tension, sel)
 		else
 			reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, sel, true)
 		end
-	
+
 	else
 		reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, not sel, true)
 	end
-	
+
 end
 
 function Action(env)
-	
+
 	-- GET THE ENVELOPE
 	retval, envelopeName = reaper.GetEnvelopeName(env, "envelopeName")
 	br_env = reaper.BR_EnvAlloc(env, false)
@@ -54,17 +53,17 @@ function Action(env)
 		env_points_count = reaper.CountEnvelopePoints(env)
 
 		if env_points_count > 0 then
-			for k = 0, env_points_count-1 do 
+			for k = 0, env_points_count-1 do
 				retval, point_time, value, shapeOut, tension, selected = reaper.GetEnvelopePoint(env, k)
-				
+
 				SetAtTimeSelection(env, k, point_time, value, shape, tension, selected)
 
 			end
 		end
-		
+
 		reaper.BR_EnvFree(br_env, 0)
 		reaper.Envelope_SortPoints(env)
-	
+
 	end
 
 end
@@ -78,7 +77,7 @@ function Main()
 	if start_time ~= end_time then
 		time_selection = true
 	end
-		
+
 	-- LOOP TRHOUGH SELECTED TRACKS
 	env = reaper.GetSelectedEnvelope(0)
 
@@ -86,7 +85,7 @@ function Main()
 
 		selected_tracks_count = reaper.CountSelectedTracks(0)
 		for i = 0, selected_tracks_count-1  do
-			
+
 			-- GET THE TRACK
 			track = reaper.GetSelectedTrack(0, i) -- Get selected track i
 
@@ -106,7 +105,7 @@ function Main()
 	else
 
 		Action(env)
-	
+
 	end -- endif sel envelope
 
 	reaper.Undo_EndBlock("Invert envelope point selection", 0) -- End of the undo block. Leave it at the bottom of your main function.

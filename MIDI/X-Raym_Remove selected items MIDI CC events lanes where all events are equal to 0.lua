@@ -3,8 +3,8 @@
  * Screenshot: https://i.imgur.com/sallb63.gif
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
@@ -35,7 +35,7 @@ function Main(item, take)
 
   -- LOOP IN MIDI NOTES
   retval, notes, ccs, sysex = reaper.MIDI_CountEvts(take)
-  
+
   cc_t = {}
 
   -- Filter CC
@@ -46,7 +46,7 @@ function Main(item, take)
     if val > 0 then cc_t[num] = cc_t[num] + 1 end
 
   end
-  
+
   -- Get CC ID to delete
   cc_to_delete = {}
   for i = ccs-1, 0, -1 do -- Loop in notes
@@ -55,9 +55,9 @@ function Main(item, take)
       reaper.MIDI_DeleteCC( take, i )
     end
   end
-  
+
   reaper.MIDI_Sort( take )
-  
+
 end -- Main()
 
 

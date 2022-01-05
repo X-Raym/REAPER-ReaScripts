@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Create text items on first selected track from regions
- * Description: Create text items on first selected track from regions
+ * About: Create text items on first selected track from regions
  * Instructions: Select a destination track. Execute the script. Text items will be colored depending on original region color. The text note will came from the original region name.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: Scripts (LUA): Create Text Items Actions (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
@@ -14,7 +13,7 @@
  * Extensions: SWS/S&M 2.8.3
  * Version: 1.4
 --]]
- 
+
 --[[
  * Changelog:
  * v1.4 (2016-01-22)
@@ -35,20 +34,20 @@
 -- CREATE TEXT ITEMS
 -- text and color are optional
 function CreateTextItem(track, position, length, text, color)
-    
+
 	local item = reaper.AddMediaItemToTrack(track)
-  
+
 	reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
 	reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
-  
+
 	if text ~= nil then
 		reaper.ULT_SetMediaItemNote(item, text)
 	end
-  
+
 	if color ~= nil then
 		reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
 	end
-  
+
 	return item
 
 end
@@ -60,9 +59,9 @@ function main()
 
 	-- IF THERE IS A TRACK SELECTED
 	if track ~= nil then
-	
+
 		reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-	
+
 		-- LOOP THROUGH REGIONS
 		i=0
 		repeat
@@ -92,4 +91,4 @@ reaper.UpdateArrange() -- Update the arrangement (often needed)
 
 reaper.PreventUIRefresh(-1)
 
---msg_end() -- Display characters in the console to show you the end of the script execution.
+

@@ -1,13 +1,13 @@
 --[[
  * ReaScript Name: Invert tracks (reverse vertically) of selected items
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * REAPER: 5.0
  * Version: 1.0
  --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2021-03-22)
@@ -19,7 +19,7 @@
 
 console = true -- true/false: display debug messages in the console
 
-undo_text = "Invert tracks (reverse vertically) of selected items" 
+undo_text = "Invert tracks (reverse vertically) of selected items"
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 
@@ -54,25 +54,25 @@ end
 
 -- Main function
 function Main()
-  
+
   tracks = {}
   for i, item in ipairs(init_sel_items) do
     track = reaper.GetMediaItemTrack( item )
     track_id = reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER")
     tracks[track_id] = track
   end
-  
+
   tracks_order = {}
   for k, v in pairs( tracks ) do
     table.insert(tracks_order, k)
   end
   table.sort( tracks_order )
-  
+
   tracks_dest = {}
   for i, track_id in ipairs( tracks_order ) do
     tracks_dest[track_id] = tracks[tracks_order[#tracks_order-i+1]]
   end
-  
+
   for i, item in ipairs(init_sel_items) do
     track = reaper.GetMediaItemTrack( item )
     track_id = reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER")
@@ -103,10 +103,10 @@ function Init()
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end
 
 if not preset_file_init then
-  Init() 
+  Init()
 end
 

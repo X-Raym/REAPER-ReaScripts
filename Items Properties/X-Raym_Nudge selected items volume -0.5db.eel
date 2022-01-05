@@ -1,7 +1,7 @@
 // Nudge selected items Vol -0.5db
 // EEL Script for Reaper
 // Author : X-Raym
-// Author URI : http://extremraym.com
+// Author URI : https://www.extremraym.com
 // Source : GitHub > X-Raym > EEL Scripts for Cockos REAPER
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
@@ -14,7 +14,7 @@ function nudge_item_vol() local(i, item)
 	i = 0;
 	loop(CountSelectedMediaItems(0),
 		(item = GetSelectedMediaItem(0, i)) ? (
-			
+
 			NudgeAmount = -0.5; // You can modify this
 
 			OldVol=GetMediaItemInfo_Value(item, "D_VOL");
@@ -23,11 +23,11 @@ function nudge_item_vol() local(i, item)
 	    	NewVol=OldVolDB+NudgeAmount;
 
 	    	NewVol >= 24 ? (
-	    		NewVol = 24	
+	    		NewVol = 24
 	    		) : (
 	    		NewVol = NewVol;
 	    	);
-			
+
 	    	NewVolGain=exp(NewVol*0.115129254);
 
 			SetMediaItemInfo_Value(item, "D_VOL", NewVolGain);

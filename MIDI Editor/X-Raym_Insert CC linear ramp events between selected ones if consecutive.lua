@@ -1,17 +1,16 @@
 --[[
  * ReaScript Name: Insert CC linear ramp events between selected ones if consecutive
- * Description: Interpolate multiple CC events by creating new ones. Works with multiple lanes (CC Channel).
+ * About: Interpolate multiple CC events by creating new ones. Works with multiple lanes (CC Channel).
  * Instructions: Open a MIDI take in MIDI Editor. Select Notes. Run.
  * Screenshot: http://i.giphy.com/3o6UB8vDPviM8jbXlC.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script Request Sticky? - Page 32
  * Forum Thread URI: http://forum.cockos.com/showpost.php?p=1617117&postcount=1265
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.2
 --]]
 
@@ -45,7 +44,7 @@ function GetCC(take, cc)
 	return cc.selected, cc.muted, cc.ppqpos, cc.chanmsg, cc.chan, cc.msg2, cc.msg3
 end
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	take = reaper.MIDIEditor_GetTake(reaper.MIDIEditor_GetActive())
 

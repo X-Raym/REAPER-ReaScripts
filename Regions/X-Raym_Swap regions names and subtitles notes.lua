@@ -2,14 +2,14 @@
  * ReaScript Name: Swap regions names and subtitles notes
  * Screenshot: https://i.imgur.com/GDv9OtL.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Extensions: SWS/S&M 2.12.1
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2021-02-09)
@@ -52,18 +52,18 @@ function SaveRegion( i, start_pos, end_pos )
 end
 
 function Main()
-  
+
   for z, region in ipairs(regions) do
-    
+
     -- GET NOTES
     local note = region.note:gsub("\n", "<br/>")
     local name = region.name:gsub("<br/>", "\n")
-    
+
     -- SET
     reaper.NF_SetSWSMarkerRegionSub(name, region.id)
     reaper.SetProjectMarkerByIndex2( 0, region.id, true, region.pos_start, region.pos_end, region.idx, note, region.color,0 )
   end
-  
+
   reaper.NF_UpdateSWSMarkerRegionSubWindow()
 
 end

@@ -2,8 +2,8 @@
  * ReaScript Name: Display first selected track width and height
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
@@ -48,7 +48,7 @@ end
 function run()
   gfx.x = 0
   gfx.y = 0
-  
+
   char = gfx.getchar()
   reaper.SNM_SetIntConfigVar( "leftpanewid", 300 )
   track = reaper.GetSelectedTrack(0,0)
@@ -63,7 +63,7 @@ function run()
   gfx.update()
   if gfx.mouse_cap == 4 then offset = 10 else offset = 1 end
   if char == 30064 then
-    SetTrackHeight(track, height-offset) 
+    SetTrackHeight(track, height-offset)
   end -- Up
   if char == 1685026670 then
     SetTrackHeight(track, height+offset)

@@ -1,20 +1,18 @@
 /**
  * ReaScript Name: Display selected track pan compensated by width
- * Description: Display selected track pan multiplied by width
+ * About: Display selected track pan multiplied by width
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: Script: Display selected track pan compensated by width
  * Forum Thread URI:
  * Version: 0.9
  * Version Date: 2015-02-18
  * REAPER: 4.76
- * Extensions: None
  */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-02-18)
@@ -71,11 +69,11 @@ function main() local (track)
 	track = GetSelectedTrack(0, 0);
 
 	pan_initial = GetMediaTrackInfo_Value(track, "D_PAN")*100;
-	
+
 	width = GetMediaTrackInfo_Value(track, "D_WIDTH")*100;
-	
+
 	pan_output = (pan_initial * width)/100;
-	
+
 	GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
 	name = #stringNeedBig;
 
@@ -121,7 +119,7 @@ function main() local (track)
 	gfx_y = 70;
 	gfx_printf("%d", pan_output);
 
-	//------- 
+	//-------
 	char = gfx_getchar();
 	// ctrl+lmb to Undo
 	char == 26 ? (
@@ -133,12 +131,12 @@ function main() local (track)
 	);
 	char >= 0 ? (					// if window is visible
 	defer("main();");		// execute loop constantly
-	);	
+	);
 	gfx_update();
 
 );
 
-gfx_init("Create subtitles from regions and markers names", 420,200); // open window 
+gfx_init("Create subtitles from regions and markers names", 420,200); // open window
 
 msg_start(); // Display characters in the console to show you the begining of the script execution.
 //init(window_w, window_h); // INITIALIZE THE WINDOW

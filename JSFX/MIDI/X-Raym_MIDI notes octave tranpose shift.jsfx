@@ -40,7 +40,7 @@ allOff3   = 0x00;
 holdOff1  = 0xB0;
 holdOff2  = 0x40;
 holdOff3  = 0x00;
-  
+
 last_chan = slider1;
 last_shift = slider5;
 
@@ -49,7 +49,7 @@ function SendAllNotesOff() (
   opos = mpos;
   opos >= samplesblock-32 ? (
     opos = samplesblock-33;
-  );  
+  );
   loop (16,
     midisend(opos, holdOff1+outChannel, holdOff2, holdOff3);
     opos +=1;
@@ -68,12 +68,12 @@ inChannel = slider1 - 1;
 
 while
 (
-  
+
   // Not Off if Slider Change
   last_chan != slider1 || last_shift != slider5 ? (
     SendAllNotesOff()
   );
-  
+
   midirecv(offset,msg1,note,vel) ?
   (
 
@@ -84,28 +84,28 @@ while
     // Is it on our channel?
     channel == inChannel || inChannel == -1 ?
     (
-      
+
       // Is it a note event?
       status == statNoteOn || status == statNoteOff || status == afterTouch ?
       (
-        
-        
+
+
           slider5 != 0 ? (
             note = max(0,min(127,note + slider5*12)); // Get Note Out
           );
 
-     
+
       );
-    
+
     );
-    
+
     midisend(offset, msg1, note, vel);
-    
+
     last_chan = slider(1);
     last_shift = slider(5);
-    
+
     1; // Force loop to continue until all messages have been processed
-  
+
   );
 
 );

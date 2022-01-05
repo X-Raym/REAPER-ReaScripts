@@ -1,13 +1,12 @@
 --[[
  * ReaScript Name: Add envelope points at time selection edges from X to Y preserving edges on choosen envelopes
- * Description: Insert points at time selection edges. You can deactivate the pop up window within the script.∑
+ * About: Insert points at time selection edges. You can deactivate the pop up window within the script.∑
  * Instructions: Make a selection area. Execute the script. Works on selected envelope or selected tracks envelope with armed visible envelope.
  * Screenshot: http://i.giphy.com/l0K7o2JPg4cpLr2Jq.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI:
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882

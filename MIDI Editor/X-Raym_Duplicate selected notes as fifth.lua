@@ -1,7 +1,5 @@
 --[[
  * ReaScript Name: Duplicate selected notes as fifth
- * Description: See title
- * Instructions: Run
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
  * Repository: X-Raym Premium Scripts
@@ -9,7 +7,6 @@
  * Forum Thread:
  * Forum Thread URI:
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.0.1
 --]]
 

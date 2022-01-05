@@ -3,14 +3,14 @@
  * About: This action can replace your regular save action. Set CTRL+S as keyboard shortcode fr eg. Use REAPER config to save new backup at each save with timestamp and next to project
  * Screenshot: https://i.imgur.com/URmnLmt.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0.7
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0.7 (2021-08-09)
@@ -62,7 +62,7 @@ sep = package.config:sub(1,1)
 
 -- NOT USED FOR NOW
 -- Backup Folder
--- Eg: [[backup]] for project_path/backup 
+-- Eg: [[backup]] for project_path/backup
 -- Use system path separator (\ for Windows, / for MacOS)
 -- Don't use system path separator as last character
 -- backup_folder = [[]]
@@ -136,14 +136,14 @@ function Main()
 
   -- MAKE BACKUP
   retval, proj_path = reaper.EnumProjects( -1 )
-  
+
   if proj_path == "" then
     return false
   end
   folder, proj_name, proj_ext = SplitFileName(proj_path)
-  
+
   proj_name = EscapeLuaSpecialChar( proj_name )
-  
+
   pattern = pattern:gsub("$proj_name", proj_name)
 
   -- TODO: Copy backup in certain dir
@@ -154,10 +154,10 @@ function Main()
 
   --reaper.RecursiveCreateDirectory( folder .. backup_folder, 0 )
   --CopyFiles( proj_path, backup_path )
-  
+
   -- Do Project Dir
   Process(folder)
-  
+
   -- Do Automatic Backup Dir
   if do_automatic_backup_dir then
     local reaper_ini_file = reaper.get_ini_file()

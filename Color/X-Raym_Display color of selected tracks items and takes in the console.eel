@@ -3,9 +3,9 @@
  * EEL Script for Reaper
  * Displays tracks and takes color in RGB and HEX values in the console.
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Reposotory: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Source URI: https://github.com/X-Raym/REAPER-EEL-Scripts/Display selected tracks and takes color in the console.eel
  * Licence: GPL v3
  * Forum Thread: Script: Display selected tracks and takes color in the console
@@ -14,7 +14,7 @@
  * Version Date: 2015-15-02
  * REAPER: 4.76
  */
- 
+
 /**
  * Changelog:
  * v1.0 (2015-15-02)
@@ -88,7 +88,7 @@ function main() local (i, j)
 			);
 		i += 1;
 	);
-		
+
 	// SELECTED TRACKS LOOP
 	countTracks > 0 ? (
 		msg_s("==========");
@@ -96,7 +96,7 @@ function main() local (i, j)
 	);
 
 	j = 0;
-	loop(countTracks, 
+	loop(countTracks,
 			(track = GetSelectedTrack(0, j)) ? (
 				GetSetMediaTrackInfo_String(track, "P_NAME", #stringNeedBig, 0);
 				msg_tvold("Track name:", #stringNeedBig, "%s", 0, debug);

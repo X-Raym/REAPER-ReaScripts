@@ -1,20 +1,19 @@
 --[[
  * ReaScript Name: Set selected tracks, items and takes color from mouse context
- * Description: A way to copy paste color value bewteen elements.
+ * About: A way to copy paste color value bewteen elements.
  * Instructions: Select tracks and items. Mouse over tracks in TCP/MCP or over items/takes. Run with a keyboard shortcut.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Forum Thread: 
- * Forum Thread URI: 
+ * Forum Thread:
+ * Forum Thread URI:
  * REAPER: 5.0 pre 21
  * Extensions: SWS/S&M 2.6.3 #0
  * Version: 1.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1 (2015-04-13)
@@ -66,7 +65,7 @@ function main()
 	if segment == "region_lane" or segment == "marker_lane" then
 		mouse_pos = reaper.BR_GetMouseCursorContext_Position()
 		markeridxOut, regionidxOut = reaper.GetLastMarkerAndCurRegion(0, mouse_pos)
-		
+
 		-- COLOR FROM REGION OR MARKER
 		if segment == "region_lane" then
 			idx = regionidxOut

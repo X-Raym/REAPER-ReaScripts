@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Set inactive take FX of selected items offline
- * Instructions: Run.
- * Description: this will help to free some RAM, as inactive take FX consumes RAM (but not CPU)
+ * About: this will help to free some RAM, as inactive take FX consumes RAM (but not CPU)
  * Screenshot: https://i.imgur.com/p69W7Vk.gifv
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Forum Thread: Question Regarding Take FX
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=207622
  * Licence: GPL v3

@@ -1,13 +1,12 @@
 --[[
  * ReaScript Name: Trim items by common time section in selection columns
- * Description: Select item. Run. It will trim items based on their position in selection per track (firsts selected items on selected track together, seconds together etc...)
+ * About: Select item. Run. It will trim items based on their position in selection per track (firsts selected items on selected track together, seconds together etc...)
  * Instructions: Select items. Run. If an item is not un a column, it will not be trimmed. Not that it is column selection, not visual columns.
  * Screenshot: http://i.giphy.com/3o85xp8hhYNwGy76bm.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script (Lua): Shuffle Items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
@@ -15,7 +14,7 @@
  * Extensions: SWS 2.8.1.
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2015-10-20)
@@ -27,33 +26,33 @@ count_sel_items_on_track = {}
 
 -------------------------------------------------------------
 function CountSelectedItems_OnTrack(track)
-	
+
 	count_items_on_track = reaper.CountTrackMediaItems(track)
-	
+
 	selected_item_on_track = 0
-	
+
 	for i = 0, count_items_on_track - 1  do
 
 		item = reaper.GetTrackMediaItem(track, i)
 
 		if reaper.IsMediaItemSelected(item) == true then
 			selected_item_on_track = selected_item_on_track + 1
-		end	
+		end
 
 	end
-	
+
 	return selected_item_on_track
 
 end
 
 -------------------------------------------------------------
 function GetSelectedItems_OnTrack(track_sel_id, idx)
-	
+
 	--track = reaper.GetSelectedTrack(0, track_sel_id)
 	--msg("Track_sel_id = "..track_sel_id)
 	--msg("idx = "..idx)
 	--msg("sel_items_on_track = "..count_sel_items_on_track[ track_sel_id ])
-	
+
 	if idx < count_sel_items_on_track[ track_sel_id ] then
 		offset = 0
 		for m = 0, track_sel_id do
@@ -67,7 +66,7 @@ function GetSelectedItems_OnTrack(track_sel_id, idx)
 	else
 		get_sel_item = nil
 	end
-	
+
 	return get_sel_item
 
 end
@@ -77,58 +76,58 @@ function SelectTracksOfSelectedItems()
 
 	-- LOOP THROUGH SELECTED ITEMS
 	selected_items_count = reaper.CountSelectedMediaItems(0)
-	
+
 	-- INITIALIZE loop through selected items
 	-- Select tracks with selected items
 	for i = 0, selected_items_count - 1  do
-		
+
 		-- GET ITEMS
 		item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
 
 		-- GET ITEM PARENT TRACK AND SELECT IT
 		track = reaper.GetMediaItem_Track(item)
 		reaper.SetTrackSelected(track, true)
-		
+
 	end -- ENDLOOP through selected items
 
 end
 
 -------------------------------------------------------------
 function MaxValTable(table)
-	
+
 	max_val = 0
-	
+
 	for i = 0, #table do
-	
+
 		val = table[i]
-		if val > max_val then 
-			max_val = val 
+		if val > max_val then
+			max_val = val
 		end
-	
+
 	end
-	
+
 	return max_val
 
 end
 -------------------------------------------------------------
 function debug(table)
-	
+
 	for i = 1, #table do
 
 		msg("Val = " .. i .. "=>"..reaper.ULT_GetMediaItemNote(table[i]))
-	
+
 	end
-	
+
 	return max_val
 
 end
 -------
-function msg(variable)		
+function msg(variable)
 		reaper.ShowConsoleMsg(tostring(variable).."\n")
 end
 
 -------------------------------------------------------------
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -141,38 +140,38 @@ function main() -- local (i, j, item, take, track)
 
 		-- LOOP TRHOUGH SELECTED TRACKS
 	for i = 0, selected_tracks_count - 1  do
-		
+
 		-- GET THE TRACK
 		track = reaper.GetSelectedTrack(0, i) -- Get selected track i
 
 		-- LOOP THROUGH ITEM IDX
 		count_sel_items_on_track[i] = CountSelectedItems_OnTrack(track)
-		
+
 	end -- ENDLOOP through selected tracks
-	
-	
+
+
 	-- MAXIMUM OF ITEM SELECTED ON A TRACK
 	max_sel_item_on_track = MaxValTable(count_sel_items_on_track)
-	
+
 	--debug(init_sel_items)
-	
+
 	-- LOOP COLUMN OF ITEMS ON TRACK
 	for j = 0, max_sel_item_on_track - 1 do
-	
+
 		-- LOOP TRHOUGH SELECTED TRACKS
 		min_end = nil
 		max_pos = nil
 		for k = 0, selected_tracks_count - 1  do
-			
+
 			-- LOOP THROUGH ITEM IDX
 			item = GetSelectedItems_OnTrack(k, j)
-			
+
 			if item ~= nil then
-				
+
 				item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 				item_length = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 				item_end = item_pos + item_length
-				
+
 				if min_end == nil then
 					min_end = item_end
 				else
@@ -185,35 +184,35 @@ function main() -- local (i, j, item, take, track)
 					-- if the item is not to far compared to the others in the column
 					if item_pos > max_pos and item_pos < min_end then max_pos = item_pos end
 				end
-			
+
 			end
-		
+
 		end -- ENDLOOP through selected tracks
-		
+
 		-- LOOP TRHOUGH SELECTED TRACKS AGAIN
 		for k = 0, selected_tracks_count - 1  do
-			
+
 			-- LOOP THROUGH ITEM IDX
 			item = GetSelectedItems_OnTrack(k, j)
-			
+
 			if item ~= nil then
-				
+
 				item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
 				item_length = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
 				item_end = item_pos + item_length
-				
+
 				-- APPLY ONLY IF ITEMS HAS COMMON SECTION WITH THE OTHER IN THE SELECTION COLUMN
 				if max_pos > item_pos and max_pos < item_end then item_pos = max_pos end
 				if min_end < item_end and min_end > item_pos then item_end = min_end end
 				reaper.BR_SetItemEdges(item, item_pos, item_end)
 				reaper.SetMediaItemSelected(item, true)
-			
+
 			end
-		
+
 		end -- ENDLOOP through selected tracks
-		
+
 	end
-	
+
 
 	reaper.Undo_EndBlock("Trim items by common time section in selection columns", -1) -- End of the undo block. Leave it at the bottom of your main function.
 

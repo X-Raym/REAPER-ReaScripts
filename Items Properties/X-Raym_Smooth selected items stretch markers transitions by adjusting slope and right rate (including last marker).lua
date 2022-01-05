@@ -1,8 +1,8 @@
 --[[
  * ReaScript Name: Smooth selected items stretch markers transitions by adjusting slope and right rate (including last marker)
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > REAPER-ReaScripts 
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * REAPER: 5.0
  * Version: 1.0
@@ -42,7 +42,7 @@ end
 
 -- USER CONFIG AREA 2/2 ------------------------------------------------------
 
--- 2. Put your variables there, so that it overrides the default ones. 
+-- 2. Put your variables there, so that it overrides the default ones.
 -- You can usually copy the User Config Area variable of the target script. Examples below.
 
 -- Typical global variables names

@@ -1,9 +1,9 @@
 --[[
  * ReaScript Name: Explode selected subprojects to child tracks
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Links
     Forum Thread https://forum.cockos.com/showthread.php?t=193482
  * Licence: GPL v3
@@ -37,7 +37,7 @@
     Result:
         The tracks from the subproject will replace the
         track that the subproject item was on
-    
+
     v0.3 - adds replacement TrackChunk functions from eugen2777/me2beats
            to avoid issue with chunks > 4MB with API functions
 
@@ -155,7 +155,7 @@ local function GetTrackChunk(track)
   if reaper.SNM_GetSetObjectState(track, fast_str, false, false) then
     track_chunk = reaper.SNM_GetFastString(fast_str)
   end
-  reaper.SNM_DeleteFastString(fast_str)  
+  reaper.SNM_DeleteFastString(fast_str)
   return track_chunk
 end
 
@@ -177,20 +177,20 @@ local function explodeSubproject(filename, track, item)
   io.input(file)
   local t = fileToTable()
   io.close(file)
-  
+
   local start_time = 0
   local end_time = 0
   for i, v in ipairs( t ) do
     local start_time_str = v:match("([%.|%d]+) =START")
     if start_time_str then start_time = tonumber(start_time_str);break end
   end
-  
+
   -- Position Offset
   local take = reaper.GetActiveTake( item )
   local take_offs = reaper.GetMediaItemTakeInfo_Value( take, "D_STARTOFFS" )
   local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
   local item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
-  
+
   reaper.Main_OnCommand(40289, 0) -- Item: Unselect all items
   reaper.SetMediaItemSelected( item, true )
   reaper.Main_OnCommand( 42228, 0 ) -- Item: Set item start/end to source media start/end
@@ -208,7 +208,7 @@ local function explodeSubproject(filename, track, item)
   local track_table_positions = getTrackTablePositions(t)
 
   local new_tracks = {}
-  
+
   local tmp_t = {} ; local s
   for i = 1, #track_table_positions do
     reaper.InsertTrackAtIndex(track_number+i-1, false)
@@ -226,7 +226,7 @@ local function explodeSubproject(filename, track, item)
   if not child then
     reaper.DeleteTrack(track)
   else
-  
+
   end
   reaper.UpdateArrange()
 end
@@ -235,7 +235,7 @@ end
 local function main()
   for i, item in ipairs( init_sel_items ) do
     local filename, track = getFilenameTrackActiveTake(item)
-    if filename ~= nil then 
+    if filename ~= nil then
       if getFileExtension(filename) == "RPP" then
         explodeSubproject(filename, track, item)
         if child then

@@ -1,17 +1,15 @@
 --[[
  * ReaScript Name: Invert selected items fades
- * Description: See title
  * Instructions: Select items. Run.
  * Screenshot: https://i.imgur.com/Hd0BhnU.gifv
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: Scripts: Item Fades (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1538659
  * REAPER: 5.0 pre 36
- * Extensions: None
  * Version: 1.0
 --]]
 
@@ -21,7 +19,7 @@
 	+ Initial Release
 --]]
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 

@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Add envelope points at time selection edges from max to min
- * Description: Insert points at time selection edges.
+ * About: Insert points at time selection edges.
  * Instructions: Make a selection area. Execute the script. Works on selected envelope or selected tracks envelope with armed visible envelope.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1497832#post1497832
@@ -62,7 +61,7 @@ function AddPoints(env)
 	end
 end
 
-function main() -- local (i, j, item, take, track)
+function main()
 
 	reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -115,34 +114,15 @@ function main() -- local (i, j, item, take, track)
 
 end -- end main()
 
---msg_start() -- Display characters in the console to show you the begining of the script execution.
 
---[[ reaper.PreventUIRefresh(1) ]]-- Prevent UI refreshing. Uncomment it only if the script works.
+
 
 main() -- Execute your main function
 
---[[ reaper.PreventUIRefresh(-1) ]] -- Restore UI Refresh. Uncomment it only if the script works.
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
---msg_end() -- Display characters in the console to show you the end of the script execution.
+
 
 -- Update the TCP envelope value at edit cursor position
-function HedaRedrawHack()
-	reaper.PreventUIRefresh(1)
-
-	track=reaper.GetTrack(0,0)
-
-	trackparam=reaper.GetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT")
-	if trackparam==0 then
-		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 1)
-	else
-		reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", 0)
-	end
-	reaper.SetMediaTrackInfo_Value(track, "I_FOLDERCOMPACT", trackparam)
-
-	reaper.PreventUIRefresh(-1)
-
-end
-
-HedaRedrawHack()
+reaper.TrackList_AdjustWindows( false )

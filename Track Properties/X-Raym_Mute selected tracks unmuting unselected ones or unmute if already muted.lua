@@ -9,7 +9,7 @@
  * REAPER: 5.0
  * Version: 1.0.1
 --]]
- 
+
 
 --[[
  * Changelog:
@@ -18,16 +18,16 @@
 --]]
 
 function Main()
-  
+
   local all_mute = true
   for i = 0, count_sel_tracks - 1 do
-    local track = reaper.GetSelectedTrack(0,i)    
+    local track = reaper.GetSelectedTrack(0,i)
     local mute = reaper.GetMediaTrackInfo_Value(track, "B_MUTE" )
     if mute == 0 then
       all_mute = false
     end
   end
-  
+
   if all_mute then
     reaper.MuteAllTracks(0)
   else
@@ -36,7 +36,7 @@ function Main()
       local track = reaper.GetTrack(0,i)
       local mute = reaper.GetMediaTrackInfo_Value(track, "B_MUTE")
       if reaper.IsTrackSelected(track) then
-        reaper.SetMediaTrackInfo_Value(track, "B_MUTE", 1)      
+        reaper.SetMediaTrackInfo_Value(track, "B_MUTE", 1)
       else
         reaper.SetMediaTrackInfo_Value(track, "B_MUTE", 0)
       end
@@ -57,9 +57,9 @@ if count_sel_tracks > 0 then
   Main()
 
   reaper.Undo_EndBlock("Mute selected tracks unmuting unselected ones or unmute if already muted", -1) -- End of the undo block. Leave it at the bottom of your main function.
-  
+
   reaper.TrackList_AdjustWindows(false)
 
   reaper.PreventUIRefresh(-1)
-  
+
 end

@@ -1,7 +1,7 @@
 /**
  * ReaScript: Snap all regions to grid
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Source URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
@@ -23,17 +23,17 @@ clean = 0; // 0 => No console cleaning before every script execution. 1 => Conso
 function snap_regions_to_grid()
 (
 	Main_OnCommand(40754, 0);
-	
+
 	//msg_s("=====>");
 	//msg_s("INSTRUCTIONS : Snap mode is now on !");
 	//msg_s("-----");
-	
+
 	i = 0;
 
-	while (EnumProjectMarkers(i, is_region, region_start, region_end, #name, region_id)) (    
+	while (EnumProjectMarkers(i, is_region, region_start, region_end, #name, region_id)) (
 
 		is_region === 1 ? (
-			
+
 
 			//msg_s("Region ID");
 			//msg_d(region_id);

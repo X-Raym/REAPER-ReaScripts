@@ -1,17 +1,15 @@
 --[[
  * ReaScript Name: Quantize selected items to closest region start
- * Description: A template script for REAPER ReaScript.
+ * About: A template script for REAPER ReaScript.
  * Instructions: Have Regions. Select items. Run.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Extensions: None
  * Version: 1.1
 --]]
 
@@ -73,21 +71,21 @@ function main()
     if group > 0 then
       -- If group doesn't exist
       if groups[group] == nil then
-        
+
         -- Groups have ID as key and minimum POS as reference
         groups[group] = item_snap_abs
-      
+
       else -- if group exist, set minimum item pos of the group (first selected items in groups in time behave like the leader of the group)
-      
+
         if item_snap_abs < groups[group] then groups[group] = item_snap_abs end
-      
+
       end
     else -- no group
       index, pos = NearestValue(regions_start, item_pos+item_snap)
       reaper.SetMediaItemInfo_Value(item, "D_POSITION", pos-item_snap)
     end
   end
-  
+
   offsets = {}
   -- Transform Min Pos in Groups into Offset Settings
   for key, min_pos in pairs(groups) do
@@ -96,9 +94,9 @@ function main()
     --Msg(closest_grid .. "-" .. min_pos .. "=" .. "offset")
     offsets[key] = offset
   end
-  
+
   SaveAllItems(all_items)
-  
+
   -- Apply offset of items in groups
   for i, item in ipairs(all_items) do
     group = reaper.GetMediaItemInfo_Value(item, "I_GROUPID")
@@ -106,15 +104,15 @@ function main()
     if group > 0 then
       -- If group doesn't exist
       if groups[group] ~= nil then
-        
+
         item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
         reaper.SetMediaItemInfo_Value(item, "D_POSITION", item_pos + offsets[group])
-      
+
       end
-    
+
     end
-    
-  end  
+
+  end
 end
 
 function SaveSelectedItems (table)

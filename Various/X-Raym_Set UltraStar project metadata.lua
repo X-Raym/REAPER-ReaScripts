@@ -1,10 +1,9 @@
 --[[
  * ReaScript Name: Set UltraStar project metadata
- * Description: See title.
  * Instructions: Select a track. Run. Supports both UltraStar Creator and YASS syntax.
  * Screenshot: https://youtu.be/z1K98a7AWNA
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

@@ -135,7 +135,7 @@ function Main()
       table.insert(new_lines, line)
     end
   end
-  
+
   -- Concat
   new_clipboard = table.concat(new_lines, "\n")
   reaper.CF_SetClipboard(new_clipboard)
@@ -147,8 +147,8 @@ function Init()
   if popup then
 
     GetValsFromExtState()
-    
-    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, table.concat(instructions, "\n"), ConcatenateVarsVals() ) 
+
+    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, table.concat(instructions, "\n"), ConcatenateVarsVals() )
     if retval then
       vars = ParseRetvalCSV( retvals_csv )
       -- CUSTOM SANITIZATION HERE
@@ -174,7 +174,7 @@ function Init()
       end
 
       Main() -- Execute your main function
-      
+
       reaper.Undo_EndBlock(undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.
 
       reaper.UpdateArrange() -- Update the arrangement (often needed)

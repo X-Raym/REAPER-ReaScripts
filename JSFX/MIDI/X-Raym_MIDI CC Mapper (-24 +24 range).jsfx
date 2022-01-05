@@ -1,6 +1,6 @@
 /**
  * JSFX Name: MIDI CC Mapper Range (-24 + 24)
- * Description: Mode of MIDI CC Mapper, with a min value and a range value instead of 0-127 absolute MIDI values. Note min value here is -24 to +24 to match Pitch Shifters FX (like Manipulator); it is in fact a percentage internally.
+ * About: Mode of MIDI CC Mapper, with a min value and a range value instead of 0-127 absolute MIDI values. Note min value here is -24 to +24 to match Pitch Shifters FX (like Manipulator); it is in fact a percentage internally.
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
  * Links:

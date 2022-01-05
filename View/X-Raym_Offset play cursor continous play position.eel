@@ -1,12 +1,10 @@
 /**
  * ReaScript Name: Offset play cursor continous play position
- * Description: See title.
  * Instructions: Works with continuous play on et auto-scroll view off
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: Script (EEL): Select-Unselect all MIDI notes with same pitch right of the mouse
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=158397
@@ -14,7 +12,7 @@
  * Extensions: SWS/S&M 2.7.1 #0
  * Version: 0.5
 */
- 
+
 /**
  * Changelog:
  * v0.5 (2015-04-13)
@@ -53,10 +51,10 @@ msg_clean();
 msg_start();*/
 // <==== DEBUGGING ----
 
-// Don't modify below here 
-////////////////////////////////////////////////////////////////////////////////////////////// 
+// Don't modify below here
+//////////////////////////////////////////////////////////////////////////////////////////////
 
-function setrecordmode() (  
+function setrecordmode() (
 	//extension_api("BR_GetArrangeView", 0, screen_start, screen_end);
 	zoom = GetHZoomLevel(); // because it has to be zoom dependant. Results in pixel per seconds.
 	play_pos = GetPlayPosition(); // because it has to scroll. Results in time.
@@ -75,7 +73,7 @@ RefreshToolbar2(sec, cmd);
 //V5 <<<
 
 function run () (
-	time_precise() - t1 > interval ? ( 
+	time_precise() - t1 > interval ? (
 		setrecordmode();
 		time_precise(t1);
 	);

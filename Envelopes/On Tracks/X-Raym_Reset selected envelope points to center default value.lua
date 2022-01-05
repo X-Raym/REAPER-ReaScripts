@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Reset selected envelope points to center default value
- * Description: A way to reset envelope points value across tracks.
+ * About: A way to reset envelope points value across tracks.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI: https://github.com/X-Raym/REAPER-EEL-Scripts/scriptName.eel
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1497832#post1497832
@@ -14,7 +13,7 @@
  * Extensions: SWS 2.6.3 #0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2021-07-26)
@@ -22,17 +21,17 @@
 --]]
 
 function SetAtTimeSelection(env, k, point_time, value, shape, tension)
-  
+
   if time_selection == true then
 
     if point_time > start_time and point_time < end_time then
       reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, true, true)
     end
-  
+
   else
     reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, false, true)
   end
-  
+
 end
 
 function Action(env)
@@ -47,20 +46,20 @@ function Action(env)
     env_points_count = reaper.CountEnvelopePoints(env)
 
     if env_points_count > 0 then
-      for k = 0, env_points_count-1 do 
+      for k = 0, env_points_count-1 do
         retval, point_time, valueOut, shapeOutOptional, tensionOutOptional, selectedOutOptional = reaper.GetEnvelopePoint(env, k)
         SetAtTimeSelection(env, k, point_time, centerValue, shapeInOptional, tensionInOptional)
       end
     end
-    
+
     reaper.BR_EnvFree(br_env, 0)
     reaper.Envelope_SortPoints(env)
-  
+
   end
 
 end
 
-function main() -- local (i, j, item, take, track)
+function main()
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
@@ -72,7 +71,7 @@ function main() -- local (i, j, item, take, track)
   if start_time ~= end_time then
     time_selection = true
   end
-    
+
   -- LOOP TRHOUGH SELECTED TRACKS
   env = reaper.GetSelectedEnvelope(0)
 
@@ -80,7 +79,7 @@ function main() -- local (i, j, item, take, track)
 
     selected_tracks_count = reaper.CountSelectedTracks(0)
     for i = 0, selected_tracks_count-1  do
-      
+
       -- GET THE TRACK
       track = reaper.GetSelectedTrack(0, i) -- Get selected track i
 
@@ -100,7 +99,7 @@ function main() -- local (i, j, item, take, track)
   else
 
     Action(env)
-  
+
   end -- endif sel envelope
 
   reaper.Undo_EndBlock("Reset selected envelope points to center default value", -1) -- End of the undo block. Leave it at the bottom of your main function.

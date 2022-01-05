@@ -1,12 +1,11 @@
 --[[
  * ReaScript Name: Toggle envelopes active state property
- * Description: A way to set properties of several envelopes
+ * About: A way to set properties of several envelopes
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Repository URI: https://github.com/X-Raym/REAPER-EEL-Scripts
- * File URI:
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts (Lua): Multiple Tracks and Multiple Envelope Operations
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
@@ -14,13 +13,13 @@
  * Extensions: SWS 2.8.3
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2016-04-05)
   + Initial release
 --]]
- 
+
 -- ------ USER CONFIG AREA =====>
 -- Envelope Output Properties
 active_out = nil -- true or false or nil for toggle
@@ -31,7 +30,7 @@ function Msg(val)
 end
 
 function Action(env)
-  
+
   -- GET THE ENVELOPE
   local br_env = reaper.BR_EnvAlloc(env, false)
 
@@ -39,40 +38,40 @@ function Action(env)
 
   -- IF ENVELOPE IS A CANDIDATE
   if visible == true and armed == true then
-	
+
 	if active_out == nil then
 		if active then active = false
 		else active = true end
 	else
 		active = active_out
 	end
-  
+
     reaper.BR_EnvSetProperties(br_env, active, visible, armed, inLane, laneHeight, defaultShape, faderScaling)
-  
+
   end
-  
+
   reaper.BR_EnvFree(br_env, 1)
   -- reaper.Envelope_SortPoints(env)
 
 end
 
-function main() -- local (i, j, item, take, track)
+function main()
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   edit_pos = reaper.GetCursorPosition()
-  
+
   -- LOOP TRHOUGH SELECTED TRACKS
   env = reaper.GetSelectedEnvelope(0)
 
   if env == nil then
 
     selected_tracks_count = reaper.CountSelectedTracks(0)
-    
+
     -- if selected_tracks_count > 0 and UserInput() then
     if selected_tracks_count > 0 then
       for i = 0, selected_tracks_count-1  do
-        
+
         -- GET THE TRACK
         track = reaper.GetSelectedTrack(0, i) -- Get selected track i
 
@@ -88,11 +87,11 @@ function main() -- local (i, j, item, take, track)
         end -- ENDLOOP through envelopes
 
       end -- ENDLOOP through selected tracks
-      
+
     end
 
   else
-	
+
       Action(env)
 
   end -- endif sel envelope

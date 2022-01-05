@@ -26,14 +26,14 @@ msg_start();*/
 // <==== DEBUGGING -----
 
 function convert_loop() local(i, item, j, k)
-(	
+(
 	// PUT SELECTED ITEMS IN ARRAY
 	countSelectedMediaItem = CountSelectedMediaItems(0);
 	//msg_dtl("Number of selected items", countSelectedMediaItem, 0);
-	
+
 	setSelectedMediaItem = 0; // memory address
 	setSelectedMediaItem_length = 0;
-	
+
 	// PUT SELECTED ITEMS IN ARRAY
 	i = 0;
 	//msg_s("Item selection list");
@@ -41,7 +41,7 @@ function convert_loop() local(i, item, j, k)
 	(item = GetSelectedMediaItem(0, i)) ? (
 			setSelectedMediaItem[i] = item;
 			//msg_d(setSelectedMediaItem[i]);
-			
+
 			setSelectedMediaItem_length += 1;
 		);
 		i += 1;
@@ -59,7 +59,7 @@ function convert_loop() local(i, item, j, k)
 				SetMediaItemSelected(setSelectedMediaItem[j-1], 1);
 				//msg_dtl("Selection",setSelectedMediaItem[j-1],1);
 				CurrItem = GetSelectedMediaItem(0, 0);
-				
+
 				// GET TRACK
 				track = GetMediaItem_Track(CurrItem);
 				//msg_dtl("Track ID", track, 1);
@@ -75,7 +75,7 @@ function convert_loop() local(i, item, j, k)
 				Main_OnCommand(40698, 0); // Copy item
 				itemSourceDuration = GetMediaItemInfo_Value(CurrItem, "D_LENGTH");
 				//msg_ftl("Item source duration", itemSourceDuration, 1);
-				
+
 				completeLoopsNumber = floor(itemDuration / itemSourceDuration) - 1;
 				//msg_dtl("Complete loops number", completeLoopsNumber, 1);
 
@@ -86,12 +86,12 @@ function convert_loop() local(i, item, j, k)
 
 				//IF ITEM IS LOOPIN
 				completeLoopsNumber > 0 || incompleteLoopsDuration > 0 ? (
-				
+
 				// SET CURSOR POS
 				itemPosition = GetMediaItemInfo_Value(CurrItem, "D_POSITION");
 				cursorPosition = itemPosition + itemSourceDuration;
 				SetEditCurPos(cursorPosition, 0, 0);
-				
+
 				// APPLY ACTIONS
 				k = 0;
 				loop(completeLoopsNumber + 1, k ? (
@@ -112,7 +112,7 @@ function convert_loop() local(i, item, j, k)
 );
 
 PreventUIRefresh(1);
-Undo_BeginBlock(); 
+Undo_BeginBlock();
 convert_loop();
 Undo_EndBlock("Convert selected looped items into independent items", -1);
 UpdateArrange();
