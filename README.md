@@ -16,11 +16,14 @@ This means that you don't need to download and install the scripts manually anym
 More, you will get auto-update each time your synchronize packages!
 
 ## Manual ReaPack Installation
-If for some reasons you deleted the link to this repo from ReaPack, you can add it back by importing the following [index.xml](https://raw.githubusercontent.com/X-Raym/REAPER-ReaScripts/master/index.xml) link from the Import a repository window.
-`https://raw.githubusercontent.com/X-Raym/REAPER-ReaScripts/master/index.xml`
+If for some reasons you deleted the link to this repo from ReaPack, you can add it back by importing the following [index.xml](https://github.com/X-Raym/REAPER-ReaScripts/raw/master/index.xml) link from the Import a repository window.
+
+```
+https://github.com/X-Raym/REAPER-ReaScripts/raw/master/index.xml
+```
 
 ## Manual Download Instructions
-Please download the whole archive on my website => [My REAPER Scripts](https://www.extremraym.com/en/my-reaper-scripts/).
+Please download the whole archive on my website → [My REAPER Scripts](https://www.extremraym.com/en/my-reaper-scripts/).
 
 If you want download scripts on this repo anyway:
 - The whole archive can also be downloaded from here by clicking on the Download Master button.
