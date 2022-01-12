@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="b5a1cae8185f739e631c15ca844ec9a1c6460a13" name="X-Raym Scripts">
+<index version="1" commit="f590c71357094786d1fc19bbb5a0feb835a1a526" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -210,7 +210,7 @@
 ]]></description>
       </metadata>
       <version name="1.0" time="2015-03-13T00:25:43Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Envelopes/X-Raym_Randomize%20selected%20envelope%20points%20value.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/Envelopes/X-Raym_Randomize%20selected%20envelope%20points%20value.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Round selected envelope points value.eel" type="script" desc="Round selected envelope points value">
@@ -1479,7 +1479,7 @@
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-06-08T08:49:45Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/FX/X-Raym_Bypass%20inactive%20take%20FX%20of%20selected%20items.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/FX/X-Raym_Bypass%20inactive%20take%20FX%20of%20selected%20items.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Insert FX.lua" type="script" desc="Insert FX">
@@ -2878,7 +2878,7 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5a3e1589fb6a29bf967075c36ddae007d9e54d2b/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20MIDI%20content.lua</source>
       </version>
       <version name="1.0.1" author="X-Raym" time="2021-09-29T08:34:58Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20MIDI%20content.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20MIDI%20content.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Color selected items according to their source file name.lua" type="script" desc="Color selected items according to their source file name">
@@ -2886,7 +2886,7 @@
         <link rel="screenshot">https://i.imgur.com/cIgOvSi.gif</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-09-29T08:35:06Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20source%20file%20name.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20source%20file%20name.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Color selected items from regions at their middle position.lua" type="script" desc="Color selected items from regions at their middle position">
@@ -2923,7 +2923,7 @@
     <reapack name="X-Raym_Display list of selected media items active take names in the console.lua" type="script" desc="Display list of selected media items active take names in the console">
       <version name="1.0" author="X-Raym" time="2018-04-03T10:37:21Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Display%20list%20of%20selected%20media%20items%20active%20take%20names%20in%20the%20console.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/Items%20Properties/X-Raym_Display%20list%20of%20selected%20media%20items%20active%20take%20names%20in%20the%20console.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Display sum of length of selected media items in the console.lua" type="script" desc="Display sum of length of selected media items in the console">
@@ -3005,7 +3005,7 @@
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-02-10T10:33:43Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Group%20selected%20items%20vertically%20by%20position.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/Items%20Properties/X-Raym_Group%20selected%20items%20vertically%20by%20position.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Invert selected items fades.lua" type="script" desc="Invert selected items fades">
@@ -4268,7 +4268,7 @@
     </reapack>
     <reapack name="X-Raym_Add a MIDI marker named Page at edit cursor.lua" type="script" desc="Add a MIDI marker named Page at edit cursor">
       <version name="1.0.1" author="X-Raym" time="2018-01-25T17:00:30Z">
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/MIDI%20Editor/X-Raym_Add%20a%20MIDI%20marker%20named%20Page%20at%20edit%20cursor.lua</source>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/MIDI%20Editor/X-Raym_Add%20a%20MIDI%20marker%20named%20Page%20at%20edit%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Duplicate selected notes as fifth and octave triads.lua" type="script" desc="Duplicate selected notes as fifth and octave triads">
@@ -4276,7 +4276,7 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/60d6035026fa9be95257fb149eba8ce9ec1a91c2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth%20and%20octave%20triads.lua</source>
       </version>
       <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth%20and%20octave%20triads.lua</source>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth%20and%20octave%20triads.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Duplicate selected notes as fifth.lua" type="script" desc="Duplicate selected notes as fifth">
@@ -4284,7 +4284,7 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/60d6035026fa9be95257fb149eba8ce9ec1a91c2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth.lua</source>
       </version>
       <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth.lua</source>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fifth.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Duplicate selected notes as fourth.lua" type="script" desc="Duplicate selected notes as fourth">
@@ -4292,7 +4292,7 @@
         <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/60d6035026fa9be95257fb149eba8ce9ec1a91c2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fourth.lua</source>
       </version>
       <version name="1.0.1" author="X-Raym" time="2016-07-16T14:32:20Z">
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fourth.lua</source>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/MIDI%20Editor/X-Raym_Duplicate%20selected%20notes%20as%20fourth.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Export active take in MIDI editor as CSV of notes and velocity.lua" type="script" desc="Export active take in MIDI editor as CSV of notes and velocity">
@@ -4399,7 +4399,7 @@
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-05-11T15:27:55Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/MIDI%20Editor/X-Raym_Repeat%20notes%20selection%20pattern%20from%20time%20selection%20to%20next%20notes.lua</source>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/MIDI%20Editor/X-Raym_Repeat%20notes%20selection%20pattern%20from%20time%20selection%20to%20next%20notes.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select all MIDI notes and events right of mouse.eel" type="script">
@@ -4412,7 +4412,7 @@
         <link rel="screenshot">https://i.imgur.com/pjjqMYN.gifv</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-05-06T20:39:51Z">
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/MIDI%20Editor/X-Raym_Select%20only%20MIDI%20notes%20above%20active%20note%20row%20pitch%20cursor.lua</source>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/MIDI%20Editor/X-Raym_Select%20only%20MIDI%20notes%20above%20active%20note%20row%20pitch%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select only MIDI notes below active note row pitch cursor.lua" type="script" desc="Select only MIDI notes below active note row pitch cursor">
@@ -4420,7 +4420,7 @@
         <link rel="screenshot">https://i.imgur.com/pjjqMYN.gifv</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-05-06T20:39:51Z">
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/MIDI%20Editor/X-Raym_Select%20only%20MIDI%20notes%20below%20active%20note%20row%20pitch%20cursor.lua</source>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/MIDI%20Editor/X-Raym_Select%20only%20MIDI%20notes%20below%20active%20note%20row%20pitch%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select-Unselect all MIDI notes over mouse based on grid.eel" type="script" desc="Select-Unselect all MIDI notes over mouse based on grid">
@@ -5770,7 +5770,7 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b06e1da36f911affb6d62867d572ea142ac0dec9/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset%20and%20color.lua</source>
       </version>
       <version name="1.4.2" time="2020-01-13T19:34:37Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset%20and%20color.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset%20and%20color.lua</source>
       </version>
     </reapack>
     <reapack name="HeDa_X-Raym_Export selection as SRT subtitles with offset.lua" type="script" desc="Export selection as SRT subtitles with offset">
@@ -5796,7 +5796,7 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/213ca697ad874f46f3153bd26ab57a0fab2b96c0/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
       </version>
       <version name="1.4.3" time="2020-03-17T14:01:55Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f590c71357094786d1fc19bbb5a0feb835a1a526/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
       </version>
     </reapack>
   </category>
@@ -7357,13 +7357,13 @@
     <reapack name="X-Raym_Toggle video window full screen.lua" type="script" desc="Toggle video window full screen">
       <version name="1.0" author="X-Raym" time="2020-12-14T14:31:04Z">
         <changelog><![CDATA[# Initial release]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/View/X-Raym_Toggle%20video%20window%20full%20screen.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/View/X-Raym_Toggle%20video%20window%20full%20screen.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle video window opacity.lua" type="script" desc="Toggle video window opacity">
       <version name="1.0" author="X-Raym" time="2020-12-14T14:31:04Z">
         <changelog><![CDATA[# Initial release]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/View/X-Raym_Toggle%20video%20window%20opacity.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/View/X-Raym_Toggle%20video%20window%20opacity.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Zoom to region at edit cursor.lua" type="script" desc="Zoom to region at edit cursor">
