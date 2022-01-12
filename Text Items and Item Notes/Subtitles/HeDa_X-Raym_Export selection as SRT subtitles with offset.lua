@@ -5,7 +5,7 @@
  * Authors: X-Raym
  * Author URI: https://www.extremraym.com
  * Version: 1.4.3
- * Repository: X-Raym/REAPER-ReaScripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * License: GPL v3
  * Forum Thread: Lua Script: Export/Import subtitles SubRip SRT format
@@ -16,6 +16,9 @@
 
 --[[
  * Change log:
+ * v1.5 (2022-01-12)
+  # Prevent negative subtitles
+  # Round milliseconds instead of truncation
  * v1.4.3 (2020-03-17)
   # Bug fix
  * v1.4.2 (2019-12-14)
@@ -104,13 +107,14 @@ function GetPath(str,sep)
   return str:match("(.*"..sep..")")
 end
 
+-- V2
 function tosrtformat(position)
-  hour = math.floor(position/3600)
-  minute = math.floor((position - 3600*math.floor(position/3600)) / 60)
-  second = math.floor(position - 3600*math.floor(position/3600) - 60*math.floor((position-3600*math.floor(position/3600))/60))
-  millisecond = math.floor(1000*(position-math.floor(position)) )
-
-  return string.format("%02d:%02d:%02d,%03d", hour, minute, second, millisecond)
+  local hour = math.floor(position/3600)
+  local minute = math.floor((position - 3600*hour) / 60)
+  local second = math.floor(position - 3600 *hour - 60 * minute)
+  local millisecond = math.floor(position*1000 - math.floor( position ) * 1000 + 0.5)
+  local out = string.format("%02d:%02d:%02d,%03d", hour, minute, second, millisecond)
+  return out
 end
 
 -- From yfyf https://gist.github.com/yfyf/6704830
@@ -156,20 +160,26 @@ function export_txt(file)
 
   for i, item in ipairs( items ) do
 
-    -- write item number
-    -- f:write(i+1 .. "\n" .. item.color_hex .. "\n")
-    f:write(i+1 .. "\n")
+    if item.pos_end > 0 then
 
-    -- write start and end   00:04:22,670 --> 00:04:26,670
-    str_start = tosrtformat(item.pos_start)
-    str_end = tosrtformat(item.pos_end)
-    f:write(str_start .. " --> " ..  str_end .. "\n")
+      if item.pos_start < 0 then item.pos_start = 0 end
 
-    -- write text
-    f:write(item.notes .. "\n")
+      -- write item number
+      -- f:write(i+1 .. "\n" .. item.color_hex .. "\n")
+      f:write(i+1 .. "\n")
 
-    -- break line
-    f:write("\n")
+      -- write start and end   00:04:22,670 --> 00:04:26,670
+      str_start = tosrtformat(item.pos_start)
+      str_end = tosrtformat(item.pos_end)
+      f:write(str_start .. " --> " ..  str_end .. "\n")
+
+      -- write text
+      f:write(item.notes .. "\n")
+
+      -- break line
+      f:write("\n")
+
+    end
 
   end
 
