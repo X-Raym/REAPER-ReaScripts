@@ -4,7 +4,7 @@
  * Instructions: Select at least one item or one track with items that you want to export. You can select items accross multiple tracks. Note that the initial cursor position is very important
  * Authors: X-Raym
  * Author URI: https://www.extremraym.com
- * Version: 1.4.3
+ * Version: 1.5.1
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * License: GPL v3
@@ -158,15 +158,17 @@ function export_txt(file)
 
   local f = io.open(file, "w")
 
+  local count = 0
   for i, item in ipairs( items ) do
 
     if item.pos_end > 0 then
 
       if item.pos_start < 0 then item.pos_start = 0 end
 
+      count = count + 1
       -- write item number
       -- f:write(i+1 .. "\n" .. item.color_hex .. "\n")
-      f:write(i+1 .. "\n")
+      f:write(count .. "\n")
 
       -- write start and end   00:04:22,670 --> 00:04:26,670
       str_start = tosrtformat(item.pos_start)
