@@ -4,7 +4,7 @@
  * Instructions: Select at least one item or one track with items that you want to export. You can select items accross multiple tracks. Note that the initial cursor position is very important
  * Authors: X-Raym
  * Author URI: https://www.extremraym.com
- * Version: 1.5.1
+ * Version: 1.5.2
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * License: GPL v3
@@ -109,10 +109,11 @@ end
 
 -- V2
 function tosrtformat(position)
+  position = position + 0.0005
   local hour = math.floor(position/3600)
   local minute = math.floor((position - 3600*hour) / 60)
   local second = math.floor(position - 3600 *hour - 60 * minute)
-  local millisecond = math.floor(position*1000 - math.floor( position ) * 1000 + 0.5)
+  local millisecond = math.floor(position*1000 - math.floor( position ) * 1000 )
   local out = string.format("%02d:%02d:%02d,%03d", hour, minute, second, millisecond)
   return out
 end
