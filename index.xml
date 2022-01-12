@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="2a4eaf1ba24b2e5807ad775e15994d1a17f4b07a" name="X-Raym Scripts">
+<index version="1" commit="6aec0c9139a8907d1c1d5f5dff7e8f0c3fd2da30" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2909,6 +2909,12 @@
       <version name="1.0.1" author="X-Raym" time="2019-11-18T14:04:51Z">
         <changelog><![CDATA[+ Bug fix]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Color%20selected%20items%20from%20regions.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Copy selected items colors as CSV to clipboard.lua" type="script" desc="Copy selected items colors HEX as CSV to clipboard">
+      <version name="1.0" author="X-Raym" time="2022-01-12T19:25:39Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6aec0c9139a8907d1c1d5f5dff7e8f0c3fd2da30/Items%20Properties/X-Raym_Copy%20selected%20items%20colors%20as%20CSV%20to%20clipboard.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Crossfade selected items across tracks.lua" type="script" desc="Crossfade selected items across tracks">
