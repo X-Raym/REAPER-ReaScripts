@@ -5,7 +5,7 @@
  * Authors: X-Raym
  * Author URI: https://www.extremraym.com
  * Version: 1.0
- * Repository: X-Raym/REAPER-ReaScripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * License: GPL v3
  * Forum Thread: v5.0pre - New ReaScript functions/IDE testing - Page 8

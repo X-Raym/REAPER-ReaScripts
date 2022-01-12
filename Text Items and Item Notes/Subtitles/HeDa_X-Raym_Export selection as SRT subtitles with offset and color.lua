@@ -5,7 +5,7 @@
  * Authors: X-Raym
  * Author URI: https://www.extremraym.com
  * Version: 1.4.2
- * Repository: X-Raym/REAPER-ReaScripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * License: GPL v3
  * Forum Thread: Lua Script: Export/Import subtitles SubRip SRT format

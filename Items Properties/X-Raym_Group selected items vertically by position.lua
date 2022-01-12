@@ -3,7 +3,8 @@
  * Screenshot: https://i.imgur.com/3ckIcBh.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: X-Raym Premium Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=166689

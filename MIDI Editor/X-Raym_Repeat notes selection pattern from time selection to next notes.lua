@@ -4,7 +4,8 @@
  * Screenshot: https://i.imgur.com/BOKDErc.gifv
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
- * Repository: X-Raym Premium Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: MIDI (Various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=187555
