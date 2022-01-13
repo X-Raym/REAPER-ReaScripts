@@ -1,21 +1,18 @@
 --[[
- * ReaScript Insert markers at grid lines in time selection (named and colored with regions).lua
+ * ReaScript: Create text items on first selected track from grid lines division in time selection (named and colored with regions)
+ * Screenshot: https://i.imgur.com/Kb2hAQR.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.4
+ * Version: 1.0
 --]]
 
 --[[
  * Changelog:
- * v1.0.4 (2022-01-13)
-  # Empty name fixes
- * v1.0.3 (2021-07-04)
-  + SWS Warning
- * v1.0 (2020-04-06)
+ * v1.0 (2022-01-13)
   + Initial Release
 --]]
 
@@ -26,7 +23,7 @@ measure_r = 0
 measure_g = 128
 measure_b = 0
 
-beat_color = 1
+beat_color = 0
 beat_r = 128
 beat_g = 0
 beat_b = 128
@@ -50,6 +47,27 @@ function round( val, num )
   else return math.ceil(val*mult-0.5) / mult end
 end
 
+-- CREATE TEXT ITEMS
+-- text and color are optional
+function CreateTextItem(track, position, length, text, color)
+
+  local item = reaper.AddMediaItemToTrack(track)
+
+  reaper.SetMediaItemInfo_Value(item, "D_POSITION", position)
+  reaper.SetMediaItemInfo_Value(item, "D_LENGTH", length)
+
+  if text ~= nil then
+    reaper.ULT_SetMediaItemNote(item, text)
+  end
+
+  if color ~= nil then
+    reaper.SetMediaItemInfo_Value(item, "I_CUSTOMCOLOR", color)
+  end
+
+  return item
+
+end
+
 function main()
 
   last_time = ts_start
@@ -62,15 +80,16 @@ function main()
   end
 
   time = reaper.BR_GetClosestGridDivision( last_time )
+  time_next = reaper.BR_GetNextGridDivision( time )
   if tostring(time) == tostring(ts_start) then
     local color = 0
     local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats( proj, time )
     if beat_color ~=0 then
-    color = beat_color
+     color = beat_color
     end
 
     if measure_color ~= 0 and round(retval, 10) % cml == 0 then
-    color = measure_color
+     color = measure_color
     end
     markeridx, regionidx = reaper.GetLastMarkerAndCurRegion( 0, time )
     if regionidx >= 0 then
@@ -80,13 +99,14 @@ function main()
       if color == beat_color then color = region_color end
     end
     if name == "" or not name then name = fullbeats end
-    reaper.AddProjectMarker2(0, false, time, 0, name or "", -1, color)
+    CreateTextItem(track, time, time_next - time, name, color)
   end
 
   -- INITIALIZE loop through selected items
   repeat
 
     local time = reaper.BR_GetNextGridDivision( last_time )
+    local time_next = reaper.BR_GetNextGridDivision( time )
     local color = 0
     local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats( proj, time )
 
@@ -108,7 +128,7 @@ function main()
         if color == beat_color then color = region_color end
       end
       if name == "" or not name then name = fullbeats end
-      reaper.AddProjectMarker2(0, false, time, 0, name, -1, color)
+      CreateTextItem(track, time, time_next - time, name, color)
     end
     last_time = time
 
@@ -117,8 +137,9 @@ function main()
 end
 
 ts_start, ts_end = reaper.GetSet_LoopTimeRange2(0, false, false, 0, 0, false)
+track = reaper.GetSelectedTrack(0,0)
 
-if ts_start ~= ts_end then
+if ts_start ~= ts_end and track then
 
   reaper.ClearConsole()
 
@@ -128,10 +149,11 @@ if ts_start ~= ts_end then
 
   main()
 
-  reaper.Undo_EndBlock("Insert markers at grid lines in time selection", -1)
+  reaper.Undo_EndBlock("Create text items on first selected track from grid lines division in time selection (named and colored with regions)", -1)
 
   reaper.PreventUIRefresh(-1)
 
   reaper.UpdateArrange()
 
 end
+
