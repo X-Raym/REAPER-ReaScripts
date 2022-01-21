@@ -1,0 +1,74 @@
+/**
+ * JSFX Name: Tone generator with playstate
+ * About: Mod of Cockos Tone generator, with playstate condition.
+ * Author: X-Raym
+ * Author URI: http://www.extremraym.com
+ * Donation: http://www.extremraym.com/en/donation
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ */
+
+/**
+ * Changelog:
+ * v1.0 (2022-01-21)
+  + Initial Release
+ */
+
+desc: Tone Generator with playstate
+//tags: analysis generator synthesis
+
+slider1:-12<-120,6,1>Wet Mix (dB)
+slider2:-6<-120,6,1>Dry Mix (dB)
+slider3:1000<20,24000,1>Base Frequency (Hz)
+slider4:0<0,11,1{A,A#,B,C,C#,D,D#,E,F,F#,G,G#}>Note
+slider5:0<-4,4,1>Octave
+slider6:0<-100,100,1>Fine Tune (cents)
+slider7:0<0,2,1{Sine,Triangle,Saw}>Shape
+
+slider9:2<0,2,3{All,Play,Rec}>Playstate
+slider10:0.5<0,10,0.1>Duration (0 or Playstate=all = unlimited)
+
+in_pin:left input
+in_pin:right input
+out_pin:left output
+out_pin:right output
+
+@slider
+  vol=2 ^ (slider1/6); 
+  dry=2 ^ (slider2/6); 
+  adj = 2.0*$pi*slider3*(2^(slider5+slider4/12+slider6/1200))/srate;
+  want_play_state = slider9 == 2? 5 : slider9 == 1? 1 : 0;
+
+@sample
+
+want_play_state == 0 || (play_state == want_play_state ) ? (
+  
+  (start_play_time == 0) ? (
+    start_play_time = play_position;
+  );
+  
+  (slider10 == 0 || play_position - start_play_time < slider10) ? (
+  
+    (slider7 < 0.67) ? (
+      tone = cos(pos);
+    ) : 
+    (slider7 < 1.33) ? (
+      tone = 2.0*pos/$pi-1.0;
+      (tone > 1.0) ? tone = 2.0-tone;
+    ) : (
+      tone = 1.0-pos/$pi;
+    );
+    tone *= vol;
+    spl0 = tone+spl0*dry;
+    spl1 = tone+spl1*dry;
+    
+    pos=pos+adj;
+    (pos >= 2.0*$pi) ? pos -= 2.0*$pi;
+  );
+  
+):(
+  spl0 = spl0;
+  spl1 = spl1;
+  start_play_time = 0;
+);
