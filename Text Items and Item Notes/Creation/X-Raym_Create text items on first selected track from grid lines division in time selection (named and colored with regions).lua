@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2022-01-23)
+  + Measure+ Beats instead of full beats
  * v1.0 (2022-01-13)
   + Initial Release
 --]]
@@ -84,6 +86,9 @@ function main()
   if tostring(time) == tostring(ts_start) then
     local color = 0
     local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats( proj, time )
+    local pos_str = reaper.format_timestr_pos( time, "", 2 ):gsub(".00$", "")
+    local name = pos_str
+    
     if beat_color ~=0 then
      color = beat_color
     end
@@ -95,10 +100,9 @@ function main()
     if regionidx >= 0 then
       retval_region, _, region_pos, region_end, region_name, region_index, region_color = reaper.EnumProjectMarkers3(0, regionidx)
       if region_name == "" then region_name = region_index end
-      name = region_name .. " - " .. fullbeats
+      name = region_name .. " - " .. name
       if color == beat_color then color = region_color end
     end
-    if name == "" or not name then name = fullbeats end
     CreateTextItem(track, time, time_next - time, name, color)
   end
 
@@ -106,9 +110,14 @@ function main()
   repeat
 
     local time = reaper.BR_GetNextGridDivision( last_time )
+    
+    if time >= ts_end then break end
+    
     local time_next = reaper.BR_GetNextGridDivision( time )
     local color = 0
     local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats( proj, time )
+    local pos_str = reaper.format_timestr_pos( time, "", 2 ):gsub(".00$", "")
+    local name = pos_str
 
     if beat_color ~=0 then
       color = beat_color
@@ -119,20 +128,18 @@ function main()
     end
 
     if time <= ts_end then
-      name = ''
       markeridx, regionidx = reaper.GetLastMarkerAndCurRegion( 0, time )
       if regionidx >= 0 then
         retval_region, _, region_pos, region_end, region_name, region_index, region_color = reaper.EnumProjectMarkers3(0, regionidx)
         if region_name == "" then region_name = region_index end
-        name = region_name .. " - " .. fullbeats
+        name = region_name .. " - " .. name
         if color == beat_color then color = region_color end
       end
-      if name == "" or not name then name = fullbeats end
       CreateTextItem(track, time, time_next - time, name, color)
     end
     last_time = time
 
-  until last_time > ts_end -- ENDLOOP through selected items
+  until last_time >= ts_end -- ENDLOOP through selected items
 
 end
 
