@@ -5,11 +5,13 @@
  * Repository: https://github.com/X-Raym/REAPER-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2022-01-28)
+  # Micro optimization
  * v1.0 (2021-02-27)
   + Initial release
 --]]
@@ -24,6 +26,8 @@ full_word = true
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 -- UTILITIES -------------------------------------------------------------
+
+local reaper = reaper
 
 -- Display a message in the console for debugging
 function Msg(value)
@@ -42,8 +46,10 @@ function Main()
     local notes = reaper.NF_GetSWSTrackNotes(track)
     if notes then
       for z, word in ipairs(words) do
-        if (full_word and notes:find( word ) and not notes:find( word .. "%a" )) or  (not full_word and notes:find( word ) ) then
+        local find_word = notes:find( word )
+        if (not full_word and find_word ) or (full_word and find_word and not notes:find( word .. "%a" )) then
           reaper.SetTrackSelected(track, false)
+          break
         end
       end
     end
