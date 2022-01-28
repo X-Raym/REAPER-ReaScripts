@@ -5,7 +5,7 @@
  * Repository: https://github.com/X-Raym/REAPER-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
@@ -43,13 +43,15 @@ function Main()
 
   for i = 0, count_tracks - 1 do
     local track = reaper.GetTrack(0,i)
-    local notes = reaper.NF_GetSWSTrackNotes(track)
-    if notes then
-      for z, word in ipairs(words) do
-        local find_word = notes:find( word )
-        if (not full_word and find_word ) or (full_word and find_word and not notes:find( word .. "%a" )) then
-          reaper.SetTrackSelected(track, true)
-          break
+    if not reaper.IsTrackSelected( track ) then
+      local notes = reaper.NF_GetSWSTrackNotes(track)
+      if notes then
+        for z, word in ipairs(words) do
+          local find_word = notes:find( word )
+          if (not full_word and find_word ) or (full_word and find_word and not notes:find( word .. "%a" )) then
+            reaper.SetTrackSelected(track, true)
+            break
+          end
         end
       end
     end

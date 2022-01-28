@@ -5,7 +5,7 @@
  * Repository: https://github.com/X-Raym/REAPER-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
@@ -41,8 +41,8 @@ end
 -- Main function
 function Main()
 
-  for i = 0, count_tracks - 1 do
-    local track = reaper.GetTrack(0,i)
+  for i = count_sel_tracks - 1, 0, - 1 do
+    local track = reaper.GetSelectedTrack(0,i)
     local notes = reaper.NF_GetSWSTrackNotes(track)
     if notes then
       for z, word in ipairs(words) do
@@ -60,9 +60,9 @@ end
 
 function Init()
   -- See if there is items selected
-  count_tracks = reaper.CountTracks(0)
+  count_sel_tracks = reaper.CountSelectedTracks(0)
 
-  if count_tracks > 0 then
+  if count_sel_tracks > 0 then
 
     reaper.PreventUIRefresh(1)
 
