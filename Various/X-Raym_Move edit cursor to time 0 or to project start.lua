@@ -11,7 +11,7 @@
 
 --[[
  * Changelog:
- * v2.0 (2015-02-28)
+ * v2.0 (2022-01-30)
   + More accurate
  * v1.0 (2015-02-28)
   + Initial Release
