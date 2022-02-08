@@ -6,10 +6,10 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.0.1
  * Provides:
- *   [nomain] ../Functions/utf8.lua
- *   [nomain] ../Functions/utf8data.lua
+ *   [nomain] ../../Functions/utf8.lua
+ *   [nomain] ../../Functions/utf8data.lua
 ]]
 
 
