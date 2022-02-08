@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.2
+ * Version: 2.0.3
 ]]
 
 
@@ -18,8 +18,8 @@
 
 local info = debug.getinfo(1,'S');
 script_path = info.source:match[[^@?(.*[\/])[^\/]-$]]
-dofile(script_path .. "../Functions/utf8.lua")
-dofile(script_path .. "../Functions/utf8data.lua")
+dofile(script_path .. "../../Functions/utf8.lua")
+dofile(script_path .. "../../Functions/utf8data.lua")
 
 function main()
 
