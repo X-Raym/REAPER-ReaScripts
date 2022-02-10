@@ -6,11 +6,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
  */
 
 /**
  * Changelog:
+ * v1.1 (2022-02-10)
+  + Rec Stop
  * v1.0 (2022-01-21)
   + Initial Release
  */
@@ -26,7 +28,7 @@ slider5:0<-4,4,1>Octave
 slider6:0<-100,100,1>Fine Tune (cents)
 slider7:0<0,2,1{Sine,Triangle,Saw}>Shape
 
-slider9:2<0,2,3{All,Play,Rec}>Playstate
+slider9:2<0,3,1{All,Play,Rec,Rec Stopped}>Playstate
 slider10:0.5<0,10,0.1>Duration (0 or Playstate=all = unlimited)
 
 in_pin:left input
@@ -39,10 +41,15 @@ out_pin:right output
   dry=2 ^ (slider2/6); 
   adj = 2.0*$pi*slider3*(2^(slider5+slider4/12+slider6/1200))/srate;
   want_play_state = slider9 == 2? 5 : slider9 == 1? 1 : 0;
+  slider9 == 3? want_play_state = -1;
+  rec_started = -1;
 
 @sample
 
-want_play_state == 0 || (play_state == want_play_state ) ? (
+slider9 == 3 && (rec_started == 0 || rec_started == -1) && play_state == 5 ? rec_started = 1;
+rec_started == 1 && play_state != 5 ? rec_started = 0;
+
+want_play_state == 0 || (play_state == want_play_state ) || (slider9 == 3 && rec_started == 0) ? (
   
   (start_play_time == 0) ? (
     start_play_time = play_position;
