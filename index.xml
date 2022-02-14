@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="20a51b3bfd8af5fdbf6e216e9dca7a0d50fefbad" name="X-Raym Scripts">
+<index version="1" commit="ff64b4ce8270641f6ac41615b0248cb490b0292f" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1524,6 +1524,12 @@
       <version name="1.0" author="X-Raym" time="2021-02-26T23:40:46Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/FX/X-Raym_Set%20FX%20name%20offline%20on%20all%20tracks.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set FX name online on all tracks.lua" type="script" desc="Set FX name online on all tracks">
+      <version name="1.0" author="X-Raym" time="2022-02-14T18:57:48Z">
+        <changelog><![CDATA[+ Initial release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/ff64b4ce8270641f6ac41615b0248cb490b0292f/FX/X-Raym_Set%20FX%20name%20online%20on%20all%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set inactive take FX of selected items offline.lua" type="script" desc="Set inactive take FX of selected items offline">
