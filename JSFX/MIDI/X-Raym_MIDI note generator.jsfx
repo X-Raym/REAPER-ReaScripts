@@ -1,0 +1,52 @@
+/**
+ * JSFX Name: Note Generator
+ * About: Press play.
+ * Screenshot: https://i.imgur.com/zCVSnMk.gifv
+ * Author: X-Raym
+ * Author URI: https://www.extremraym.com
+ * Donation: http://www.extremraym.com/en/donation
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ */
+
+ /**
+  * Changelog:
+  * v1.0 (2020-01-21)
+    + Initial Release
+  */
+
+desc:Note Generator
+
+slider1:1<0,100,0.1>Rate (Hz)
+slider2:0<0,127,1>Note Min
+slider3:127<0,127,1>Note Max
+slider4:0<0,127,1>Vel Min
+slider5:127<0,127,1>Vel Max
+//slider6:0<0,127,1>Note Length // This would need buffer for each note value
+
+@init
+// Globals
+buffer = 0;
+last_note = 0;
+
+// Defs
+statNoteOn = $x90;
+statNoteOff = $x80;
+
+// Return one random integer between two numbers
+function random( val1, val2 ) local( range ) (
+  range = abs(val1 - val2);
+  min(val1, val2) + rand( range ); 
+);
+
+@sample
+play_state != 0 ?(
+  count += 1;
+  count >= srate / slider1 ? (
+    midisend(0, statNoteOff & $xF0;, last_note, 0 ); // End of previous note
+    last_note = random(slider2, slider3);
+    midisend(0, statNoteOn & $xF0;, last_note, random( slider4, slider5 ) ); // Start of new note
+    count = 0;
+  ); 
+);
