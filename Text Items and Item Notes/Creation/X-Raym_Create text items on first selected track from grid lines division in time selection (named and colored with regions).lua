@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2022-02-18)
+  + One loop
  * v1.0.1 (2022-01-23)
   + Measure+ Beats instead of full beats
  * v1.0 (2022-01-13)
@@ -81,35 +83,12 @@ function main()
     beat_color = reaper.ColorToNative( beat_r, beat_g, beat_b )|0x1000000
   end
 
-  time = reaper.BR_GetClosestGridDivision( last_time )
-  time_next = reaper.BR_GetNextGridDivision( time )
-  if tostring(time) == tostring(ts_start) then
-    local color = 0
-    local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats( proj, time )
-    local pos_str = reaper.format_timestr_pos( time, "", 2 ):gsub(".00$", "")
-    local name = pos_str
-    
-    if beat_color ~=0 then
-     color = beat_color
-    end
-
-    if measure_color ~= 0 and round(retval, 10) % cml == 0 then
-     color = measure_color
-    end
-    markeridx, regionidx = reaper.GetLastMarkerAndCurRegion( 0, time )
-    if regionidx >= 0 then
-      retval_region, _, region_pos, region_end, region_name, region_index, region_color = reaper.EnumProjectMarkers3(0, regionidx)
-      if region_name == "" then region_name = region_index end
-      name = region_name .. " - " .. name
-      if color == beat_color then color = region_color end
-    end
-    CreateTextItem(track, time, time_next - time, name, color)
-  end
-
   -- INITIALIZE loop through selected items
+  i = 0
+  local color, is_measure_start
   repeat
-
-    local time = reaper.BR_GetNextGridDivision( last_time )
+    
+    local time = i > 0 and reaper.BR_GetNextGridDivision( last_time ) or ts_start
     
     if time >= ts_end then break end
     
@@ -117,15 +96,11 @@ function main()
     local color = 0
     local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats( proj, time )
     local pos_str = reaper.format_timestr_pos( time, "", 2 ):gsub(".00$", "")
+    
+    local retval, qn_start, qn_end, timesig_num, timesig_denom, tempo = reaper.TimeMap_GetMeasureInfo( 0, measures )
+    is_measure_start = qn_start == fullbeats and true or false
+    
     local name = pos_str
-
-    if beat_color ~=0 then
-      color = beat_color
-    end
-
-    if measure_color ~= 0 and round(retval, 10) % cml == 0 then
-      color = measure_color
-    end
 
     if time <= ts_end then
       markeridx, regionidx = reaper.GetLastMarkerAndCurRegion( 0, time )
@@ -133,11 +108,13 @@ function main()
         retval_region, _, region_pos, region_end, region_name, region_index, region_color = reaper.EnumProjectMarkers3(0, regionidx)
         if region_name == "" then region_name = region_index end
         name = region_name .. " - " .. name
-        if color == beat_color then color = region_color end
+        if is_measure_start then color = measure_color else color = region_color end
       end
       CreateTextItem(track, time, time_next - time, name, color)
     end
     last_time = time
+    
+    i = i + 1
 
   until last_time >= ts_end -- ENDLOOP through selected items
 
