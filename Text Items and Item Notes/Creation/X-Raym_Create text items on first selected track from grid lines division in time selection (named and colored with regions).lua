@@ -7,11 +7,16 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2022-03-04)
+  # Measure color even if not region
+  # Rounding issue with consecutive regions
+  # Better measure start determination (works with /8 time sign)
+  # Change default color
  * v1.1 (2022-02-18)
   + One loop
  * v1.0.1 (2022-01-23)
@@ -23,9 +28,9 @@
 -- USER CONFIG AREA --------------
 
 measure_color = 1
-measure_r = 0
-measure_g = 128
-measure_b = 0
+measure_r = 192
+measure_g = 192
+measure_b = 192
 
 beat_color = 0
 beat_r = 128
@@ -98,18 +103,18 @@ function main()
     local pos_str = reaper.format_timestr_pos( time, "", 2 ):gsub(".00$", "")
     
     local retval, qn_start, qn_end, timesig_num, timesig_denom, tempo = reaper.TimeMap_GetMeasureInfo( 0, measures )
-    is_measure_start = qn_start == fullbeats and true or false
+    is_measure_start = pos_str:find("%.1")
     
     local name = pos_str
 
     if time <= ts_end then
-      markeridx, regionidx = reaper.GetLastMarkerAndCurRegion( 0, time )
+      markeridx, regionidx = reaper.GetLastMarkerAndCurRegion( 0, time + 0.000000000001 ) -- rounding issue with GetLastMarkerAndCurRegion, which can return different region for same timecode
       if regionidx >= 0 then
         retval_region, _, region_pos, region_end, region_name, region_index, region_color = reaper.EnumProjectMarkers3(0, regionidx)
         if region_name == "" then region_name = region_index end
         name = region_name .. " - " .. name
-        if is_measure_start then color = measure_color else color = region_color end
       end
+      if is_measure_start then color = measure_color else color = region_color end
       CreateTextItem(track, time, time_next - time, name, color)
     end
     last_time = time
