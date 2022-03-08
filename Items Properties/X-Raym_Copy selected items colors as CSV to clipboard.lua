@@ -1,12 +1,12 @@
 --[[
- * ReaScript Name: Copy selected items colors HEX as CSV to clipboard
+ * ReaScript Name: Copy selected items colors as CSV to clipboard
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
@@ -52,6 +52,6 @@ reaper.CF_SetClipboard( clipboard )
 mouse_x, mouse_y = reaper.GetMousePosition()
 reaper.TrackCtl_SetToolTip("Colors copied to clipboard", mouse_x + 17, mouse_y + 17, false)
 
-reaper.Undo_EndBlock("Copy selected items colors HEX as CSV to clipboard", - 1) -- End of the undo block. Leave it at the bottom of your main function.
+reaper.Undo_EndBlock("Copy selected items colors as CSV to clipboard", - 1) -- End of the undo block. Leave it at the bottom of your main function.
 
 reaper.PreventUIRefresh(-1)
