@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="27c78ec012587e33a56215e6e31d22129619c2be" name="X-Raym Scripts">
+<index version="1" commit="488aaffa809b0150eacd8f77975a007d8db97192" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2923,10 +2923,19 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Color%20selected%20items%20from%20regions.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Copy selected items colors as CSV to clipboard.lua" type="script" desc="Copy selected items colors HEX as CSV to clipboard">
+    <reapack name="X-Raym_Copy selected items colors as CSV to clipboard.lua" type="script" desc="Copy selected items colors as CSV to clipboard">
       <version name="1.0" author="X-Raym" time="2022-01-12T19:25:39Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6aec0c9139a8907d1c1d5f5dff7e8f0c3fd2da30/Items%20Properties/X-Raym_Copy%20selected%20items%20colors%20as%20CSV%20to%20clipboard.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2022-03-08T11:14:05Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/857bbe1b9af4a75d0a062801470501dc3bc4928f/Items%20Properties/X-Raym_Copy%20selected%20items%20colors%20as%20CSV%20to%20clipboard.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Copy selected items notes as CSV to clipboard.lua" type="script" desc="Copy selected items notes as CSV to clipboard">
+      <version name="1.0" author="X-Raym" time="2022-03-08T11:14:05Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/857bbe1b9af4a75d0a062801470501dc3bc4928f/Items%20Properties/X-Raym_Copy%20selected%20items%20notes%20as%20CSV%20to%20clipboard.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Crossfade selected items across tracks.lua" type="script" desc="Crossfade selected items across tracks">
@@ -3348,6 +3357,12 @@
       <version name="1.0" author="X-Raym" time="2021-01-27T17:20:10Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Remove%20selected%20items%20images.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Rename first selected item take and associated MIDI pools.lua" type="script" desc="Rename first selected item take and associated MIDI pools">
+      <version name="1.0" author="X-Raym" time="2022-03-08T11:16:29Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/0293216371fd9a4343e38f0f20b44d4fc0b4210d/Items%20Properties/X-Raym_Rename%20first%20selected%20item%20take%20and%20associated%20MIDI%20pools.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Rename selected items active take from multiline clipboard content.lua" type="script" desc="Rename selected items active take from multiline clipboard content">
@@ -4555,6 +4570,11 @@
     </reapack>
   </category>
   <category name="Project">
+    <reapack name="X-Raym_Open most recent project.lua" type="script" desc="Open most recent project">
+      <version name="1.0" author="X-Raym" time="2022-03-15T19:30:28Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/488aaffa809b0150eacd8f77975a007d8db97192/Project/X-Raym_Open%20most%20recent%20project.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Save project and keep only X backups.lua" type="script" desc="Save project and keep only X backups">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
