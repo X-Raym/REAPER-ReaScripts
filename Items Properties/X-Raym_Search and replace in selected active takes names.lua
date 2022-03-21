@@ -9,11 +9,13 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814#post1574814
  * REAPER: 5.0
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2022-03-21)
+  # Fix /E
  * v1.2 (2021-02-19)
   + Select item with matches
  * v1.1.1 (2021-02-27)
@@ -37,6 +39,10 @@ ins_start_in = "/no" -- "/no" for no insertion, "/E" for item number in selectio
 ins_end_in = "/no" -- "/no" for no insertion, "/E" for item number in selection, "/T" for track name
 select_renamed = "y" -- y/n for select item with renamed
 -----------------------------------------------------------------
+function Msg(val)
+  reaper.ShowConsoleMsg(tostring(val) .. "\n")
+end
+
 
 function main()
 
@@ -72,11 +78,12 @@ function main()
       take_name_len = take_name:len()
       take_name = take_name:sub(0, take_name_len-truncate_end)
     end
+    
     ins_start = ins_start_in:gsub("/E", tostring(i + 1))
-    ins_end = ins_end_in:gsub("/E", tostring(i + 1))
-    ins_start = ins_start_in:gsub("/T", track_name)
-    ins_end = ins_end_in:gsub("/T", track_name)
+    ins_start = ins_start:gsub("/T", track_name)
 
+    ins_end = ins_end_in:gsub("/E", tostring(i + 1))
+    ins_end = ins_end:gsub("/T", track_name)
 
     new_take_name = ins_start..take_name..ins_end
 
@@ -125,6 +132,8 @@ function Init()
         if search ~= nil then
 
         reaper.PreventUIRefresh(1)
+        
+        reaper.ClearConsole()
 
         main() -- Execute your main function
 
