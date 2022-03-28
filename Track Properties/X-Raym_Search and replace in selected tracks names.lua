@@ -25,7 +25,7 @@
 
 -- Preset file: https://gist.github.com/X-Raym/f7f6328b82fe37e5ecbb3b81aff0b744#file-preset-lua
 
-defaultvals_csv = "0,0,0,0,0,/no"
+defaultvals_csv = "0,0,0,0,/no,/no"
 popup = true
 
 -------------------------------- END OF USER CONFIG AREA --
