@@ -9,11 +9,13 @@
  * Forum Thread: Scripts: Items Properties (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814#post1574814
  * REAPER: 5.0
- * Version: 1.2.1
+ * Version: 1.2.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2.2 (2022-03-29)
+  # Fix defaut csv (thx nicola!)
  * v1.2.1 (2022-03-21)
   # Fix /E
  * v1.2 (2021-02-19)
