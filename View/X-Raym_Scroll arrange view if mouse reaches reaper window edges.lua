@@ -10,11 +10,13 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1523568#post1523568
  * REAPER: 5.0
  * Extensions: js_extension
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0 (2022-05-18)
+  # Change margin_top value
  * v1.0 (2022-05-18)
   + Initial Release
 --]]
@@ -26,7 +28,7 @@
 -- USER CONFIG AREA ----------------------------------
 margin_left = 0
 margin_right = 1
-margin_top = 45 -- size of the File menu and window bar. TODO: may need to be calculated to handle MacOS, two lines menu etc.
+margin_top = 43 -- size of the File menu and window bar. TODO: may need to be calculated to handle MacOS, two lines menu etc.
 margin_bottom = 1
 window_mode = true -- true/false consider the full screen or just the main reaper window size
 ------------------------------------------------------
