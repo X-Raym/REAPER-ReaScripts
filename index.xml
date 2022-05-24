@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="82c7e41abea5eff7553e42cec0905e264a512b23" name="X-Raym Scripts">
+<index version="1" commit="fc3fe2664c06290c211f55962624805de6b54b9b" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -7624,6 +7624,10 @@
       <version name="1.1" author="X-Raym" time="2021-02-11T13:25:15Z">
         <changelog><![CDATA[+ Send dummy text if notes == "", for having instructions on web interface is script is not running.]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Web%20Interfaces/X-Raym_Convert%20Lyrics%20track%20items%20notes%20for%20dedicated%20web%20browser%20interface.lua</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2022-05-24T18:33:56Z">
+        <changelog><![CDATA[# works at pos <=]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fc3fe2664c06290c211f55962624805de6b54b9b/Web%20Interfaces/X-Raym_Convert%20Lyrics%20track%20items%20notes%20for%20dedicated%20web%20browser%20interface.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Convert region names for dedicated web browser interface.lua" type="script" desc="Convert region names for the dedicated web browser interface">
