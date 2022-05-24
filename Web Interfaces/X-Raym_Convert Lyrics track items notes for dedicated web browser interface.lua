@@ -9,12 +9,14 @@
  * Licence: GPL v3
  * REAPER: 5.0
  * Link: Forum https://forum.cockos.com/showthread.php?p=2127630#post2127630
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
-* v1.1 (2021-02-11)
+ * v1.1.1 (2022-05-24)
+  # works at pos <=
+ * v1.1 (2021-02-11)
   + Send dummy text if notes == "", for having instructions on web interface is script is not running.
  * v1.0 (2019-08-26)
   + Initial Release
@@ -51,7 +53,7 @@ function main()
     for i = 0, track_items - 1 do
       item = reaper.GetTrackMediaItem( lyrics_track, i )
       item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
-      if item_pos < cur_pos then -- if item is after cursor then ignore
+      if item_pos <= cur_pos then -- if item is after cursor then ignore
         item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
         if item_pos + item_len > cur_pos then -- if item end is after cursor, then item is under cusor
           item_notes = reaper.ULT_GetMediaItemNote( item )
@@ -109,4 +111,3 @@ if lyrics_track then
 else
   reaper.MB('No tracks named "Lyrics".', "Error", 0)
 end
-
