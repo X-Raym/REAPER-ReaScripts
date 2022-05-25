@@ -7,7 +7,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.12
+ * Version: 1.13
  * Provides:
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
@@ -16,6 +16,8 @@
 
 /**
  * Changelog:
+ * v1.13 (2022-03-25)
+  # Fix unwanted CC
  * v1.12 (2021-12-11)
   # Flexible width and height (non square design)
  * v1.11.1 (2021-12-11)
@@ -208,6 +210,7 @@ while
   loop( 16,
     last_notes_sliders[i] != slider( 10 + i ) ? (
       slider_is_diff = 1;
+      last_notes_sliders[i] = slider( 10 + i );
     );
     i += 1;
   );
@@ -215,6 +218,7 @@ while
   // Not Off if Slider Change
   last_chan != slider1 || last_pad_in != slider2 || last_remap != slider3 || slider_is_diff == 1 ? (
     SendAllNotesOff();
+    slider_is_diff = 0;
   );
 
   midirecv(offset,msg1,note,vel) ?
