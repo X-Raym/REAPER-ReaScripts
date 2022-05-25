@@ -1,0 +1,37 @@
+/**
+ * JSFX Name: 4 Mono channels switcher
+ * About: Select one mono channel as source and one as destination, it will mute the other. Useful in a multi-send set-up, where the source track send only one mono channel to 4 different tracks (or less).
+ * Screenshot: https://i.imgur.com/rMIDGk2.gif
+ * Author: X-Raym
+ * Author URI: http://www.extremraym.com
+ * Donation: http://www.extremraym.com/en/donation
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ */
+
+/**
+ * Changelog:
+ * v1.0 (2022-05-26)
+  + Initial Release
+ */
+
+desc:4 Mono channels switcher
+
+slider3:0<0,3,1{A,B,C,D}>Input source
+
+slider10:0<0,3,1{A,B,C,D}>Output source
+
+@slider
+
+ch1 = slider10 == 0 ? 1 : 0;
+ch2 = slider10 == 1 ? 1 : 0;
+ch3 = slider10 == 2 ? 1 : 0;
+ch4 = slider10 == 3 ? 1 : 0;
+
+@sample  
+spl0_init = spl(slider3);
+spl0 = spl0_init * ch1;
+spl1 = spl0_init * ch2;
+spl2 = spl0_init * ch3;
+spl3 = spl0_init * ch4;
