@@ -98,7 +98,7 @@ function wwr_onreply(results) {
      div.innerHTML = initial_text;
     } else {
       if( text === "--XR-NO-TEXT--") text = "";
-      var html = text.split("\\n");
+      var html = text.split("\\\\n");
       div.innerHTML = html.join('<br>');
       var settings = {
       alignVert: true, // if true, textFit will align vertically using css tables
