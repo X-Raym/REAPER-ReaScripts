@@ -9,18 +9,39 @@
  * Licence: GPL v3
  * REAPER: 5.0
  * Link: Forum https://forum.cockos.com/showthread.php?p=2127630#post2127630
- * Version: 1.1.1
+ * Version: 1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2 (2022-06-07)
+  + Next item preliminary support (false by default)
+  # encode in one single line
  * v1.1.1 (2022-05-24)
   # works at pos <=
  * v1.1 (2021-02-11)
   + Send dummy text if notes == "", for having instructions on web interface is script is not running.
  * v1.0 (2019-08-26)
   + Initial Release
- --]]
+--]]
+
+
+-- GLOBALS -------------------------------------------------
+
+str_no_text = "--XR-NO-TEXT--"
+
+ext_name = "XR_Lyrics"
+ext_keys = { "text", "next" }
+
+next = false
+
+-- DEBUG
+
+function Msg( val )
+  reaper.ShowConsoleMsg( tostring( val ) .. "\n" )
+end
+
+-- DEFER
 
  -- Set ToolBar Button State
 function SetButtonState( set )
@@ -32,81 +53,111 @@ function SetButtonState( set )
 end
 
 function Exit()
-  reaper.SetProjExtState( 0, "XR_Lyrics", "text", "" )
+  for i, k in ipairs( ext_keys ) do
+    reaper.SetProjExtState( 0, ext_name, k, "" )
+  end
   SetButtonState()
 end
 
-
--- Main Function (which loop in background)
-function main()
-
-  -- Get play or edit cursor
-  if reaper.GetPlayState() > 0 then
-    cur_pos = reaper.GetPlayPosition()
-  else
-    cur_pos = reaper.GetCursorPosition()
-  end
-
-  if reaper.ValidatePtr(lyrics_track, 'MediaTrack*') then
-    track_items = reaper.GetTrackNumMediaItems( lyrics_track )
-    no_item = true
-    for i = 0, track_items - 1 do
-      item = reaper.GetTrackMediaItem( lyrics_track, i )
-      item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
-      if item_pos <= cur_pos then -- if item is after cursor then ignore
-        item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
-        if item_pos + item_len > cur_pos then -- if item end is after cursor, then item is under cusor
-          item_notes = reaper.ULT_GetMediaItemNote( item )
-          no_item = false
-          if item_notes ~= notes then
-            notes = item_notes
-            if notes == "" then notes = "--XR-NO-TEXT--" end
-            reaper.SetProjExtState( 0, "XR_Lyrics", "text", notes )
-            break
-          end
-        end
-      end
-    end
-
-    if no_item then
-      if notes then
-        notes = nil
-      end
-      reaper.SetProjExtState( 0, "XR_Lyrics", "text", "--XR-NO-TEXT--" )
-    end
-
-  else
-
-    GetLyricsTrack()
-
-  end
-
-  reaper.defer( main )
-
-end
+-- FUNCTIONS
 
 function GetLyricsTrack()
-  lyrics_track = nil
-  count_tracks = reaper.CountTracks()
+  local lyrics_track = nil
+  local count_tracks = reaper.CountTracks()
   for i = 0, count_tracks - 1 do
-    track = reaper.GetTrack(0,i)
-    retval, track_name = reaper.GetTrackName( track )
+    local track = reaper.GetTrack(0,i)
+    local retval, track_name = reaper.GetTrackName( track )
     if track_name:lower() == "lyrics" then
       lyrics_track = track
       break
     end
   end
+  return lyrics_track
 end
 
-lyrics_track = nil
-notes = nil
+function GetTrackItemAtPos( track, pos )
+  local count_track_items = reaper.GetTrackNumMediaItems( track )
+  local current_item
+  for i = 0, count_track_items - 1 do
+    local item = reaper.GetTrackMediaItem( track, i )
+    local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
+    if item_pos <= pos then -- if item is after cursor then ignore
+      local item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
+      if item_pos + item_len > pos then -- if item end is after cursor, then item is under cusor
+        current_item = item
+        break
+      end
+    end
+  end
+  return current_item
+end
 
-GetLyricsTrack()
+function GetNextTrackItem( track, pos, start_item )
+  local id_start = start_item and reaper.GetMediaItemInfo_Value( item, "IP_ITEMNUMBER" ) or 0
+  local count_track_items = reaper.GetTrackNumMediaItems( track )
+  local next_item
+  for i = id_start, count_track_items - 1 do
+    local item = reaper.GetTrackMediaItem( track, i )
+    local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
+    if item_pos > pos then
+      next_item = item
+      break
+    end
+  end
+  return next_item
+end
+
+function ProcessItemNotes( item, ext_key, text )
+  if not item then
+    reaper.SetProjExtState( 0, ext_name, ext_key, str_no_text )
+    return nil
+  end
+  local item_notes = reaper.ULT_GetMediaItemNote( item ):gsub("\r?\n", "<br>")
+  if item_notes ~= text then
+    text = item_notes == "" and str_no_text or item_notes
+    reaper.SetProjExtState( 0, ext_name, ext_key, text )
+  end
+  return text
+end
+
+
+-- Main Function (which loop in background)
+function Main()
+
+  -- Get play or edit cursor
+  cur_pos = reaper.GetPlayState() > 0 and reaper.GetPlayPosition() or reaper.GetCursorPosition()
+
+  if reaper.ValidatePtr(lyrics_track, 'MediaTrack*') then
+  
+    item = GetTrackItemAtPos( lyrics_track, cur_pos )
+    notes = ProcessItemNotes( item, "text", notes )
+
+    if next then
+    
+      next_item = GetNextTrackItem( lyrics_track, cur_pos, item )
+      next_notes = ProcessItemNotes( next_item, "next", next_notes )
+
+    end
+
+  else
+
+    lyrics_track = GetLyricsTrack()
+
+  end
+
+  reaper.defer( Main )
+
+end
+
+-- RUN -----------------------------------------------------
+
+reaper.ClearConsole()
+
+lyrics_track = GetLyricsTrack()
 
 if lyrics_track then
-  -- RUN
   SetButtonState( 1 )
-  main()
+  Main()
   reaper.atexit( Exit )
 else
   reaper.MB('No tracks named "Lyrics".', "Error", 0)
