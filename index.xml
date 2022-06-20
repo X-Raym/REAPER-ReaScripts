@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="472315eb7855bd202dca7cb967294e554d4ae3d6" name="X-Raym Scripts">
+<index version="1" commit="c023a0eacc1c89e66db89af9e4e7b7d3777d4cee" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -7583,6 +7583,10 @@
       <version name="1.1" author="X-Raym" time="2022-05-18T18:45:00Z">
         <changelog><![CDATA[# Better API]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/ba8ba872d3e6e61fe7202f000074f0a26f3d8ece/View/X-Raym_Scroll%20arrange%20view%20if%20mouse%20reaches%20reaper%20window%20edges.lua</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2022-06-20T10:51:54Z">
+        <changelog><![CDATA[# MacOS Fix (thx sockmonkey !)]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c023a0eacc1c89e66db89af9e4e7b7d3777d4cee/View/X-Raym_Scroll%20arrange%20view%20if%20mouse%20reaches%20reaper%20window%20edges.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Scroll arrange view if mouse reaches screen edges.lua" type="script" desc="Scroll arrange view if mouse reaches screen edges">
