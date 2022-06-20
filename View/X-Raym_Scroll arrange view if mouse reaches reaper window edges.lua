@@ -10,11 +10,13 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1523568#post1523568
  * REAPER: 5.0
  * Extensions: js_extension
- * Version: 1.1.1
+ * Version: 1.1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.1.2 (2022-06-21)
+  # MacOS Fix
  * v1.1.1 (2022-06-20)
   # MacOS Fix (thx sockmonkey !)
  * v1.1 (2022-05-18)
@@ -37,7 +39,10 @@ margin_bottom = 1
 window_mode = true -- true/false consider the full screen or just the main reaper window size
 ------------------------------------------------------
 
-apple = 0
+osname = reaper.GetOS()
+if osname:find("OSX") or osname:find("macOS") then
+  apple = true
+end
 
  -- Set ToolBar Button State
 function SetButtonState( set )
@@ -62,7 +67,7 @@ end
 function Main()
 
   if ReaperHasFocus() then
-  
+
     retval, window_left, window_top, window_right, window_bottom = reaper.BR_Win32_GetWindowRect( reaper_hwnd )
 
     mouse_x, mouse_y = reaper.GetMousePosition()
@@ -123,9 +128,6 @@ function Init()
   else
     reaper_hwnd = reaper.GetMainHwnd()
     screen_left, screen_top, screen_right, screen_bottom = reaper.JS_Window_MonitorFromRect(0, 0, 0, 0, false)
-
-    osname = reaper.GetOS();
-    if string.match(osname, "OSX") or string.match(osname, "macOS") then apple = 1 end
 
     if apple then
       screen_bottom, screen_top = screen_top, screen_bottom
