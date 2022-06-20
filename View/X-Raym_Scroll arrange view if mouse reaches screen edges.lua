@@ -10,11 +10,13 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1523568#post1523568
  * REAPER: 5.0
  * Extensions: js_extension
- * Version: 1.2.2
+ * Version: 1.2.3
 --]]
 
 --[[
  * Changelog:
+ * v1.2.3 (2022-06-20)
+  # MacOS Fix (thx sockmonkey !)
  * v1.2.2 (2021-04-10)
   + margin support
   + preset file support
@@ -41,6 +43,8 @@ margin_bottom = 1
 
 ------------------------------------------------------
 
+apple = 0
+
  -- Set ToolBar Button State
 function SetButtonState( set )
   if not set then set = 0 end
@@ -66,6 +70,10 @@ function Main()
   if ReaperHasFocus() then
 
     mouse_x, mouse_y = reaper.GetMousePosition()
+    if apple then
+      mouse_y = screen_bottom - mouse_y
+    end
+
     shift = reaper.JS_Mouse_GetState( 8 )
     ctrl = reaper.JS_Mouse_GetState( 4 )
 
@@ -117,9 +125,15 @@ function Init()
   if not reaper.JS_Window_MonitorFromRect then
     reaper.ShowConsoleMsg('Please Install js_ReaScriptAPI extension.\nhttps://forum.cockos.com/showthread.php?t=212174\n')
   else
-
     screen_left, screen_top, screen_right, screen_bottom = reaper.JS_Window_MonitorFromRect(0, 0, 0, 0, false)
 
+    osname = reaper.GetOS();
+    if string.match(osname, "OSX") or string.match(osname, "macOS") then apple = 1 end
+
+    if apple then
+      screen_bottom, screen_top = screen_top, screen_bottom
+    end
+  
     cursor_up = reaper.JS_Mouse_LoadCursor( 32516 )
     cursor_left = reaper.JS_Mouse_LoadCursor( 32644 )
 
