@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>REAPER Scrolling Lyrics Web Interface - X-Raym</title>
+	<meta charset="utf-8"/>
+	<style>
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #333333;
+	color: white;
+	font-family: sans-serif;
+}
+
+#text {
+	margin: auto;
+	text-align: center;
+}
+
+#playstate {
+	height: 30px;
+	width: 100%;
+	background: blue;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+
+a {
+	color: #ea8400;
+}
+
+.lyrics {
+	opacity: 0.5;
+	transition: all ease 0.3s;
+	font-size: 3em;
+}
+
+.current {
+	opacity: 1;
+	font-size: 4em;
+}
+
+	</style>
+</head>
+<body>
+
+<div id="text">
+	<h1>REAPER Scrolling Lyrics Web Interface by <a href="https://www.extremraym.com">X-Raym</a></h1>
+	<h2>State</h2>
+	<p><strong>OFF</strong>: Run a companion script to initialize.</p>
+	<h2>Installation</h2>
+	<p>Set this page as REAPER web interface, with menu Options > Preferences > Control/Osc/Web.</p>
+	<h2>Start</h2>
+	<ol>
+		<li>Connect to the web interface using web browser of device on your local network</li>
+		<li>Run one of the companion script, to push lyrics to the web interface from items notes on lyrics tracks.<!--, regions etc..--></li>
+	</ol>
+	<h2>Companion Scripts</h2>
+	<dl>
+		<li><strong>Item Notes</strong>: X-Raym_Convert all first selected track items notes for dedicated web browser interface.lua</li>
+		<!--<li><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>-->
+		<!--<li><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>-->
+	</dl>
+</div>
+<div id="playstate"></div>
+
+<script src="main.js"></script>
+<script>
+wwr_start();
+wwr_req_recur("GET/EXTSTATE/XR_Lyrics/need_refresh;TRANSPORT",10);
+
+var div = document.getElementById('text');
+var initial_text = div.innerHTML;
+var playstate_elm = document.getElementById('playstate');
+var colors = ["#333333", "#00FF00", "#FFFF00", "#333333", "#333333", "#FF0000", "#FFFF00"]; // playstate is 0 for stopped, 1 for playing, 2 for paused, 5 for recording, and 6 for record paused.
+var first_run = true;
+var json = [];
+var paragraphs = [];
+
+function wwr_onreply(results) {
+	var ar = results.split("\n");
+	var x;
+	for (x=0;x<ar.length;x++) {
+		var tok = ar[x].split("\t");
+		if (tok.length > 1 && tok[1] === "XR_Lyrics" && tok[2] === "need_refresh" && (tok[3] === "true" || first_run === true ) ) {
+			wwr_req("GET/EXTSTATE/XR_Lyrics/json;SET/EXTSTATE/XR_Lyrics/need_refresh/false");
+			first_run = false;
+		}
+
+		if (tok.length > 1 && tok[1] === "XR_Lyrics" && tok[2] === "json" && tok[3] !== "") {
+			var text = tok[3].replace(/\\n/gmi, "\n");
+			json = JSON.parse( text );
+			var t = [];
+			for( let line of json.entry ) {
+				line.pos_start = parseFloat(line.pos_start);
+				line.pos_end = parseFloat(line.pos_end);
+				t.push( '<p class="lyrics" data-pos-start="' + line.pos_start + '" data-pos_end="' + line.pos_end + '">' + line.text + '</p>' );
+			}
+			div.innerHTML = t.join("\n");
+			paragraphs = document.getElementsByTagName("p");
+		}
+
+		if (tok.length > 1 && tok[0] === "TRANSPORT" ){ // TRANSPORT \t playstate \t position_seconds \t isRepeatOn \t position_string \t position_string_beats
+			playstate_elm.style.background= colors[tok[1]];
+
+			var time = parseFloat( tok[2] );
+			var i = 0;
+			if( json.entry !== undefined ) {
+				for( let line of json.entry ) {
+					if (time >= line.pos_start && time <= line.pos_end) {
+						paragraphs[i].classList.add("current");
+						paragraphs[i].scrollIntoView({
+							behavior: 'smooth',
+							block: 'center',
+							inline: 'center'
+						})
+					} else {
+						paragraphs[i].classList.remove("current");
+					}
+					i++;
+				}
+			}
+		}
+	
+	}
+
+}
+</script>
+
+</body>
+</html>
