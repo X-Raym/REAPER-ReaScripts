@@ -10,15 +10,17 @@
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1523568#post1523568
  * REAPER: 5.0
  * Extensions: js_extension
- * Version: 1.1.2
+ * Version: 1.1.3
 --]]
 
 --[[
  * Changelog:
+ * v1.1.3 (2022-06-21)
+  # Win Fix (thx Sexan!)
  * v1.1.2 (2022-06-21)
   # MacOS Fix
  * v1.1.1 (2022-06-20)
-  # MacOS Fix (thx sockmonkey !)
+  # MacOS Fix (thx sockmonkey!)
  * v1.1 (2022-05-18)
   # Better API
  * v1.0.1 (2022-05-18)
@@ -29,6 +31,8 @@
 
 -- TODO:
 -- Find on which screen is REAPER
+
+-- NOTE:
 -- Fork of X-Raym_Scroll arrange view if mouse reaches screen edges.lua v1.2.0
 
 -- USER CONFIG AREA ----------------------------------
@@ -68,7 +72,21 @@ function Main()
 
   if ReaperHasFocus() then
 
-    retval, window_left, window_top, window_right, window_bottom = reaper.BR_Win32_GetWindowRect( reaper_hwnd )
+    retval, window_left, window_top, window_right, window_bottom = reaper.JS_Window_GetRect( reaper_hwnd )
+    
+    -- IF REAPER IS MAXIMIZED (ACCORDING TO MS DOCS THINGS GET STRETCH OUTSIDE OF WINDOW)
+    -- TOP AND LEFT GETS OFFSET BY -8PX BOT AND RIGHT BY +8PX 
+    if not apple then
+      -- CHECK IF REAPER IS MAXIMIZED
+      -- WE CHECK ONLY IF TOP IS OFFSET BY -8PX (YOU CANNOT MOVE TOP MANUALLY TO NEGATIVE COORDINATES, BUT L R B YOU CAN)
+      if window_top == -8 then
+        -- REMOVE THE OFFSET
+        window_top = window_top + 8
+        window_left = window_left + 8
+        window_right = window_right - 8
+        window_bottom = window_bottom - 8
+      end
+    end
 
     mouse_x, mouse_y = reaper.GetMousePosition()
     if apple then
