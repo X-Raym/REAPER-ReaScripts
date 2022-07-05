@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.7
+ * Version: 0.6.8
 --]]
 
 --[[
  * Changelog:
+ * v0.6.8 (2022-07-05)
+  # ReaImGUI v0.7 compatibility
  * v0.6.7 (2021-08-05)
   # Fix MacOS export of modified colors
  * v0.6.6 (2021-07-03)
@@ -276,7 +278,7 @@ function loop()
 
     reaper.ImGui_PushItemWidth(ctx, 100 )
     if  theme_var_descriptions then
-      local retval, color_descriptions_num_temp = r.ImGui_Combo(ctx, 'Labels', color_descriptions_num, "Text\31Variables\31")
+      local retval, color_descriptions_num_temp = r.ImGui_Combo(ctx, 'Labels', color_descriptions_num, "Text\31Variables\0")
       if retval then color_descriptions_num = color_descriptions_num_temp end
     else
       reaper.ImGui_TextWrapped(ctx, "WARNING: Missing theme labels description files.\nInstall ReaTeam ReaScripts repository via Reapack to have labels text.")
