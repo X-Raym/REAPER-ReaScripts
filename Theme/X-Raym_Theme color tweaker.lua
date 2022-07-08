@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.8
+ * Version: 0.6.9
 --]]
 
 --[[
  * Changelog:
+ * v0.6.9 (2022-07-05)
+  # ReaImGUI v0.7 color compatibility
  * v0.6.8 (2022-07-05)
   # ReaImGUI v0.7 compatibility
  * v0.6.7 (2021-08-05)
@@ -223,6 +225,11 @@ for k, v in ipairs( fonts_tab ) do
   retval, fonts[v] = reaper.BR_Win32_GetPrivateProfileString( "REAPER", v, -1, theme_path )
 end
 
+function ColorConvertHSVtoInt( h, s, v, a )
+  local r, g, b = reaper.ImGui_ColorConvertHSVtoRGB( h, s, v, a )
+  return reaper.ImGui_ColorConvertDouble4ToU32( r, g, b, a )
+end
+
 function loop()
   local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, 'XR Theme Tweaker', true, reaper.ImGui_WindowFlags_AlwaysVerticalScrollbar())
   if imgui_visible then
@@ -367,9 +374,9 @@ function loop()
 
       pop_style = false
       if colors[v] ~= colors_backup[v] then
-        local buttonColor  = reaper.ImGui_ColorConvertHSVtoRGB(7.0, 0.6, 0.6, 1.0)
-        local hoveredColor = reaper.ImGui_ColorConvertHSVtoRGB(7.0, 0.7, 0.7, 1.0)
-        local activeColor  = reaper.ImGui_ColorConvertHSVtoRGB(7.0, 0.8, 0.8, 1.0)
+        local buttonColor = ColorConvertHSVtoInt( 7.0, 0.6, 0.6, 1.0 )
+        local hoveredColor = ColorConvertHSVtoInt(7.0, 0.7, 0.7, 1.0)
+        local activeColor  = ColorConvertHSVtoInt(7.0, 0.8, 0.8, 1.0)
         r.ImGui_PushStyleColor(ctx, r.ImGui_Col_Button(),        buttonColor)
         r.ImGui_PushStyleColor(ctx, r.ImGui_Col_ButtonHovered(), hoveredColor)
         r.ImGui_PushStyleColor(ctx, r.ImGui_Col_ButtonActive(),  activeColor)
