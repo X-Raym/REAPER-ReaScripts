@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.9
+ * Version: 0.6.10
 --]]
 
 --[[
  * Changelog:
+ * v0.6.10 (2022-07-10)
+  # Color inversion fix
  * v0.6.9 (2022-07-05)
   # ReaImGUI v0.7 color compatibility
  * v0.6.8 (2022-07-05)
@@ -147,7 +149,7 @@ function ExportTheme()
   local theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
   local t = {"[color theme]"}
   for i, v in ipairs(all_tab) do
-    if os_sep == "/" and colors[v] ~= colors_backup[v] then
+    if os_sep == "\\" and colors[v] ~= colors_backup[v] then
       local r, g, b = reaper.ColorFromNative( colors[v] )
       colors[v] = reaper.ColorToNative(b, g, r)
     end
