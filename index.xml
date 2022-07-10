@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="7bd8c9db7f0bfdfd5afb1f7061890cbf4bf5246f" name="X-Raym Scripts">
+<index version="1" commit="95ed641a5bca05c27e0983811bf1c29ded213227" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -6078,6 +6078,10 @@
       <version name="0.6.9" author="X-Raym" time="2022-07-08T09:00:00Z">
         <changelog><![CDATA[# ReaImGUI v0.7 color compatibility]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7bd8c9db7f0bfdfd5afb1f7061890cbf4bf5246f/Theme/X-Raym_Theme%20color%20tweaker.lua</source>
+      </version>
+      <version name="0.6.10" author="X-Raym" time="2022-07-10T17:12:03Z">
+        <changelog><![CDATA[# Color inversion fix]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/95ed641a5bca05c27e0983811bf1c29ded213227/Theme/X-Raym_Theme%20color%20tweaker.lua</source>
       </version>
     </reapack>
   </category>
