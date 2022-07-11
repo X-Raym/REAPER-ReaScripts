@@ -6,11 +6,14 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.10
+ * Version: 0.6.11
 --]]
 
 --[[
  * Changelog:
+ * v0.6.11 (2022-07-11)
+  # Color inversion fix
+  # text variable fix (reuamguii v0.7)
  * v0.6.10 (2022-07-10)
   # Color inversion fix
  * v0.6.9 (2022-07-05)
@@ -149,11 +152,7 @@ function ExportTheme()
   local theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
   local t = {"[color theme]"}
   for i, v in ipairs(all_tab) do
-    if os_sep == "\\" and colors[v] ~= colors_backup[v] then
-      local r, g, b = reaper.ColorFromNative( colors[v] )
-      colors[v] = reaper.ColorToNative(b, g, r)
-    end
-    table.insert(t, v .. "=" .. (colors[v] or modes[v]) )
+    table.insert(t, v .. "=" .. ( colors[v] and reaper.ImGui_ColorConvertNative(colors[v]) or modes[v]) )
   end
   table.insert(t, "[REAPER]")
   for i, v in ipairs(fonts_tab) do
@@ -287,7 +286,7 @@ function loop()
 
     reaper.ImGui_PushItemWidth(ctx, 100 )
     if  theme_var_descriptions then
-      local retval, color_descriptions_num_temp = r.ImGui_Combo(ctx, 'Labels', color_descriptions_num, "Text\31Variables\0")
+      local retval, color_descriptions_num_temp = r.ImGui_Combo(ctx, 'Labels', color_descriptions_num, "Text\0Variables\0")
       if retval then color_descriptions_num = color_descriptions_num_temp end
     else
       reaper.ImGui_TextWrapped(ctx, "WARNING: Missing theme labels description files.\nInstall ReaTeam ReaScripts repository via Reapack to have labels text.")
