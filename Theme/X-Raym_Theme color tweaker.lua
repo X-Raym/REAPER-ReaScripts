@@ -6,12 +6,16 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.12
+ * Version: 0.6.13
 --]]
 
 --[[
  * Changelog:
- * v0.6.11 (2022-07-12)
+ * v0.6.13 (2022-07-12)
+  # Reload theme button
+  # Added ui_img_path
+  # Better reload
+ * v0.6.12 (2022-07-12)
   # Color inversion MacOS fix
  * v0.6.11 (2022-07-11)
   # Color inversion fix
@@ -48,6 +52,8 @@
 -- add blendmode without passing by SWS functions support: https://forum.cockos.com/showthread.php?t=251007
 -- [REAPER] and blendmode for themezip
 -- Integer color format in palette
+
+-- TODO: Working from GetThemeColor function instead of parsing file allow working from zip, but needs update if new variables are added.
 
 local text = ''
 local all_tab = {"col_main_bg2" , "col_main_text2" , "col_main_textshadow" , "col_main_3dhl" , "col_main_3dsh" , "col_main_resize2" , "col_main_text" , "col_main_bg" , "col_main_editbk" , "col_transport_editbk" , "col_toolbar_text" , "col_toolbar_text_on" , "col_toolbar_frame" , "toolbararmed_color" , "toolbararmed_drawmode" , "io_text" , "io_3dhl" , "io_3dsh" , "genlist_bg" , "genlist_fg" , "genlist_grid" , "genlist_selbg" , "genlist_selfg" , "genlist_seliabg" , "genlist_seliafg" , "genlist_hilite" , "genlist_hilite_sel" , "col_buttonbg" , "col_tcp_text" , "col_tcp_textsel" , "col_seltrack" , "col_seltrack2" , "tcplocked_color" , "tcplocked_drawmode" , "col_tracklistbg" , "col_mixerbg" , "col_arrangebg" , "arrange_vgrid" , "col_fadearm" , "col_fadearm2" , "col_fadearm3" , "col_tl_fg" , "col_tl_fg2" , "col_tl_bg" , "col_tl_bgsel" , "timesel_drawmode" , "col_tl_bgsel2" , "col_trans_bg" , "col_trans_fg" , "playrate_edited" , "col_mi_label" , "col_mi_label_sel" , "col_mi_label_float" , "col_mi_label_float_sel" , "col_mi_bg" , "col_mi_bg2" , "col_tr1_itembgsel" , "col_tr2_itembgsel" , "itembg_drawmode" , "col_tr1_peaks" , "col_tr2_peaks" , "col_tr1_ps2" , "col_tr2_ps2" , "col_peaksedge" , "col_peaksedge2" , "col_peaksedgesel" , "col_peaksedgesel2" , "cc_chase_drawmode" , "col_peaksfade" , "col_peaksfade2" , "col_mi_fades" , "fadezone_color" , "fadezone_drawmode" , "fadearea_color" , "fadearea_drawmode" , "col_mi_fade2" , "col_mi_fade2_drawmode" , "item_grouphl" , "col_offlinetext" , "col_stretchmarker" , "col_stretchmarker_h0" , "col_stretchmarker_h1" , "col_stretchmarker_h2" , "col_stretchmarker_b" , "col_stretchmarkerm" , "col_stretchmarker_text" , "col_stretchmarker_tm" , "take_marker" , "selitem_tag" , "activetake_tag" , "col_tr1_bg" , "col_tr2_bg" , "selcol_tr1_bg" , "selcol_tr2_bg" , "col_tr1_divline" , "col_tr2_divline" , "col_envlane1_divline" , "col_envlane2_divline" , "marquee_fill" , "marquee_drawmode" , "marquee_outline" , "marqueezoom_fill" , "marqueezoom_drawmode" , "marqueezoom_outline" , "areasel_fill" , "areasel_drawmode" , "areasel_outline" , "areasel_outlinemode" , "col_cursor" , "col_cursor2" , "playcursor_color" , "playcursor_drawmode" , "col_gridlines2" , "col_gridlines2dm" , "col_gridlines3" , "col_gridlines3dm" , "col_gridlines" , "col_gridlines1dm" , "guideline_color" , "guideline_drawmode" , "region" , "region_lane_bg" , "region_lane_text" , "marker" , "marker_lane_bg" , "marker_lane_text" , "col_tsigmark" , "ts_lane_bg" , "ts_lane_text" , "timesig_sel_bg" , "col_routinghl1" , "col_routinghl2" , "col_vudoint" , "col_vuclip" , "col_vutop" , "col_vumid" , "col_vubot" , "col_vuintcol" , "col_vumidi" , "col_vuind1" , "col_vuind2" , "col_vuind3" , "col_vuind4" , "mcp_sends_normal" , "mcp_sends_muted" , "mcp_send_midihw" , "mcp_sends_levels" , "mcp_fx_normal" , "mcp_fx_bypassed" , "mcp_fx_offlined" , "mcp_fxparm_normal" , "mcp_fxparm_bypassed" , "mcp_fxparm_offlined" , "tcp_list_scrollbar" , "tcp_list_scrollbar_mode" , "tcp_list_scrollbar_mouseover" , "tcp_list_scrollbar_mouseover_mode" , "mcp_list_scrollbar" , "mcp_list_scrollbar_mode" , "mcp_list_scrollbar_mouseover" , "mcp_list_scrollbar_mouseover_mode" , "midi_rulerbg" , "midi_rulerfg" , "midi_grid2" , "midi_griddm2" , "midi_grid3" , "midi_griddm3" , "midi_grid1" , "midi_griddm1" , "midi_trackbg1" , "midi_trackbg2" , "midi_trackbg_outer1" , "midi_trackbg_outer2" , "midi_selpitch1" , "midi_selpitch2" , "midi_selbg" , "midi_selbg_drawmode" , "midi_gridhc" , "midi_gridhcdm" , "midi_gridh" , "midi_gridhdm" , "midi_ccbut" , "midi_ccbut_text" , "midi_ccbut_arrow" , "midioct" , "midi_inline_trackbg1" , "midi_inline_trackbg2" , "midioct_inline" , "midi_endpt" , "midi_notebg" , "midi_notefg" , "midi_notemute" , "midi_notemute_sel" , "midi_itemctl" , "midi_ofsn" , "midi_ofsnsel" , "midi_editcurs" , "midi_pkey1" , "midi_pkey2" , "midi_pkey3" , "midi_noteon_flash" , "midi_leftbg" , "midifont_col_light_unsel" , "midifont_col_dark_unsel" , "midifont_mode_unsel" , "midifont_col_light" , "midifont_col_dark" , "midifont_mode" , "score_bg" , "score_fg" , "score_sel"
@@ -150,8 +156,13 @@ function WriteFile( path, str )
   file:close()
 end
 
-function ExportTheme()
+function GetExportThemeFileName()
   local theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
+  local path = theme_folder .. theme_mod_name .. ".ReaperTheme"
+  return path
+end
+
+function ExportTheme()
   local t = {"[color theme]"}
   for i, v in ipairs(all_tab) do
     local color = colors[v]
@@ -166,8 +177,7 @@ function ExportTheme()
     table.insert(t, v .. "=" .. (fonts[v] or "") )
   end
   local str = table.concat(t, "\n")
-  local path = theme_folder .. theme_mod_name .. ".ReaperTheme"
-  WriteFile(path, str)
+  WriteFile( GetExportThemeFileName(), str)
 end
 
 function CopyTable( t )
@@ -205,33 +215,42 @@ function SplitFileName( strfilename )
   return path, file_name, extension
 end
 
+function LoadTheme( theme_path, reload )
+  if reload then reaper.OpenColorThemeFile( theme_path ) end
+  theme_is_zip =  not reaper.file_exists( theme_path )
+  theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
+  theme_mod_name = theme_name .. " - Mod"
+  
+  modes_tab, items_tab = FilterTab( all_tab, "mode dm", true )
+  
+  colors, colors_backup = {}, {}
+  for k, v in ipairs( items_tab ) do
+    local col = reaper.ImGui_ColorConvertNative(reaper.GetThemeColor(v,0))
+    colors[v] = col
+    colors_backup[v] = col
+  end
+  
+  modes = {}
+  for k, v in ipairs( modes_tab ) do
+    -- modes[v] = reaper.GetThemeColor(v,0) -- BUG: https://forum.cockos.com/showthread.php?t=251007
+    retval, modes[v] = reaper.BR_Win32_GetPrivateProfileString( "color theme", v, -1, theme_path )
+  end
+  
+  fonts_tab = {"lb_font", "lb_font2", "user_font0", "user_font1", "user_font2", "user_font3", "user_font4", "user_font5", "user_font6", "user_font7", "tl_font", "trans_font", "mi_font", "ui_img", "ui_img_path"}
+  fonts = {}
+  for k, v in ipairs( fonts_tab ) do
+    retval, fonts[v] = reaper.BR_Win32_GetPrivateProfileString( "REAPER", v, -1, theme_path )
+  end
+end
+
+----------------------------------------------------------------------
+-- INIT --
+----------------------------------------------------------------------
+
 reaper.ClearConsole()
 
 theme_path = reaper.GetLastColorThemeFile()
-theme_is_zip =  not reaper.file_exists( theme_path )
-theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
-theme_mod_name = theme_name .. " - Mod"
-
-modes_tab, items_tab = FilterTab( all_tab, "mode dm", true )
-
-colors, colors_backup = {}, {}
-for k, v in ipairs( items_tab ) do
-  local col = reaper.ImGui_ColorConvertNative(reaper.GetThemeColor(v,0))
-  colors[v] = col
-  colors_backup[v] = col
-end
-
-modes = {}
-for k, v in ipairs( modes_tab ) do
-  -- modes[v] = reaper.GetThemeColor(v,0) -- BUG: https://forum.cockos.com/showthread.php?t=251007
-  retval, modes[v] = reaper.BR_Win32_GetPrivateProfileString( "color theme", v, -1, theme_path )
-end
-
-fonts_tab = {"lb_font", "lb_font2", "user_font0", "user_font1", "user_font2", "user_font3", "user_font4", "user_font5", "user_font6", "user_font7", "tl_font", "trans_font", "mi_font", "ui_img"}
-fonts = {}
-for k, v in ipairs( fonts_tab ) do
-  retval, fonts[v] = reaper.BR_Win32_GetPrivateProfileString( "REAPER", v, -1, theme_path )
-end
+LoadTheme( theme_path )
 
 function ColorConvertHSVtoInt( h, s, v, a )
   local r, g, b = reaper.ImGui_ColorConvertHSVtoRGB( h, s, v, a )
@@ -239,16 +258,17 @@ function ColorConvertHSVtoInt( h, s, v, a )
 end
 
 function loop()
-  local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, 'XR Theme Tweaker', true, reaper.ImGui_WindowFlags_AlwaysVerticalScrollbar())
+
+  reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_WindowBg(), 0x0F0F0FFF) -- Black opaque background
+  
+  local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, 'XR Theme Tweaker', true, reaper.ImGui_WindowFlags_AlwaysVerticalScrollbar() )
   if imgui_visible then
+  
+    reaper.ImGui_PushItemWidth(ctx,reaper.ImGui_GetWindowWidth( ctx ) - 85) -- Set max with of inputs
+    reaper.ImGui_InputText(ctx, 'Theme', theme_name,  reaper.ImGui_InputTextFlags_ReadOnly() )
 
     if reaper.ImGui_Button(ctx, 'Restore All', reaper.ImGui_GetWindowWidth( ctx )) then
-      theme_path = reaper.GetLastColorThemeFile()
-      reaper.file_exists( theme_path )
-      reaper.OpenColorThemeFile( theme_path )
-      for k, v in pairs(colors) do
-        colors[k] = colors_backup[k]
-      end
+      LoadTheme( theme_path, true )
     end
 
     if reaper.ImGui_Button(ctx, 'Export') then
@@ -285,6 +305,13 @@ function loop()
       reaper.ImGui_Spacing( ctx )
       reaper.ImGui_TextWrapped(ctx, "WARNING: Zipped Theme.\nUnzip theme to have working blend modes and font section in exported file.")
     end
+    
+    if reaper.ImGui_Button(ctx, 'Load Theme from Export Path') then
+      local theme_mod_path = GetExportThemeFileName()
+      LoadTheme( theme_mod_path, true )
+      theme_path = theme_mod_path
+    end
+    
     reaper.ImGui_Spacing( ctx )
     reaper.ImGui_Spacing( ctx )
     reaper.ImGui_Separator(ctx)
@@ -412,6 +439,8 @@ function loop()
     reaper.ImGui_End(ctx)
 
   end
+  
+  reaper.ImGui_PopStyleColor(ctx) -- Remove black opack background
 
   if not imgui_open then
     reaper.ImGui_DestroyContext(ctx)
