@@ -7,12 +7,14 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
- * v1.0 (2021-03-02)
+ * v1.1.1 (2021-03-02)
+  + Selected points mode
+ * v1.1 (2021-03-02)
   + Consider time selection
  * v1.0 (2021-02-09)
   + Initial Release
@@ -24,11 +26,12 @@ popup = true -- User input dialog box
 
 vars = {
   offset = 0,
+  selected_points = "y"
 }
 
 ----------------- END OF USER CONFIG AREA
 
-vars_order = {"offset"}
+vars_order = {"offset", "selected_points"}
 ext_name = "XR_OffsetTakePitchEnvelope"
 input_title = "Offset Take Pitch Envelope"
 
@@ -36,6 +39,7 @@ separator = "\n"
 
 instructions = {
   "Offset? (num)",
+  "Selected points? (y/n)",
   --"extrawidth=120",
   "separator=" .. separator,
 }
@@ -128,7 +132,9 @@ function Main()
         for j = 0, count_points - 1 do
           retval, time, value, shape, tension, selected = reaper.GetEnvelopePoint( env, j )
           if not is_time_selection or (is_time_selection and IsInTime( pos + time * 1 / rate, time_start, time_end ) ) then
-            reaper.SetEnvelopePoint( env, j, time, value + vars.offset, shape, tension, selected, false )
+            if vars.selected_points ~= "y" or selected then
+              reaper.SetEnvelopePoint( env, j, time, value + vars.offset, shape, tension, selected, false )
+            end
           end
         end
 
