@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="04c858336314a0e33a6cd4eb51e4b0b16288d9d6" name="X-Raym Scripts">
+<index version="1" commit="9df47de5ee3c1df4a0ff6d201cfbadd4a81f47c9" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -257,6 +257,12 @@
         <changelog><![CDATA[+ Pitch envelope are rounded at 0.5
 + Mute envelope are rounded at 0 or 1]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/X-Raym_Round%20selected%20envelope%20points%20value.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Select envelope point at edit cursor.lua" type="script" desc="Select envelope point at edit cursor">
+      <version name="1.0" author="X-Raym" time="2022-07-19T17:56:52Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9df47de5ee3c1df4a0ff6d201cfbadd4a81f47c9/Envelopes/X-Raym_Select%20envelope%20point%20at%20edit%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set or Offset selected envelope points value.lua" type="script" desc="Set or Offset selected envelope point value in selected envelope">
