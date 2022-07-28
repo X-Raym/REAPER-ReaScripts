@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 -- USER CONFIG AREA ------------------------------------------------------
@@ -21,7 +21,7 @@ console = true
 
 -------------------------------------------------- END OF USER CONFIG AREA
 
-math.randomseed( os.time() )
+math.randomseed( reaper.time_precise() * 1000 )
 
 function Msg(val)
   if console then
