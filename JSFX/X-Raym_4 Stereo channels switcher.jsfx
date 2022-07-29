@@ -1,0 +1,42 @@
+/**
+ * JSFX Name: 4 Stereo channels switcher
+ * About: Select one stereo channel as source and one as destination, it will mute the other. Useful in a multi-send set-up, where the source track send only one stereo channel to 4 different tracks (or less).
+ * Screenshot: https://i.imgur.com/rMIDGk2.gif
+ * Author: X-Raym
+ * Author URI: http://www.extremraym.com
+ * Donation: http://www.extremraym.com/en/donation
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ */
+
+/**
+ * Changelog:
+ * v1.0 (2022-07-29)
+  + Initial Release
+ */
+
+desc:4 stereo channels switcher
+
+slider3:0<0,3,1{A,B,C,D}>Input source
+
+slider10:0<0,3,1{A,B,C,D}>Output source
+
+@slider
+
+ch1 = slider10 == 0 ? 1 : 0;
+ch2 = slider10 == 1 ? 1 : 0;
+ch3 = slider10 == 2 ? 1 : 0;
+ch4 = slider10 == 3 ? 1 : 0;
+
+@sample  
+spla_init = spl(slider3 * 2 + 1);
+splb_init = spl(slider3 * 2 + 1);
+spl0 = spla_init * ch1;
+spl1 = splb_init * ch1;
+spl2 = spla_init * ch2;
+spl3 = splb_init * ch2;
+spl4 = spla_init * ch3;
+spl5 = splb_init * ch3;
+spl6 = spla_init * ch4;
+spl7 = splb_init * ch4;
