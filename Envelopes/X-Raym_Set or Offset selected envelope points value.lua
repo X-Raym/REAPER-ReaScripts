@@ -8,11 +8,13 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
- * Version: 2.0.2
+ * Version: 2.0.3
 ]]
 
 --[[
  * Changelog:
+ * v2.0.3 (2022-08-09)
+  # Playrate envelope unit
  * v2.0.2 (2021-03-30)
   # Fix fader scaling
   # Keep point selected
@@ -85,6 +87,7 @@ env_multiply["Pan (Right)"] = -1
 env_multiply["Pan (Left, Pre-FX)"] = -1
 env_multiply["Pan (Right, Pre-FX)"] = -1
 env_multiply["Send Pan"] = -1
+env_multiply["Playrate"] = 100 -- TODO: work with playrate env
 
 function Msg(g)
   if console then
