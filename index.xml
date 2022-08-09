@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="b91497047d10dcc2f3b51265f38a2a85a4be82c1" name="X-Raym Scripts">
+<index version="1" commit="3eaf3a75f84d92ef7d0219cda4399f74387d3e89" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -312,6 +312,10 @@
         <changelog><![CDATA[# Fix fader scaling
 # Keep point selected]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Envelopes/X-Raym_Set%20or%20Offset%20selected%20envelope%20points%20value.lua</source>
+      </version>
+      <version name="2.0.3" author="X-Raym" time="2022-08-09T12:52:50Z">
+        <changelog><![CDATA[# Playrate envelope unit]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/3eaf3a75f84d92ef7d0219cda4399f74387d3e89/Envelopes/X-Raym_Set%20or%20Offset%20selected%20envelope%20points%20value.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected envelope points value from value at edit cursor.lua" type="script" desc="Set selected envelope points value from value at edit cursor">
