@@ -12,8 +12,8 @@
 
 /**
  * Changelog:
- * v1.2 (2020-05-13)
-  + All Notes off if slider change
+ * v1.2 (2022-09-10)
+  + Add all notes-off sends event if slider change
  * v1.1 (2019-07-01)
   + Increase range
  * v1.0 (2019-07-01)
@@ -33,6 +33,9 @@ statNoteOn = $x90;
 statNoteOff = $x80;
 afterTouch = $xA0;
 
+last_chan = slider1;
+last_octave = slider5;
+
 // Thanks mschnell
 allOff1   = 0xB0;
 allOff2   = 0x7B;
@@ -40,9 +43,6 @@ allOff3   = 0x00;
 holdOff1  = 0xB0;
 holdOff2  = 0x40;
 holdOff3  = 0x00;
-
-last_chan = slider1;
-last_shift = slider5;
 
 function SendAllNotesOff() (
   outChannel = 0;
@@ -70,8 +70,8 @@ while
 (
 
   // Not Off if Slider Change
-  last_chan != slider1 || last_shift != slider5 ? (
-    SendAllNotesOff()
+  last_chan != slider1 || last_octave != slider5 ? (
+    SendAllNotesOff();
   );
 
   midirecv(offset,msg1,note,vel) ?
@@ -84,28 +84,28 @@ while
     // Is it on our channel?
     channel == inChannel || inChannel == -1 ?
     (
-
+      
       // Is it a note event?
       status == statNoteOn || status == statNoteOff || status == afterTouch ?
       (
-
-
+        
+        
           slider5 != 0 ? (
             note = max(0,min(127,note + slider5*12)); // Get Note Out
           );
 
-
+     
       );
-
+    
     );
-
+    
     midisend(offset, msg1, note, vel);
-
-    last_chan = slider(1);
-    last_shift = slider(5);
-
+    
     1; // Force loop to continue until all messages have been processed
-
+  
   );
+  
+  last_chan = slider1;
+  last_octave = slider5;
 
 );
