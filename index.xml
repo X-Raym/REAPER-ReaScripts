@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8ee61ebbd6d261b702adf19ae1b4b9f1e8dae15d" name="X-Raym Scripts">
+<index version="1" commit="64a04a9f0cc5d56f9d4f83fed57a5f5db33712a2" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3392,7 +3392,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Move group of selected items to next item end on all visible tracks, according to max end of items in selection.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/xTiTnrxH3rbBO8D2da.gif</link>
+        <link rel="screenshot">https://i.imgur.com/pVX9uGN.gif</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3401,6 +3401,11 @@
       <version name="1.0.1" author="X-Raym" time="2020-11-12T20:06:30Z">
         <changelog><![CDATA[# empty item fix]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Propagate%20selected%20items%20FX%20to%20all%20items%20with%20same%20active%20take%20name.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2022-11-08T21:58:07Z">
+        <changelog><![CDATA[# New core (better performance)
++ Propagate no FX]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/64a04a9f0cc5d56f9d4f83fed57a5f5db33712a2/Items%20Properties/X-Raym_Propagate%20selected%20items%20FX%20to%20all%20items%20with%20same%20active%20take%20name.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Randomize take pitch (normal distribution with GUI).eel" type="script">
