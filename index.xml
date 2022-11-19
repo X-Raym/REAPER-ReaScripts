@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="dbb5546bd2510f623f99e9340c69abf3863d6a96" name="X-Raym Scripts">
+<index version="1" commit="cbd69287b45178a212378b2ddcc54454ed06038f" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -7842,6 +7842,21 @@
     <reapack name="X-Raym_Scroll vertically down a little bit.lua" type="script" desc="Scroll vertically down a little bit">
       <version name="1.0" author="X-Raym" time="2019-03-22T19:15:18Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/View/X-Raym_Scroll%20vertically%20down%20a%20little%20bit.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Scroll vertically to first selected track.lua" type="script" desc="Scroll vertically to first selected track">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Alternative to native Track: Vertical scroll selected tracks into view, but scroll to top instead\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2022-11-19T11:35:18Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cbd69287b45178a212378b2ddcc54454ed06038f/View/X-Raym_Scroll%20vertically%20to%20first%20selected%20track.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Scroll vertically up a little bit.lua" type="script" desc="Scroll vertically up a little bit">
