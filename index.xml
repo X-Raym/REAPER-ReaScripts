@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="64a04a9f0cc5d56f9d4f83fed57a5f5db33712a2" name="X-Raym Scripts">
+<index version="1" commit="dbb5546bd2510f623f99e9340c69abf3863d6a96" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -6634,6 +6634,11 @@
       <version name="1.2.1" author="X-Raym" time="2022-11-08T18:25:56Z">
         <changelog><![CDATA[# Preset file support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8ee61ebbd6d261b702adf19ae1b4b9f1e8dae15d/Track%20Properties/X-Raym_Scroll%20vertically%20to%20track%20by%20name%20and%20select%20it.lua</source>
+      </version>
+      <version name="1.3" author="X-Raym" time="2022-11-19T11:30:12Z">
+        <changelog><![CDATA[# Scroll track to top or arrange view custom function
++ Only check visible tracks]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/dbb5546bd2510f623f99e9340c69abf3863d6a96/Track%20Properties/X-Raym_Scroll%20vertically%20to%20track%20by%20name%20and%20select%20it.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Search and replace in selected tracks names.lua" type="script" desc="Search and replace in selected tracks names">
