@@ -6,11 +6,14 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.14
+ * Version: 0.6.15
 --]]
 
 --[[
  * Changelog:
+ * v0.6.15 (2022-11-29)
+  # ReaImGui v0.8 support
+  # ReaImGui SHIM file call with v0.8
  * v0.6.14 (2022-07-18)
   # Fix export of ui_img_path if not present
   # Remove list of theme keys from script and work form updated version of amagalma list
@@ -105,6 +108,11 @@ if not reaper.ImGui_CreateContext then
   return false
 end
 
+reaimgui_shim_file_path = reaper.GetResourcePath() .. '/Scripts/ReaTeam Extensions/API/imgui.lua'
+if reaper.file_exists( reaimgui_shim_file_path ) then
+  dofile( reaimgui_shim_file_path )('0.8')
+end
+
 ----------------------------------------------------------------------
 -- STRINGS --
 ----------------------------------------------------------------------
@@ -194,22 +202,22 @@ function LoadTheme( theme_path, reload )
   theme_is_zip =  not reaper.file_exists( theme_path )
   theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
   theme_mod_name = theme_name .. " - Mod"
-  
+
   modes_tab, items_tab = FilterTab( all_tab, "mode dm", true )
-  
+
   colors, colors_backup = {}, {}
   for k, v in ipairs( items_tab ) do
     local col = reaper.GetThemeColor(v,0)
     colors[v] = col
     colors_backup[v] = col
   end
-  
+
   modes = {}
   for k, v in ipairs( modes_tab ) do
     -- modes[v] = reaper.GetThemeColor(v,0) -- BUG: https://forum.cockos.com/showthread.php?t=251007
     retval, modes[v] = reaper.BR_Win32_GetPrivateProfileString( "color theme", v, -1, theme_path )
   end
-  
+
   fonts_tab = {"lb_font", "lb_font2", "user_font0", "user_font1", "user_font2", "user_font3", "user_font4", "user_font5", "user_font6", "user_font7", "tl_font", "trans_font", "mi_font", "ui_img", "ui_img_path"}
   fonts = {}
   for k, v in ipairs( fonts_tab ) do
@@ -284,10 +292,10 @@ function loop()
 
   reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_WindowBg(), 0x0F0F0FFF) -- Black opaque background
   reaper.ImGui_PushFont(ctx, font)
-  
+
   local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, 'XR Theme Tweaker', true, reaper.ImGui_WindowFlags_AlwaysVerticalScrollbar() )
   if imgui_visible then
-  
+
     reaper.ImGui_PushItemWidth(ctx,reaper.ImGui_GetWindowWidth( ctx ) - 85) -- Set max with of inputs
     reaper.ImGui_InputText(ctx, 'Theme', theme_name,  reaper.ImGui_InputTextFlags_ReadOnly() )
 
@@ -329,13 +337,13 @@ function loop()
       reaper.ImGui_Spacing( ctx )
       reaper.ImGui_TextWrapped(ctx, "WARNING: Zipped Theme.\nUnzip theme to have working blend modes and font section in exported file.")
     end
-    
+
     if reaper.ImGui_Button(ctx, 'Load Theme from Export Path') then
       local theme_mod_path = GetExportThemeFileName()
       LoadTheme( theme_mod_path, true )
       theme_path = theme_mod_path
     end
-    
+
     reaper.ImGui_Spacing( ctx )
     reaper.ImGui_Spacing( ctx )
     reaper.ImGui_Separator(ctx)
@@ -464,7 +472,7 @@ function loop()
     reaper.ImGui_End(ctx)
 
   end
-  
+
   reaper.ImGui_PopStyleColor(ctx) -- Remove black opack background
   reaper.ImGui_PopFont(ctx)
 
@@ -494,7 +502,7 @@ color_descriptions_num = 0 -- 0 for text, 1 for variables
 -- local ctx = reaper.ImGui_CreateContext('XR Theme Tweaker - Beta', reaper.ImGui_ConfigFlags_DockingEnable()+reaper.ImGui_ConfigFlags_NoSavedSettings() )
 ctx = reaper.ImGui_CreateContext('XR Theme Tweaker - Beta', reaper.ImGui_ConfigFlags_DockingEnable() )
 font = reaper.ImGui_CreateFont('sans-serif', 14)
-reaper.ImGui_AttachFont(ctx, font)
+reaper.ImGui_Attach(ctx, font)
 reaper.ImGui_SetNextWindowSize( ctx, 710, 400, reaper.ImGui_Cond_FirstUseEver() )
 
 r = reaper
