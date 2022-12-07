@@ -10,11 +10,13 @@
  * Forum Thread: Scripts (LUA): Scripts: Item Fades (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156757
  * REAPER: 5.0 pre 36
- * Version: 1.3.2
+ * Version: 1.3.3
 --]]
 
 --[[
  * Changelog:
+ * v1.3.3 (2022-12-07)
+  # Preset file support
  * v1.3.2 (2015-07-07)
   # translations/typos fixes thanks to daxliniere
  * v1.3 (2015-07-07)
@@ -29,6 +31,8 @@
 --]]
 
 -- >-----> USER AREA >=====>
+
+-- Preset file: https://gist.github.com/X-Raym/f7f6328b82fe37e5ecbb3b81aff0b744
 
   prompt = true -- false -> No prompt, true -> prompt window
 
@@ -124,37 +128,41 @@ function main(input1, input2, input3, input4)
 end
 
 
-
-selected_items_count = reaper.CountSelectedMediaItems(0)
-
-if selected_items_count > 0 then
-
-  reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
-
-  if prompt == true then
-
-    retval, retvals_csv = reaper.GetUserInputs("Set fades length in "..units, 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", answer1..","..answer2..","..answer3..","..answer4)
-
-    if retval == true then
-
-      -- PARSE THE STRING
-      answer1, answer2, answer3, answer4 = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
-
-      main(answer1, answer2, answer3, answer4) -- Execute your main function
-
-      reaper.UpdateArrange() -- Update the arrangement (often needed)
-
+function Init()
+  selected_items_count = reaper.CountSelectedMediaItems(0)
+  
+  if selected_items_count > 0 then
+  
+    reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
+  
+    if prompt == true then
+  
+      retval, retvals_csv = reaper.GetUserInputs("Set fades length in "..units, 4, "Fade-in (no change = /initial),Fade-out (+ for relative),Priority (i = in, o = out),Create new fades only? (y/n)", answer1..","..answer2..","..answer3..","..answer4)
+  
+      if retval == true then
+  
+        -- PARSE THE STRING
+        answer1, answer2, answer3, answer4 = retvals_csv:match("([^,]+),([^,]+),([^,]+),([^,]+)")
+  
+        main(answer1, answer2, answer3, answer4) -- Execute your main function
+  
+        reaper.UpdateArrange() -- Update the arrangement (often needed)
+  
+      end
+  
+    else -- no prompt
+  
+      main(answer1, answer2, answer3, answer4)
+  
     end
-
-  else -- no prompt
-
-    main(answer1, answer2, answer3, answer4)
-
+    reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
+  
+    reaper.UpdateArrange() -- Update the arrangement (often needed)
+  
   end
-  reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
-
-  reaper.UpdateArrange() -- Update the arrangement (often needed)
-
 end
 
+if not preset_file_init then
+  Init()
+end
 
