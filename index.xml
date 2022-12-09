@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="d37767b0c818bff064d1069291cd04ff1b78732d" name="X-Raym Scripts">
+<index version="1" commit="90c16cd3144ce2f291d581700af5eeb57bf459b3" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2681,6 +2681,15 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d37767b0c818bff064d1069291cd04ff1b78732d/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20to%20mouse%20cursor%20without%20changing%20fade-in%20end.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Trim left edge of item under mouse or the next one to mouse cursor.lua" type="script" desc="Trim left edge of item under mouse or the next one to mouse cursor">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/qt93dsZ.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2022-12-09T01:04:08Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/90c16cd3144ce2f291d581700af5eeb57bf459b3/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20to%20mouse%20cursor.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Trim left edge of item under mouse or the next one without changing fade-in end.lua" type="script" desc="Trim left edge of item under mouse or the next one without changing fade-in end">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
@@ -2742,6 +2751,15 @@
       <version name="1.0" author="X-Raym" time="2022-12-08T23:53:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d37767b0c818bff064d1069291cd04ff1b78732d/Items%20Editing/X-Raym_Trim%20right%20edge%20of%20item%20under%20mouse%20or%20the%20previous%20one%20to%20mouse%20cursor%20without%20changing%20fade-out%20start.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Trim right edge of item under mouse or the previous one to mouse cursor.lua" type="script" desc="Trim right edge of item under mouse or the previous one to mouse cursor">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/qt93dsZ.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2022-12-09T01:04:08Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/90c16cd3144ce2f291d581700af5eeb57bf459b3/Items%20Editing/X-Raym_Trim%20right%20edge%20of%20item%20under%20mouse%20or%20the%20previous%20one%20to%20mouse%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Trim right edge of item under mouse to edit cursor without changing fade-out start.eel" type="script" desc="Trim right edge of item under mouse to edit cursor without changing fade-out start">
