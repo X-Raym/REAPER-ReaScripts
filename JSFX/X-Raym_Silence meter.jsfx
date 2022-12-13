@@ -1,0 +1,93 @@
+/**
+ * JSFX Name: Silence Meter
+ * About: A minimal colored rectangle indicator, typically used to check when reverb or FX tails go to silence. You can embed in TCP. Mod of Michael Gruhn's Peak-Meter.
+ * Author: X-Raym
+ * Author URI: http://www.extremraym.com
+ * Donation: http://www.extremraym.com/en/donation
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ */
+
+/**
+ * Changelog:
+ * v1.0 (2022-12-13)
+  + Initial Release
+ */
+
+// Note: Min duration helps to avoid flashes.
+// Note: Under Threshold and Under Treshold + Min Duration could be on same slider
+// TODO: better peak meter
+
+desc:Silence Meter
+
+slider1:0<-325,24,0}>,Volume Left [dB] 
+slider2:0<-325,24,0}>,Volume Right [dB]
+
+slider4:-150<-150,0,1}>Silence Threshold
+slider5:0.1<0,5,0.01}>Min Silence Duration (seconds)
+
+slider9:0<0,1,1{No,Yes}>Under Threshold
+slider10:0<0,1,1{No,Yes}>Under Threshold + Min Duration
+
+slider11:0<0,1,1{No,Yes}>Display Peak Meter
+
+// Next we are going to initialize a constant variable on FX load,
+// for later calculation.
+
+@init
+c=6/log(2);
+
+// Avoid flash when playstate is stop and cursor is moved
+silence_start = time_precise() - slider5;
+in_silence = 1;
+
+@sample
+// Converting the sample amplitude to dB and store values to the 'slider' variables
+slider1=log( abs(spl0) ) * c;
+slider2=log( abs(spl1) ) * c;
+
+// Updating the sliders,
+// See Documentation ("Reference" - "Special Function" - "Sliderchange(mask)") for
+// additional information.
+sliderchange(1+2);
+
+current_time = time_precise();
+
+slider1 < slider4 && slider2 < slider4 ? (
+  in_silence == 0 ? (
+    silence_start = current_time;
+  );
+  slider9 = 1;
+  in_silence = 1;
+  current_time - silence_start > slider5 ? (
+    slider10 = 1;
+  ):(
+    slider10 = 0;
+  );
+):(
+  in_silence = 0;
+  silence_start = current_time;
+  slider9 = 0;
+  slider10 = 0;
+);
+sliderchange(9);
+sliderchange(10);
+
+@gfx 160 40
+gfx_r = 1; gfx_g = 1; gfx_b = 1;
+current_time - silence_start > slider5/10 ? ( // slider5/10 is arbitrary non 0 value to avoid flash. Could be if slider9
+  gfx_r = 0.2; gfx_g = 0.2; gfx_b = 0.2;
+);
+slider10 ? (
+  gfx_r = 0; gfx_g = 0; gfx_b = 0;  
+);
+
+gfx_rect( 0, 0, gfx_w, gfx_h );
+
+slider11 == 1 ? (
+  gfx_r = 0.5; gfx_g = 0.5; gfx_b = 0.5;
+  w = slider1 / slider4 ;
+  gfx_rect( 0, 0, (1-slider1 / slider4) * gfx_w, gfx_h/2 );
+  gfx_rect( 0, gfx_h/2, (1-slider2 / slider4) * gfx_w, gfx_h/2 );
+);
