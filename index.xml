@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="90c16cd3144ce2f291d581700af5eeb57bf459b3" name="X-Raym Scripts">
+<index version="1" commit="7720c8c5e083a4d5212f2c423fd77ab08cf8ab1e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4089,6 +4089,22 @@
       <version name="1.0" author="X-Raym" time="2022-07-29T18:31:53Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/5b6dd274131779260f471ed081fea221a8d5f7bb/JSFX/X-Raym_4%20Stereo%20channels%20switcher.jsfx</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Silence meter.jsfx" type="effect" desc="Silence Meter">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 A minimal colored rectangle indicator, typically used to check when reverb or FX tails go to silence. You can embed in TCP. Mod of Michael Gruhn's Peak-Meter.\par}
+}
+]]></description>
+        <link rel="donation">http://www.extremraym.com/en/donation</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2022-12-13T15:39:40Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/7720c8c5e083a4d5212f2c423fd77ab08cf8ab1e/JSFX/X-Raym_Silence%20meter.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Tone generator with playstate.jsfx" type="effect" desc="Tone generator with playstate">
