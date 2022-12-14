@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="01d0ff3b0cb2dd09b696202680b048e829743478" name="X-Raym Scripts">
+<index version="1" commit="eef3980d2eaa2edca044f6d00a57784ea6cd4863" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5316,6 +5316,37 @@
       </version>
     </reapack>
   </category>
+  <category name="Templates/Script Preset">
+    <reapack name="X-Raym_Parent script of preset script_template.lua" type="script" desc="Parent script of preset script">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 For devs\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2022-12-14T16:45:34Z">
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/eef3980d2eaa2edca044f6d00a57784ea6cd4863/Templates/Script%20Preset/X-Raym_Parent%20script%20of%20preset%20script_template.lua</source>
+        <source file="README.md">https://github.com/X-Raym/REAPER-ReaScripts/raw/eef3980d2eaa2edca044f6d00a57784ea6cd4863/Templates/Script%20Preset/README.md</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Preset script_template.lua" type="script" desc="Preset Script">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Edit the User Config Areas to make it work. Name above could typicallly be Original Script Name - Preset Name or Num, but it can be whatever you want.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2022-12-14T16:45:34Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/eef3980d2eaa2edca044f6d00a57784ea6cd4863/Templates/Script%20Preset/X-Raym_Preset%20script_template.lua</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Tempo and Time Signature">
     <reapack name="michaeltonight_daxliniere_X-Raym_Display notes length at edit cursor.lua" type="script" desc="Display notes length at edit cursor.lua">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
@@ -7437,6 +7468,21 @@
         <source main="main" file="X-Raym_Click at X Y screen position_slot 2.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
         <source main="main" file="X-Raym_Click at X Y screen position_slot 3.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
         <source main="main" file="X-Raym_Click at X Y screen position_slot 4.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Copy filtered action names list to clipboard.lua" type="script" desc="Copy filtered action names list to clipboard">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Copy actions names to clipboard if they pass the filter.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2022-12-14T16:45:20Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c0c74fb363e7b2fc6cbdf6c9007e3ab26e0701cc/Various/X-Raym_Copy%20filtered%20action%20names%20list%20to%20clipboard.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Detect selected and master tracks clips - peaks over 0dB - position.lua" type="script" desc="Detect selected and master tracks clips - peaks over 0dB - position">
