@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0 pre 15
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2022-12-22)
+  # Performance improvement
  * v1.0 (2015-06-12)
   + Initial Release
 --]]
@@ -98,6 +100,8 @@ function main()
         end
 
       end
+      
+      reaper.MIDI_Sort(take)
       
       reaper.UpdateArrange()
       reaper.PreventUIRefresh(-1)
