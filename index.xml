@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="eef3980d2eaa2edca044f6d00a57784ea6cd4863" name="X-Raym Scripts">
+<index version="1" commit="51f59d2df9433392dd3317c765d0892950eb38c8" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4740,6 +4740,10 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/MIDI%20Editor/X-Raym_Mute%20selected%20notes%20in%20open%20MIDI%20take%20randomly.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2022-12-22T15:49:00Z">
+        <changelog><![CDATA[# Performance improvement]]></changelog>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/51f59d2df9433392dd3317c765d0892950eb38c8/MIDI%20Editor/X-Raym_Mute%20selected%20notes%20in%20open%20MIDI%20take%20randomly.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Repeat notes selection pattern from time selection to next notes.lua" type="script" desc="Repeat notes selection pattern from time selection to next notes">
