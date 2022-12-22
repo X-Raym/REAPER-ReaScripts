@@ -45,33 +45,32 @@ end
 
 function main()
 
-  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-
   take = reaper.MIDIEditor_GetTake(reaper.MIDIEditor_GetActive())
 
-  if take ~= nil then
+  if take then
 
-      retval, notes, ccs, sysex = reaper.MIDI_CountEvts(take)
+    retval, notes, ccs, sysex = reaper.MIDI_CountEvts(take)
 
-      -- GET SELECTED NOTES (from 0 index)
-      for k = 0, notes-1 do
+    -- GET SELECTED NOTES (from 0 index)
+    for k = 0, notes-1 do
 
-        retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, k)
+      retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, k)
+      if sel then
 
-        if sel == true then
-
-          note_sel = note_sel + 1
-          init_notes[note_sel] = k
-
-        end
+        note_sel = note_sel + 1
+        init_notes[note_sel] = k
 
       end
+      
+    end
 
-
-      defaultvals_csv = note_sel
+    defaultvals_csv = note_sel
     retval, retvals_csv = reaper.GetUserInputs("Mute Selected Notes Randomly", 1, "Number of Notes to Mute?", defaultvals_csv)
 
     if retval then -- if user complete the fields
+    
+      reaper.PreventUIRefresh(1)
+      reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
       notes_selection = tonumber(retvals_csv)
 
@@ -86,24 +85,27 @@ function main()
 
         if j <= notes_selection then
 
-            retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, init_notes[j])
-            reaper.MIDI_SetNote(take, init_notes[j], true, true, startppqposOut, endppqposOut, chan, pitch, vel)
+          retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, init_notes[j])
+          reaper.MIDI_SetNote(take, init_notes[j], true, true, startppqposOut, endppqposOut, chan, pitch, vel, true)
+            
 
-          else
-          -- this allow to execute the action several times. Else, all notes end to be muted.
+        else
+        -- this allow to execute the action several times. Else, all notes end to be muted.
 
-            retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, init_notes[j])
-            reaper.MIDI_SetNote(take, init_notes[j], false, false, startppqposOut, endppqposOut, chan, pitch, vel)
+          retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, init_notes[j])
+          reaper.MIDI_SetNote(take, init_notes[j], false, false, startppqposOut, endppqposOut, chan, pitch, vel, true)
 
-          end
+        end
 
       end
+      
+      reaper.UpdateArrange()
+      reaper.PreventUIRefresh(-1)
+      reaper.Undo_EndBlock("Mute selected note in open MIDI take randomly", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
     end
 
   end -- ENFIF Take is MIDI
-
-  reaper.Undo_EndBlock("Mute selected note in open MIDI take randomly", 0) -- End of the undo block. Leave it at the bottom of your main function.
 
 end
 
