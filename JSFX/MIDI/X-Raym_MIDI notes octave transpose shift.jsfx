@@ -7,12 +7,14 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.2.1
+ * Version: 1.2.2
  */
 
 /**
  * Changelog:
- * v1.2 (2022-09-10)
+ * v1.2.2 (2022-12-26)
+  # CPU Hog fix
+ * v1.2.1 (2022-12-23)
   + Correct "Tranpose" by "Transpose"
  * v1.2 (2022-09-10)
   + Add all notes-off sends event if slider change
@@ -74,6 +76,8 @@ while
   // Not Off if Slider Change
   last_chan != slider1 || last_octave != slider5 ? (
     SendAllNotesOff();
+    last_chan = slider1;
+    last_octave = slider5;
   );
 
   midirecv(offset,msg1,note,vel) ?
@@ -106,8 +110,5 @@ while
     1; // Force loop to continue until all messages have been processed
   
   );
-  
-  last_chan = slider1;
-  last_octave = slider5;
 
 );
