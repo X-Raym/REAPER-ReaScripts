@@ -7,12 +7,12 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
  
 --[[
  * Changelog:
- * v1.0 (2016-01-29)
+ * v1.0 (2023-01-05)
   + Initial Release
 --]]
 
