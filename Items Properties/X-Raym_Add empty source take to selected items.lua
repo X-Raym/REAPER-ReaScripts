@@ -7,18 +7,18 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0 pre 36
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2023-01-24)
+  # Better undo
  * v1.0 (2020-04-29)
   + Initial Release
 --]]
 
 function main()
-
-  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
   -- LOOP THROUGH SELECTED ITEMS
 
@@ -34,7 +34,7 @@ function main()
 
   end -- ENDLOOP through selected items
 
-  reaper.Undo_EndBlock("Add empty source take to selected items", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_OnStateChange("Add empty source take to selected items")
 
 end
 
