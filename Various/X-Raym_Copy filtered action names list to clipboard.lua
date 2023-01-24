@@ -7,11 +7,14 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 6.0
- * Version: 1.0
+ * Version: 1.1
 --]]
  
 --[[
  * Changelog:
+ * v1.1 (2023-01-24)
+  + Prevent duplicates
+  + Sort table
  * v1.0 (2022-12-14)
   + Initial Release
  --]]
@@ -24,6 +27,16 @@ function Msg( val )
   reaper.ShowConsoleMsg( tostring( val ) .. "\n" )
 end
 
+function GetTableOfSortedKeys( t )
+  if not t or type(t) ~= "table" then return end
+  local keys = {}
+  for k, v in pairs( t ) do
+    table.insert( keys, k )
+  end
+  table.sort( keys )
+  return keys
+end
+
 function Main()
   for k, v in pairs( contexts ) do
     local i = 0
@@ -31,13 +44,13 @@ function Main()
       local retval, name = reaper.CF_EnumerateActions( v, i )
       -- Filter actions starting with "beta_" or having "test" in their name
       if retval > 0 and not name:lower():find("beta_") and not name:lower():find("test") then
-        table.insert( lines, name )
+        lines[name] = true
       end
       i = i + 1
     until retval <= 0
   end
   
-  reaper.CF_SetClipboard( table.concat( lines, "\n" ) )
+  reaper.CF_SetClipboard( table.concat( GetTableOfSortedKeys(lines), "\n" ) )
 end
 
 if not reaper.CF_GetClipboard then
