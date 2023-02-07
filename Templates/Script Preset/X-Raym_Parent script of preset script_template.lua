@@ -6,7 +6,7 @@
  * Repository: X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
  * Provides:
  *   [nomain] .
  *   [nomain] README.md
@@ -31,7 +31,7 @@ function Open_URL(url)
 end
 
 function Init() -- The Init function of the script.
-  retval = reaper.MB( "This script is a template.\nDo you want to open the doc?", "Info", 1)
+  local retval = reaper.MB( "This script is a template.\nDo you want to open the doc?", "Info", 1)
   if retval == 1 then
     Open_URL( link )
   end
