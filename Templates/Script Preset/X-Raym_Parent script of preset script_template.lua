@@ -6,7 +6,7 @@
  * Repository: X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
  * Provides:
  *   [nomain] .
  *   [nomain] README.md
@@ -22,9 +22,9 @@ link = "https://github.com/X-Raym/REAPER-ReaScripts/Templates/Script Preset/READ
 
 -------------------------------------------------- END OF USER CONFIG AREA
 function Open_URL(url)
-  if not OS then local OS = reaper.GetOS() end
+  local OS = OS or reaper.GetOS()
   if OS=="OSX32" or OS=="OSX64" then
-    os.execute("start \"\" \"".. url .. "\"")
+    os.execute("open ".. url)
    else
     os.execute("start \"\" \"".. url .. "\"")
   end
