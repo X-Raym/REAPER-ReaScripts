@@ -10,11 +10,15 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.7
+ * Version: 1.0.8
 --]]
 
 --[[
  * Changelog:
+ * v1.0.8 (2023-02-08)
+  # Insert as last track on the project
+  # Be sure it is good timebase
+  + Save last input path
  * v1.0.7 (2020-03-15)
   + Correction of lyrics format in project notes
  * v1.0.6 (2020-03-14)
@@ -44,9 +48,12 @@ function SplitFilename(strFilename)
 end
 
 function InsertFile( file, folder, tag )
+  local count_track = reaper.CountTracks( 0 )
+  local track = reaper.GetTrack( 0 , count_track - 1 )
+  reaper.SetOnlyTrackSelected( track )
   reaper.InsertMedia( folder .. file, 1 )
   local count_track = reaper.CountTracks( 0 )
-  track = reaper.GetTrack( 0 , count_track - 1 )
+  local track = reaper.GetTrack( 0 , count_track - 1 )
   local retval, stringNeedBig = reaper.GetSetMediaTrackInfo_String( track, "P_NAME", tag, true )
   if tag == "Video" then reaper.SetMediaTrackInfo_Value( track, "D_VOL", 0 ) end
   reaper.SetMediaTrackInfo_Value( track, "C_BEATATTACHMODE", 0 )
@@ -70,9 +77,14 @@ reaper.Undo_BeginBlock() -- Begining of the undo block.
 
 reaper.ClearConsole()
 
-retval, path = reaper.GetUserFileNameForRead("", "Open", ".txt" )
+folder = reaper.GetExtState( "XR_UltrastarImport", "Folder" ) or ""
+
+retval, path = reaper.GetUserFileNameForRead(folder, "Open", ".txt" )
 if not retval then return end
+
 folder, filename, ext = SplitFilename(path)
+reaper.SetExtState( "XR_UltrastarImport", "Folder", folder, true )
+
 content = readAll(path)
 
 -- content = reaper.GetSetProjectNotes(0, false, '') -- NOTE: For dev only
@@ -161,6 +173,8 @@ for i = 0, ccs - 1 do
   reaper.MIDI_DeleteCC( take, ccs - i - 1 )
 end
 reaper.MIDI_Sort( take )
+
+reaper.Main_OnCommand( 40297, 0 ) -- Track: Unselect (clear selection of) all tracks
 
 reaper.Undo_EndBlock("Export first selected track MIDI as UltraStar txt file", 0) -- End of the undo block.
 
