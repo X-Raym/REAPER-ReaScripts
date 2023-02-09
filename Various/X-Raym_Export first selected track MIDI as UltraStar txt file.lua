@@ -10,12 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.9
+ * Version: 1.0.10
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.10 (2023-02-09)
+  + Fallback to Lyrics tracks is no tracks selected
+  + Preset file init
+  + save file popup with JS_ReaScript API
  * v1.0.9 (2023-02-09)
   # A bit of refactoring
  * v1.0.8 (2021-01-12)
@@ -45,6 +49,7 @@
 console = false
 offset_pages_by_one_beat = false
 strip_spaces_and_tilds = false
+save_file_popup = true -- requires JS_ReaScriptAPI
 
 -- bpm = reaper.Master_GetTempo()
 bpm = 400 -- We use dummy Tempo cause it is more a precision indicator than a real musical correspondance
@@ -274,11 +279,25 @@ function ExportData( elms )
   file_header_str = table.concat( file_header_t, "\n" )
 
   txt_str = file_header_str .. "\n" .. txt_str .. "\nE\n"
-
-  -- Copy to Clipboard
+  
   file = proj_name .. '.txt'
-  file_path = proj_folder .. file
-
+  file_path = ""
+  if save_file_popup and reaper.JS_Dialog_BrowseForSaveFile then
+    
+    ext_retval, file_path = reaper.GetProjExtState( 0, "XR_ExportUltrastarLyrics", "file_path" )
+    ext_file_folder, ext_file_name = SplitFilename( file_path )
+    
+    retval, file_name = reaper.JS_Dialog_BrowseForSaveFile( "Save Take Sources CSV", ext_file_folder, ext_file_name, 'txt files (.txt)\0*.txt\0All Files (*.*)\0*.*\0' )
+    if not retval or retval == 0 then return false end
+    if file_name ~= '' then
+      if not file_name:find('.txt') then file_name = file_name .. ".txt" end
+      file_path = file_name
+      reaper.SetProjExtState( 0, "XR_ExportUltrastarLyrics", "file_path", file_path )
+    end
+  else
+    file_path = proj_folder .. file
+  end
+  
   local f = io.open(file_path, "w")
   io.output(file_path)
   io.write(txt_str)
@@ -341,20 +360,43 @@ function Main( track )
   ExportData(elms)
 end
 
-track = reaper.GetSelectedTrack(0,0)
+function GetSelectLyricsTrack()
+  local count_tracks = reaper.CountTracks( 0 )
+  for i = 0, count_tracks - 1 do
+    local track = reaper.GetTrack( 0, i )
+    local r, track_name = reaper.GetTrackName( track )
+    if track_name:lower() == "lyrics" then
+      reaper.SetOnlyTrackSelected( track )
+      return track
+    end
+  end
+end
 
-if track then
+function Init()
+  track = reaper.GetSelectedTrack(0,0)
+  
+  if not track then
+    track = GetSelectLyricsTrack()
+  end
+  
+  if track then
+  
+    reaper.PreventUIRefresh(1)
+  
+    reaper.Undo_BeginBlock() -- Begining of the undo block.
+  
+    reaper.ClearConsole()
+  
+    Main( track ) -- Execute your main function
+  
+    reaper.Undo_EndBlock("Export first selected track MIDI as UltraStar txt file", 0) -- End of the undo block.
+  
+    reaper.PreventUIRefresh(-1)
+  
+  end
+  
+end
 
-  reaper.PreventUIRefresh(1)
-
-  reaper.Undo_BeginBlock() -- Begining of the undo block.
-
-  reaper.ClearConsole()
-
-  Main( track ) -- Execute your main function
-
-  reaper.Undo_EndBlock("Export first selected track MIDI as UltraStar txt file", 0) -- End of the undo block.
-
-  reaper.PreventUIRefresh(-1)
-
+if not preset_file_init then
+  Init()
 end
