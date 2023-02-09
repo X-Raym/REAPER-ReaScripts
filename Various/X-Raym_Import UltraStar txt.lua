@@ -10,13 +10,15 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.8
+ * Version: 1.0.9
 --]]
 
 --[[
  * Changelog:
+ * v1.0.9 (2023-02-09)
+  # Prevent snapping of inserted text event
  * v1.0.8 (2023-02-08)
-  # Insert as least track on the project
+  # Insert as last track on the project
   # Be sure it is good timebase
   + Save last input path
  * v1.0.7 (2020-03-15)
@@ -105,6 +107,11 @@ item = reaper.CreateNewMIDIItemInProj( track_midi, 0, 100, false ) -- 100 is arb
 take = reaper.GetActiveTake( item )
 local retval, take_name = reaper.GetSetMediaItemTakeInfo_String( take, "P_NAME", "Lyrics", true )
 
+snap = reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
+if snap == 1 then
+  reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
+end
+
 last_beat = 0
 lyrics = {}
 lyric_line = ""
@@ -157,6 +164,10 @@ for i, line in ipairs( lines ) do -- redundant but useful
     else
     end
   end
+end
+
+if snap == 1 then
+  reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
 end
 
 for i, lyric in ipairs( lyrics ) do
