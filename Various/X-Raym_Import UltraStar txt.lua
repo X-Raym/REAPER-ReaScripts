@@ -16,7 +16,7 @@
 --[[
  * Changelog:
  * v1.0.8 (2023-02-08)
-  # Insert as last track on the project
+  # Insert as least track on the project
   # Be sure it is good timebase
   + Save last input path
  * v1.0.7 (2020-03-15)

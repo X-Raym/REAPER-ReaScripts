@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.8
+ * Version: 1.0.9
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.9 (2023-02-09)
+  # A bit of refactoring
  * v1.0.8 (2021-01-12)
   # remove strip spaces and tilds
  * v1.0.7 (2021-01-01)
@@ -45,7 +47,7 @@ offset_pages_by_one_beat = false
 strip_spaces_and_tilds = false
 
 -- bpm = reaper.Master_GetTempo()
-bpm = 400
+bpm = 400 -- We use dummy Tempo cause it is more a precision indicator than a real musical correspondance
 
 -- GLOBALS
 
@@ -60,6 +62,20 @@ function SplitFilename(strFilename)
   return string.match(strFilename, "(.-)([^\\|/]-([^\\|/%.]+))$")
 end
 
+function GetUltraStartExtState()
+  meta = {}
+  keys = {}
+  local i = 0
+  repeat
+    local retval, key, val = reaper.EnumProjExtState( proj, "UltraStar", i )
+    if retval then
+      meta[key] = val
+      table.insert( keys, key )
+    end
+    i = i + 1
+  until not retval
+end
+
 function GetArtistAndTitle()
   proj, project_path = reaper.EnumProjects( -1, 0 )
   proj_folder, proj_name, proj_ext = SplitFilename(project_path)
@@ -68,14 +84,16 @@ function GetArtistAndTitle()
     proj_name = "Unsaved"
   end
 
-  retval, artist = reaper.GetProjExtState( proj, "UltraStar", "ARTIST" )
-  retval, title = reaper.GetProjExtState( proj, "UltraStar", "TITLE" )
+  artist = meta.ARTIST
+  title = meta.TITLE
   if ( not artist or artist == "" ) and ( not title or title == "" )then
     artist, title = proj_name:match('(.+) %- (.+)')
     if not artist then artist = "Artist" end
     if not title or title == "" then title = "Title" else title = title:sub(0,-5)  end
     reaper.SetProjExtState( 0, "UltraStar", "TITLE", title)
     reaper.SetProjExtState( 0, "UltraStar", "ARTIST", artist)
+    meta.TITLE = artist
+    meta.ARTIST = title
   end
   if not proj_name then proj_name = artist .. " - " .. title end
   proj_name = proj_name:sub(0,-5)
@@ -134,7 +152,7 @@ function ProcessTakeMIDI( take, j )
   if #lyrics < count_notes then count = #lyrics end
   logging = nil
 
-  local lyric = nill
+  local lyric = nil
 
   for i = 0, count - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
@@ -217,21 +235,10 @@ function ProcessMarkers()
   return markers
 end
 
-function GetUltraStarMetadata()
-  local metadata = ""
-  header_fields = {"LANGUAGE", "YEAR", "GENRE", "CREATOR", "EDITION"} -- Not "TITLE", "ARTIST" here
-  local sharp = '#'
-  for i, v in ipairs( header_fields ) do
-    if i > 1 then sharp = "\n#" end
-    local retval, val = reaper.GetProjExtState( proj, "UltraStar", v )
-    metadata = metadata .. sharp .. v .. ":" .. val
-  end
-
-  return metadata
-end
 
 function ExportData( elms )
-
+  
+  -- Lyrics lines
   local lines = {}
   for i, line in ipairs(elms) do
     local l = line.str:gsub(string.char(0), "")
@@ -240,23 +247,35 @@ function ExportData( elms )
   end
 
   txt_str = table.concat(lines, "\n")
-
-  metadata_str = GetUltraStarMetadata() .. "\n"
-  gap_str = string.gsub( tostring(math.floor(gap * 100000) / 100), "%.", ",")
-  gap_str = "#GAP:" .. gap_str .. "\n"
-  bpm_str = "#BPM:" .. bpm .. "\n"
-  artist_str = "#ARTIST:" .. artist .. "\n"
-  title_str = "#TITLE:" .. title .. "\n"
-  mp3_str = "#MP3:" .. proj_name .. ".mp3\n"
-  cover_str = "#COVER:" .. proj_name .. ".jpg\n"
-  video_str = "#VIDEO:" .. proj_name .. ".mp4\n"
-
-  txt_str = artist_str .. title_str .. metadata_str .. mp3_str .. cover_str .. video_str .. bpm_str .. gap_str .. txt_str .. "\nE\n"
-
-  if reaper.CF_SetClipboard then
-    reaper.CF_SetClipboard(txt_str)
+  
+  -- Header Lines
+  meta.GAP = string.gsub( tostring(math.floor(gap * 100000) / 100), "%.", ",")
+  meta.BPM = tostring( bpm )
+  
+  -- Do header with predetermined list of keys
+  keys_already_done = {}
+  header_fields = {"TITLE", "ARTIST", "LANGUAGE", "YEAR", "GENRE", "CREATOR", "EDITION", "MP3", "COVER", "VIDEO", "BPM", "GAP"} -- Not "TITLE", "ARTIST" here
+  local file_header_t = {}
+  for i, v in ipairs( header_fields ) do
+    if meta[v] then
+      table.insert( file_header_t, "#" .. v .. ":" .. meta[v] )
+    end
+    keys_already_done[v] = true
   end
+  
+  -- Do meta which are not on the list above
+  for k, v in pairs( meta ) do
+    if not keys_already_done then
+      table.insert( file_header_t, "#" .. k .. ":" .. v )
+    end
+  end
+  
+  -- Concat File Header
+  file_header_str = table.concat( file_header_t, "\n" )
 
+  txt_str = file_header_str .. "\n" .. txt_str .. "\nE\n"
+
+  -- Copy to Clipboard
   file = proj_name .. '.txt'
   file_path = proj_folder .. file
 
@@ -269,10 +288,17 @@ function ExportData( elms )
   Msg(txt_str)
   Msg("Success! File:")
   Msg(file_path)
+  
+  if reaper.CF_SetClipboard then
+    reaper.CF_SetClipboard(txt_str)
+    Msg("Copied to clipboard")
+  end
 
 end
 
 function Main( track )
+
+  GetUltraStartExtState()
 
   GetArtistAndTitle()
 
