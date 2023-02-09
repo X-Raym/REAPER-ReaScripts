@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="d45188b7f47981df62616e2375850500865b7641" name="X-Raym Scripts">
+<index version="1" commit="d514742c4c0288d28a7208e3b0d174b7b7fdefcf" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -7607,6 +7607,12 @@
       <version name="1.0.9" author="X-Raym" time="2023-02-09T10:41:32Z">
         <changelog><![CDATA[# A bit of refactoring]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d45188b7f47981df62616e2375850500865b7641/Various/X-Raym_Export%20first%20selected%20track%20MIDI%20as%20UltraStar%20txt%20file.lua</source>
+      </version>
+      <version name="1.0.10" author="X-Raym" time="2023-02-09T11:15:16Z">
+        <changelog><![CDATA[+ Fallback to Lyrics tracks is no tracks selected
++ Preset file init
++ save file popup with JS_ReaScript API]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d514742c4c0288d28a7208e3b0d174b7b7fdefcf/Various/X-Raym_Export%20first%20selected%20track%20MIDI%20as%20UltraStar%20txt%20file.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Focus SWS Notes window.lua" type="script" desc="Focus SWS Notes window">
