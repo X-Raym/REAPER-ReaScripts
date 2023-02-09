@@ -10,7 +10,7 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.9
+ * Version: 1.0.10
 --]]
 
 --[[
@@ -107,11 +107,6 @@ item = reaper.CreateNewMIDIItemInProj( track_midi, 0, 100, false ) -- 100 is arb
 take = reaper.GetActiveTake( item )
 local retval, take_name = reaper.GetSetMediaItemTakeInfo_String( take, "P_NAME", "Lyrics", true )
 
-snap = reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
-if snap == 1 then
-  reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
-end
-
 last_beat = 0
 lyrics = {}
 lyric_line = ""
@@ -164,10 +159,6 @@ for i, line in ipairs( lines ) do -- redundant but useful
     else
     end
   end
-end
-
-if snap == 1 then
-  reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
 end
 
 for i, lyric in ipairs( lyrics ) do
