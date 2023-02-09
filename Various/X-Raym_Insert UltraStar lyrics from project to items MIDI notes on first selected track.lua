@@ -10,7 +10,7 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.3
+ * Version: 1.0.4
 --]]
 
 --[[
@@ -80,11 +80,6 @@ function Main()
 
   local item_num = reaper.CountTrackMediaItems(track)
   
-  snap = reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
-  if snap == 1 then
-    reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
-  end
-  
   if delete_unamed_markers then DeleteAllUnamedMarkers() end
 
   -- ACTIONS
@@ -130,10 +125,6 @@ function Main()
   end
   str = str:sub(1, -2)
   reaper.SetTrackMIDILyrics( track, 2, str )]]
-  
-  if snap == 1 then
-    reaper.GetToggleCommandStateEx( 32060, 1014 ) -- View: Toggle snap to grid
-  end
 
 end
 
