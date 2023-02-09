@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0 (2023-02-10)
+  + Error message correction
  * v1.0 (2023-02-09)
   + Initial Release
 --]]
@@ -399,8 +401,8 @@ function GetLineFromPos( lines, pos )
       return line, i
     end
   end
-  if pos > lines[#lines].line_end then
-    return nil, nil, "The END: No Marker Beyond"
+  if #lines == 0 or pos > lines[#lines].line_end then
+    return nil, nil, "The END: No Marker or Lyrics Beyond"
   end
 end
 
@@ -430,25 +432,29 @@ function Run()
         lyrics = TableMergeNew( lyrics, ProcessTakeMIDI( take ) )
       end
     end
-  end
-  
-  if #markers > 0 and #lyrics > 0 then
-    lines = Process( markers, lyrics )
-    if #lines > 0 then
-      lines_to_draw_x = 0
-      line_to_draw, line_to_draw_index, err = GetLineFromPos( lines, play_pos )
-      if line_to_draw then
-        DrawLine( line_to_draw, line_to_draw_index )
+    
+    if #markers > 0 and #lyrics > 0 then
+      lines = Process( markers, lyrics )
+      if #lines > 0 then
+        lines_to_draw_x = 0
+        line_to_draw, line_to_draw_index, err = GetLineFromPos( lines, play_pos )
+        if line_to_draw then
+          DrawLine( line_to_draw, line_to_draw_index )
+        end
+        if err then
+          PrintAndBreak( err, "RED" )
+        end
+      else
+        if markers[#markers].pos < play_pos then
+          PrintAndBreak(  "No Marker Beyond", "RED" )
+        end
       end
-      if err then
-        PrintAndBreak( err, "RED" )
+    else
+      if #markers == 0 then
+        PrintAndBreak("No Markers", "RED")
+      elseif #lyrics == 0 then
+        PrintAndBreak("No Lyrics", "RED")
       end
-    end
-  else
-    if #markers == 0 then
-      PrintAndBreak("No Markers", "RED")
-    elseif #lyrics == 0 then
-      PrintAndBreak("No Lyrics", "RED")
     end
   end
   
