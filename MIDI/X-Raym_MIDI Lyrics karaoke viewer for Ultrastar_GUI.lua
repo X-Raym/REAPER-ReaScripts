@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: MIDI Lyrics karaoke viewer for Ultrastar_GUI
  * About: Add a clock based on Lyrics tracks MIDI Lyrics events. It use Markers to determine Lines of the karaoke.
- * Screenshot: https://i.imgur.com/wwpgZv4.gif
+ * Screenshot: https://i.imgur.com/VnImxoP.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -10,7 +10,7 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
