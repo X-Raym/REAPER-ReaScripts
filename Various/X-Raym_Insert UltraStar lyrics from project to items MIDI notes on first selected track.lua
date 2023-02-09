@@ -10,20 +10,30 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2023-02-09)
+  + Fallback to Lyrics tracks is no tracks selected
  * v1.0.1 (2018-02-03)
   # "+" pattern is fixed
  * v1.0 (2018-01-25)
   + Initial Release
 --]]
 
-track = reaper.GetSelectedTrack(0,0)
-
-if not track then return end
+function GetSelectLyricsTrack()
+  local count_tracks = reaper.CountTracks( 0 )
+  for i = 0, count_tracks - 1 do
+    local track = reaper.GetTrack( 0, i )
+    local r, track_name = reaper.GetTrackName( track )
+    if track_name:lower() == "lyrics" then
+      reaper.SetOnlyTrackSelected( track )
+      return track
+    end
+  end
+end
 
 -- Split CSV string
 function string:split(sep)
@@ -32,23 +42,8 @@ function string:split(sep)
   self:gsub(pattern, function(c) fields[#fields+1] = c end)
   return fields
 end
-reaper.ClearConsole()
-var = reaper.GetSetProjectNotes( 0, false, '' )
 
-if not var or var == "" then return end
-
-var = var:gsub('%+', '-')
-var = var:gsub('[ |%-|\n]', '|%1')
---reaper.ShowConsoleMsg(var)
-
-sep = "|"
-test = var:split(sep)
-
--- INIT
-note_sel = 0
-events = {}
-
-function main()
+function Main()
 
   local item_num = reaper.CountTrackMediaItems(track)
 
@@ -69,22 +64,46 @@ function main()
 
   str = '' -- "1.1.2\tLyric\t2.1.1\tLyric"
   for i, pos in ipairs( events ) do
-  lyric = "bla"
-  if test[i] then lyric = test[i] end
-  console = true
-  lyric = lyric:gsub('\n', '') -- Maybe not necessary
-  str = str .. reaper.format_timestr_pos( pos, '', 1 ) .. '\t' .. lyric ..'\t'
+    lyric = "bla"
+    if test[i] then lyric = test[i] end
+    console = true
+    lyric = lyric:gsub('\n', '') -- Maybe not necessary
+    str = str .. reaper.format_timestr_pos( pos, '', 1 ) .. '\t' .. lyric ..'\t'
   end
   str = str:sub(1, -2)
   reaper.SetTrackMIDILyrics( track, 2, str )
 
 end
 
+var = reaper.GetSetProjectNotes( 0, false, '' )
+if not var or var == "" then return end
+
+var = var:gsub('%+', '-')
+var = var:gsub('[ |%-|\n]', '|%1')
+--reaper.ShowConsoleMsg(var)
+
+sep = "|"
+test = var:split(sep)
+
+-- INIT
+note_sel = 0
+events = {}
+
+track = reaper.GetSelectedTrack(0,0)
+
+if not track then
+  track = GetSelectLyricsTrack()
+end
+
+if not track then return end
+
+reaper.ClearConsole()
+
 reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
 reaper.PreventUIRefresh(1)
 
-main() -- Execute your main function
+Main() -- Execute your main function
 
 reaper.UpdateArrange() -- Update the arrangement (often needed)
 
