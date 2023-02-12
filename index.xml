@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="22ed8e6480fbb5a9c56bcae8bfbcf99f1ff307a3" name="X-Raym Scripts">
+<index version="1" commit="2c52785d4c656249e07ed632ab9791002a9c1bc1" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4728,6 +4728,12 @@
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/MIDI%20Editor/X-Raym_Export%20active%20take%20in%20MIDI%20editor%20as%20CSV%20of%20notes%20and%20velocity.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Insert and-or edit project marker at current position.lua" type="script" desc="Insert and-or edit project marker at current position">
+      <version name="1.0" author="X-Raym" time="2023-02-12T17:32:55Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/2c52785d4c656249e07ed632ab9791002a9c1bc1/MIDI%20Editor/X-Raym_Insert%20and-or%20edit%20project%20marker%20at%20current%20position.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Insert CC linear ramp events between selected ones if consecutive.lua" type="script" desc="Insert CC linear ramp events between selected ones if consecutive">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
@@ -4796,6 +4802,12 @@
       <version name="1.0.1" author="X-Raym" time="2022-12-22T15:49:00Z">
         <changelog><![CDATA[# Performance improvement]]></changelog>
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/51f59d2df9433392dd3317c765d0892950eb38c8/MIDI%20Editor/X-Raym_Mute%20selected%20notes%20in%20open%20MIDI%20take%20randomly.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Remove project marker at current position.lua" type="script" desc="Remove project marker at current position">
+      <version name="1.0" author="X-Raym" time="2023-02-12T17:32:55Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/2c52785d4c656249e07ed632ab9791002a9c1bc1/MIDI%20Editor/X-Raym_Remove%20project%20marker%20at%20current%20position.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Repeat notes selection pattern from time selection to next notes.lua" type="script" desc="Repeat notes selection pattern from time selection to next notes">
@@ -4896,14 +4908,20 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/ee7b6a406eaccaad8f59d856988294e205a6f950/MIDI%20Editor/X-Raym_Shift%20MIDI%20lyrics%20events%20message%20after%20edit%20cursor%20to%20one%20event%20on%20the%20left.lua</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2023-02-12T17:32:49Z">
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/68cba602baa81f474e535bf2e36bd73a497284b2/MIDI%20Editor/X-Raym_Shift%20MIDI%20lyrics%20events%20message%20after%20edit%20cursor%20to%20one%20event%20on%20the%20left.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Shift MIDI lyrics events message after edit cursor to one event on the right.lua" type="script" desc="Insert sysex events at time selection">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/dnAKtCX.gif</link>
+        <link rel="screenshot">https://i.imgur.com/bzhSa2O.gif</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-02-12T16:48:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/ee7b6a406eaccaad8f59d856988294e205a6f950/MIDI%20Editor/X-Raym_Shift%20MIDI%20lyrics%20events%20message%20after%20edit%20cursor%20to%20one%20event%20on%20the%20right.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2023-02-12T17:32:49Z">
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/68cba602baa81f474e535bf2e36bd73a497284b2/MIDI%20Editor/X-Raym_Shift%20MIDI%20lyrics%20events%20message%20after%20edit%20cursor%20to%20one%20event%20on%20the%20right.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle mute track with take in MIDI editor.lua" type="script" desc="Toggle mute track with take in MIDI editor">
