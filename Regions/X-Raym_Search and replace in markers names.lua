@@ -8,11 +8,13 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.0.1
 --]]
 
 --[[
  * Changelog:
+ * v2.0.1 (2023-02-18)
+  # Fix /E counter
  * v2.0 (2022-10-07)
   + Initial Release
 --]]
@@ -150,20 +152,21 @@ function Main()
 
   -- INITIALIZE
   idx = 0
+  marker_sel_id = 0
   repeat
     local retval, isrgn, pos, rgnend, name, markrgnindexnumber, color = reaper.EnumProjectMarkers3( 0, idx ) -- get marker by idx
     if not isrgn and ( not time_selection or IsInTimeSelection(pos, rgnend) ) then -- if it is a marker and not a region
-
+      marker_sel_id = marker_sel_id + 1
       -- MODIFY NAME
       local name = name:gsub(search, vars.replace)
 
       if vars.truncate_start > 0 then name = name:sub(vars.truncate_start+1) end
       if vars.truncate_end > 0 then
-      name_len = name:len()
-      name = name:sub(0, name_len-vars.truncate_end)
+        name_len = name:len()
+        name = name:sub(0, name_len-vars.truncate_end)
       end
-      ins_start = vars.ins_start_in:gsub("/E", tostring(idx + 1))
-      ins_end = vars.ins_end_in:gsub("/E", tostring(idx + 1))
+      ins_start = vars.ins_start_in:gsub("/E", tostring(marker_sel_id))
+      ins_end = vars.ins_end_in:gsub("/E", tostring(marker_sel_id))
 
       local name = ins_start..name..ins_end
 
