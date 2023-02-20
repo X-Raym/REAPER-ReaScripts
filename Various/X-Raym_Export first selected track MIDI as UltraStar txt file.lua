@@ -10,12 +10,16 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.10
+ * Version: 1.0.11
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.11 (2023-02-20)
+  + Consider project offset for GAP
+  # Better GAP rounding and calculation
+  # Copy to clipboard false by default
  * v1.0.10 (2023-02-09)
   + Fallback to Lyrics tracks is no tracks selected
   + Preset file init
@@ -51,6 +55,8 @@ offset_pages_by_one_beat = false
 strip_spaces_and_tilds = false
 save_file_popup = true -- requires JS_ReaScriptAPI
 
+clipboard = false
+
 -- bpm = reaper.Master_GetTempo()
 bpm = 400 -- We use dummy Tempo cause it is more a precision indicator than a real musical correspondance
 
@@ -58,6 +64,8 @@ bpm = 400 -- We use dummy Tempo cause it is more a precision indicator than a re
 
 beat_duration = 1 / (bpm / 60 )
 gap = 0
+
+project_offset = reaper.GetProjectTimeOffset( 0, false )
 
 prefix = {": ", "* ", "F "}
 
@@ -254,7 +262,7 @@ function ExportData( elms )
   txt_str = table.concat(lines, "\n")
   
   -- Header Lines
-  meta.GAP = string.gsub( tostring(math.floor(gap * 100000) / 100), "%.", ",")
+  meta.GAP = string.gsub( tostring(math.floor((gap+project_offset) * 1000 + 0.5 )), "%.", ",")
   meta.BPM = tostring( bpm )
   
   -- Do header with predetermined list of keys
@@ -308,7 +316,7 @@ function ExportData( elms )
   Msg("Success! File:")
   Msg(file_path)
   
-  if reaper.CF_SetClipboard then
+  if reaper.CF_SetClipboard and clipboard then
     reaper.CF_SetClipboard(txt_str)
     Msg("Copied to clipboard")
   end
