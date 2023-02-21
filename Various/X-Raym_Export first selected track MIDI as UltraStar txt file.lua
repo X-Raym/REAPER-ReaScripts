@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.11
+ * Version: 1.0.12
  * REAPER: 5.0
 --]]
 
 --[[
  * Changelog:
+ * v1.0.12 (2023-02-21)
+  + Ignore muted MIDI events
  * v1.0.11 (2023-02-20)
   + Consider project offset for GAP
   # Better GAP rounding and calculation
@@ -68,6 +70,8 @@ gap = 0
 project_offset = reaper.GetProjectTimeOffset( 0, false )
 
 prefix = {": ", "* ", "F "}
+
+ext_state = "XR_ExportUltrastarLyrics"
 
 -- https://www.fhug.org.uk/wiki/wiki/doku.php?id=plugins:code_snippets:split_filename_in_to_path_filename_and_extension
 function SplitFilename(strFilename)
@@ -140,16 +144,11 @@ function ProcessTakeMIDI( take, j )
 
   if count_notes == 0 or count_textsys == 0 then return end
 
-  if j == 0 then
-    local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, 0 )
-    gap = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos )
-  end
-
   -- First Filter Text Event by Lyrics
-  local lyrics = {}
+  local lyrics = {} -- Note: these are stored in reverse pos order
   for i = 0, count_textsyx - 1 do
     local retval, selected, muted, ppqpos, evt_type, msg = reaper.MIDI_GetTextSysexEvt( take, i, true, true, 0, 0, "" )
-    if evt_type == 5 then
+    if evt_type == 5 and not muted then
       msg = msg:gsub("\r", "")  -- remove carriage return
       msg = msg:gsub("^%-", "") -- remove hyphen at the begining
       if strip_spaces_and_tilds then
@@ -160,58 +159,68 @@ function ProcessTakeMIDI( take, j )
       table.insert(lyrics,1,{pos=ppqpos+5,msg=msg}) -- + 1 is for unexplained rounding error
     end
   end
+  
+  -- Check if there is non-muted lyrics
+  if #lyrics == 0 then return end
 
   count = count_notes
   if #lyrics < count_notes then count = #lyrics end
   logging = nil
+  
+  if j == 0 then -- First take and first lyrics -- NOT: should be first synced lyrics for extra precision
+    gap = reaper.MIDI_GetProjTimeFromPPQPos( take, lyrics[#lyrics].pos-5 ) -- -5, see above
+  end
 
   local lyric = nil
 
   for i = 0, count - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
+    
+    if not muted then
 
-    local start_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos ) - gap
-    local end_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos ) - gap
-    local len_sec = end_sec - start_sec
-    local len_beats = SecondToBeat(len_sec)
-    if len_beats < 1 then len_beats = 1 end
-    if chan + 1 > #prefix then chan = 0 end
-
-    local entry = {}
-    entry.pos = start_sec
-    entry.str = prefix[chan+1] .. SecondToBeat(start_sec) .. " " .. len_beats .. " " .. ( pitch - 60 )
-
-    -- find all lyrics aligned with this MIDI note
-    local lyric = table.remove(lyrics)
-    while lyric do
-
-      -- if lyric timing is later than this note
-      if lyric.pos >= endppqpos then
-        -- put lyric back and skip scanning for more lyrics
-        table.insert(lyrics,lyric)
-        break
+      local start_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos ) - gap
+      local end_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos ) - gap
+      local len_sec = end_sec - start_sec
+      local len_beats = SecondToBeat(len_sec)
+      if len_beats < 1 then len_beats = 1 end
+      if chan + 1 > #prefix then chan = 0 end
+  
+      local entry = {}
+      entry.pos = start_sec
+      entry.str = prefix[chan+1] .. SecondToBeat(start_sec) .. " " .. len_beats .. " " .. ( pitch - 60 )
+  
+      -- find all lyrics aligned with this MIDI note
+      local lyric = table.remove(lyrics)
+      while lyric do
+  
+        -- if lyric timing is later than this note
+        if lyric.pos >= endppqpos then
+          -- put lyric back and skip scanning for more lyrics
+          table.insert(lyrics,lyric)
+          break
+        end
+  
+        if lyric.pos < startppqpos then
+          -- do nothing
+        else
+          -- lyric is for this note
+          entry.str = entry.str .. " " .. lyric.msg
+        end
+  
+        -- get next lyric
+        lyric = table.remove(lyrics)
       end
-
-      if lyric.pos < startppqpos then
-        -- do nothing
-      else
-        -- lyric is for this note
-        entry.str = entry.str .. " " .. lyric.msg
+  
+      if logging and (i < 10 or i > count-10) then
+        b = reaper.MIDI_GetProjQNFromPPQPos(take, startppqpos) + 4
+        b = string.format("%03d.%5.3f", b // 4, (b % 4)+1)
+        entry.str = string.format("%s %06.3f %s",entry.str,start_sec+gap,b)
+        --start_sec = start_sec + gap
+        --.. string.format(" gap=%03.3f t=%02d:%06.3f,%07.3f b=%s c=%02d p=%02d %s\n",gap,math.floor(start_sec/60),start_sec % 60,start_sec,b,chan,pitch-60,lyrics[i+1])
       end
-
-      -- get next lyric
-      lyric = table.remove(lyrics)
+  
+      table.insert(syllables,entry)
     end
-
-    if logging and (i < 10 or i > count-10) then
-      b = reaper.MIDI_GetProjQNFromPPQPos(take, startppqpos) + 4
-      b = string.format("%03d.%5.3f", b // 4, (b % 4)+1)
-      entry.str = string.format("%s %06.3f %s",entry.str,start_sec+gap,b)
-      --start_sec = start_sec + gap
-      --.. string.format(" gap=%03.3f t=%02d:%06.3f,%07.3f b=%s c=%02d p=%02d %s\n",gap,math.floor(start_sec/60),start_sec % 60,start_sec,b,chan,pitch-60,lyrics[i+1])
-    end
-
-    table.insert(syllables,entry)
   end
   return syllables
 end
@@ -292,7 +301,7 @@ function ExportData( elms )
   file_path = ""
   if save_file_popup and reaper.JS_Dialog_BrowseForSaveFile then
     
-    ext_retval, file_path = reaper.GetProjExtState( 0, "XR_ExportUltrastarLyrics", "file_path" )
+    ext_retval, file_path = reaper.GetProjExtState( 0, ext_state, "file_path" )
     ext_file_folder, ext_file_name = SplitFilename( file_path )
     
     retval, file_name = reaper.JS_Dialog_BrowseForSaveFile( "Save Take Sources CSV", ext_file_folder, ext_file_name, 'txt files (.txt)\0*.txt\0All Files (*.*)\0*.*\0' )
@@ -300,7 +309,7 @@ function ExportData( elms )
     if file_name ~= '' then
       if not file_name:find('.txt') then file_name = file_name .. ".txt" end
       file_path = file_name
-      reaper.SetProjExtState( 0, "XR_ExportUltrastarLyrics", "file_path", file_path )
+      reaper.SetProjExtState( 0, ext_state, "file_path", file_path )
     end
   else
     file_path = proj_folder .. file

@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
 
 --[[
  * Changelog:
+ * v1.0.3 (2023-02-21)
+  + Ignore muted MIDI events
  * v1.0 (2023-02-10)
   + Error message correction
  * v1.0 (2023-02-09)
@@ -344,7 +346,9 @@ function ProcessTakeMIDI( take )
   local notes_end_by_pos = {}
   for i = 0, count_notes - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
-    notes_end_by_pos[startppqpos] =  reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos )
+    if not muted then
+      notes_end_by_pos[startppqpos] =  reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos )
+    end
   end
 
   -- First Filter Text Event by Lyrics
@@ -352,7 +356,7 @@ function ProcessTakeMIDI( take )
   local text_evts_ppq = {} -- for debug
   for i = 0, count_textsyx - 1 do
     local retval, selected, muted, ppqpos, evt_type, msg = reaper.MIDI_GetTextSysexEvt( take, i, true, true, 0, 0, "" )
-    if evt_type == 5 then
+    if evt_type == 5 and not muted then
       msg = msg:gsub("\r", "")  -- remove carriage return
       msg = msg:gsub("^%-", "") -- remove hyphen at the begining
       if strip_spaces_and_tilds then
