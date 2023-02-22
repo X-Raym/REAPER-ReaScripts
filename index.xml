@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a9237d1a5656f07c89f6392ed7c88d038cc5623e" name="X-Raym Scripts">
+<index version="1" commit="40df8073c787b80b51e9a298d6c4a0fb0468b5f0" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4055,6 +4055,14 @@
       <version name="1.0" author="X-Raym" time="2020-06-07T18:48:54Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Snap%20stretch%20marker%20under%20mouse%20to%20edit%20cursor.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Take FX list_ReaImGui.lua" type="script" desc="Take FX list (ReaImGui)">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/RCLyEnM.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2023-02-22T13:23:29Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/40df8073c787b80b51e9a298d6c4a0fb0468b5f0/Items%20Properties/X-Raym_Take%20FX%20list_ReaImGui.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle selected active takes reverse arround their snap offset.lua" type="script" desc="Toggle selected active takes reverse arround their snap offset">
