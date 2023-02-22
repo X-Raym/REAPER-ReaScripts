@@ -5,11 +5,13 @@
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog
+ * v1.1 (2023-02-22)
+  + Offline state
  * v1.0 (2023-02-22)
   + Initial release
 --]]
@@ -94,11 +96,21 @@ function Main()
   if count_fx == 0 then return end
   for i = 0, count_fx - 1 do
     local retval, take_fx_name = reaper.TakeFX_GetFXName( take, i )
+    
     local take_fx_enable = reaper.TakeFX_GetEnabled( take, i )
-    retval, retval_enable = reaper.ImGui_Checkbox( ctx, take_fx_name, take_fx_enable )
+    local retval, retval_enable = reaper.ImGui_Checkbox( ctx, take_fx_name, take_fx_enable )
     if retval then
       reaper.TakeFX_SetEnabled( take, i, retval_enable )
     end
+    
+    reaper.ImGui_SameLine( ctx )
+    
+    local take_fx_offline = reaper.TakeFX_GetOffline( take, i )
+    local retval, retval_offline = reaper.ImGui_Checkbox( ctx, "Offline##offline" .. i, take_fx_offline )
+    if retval then
+      reaper.TakeFX_SetOffline( take, i, retval_offline )
+    end
+    
   end
 end
 
