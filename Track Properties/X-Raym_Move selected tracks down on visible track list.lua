@@ -11,11 +11,13 @@
  * Forum Thread URI: Script to move track up or down
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.7
- * Version: 2.0.1
+ * Version: 2.0.2
 --]]
 
 --[[
  * Changelog:
+ * v2.0.2 (2023-02-22)
+  # Fix when parent track is selected
  * v2.0.1 (2019-03-06)
   # prevent console messages
  * v2.0 (2018-07-21)
@@ -133,6 +135,24 @@ function IsThereAnUnselectedTrackAfter( id )
   return out
 end
 
+function GetChildTracks( track )
+  local id = reaper.GetMediaTrackInfo_Value(track, "IP_TRACKNUMBER")
+  local depth =  reaper.GetTrackDepth( track )
+
+  local tracks = {}
+  local count_tracks = reaper.CountTracks()
+  for i = id, count_tracks - 1 do
+    local next_track = reaper.GetTrack( 0, i )
+    local next_depth =  reaper.GetTrackDepth( next_track )
+    if depth < next_depth then
+     table.insert( tracks, next_track )
+    else
+      break
+    end
+  end
+  return tracks
+end
+
 -- INIT
 local reaper = reaper
 
@@ -140,7 +160,7 @@ count_selected_track = reaper.CountSelectedTracks( 0 )
 if count_selected_track > 0 then
   if reaper.APIExists( 'ReorderSelectedTracks' ) then
 
-    reaper.PreventUIRefresh(1)
+    --reaper.PreventUIRefresh(1)
     reaper.Undo_BeginBlock()
 
     -- Save Tracks
@@ -152,9 +172,11 @@ if count_selected_track > 0 then
     for i = #sel_tracks, 1, -1 do
       local track = sel_tracks[i]
       id = reaper.GetMediaTrackInfo_Value( track, "IP_TRACKNUMBER" )
-      if IsThereAnUnselectedTrackAfter( id ) then
+      local child_tracks = GetChildTracks( track )
+      local offset = #child_tracks + 1
+      if IsThereAnUnselectedTrackAfter( id + offset ) then
         reaper.SetOnlyTrackSelected( track )
-        reaper.ReorderSelectedTracks(id+1, 0)
+        reaper.ReorderSelectedTracks(id + offset, 0)
       end
     end
 
@@ -167,45 +189,45 @@ if count_selected_track > 0 then
 
     reaper.Undo_EndBlock("Move selected tracks down on visible track list", -1)
 
-    reaper.PreventUIRefresh(-1)
+    --reaper.PreventUIRefresh(-1)
 
   elseif CheckSWS() then
 
-  reaper.PreventUIRefresh(1)
-
-  reaper.Undo_BeginBlock()
-
-  reaper.ClearConsole() -- Clean the console
-
-  -- Avoid complex selection with Child and their Parents
-  reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_UNSELPARENTS"),0) -- Unselect parent track
-
-  -- Save Tracks
-  sel_tracks = {}
-  SaveSelectedTracks( sel_tracks )
-
-  Main()
-
-  -- Select New Tracks
-  if new_tracks then
-    for i, track in ipairs( new_tracks ) do
-      reaper.SetTrackSelected( track, true )
+    reaper.PreventUIRefresh(1)
+  
+    reaper.Undo_BeginBlock()
+  
+    reaper.ClearConsole() -- Clean the console
+  
+    -- Avoid complex selection with Child and their Parents
+    reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_UNSELPARENTS"),0) -- Unselect parent track
+  
+    -- Save Tracks
+    sel_tracks = {}
+    SaveSelectedTracks( sel_tracks )
+  
+    Main()
+  
+    -- Select New Tracks
+    if new_tracks then
+      for i, track in ipairs( new_tracks ) do
+        reaper.SetTrackSelected( track, true )
+      end
     end
-  end
-
-  -- Select Source Tracks if they still exist
-  for i, track in ipairs( sel_tracks ) do
-    if Is_Valid_Track( track ) then
-      reaper.SetTrackSelected( track, true )
+  
+    -- Select Source Tracks if they still exist
+    for i, track in ipairs( sel_tracks ) do
+      if Is_Valid_Track( track ) then
+        reaper.SetTrackSelected( track, true )
+      end
     end
+    reaper.TrackList_AdjustWindows(0)
+    reaper.UpdateArrange()
+  
+    reaper.Undo_EndBlock("Move selected tracks down on visible track list", -1)
+  
+    reaper.PreventUIRefresh(-1)
+  
   end
-  reaper.TrackList_AdjustWindows(0)
-  reaper.UpdateArrange()
-
-  reaper.Undo_EndBlock("Move selected tracks down on visible track list", -1)
-
-  reaper.PreventUIRefresh(-1)
-
-end
 
 end
