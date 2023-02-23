@@ -5,11 +5,14 @@
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog
+ * v1.1 (2023-02-23)
+  # Column layout
+  # Colors
  * v1.1 (2023-02-22)
   + Offline state
  * v1.0 (2023-02-22)
@@ -19,8 +22,11 @@
 ----------------------------------------------------------------------
 -- USER CONFIG AREA --
 ----------------------------------------------------------------------
+
 console = true -- Display debug messages in the console
 reaimgui_force_version = false -- false or string like "0.8.4"
+bypass_color = "#FF0000"
+offline_color = "888888"
 
 ----------------------------------------------------------------------
                                          -- END OF USER CONFIG AREA --
@@ -81,6 +87,22 @@ end
 -- OTHER --
 ----------------------------------------------------------------------
 
+function HexToRGB( value )
+
+  local hex = value:gsub( "#", "" )
+  local R = tonumber( "0x"..hex:sub( 1,2 ) ) or 0
+  local G = tonumber( "0x"..hex:sub( 3,4 ) ) or 0
+  local B = tonumber( "0x"..hex:sub( 5,6 ) ) or 0
+
+  return R, G, B
+
+end
+
+function HexToIntReaImGUI( value, a )
+  local r, g, b = HexToRGB( value )
+  return reaper.ImGui_ColorConvertDouble4ToU32( r/255, g/255, b/255, a or 1 )
+end
+
 ----------------------------------------------------------------------
 -- RUN --
 ----------------------------------------------------------------------
@@ -94,24 +116,52 @@ function Main()
   reaper.ImGui_Spacing( ctx )
   count_fx = reaper.TakeFX_GetCount( take )
   if count_fx == 0 then return end
-  for i = 0, count_fx - 1 do
-    local retval, take_fx_name = reaper.TakeFX_GetFXName( take, i )
+  
+  if reaper.ImGui_BeginTable(ctx, '##table_output', 2,  reaper.ImGui_TableFlags_SizingFixedFit() ) then
+    reaper.ImGui_TableHeadersRow(ctx)
+    reaper.ImGui_TableSetColumnIndex(ctx, 0)
+    reaper.ImGui_TableHeader( ctx, "FX" )
+    reaper.ImGui_TableSetColumnIndex(ctx, 1)
+    reaper.ImGui_TableHeader( ctx, "Online" )
     
-    local take_fx_enable = reaper.TakeFX_GetEnabled( take, i )
-    local retval, retval_enable = reaper.ImGui_Checkbox( ctx, take_fx_name, take_fx_enable )
-    if retval then
-      reaper.TakeFX_SetEnabled( take, i, retval_enable )
+    -- One row per FX
+    for i = 0, count_fx - 1 do
+      local retval, take_fx_name = reaper.TakeFX_GetFXName( take, i )
+      
+      local take_fx_enable = reaper.TakeFX_GetEnabled( take, i )
+      local take_fx_offline = reaper.TakeFX_GetOffline( take, i )
+      
+      if take_fx_offline then
+        reaper.ImGui_PushStyleColor(ctx,  reaper.ImGui_Col_Text(), offline_color_int)
+      elseif not take_fx_enable then
+        reaper.ImGui_PushStyleColor(ctx,  reaper.ImGui_Col_Text(), bypass_color_int)
+      end
+      
+      reaper.ImGui_TableNextRow(ctx)
+            
+      reaper.ImGui_TableSetColumnIndex(ctx, 0)
+
+      local retval, retval_enable = reaper.ImGui_Checkbox( ctx, take_fx_name, take_fx_enable )
+      if retval then
+        reaper.TakeFX_SetEnabled( take, i, retval_enable )
+      end
+      
+      reaper.ImGui_TableSetColumnIndex(ctx, 1)
+      
+      local retval, retval_offline = reaper.ImGui_Checkbox( ctx, "##offline" .. i, not take_fx_offline )
+      if retval then
+        reaper.TakeFX_SetOffline( take, i, not retval_offline )
+      end
+      
+      if take_fx_offline or not take_fx_enable then
+        reaper.ImGui_PopStyleColor(ctx, 1)
+      end
+      
     end
     
-    reaper.ImGui_SameLine( ctx )
-    
-    local take_fx_offline = reaper.TakeFX_GetOffline( take, i )
-    local retval, retval_offline = reaper.ImGui_Checkbox( ctx, "Offline##offline" .. i, take_fx_offline )
-    if retval then
-      reaper.TakeFX_SetOffline( take, i, retval_offline )
-    end
-    
+    reaper.ImGui_EndTable(ctx)
   end
+  
 end
 
 function Run()
@@ -161,6 +211,9 @@ function Init()
   ctx = reaper.ImGui_CreateContext(input_title,  reaper.ImGui_ConfigFlags_DockingEnable())
   font = reaper.ImGui_CreateFont('sans-serif', 16)
   reaper.ImGui_Attach(ctx, font)
+  
+  offline_color_int = HexToIntReaImGUI(offline_color)
+  bypass_color_int = HexToIntReaImGUI(bypass_color)
 
   Run()
 end
