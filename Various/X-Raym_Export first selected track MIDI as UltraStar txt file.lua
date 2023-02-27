@@ -10,12 +10,14 @@
  * Licence: GPL v3
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
- * Version: 1.0.12
  * REAPER: 5.0
+ * Version: 1.0.13
 --]]
 
 --[[
  * Changelog:
+ * v1.0.13 (2023-02-27)
+  + Ignore out of items boundaries events
  * v1.0.12 (2023-02-21)
   + Ignore muted MIDI events
  * v1.0.11 (2023-02-20)
@@ -136,8 +138,17 @@ function SecondToBeat(second)
   return math.floor( ( beat_pos + (beat_duration / 2) ) )
 end
 
+function IsInTime( s, start_time, end_time )
+  if s >= start_time and s <= end_time then return true end
+  return false
+end
 
-function ProcessTakeMIDI( take, j )
+function ProcessTakeMIDI( take, j, item )
+
+  local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
+  local item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
+  local item_end = item_pos + item_len
+  
   syllables = {}
 
   local retval, count_notes, count_ccs, count_textsyx = reaper.MIDI_CountEvts( take )
@@ -148,7 +159,8 @@ function ProcessTakeMIDI( take, j )
   local lyrics = {} -- Note: these are stored in reverse pos order
   for i = 0, count_textsyx - 1 do
     local retval, selected, muted, ppqpos, evt_type, msg = reaper.MIDI_GetTextSysexEvt( take, i, true, true, 0, 0, "" )
-    if evt_type == 5 and not muted then
+    local evt_pos = reaper.MIDI_GetProjTimeFromPPQPos( take, ppqpos )
+    if evt_type == 5 and not muted and IsInTime( evt_pos, item_pos, item_end ) then
       msg = msg:gsub("\r", "")  -- remove carriage return
       msg = msg:gsub("^%-", "") -- remove hyphen at the begining
       if strip_spaces_and_tilds then
@@ -175,8 +187,9 @@ function ProcessTakeMIDI( take, j )
 
   for i = 0, count - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
+    local note_start_pos = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos )
     
-    if not muted then
+    if not muted and IsInTime( note_start_pos, item_pos, item_end ) then
 
       local start_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos ) - gap
       local end_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos ) - gap
@@ -347,7 +360,7 @@ function Main( track )
     local item = reaper.GetTrackMediaItem(track, j)
     local take = reaper.GetActiveTake(item)
     if take and reaper.TakeIsMIDI( take ) then
-      local take_midi = ProcessTakeMIDI( take, j )
+      local take_midi = ProcessTakeMIDI( take, j, item )
       if take_midi then
         table.merge( elms, take_midi )
       end

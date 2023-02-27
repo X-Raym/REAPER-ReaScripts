@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.3
+ * Version: 1.0.4
 --]]
 
 --[[
  * Changelog:
+ * v1.0.4 (2023-02-27)
+  + Ignore out of items boundaries events
  * v1.0.3 (2023-02-21)
   + Ignore muted MIDI events
  * v1.0 (2023-02-10)
@@ -146,6 +148,11 @@ end
 
 function IsInTime( s, start_time, end_time )
   if s >= start_time and s <= end_time then return true end
+  return false
+end
+
+function IsInTimeSelection2( s, e, start_time, end_time )
+  if (s >= start_time and s < end_time) or (e > start_time and e <= end_time) or (s<=start_time and e >= end_time) then return true end
   return false
 end
 
@@ -338,16 +345,25 @@ function ProcessMarkers()
   return markers
 end
 
-function ProcessTakeMIDI( take )
+function ProcessTakeMIDI( take, item )
 
   local retval, count_notes, count_ccs, count_textsyx = reaper.MIDI_CountEvts( take )
   if count_notes == 0 or count_textsys == 0 then return end
   
+  local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
+  local item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
+  local item_end = item_pos + item_len
+  
   local notes_end_by_pos = {}
   for i = 0, count_notes - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
-    if not muted then
-      notes_end_by_pos[startppqpos] =  reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos )
+    local note_start_pos = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos )
+    local note_end_pos = reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos )
+    if not muted and IsInTimeSelection2( note_start_pos, note_end_pos, item_pos, item_end ) then
+      note_start_pos = (note_start_pos < item_pos and item_pos) or note_start_pos
+      --startppqpos = reaper.MIDI_GetPPQPosFromProjTime( take, note_start_pos ) -- TOFIX: if note start is before item start.
+      note_end_pos = (note_end_pos > item_end and item_end) or note_end_pos
+      notes_end_by_pos[startppqpos] = note_end_pos
     end
   end
 
@@ -365,8 +381,9 @@ function ProcessTakeMIDI( take )
       end
       text_evts_ppq[ppqpos] = msg
       if msg:len()==0 then msg = "~" end
-      if notes_end_by_pos[ppqpos] then
-        table.insert(take_lyrics,{ pos_start = reaper.MIDI_GetProjTimeFromPPQPos( take, ppqpos ), msg = msg, pos_end = notes_end_by_pos[ppqpos] })
+      local evt_pos = reaper.MIDI_GetProjTimeFromPPQPos( take, ppqpos )
+      if notes_end_by_pos[ppqpos] and IsInTime( evt_pos, item_pos, item_end ) then
+        table.insert(take_lyrics,{ pos_start = evt_pos, msg = msg, pos_end = notes_end_by_pos[ppqpos] })
       end
     end
   end
@@ -433,7 +450,7 @@ function Run()
       item = reaper.GetTrackMediaItem( track, i )
       take = reaper.GetActiveTake( item )
       if take and reaper.TakeIsMIDI( take ) then
-        lyrics = TableMergeNew( lyrics, ProcessTakeMIDI( take ) )
+        lyrics = TableMergeNew( lyrics, ProcessTakeMIDI( take, item ) )
       end
     end
     
