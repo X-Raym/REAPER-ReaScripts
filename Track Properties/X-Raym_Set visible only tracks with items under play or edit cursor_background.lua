@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Set visible only tracks with items under cusor under cursor_background
+ * ReaScript Name: Set visible only tracks with items under play or edit cursor
  * About: Default ignore muted items. Moded from mpl_Toggle show tracks if play cursor crossing any of their items.lua
  * Screenshot: https://i.imgur.com/JkkJmoB.gif
  * Author: X-Raym
