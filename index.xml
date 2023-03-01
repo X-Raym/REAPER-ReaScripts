@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="dba0fd8789d5ef38cfcd06959c5f605897bee58a" name="X-Raym Scripts">
+<index version="1" commit="db26289e3292fa31e630b7cab86c2ce58faf610c" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -7123,6 +7123,22 @@
     <reapack name="X-Raym_Set track under mouse as last touched.lua" type="script" desc="Set track under mouse as last touched">
       <version name="2.0" author="X-Raym" time="2021-03-10T11:02:52Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Track%20Properties/X-Raym_Set%20track%20under%20mouse%20as%20last%20touched.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set visible only tracks with items under cusor under cursor_background.lua" type="script" desc="Set visible only tracks with items under cusor under cursor_background">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Default ignore muted items. Moded from mpl_Toggle show tracks if play cursor crossing any of their items.lua\par}
+}
+]]></description>
+        <link rel="screenshot">https://i.imgur.com/JkkJmoB.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2023-03-01T14:11:03Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/db26289e3292fa31e630b7cab86c2ce58faf610c/Track%20Properties/X-Raym_Set%20visible%20only%20tracks%20with%20items%20under%20cusor%20under%20cursor_background.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Solo exclusive selected tracks.eel" type="script" desc="Solo exclusive selected tracks">
