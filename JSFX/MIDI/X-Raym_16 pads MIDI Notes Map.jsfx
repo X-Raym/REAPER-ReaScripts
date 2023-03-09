@@ -7,7 +7,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.14
+ * Version: 1.15
  * Provides:
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
@@ -16,6 +16,8 @@
 
 /**
  * Changelog:
+ * v1.15 (2023-03-09)
+  # Keep images proportion and center
  * v1.14 (2022-09-10)
   # Fix note-offs
  * v1.13 (2022-03-25)
@@ -261,11 +263,11 @@ while
     1; // Force loop to continue until all messages have been processed
 
   );
-  
+
   last_chan = slider1;
   last_pad_in = slider2;
   last_remap = slider3;
-  
+
   i = 0;
   loop( 16,
     last_notes_sliders[i] = slider( 10 + i );
@@ -320,7 +322,7 @@ function uix_HSL2RGB(h,s,l) local(q,p,h,r,g,b)(
   gfx_r = r; gfx_g = g; gfx_b = b;
 );
 
-function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
+function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len, dest_w, dest_h, ratio)
 (
   x_offset = 0;
   i = 3;
@@ -402,9 +404,17 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len)
 
       ):( // Images
           gfx_getimgdim(slider(pad+10), w, h);
-          destx = j * pad_w;
-          desty = i * pad_h;
-          gfx_blit(slider(pad+10), 1, 0, 0, -scale, w, h, destx, desty, pad_w, pad_h, 0, 0); // scale is in fact use for offset
+          dest_w = pad_w;
+          dest_h = pad_h;
+          ratio = w/h;
+          dest_w / dest_h > ratio ? (
+            dest_w = dest_h*ratio;
+          ):(
+            dest_h = dest_w*ratio;
+          );
+          dest_x = j * pad_w + (pad_w-dest_w)/2;;
+          dest_y = i * pad_h + (pad_h-dest_h)/2;
+          gfx_blit(slider(pad+10), 1, 0, 0, -scale, w, h, dest_x, dest_y, dest_w, dest_h, 0, 0); // scale is in fact use for offset
 
       );
 
