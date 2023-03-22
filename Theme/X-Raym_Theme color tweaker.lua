@@ -6,11 +6,18 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.6.15
+ * Version: 0.7.0
 --]]
 
 --[[
  * Changelog:
+ * v0.7.0 (2023-03-22)
+  # Fixed channel swap on MacOS and Linux
+  + Quit with ESC
+  # Restore initial theme button
+  # Better export naming
+  # Load new theme at export
+  # Restore button on the left
  * v0.6.15 (2022-11-29)
   # ReaImGui v0.8 support
   # ReaImGui SHIM file call with v0.8
@@ -201,13 +208,18 @@ function LoadTheme( theme_path, reload )
   if reload then reaper.OpenColorThemeFile( theme_path ) end
   theme_is_zip =  not reaper.file_exists( theme_path )
   theme_folder, theme_name, theme_ext =  SplitFileName( theme_path )
-  theme_mod_name = theme_name .. " - Mod"
+  theme_prefix, theme_version_str= theme_name:match("(.+) %- Mod (%d+)" )
+  theme_prefix = theme_prefix or theme_name
+  theme_version_num = theme_version_str and tonumber( theme_version_str ) or 0
+  theme_version_num = theme_version_num + 1
+  theme_mod_name = theme_prefix .. " - Mod " .. theme_version_num
 
   modes_tab, items_tab = FilterTab( all_tab, "mode dm", true )
 
   colors, colors_backup = {}, {}
   for k, v in ipairs( items_tab ) do
-    local col = reaper.GetThemeColor(v,0)
+    local col = reaper.GetThemeColor(v,0) -- NOTE: Flag doesn't seem to work (v6.78). Channel are swapped on MacOS and Linux.
+    -- if os_sep == "/" then col = SwapINTrgba( col ) end -- in fact, better staus with channel swap cause at least it works
     colors[v] = col
     colors_backup[v] = col
   end
@@ -253,6 +265,12 @@ function step(r, g, b, repetitions)
   return h2, lum, v2
 end
 
+function SwapINTrgba( int )
+  return (int >> 16 & 0x000000ff) |
+         (int       & 0xff00ff00) |
+         (int << 16 & 0x00ff0000)
+end
+
 ----------------------------------------------------------------------
 -- EXPORT  --
 ----------------------------------------------------------------------
@@ -272,7 +290,15 @@ end
 function ExportTheme()
   local t = {"[color theme]"}
   for i, v in ipairs(all_tab) do
-    table.insert(t, v .. "=" .. ( colors[v] or modes[v]) )
+    local col
+    if colors[v] then
+      if os_sep == "\\" then
+        col = colors[v]
+      else
+        col = SwapINTrgba( colors[v] )
+      end
+    end
+    table.insert(t, v .. "=" .. ( col or modes[v]) )
   end
   table.insert(t, "[REAPER]")
   for i, v in ipairs(fonts_tab) do
@@ -316,8 +342,8 @@ function loop()
     -- Popup
     local display_size = {reaper.ImGui_GetWindowSize(ctx)}
     local center = { display_size[1] * 0.5, display_size[2] * 0.5 }
-
-    reaper.ImGui_SetNextWindowPos(ctx, center[1], center[2], reaper.ImGui_Cond_Appearing(), 0.5, 0.5)
+    local x, y = reaper.ImGui_GetWindowPos( ctx )
+    reaper.ImGui_SetNextWindowPos(ctx, x + center[1], y + center[2], reaper.ImGui_Cond_Appearing(), 0.5, 0.5)
 
     if reaper.ImGui_BeginPopupModal(ctx, 'Info', nil, reaper.ImGui_WindowFlags_AlwaysAutoResize() |  reaper.ImGui_WindowFlags_NoMove()) then
       reaper.ImGui_Text(ctx, export_text)
@@ -328,7 +354,16 @@ function loop()
       end
       reaper.ImGui_Separator(ctx)
 
-      if reaper.ImGui_Button(ctx, 'OK', 120, 0) then reaper.ImGui_CloseCurrentPopup(ctx) end
+      if reaper.ImGui_Button(ctx, 'OK', 120, 0) then
+        reaper.ImGui_CloseCurrentPopup(ctx)
+      end
+      reaper.ImGui_SameLine( ctx )
+      if reaper.ImGui_Button(ctx, 'Load New Theme', 120, 0) then
+        local theme_mod_path = GetExportThemeFileName()
+        LoadTheme( theme_mod_path, true )
+        theme_path = theme_mod_path
+        reaper.ImGui_CloseCurrentPopup(ctx)
+      end
       reaper.ImGui_SetItemDefaultFocus(ctx)
       reaper.ImGui_EndPopup(ctx)
     end
@@ -342,6 +377,12 @@ function loop()
       local theme_mod_path = GetExportThemeFileName()
       LoadTheme( theme_mod_path, true )
       theme_path = theme_mod_path
+    end
+    
+    reaper.ImGui_SameLine( ctx )
+    if reaper.ImGui_Button(ctx, 'Restore Initial Theme') then
+      LoadTheme( init_theme_path, true )
+      theme_path = init_theme_path
     end
 
     reaper.ImGui_Spacing( ctx )
@@ -372,8 +413,8 @@ function loop()
       end
     end
     table.sort(palette, function (first, second) -- Thx to gxray!!!!
-      local r1, b1, g1 = reaper.ColorFromNative(first)
-      local r2, b2, g2 = reaper.ColorFromNative(second)
+      local r1, g1, b1, a1 = reaper.ImGui_ColorConvertU32ToDouble4(first)
+      local r2, g2, b2, a2 = reaper.ImGui_ColorConvertU32ToDouble4(second)
       local step_count = 8 -- This doesn't seems to do anything
       return step(r1, g1, b1, step_count) > step(r2, g2, b2, step_count)
     end)
@@ -430,16 +471,7 @@ function loop()
     reaper.ImGui_Spacing( ctx )
 
     for i, v in ipairs( tab ) do
-      reaper.ImGui_PushItemWidth(ctx, 100) -- Set max with of inputs
-      retval, colors[v] = reaper.ImGui_ColorEdit3(ctx, (color_descriptions_num == 0 and theme_var_descriptions and theme_var_descriptions[v]) or v, reaper.ImGui_ColorConvertNative(colors[v]),  reaper.ImGui_ColorEditFlags_DisplayHex() )
-      colors[v] = reaper.ImGui_ColorConvertNative( colors[v] )
-      if retval then -- if changed
-        reaper.SetThemeColor( v, colors[v], 0 )
-        reaper.ThemeLayout_RefreshAll()
-      end
-      reaper.ImGui_SameLine(ctx, math.max(reaper.ImGui_GetWindowWidth( ctx )-80, 310) )
-      reaper.ImGui_SameLine(ctx, math.max(reaper.ImGui_GetWindowWidth( ctx )-80, 630) )
-
+      
       pop_style = false
       if colors[v] ~= colors_backup[v] then
         local buttonColor = ColorConvertHSVtoInt( 7.0, 0.6, 0.6, 1.0 )
@@ -450,18 +482,29 @@ function loop()
         r.ImGui_PushStyleColor(ctx, r.ImGui_Col_ButtonActive(),  activeColor)
         pop_style = true
       end
-
+      
       if r.ImGui_Button(ctx, "Restore##3f"..i) then
         colors[v] = colors_backup[v]
         reaper.SetThemeColor( v, colors[v], 0 )
         reaper.ThemeLayout_RefreshAll()
       end
-
+      
       if pop_style then
         pop_style = false
         r.ImGui_PopStyleColor(ctx, 3)
       end
-
+      
+      reaper.ImGui_SameLine( ctx )
+      
+      reaper.ImGui_PushItemWidth(ctx, 92) -- Set max with of inputs
+      
+      retval, colors[v] = reaper.ImGui_ColorEdit3(ctx, (color_descriptions_num == 0 and theme_var_descriptions and theme_var_descriptions[v]) or v, reaper.ImGui_ColorConvertNative(colors[v]),  reaper.ImGui_ColorEditFlags_DisplayHex() )
+      colors[v] = reaper.ImGui_ColorConvertNative( colors[v] )
+      if retval then -- if changed
+        reaper.SetThemeColor( v, colors[v], 0 )
+        reaper.ThemeLayout_RefreshAll()
+      end
+      
       reaper.ImGui_PopItemWidth( ctx ) -- Restore max with of input
     end
 
@@ -476,7 +519,7 @@ function loop()
   reaper.ImGui_PopStyleColor(ctx) -- Remove black opack background
   reaper.ImGui_PopFont(ctx)
 
-  if not imgui_open then
+  if not imgui_open or reaper.ImGui_IsKeyPressed(ctx, 27) then
     reaper.ImGui_DestroyContext(ctx)
   else
     reaper.defer(loop)
@@ -491,6 +534,7 @@ end
 reaper.ClearConsole()
 
 theme_path = reaper.GetLastColorThemeFile()
+init_theme_path = theme_path
 LoadTheme( theme_path )
 
 --table.sort(all_tab)
