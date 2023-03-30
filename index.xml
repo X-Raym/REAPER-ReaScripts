@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="fe38b9aa6d8b5b0210e833458588080a11186738" name="X-Raym Scripts">
+<index version="1" commit="e03e7ea8343da1528695f232d9a7d22a7e2483ae" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1707,6 +1707,22 @@
     <reapack name="X-Raym_Toggle all FX except those with (ON) and (OFF) suffixes.eel" type="script">
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/FX/X-Raym_Toggle%20all%20FX%20except%20those%20with%20(ON)%20and%20(OFF)%20suffixes.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Toggle focused FX chain panel.lua" type="script" desc="Toggle focused FX chain panel.lua">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Works on Take FX, Track FX, Input Track FX, Master FX, and Monitor FX.\par}
+}
+]]></description>
+        <link rel="screenshot">https://i.imgur.com/dYiR6e3.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2023-03-30T19:47:19Z">
+        <changelog><![CDATA[+ Initial release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e03e7ea8343da1528695f232d9a7d22a7e2483ae/FX/X-Raym_Toggle%20focused%20FX%20chain%20panel.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle JS Pitch Shifter and Reapitch on selected tracks according to record arm.lua" type="script" desc="TToggle JS Pitch Shifter and Reapitch on selected tracks according to record arm">
