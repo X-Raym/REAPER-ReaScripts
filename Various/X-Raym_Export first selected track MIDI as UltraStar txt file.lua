@@ -148,7 +148,7 @@ function ProcessTakeMIDI( take, j, item )
   local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
   local item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
   local item_end = item_pos + item_len
-  
+
   syllables = {}
 
   local retval, count_notes, count_ccs, count_textsyx = reaper.MIDI_CountEvts( take )
@@ -171,14 +171,14 @@ function ProcessTakeMIDI( take, j, item )
       table.insert(lyrics,1,{pos=ppqpos+5,msg=msg}) -- + 1 is for unexplained rounding error
     end
   end
-  
+
   -- Check if there is non-muted lyrics
   if #lyrics == 0 then return end
 
   count = count_notes
   if #lyrics < count_notes then count = #lyrics end
   logging = nil
-  
+
   if j == 0 then -- First take and first lyrics -- NOT: should be first synced lyrics for extra precision
     gap = reaper.MIDI_GetProjTimeFromPPQPos( take, lyrics[#lyrics].pos-5 ) -- -5, see above
   end
@@ -188,7 +188,7 @@ function ProcessTakeMIDI( take, j, item )
   for i = 0, count - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
     local note_start_pos = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos )
-    
+
     if not muted and IsInTime( note_start_pos, item_pos, item_end ) then
 
       local start_sec = reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos ) - gap
@@ -197,33 +197,33 @@ function ProcessTakeMIDI( take, j, item )
       local len_beats = SecondToBeat(len_sec)
       if len_beats < 1 then len_beats = 1 end
       if chan + 1 > #prefix then chan = 0 end
-  
+
       local entry = {}
       entry.pos = start_sec
       entry.str = prefix[chan+1] .. SecondToBeat(start_sec) .. " " .. len_beats .. " " .. ( pitch - 60 )
-  
+
       -- find all lyrics aligned with this MIDI note
       local lyric = table.remove(lyrics)
       while lyric do
-  
+
         -- if lyric timing is later than this note
         if lyric.pos >= endppqpos then
           -- put lyric back and skip scanning for more lyrics
           table.insert(lyrics,lyric)
           break
         end
-  
+
         if lyric.pos < startppqpos then
           -- do nothing
         else
           -- lyric is for this note
           entry.str = entry.str .. " " .. lyric.msg
         end
-  
+
         -- get next lyric
         lyric = table.remove(lyrics)
       end
-  
+
       if logging and (i < 10 or i > count-10) then
         b = reaper.MIDI_GetProjQNFromPPQPos(take, startppqpos) + 4
         b = string.format("%03d.%5.3f", b // 4, (b % 4)+1)
@@ -231,7 +231,7 @@ function ProcessTakeMIDI( take, j, item )
         --start_sec = start_sec + gap
         --.. string.format(" gap=%03.3f t=%02d:%06.3f,%07.3f b=%s c=%02d p=%02d %s\n",gap,math.floor(start_sec/60),start_sec % 60,start_sec,b,chan,pitch-60,lyrics[i+1])
       end
-  
+
       table.insert(syllables,entry)
     end
   end
@@ -272,7 +272,7 @@ end
 
 
 function ExportData( elms )
-  
+
   -- Lyrics lines
   local lines = {}
   for i, line in ipairs(elms) do
@@ -282,11 +282,11 @@ function ExportData( elms )
   end
 
   txt_str = table.concat(lines, "\n")
-  
+
   -- Header Lines
   meta.GAP = string.gsub( tostring(math.floor((gap+project_offset) * 1000 + 0.5 )), "%.", ",")
   meta.BPM = tostring( bpm )
-  
+
   -- Do header with predetermined list of keys
   keys_already_done = {}
   header_fields = {"TITLE", "ARTIST", "LANGUAGE", "YEAR", "GENRE", "CREATOR", "EDITION", "MP3", "COVER", "VIDEO", "BPM", "GAP"} -- Not "TITLE", "ARTIST" here
@@ -297,26 +297,26 @@ function ExportData( elms )
     end
     keys_already_done[v] = true
   end
-  
+
   -- Do meta which are not on the list above
   for k, v in pairs( meta ) do
     if not keys_already_done then
       table.insert( file_header_t, "#" .. k .. ":" .. v )
     end
   end
-  
+
   -- Concat File Header
   file_header_str = table.concat( file_header_t, "\n" )
 
   txt_str = file_header_str .. "\n" .. txt_str .. "\nE\n"
-  
+
   file = proj_name .. '.txt'
   file_path = ""
   if save_file_popup and reaper.JS_Dialog_BrowseForSaveFile then
-    
+
     ext_retval, file_path = reaper.GetProjExtState( 0, ext_state, "file_path" )
     ext_file_folder, ext_file_name = SplitFilename( file_path )
-    
+
     retval, file_name = reaper.JS_Dialog_BrowseForSaveFile( "Save Take Sources CSV", ext_file_folder, ext_file_name, 'txt files (.txt)\0*.txt\0All Files (*.*)\0*.*\0' )
     if not retval or retval == 0 then return false end
     if file_name ~= '' then
@@ -327,7 +327,7 @@ function ExportData( elms )
   else
     file_path = proj_folder .. file
   end
-  
+
   local f = io.open(file_path, "w")
   io.output(file_path)
   io.write(txt_str)
@@ -337,7 +337,7 @@ function ExportData( elms )
   Msg(txt_str)
   Msg("Success! File:")
   Msg(file_path)
-  
+
   if reaper.CF_SetClipboard and clipboard then
     reaper.CF_SetClipboard(txt_str)
     Msg("Copied to clipboard")
@@ -404,27 +404,27 @@ end
 
 function Init()
   track = reaper.GetSelectedTrack(0,0)
-  
+
   if not track then
     track = GetSelectLyricsTrack()
   end
-  
+
   if track then
-  
+
     reaper.PreventUIRefresh(1)
-  
+
     reaper.Undo_BeginBlock() -- Begining of the undo block.
-  
+
     reaper.ClearConsole()
-  
+
     Main( track ) -- Execute your main function
-  
+
     reaper.Undo_EndBlock("Export first selected track MIDI as UltraStar txt file", 0) -- End of the undo block.
-  
+
     reaper.PreventUIRefresh(-1)
-  
+
   end
-  
+
 end
 
 if not preset_file_init then
