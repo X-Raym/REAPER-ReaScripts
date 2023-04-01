@@ -7,18 +7,30 @@
  * Donation: https://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
  */
 
 /**
  * Changelog:
+ * v1.0.1 (2023-04-01)
+  + GFX for TCP/MCP embed
  * v1.0 (2023-03-15)
   + Initial Release
  */
 
 desc:Mute on loop
 
-slider1:0<0,1,1{Unmuted,Muted}>Mute State
+slider1:0<0,1,1{Unmuted,Muted}>State
+
+@gfx 160 40
+gfx_r = 0.5; gfx_g = 0.5; gfx_b = 0.5;
+gfx_rect( 0, 0, gfx_w, gfx_h );
+
+slider1 == 1 ? (
+  gfx_r = 0; gfx_g = 0; gfx_b = 0;
+  gfx_rect( 0, 0, gfx_w, gfx_h );
+);
+
 
 @sample
 slider1 == 0 && play_state > 0 && play_position < last_pos ?(
@@ -30,6 +42,7 @@ slider1 == 1 ? (
   loop(num_ch, channel += 1;
     spl(channel) = 0;
     slider1 = 1;
+    slider_automate(1);
   );
 );
 
