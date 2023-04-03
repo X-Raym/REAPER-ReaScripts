@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.7.0
+ * Version: 0.7.1
 --]]
 
 --[[
  * Changelog:
+ * v0.7.1 (2023-04-03)
+  # Nil error message
  * v0.7.0 (2023-03-22)
   # Fixed channel swap on MacOS and Linux
   + Quit with ESC
@@ -534,6 +536,9 @@ end
 reaper.ClearConsole()
 
 theme_path = reaper.GetLastColorThemeFile()
+if not theme_path or theme_path == "" then
+  return reaper.MB( "REAPER Bug (known issue): GetLastColorThemeFile returns invalid value.\nTry to change theme and switch back before running the script", "Error", 0 )
+end
 init_theme_path = theme_path
 LoadTheme( theme_path )
 
