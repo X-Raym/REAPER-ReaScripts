@@ -8,7 +8,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version:  1.0.1
+ * Version:  1.0.2
  * MetaPackage: true
  * Provides:
  *   [main] . > X-Raym_Click at X Y screen position_slot 1.lua
@@ -29,21 +29,31 @@ else
   slot = 1
 end
 
+if not reaper.JS_Window_GetFocus then
+  reaper.MB('Please Install js_ReaScriptAPI extension.\nhttps://forum.cockos.com/showthread.php?t=212174\n', "Error", 1)
+  return false
+end
+
+--[[
+function ClickMouse(hwnd, x, y) 
+  reaper.JS_WindowMessage_Post( hwnd, "WM_LBUTTONDOWN", 1, 0, x, y)
+  reaper.JS_WindowMessage_Post( hwnd, "WM_LBUTTONUP", 0, 0, x, y)
+end
+]]
+
 function Init()
   x = reaper.GetExtState(ext_name, "x" .. slot, false)
   y = reaper.GetExtState(ext_name, "y" .. slot, false)
-  aaaaaaaa = x
   if x ~= "" and y ~= "" then
     x = tonumber( x )
     y = tonumber( y )
     if x and y then
-      reaper.Undo_BeginBlock()
       reaper.JS_Mouse_SetPosition( x, y )
       hwnd = reaper.JS_Window_FromPoint( x, y )
       reaper.JS_Window_SetFocus( hwnd )
       reaper.JS_Window_SetForeground( hwnd )
+      --ClickMouse(hwnd, x, y)
       reaper.Main_OnCommand( reaper.NamedCommandLookup( "_S&M_MOUSE_L_CLICK" ), 0 ) -- SWS/S&M: Left mouse click at cursor position (use w/o modifier)
-      reaper.Undo_EndBlock("Click", -1)
     end
   end
 end
