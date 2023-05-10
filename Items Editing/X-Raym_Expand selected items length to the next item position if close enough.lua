@@ -1,7 +1,6 @@
 --[[
  * ReaScript Name: Expand selected items length to the next item position if close enough
  * About: Expand selected items to the next item position
- * Instructions: Select items and perform the script.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -10,94 +9,200 @@
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 2.0
 --]]
 
 --[[
  * Changelog:
+ * v2.0 (2023-05-10)
+  # New core
+  + Save last input
+  + deactivable popup
+  + preset script support
  * v1.0 (2015-08-23)
   + Initial Release
 --]]
 
--- TO DO: ITEMS INSIDE OTHERS
+-- TODO: ITEMS INSIDE OTHERS
 
-threshold = 1
+-----------------------------------------------------------
+-- USER CONFIG AREA --
+-----------------------------------------------------------
 
-function main()
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
-  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
+console = true
+popup = true -- User input dialog box
 
-  -- LOOP THROUGH SELECTED ITEMS
-  selected_items_count = reaper.CountSelectedMediaItems(0)
+vars = vars or {}
+vars.gap = 1
 
-  for i=0, selected_items_count - 1 do
+input_title = "Expand items right"
+undo_text = "Expand selected items length to the next item position if close enough"
+-----------------------------------------------------------
+                              -- END OF USER CONFIG AREA --
+-----------------------------------------------------------
 
-    item = reaper.GetSelectedMediaItem(0, i)
+-----------------------------------------------------------
+-- GLOBALS --
+-----------------------------------------------------------
 
-      -- GET INFOS
-      item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION") -- Get the value of a the parameter
+vars_order = {"gap"}
 
-      -- GET TRACK
-      item_track = reaper.GetMediaItemTrack(item)
+instructions = instructions or {}
+instructions.gap = "Consecutivity Threshold? (s)"
 
-      -- GET ID ON TRACK
-      item_id = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
+sep = "\n"
+extrawidth = "extrawidth=0"
+separator = "separator=" .. sep
 
-    item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+ext_name = "XR_ExpandItemsRightIfClose"
 
-    item_end = item_pos + item_len
+-----------------------------------------------------------
+-- DEBUGGING --
+-----------------------------------------------------------
+function Msg(g)
+  if console then
+    reaper.ShowConsoleMsg(tostring(g).."\n")
+  end
+end
 
-      -- GET NEXT ITEM
-      next_item = reaper.GetTrackMediaItem(item_track, item_id+1)
+-----------------------------------------------------------
+-- STATES --
+-----------------------------------------------------------
+function SaveState()
+  for k, v in pairs( vars ) do
+    reaper.SetExtState( ext_name, k, tostring(v), true )
+  end
+end
 
-      -- IF NEXT ITEM
-      if next_item ~= nil then
+function GetExtState( var, val )
+  local t = type( val )
+  if reaper.HasExtState( ext_name, var ) then
+    val = reaper.GetExtState( ext_name, var )
+  end
+  if t == "boolean" then val = toboolean( val )
+  elseif t == "number" then val = tonumber( val )
+  end
+  return val
+end
 
-        next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
+function GetValsFromExtState()
+  for k, v in pairs( vars ) do
+    vars[k] = GetExtState( k, vars[k] )
+  end
+end
 
-    distance = next_item_pos - item_end
+function ConcatenateVarsVals(t, sep, vars_order)
+  local vals = {}
+  for i, v in ipairs( vars_order ) do
+    vals[i] = t[v]
+  end
+  return table.concat(vals, sep)
+end
 
-    if distance < threshold then
-      -- MODIFY INFOS
-      item_len_input = next_item_pos - item_pos -- Prepare value output
+function ParseRetvalCSV( retvals_csv, sep, vars_order )
+  local t = {}
+  local i = 0
+  for line in retvals_csv:gmatch("[^" .. sep .. "]*") do
+    i = i + 1
+    t[vars_order[i]] = line
+  end
+  return t
+end
 
-      -- SET INFOS
-      reaper.SetMediaItemInfo_Value(item, "D_LENGTH", item_len_input) -- Set the value to the parameter
+function ValidateVals( vars, vars_order )
+  local validate = true
+  for i, v in ipairs( vars_order ) do
+    if vars[v] == nil then
+      validate = false
+      break
+    end
+  end
+  return validate
+end
 
-    else
+-----------------------------------------------------------
+-- MAIN --
+-----------------------------------------------------------
+function Main()
 
-      if distance < threshold * 2 then
+  for i=0, count_sel_items - 1 do
 
-        reaper.SetMediaItemInfo_Value(item, "D_LENGTH", item_len + threshold)
+    local item = reaper.GetSelectedMediaItem(0, i)
+    local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION") -- Get the value of a the parameter
+    local item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
+    local item_end = item_pos + item_len
+
+    local item_track = reaper.GetMediaItemTrack(item)
+    local item_id = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
+
+    local next_item = reaper.GetTrackMediaItem(item_track, item_id+1)
+
+    if next_item then
+
+      local next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
+      local distance = next_item_pos - item_end
+
+      if distance < vars.gap then
+
+        local item_len_input = next_item_pos - item_pos -- Prepare value output
+        reaper.SetMediaItemInfo_Value(item, "D_LENGTH", item_len_input) -- Set the value to the parameter
 
       end
 
     end
 
-      end
-
-  end -- ENDLOOP through selected items
-
-
-  reaper.Undo_EndBlock("Expand selected items length to the next item position if close enough", -1) -- End of the undo block. Leave it at the bottom of your main function.
-end
-
-retval, user_input = reaper.GetUserInputs("Consecutivity Threshold",1,"Consecutivity Threshold (s)",tostring(threshold))
-
-if retval then
-
-  threshold = tonumber(user_input)
-
-  if threshold ~= nil then
-
-    reaper.PreventUIRefresh(1)
-
-    main() -- Execute your main function
-
-    reaper.UpdateArrange() -- Update the arrangement (often needed)
-
-    reaper.PreventUIRefresh(-1)
   end
 
 end
 
+-----------------------------------------------------------
+-- INIT --
+-----------------------------------------------------------
+function Init()
+
+  count_sel_items = reaper.CountSelectedMediaItems(0)
+  if count_sel_items == 0 then return false end
+
+  if popup then
+
+    if not preset_file_init and not reset then
+      GetValsFromExtState()
+    end
+
+    retval, retvals_csv = reaper.GetUserInputs(input_title, #vars_order, ConcatenateVarsVals(instructions, sep, vars_order) .. sep .. extrawidth .. sep .. separator, ConcatenateVarsVals(vars, sep, vars_order) )
+    if retval then
+      vars = ParseRetvalCSV( retvals_csv, sep, vars_order )
+      -- CUSTOM SANITIZATION HERE
+      vars.gap = tonumber( vars.gap )
+    end
+  end
+
+  if not popup or ( retval and ValidateVals(vars, vars_order) ) then Run() end -- if user complete the fields
+
+end
+
+function Run()
+  -- RUN
+  reaper.PreventUIRefresh(1)
+
+  reaper.Undo_BeginBlock()
+
+  if not no_clear_console_init then reaper.ClearConsole() end
+
+  if popup then SaveState() end
+
+  Main() -- Execute your main function
+
+  reaper.Undo_EndBlock(undo_text, -1)
+
+  reaper.UpdateArrange()
+
+  reaper.PreventUIRefresh(-1)
+end
+
+if not preset_file_init then
+  Init()
+end
