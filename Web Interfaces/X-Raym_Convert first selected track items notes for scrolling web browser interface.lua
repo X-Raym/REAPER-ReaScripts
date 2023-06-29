@@ -9,11 +9,13 @@
  * Licence: GPL v3
  * REAPER: 5.0
  * Link: Forum https://forum.cockos.com/showthread.php?p=2127630#post2127630
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2023-06-29)
+  # encode quotes
  * v1.0 (2022-06-20)
   + Initial Release
 --]]
@@ -40,17 +42,16 @@ function Main()
 
     lines = { "{ \"entry\": [" }
     for i, v in ipairs( t ) do
-      local line = "\n{\n  \"pos_start\": " .. v.pos_start .. ",\n  \"pos_end\": " .. v.pos_end  .. ",\n  \"text\": \"" .. v.text:gsub("\n", "<br>"):gsub("\r", "") .. "\"\n},"
+      local line = "\n{\n  \"pos_start\": " .. v.pos_start .. ",\n  \"pos_end\": " .. v.pos_end  .. ",\n  \"text\": \"" .. v.text:gsub("\n", "<br>"):gsub("\r", ""):gsub('"', '\\"') .. "\"\n},"
       table.insert( lines, line )
     end
     table.insert( lines, "]\n}" )
-
 
     ext_name = "XR_Lyrics"
     json = table.concat(lines):gsub(",]", "]")
     reaper.ClearConsole()
     --reaper.ShowConsoleMsg( json )
-    --reaper.CF_SetClipboard( json )
+    -- reaper.CF_SetClipboard( json )
     reaper.SetExtState( "XR_Lyrics", "json", json, false )
     reaper.SetExtState( "XR_Lyrics", "need_refresh", "true", false )
 end

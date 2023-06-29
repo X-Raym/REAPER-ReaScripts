@@ -91,7 +91,7 @@ function wwr_onreply(results) {
 		}
 
 		if (tok.length > 1 && tok[1] === "XR_Lyrics" && tok[2] === "json" && tok[3] !== "") {
-			var text = tok[3].replace(/\\n/gmi, "\n");
+			var text = tok[3].replaceAll(/\\n/gmi, "\n").replaceAll(/\\\\/gmi, "\\");
 			json = JSON.parse( text );
 			var t = [];
 			for( let line of json.entry ) {
