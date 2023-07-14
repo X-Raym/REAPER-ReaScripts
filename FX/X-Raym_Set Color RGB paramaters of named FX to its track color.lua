@@ -5,18 +5,20 @@
  * Repository: https://github.com/X-Raym/REAPER-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2023-07-14)
+  + Change FX name
  * v1.0 (2022-08-27)
   + Initial release
 --]]
 
 -- USER CONFIG AREA -----------------------------------------------------------
 
-name = "JS: Inline Input Viewer (MCP embedded) [ReaTeam JSFX/Utility/jsh_Inline Input Viewer (MCP embedded).jsfx]"
+name = "JS: JSH Inline Input Viewer (MCP embedded) [Manwë_Inline Input Viewer (MCP embedded).jsfx]"
 default_r = 255
 default_g = 255
 default_b = 255
