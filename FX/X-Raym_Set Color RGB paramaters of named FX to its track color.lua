@@ -1,15 +1,17 @@
 --[[
- * ReaScript Name: Set FX name offline on selected tracks
+ * ReaScript Name: Set Color RGB paramaters of named FX to its track color
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: https://github.com/X-Raym/REAPER-Scripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2023-07-15)
+  + New name
  * v1.0.1 (2023-07-14)
   + Change FX name
  * v1.0 (2022-08-27)
