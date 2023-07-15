@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="b02fd83c5553a4b8999075a6a02818f59d5143ce" name="X-Raym Scripts">
+<index version="1" commit="4a5e2b342973f2c5544b9cf9bf7621744ea601bf" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1582,7 +1582,7 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/FX/X-Raym_Propagate%20last%20focused%20FX%20parameters%20values%20but%20bypass%20to%20similarly%20named%20FX%20on%20child%20tracks%20(real-time).lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Set Color RGB paramaters of named FX to its track color.lua" type="script" desc="Set FX name offline on selected tracks">
+    <reapack name="X-Raym_Set Color RGB paramaters of named FX to its track color.lua" type="script" desc="Set Color RGB paramaters of named FX to its track color">
       <version name="1.0" author="X-Raym" time="2022-08-27T11:53:22Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9f00987af6aaaf6fedd44ee98a237e6e554a7cbb/FX/X-Raym_Set%20Color%20RGB%20paramaters%20of%20named%20FX%20to%20its%20track%20color.lua</source>
@@ -1590,6 +1590,10 @@
       <version name="1.0.1" author="X-Raym" time="2023-07-14T20:43:28Z">
         <changelog><![CDATA[+ Change FX name]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b02fd83c5553a4b8999075a6a02818f59d5143ce/FX/X-Raym_Set%20Color%20RGB%20paramaters%20of%20named%20FX%20to%20its%20track%20color.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2023-07-15T13:33:56Z">
+        <changelog><![CDATA[+ New name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4a5e2b342973f2c5544b9cf9bf7621744ea601bf/FX/X-Raym_Set%20Color%20RGB%20paramaters%20of%20named%20FX%20to%20its%20track%20color.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set FX name offline on all tracks.lua" type="script" desc="Set FX name offline on all tracks">
