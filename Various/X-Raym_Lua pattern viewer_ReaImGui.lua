@@ -6,11 +6,14 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
- * Changelog
+ * Changelog:
+ * v1.0.1 (2023-07-25)
+  + Substitution replace field
+  + display errors messages
  * v1.0 (2023-07-25)
   + Initial release
 --]]
@@ -102,6 +105,7 @@ function Main()
   --retval, txt = reaper.ImGui_InputText( ctx, "Text", txt or "" )
   retval, txt = reaper.ImGui_InputTextMultiline( ctx, "Text", txt or "" )
   retval, pattern = reaper.ImGui_InputText( ctx, "Pattern", pattern or "" )
+  retval, replace = reaper.ImGui_InputTextMultiline( ctx, "Replace", replace or "" )
   
   pattern_clean = pattern
   last_char = pattern:sub(-1)
@@ -117,6 +121,14 @@ function Main()
         for i, match in ipairs( matches ) do
           reaper.ImGui_Text( ctx, "  " .. match )
         end
+        reaper.ImGui_Text( ctx, "\nSubstitution:")
+        local sub_status, sub_result = pcall(string.gsub, txt, pattern, replace)
+        if sub_status then
+          local substitution = txt:gsub(pattern, replace)
+          reaper.ImGui_Text( ctx, substitution )
+        else
+          reaper.ImGui_Text( ctx, "Wrong substitution pattern: " .. sub_result )
+        end
       else
         reaper.ImGui_Text( ctx, "No Match" )
       end
@@ -124,7 +136,7 @@ function Main()
     if pattern == "" then
       reaper.ImGui_Text( ctx, "Empty pattern" )
     else
-      reaper.ImGui_Text( ctx, "Wrong pattern" )
+      reaper.ImGui_Text( ctx, "Wrong pattern: " .. result )
     end
   end
   reaper.ImGui_Dummy( ctx, 16, 16 )
