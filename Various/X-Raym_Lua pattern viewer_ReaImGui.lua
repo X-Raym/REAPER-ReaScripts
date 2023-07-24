@@ -6,7 +6,7 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
@@ -119,7 +119,7 @@ function Main()
       if #matches > 0 then
         reaper.ImGui_Text( ctx, "Matches: " .. #matches .. (#matches > 1 and " groups" or " group") .. "\n" )
         for i, match in ipairs( matches ) do
-          reaper.ImGui_Text( ctx, "  " .. match )
+          reaper.ImGui_Text( ctx, match )
         end
         reaper.ImGui_Text( ctx, "\nSubstitution:")
         local sub_status, sub_result = pcall(string.gsub, txt, pattern, replace)
