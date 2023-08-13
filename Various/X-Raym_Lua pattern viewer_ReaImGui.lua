@@ -6,12 +6,14 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
- * v1.0.1 (2023-08-01)
+ * v1.1.1 (2023-08-13)
+  + Allows tab character in inputs
+ * v1.1 (2023-08-01)
   + Doc in right panel
   + Doc word wrap
   + Match pattern in input field with pattern ID
@@ -183,9 +185,9 @@ function Main()
       reaper.ImGui_EndMenuBar(ctx)
     end
     
-    retval, txt = reaper.ImGui_InputTextMultiline( ctx, "Text", txt or "" )
-    retval, pattern = reaper.ImGui_InputText( ctx, "Pattern", pattern or "" )
-    retval, replace = reaper.ImGui_InputTextMultiline( ctx, "Replace", replace or "" )
+    retval, txt = reaper.ImGui_InputTextMultiline( ctx, "Text", txt or "", nil, nil,  reaper.ImGui_InputTextFlags_AllowTabInput() )
+    retval, pattern = reaper.ImGui_InputText( ctx, "Pattern", pattern or "",  reaper.ImGui_InputTextFlags_AllowTabInput() )
+    retval, replace = reaper.ImGui_InputTextMultiline( ctx, "Replace", replace or "", nil, nil,  reaper.ImGui_InputTextFlags_AllowTabInput() )
     
     pattern_clean = pattern
     last_char = pattern:sub(-1)
@@ -199,13 +201,13 @@ function Main()
         if #matches > 0 then
           reaper.ImGui_Text( ctx, "Matches: " .. #matches .. (#matches > 1 and " groups" or " group") .. "\n" )
           for i, match in ipairs( matches ) do
-            reaper.ImGui_InputText( ctx, "%" .. i .. "##match" .. i, match )
+            reaper.ImGui_InputText( ctx, "%" .. i .. "##match" .. i, match,  reaper.ImGui_InputTextFlags_AllowTabInput() |  reaper.ImGui_InputTextFlags_ReadOnly() )
           end
           reaper.ImGui_Text( ctx, "\nSubstitution:")
           local sub_status, sub_result = pcall(string.gsub, txt, pattern, replace)
           if sub_status then
             local substitution = txt:gsub(pattern, replace)
-            reaper.ImGui_InputTextMultiline( ctx, "Output", substitution )
+            reaper.ImGui_InputTextMultiline( ctx, "Output", substitution, nil, nil,  reaper.ImGui_InputTextFlags_AllowTabInput() )
           else
             reaper.ImGui_Text( ctx, "Wrong substitution pattern: " .. sub_result )
           end
