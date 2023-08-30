@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="c20f7749d8a5bad5f6a70e44c66d975aabfe1e09" name="X-Raym Scripts">
+<index version="1" commit="7a76b2c45414d26cb9bcedea8f3eedb12e933f12" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4689,6 +4689,10 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Media%20Explorer/X-Raym_Preview%20media%20explorer%20and%20play-stop%20project%20arrange%20view%20simultaneously.lua</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2023-08-30T13:07:18Z">
+        <changelog><![CDATA[# More efficient GetMediaExplorer function]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/7a76b2c45414d26cb9bcedea8f3eedb12e933f12/Media%20Explorer/X-Raym_Preview%20media%20explorer%20and%20play-stop%20project%20arrange%20view%20simultaneously.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Reset media explorer volume to 0dB.lua" type="script" desc="Reset media explorer volume to 0dB">
       <version name="1.0" author="X-Raym" time="2020-12-17T22:58:56Z">
@@ -4701,6 +4705,10 @@
       <version name="1.0.2" author="X-Raym" time="2020-12-17T23:48:28Z">
         <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Media%20Explorer/X-Raym_Reset%20media%20explorer%20volume%20to%200dB.lua</source>
       </version>
+      <version name="1.0.3" author="X-Raym" time="2023-08-30T13:07:18Z">
+        <changelog><![CDATA[# More efficient GetMediaExplorer function]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/7a76b2c45414d26cb9bcedea8f3eedb12e933f12/Media%20Explorer/X-Raym_Reset%20media%20explorer%20volume%20to%200dB.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set media explorer volume down a bit.lua" type="script" desc="Set media explorer volume down a bit">
       <version name="1.0" author="X-Raym" time="2020-12-17T22:58:56Z">
@@ -4711,6 +4719,10 @@
         <changelog><![CDATA[+ disable ignore mousewheel on all faders internally]]></changelog>
         <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Media%20Explorer/X-Raym_Set%20media%20explorer%20volume%20down%20a%20bit.lua</source>
       </version>
+      <version name="1.0.2" author="X-Raym" time="2023-08-30T13:07:18Z">
+        <changelog><![CDATA[# More efficient GetMediaExplorer function]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/7a76b2c45414d26cb9bcedea8f3eedb12e933f12/Media%20Explorer/X-Raym_Set%20media%20explorer%20volume%20down%20a%20bit.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set media explorer volume up a bit.lua" type="script" desc="Set media explorer volume up a bit">
       <version name="1.0" author="X-Raym" time="2020-12-17T22:58:56Z">
@@ -4720,6 +4732,10 @@
       <version name="1.0.1" author="X-Raym" time="2020-12-18T15:36:27Z">
         <changelog><![CDATA[+ disable ignore mousewheel on all faders internally]]></changelog>
         <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Media%20Explorer/X-Raym_Set%20media%20explorer%20volume%20up%20a%20bit.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2023-08-30T13:07:18Z">
+        <changelog><![CDATA[# More efficient GetMediaExplorer function]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/7a76b2c45414d26cb9bcedea8f3eedb12e933f12/Media%20Explorer/X-Raym_Set%20media%20explorer%20volume%20up%20a%20bit.lua</source>
       </version>
     </reapack>
   </category>
@@ -8289,6 +8305,10 @@
       <version name="1.0.1" author="X-Raym" time="2021-01-29T16:17:07Z">
         <changelog><![CDATA[# Docked support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/View/X-Raym_Focus%20media%20explorer.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2023-08-30T13:07:18Z">
+        <changelog><![CDATA[# More efficient GetMediaExplorer function]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7a76b2c45414d26cb9bcedea8f3eedb12e933f12/View/X-Raym_Focus%20media%20explorer.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Go and zoom to next selected item without losing selection.lua" type="script" desc="Go and zoom to next selected item without losing selection">
