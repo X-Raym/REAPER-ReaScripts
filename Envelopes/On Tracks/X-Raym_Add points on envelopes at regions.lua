@@ -7,16 +7,29 @@
  * Licence: GPL v3
  * REAPER: 5.0
  * Extensions: SWS 2.8.1
- * Version: 1.1
+ * Version: 1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2 (2023-09-12)
+  + Preset script support
  * v1.1 (2021-05-19)
   # Preserve ramps
  * v1.0 (2015-09-16)
   + Initial release
 --]]
+
+-- Typical global variables names. This will be out global variables which could be altered in the preset file.
+popup = false
+console = false
+
+insert_at_region_start = true
+insert_at_region_end = true
+
+undo_text = "Add points on envelopes at regions"
+
+-------------------------------------------------- END OF USER CONFIG AREA
 
 function AddPoints(env)
     -- GET THE ENVELOPE
@@ -43,12 +56,16 @@ function AddPoints(env)
 
       if isrgn == true then -- if name mtach activate take name
 
-        --GET POINT VALUE
-        retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, pos, 0, 0)
-        retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, rgnend, 0, 0)
-
-        table.insert(new_points, {time = pos, val = valueOut, shape = dVdSOutOptional, tension = ddVdSOutOptional, dddVdSOutOptional})
-        table.insert(new_points, {time = rgnend, val = valueOut2, shape = dVdSOutOptional2, tension = ddVdSOutOptional2, dddVdSOutOptional2})
+        --GET POINTS VALUE
+        if insert_at_region_start then
+          retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, pos, 0, 0)
+          table.insert(new_points, {time = pos, val = valueOut, shape = dVdSOutOptional, tension = ddVdSOutOptional, dddVdSOutOptional})
+        end
+        
+        if insert_at_region_end then
+          retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, rgnend, 0, 0)
+          table.insert(new_points, {time = rgnend, val = valueOut2, shape = dVdSOutOptional2, tension = ddVdSOutOptional2, dddVdSOutOptional2})
+        end
 
       end
 
@@ -67,8 +84,6 @@ function AddPoints(env)
 end
 
 function main()
-
-  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
   -- GET CURSOR POS
   offset = reaper.GetCursorPosition()
@@ -103,16 +118,26 @@ function main()
 
   end -- endif sel envelope
 
-  reaper.Undo_EndBlock("Add points on envelopes at regions", -1) -- End of the undo block. Leave it at the bottom of your main function.
-
 end -- end main()
 
-reaper.PreventUIRefresh(1)
+function Init()
 
-main() -- Execute your main function
+  reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
-reaper.PreventUIRefresh(-1)
+  reaper.PreventUIRefresh(1)
 
-reaper.UpdateArrange() -- Update the arrangement (often needed)
+  main() -- Execute your main function
 
-reaper.TrackList_AdjustWindows(false)
+  reaper.PreventUIRefresh(-1)
+
+  reaper.UpdateArrange() -- Update the arrangement (often needed)
+
+  reaper.TrackList_AdjustWindows(false)
+  
+  reaper.Undo_EndBlock( undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.
+  
+end
+
+if not preset_file_init then -- If the file is run directly, it will execute Init(), else it will wait for Init() to be called explicitely from the preset scripts (usually after having modified some global variable states).
+  Init()
+end
