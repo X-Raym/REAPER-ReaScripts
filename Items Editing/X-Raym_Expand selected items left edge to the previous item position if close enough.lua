@@ -147,7 +147,7 @@ function Main()
     local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION") -- Get the value of a the parameter
     local item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
     local item_end = item_pos + item_len
-    
+
     local item_track = reaper.GetMediaItemTrack(item)
     local item_id = reaper.GetMediaItemInfo_Value(item, "IP_ITEMNUMBER")
 
@@ -158,13 +158,13 @@ function Main()
       local prev_item_pos = reaper.GetMediaItemInfo_Value(prev_item, "D_POSITION")
       local prev_item_len = reaper.GetMediaItemInfo_Value(prev_item, "D_LENGTH")
       local prev_item_end = prev_item_pos + prev_item_len
-      
+
       local distance = item_pos - prev_item_end
 
       if distance < vars.gap then
-        
+
         reaper.BR_SetItemEdges( item, prev_item_end, item_end )
-        
+
       end
 
     end
@@ -208,7 +208,7 @@ function Run()
   if not no_clear_console_init then reaper.ClearConsole() end
 
   if popup then SaveState() end
-  
+
   init_sel_items = SaveSelectedItems()
 
   Main() -- Execute your main function

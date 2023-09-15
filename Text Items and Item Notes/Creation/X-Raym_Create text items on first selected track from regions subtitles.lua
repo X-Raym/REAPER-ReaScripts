@@ -71,7 +71,7 @@ function main()
 
 end
 
-if not reaper.ULT_SetMediaItemNote then 
+if not reaper.ULT_SetMediaItemNote then
   reaper.ShowConsoleMsg("SWS extension is required by this script.\nHowever, it doesn't seem to be present for this REAPER installation.\n\nDownload it here:\nhttp://www.sws-extension.org/download/")
   return false
 end

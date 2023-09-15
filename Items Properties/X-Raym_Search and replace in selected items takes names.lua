@@ -2,7 +2,7 @@
  * ReaScript Name: Search and replace in selected items takes names
  * Screenshot: http://i.giphy.com/3oEdv3tKb0CpB7VCtq.gif
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
@@ -151,7 +151,7 @@ function Main()
     local item = reaper.GetSelectedMediaItem(0, i)
     local item_count_take = reaper.CountTakes( item )
     for z = 0, item_count_take - 1 do
-      
+
       local take = reaper.GetTake( item, z )
 
       -- GET NAMES

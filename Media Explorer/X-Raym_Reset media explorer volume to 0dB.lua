@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Reset media explorer volume to 0dB
  * Author: X-Raym
- * Author URI: http://www.extremraym.com/
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

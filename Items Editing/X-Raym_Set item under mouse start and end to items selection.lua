@@ -3,7 +3,7 @@
  * About: Useful if you need to adjust regions created with empty items. If you had to resize thiese regions, you can do it easily with this script.
  * Screenshot: http://i.imgur.com/iFUNNCC.gifv
  * Author: X-Raym
- * Author URI: http://www.extremraym.com/
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

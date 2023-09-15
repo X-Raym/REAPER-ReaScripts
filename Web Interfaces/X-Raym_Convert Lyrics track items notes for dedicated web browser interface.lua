@@ -128,12 +128,12 @@ function Main()
   cur_pos = reaper.GetPlayState() > 0 and reaper.GetPlayPosition() or reaper.GetCursorPosition()
 
   if reaper.ValidatePtr(lyrics_track, 'MediaTrack*') then
-  
+
     item = GetTrackItemAtPos( lyrics_track, cur_pos )
     notes = ProcessItemNotes( item, "text", notes )
 
     if next then
-    
+
       next_item = GetNextTrackItem( lyrics_track, cur_pos, item )
       next_notes = ProcessItemNotes( next_item, "next", next_notes )
 

@@ -2,7 +2,7 @@
  * JSFX Name: Tone generator with playstate
  * About: Mod of Cockos Tone generator, with playstate condition.
  * Author: X-Raym
- * Author URI: http://www.extremraym.com
+ * Author URI: https://www.extremraym.com
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
@@ -37,8 +37,8 @@ out_pin:left output
 out_pin:right output
 
 @slider
-  vol=2 ^ (slider1/6); 
-  dry=2 ^ (slider2/6); 
+  vol=2 ^ (slider1/6);
+  dry=2 ^ (slider2/6);
   adj = 2.0*$pi*slider3*(2^(slider5+slider4/12+slider6/1200))/srate;
   want_play_state = slider9 == 2? 5 : slider9 == 1? 1 : 0;
   slider9 == 3? want_play_state = -1;
@@ -50,16 +50,16 @@ slider9 == 3 && (rec_started == 0 || rec_started == -1) && play_state == 5 ? rec
 rec_started == 1 && play_state != 5 ? rec_started = 0;
 
 want_play_state == 0 || (play_state == want_play_state ) || (slider9 == 3 && rec_started == 0) ? (
-  
+
   (start_play_time == 0) ? (
     start_play_time = play_position;
   );
-  
+
   (slider10 == 0 || play_position - start_play_time < slider10) ? (
-  
+
     (slider7 < 0.67) ? (
       tone = cos(pos);
-    ) : 
+    ) :
     (slider7 < 1.33) ? (
       tone = 2.0*pos/$pi-1.0;
       (tone > 1.0) ? tone = 2.0-tone;
@@ -69,11 +69,11 @@ want_play_state == 0 || (play_state == want_play_state ) || (slider9 == 3 && rec
     tone *= vol;
     spl0 = tone+spl0*dry;
     spl1 = tone+spl1*dry;
-    
+
     pos=pos+adj;
     (pos >= 2.0*$pi) ? pos -= 2.0*$pi;
   );
-  
+
 ):(
   spl0 = spl0;
   spl1 = spl1;

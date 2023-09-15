@@ -3,7 +3,7 @@
  * Screenshot: https://i.imgur.com/RCLyEnM.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: X-Raym Premium Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
  * Version: 1.1.1
 --]]
@@ -116,52 +116,52 @@ function Main()
   reaper.ImGui_Spacing( ctx )
   count_fx = reaper.TakeFX_GetCount( take )
   if count_fx == 0 then return end
-  
+
   if reaper.ImGui_BeginTable(ctx, '##table_output', 2,  reaper.ImGui_TableFlags_SizingFixedFit() ) then
     reaper.ImGui_TableHeadersRow(ctx)
     reaper.ImGui_TableSetColumnIndex(ctx, 0)
     reaper.ImGui_TableHeader( ctx, "FX" )
     reaper.ImGui_TableSetColumnIndex(ctx, 1)
     reaper.ImGui_TableHeader( ctx, "Online" )
-    
+
     -- One row per FX
     for i = 0, count_fx - 1 do
       local retval, take_fx_name = reaper.TakeFX_GetFXName( take, i )
-      
+
       local take_fx_enable = reaper.TakeFX_GetEnabled( take, i )
       local take_fx_offline = reaper.TakeFX_GetOffline( take, i )
-      
+
       if take_fx_offline then
         reaper.ImGui_PushStyleColor(ctx,  reaper.ImGui_Col_Text(), offline_color_int)
       elseif not take_fx_enable then
         reaper.ImGui_PushStyleColor(ctx,  reaper.ImGui_Col_Text(), bypass_color_int)
       end
-      
+
       reaper.ImGui_TableNextRow(ctx)
-            
+
       reaper.ImGui_TableSetColumnIndex(ctx, 0)
 
       local retval, retval_enable = reaper.ImGui_Checkbox( ctx, take_fx_name, take_fx_enable )
       if retval then
         reaper.TakeFX_SetEnabled( take, i, retval_enable )
       end
-      
+
       reaper.ImGui_TableSetColumnIndex(ctx, 1)
-      
+
       local retval, retval_offline = reaper.ImGui_Checkbox( ctx, "##offline" .. i, not take_fx_offline )
       if retval then
         reaper.TakeFX_SetOffline( take, i, not retval_offline )
       end
-      
+
       if take_fx_offline or not take_fx_enable then
         reaper.ImGui_PopStyleColor(ctx, 1)
       end
-      
+
     end
-    
+
     reaper.ImGui_EndTable(ctx)
   end
-  
+
 end
 
 function Run()
@@ -181,7 +181,7 @@ function Run()
   if imgui_visible then
 
     imgui_width, imgui_height = reaper.ImGui_GetWindowSize( ctx )
-    
+
     --------------------
     Main()
 
@@ -211,7 +211,7 @@ function Init()
   ctx = reaper.ImGui_CreateContext(input_title,  reaper.ImGui_ConfigFlags_DockingEnable())
   font = reaper.ImGui_CreateFont('sans-serif', 16)
   reaper.ImGui_Attach(ctx, font)
-  
+
   offline_color_int = HexToIntReaImGUI(offline_color)
   bypass_color_int = HexToIntReaImGUI(bypass_color)
 

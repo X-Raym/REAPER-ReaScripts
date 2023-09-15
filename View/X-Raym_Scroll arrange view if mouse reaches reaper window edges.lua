@@ -73,9 +73,9 @@ function Main()
   if ReaperHasFocus() then
 
     retval, window_left, window_top, window_right, window_bottom = reaper.JS_Window_GetRect( reaper_hwnd )
-    
+
     -- IF REAPER IS MAXIMIZED (ACCORDING TO MS DOCS THINGS GET STRETCH OUTSIDE OF WINDOW)
-    -- TOP AND LEFT GETS OFFSET BY -8PX BOT AND RIGHT BY +8PX 
+    -- TOP AND LEFT GETS OFFSET BY -8PX BOT AND RIGHT BY +8PX
     if not apple then
       -- CHECK IF REAPER IS MAXIMIZED
       -- WE CHECK ONLY IF TOP IS OFFSET BY -8PX (YOU CANNOT MOVE TOP MANUALLY TO NEGATIVE COORDINATES, BUT L R B YOU CAN)

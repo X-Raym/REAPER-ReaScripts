@@ -2,7 +2,7 @@
  * ReaScript Name: Move selected notes to pitch under mouse
  * Screenshot: https://i.imgur.com/zrwgpl1.gif
  * Author: X-Raym
- * Author URI: http://www.extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

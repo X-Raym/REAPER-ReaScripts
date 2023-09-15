@@ -2,7 +2,7 @@
  * ReaScript Name: Scroll vertically to first selected track
  * About: Alternative to native Track: Vertical scroll selected tracks into view, but scroll to top instead
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
@@ -24,14 +24,14 @@ function ScrollTrackToTop( track )
   -- NOTE: No check for visibility, cause not needed for now
 
   reaper.PreventUIRefresh( 1 )
-  
+
   local track_tcpy = reaper.GetMediaTrackInfo_Value( track, "I_TCPY" )
-  
+
   local mainHWND = reaper.GetMainHwnd()
   local windowHWND = reaper.JS_Window_FindChildByID(mainHWND, 1000)
   local scroll_retval, scroll_position, scroll_pageSize, scroll_min, scroll_max, scroll_trackPos = reaper.JS_Window_GetScrollInfo( windowHWND, "v" )
   reaper.JS_Window_SetScrollPos( windowHWND, "v", track_tcpy + scroll_position )
-  
+
   reaper.PreventUIRefresh( -1 )
 
 end
@@ -40,7 +40,7 @@ end
 function Init()
   track = reaper.GetSelectedTrack( 0, 0)
   if not track then return end
-  
+
   ScrollTrackToTop( track )
 end
 

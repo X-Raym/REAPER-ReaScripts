@@ -2,7 +2,7 @@
  * ReaScript Name: Export first selected MIDI items as CSound file
  * About: For now it just displays the MIDI note in the console iN CSound format, as nothing more was needed.
  * Author: X-Raym
- * Author URI: http://www.extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
@@ -71,12 +71,12 @@ retval, count_notes = reaper.MIDI_CountEvts( take )
 for i = 0, count_notes - 1 do
   -- Get notes
   retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
-  
+
   -- Conversion in seconds
   pos_start =  reaper.MIDI_GetProjTimeFromPPQPos( take, startppqpos )
   pos_end = reaper.MIDI_GetProjTimeFromPPQPos( take, endppqpos )
   length = pos_end - pos_start
-  
+
   Msg2("i 1\t" .. AddLeadingAndTraling(pos_start, 10, 3 ) .. "\t" .. AddLeadingAndTraling(length, 10, 3 ) .. "\t" .. AddLeadingSpaces(pitch, 3) .. "\t" .. AddLeadingSpaces(vel, 3) )
 end
 

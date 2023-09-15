@@ -37,7 +37,7 @@ statNoteOff = $x80;
 // Return one random integer between two numbers
 function random( val1, val2 ) local( range ) (
   range = abs(val1 - val2);
-  min(val1, val2) + rand( range ); 
+  min(val1, val2) + rand( range );
 );
 
 @sample
@@ -48,5 +48,5 @@ play_state != 0 ?(
     last_note = random(slider2, slider3);
     midisend(0, statNoteOn & $xF0;, last_note, random( slider4, slider5 ) ); // Start of new note
     count = 0;
-  ); 
+  );
 );

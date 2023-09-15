@@ -35,7 +35,7 @@ if not reaper.JS_Window_GetFocus then
 end
 
 --[[
-function ClickMouse(hwnd, x, y) 
+function ClickMouse(hwnd, x, y)
   reaper.JS_WindowMessage_Post( hwnd, "WM_LBUTTONDOWN", 1, 0, x, y)
   reaper.JS_WindowMessage_Post( hwnd, "WM_LBUTTONUP", 0, 0, x, y)
 end
@@ -56,7 +56,7 @@ function Init()
       reaper.JS_Mouse_SetPosition( x, y )
       reaper.JS_Window_SetFocus( hwnd )
       reaper.JS_Window_SetForeground( hwnd )
-      -- ClickMouse(hwnd, x, y) 
+      -- ClickMouse(hwnd, x, y)
       reaper.Main_OnCommand( reaper.NamedCommandLookup( "_S&M_MOUSE_L_CLICK" ), 0 ) -- SWS/S&M: Left mouse click at cursor position (use w/o modifier)
     end
   end

@@ -3,7 +3,7 @@
  * About: Select one stereo channel as source and one as destination, it will mute the other. Useful in a multi-send set-up, where the source track send only one stereo channel to 4 different tracks (or less).
  * Screenshot: https://i.imgur.com/rMIDGk2.gif
  * Author: X-Raym
- * Author URI: http://www.extremraym.com
+ * Author URI: https://www.extremraym.com
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
@@ -29,7 +29,7 @@ ch2 = slider10 == 1 ? 1 : 0;
 ch3 = slider10 == 2 ? 1 : 0;
 ch4 = slider10 == 3 ? 1 : 0;
 
-@sample  
+@sample
 spla_init = spl(slider3 * 2 + 1);
 splb_init = spl(slider3 * 2 + 1);
 spl0 = spla_init * ch1;

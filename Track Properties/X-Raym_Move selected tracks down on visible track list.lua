@@ -4,7 +4,7 @@
  * Screenshot: http://i.imgur.com/GfN9y50.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > REAPER Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: http://forum.cockos.com/showthread.php?p=1704698&posted=1#post1704698
@@ -194,27 +194,27 @@ if count_selected_track > 0 then
   elseif CheckSWS() then
 
     reaper.PreventUIRefresh(1)
-  
+
     reaper.Undo_BeginBlock()
-  
+
     reaper.ClearConsole() -- Clean the console
-  
+
     -- Avoid complex selection with Child and their Parents
     reaper.Main_OnCommand(reaper.NamedCommandLookup("_SWS_UNSELPARENTS"),0) -- Unselect parent track
-  
+
     -- Save Tracks
     sel_tracks = {}
     SaveSelectedTracks( sel_tracks )
-  
+
     Main()
-  
+
     -- Select New Tracks
     if new_tracks then
       for i, track in ipairs( new_tracks ) do
         reaper.SetTrackSelected( track, true )
       end
     end
-  
+
     -- Select Source Tracks if they still exist
     for i, track in ipairs( sel_tracks ) do
       if Is_Valid_Track( track ) then
@@ -223,11 +223,11 @@ if count_selected_track > 0 then
     end
     reaper.TrackList_AdjustWindows(0)
     reaper.UpdateArrange()
-  
+
     reaper.Undo_EndBlock("Move selected tracks down on visible track list", -1)
-  
+
     reaper.PreventUIRefresh(-1)
-  
+
   end
 
 end

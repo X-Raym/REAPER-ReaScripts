@@ -2,7 +2,7 @@
  * ReaScript Name: Remove selected items MIDI CC events lanes where all events are equal to 0
  * Screenshot: https://i.imgur.com/sallb63.gif
  * Author: X-Raym
- * Author URI: http://www.extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

@@ -4,7 +4,7 @@
  * Screenshot: http://i.imgur.com/SPfJoQp.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > REAPER Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: http://forum.cockos.com/showthread.php?t=179122

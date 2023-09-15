@@ -2,7 +2,7 @@
  * ReaScript Name: Move edit cursor to next envelope point
  * About: Like SWS/BR: Move edit cursor to next envelope point but without take bug and with moveview and seekplay variables
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
@@ -49,7 +49,7 @@ function Main()
   for i = 0, count_points - 1 do
 
     local retval, time, value, shape, tension, selected = reaper.GetEnvelopePoint( env, i )
-    
+
     local absolute_time = time
     if env_take then absolute_time = item_pos + time * 1 / take_rate end
     if absolute_time > edit_cur_pos then
@@ -70,7 +70,7 @@ if not env then return false end
 function Init()
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   reaper.ClearConsole()
 
   Main()

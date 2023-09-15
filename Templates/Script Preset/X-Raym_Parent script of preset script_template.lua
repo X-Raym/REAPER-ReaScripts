@@ -3,7 +3,7 @@
  * About: For devs
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: X-Raym/REAPER-ReaScripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0.2

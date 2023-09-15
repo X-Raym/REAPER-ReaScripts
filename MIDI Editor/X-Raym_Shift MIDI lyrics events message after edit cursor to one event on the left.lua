@@ -2,7 +2,7 @@
  * ReaScript Name: Insert sysex events at time selection
  * Screenshot: https://i.imgur.com/bzhSa2O.gif
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
@@ -16,7 +16,7 @@
   + Initial Release
 --]]
 
-midi_editor = reaper.MIDIEditor_GetActive() 
+midi_editor = reaper.MIDIEditor_GetActive()
 if not midi_editor then return end
 
 take = reaper.MIDIEditor_GetTake( midi_editor )

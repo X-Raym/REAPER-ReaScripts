@@ -24,7 +24,7 @@ function main()
 
     retval, isrgn, pos, rgnend, name, markrgnindex, color = reaper.EnumProjectMarkers3(0, i)
     notes = reaper.NF_GetSWSMarkerRegionSub( i )
-    
+
     notes = notes:gsub("\n", "<br/>")
     name = name:gsub("<br/>", "\n")
 
@@ -42,7 +42,7 @@ function main()
 end
 
 -- RUN
-if not reaper.ULT_SetMediaItemNote then 
+if not reaper.ULT_SetMediaItemNote then
   reaper.ShowConsoleMsg("SWS extension is required by this script.\nHowever, it doesn't seem to be present for this REAPER installation.\n\nDownload it here:\nhttp://www.sws-extension.org/download/")
   return false
 end

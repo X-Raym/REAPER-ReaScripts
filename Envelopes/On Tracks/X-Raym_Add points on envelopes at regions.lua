@@ -61,7 +61,7 @@ function AddPoints(env)
           retval, valueOut, dVdSOutOptional, ddVdSOutOptional, dddVdSOutOptional = reaper.Envelope_Evaluate(env, pos, 0, 0)
           table.insert(new_points, {time = pos, val = valueOut, shape = dVdSOutOptional, tension = ddVdSOutOptional, dddVdSOutOptional})
         end
-        
+
         if insert_at_region_end then
           retval2, valueOut2, dVdSOutOptional2, ddVdSOutOptional2, dddVdSOutOptional2 = reaper.Envelope_Evaluate(env, rgnend, 0, 0)
           table.insert(new_points, {time = rgnend, val = valueOut2, shape = dVdSOutOptional2, tension = ddVdSOutOptional2, dddVdSOutOptional2})
@@ -133,9 +133,9 @@ function Init()
   reaper.UpdateArrange() -- Update the arrangement (often needed)
 
   reaper.TrackList_AdjustWindows(false)
-  
+
   reaper.Undo_EndBlock( undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.
-  
+
 end
 
 if not preset_file_init then -- If the file is run directly, it will execute Init(), else it will wait for Init() to be called explicitely from the preset scripts (usually after having modified some global variable states).

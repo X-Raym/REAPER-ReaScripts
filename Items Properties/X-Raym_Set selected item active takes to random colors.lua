@@ -9,7 +9,7 @@
  * REAPER: 5.0
  * Version: 1.0.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2023-01-05)
@@ -21,7 +21,7 @@
 
 console = true -- true/false: display debug messages in the console
 
-undo_text = "Set selected item active takes to random colors" 
+undo_text = "Set selected item active takes to random colors"
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 
@@ -92,11 +92,11 @@ function Init()
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end
 
 if not preset_file_init then
-  Init() 
+  Init()
 end
 
 

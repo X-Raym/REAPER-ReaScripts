@@ -88,7 +88,7 @@ end
 function Main()
 
   local item_num = reaper.CountTrackMediaItems(track)
-  
+
   if delete_unamed_markers then DeleteAllUnamedMarkers() end
 
   -- ACTIONS
@@ -107,7 +107,7 @@ function Main()
           reaper.MIDI_DeleteTextSysexEvt( take, k )
         end
       end
-      
+
       -- GET SELECTED NOTES (from 0 index)
       for k = 0, notes-1 do
         local retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, k)
@@ -122,7 +122,7 @@ function Main()
     end
     if txt_evt_idx > #test then break end
   end -- ENFIF Take is MIDI
-  
+
   --[[
   str = '' -- "1.1.2\tLyric\t2.1.1\tLyric"
   for i, pos in ipairs( events ) do
@@ -140,37 +140,37 @@ end
 function Run()
   var = reaper.GetSetProjectNotes( 0, false, '' )
   if not var or var == "" then return end
-  
+
   var = var:gsub('%+', '-')
   var = var:gsub('[ |%-|\n]', '|%1')
-  
+
   if reaper.GetSetProjectNotes( 0, false, '' ) ~= last_proj_notes then
-  
+
     --Msg("DIFFERENT")
-    
+
     sep = "|"
     test = var:split(sep)
-    
+
     -- INIT
     note_sel = 0
     events = {}
-    
+
     reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-    
+
     reaper.PreventUIRefresh(1)
-    
+
     Main() -- Execute your main function
-    
+
     reaper.UpdateArrange() -- Update the arrangement (often needed)
-    
+
     reaper.PreventUIRefresh(-1)
-    
+
     reaper.Undo_EndBlock("Insert UltraStar lyrics from project to items MIDI notes on first selected track", -1) -- End of the undo block. Leave it at the bottom of your main function.
   end
   --reaper.ShowConsoleMsg(var)
-  
+
   last_proj_notes = reaper.GetSetProjectNotes( 0, false, '' )
-  
+
   reaper.defer( Run )
 end
 

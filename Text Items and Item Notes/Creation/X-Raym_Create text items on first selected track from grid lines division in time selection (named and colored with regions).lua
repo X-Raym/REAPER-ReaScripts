@@ -92,19 +92,19 @@ function main()
   i = 0
   local color, is_measure_start
   repeat
-    
+
     local time = i > 0 and reaper.BR_GetNextGridDivision( last_time ) or ts_start
-    
+
     if time >= ts_end then break end
-    
+
     local time_next = reaper.BR_GetNextGridDivision( time )
     local color = 0
     local retval, measures, cml, fullbeats, cdenom = reaper.TimeMap2_timeToBeats( proj, time )
     local pos_str = reaper.format_timestr_pos( time, "", 2 ):gsub(".00$", "")
-    
+
     local retval, qn_start, qn_end, timesig_num, timesig_denom, tempo = reaper.TimeMap_GetMeasureInfo( 0, measures )
     is_measure_start = pos_str:find("%.1")
-    
+
     local name = pos_str
 
     if time <= ts_end then
@@ -118,7 +118,7 @@ function main()
       CreateTextItem(track, time, time_next - time, name, color)
     end
     last_time = time
-    
+
     i = i + 1
 
   until last_time >= ts_end -- ENDLOOP through selected items

@@ -1,8 +1,8 @@
 --[[
  * ReaScript Name: Paste value in clipboard as selected items volume
  * Author: X-Raym
- * Author URI: https://extremraym.com
- * Repository: GitHub > X-Raym > REAPER ReaScripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Version: 1.0.1
@@ -60,7 +60,7 @@ function Init()
   vol = tonumber( vol )
   if not vol then return false end
 
-  vol = LimitNumber( vol, min_limit, max_limit ) 
+  vol = LimitNumber( vol, min_limit, max_limit )
 
   reaper.PreventUIRefresh(1)
 
@@ -73,9 +73,9 @@ function Init()
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end
 
 if not preset_file_init then
-  Init() 
+  Init()
 end

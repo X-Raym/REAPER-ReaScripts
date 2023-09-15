@@ -2,7 +2,7 @@
  * ReaScript Name: Offset selected media items source positions by snap offset length
  * About: Use this with Xenakios/SWS: Switch item contents to next cue. Note: the cue shouldn't be visible.
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

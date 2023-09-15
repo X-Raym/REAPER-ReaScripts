@@ -2,7 +2,7 @@
  * ReaScript Name: Color selected items from regions at their middle position
  * Screenshot: https://i.imgur.com/q9kBdMb.gifv
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

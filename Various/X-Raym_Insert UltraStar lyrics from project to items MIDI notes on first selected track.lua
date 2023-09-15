@@ -79,7 +79,7 @@ end
 function Main()
 
   local item_num = reaper.CountTrackMediaItems(track)
-  
+
   if delete_unamed_markers then DeleteAllUnamedMarkers() end
 
   -- ACTIONS
@@ -98,7 +98,7 @@ function Main()
           reaper.MIDI_DeleteTextSysexEvt( take, k )
         end
       end
-      
+
       -- GET SELECTED NOTES (from 0 index)
       for k = 0, notes-1 do
         local retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, k)
@@ -113,7 +113,7 @@ function Main()
     end
     if txt_evt_idx > #test then break end
   end -- ENFIF Take is MIDI
-  
+
   --[[
   str = '' -- "1.1.2\tLyric\t2.1.1\tLyric"
   for i, pos in ipairs( events ) do

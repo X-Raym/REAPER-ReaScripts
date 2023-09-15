@@ -2,14 +2,14 @@
  * ReaScript Name: Copy filtered action names list to clipboard
  * About: Copy actions names to clipboard if they pass the filter.
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > REAPER ReaScripts
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 6.0
  * Version: 1.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.1 (2023-01-24)
@@ -18,7 +18,7 @@
  * v1.0 (2022-12-14)
   + Initial Release
  --]]
- 
+
 contexts = { ["Main"] = 0, ["Main (alt recording)"]=100, ["MIDI Editor"] = 32060, ["MIDI Event List Editor"] = 32061, ["MIDI Inline Editor"] = 32062, ["Media Explorer"] = 32063 }
 
 lines = {}
@@ -49,7 +49,7 @@ function Main()
       i = i + 1
     until retval <= 0
   end
-  
+
   reaper.CF_SetClipboard( table.concat( GetTableOfSortedKeys(lines), "\n" ) )
 end
 

@@ -3,14 +3,14 @@
  * Screenshot: https://i.imgur.com/Ua8jgmd.gif
  * About: A way to swap items with simple click and drags. In user config area, swap can be active if item is before the middle of the previous one. It works on tracks of selected items only for efficiency.
  * Author: X-Raym
- * Author URI: http://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 6.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2023-07-16)
@@ -28,7 +28,7 @@ if not reaper.JS_ReaScriptAPI_Version then
   reaper.ShowMessageBox( 'Please install or update js_ReaScriptAPI extension, available via Reapack.', 'Missing Dependency', 0)
   return false
 end
- 
+
 -- Set ToolBar Button State
 function SetButtonState( set )
   local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
@@ -39,7 +39,7 @@ end
 
 -- Main Function (which loop in background)
 function Main()
-  
+
   mouse_state =  reaper.JS_Mouse_GetState( 1 )
   if mouse_state == 0 then
     local count_selected_items = reaper.CountSelectedMediaItems( 0 )
@@ -50,7 +50,7 @@ function Main()
       local track_guid = reaper.GetTrackGUID( track )
       if not tracks_by_guid[ track_guid ] then tracks_by_guid[ track_guid ] = track end
     end
-    
+
     for guid, track in pairs( tracks_by_guid ) do
       local count_track_items = reaper.CountTrackMediaItems( track )
       local items = {}
@@ -85,11 +85,11 @@ function Main()
         reaper.PreventUIRefresh(-1)
       end
     end
-    
+
   end
-  
+
   reaper.defer( Main )
-  
+
 end
 
 

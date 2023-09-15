@@ -5,7 +5,7 @@
  * Screenshot: https://youtu.be/yjGDW4wVkEQ
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > X-Raym's ReaScripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Script: Scripts (LUA): Items Editing (various)

@@ -4,7 +4,7 @@
  * About: Works on Take FX, Track FX, Input Track FX, Master FX, and Monitor FX.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: https://github.com/X-Raym/REAPER-Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 6.0
  * Version: 1.0

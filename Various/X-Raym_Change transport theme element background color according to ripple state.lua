@@ -3,7 +3,7 @@
  * About: Change theme elements color base on ripple state. Edit the script to change value. Use custom action and SWS start up actions for loading this right at reaper startup. Thx nikolalkc for the inspiration!
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > Scripts for Cockos REAPER
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Toolbar button toggle state for script actions?

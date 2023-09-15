@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Select envelope point at edit cursor
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
@@ -47,7 +47,7 @@ function Main()
   for i = 0, count_points - 1 do
 
     local retval, time, value, shape, tension, selected = reaper.GetEnvelopePoint( env, i )
-    
+
     local absolute_time = time
     if env_take then absolute_time = item_pos + time * 1 / take_rate end
     Msg( math.abs(absolute_time - edit_cur_pos) )
@@ -71,7 +71,7 @@ if not env then return false end
 function Init()
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
-  
+
   reaper.ClearConsole()
 
   Main()

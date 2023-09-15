@@ -3,7 +3,7 @@
  * About: Gets colour of take under mouse cursor, then makes any takes of the same colour in all selected items the selected take, or first take if multiples of same colour in an item. Disable console message by changing if console == true to false.
  * Instructions: Select all items, hover mouse over take of colour required,
  * Author: timatkins & X-Raym
- * Author URI: http://www.iamtimatkins.com and https://www.extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository:
  * Repository URI:
  * Licence: GPL v3

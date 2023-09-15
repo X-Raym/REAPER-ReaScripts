@@ -3,7 +3,7 @@
  * About: A way to find items more easily on huge project, without losing selection
  * Screenshot: https://i.imgur.com/sHBYUgL.gifv
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

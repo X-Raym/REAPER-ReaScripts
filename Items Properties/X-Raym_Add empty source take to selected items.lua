@@ -2,7 +2,7 @@
  * ReaScript Name: Add empty source take to selected items
  * About: Useful to put take markers on an empty items without using MIDI items
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

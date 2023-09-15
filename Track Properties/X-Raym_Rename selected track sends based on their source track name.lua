@@ -4,8 +4,8 @@
  * About: Sponored by Dan Stanley
  * Screenshot: https://i.imgur.com/RXSUmi6.gifv
  * Author: X-Raym
- * Author URI: https://extremraym.com
- * Repository: GitHub > X-Raym > Scripts for Cockos REAPER
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Scripts: Track Properties (various)

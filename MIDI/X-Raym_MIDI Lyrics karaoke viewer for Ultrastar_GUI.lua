@@ -252,23 +252,23 @@ function DrawLine( line, index )
     table.insert( str, syllab.msg )
   end
   str = table.concat( str )
-  
+
   gfx.x = 0; gfx.y = 0;
-  
+
   color( color_highlight )
-  
+
   -- Mesure Line
   -- + set font so it fit the screen
   -- + get the XY positions
   local w_text, h_text, font_size = CenterAndResizeText(str) -- x and Y are in gfx variable
   local text_x = gfx.x
   local text_y = gfx.y
-  
+
   if font_size < 10 then
     PrintAndBreak("Too Many Words", "RED")
     return
   end
-  
+
   --gfx.printf( str )
   -- Draw Line Syllabls per Syllabls
   -- to keep track of each syllabs position
@@ -288,12 +288,12 @@ function DrawLine( line, index )
     else
       color( "White" )
     end
-    
+
     if IsInTime( play_pos, syllab.pos_start, syllab.pos_end ) then
       syllab_w, syllab_h = gfx.measurestr( syllab.msg )
       --syllabs_w = syllabs_w + syllab_w
       current_syllab = syllab
-      
+
       color( color_highlight )
       rectangle_w = MapLinear(play_pos, syllab.pos_start, syllab.pos_end, 0, syllab_w)
       --gfx.rect( gfx.x, gfx.h - 20, rectangle_w, 20 )
@@ -305,8 +305,8 @@ function DrawLine( line, index )
       previous_x = gfx.x
     end
   end
-  
-  -- Draw the rectangle 
+
+  -- Draw the rectangle
   color( color_highlight )
   local rectangle_w_2 = previous_x - text_x + (rectangle_w or 0)
   local h = 10
@@ -336,7 +336,7 @@ function ProcessMarkers()
       i = i+1
     end
   end
-  
+
   -- Allow to not notes before first marker
   if #markers > 0 and markers[1].pos > 0 then
     table.insert( markers, 1, {pos = 0} )
@@ -349,11 +349,11 @@ function ProcessTakeMIDI( take, item )
 
   local retval, count_notes, count_ccs, count_textsyx = reaper.MIDI_CountEvts( take )
   if count_notes == 0 or count_textsys == 0 then return end
-  
+
   local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
   local item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
   local item_end = item_pos + item_len
-  
+
   local notes_end_by_pos = {}
   for i = 0, count_notes - 1 do
     local retval, selected, muted, startppqpos, endppqpos, chan, pitch, vel = reaper.MIDI_GetNote( take, i )
@@ -412,7 +412,7 @@ function Process( markers, lyrics )
       end
     end
   end
-  
+
   return lines
 end
 
@@ -438,10 +438,10 @@ function Run()
   -- PLAY STATE
   play_state = reaper.GetPlayState()
   if play_state == 0 then play_pos = reaper.GetCursorPosition() else play_pos = reaper.GetPlayPosition() end
-  
+
   -- GET MARKERS
   markers = ProcessMarkers()
-  
+
   local lyrics = {}
   track = (track and reaper.ValidatePtr( track, 'MediaTrack*' ) and track) or GetLyricsTrack()
   if track then
@@ -453,7 +453,7 @@ function Run()
         lyrics = TableMergeNew( lyrics, ProcessTakeMIDI( take, item ) )
       end
     end
-    
+
     if #markers > 0 and #lyrics > 0 then
       lines = Process( markers, lyrics )
       if #lines > 0 then
@@ -478,7 +478,7 @@ function Run()
       end
     end
   end
-  
+
   if gfx.mouse_cap == 2 and (not is_region or gfx.mouse_y < rect_h) then
     local dock = gfx.dock(-1) == 0 and "Dock" or "Undock"
     gfx.x = gfx.mouse_x

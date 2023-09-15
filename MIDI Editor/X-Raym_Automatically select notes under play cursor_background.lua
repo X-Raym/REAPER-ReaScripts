@@ -2,14 +2,14 @@
  * ReaScript Name: Script: Automatically select notes under play cursor (background)
  * Screeshot: https://i.imgur.com/DISBpSe.gif
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 6.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2023-08-30)
@@ -44,7 +44,7 @@ function Main()
 
   active_midi_editor = reaper.MIDIEditor_GetActive()
   time = reaper.GetPlayState() > 0 and reaper.GetPlayPosition() or reaper.GetCursorPosition()
-  
+
   if active_midi_editor and  reaper.GetPlayState() > 0 then
     local i = 0
     local take
@@ -56,9 +56,9 @@ function Main()
       i = i + 1
     until not take
   end
-  
+
   reaper.defer( Main )
-  
+
 end
 
 -- RUN

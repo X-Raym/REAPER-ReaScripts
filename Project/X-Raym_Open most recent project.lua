@@ -2,7 +2,7 @@
  * ReaScript Name: Open most recent project
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > ReaScripts for Cockos REAPER
+ * * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
@@ -13,7 +13,7 @@
  * Changelog:
   * v1.0.1 (2022-07-30)
     # maxrecent taken into account
---]] 
+--]]
 
 function DisplayTooltip(message)
   local x, y = reaper.GetMousePosition()
@@ -34,18 +34,18 @@ for line in io.lines(reaper.get_ini_file()) do
     maxrecent = tonumber( line:match('maxrecent=(%d+)') )
   end
   if line == '[Recent]' then
-    found = true 
+    found = true
   elseif found and line:match('%[.-%]') and line ~= '[Recent]' then
     break
-  end 
-  
+  end
+
   if found and line ~= '[Recent]' then -- collect paths excluding the section name
     local id = tonumber( line:match( 'recent(%d+)=' ) )
     if id then
       if not maxrecent or id <= maxrecent then
         recent_pojs[id] = line:gsub('recent%d+=','')
       end
-    end -- or line:match('=(.+)') // strip away the key          
+    end -- or line:match('=(.+)') // strip away the key
   end
 
 end

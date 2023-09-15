@@ -1,7 +1,7 @@
  --[[
  * ReaScript Name: Toggle selected tracks FX except those with (ON) and (OFF) suffixes
  * Author: X-Raym
- * Author URI: http:--extremraym.com
+ * Author URI: https://www.extremraym.com
  * Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
  * Source URI: https:--github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3

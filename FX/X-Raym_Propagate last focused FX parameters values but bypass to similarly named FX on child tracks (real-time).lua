@@ -4,7 +4,7 @@
  * Screenshot:
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: GitHub > X-Raym > Scripts for Cockos REAPER
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-Scripts
  * Licence: GPL v3
  * Forum Thread: Scripts: FX Param Values (various)

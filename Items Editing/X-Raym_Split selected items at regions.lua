@@ -63,7 +63,7 @@ function MultiSplitMediaItem2(item, times)
   for i, time in ipairs(times) do
 
     if time > item_end then break end
-    
+
     if time > item_pos and time < item_end and item then
 
       -- store item so we can split it next time around
@@ -73,7 +73,7 @@ function MultiSplitMediaItem2(item, times)
         -- add resulting item to array
         table.insert(items, item)
       end
-    
+
     end
 
   end

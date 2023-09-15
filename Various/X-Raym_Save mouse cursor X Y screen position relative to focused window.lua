@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Save mouse cursor X Y screen position relative to focused window 
+ * ReaScript Name: Save mouse cursor X Y screen position relative to focused window
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -53,7 +53,7 @@ function Init()
   reaper.ClearConsole()
   hwnd = reaper.JS_Window_GetFocus()
   if not hwnd then return false end
-  
+
   -- NOTE: address doesnt work cause restart every time
   -- address = math.floor( reaper.JS_Window_AddressFromHandle( hwnd ) )
   -- hwnd_id = math.floor( reaper.JS_Window_GetLong( hwnd, "ID" ) )
@@ -61,7 +61,7 @@ function Init()
   -- main_title = reaper.JS_Window_GetTitle( main_hwnd )
   -- hwnd_2 = GetTopParent( hwnd )
   -- hwnd_title = reaper.JS_Window_GetTitle( hwnd )
-  
+
   x, y = reaper.GetMousePosition()
   x, y = reaper.JS_Window_ScreenToClient( hwnd, x, y )
   --reaper.SetExtState(ext_name, "hwnd_id" .. slot, hwnd_id, true)

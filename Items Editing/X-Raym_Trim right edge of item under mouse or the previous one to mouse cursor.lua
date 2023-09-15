@@ -55,7 +55,7 @@ function Main()
     end
 
   end
-  
+
   -- Debug
   --[[
   if not mouse_item then
@@ -66,14 +66,14 @@ function Main()
   end]]
 
   if not mouse_item then return end
-    
+
   reaper.SelectAllMediaItems( 0, false)
   reaper.SetMediaItemSelected(mouse_item, true)
 
   mouse_item_pos = reaper.GetMediaItemInfo_Value(mouse_item,"D_POSITION")
   mouse_item_len = reaper.GetMediaItemInfo_Value(mouse_item,"D_LENGTH")
   mouse_item_end = mouse_item_pos + mouse_item_len
-  
+
   if reaper.GetToggleCommandState( 1157 ) then
     mouse_pos = reaper.SnapToGrid( 0, mouse_pos )
   end
@@ -95,17 +95,17 @@ end
 function Init()
 
   reaper.ClearConsole()
-  
+
   reaper.PreventUIRefresh(1)
-  
+
   reaper.Undo_BeginBlock()
-  
+
   Main()
-  
+
   reaper.Undo_EndBlock("Trim right edge of item under mouse or the previous one to mouse cursor", -1)
-  
+
   reaper.UpdateArrange()
-  
+
   reaper.PreventUIRefresh(-1)
 end
 

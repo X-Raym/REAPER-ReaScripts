@@ -2,7 +2,7 @@
  * ReaScript Name: Insert or update start and end marker from time selection
  * About: Use this action for setting subproject in and out points or render section.
  * Author: X-Raym
- * Author URI: http://www.extremraym.com/
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

@@ -35,7 +35,7 @@ if not reaper.JS_Window_GetFocus then
 end
 
 --[[
-function ClickMouse(hwnd, x, y) 
+function ClickMouse(hwnd, x, y)
   reaper.JS_WindowMessage_Post( hwnd, "WM_LBUTTONDOWN", 1, 0, x, y)
   reaper.JS_WindowMessage_Post( hwnd, "WM_LBUTTONUP", 0, 0, x, y)
 end

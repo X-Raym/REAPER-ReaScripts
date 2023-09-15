@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Theme color tweaker
  * Author: X-Raym
- * Author URI: https://extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
@@ -380,7 +380,7 @@ function loop()
       LoadTheme( theme_mod_path, true )
       theme_path = theme_mod_path
     end
-    
+
     reaper.ImGui_SameLine( ctx )
     if reaper.ImGui_Button(ctx, 'Restore Initial Theme') then
       LoadTheme( init_theme_path, true )
@@ -473,7 +473,7 @@ function loop()
     reaper.ImGui_Spacing( ctx )
 
     for i, v in ipairs( tab ) do
-      
+
       pop_style = false
       if colors[v] ~= colors_backup[v] then
         local buttonColor = ColorConvertHSVtoInt( 7.0, 0.6, 0.6, 1.0 )
@@ -484,29 +484,29 @@ function loop()
         r.ImGui_PushStyleColor(ctx, r.ImGui_Col_ButtonActive(),  activeColor)
         pop_style = true
       end
-      
+
       if r.ImGui_Button(ctx, "Restore##3f"..i) then
         colors[v] = colors_backup[v]
         reaper.SetThemeColor( v, colors[v], 0 )
         reaper.ThemeLayout_RefreshAll()
       end
-      
+
       if pop_style then
         pop_style = false
         r.ImGui_PopStyleColor(ctx, 3)
       end
-      
+
       reaper.ImGui_SameLine( ctx )
-      
+
       reaper.ImGui_PushItemWidth(ctx, 92) -- Set max with of inputs
-      
+
       retval, colors[v] = reaper.ImGui_ColorEdit3(ctx, (color_descriptions_num == 0 and theme_var_descriptions and theme_var_descriptions[v]) or v, reaper.ImGui_ColorConvertNative(colors[v]),  reaper.ImGui_ColorEditFlags_DisplayHex() )
       colors[v] = reaper.ImGui_ColorConvertNative( colors[v] )
       if retval then -- if changed
         reaper.SetThemeColor( v, colors[v], 0 )
         reaper.ThemeLayout_RefreshAll()
       end
-      
+
       reaper.ImGui_PopItemWidth( ctx ) -- Restore max with of input
     end
 

@@ -44,7 +44,7 @@ end
 
 -- USER CONFIG AREA 2/2 ------------------------------------------------------
 
--- 2. Put your variables there, so that it overrides the default ones. 
+-- 2. Put your variables there, so that it overrides the default ones.
 -- You can usually copy the User Config Area variable of the target script. Examples below.
 
 -- Typical global variables names

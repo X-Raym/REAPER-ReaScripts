@@ -9,7 +9,7 @@
  * REAPER: 6.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2022-12-14)
@@ -21,7 +21,7 @@
 
 console = true -- true/false: display debug messages in the console
 
-undo_text = "Delete take markers outside of selected items boundaries" 
+undo_text = "Delete take markers outside of selected items boundaries"
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 
@@ -105,11 +105,11 @@ function Init()
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end
 
 if not preset_file_init then
-  Init() 
+  Init()
 end
 
 

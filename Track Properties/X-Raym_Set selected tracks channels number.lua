@@ -2,7 +2,7 @@
  * ReaScript Name: Set selected tracks channel number
  * About: Select tracks. Run.
  * Author: X-Raym
- * Author URl: https://www.extremraym.com
+ * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URl: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
