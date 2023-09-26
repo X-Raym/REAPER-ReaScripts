@@ -9,11 +9,14 @@
     Forum Thread https://forum.cockos.com/showthread.php?p=1670961
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.2.1
+ * Version: 1.2.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2.2 (2020-06-03)
+  + Preset file support
+  # fallback if no pos_end but length column
  * v1.2.1 (2020-06-03)
   # color fix
  * v1.2 (2020-06-03)
@@ -25,8 +28,9 @@
 --]]
 
 -- USER CONFIG AREA -----------------------------------------------------------
--- Duplicate and Rename the script if you want to modify this.
--- Else, a script update will erase your mods.
+
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
 console = true -- true/false: display debug messages in the console
 sep = "\t" -- default sep
@@ -39,6 +43,9 @@ col_name = 2 -- Name column index in the CSV
 col_color = 6
 col_sub = 7
 
+delete_all_regions = false
+
+undo_text = "Import markers and regions from tab-delimited CSV"
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 function ColorHexToInt(hex)
@@ -135,7 +142,7 @@ function read_lines(filepath)
 end
 
 -- Main function
-function main()
+function Main()
 
   folder = filetxt:match[[^@?(.*[\/])[^\/]-$]]
 
@@ -157,8 +164,10 @@ function main()
       sub = line[col_sub]
       if sub then sub = sub:gsub("<br>", "\n") end
 
-      local is_region = true
+      if not len and pos_end then len = pos_end - pos end -- len is not used, just for debug
+      if not pos_end and len then pos_end = pos + len end
 
+      local is_region = true
       if pos_end == pos then
         is_region = false
       end
@@ -176,7 +185,7 @@ function main()
 
   -- This is because there is no Get marker by IDX...
   if subs_count > 0 then
-    i=0
+    local i=0
     repeat
       iRetval, bIsrgnOut, iPosOut, iRgnendOut, name, iMarkrgnindexnumberOut, iColorOur = reaper.EnumProjectMarkers3(0,i)
       if iRetval >= 1 and subs[iMarkrgnindexnumberOut] then
@@ -191,9 +200,9 @@ end
 
 -- INIT
 
-retval, filetxt = reaper.GetUserFileNameForRead("", "Import markers and regions", "csv")
-
-if retval then
+function Init()
+  retval, filetxt = reaper.GetUserFileNameForRead("", "Import markers and regions", "csv")
+  if not retval then return false end
 
   reaper.PreventUIRefresh(1)
 
@@ -212,14 +221,20 @@ if retval then
     end
   end
 
-  -- reaper.Main_OnCommand( reaper.NamedCommandLookup( "_SWSMARKERLIST10" ), -1) -- SWS: Delete all regions
+  if delete_all_regions then
+    reaper.Main_OnCommand( reaper.NamedCommandLookup( "_SWSMARKERLIST10" ), -1) -- SWS: Delete all regions
+  end
 
-  main()
+  Main()
 
-  reaper.Undo_EndBlock("Import markers and regions from tab-delimited CSV", -1) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock(undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.
 
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
 
+end
+
+if not preset_file_init then
+  Init()
 end
