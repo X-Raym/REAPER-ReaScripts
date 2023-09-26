@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="7deae8e307427101dead266967b1e416c91da8bb" name="X-Raym Scripts">
+<index version="1" commit="0bcd2f2d011bb29b5c67f65b2f850b0235eb05fb" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5408,6 +5408,11 @@
       <version name="1.2.1" author="X-Raym" time="2021-01-07T17:21:13Z">
         <changelog><![CDATA[# color fix]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Regions/X-Raym_Import%20markers%20and%20regions%20from%20tab-delimited%20CSV%20file.lua</source>
+      </version>
+      <version name="1.2.2" author="X-Raym" time="2023-09-26T16:24:53Z">
+        <changelog><![CDATA[+ Preset file support
+# fallback if no pos_end but length column]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/0bcd2f2d011bb29b5c67f65b2f850b0235eb05fb/Regions/X-Raym_Import%20markers%20and%20regions%20from%20tab-delimited%20CSV%20file.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Insert markers at grid lines in time selection (named and colored with regions).lua" type="script">
