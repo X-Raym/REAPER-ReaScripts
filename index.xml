@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="9ec86abe05faf36d5fde1e0a45ddb613a03626f9" name="X-Raym Scripts">
+<index version="1" commit="4d0a39943d78e4f47f4143c8dfa3d24f8437f4a6" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5146,7 +5146,7 @@
     </reapack>
     <reapack name="X-Raym_Save project and keep only X backups.lua" type="script" desc="Save project and keep only X backups">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -6492,7 +6492,7 @@
     </reapack>
     <reapack name="X-Raym_Search and replace in selected items notes.lua" type="script" desc="Search and replace in selected items notes">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -6671,6 +6671,15 @@
     </reapack>
   </category>
   <category name="Track Properties">
+    <reapack name="X-Raym_Change last touched track layout_background.lua" type="script" desc="Change last touched track layout">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/7ONmP3V.gif</link>
+      </metadata>
+      <version name="2.1.2" author="X-Raym" time="2023-10-26T11:57:50Z">
+        <changelog><![CDATA[# Select project instance nil issue fix attempt]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4d0a39943d78e4f47f4143c8dfa3d24f8437f4a6/Track%20Properties/X-Raym_Change%20last%20touched%20track%20layout_background.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Display first selected track width and height.lua" type="script" desc="Display first selected track width and height">
       <version name="1.0" author="X-Raym" time="2021-05-30T22:17:37Z">
         <changelog><![CDATA[# Initial release]]></changelog>
@@ -7072,7 +7081,7 @@
     </reapack>
     <reapack name="X-Raym_Search and replace in selected tracks names.lua" type="script" desc="Search and replace in selected tracks names">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
