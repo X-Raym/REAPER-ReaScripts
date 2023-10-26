@@ -25,7 +25,8 @@
 
 -- USER CONFIG AREA ------------------
 
--- User Preset file to mod this: https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
 name = "Duplicate and Edit the Script to Customize" -- Custom name
 color = "#FF0000" -- Hex value
@@ -87,7 +88,7 @@ function main()
 end
 
 function Init()
-  
+
   reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.

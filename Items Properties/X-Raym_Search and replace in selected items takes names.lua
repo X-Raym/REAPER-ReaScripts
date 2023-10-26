@@ -22,7 +22,8 @@
 -- USER CONFIG AREA --
 -----------------------------------------------------------
 
--- Preset file: https://gist.github.com/X-Raym/f7f6328b82fe37e5ecbb3b81aff0b744#file-preset-lua
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
 console = true
 popup = true -- User input dialog box

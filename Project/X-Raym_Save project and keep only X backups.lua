@@ -34,8 +34,9 @@
 --]]
 
 -- USER CONFIG AREA ------------------
--- Use Preset Script file for moding in update compatible way
--- https://gist.github.com/X-Raym/f7f6328b82fe37e5ecbb3b81aff0b744
+
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
 limit = 5
 console = false
