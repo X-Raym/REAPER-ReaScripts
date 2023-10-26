@@ -8,11 +8,13 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1670961
  * REAPER: 6.09
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2023-10-26)
+  + Preset file support
  * v1.0.1 (2020-04-28)
   # Start offset
  * v1.0 (2020-04-28)
@@ -23,10 +25,16 @@
 
 -- USER CONFIG AREA ------------------
 
-name = "Duplicate and Edit the Script to Customize" -- Custo mame
+-- User Preset file to mod this: https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
+
+name = "Duplicate and Edit the Script to Customize" -- Custom name
 color = "#FF0000" -- Hex value
 
 --------------------------------------
+
+if not reaper.GetNumTakeMarkers then
+  return reaper.MB( "REAPER version is too old and doesn't have take markers.\n", "Error", 0 )
+end
 
 function HexToInt( hex )
   local hex = hex:gsub("#","")
@@ -78,8 +86,8 @@ function main()
 
 end
 
-if reaper.GetNumTakeMarkers then
-
+function Init()
+  
   reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
@@ -92,4 +100,8 @@ if reaper.GetNumTakeMarkers then
 
   reaper.UpdateArrange() -- Update the arrangement (often needed)
 
+end
+
+if not preset_file_init then
+  Init()
 end
