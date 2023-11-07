@@ -11,11 +11,18 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.1
+ * Version: 2.1
  */
 
 /**
  * Changelog:
+ * v2.1 (2023-11-07)
+  # A bit of refactoring
+  # Works with note,vel,chan and note.vel (v1) formats
+  # Bug fixes
+  # Sharps instead of bemols
+  # Number in graphics
+  # Note-in indicators
  * v2.0.1 (2017-09-18)
   # Channel fix
   # Sequence position reinitialized when file is changed
@@ -27,77 +34,121 @@
   + Initial Release
  */
 
+// TODOS:
+// Customizable grid of steps rows and columns for GUI
+// Display Cue Point Pos, Colors
+// Note Names, chan etc...
+// Click to go to step
+
 desc:MIDI notes sequence from CSV file
 
-slider1:0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
+slider1:in_channel=0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
+slider2:in_note=0<0,127,1{-, 0: C0,1: C#0,2: D0,3: D#0,4: E0,5: F0,6: F#0,7: G0,8: G#0,9: A0,10: A#0,11: B0,12: C1,13: C#1,14: D1,15: D#1,16: E1,17: F1,18: F#1,19: G1,20: G#1,21: A1,22: A#1,23: B1,24: C2,25: C#2,26: D2,27: D#2,28: E2,29: F2,30: F#2,31: G2,32: G#2,33: A2,34: A#2,35: B2,36: C3,37: C#3,38: D3,39: D#3,40: E3,41: F3,42: F#3,43: G3,44: G#3,45: A3,46: A#3,47: B3,48: C4,49: C#4,50: D4,51: D#4,52: E4,53: F4,54: F#4,55: G4,56: G#4,57: A4,58: A#4,59: B4,60: C5,61: C#5,62: D5,63: D#5,64: E5,65: F5,66: F#5,67: G5,68: G#5,69: A5,70: A#5,71: B5,72: C6,73: C#6,74: D6,75: D#6,76: E6,77: F6,78: F#6,79: G6,80: G#6,81: A6,82: A#6,83: B6,84: C7,85: C#7,86: D7,87: D#7,88: E7,89: F7,90: F#7,91: G7,92: G#7,93: A7,94: A#7,95: B7,96: C8,97: C#8,98: D8,99: D#8,100: E8,101: F8,102: F#8,103: G8,104: G#8,105: A8,106: A#8,107: B8,108: C9,109: C#9,110: D9,111: D#9,112: E9,113: F9,114: F#9,115: G9,116: G#9,117: A9,118: A#9,119: B9,120: C10,121: C#10,122: D10,123: D#10,124: E10,125: F10,126: F#10,127: G10}>Note In
 
-slider3:49<0,127,1{Any,0: C-1,1: Db-1,2: D-1,3: Eb-1,4: E-1,5: F-1,6: Gb-1,7: G-1,8: Ab-1,9: A-1,10: Bb-1,11: B-1,12: C0,13: Db0,14: D0,15: Eb0,16: E0,17: F0,18: Gb0,19: G0,20: Ab0,21: A0,22: Bb0,23: B0,24: C1,25: Db1,26: D1,27: Eb1,28: E1,29: F1,30: Gb1,31: G1,32: Ab1,33: A1,34: Bb1,35: B1,36: C2,37: Db2,38: D2,39: Eb2,40: E2,41: F2,42: Gb2,43: G2,44: Ab2,45: A2,46: Bb2,47: B2,48: C3,49: Db3,50: D3,51: Eb3,52: E3,53: F3,54: Gb3,55: G3,56: Ab3,57: A3,58: Bb3,59: B3,60: C4,61: Db4,62: D4,63: Eb4,64: E4,65: F4,66: Gb4,67: G4,68: Ab4,69: A4,70: Bb4,71: B4,72: C5,73: Db5,74: D5,75: Eb5,76: E5,77: F5,78: Gb5,79: G5,80: Ab5,81: A5,82: Bb5,83: B5,84: C6,85: Db6,86: D6,87: Eb6,88: E6,89: F6,90: Gb6,91: G6,92: Ab6,93: A6,94: Bb6,95: B6,96: C7,97: Db7,98: D7,99: Eb7,100: E7,101: F7,102: Gb7,103: G7,104: Ab7,105: A7,106: Bb7,107: B7,108: C8,109: Db8,110: D8,111: Eb8,112: E8,113: F8,114: Gb8,115: G8,116: Ab8,117: A8,118: Bb8,119: B8,120: C9,121: Db9,122: D9,123: Eb9,124: E9,125: F9,126: Gb9}>Forward
-slider4:50<0,127,1{Any,0: C-1,1: Db-1,2: D-1,3: Eb-1,4: E-1,5: F-1,6: Gb-1,7: G-1,8: Ab-1,9: A-1,10: Bb-1,11: B-1,12: C0,13: Db0,14: D0,15: Eb0,16: E0,17: F0,18: Gb0,19: G0,20: Ab0,21: A0,22: Bb0,23: B0,24: C1,25: Db1,26: D1,27: Eb1,28: E1,29: F1,30: Gb1,31: G1,32: Ab1,33: A1,34: Bb1,35: B1,36: C2,37: Db2,38: D2,39: Eb2,40: E2,41: F2,42: Gb2,43: G2,44: Ab2,45: A2,46: Bb2,47: B2,48: C3,49: Db3,50: D3,51: Eb3,52: E3,53: F3,54: Gb3,55: G3,56: Ab3,57: A3,58: Bb3,59: B3,60: C4,61: Db4,62: D4,63: Eb4,64: E4,65: F4,66: Gb4,67: G4,68: Ab4,69: A4,70: Bb4,71: B4,72: C5,73: Db5,74: D5,75: Eb5,76: E5,77: F5,78: Gb5,79: G5,80: Ab5,81: A5,82: Bb5,83: B5,84: C6,85: Db6,86: D6,87: Eb6,88: E6,89: F6,90: Gb6,91: G6,92: Ab6,93: A6,94: Bb6,95: B6,96: C7,97: Db7,98: D7,99: Eb7,100: E7,101: F7,102: Gb7,103: G7,104: Ab7,105: A7,106: Bb7,107: B7,108: C8,109: Db8,110: D8,111: Eb8,112: E8,113: F8,114: Gb8,115: G8,116: Ab8,117: A8,118: Bb8,119: B8,120: C9,121: Db9,122: D9,123: Eb9,124: E9,125: F9,126: Gb9}>Backward
+slider3:in_forward=50<0,127,1{-, 0: C0,1: C#0,2: D0,3: D#0,4: E0,5: F0,6: F#0,7: G0,8: G#0,9: A0,10: A#0,11: B0,12: C1,13: C#1,14: D1,15: D#1,16: E1,17: F1,18: F#1,19: G1,20: G#1,21: A1,22: A#1,23: B1,24: C2,25: C#2,26: D2,27: D#2,28: E2,29: F2,30: F#2,31: G2,32: G#2,33: A2,34: A#2,35: B2,36: C3,37: C#3,38: D3,39: D#3,40: E3,41: F3,42: F#3,43: G3,44: G#3,45: A3,46: A#3,47: B3,48: C4,49: C#4,50: D4,51: D#4,52: E4,53: F4,54: F#4,55: G4,56: G#4,57: A4,58: A#4,59: B4,60: C5,61: C#5,62: D5,63: D#5,64: E5,65: F5,66: F#5,67: G5,68: G#5,69: A5,70: A#5,71: B5,72: C6,73: C#6,74: D6,75: D#6,76: E6,77: F6,78: F#6,79: G6,80: G#6,81: A6,82: A#6,83: B6,84: C7,85: C#7,86: D7,87: D#7,88: E7,89: F7,90: F#7,91: G7,92: G#7,93: A7,94: A#7,95: B7,96: C8,97: C#8,98: D8,99: D#8,100: E8,101: F8,102: F#8,103: G8,104: G#8,105: A8,106: A#8,107: B8,108: C9,109: C#9,110: D9,111: D#9,112: E9,113: F9,114: F#9,115: G9,116: G#9,117: A9,118: A#9,119: B9,120: C10,121: C#10,122: D10,123: D#10,124: E10,125: F10,126: F#10,127: G10}>Forward
+slider4:in_backward=49<0,127,1{-, 0: C0,1: C#0,2: D0,3: D#0,4: E0,5: F0,6: F#0,7: G0,8: G#0,9: A0,10: A#0,11: B0,12: C1,13: C#1,14: D1,15: D#1,16: E1,17: F1,18: F#1,19: G1,20: G#1,21: A1,22: A#1,23: B1,24: C2,25: C#2,26: D2,27: D#2,28: E2,29: F2,30: F#2,31: G2,32: G#2,33: A2,34: A#2,35: B2,36: C3,37: C#3,38: D3,39: D#3,40: E3,41: F3,42: F#3,43: G3,44: G#3,45: A3,46: A#3,47: B3,48: C4,49: C#4,50: D4,51: D#4,52: E4,53: F4,54: F#4,55: G4,56: G#4,57: A4,58: A#4,59: B4,60: C5,61: C#5,62: D5,63: D#5,64: E5,65: F5,66: F#5,67: G5,68: G#5,69: A5,70: A#5,71: B5,72: C6,73: C#6,74: D6,75: D#6,76: E6,77: F6,78: F#6,79: G6,80: G#6,81: A6,82: A#6,83: B6,84: C7,85: C#7,86: D7,87: D#7,88: E7,89: F7,90: F#7,91: G7,92: G#7,93: A7,94: A#7,95: B7,96: C8,97: C#8,98: D8,99: D#8,100: E8,101: F8,102: F#8,103: G8,104: G#8,105: A8,106: A#8,107: B8,108: C9,109: C#9,110: D9,111: D#9,112: E9,113: F9,114: F#9,115: G9,116: G#9,117: A9,118: A#9,119: B9,120: C10,121: C#10,122: D10,123: D#10,124: E10,125: F10,126: F#10,127: G10}>Backward
 
-slider6:51<0,127,1{Any,0: C-1,1: Db-1,2: D-1,3: Eb-1,4: E-1,5: F-1,6: Gb-1,7: G-1,8: Ab-1,9: A-1,10: Bb-1,11: B-1,12: C0,13: Db0,14: D0,15: Eb0,16: E0,17: F0,18: Gb0,19: G0,20: Ab0,21: A0,22: Bb0,23: B0,24: C1,25: Db1,26: D1,27: Eb1,28: E1,29: F1,30: Gb1,31: G1,32: Ab1,33: A1,34: Bb1,35: B1,36: C2,37: Db2,38: D2,39: Eb2,40: E2,41: F2,42: Gb2,43: G2,44: Ab2,45: A2,46: Bb2,47: B2,48: C3,49: Db3,50: D3,51: Eb3,52: E3,53: F3,54: Gb3,55: G3,56: Ab3,57: A3,58: Bb3,59: B3,60: C4,61: Db4,62: D4,63: Eb4,64: E4,65: F4,66: Gb4,67: G4,68: Ab4,69: A4,70: Bb4,71: B4,72: C5,73: Db5,74: D5,75: Eb5,76: E5,77: F5,78: Gb5,79: G5,80: Ab5,81: A5,82: Bb5,83: B5,84: C6,85: Db6,86: D6,87: Eb6,88: E6,89: F6,90: Gb6,91: G6,92: Ab6,93: A6,94: Bb6,95: B6,96: C7,97: Db7,98: D7,99: Eb7,100: E7,101: F7,102: Gb7,103: G7,104: Ab7,105: A7,106: Bb7,107: B7,108: C8,109: Db8,110: D8,111: Eb8,112: E8,113: F8,114: Gb8,115: G8,116: Ab8,117: A8,118: Bb8,119: B8,120: C9,121: Db9,122: D9,123: Eb9,124: E9,125: F9,126: Gb9}>Reset
+slider6:in_reset=51<0,127,1{-, 0: C0,1: C#0,2: D0,3: D#0,4: E0,5: F0,6: F#0,7: G0,8: G#0,9: A0,10: A#0,11: B0,12: C1,13: C#1,14: D1,15: D#1,16: E1,17: F1,18: F#1,19: G1,20: G#1,21: A1,22: A#1,23: B1,24: C2,25: C#2,26: D2,27: D#2,28: E2,29: F2,30: F#2,31: G2,32: G#2,33: A2,34: A#2,35: B2,36: C3,37: C#3,38: D3,39: D#3,40: E3,41: F3,42: F#3,43: G3,44: G#3,45: A3,46: A#3,47: B3,48: C4,49: C#4,50: D4,51: D#4,52: E4,53: F4,54: F#4,55: G4,56: G#4,57: A4,58: A#4,59: B4,60: C5,61: C#5,62: D5,63: D#5,64: E5,65: F5,66: F#5,67: G5,68: G#5,69: A5,70: A#5,71: B5,72: C6,73: C#6,74: D6,75: D#6,76: E6,77: F6,78: F#6,79: G6,80: G#6,81: A6,82: A#6,83: B6,84: C7,85: C#7,86: D7,87: D#7,88: E7,89: F7,90: F#7,91: G7,92: G#7,93: A7,94: A#7,95: B7,96: C8,97: C#8,98: D8,99: D#8,100: E8,101: F8,102: F#8,103: G8,104: G#8,105: A8,106: A#8,107: B8,108: C9,109: C#9,110: D9,111: D#9,112: E9,113: F9,114: F#9,115: G9,116: G#9,117: A9,118: A#9,119: B9,120: C10,121: C#10,122: D10,123: D#10,124: E10,125: F10,126: F#10,127: G10}>Reset
 
-slider10:52<0,127,1{Any,0: C-1,1: Db-1,2: D-1,3: Eb-1,4: E-1,5: F-1,6: Gb-1,7: G-1,8: Ab-1,9: A-1,10: Bb-1,11: B-1,12: C0,13: Db0,14: D0,15: Eb0,16: E0,17: F0,18: Gb0,19: G0,20: Ab0,21: A0,22: Bb0,23: B0,24: C1,25: Db1,26: D1,27: Eb1,28: E1,29: F1,30: Gb1,31: G1,32: Ab1,33: A1,34: Bb1,35: B1,36: C2,37: Db2,38: D2,39: Eb2,40: E2,41: F2,42: Gb2,43: G2,44: Ab2,45: A2,46: Bb2,47: B2,48: C3,49: Db3,50: D3,51: Eb3,52: E3,53: F3,54: Gb3,55: G3,56: Ab3,57: A3,58: Bb3,59: B3,60: C4,61: Db4,62: D4,63: Eb4,64: E4,65: F4,66: Gb4,67: G4,68: Ab4,69: A4,70: Bb4,71: B4,72: C5,73: Db5,74: D5,75: Eb5,76: E5,77: F5,78: Gb5,79: G5,80: Ab5,81: A5,82: Bb5,83: B5,84: C6,85: Db6,86: D6,87: Eb6,88: E6,89: F6,90: Gb6,91: G6,92: Ab6,93: A6,94: Bb6,95: B6,96: C7,97: Db7,98: D7,99: Eb7,100: E7,101: F7,102: Gb7,103: G7,104: Ab7,105: A7,106: Bb7,107: B7,108: C8,109: Db8,110: D8,111: Eb8,112: E8,113: F8,114: Gb8,115: G8,116: Ab8,117: A8,118: Bb8,119: B8,120: C9,121: Db9,122: D9,123: Eb9,124: E9,125: F9,126: Gb9}>Save Cue Point
-slider11:53<0,127,1{Any,0: C-1,1: Db-1,2: D-1,3: Eb-1,4: E-1,5: F-1,6: Gb-1,7: G-1,8: Ab-1,9: A-1,10: Bb-1,11: B-1,12: C0,13: Db0,14: D0,15: Eb0,16: E0,17: F0,18: Gb0,19: G0,20: Ab0,21: A0,22: Bb0,23: B0,24: C1,25: Db1,26: D1,27: Eb1,28: E1,29: F1,30: Gb1,31: G1,32: Ab1,33: A1,34: Bb1,35: B1,36: C2,37: Db2,38: D2,39: Eb2,40: E2,41: F2,42: Gb2,43: G2,44: Ab2,45: A2,46: Bb2,47: B2,48: C3,49: Db3,50: D3,51: Eb3,52: E3,53: F3,54: Gb3,55: G3,56: Ab3,57: A3,58: Bb3,59: B3,60: C4,61: Db4,62: D4,63: Eb4,64: E4,65: F4,66: Gb4,67: G4,68: Ab4,69: A4,70: Bb4,71: B4,72: C5,73: Db5,74: D5,75: Eb5,76: E5,77: F5,78: Gb5,79: G5,80: Ab5,81: A5,82: Bb5,83: B5,84: C6,85: Db6,86: D6,87: Eb6,88: E6,89: F6,90: Gb6,91: G6,92: Ab6,93: A6,94: Bb6,95: B6,96: C7,97: Db7,98: D7,99: Eb7,100: E7,101: F7,102: Gb7,103: G7,104: Ab7,105: A7,106: Bb7,107: B7,108: C8,109: Db8,110: D8,111: Eb8,112: E8,113: F8,114: Gb8,115: G8,116: Ab8,117: A8,118: Bb8,119: B8,120: C9,121: Db9,122: D9,123: Eb9,124: E9,125: F9,126: Gb9}>Go to Cue Point
+slider10:in_save_cue=52<0,127,1{-, 0: C0,1: C#0,2: D0,3: D#0,4: E0,5: F0,6: F#0,7: G0,8: G#0,9: A0,10: A#0,11: B0,12: C1,13: C#1,14: D1,15: D#1,16: E1,17: F1,18: F#1,19: G1,20: G#1,21: A1,22: A#1,23: B1,24: C2,25: C#2,26: D2,27: D#2,28: E2,29: F2,30: F#2,31: G2,32: G#2,33: A2,34: A#2,35: B2,36: C3,37: C#3,38: D3,39: D#3,40: E3,41: F3,42: F#3,43: G3,44: G#3,45: A3,46: A#3,47: B3,48: C4,49: C#4,50: D4,51: D#4,52: E4,53: F4,54: F#4,55: G4,56: G#4,57: A4,58: A#4,59: B4,60: C5,61: C#5,62: D5,63: D#5,64: E5,65: F5,66: F#5,67: G5,68: G#5,69: A5,70: A#5,71: B5,72: C6,73: C#6,74: D6,75: D#6,76: E6,77: F6,78: F#6,79: G6,80: G#6,81: A6,82: A#6,83: B6,84: C7,85: C#7,86: D7,87: D#7,88: E7,89: F7,90: F#7,91: G7,92: G#7,93: A7,94: A#7,95: B7,96: C8,97: C#8,98: D8,99: D#8,100: E8,101: F8,102: F#8,103: G8,104: G#8,105: A8,106: A#8,107: B8,108: C9,109: C#9,110: D9,111: D#9,112: E9,113: F9,114: F#9,115: G9,116: G#9,117: A9,118: A#9,119: B9,120: C10,121: C#10,122: D10,123: D#10,124: E10,125: F10,126: F#10,127: G10}>Save Cue Point
+slider11:in_go_cue53<0,127,1{-, 0: C0,1: C#0,2: D0,3: D#0,4: E0,5: F0,6: F#0,7: G0,8: G#0,9: A0,10: A#0,11: B0,12: C1,13: C#1,14: D1,15: D#1,16: E1,17: F1,18: F#1,19: G1,20: G#1,21: A1,22: A#1,23: B1,24: C2,25: C#2,26: D2,27: D#2,28: E2,29: F2,30: F#2,31: G2,32: G#2,33: A2,34: A#2,35: B2,36: C3,37: C#3,38: D3,39: D#3,40: E3,41: F3,42: F#3,43: G3,44: G#3,45: A3,46: A#3,47: B3,48: C4,49: C#4,50: D4,51: D#4,52: E4,53: F4,54: F#4,55: G4,56: G#4,57: A4,58: A#4,59: B4,60: C5,61: C#5,62: D5,63: D#5,64: E5,65: F5,66: F#5,67: G5,68: G#5,69: A5,70: A#5,71: B5,72: C6,73: C#6,74: D6,75: D#6,76: E6,77: F6,78: F#6,79: G6,80: G#6,81: A6,82: A#6,83: B6,84: C7,85: C#7,86: D7,87: D#7,88: E7,89: F7,90: F#7,91: G7,92: G#7,93: A7,94: A#7,95: B7,96: C8,97: C#8,98: D8,99: D#8,100: E8,101: F8,102: F#8,103: G8,104: G#8,105: A8,106: A#8,107: B8,108: C9,109: C#9,110: D9,111: D#9,112: E9,113: F9,114: F#9,115: G9,116: G#9,117: A9,118: A#9,119: B9,120: C10,121: C#10,122: D10,123: D#10,124: E10,125: F10,126: F#10,127: G10}>Go to Cue Point
 
-slider15:0<0,1,1{Input,File}>Velocity
+slider15:slider_vel_mod=0<0,1,1{Input,File}>Velocity
 
 slider20:/MIDI Sequences:none:Sequence CSV
 
 ////////////////////////////////////////////////////////////////////////////////
 @init
+
+function ParseCSV() local (i, fileHandle) (
+  seqFile = slider20;
+  cur_step = -1;
+  fileHandle = file_open(slider20);
+  fileHandle > 0 && file_text(fileHandle) ? (
+    i = 0;
+    while(file_avail(fileHandle)) (
+      file_string(fileHandle, #line);
+      // You could probably deal with line-endings more efficiently...
+      match("%d,%d+,%d+", #line, note, vel, chan) ? (
+        t_note[i] = note;
+        t_vel[i] = vel;
+        t_chan[i] = chan;
+      ):( match("%d.%d+", #line, note, vel, chan) ) ? (
+        t_note[i] = note;
+        t_vel[i] = vel;
+        t_chan[i] = 1;
+      );
+      i += 1;
+    );
+    file_close(fileHandle);
+    seqSize = i;
+  );
+);
+
 statNoteOn = $x90;
 statNoteOff = $x80;
-seq = 0;
+
 cue = 0;
+cur_step = -1;
+
+// Global Memory Adress
+t_note = 0;
+t_vel = 1024;
+t_chan = 2048;
 
 // File change flags
 scaleFile = seqFile -1;
 
+line_size = 3;
+
+ParseCSV();
+
 ////////////////////////////////////////////////////////////////////////////////
 @slider
-inChannel = slider1 - 1;
+inChannel = in_channel - 1;
 
-seqFile != slider20 ?
-(
-  seqFile = slider20;
-  seqSize = 0;
-  out_on = 0;
-  fileHandle = file_open(slider20);
-  fileHandle > 0 && file_text(fileHandle) ?
-  (
-    while
-    (
-      file_var(fileHandle,seq[seqSize]);
-      file_avail(fileHandle) ? seqSize += 1;
-    );
-    file_close(fileHandle);
-  );
+seqFile != slider20 ? (
+  ParseCSV();
 );
 
-@gfx 100 32
+////////////////////////////////////////////////////////////////////////////////
+@gfx 100 200
 gfx_setfont(1, "Arial", 20);
 gfx_r=1; gfx_b=1; gfx_g=1; gfx_a=1;
 gfx_x=gfx_y=5;
 gfx_drawstr("Sequence Size: ");
 gfx_x = 130;
-gfx_drawnumber(seqSize/3,0);
+gfx_drawnumber( seqSize , 0 );
 
 gfx_y += 20; gfx_x = 5;
 gfx_drawstr("Current Step: ");
 gfx_x = 130;
-gfx_drawnumber(out_on/3+1,0);
+gfx_drawnumber(cur_step + 1,0);
 
 gfx_y += 20; gfx_x = 5;
 gfx_drawstr("Cue Point: ");
 gfx_x = 130;
-gfx_drawnumber(cue/3+1,0);
+gfx_drawnumber(cue + 1 , 0);
 
 gfx_y += 40; gfx_x = 5;
 i = 0;
-h_seqSize = seqSize/3+1;
-loop(h_seqSize,
-  out_on/3 == i ? gfx_a=1: gfx_a=0.5;
-  gfx_rect(gfx_w/(h_seqSize-1)*i, gfx_y, gfx_w/h_seqSize, gfx_h-gfx_y-20);
+y = gfx_y;
+pad_w = gfx_w/(seqSize+1);
+pad_h = gfx_h-gfx_y-20;
+format = "%d";
+loop(seqSize,
+  cur_step == i ? gfx_a=1: gfx_a=0.5;
+  x = gfx_w/(seqSize)*i;
+  gfx_r=1; gfx_b=1; gfx_g=1;
+  gfx_rect(x, y, pad_w, pad_h);
+  text = i;
+  text = t_note[i];
+  //text = t_chan[i];
+  gfx_measurestr(sprintf(#, format, text),w,height);
+  gfx_x = x + pad_w / 2 - w/2;
+  gfx_y = y + pad_h /2 - height / 2;
+  gfx_r=0; gfx_b=0; gfx_g=0; gfx_a=1;
+  gfx_drawstr(sprintf(#, format, text));
   i+=1;
 );
 ////////////////////////////////////////////////////////////////////////////////
@@ -118,77 +169,67 @@ while (
     // Is it on our channel?
     channel == inChannel || inChannel == -1 ? (
 
+      // Note In Slider
+      status == statNoteOn ? in_note = note + 1;
+      status == statNoteOff ? in_note = 0;
+
       // Is it a note event?
       status == statNoteOn || status == statNoteOff ? (
 
         done = 0;
 
         // If Forward play
-        note + 1 == slider3 || ( slider3 == 0 && note + 1 != slider6 ) ? (
+        note == in_forward - 1 || ( in_forward == 0 && note != in_reset ) ? (
 
           done = 1;
-
           // If note on
           status == statNoteOn ? (
-            out_on = out_on + 3; // +3 because the file parsing understand each "," as a step (it doesn't parse per line). 3 columns => +3 to go to the next note.
-            out_on == seqSize + 1 ? out_on = 0;
-            note_out = seq[out_on]; // Get Note Out
-            chan_out = seq[out_on+2]; // 3 columns => +2 to go to the last one, but -1 to the midi channel to send MIDI
-            slider15 == 1 ? (
-              vel_out = seq[out_on+1];
-            );
+            cur_step = cur_step + 1;
+            cur_step >= seqSize ? cur_step = 0;
+            note_out = t_note[cur_step];
+            chan_out = t_chan[cur_step]; // 0 Based
+            slider_vel_mod == 1 ? vel_out = t_vel[cur_step+1] : vel_out = vel;
           );
 
           // If note off
           status == statNoteOff ? (
-            out_off = out_off + 3;
-            out_off == seqSize + 1 ? out_off = 0;
-            note_out = seq[out_on]; // Get Note Out
-            chan_out = seq[out_on+2];
-            slider15 == 1 ? (
-              vel_out = seq[out_on+1];
-            );
+            note_out = t_note[cur_step];
+            chan_out = t_chan[cur_step]; // 0 Based
+            vel_out = 0;
           );
 
         );
 
         // If Backward play
-        ( note + 1 == slider4 || slider4 == 0 ) && done == 0 ? (
+        ( note == in_backward - 1 || in_backward == 0 ) && done == 0 ? (
 
           done = 1;
 
           // If note on
           status == statNoteOn ? (
-            out_on = out_on - 3;
-            out_on < 0 ? out_on = seqSize-2;
-            note_out = seq[out_on]; // Get Note Out
-            chan_out = seq[out_on+2];
-            slider15 == 1 ? (
-              vel_out = seq[out_on+1];
-            );
+            cur_step = cur_step - 1;
+            cur_step < 0 ? cur_step = seqSize-1;
+            note_out = t_note[cur_step];
+            chan_out = t_chan[cur_step]; // 0 Based
+            slider_vel_mod == 1 ? vel_out = t_vel[cur_step+1] : vel_out = vel;
           );
 
           // If note off
           status == statNoteOff ? (
-            out_off = out_off - 3;
-            out_off < 0 ? out_off = seqSize-2;
-            note_out = seq[out_on]; // Get Note Out
-            chan_out = seq[out_on+2];
-            slider15 == 1 ? (
-              vel_out = seq[out_on+1];
-            );
+            note_out = t_note[cur_step];
+            chan_out = t_chan[cur_step]; // 0 Based
+            vel_out = 0;
           );
 
         );
 
         // If Reset
-        ( note + 1 == slider6 || slider6 == 0 ) && done == 0 ? (
+        ( note == in_reset - 1 || in_reset == 0 ) && done == 0 ? (
 
             done = 1;
 
             status == statNoteOn ? (
-              out_on = 0;
-              out_off = 0;
+              cur_step = -1;
             );
 
             status == statNoteOff ? (
@@ -200,7 +241,7 @@ while (
         );
 
         // If Set Cue Point
-        ( note + 1 == slider10 || slider10 == 0 ) && done == 0 ? (
+        ( note == in_save_cue - 1 || in_save_cue == 0 ) && done == 0 ? (
 
             done = 1;
 
@@ -217,13 +258,12 @@ while (
         );
 
         // If Go To Cue Point
-        ( note + 1 == slider11 || slider11 == 0 ) && done == 0 ? (
+        ( note == in_go_cue - 1 || in_go_cue == 0 ) && done == 0 ? (
 
             done = 1;
 
             status == statNoteOn ? (
-              out_on = cue;
-              out_off = cue;
+              cur_step = cue;
             );
 
             status == statNoteOff ? (
@@ -243,11 +283,10 @@ while (
 
     ); // Channel filter
 
-    // Vel from input or from file
-    slider15 == 0 ? ( vel_out = vel );
-
     // Send the MIDI notes or data
-    send ? midisend( offset, status + chan_out, note_out, vel_out );
+    send ? (
+      midisend( offset, status + chan_out, note_out, vel_out );
+    );
 
     1; // Force loop to continue until all messages have been processed
 
