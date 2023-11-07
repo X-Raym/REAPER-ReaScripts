@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="4d0a39943d78e4f47f4143c8dfa3d24f8437f4a6" name="X-Raym Scripts">
+<index version="1" commit="483a823ce3b0e7a0945b1037742cb0ca5407c5a0" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4601,7 +4601,7 @@
     </reapack>
     <reapack name="X-Raym_MIDI notes sequence from CSV file.jsfx" type="effect" desc="MIDI notes sequence from CSV file">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -4625,6 +4625,15 @@
         <changelog><![CDATA[# Channel fix
 # Sequence position reinitialized when file is changed]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/JSFX/MIDI/X-Raym_MIDI%20notes%20sequence%20from%20CSV%20file.jsfx</source>
+      </version>
+      <version name="2.1" author="X-Raym" time="2023-11-07T18:53:02Z">
+        <changelog><![CDATA[# A bit of refactoring
+# Works with note,vel,chan and note.vel (v1) formats
+# Bug fixes
+# Sharps instead of bemols
+# Number in graphics
+# Note-in indicators]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/483a823ce3b0e7a0945b1037742cb0ca5407c5a0/JSFX/MIDI/X-Raym_MIDI%20notes%20sequence%20from%20CSV%20file.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_MIDI single note map.jsfx" type="effect" desc="MIDI single note map">
