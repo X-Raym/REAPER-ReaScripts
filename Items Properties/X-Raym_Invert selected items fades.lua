@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Invert selected items fades
- * Instructions: Select items. Run.
+ * About: Select items. Run.
  * Screenshot: https://i.imgur.com/Hd0BhnU.gifv
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -10,11 +10,13 @@
  * Forum Thread: Script: Scripts: Item Fades (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1538659
  * REAPER: 5.0 pre 36
- * Version: 1.0
+ * Version: 1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1 (2023-11-10)
+  # Fix shapes and curve (thx reaperblog)
  * v1.0 (2017-09-06)
   + Initial Release
 --]]
@@ -31,13 +33,26 @@ function main()
 
     -- GET ITEMS
     item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-
-    fade_in = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN")
-    fade_out = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN")
-
-    -- GET INFOS
-    reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", fade_out)
-    reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", fade_in)
+    
+    -- Get current fade parameters
+    fadeInLen = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN")
+    fadeOutLen = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN")
+    fadeInCurvature = reaper.GetMediaItemInfo_Value(item, "D_FADEINDIR")
+    fadeOutCurvature = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTDIR")
+    fadeInShape = reaper.GetMediaItemInfo_Value(item, "C_FADEINSHAPE")
+    fadeOutShape = reaper.GetMediaItemInfo_Value(item, "C_FADEOUTSHAPE")
+    
+    -- Swap fade lengths
+    reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", fadeOutLen)
+    reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", fadeInLen)
+    
+    -- Swap fade shapes
+    reaper.SetMediaItemInfo_Value(item, "C_FADEINSHAPE", fadeOutShape)
+    reaper.SetMediaItemInfo_Value(item, "C_FADEOUTSHAPE", fadeInShape)
+    
+    -- Swap fade curvatures
+    reaper.SetMediaItemInfo_Value(item, "D_FADEINDIR", -fadeOutCurvature)
+    reaper.SetMediaItemInfo_Value(item, "D_FADEOUTDIR", -fadeInCurvature)
 
   end -- ENDLOOP through selected items
 
