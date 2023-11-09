@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a450103ecf24fad4defd4788a52bc10aed4f9985" name="X-Raym Scripts">
+<index version="1" commit="42722f0df65992253f073145487239c34a8b8ab2" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3262,11 +3262,22 @@
     </reapack>
     <reapack name="X-Raym_Invert selected items fades.lua" type="script" desc="Invert selected items fades">
       <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Select items. Run.\par}
+}
+]]></description>
         <link rel="screenshot">https://i.imgur.com/Hd0BhnU.gifv</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2017-09-06T09:36:07Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Invert%20selected%20items%20fades.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2023-11-09T23:44:54Z">
+        <changelog><![CDATA[# Fix shapes and curve (thx reaperblog)]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/42722f0df65992253f073145487239c34a8b8ab2/Items%20Properties/X-Raym_Invert%20selected%20items%20fades.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Invert tracks (reverse vertically) of selected items.lua" type="script" desc="Invert tracks (reverse vertically) of selected items">
