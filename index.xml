@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="63ab9690c2c01f2013f4480356ed0c71cac940fe" name="X-Raym Scripts">
+<index version="1" commit="f27a4180d39859bd4bb282cf6fd6353fccec0da2" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2607,50 +2607,47 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Editing/X-Raym_Split%20first%20selected%20item%20at%20edit%20carret%20position%20in%20SWS%20notes%20window.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Split selected items according to items on first selected track and delete new items at spaces.lua" type="script" desc="Split selected items according to items on first selected track and delete new items at spaces">
+    <reapack name="X-Raym_Split selected items according to items on selected tracks and delete new items at spaces.lua" type="script" desc="Split selected items according to items on selected tracks and delete new items at spaces">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
 {\pard \ql \f0 \sa180 \li0 \fi0 A script to do multi mic based editing using one single track.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/v507YbW.gifv</link>
+        <link rel="screenshot">https://i.imgur.com/xmPVYZi.gif</link>
       </metadata>
-      <version name="1.0" author="X-Raym" time="2020-07-06T12:56:30Z">
-        <changelog><![CDATA[+ Initial Release]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6f2a784b4961f6b2a9514ab5b94fabfa5376ca71/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20first%20selected%20track%20and%20delete%20new%20items%20at%20spaces.lua</source>
-      </version>
-      <version name="1.0.1" author="X-Raym" time="2020-08-28T18:36:21Z">
-        <changelog><![CDATA[# Actually delete items at spaces]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20first%20selected%20track%20and%20delete%20new%20items%20at%20spaces.lua</source>
+      <version name="2.0" author="X-Raym" time="2023-11-10T17:15:29Z">
+        <changelog><![CDATA[# Renamed
+# Refactor
+# Bug fixes
++ Multitracks as source support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f27a4180d39859bd4bb282cf6fd6353fccec0da2/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20selected%20tracks%20and%20delete%20new%20items%20at%20spaces.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Split selected items according to items on first selected track and keep new items at spaces.lua" type="script" desc="Split selected items according to items on first selected track and keep new items at spaces">
+    <reapack name="X-Raym_Split selected items according to items on selected tracks and keep new items at spaces.lua" type="script" desc="Split selected items according to items on selected tracks and keep new items at spaces">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
 {\pard \ql \f0 \sa180 \li0 \fi0 A script designed for spliting an ambiance sound to put between dialog items\par}
 }
 ]]></description>
+        <link rel="screenshot">https://i.imgur.com/6e1H0I2.gif</link>
       </metadata>
-      <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
-        <changelog><![CDATA[+ Works on selected multiple items]]></changelog>
-        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/05876b1a4b12a54eadf98e1a05d7875071de7dde/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20first%20selected%20track%20and%20keep%20new%20items%20at%20spaces.lua</source>
-      </version>
-      <version name="1.1.1" author="X-Raym" time="2019-10-18T09:42:54Z">
-        <changelog><![CDATA[# No track selected bug fix
-# Few optimizations
-# Error tootip]]></changelog>
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20first%20selected%20track%20and%20keep%20new%20items%20at%20spaces.lua</source>
+      <version name="2.0" author="X-Raym" time="2023-11-10T17:15:29Z">
+        <changelog><![CDATA[# Renamed
+# Refactor
+# Bug fixes
++ Multitracks as source support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f27a4180d39859bd4bb282cf6fd6353fccec0da2/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20selected%20tracks%20and%20keep%20new%20items%20at%20spaces.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Split selected items according to items on selected tracks.lua" type="script" desc="Split selected items according to items on selected tracks">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -2674,6 +2671,10 @@
       <version name="1.1.3" author="X-Raym" time="2020-09-09T00:11:28Z">
         <changelog><![CDATA[# Bug fix]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20selected%20tracks.lua</source>
+      </version>
+      <version name="1.1.4" author="X-Raym" time="2023-11-10T17:15:29Z">
+        <changelog><![CDATA[# Minor tweaks]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f27a4180d39859bd4bb282cf6fd6353fccec0da2/Items%20Editing/X-Raym_Split%20selected%20items%20according%20to%20items%20on%20selected%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Split selected items at regions.lua" type="script" desc="Split selected items at regions">
