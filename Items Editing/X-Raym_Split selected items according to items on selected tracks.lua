@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Version: 1.1.3
+ * Version: 1.1.4
 --]]
 
 --[[
  * Changelog:
+ * v1.1.4 (2023-11-10)
+  # Minor tweaks
  * v1.1.3 (2019-10-20)
   # Bug fix
  * v1.1.2 (2019-10-20)
@@ -28,13 +30,13 @@
   + Initial Release
 --]]
 
--- based on X-Raym_Split selected items according to items on first selected track and keep new items at spaces.lua
-
-function save_item_selection()
-  save_item = {}
-  for f = 0, count_sel_items - 1 do
-    save_item[f+1] = reaper.GetSelectedMediaItem(0, f)
+-- Save item selection
+function SaveSelectedItems(t)
+  local t = t or {}
+  for i = 0, reaper.CountSelectedMediaItems(0)-1 do
+    t[i+1] = reaper.GetSelectedMediaItem(0, i)
   end
+  return t
 end
 
 
@@ -99,9 +101,9 @@ function GetSplitPoints()
 end
 
 -- MAIN
-function main()
+function Main()
 
-  for i, item in ipairs(save_item) do
+  for i, item in ipairs(init_sel_items) do
 
     item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
     item_end = reaper.GetMediaItemInfo_Value(item, "D_LENGTH") + item_pos
@@ -136,9 +138,9 @@ if count_sel_tracks > 0 and count_sel_items > 0 then
 
   GetSplitPoints() -- Get Split Points
 
-  save_item_selection() -- Save Item Selection
+  init_sel_items = SaveSelectedItems()
 
-  main() -- Run
+  Main() -- Run
 
   reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
