@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8dddc1a715b44f8e404d58db298cb39212d8b5fa" name="X-Raym Scripts">
+<index version="1" commit="c138feec7bc534b028d8bd1be1ac98f4dadf4d69" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1862,11 +1862,15 @@
     </reapack>
     <reapack name="X-Raym_Delete selected items and ripple edit adjacent items.lua" type="script" desc="Delete selected items and ripple edit adjacent items">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/3o8doN6hJOcw77QX8Q.gif</link>
+        <link rel="screenshot">https://i.imgur.com/LUyqVCT.gif</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Editing/X-Raym_Delete%20selected%20items%20and%20ripple%20edit%20adjacent%20items.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2023-11-10T18:49:58Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c138feec7bc534b028d8bd1be1ac98f4dadf4d69/Items%20Editing/X-Raym_Delete%20selected%20items%20and%20ripple%20edit%20adjacent%20items.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Delete selected items sections in time selection if cursor enter time selection and ripple new items.lua" type="script" desc="Delete selected items sections in time selection if cursor enter time selection and ripple new items">
