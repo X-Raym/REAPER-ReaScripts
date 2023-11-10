@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="70af7fdd41743f17c70d78a200b9d9f69a90deb4" name="X-Raym Scripts">
+<index version="1" commit="8dddc1a715b44f8e404d58db298cb39212d8b5fa" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1590,6 +1590,15 @@
       <version name="1.0" author="X-Raym" time="2018-07-06T13:37:54Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/FX/X-Raym_Propagate%20last%20focused%20FX%20parameters%20values%20but%20bypass%20to%20similarly%20named%20FX%20on%20child%20tracks%20(real-time).lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Screenshot FX on selected tracks.lua" type="script" desc="Screenshot FX on selected tracks">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/QJ347SW.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2023-11-10T17:33:27Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8dddc1a715b44f8e404d58db298cb39212d8b5fa/FX/X-Raym_Screenshot%20FX%20on%20selected%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set Color RGB paramaters of named FX to its track color.lua" type="script" desc="Set Color RGB paramaters of named FX to its track color">
