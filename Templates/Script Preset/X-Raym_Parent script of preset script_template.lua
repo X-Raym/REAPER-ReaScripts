@@ -6,7 +6,7 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
  * Provides:
  *   [nomain] .
  *   [nomain] README.md
@@ -14,11 +14,14 @@
 
 -- USER CONFIG AREA ------------------------------------------------------
 
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
+
 -- Typical global variables names. This will be out global variables which could be altered in the preset file.
 popup = false
 console = false
 
-link = "https://github.com/X-Raym/REAPER-ReaScripts/Templates/Script Preset/README.md"
+link = "https://github.com/X-Raym/REAPER-ReaScripts/Templates/Script%20Preset/README.md"
 
 -------------------------------------------------- END OF USER CONFIG AREA
 function Open_URL(url)
