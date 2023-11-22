@@ -8,11 +8,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0 pre 15
- * Version: 2.0
+ * Version: 2.0.1
 --]]
 
 --[[
  * Changelog:
+ * v2.0.1 (2023-11-33)
+  # Fix dependency
  * v2.0 (2023-11-10)
   # Renamed
   # Refactor
@@ -31,7 +33,7 @@
 -- USER CONFIG AREA 1/2 ------------------------------------------------------
 
 -- Dependency Name
-local script = "X-Raym_Split selected items according to items on first selected track and delete new items at spaces.lua" -- 1. The target script path relative to this file. If no folder, then it means preset file is right to the target script.
+local script = "X-Raym_Split selected items according to items on selected tracks and delete new items at spaces.lua" -- 1. The target script path relative to this file. If no folder, then it means preset file is right to the target script.
 
 -------------------------------------------------- END OF USER CONFIG AREA 1/2
 
