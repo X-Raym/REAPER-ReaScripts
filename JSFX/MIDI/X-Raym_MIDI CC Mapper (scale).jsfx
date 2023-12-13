@@ -1,0 +1,89 @@
+/**
+ * JSFX Name: MIDI CC Mapper Scale
+ * Description: Mode of MIDI CC Mapper, with linear scaling between two range of values (input and output)
+ * Author: X-Raym
+ * Author URI: http://www.extremraym.com
+ * Links:
+     Forum Thread https://forum.cockos.com/showthread.php?t=199275
+ * Donation: http://www.extremraym.com/en/donation
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.1
+ */
+
+/**
+ * Changelog:
+ * v1.1 (2023-12-13)
+  # Break backward compatibility
+  + Chan filter
+  + All CC Filter
+  # Limit output to min and max
+ * v1.0 (2023-12-12)
+  + Initial Release
+ */
+
+desc: MIDI CC Mapper (scale)
+
+slider1:in_chan=0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>MIDI Channel Input
+slider3:all_cc=0<0,1,1{Named CC,All CC}>CC Input
+slider4:ccsrc=1<0,127,1{0 Bank Sel M,1 Mod Wheel M,2 Breath M,3,4 Foot P M,5 Porta M,6 Data Entry M,7 Vol M,8 Balance M,9,10 Pan M,11 Expression M,12 Ctrl 1 M,13 Ctrl 2 M,14,15,16 GP Slider 1,17 GP Slider 2,18 GP Slider 3,19 GP Slider 4,20,21,22,23,24,25,26,27,28,29,30,31,32 Bank Sel L,33 Mod Wheel L,34 Breath L,35,36 Foot P L,37 Porta L,38 Data Entry L,39 Vol L,40 Balance L,41,42 Pan L,43 Expression L,44 Ctrl 1 L,45 Ctrl 2 L,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64 Hold P sw,65 Porta sw,66 Sustenuto sw,67 Soft P sw,68 Legato P sw,69 Hold 2 P sw,70 S.Variation,71 S.Timbre,72 S.Release,73 S.Attack,74 S.Brightness,75 S.Ctrl 6,76 S.Ctrl 7,77 S.Ctrl 8,78 S.Ctrl 9,79 S.Ctrl 10,80 GP B.1 sw,81 GP B.2 sw,82 GP B.3 sw,83 GP B.4 sw,84,85,86,87,88,89,90,91 Effects Lv,92 Trem Lv,93 Chorus Lv,94 Celeste Lv,95 Phaser Lv,96 Data B. Inc,97 Data B. Dec,98 NRP L,99 NRP M,100 RP L,101 RP M,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127}>Controller Source
+slider5:cctgt=1<0,127,1{0 Bank Sel M,1 Mod Wheel M,2 Breath M,3,4 Foot P M,5 Porta M,6 Data Entry M,7 Vol M,8 Balance M,9,10 Pan M,11 Expression M,12 Ctrl 1 M,13 Ctrl 2 M,14,15,16 GP Slider 1,17 GP Slider 2,18 GP Slider 3,19 GP Slider 4,20,21,22,23,24,25,26,27,28,29,30,31,32 Bank Sel L,33 Mod Wheel L,34 Breath L,35,36 Foot P L,37 Porta L,38 Data Entry L,39 Vol L,40 Balance L,41,42 Pan L,43 Expression L,44 Ctrl 1 L,45 Ctrl 2 L,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64 Hold P sw,65 Porta sw,66 Sustenuto sw,67 Soft P sw,68 Legato P sw,69 Hold 2 P sw,70 S.Variation,71 S.Timbre,72 S.Release,73 S.Attack,74 S.Brightness,75 S.Ctrl 6,76 S.Ctrl 7,77 S.Ctrl 8,78 S.Ctrl 9,79 S.Ctrl 10,80 GP B.1 sw,81 GP B.2 sw,82 GP B.3 sw,83 GP B.4 sw,84,85,86,87,88,89,90,91 Effects Lv,92 Trem Lv,93 Chorus Lv,94 Celeste Lv,95 Phaser Lv,96 Data B. Inc,97 Data B. Dec,98 NRP L,99 NRP M,100 RP L,101 RP M,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127}>Controller Target
+slider10:in_min=0<0,127,1>Min CC Input
+slider11:in_max=127<0,127,1>Max CC Input
+slider13:out_min=0<0,127,1>Min CC Output
+slider14:out_max=127<0,127,1>Max CC Output
+slider20:passthru=0<0,1,1{No, Yes}>Pass Through CC Source
+
+in_pin:none
+out_pin:none
+
+@init
+
+CC_MSG = 11;
+
+function MapLinear (num, in_min, in_max, out_min, out_max) (
+  (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+);
+
+function round(inVal) (
+  inVal=floor(inVal+0.5*sign(inVal));
+);
+
+function limit(x, a, b) (
+   (x < a) ? a : (x > b) ? b : x;
+);
+
+@slider
+
+inChannel = in_chan - 1;
+
+all_cc != last_all_cc ? (
+  slider_show( slider(4), 1-all_cc );
+  slider_show( slider(5), 1-all_cc );
+);
+
+last_all_cc = all_cc;
+
+@block
+
+while (
+  midirecv(mpos, msg1, msg23) ? (
+    status = msg1;
+    statusHi = (msg1/16)|0;
+    statusLo = msg1-(statusHi*16);
+    msg3 = (msg23/256)|0;
+    msg2 = msg23-(msg3*256);
+    channel = status & $x0F;
+    // Is it on our channel?
+    channel == inChannel || inChannel == -1 ? (
+      (statusHi == CC_MSG && (msg2 == ccsrc || all_cc ) ) ? (
+        passthru ? midisend(mpos, msg1, msg23);
+        msg2 = cctgt;
+        msg3 = limit(round(MapLinear( msg3, in_min, in_max, out_min, out_max)), out_min, out_max);
+        msg23 = (msg3*256+msg2)|0;
+      );
+    );
+    midisend(mpos, msg1, msg23);
+  );
+);
+
