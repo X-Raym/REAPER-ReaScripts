@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="73c7e6beadd06923ca18def884fa464355e128cb" name="X-Raym Scripts">
+<index version="1" commit="0dd3c6fb4615763a745f7718cf95b0bd9f969098" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4313,15 +4313,6 @@
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/5b6dd274131779260f471ed081fea221a8d5f7bb/JSFX/X-Raym_4%20Stereo%20channels%20switcher.jsfx</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_MIDI CC Mapper (scale).jsfx" type="effect" desc="MIDI CC Mapper Scale">
-      <metadata>
-        <link rel="donation">http://www.extremraym.com/en/donation</link>
-      </metadata>
-      <version name="1.0" author="X-Raym" time="2023-12-11T23:22:37Z">
-        <changelog><![CDATA[+ Initial Release]]></changelog>
-        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/73c7e6beadd06923ca18def884fa464355e128cb/JSFX/X-Raym_MIDI%20CC%20Mapper%20(scale).jsfx</source>
-      </version>
-    </reapack>
     <reapack name="X-Raym_Mute on loop.jsfx" type="effect" desc="Mute on loop">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
@@ -4679,6 +4670,18 @@
       <version name="1.0.1" author="X-Raym" time="2020-09-20T00:44:09Z">
         <changelog><![CDATA[+ Prevent clamp]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/JSFX/MIDI/X-Raym_MIDI%20CC%20Mapper%20(-24%20+24%20range).jsfx</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_MIDI CC Mapper (scale).jsfx" type="effect" desc="MIDI CC Mapper Scale">
+      <metadata>
+        <link rel="donation">http://www.extremraym.com/en/donation</link>
+      </metadata>
+      <version name="1.1" author="X-Raym" time="2023-12-13T11:32:12Z">
+        <changelog><![CDATA[# Break backward compatibility
++ Chan filter
++ All CC Filter
+# Limit output to min and max]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/0dd3c6fb4615763a745f7718cf95b0bd9f969098/JSFX/MIDI/X-Raym_MIDI%20CC%20Mapper%20(scale).jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_MIDI note generator.jsfx" type="effect" desc="Note Generator">
