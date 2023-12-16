@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0 RC5
  * Extensions: SWS 2.7.3 #0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2023-12-16)
+  + Consider square point shape
  * v1.0 (2015-08-21)
   + Initial Release
  * v0.9 (2015-07-22)
@@ -50,6 +52,7 @@ function Action(env)
       for k = 0, env_points_count-1 do -- loop from second point to before last)
 
         retval, point_time, value, shape, tension, selected = reaper.GetEnvelopePoint(env, k)
+        Msg(point_time .. " " .. value)
 
         if k == 0 then -- If first point of the envelope
           pre_value = value
@@ -75,7 +78,7 @@ function Action(env)
         if time_selection == true then
           if point_time >= start_time and point_time <= end_time then
             --if (value == pre_value and value == next_value) or (value == predicted_value) then
-            if (value == pre_value and value == next_value) or (point_time == pre_point_time and point_time == next_point_time and k ~= env_points_count-1) or (tostring(coef_pre) == tostring(coef_next)) then
+            if (pre_shape == 1 and pre_value == value )or (value == pre_value and value == next_value) or (point_time == pre_point_time and point_time == next_point_time and k ~= env_points_count-1) or (tostring(coef_pre) == tostring(coef_next)) then
               reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, true, true)
 
             else
@@ -90,7 +93,7 @@ function Action(env)
 
         else
           --if (value == pre_value and value == next_value) or (value == predicted_value) then
-          if (value == pre_value and value == next_value) or (point_time == pre_point_time and point_time == next_point_time and k ~= env_points_count-1) or (tostring(coef_pre) == tostring(coef_next)) then
+          if  (pre_shape == 1 and pre_value == value ) or (value == pre_value and value == next_value) or (point_time == pre_point_time and point_time == next_point_time and k ~= env_points_count-1) or (tostring(coef_pre) == tostring(coef_next)) then
             reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, true, true)
           else
             reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, false, true)
