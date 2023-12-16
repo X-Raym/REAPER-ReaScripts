@@ -12,7 +12,7 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0 RC5
  * Extensions: SWS 2.7.3 #0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
@@ -52,7 +52,6 @@ function Action(env)
       for k = 0, env_points_count-1 do -- loop from second point to before last)
 
         retval, point_time, value, shape, tension, selected = reaper.GetEnvelopePoint(env, k)
-        Msg(point_time .. " " .. value)
 
         if k == 0 then -- If first point of the envelope
           pre_value = value
