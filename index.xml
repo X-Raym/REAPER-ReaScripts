@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8809d41ad0b90e5d87a64d2b3f19783fc98f2d1d" name="X-Raym Scripts">
+<index version="1" commit="8d992467b9ccc70b7551a4a0f6fbb0ffb3f9998f" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1303,6 +1303,9 @@
       </version>
       <version name="1.0.2" author="X-Raym" time="2023-12-16T17:55:29Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8809d41ad0b90e5d87a64d2b3f19783fc98f2d1d/Envelopes/On%20Tracks/X-Raym_Select%20redundant%20envelope%20points.lua</source>
+      </version>
+      <version name="1.0.3" author="X-Raym" time="2023-12-17T21:36:44Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8d992467b9ccc70b7551a4a0f6fbb0ffb3f9998f/Envelopes/On%20Tracks/X-Raym_Select%20redundant%20envelope%20points.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set envelope as active and armed.lua" type="script" desc="Set envelope as active and armed">
