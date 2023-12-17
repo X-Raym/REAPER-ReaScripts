@@ -12,7 +12,7 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0 RC5
  * Extensions: SWS 2.7.3 #0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
 
 --[[
@@ -77,7 +77,7 @@ function Action(env)
         if time_selection == true then
           if point_time >= start_time and point_time <= end_time then
             --if (value == pre_value and value == next_value) or (value == predicted_value) then
-            if (pre_shape == 1 and pre_value == value )or (value == pre_value and value == next_value) or (point_time == pre_point_time and point_time == next_point_time and k ~= env_points_count-1) or (tostring(coef_pre) == tostring(coef_next)) then
+            if (pre_shape == 1 and pre_value == value and shape == 1  )or (value == pre_value and value == next_value) or (point_time == pre_point_time and point_time == next_point_time and k ~= env_points_count-1) or (tostring(coef_pre) == tostring(coef_next)) then
               reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, true, true)
 
             else
@@ -92,7 +92,7 @@ function Action(env)
 
         else
           --if (value == pre_value and value == next_value) or (value == predicted_value) then
-          if  (pre_shape == 1 and pre_value == value ) or (value == pre_value and value == next_value) or (point_time == pre_point_time and point_time == next_point_time and k ~= env_points_count-1) or (tostring(coef_pre) == tostring(coef_next)) then
+          if  (pre_shape == 1 and pre_value == value and shape == 1 ) or (value == pre_value and value == next_value) or (point_time == pre_point_time and point_time == next_point_time and k ~= env_points_count-1) or (tostring(coef_pre) == tostring(coef_next)) then
             reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, true, true)
           else
             reaper.SetEnvelopePoint(env, k, point_time, value, shape, tension, false, true)
