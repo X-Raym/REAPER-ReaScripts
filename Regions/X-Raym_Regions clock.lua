@@ -10,11 +10,14 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
- * Version: 1.3
+ * Version: 1.3.1
 --]]
 
 --[[
  * Changelog:
+ * v1.3.1 (2023-12-25)
+  + Preset file support
+  + Possibility to hide the counters
  * v1.3 (2022-01-05)
   # Using ExtState rather than ini file for saving values
   + Dock via right click and menu on region progressbar
@@ -40,10 +43,14 @@
 
 --// USER CONFIG AREA -->
 
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset#file-preset-script-lua
+
 text_color = "White" -- support names (see color function) and hex values with #
 background_color = "#333333" -- support names and hex values with #. REAPER defaults are dark grey #333333 and brigth grey #A4A4A4
 no_regions_text = true -- set to false to desactivate "NO REGIONS UNDER PLAY CURSOR" instructions
 console = false -- Display debug messages in the console
+hide_counter = false
 
 --// -------------------- END OF USER CONFIG AREA
 
@@ -289,7 +296,9 @@ function run()
   -- DRAW
   if is_region == true then
      DrawProgressBar()
-     PrintAndBreak(buf)
+     if not hide_counter then
+      PrintAndBreak(buf)
+     end
      PrintAndBreak(region_name)
   else
      if no_regions_text then
@@ -307,7 +316,13 @@ end -- END DEFER
 
 --// RUN //--
 
-SetButtonState( 1 )
-init()
-run()
-reaper.atexit( DoExitFunctions )
+function Init()
+  SetButtonState( 1 )
+  init()
+  run()
+  reaper.atexit( DoExitFunctions )
+end
+
+if not preset_file_init then
+  Init()
+end
