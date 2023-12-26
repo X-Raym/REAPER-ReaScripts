@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8d992467b9ccc70b7551a4a0f6fbb0ffb3f9998f" name="X-Raym Scripts">
+<index version="1" commit="7a56c1b2d2651436fc960ade0663a38f434c7f27" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5648,7 +5648,7 @@
     </reapack>
     <reapack name="X-Raym_Regions clock.lua" type="script" desc="Region's Clock">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -5690,6 +5690,11 @@
         <changelog><![CDATA[# Using ExtState rather than ini file for saving values
 + Dock via right click and menu on region progressbar]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Regions/X-Raym_Regions%20clock.lua</source>
+      </version>
+      <version name="1.3.1" author="X-Raym" time="2023-12-26T16:44:14Z">
+        <changelog><![CDATA[+ Preset file support
++ Possibility to hide the counters]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7a56c1b2d2651436fc960ade0663a38f434c7f27/Regions/X-Raym_Regions%20clock.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Search and replace in markers names.lua" type="script" desc="Search and replace in markers names">
