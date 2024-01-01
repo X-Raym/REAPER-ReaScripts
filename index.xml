@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="7a56c1b2d2651436fc960ade0663a38f434c7f27" name="X-Raym Scripts">
+<index version="1" commit="f4160073edaabe0dc2ccf15b39a0ea774d492609" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5428,6 +5428,15 @@
       <version name="1.0.1" author="X-Raym" time="2020-05-09T00:32:58Z">
         <changelog><![CDATA[# Prevent marker generation if markers is outside item boundaries]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Regions/X-Raym_Create%20project%20markers%20from%20selected%20takes%20markers.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Create project regions from selected takes markers.lua" type="script" desc="Create project regions  from selected takes markers">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/pqqfaPX.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2024-01-01T14:12:13Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f4160073edaabe0dc2ccf15b39a0ea774d492609/Regions/X-Raym_Create%20project%20regions%20from%20selected%20takes%20markers.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Create regions from selected items notes and color.lua" type="script" desc="Create regions from selected items notes and color">
