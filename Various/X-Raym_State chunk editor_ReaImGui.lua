@@ -5,7 +5,7 @@
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
