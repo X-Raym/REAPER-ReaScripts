@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e6dc5bfa864abef783e946979487f2bfc6241d97" name="X-Raym Scripts">
+<index version="1" commit="29f77df8f3c213da8009e45439c4bad3fce3655e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -8492,6 +8492,9 @@
       </metadata>
       <version name="1.0.1" author="X-Raym" time="2024-01-03T15:44:49Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e6dc5bfa864abef783e946979487f2bfc6241d97/Various/X-Raym_State%20chunk%20editor_ReaImGui.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2024-01-05T16:58:49Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/29f77df8f3c213da8009e45439c4bad3fce3655e/Various/X-Raym_State%20chunk%20editor_ReaImGui.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle Sonarworks SoundID monitor FX instance Calibration state.lua" type="script" desc="Toggle Sonarworks SoundID monitor FX instance Calibration state">
