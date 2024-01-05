@@ -5,11 +5,13 @@
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
- * Changelog
+ * Changelog:
+ * v1.0 (2024-01-03)
+  # Fix env chunk
  * v1.0 (2024-01-03)
   + Initial release
 --]]
@@ -235,7 +237,7 @@ function Main()
   
   if reaper.ImGui_Button( ctx, "Get Envelope" ) then
     local env = reaper.GetSelectedEnvelope( 0 )
-    if item then
+    if env then
       local retval, env_chunk = reaper.GetEnvelopeStateChunk( env, "", false )
       chunk = FormatChunk( env_chunk )
     end
@@ -267,7 +269,7 @@ function Main()
   
   if reaper.ImGui_Button( ctx, "Set Envelope" ) then
     local env = reaper.GetSelectedEnvelope( 0 )
-    if item then
+    if env then
       local retval, env_chunk = reaper.SetEnvelopeStateChunk( env, txts[ destination ], true )
       reaper.Undo_OnStateChange( "Set env state" )
     end
