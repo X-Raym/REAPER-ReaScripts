@@ -8,7 +8,7 @@
  * Forum Thread: Scripts: Various
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1622146
  * REAPER: 7.0
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
 
 --[[
@@ -35,15 +35,20 @@ if render_path == "" then
   retval, render_path = reaper.BR_Win32_GetPrivateProfileString( "reaper", "defrenderpath", '', reaper_ini_file )
   -- if is relative
   if ( os_sep == "\\" and not render_path:find(":" ) or ( os_sep == "/" and not render_path:sub(1,1) == os_sep ) ) then
-    recording_path = reaper.GetProjectPath()
-    render_path = recording_path .. os_sep .. render_path
+    retval, project_path = reaper.EnumProjects( 0 )
+    if project_path ~= "" then
+      folder = project_path:match("@?(.*[\\|/])")
+    else
+      folder = reaper.GetProjectPath() -- This is in fact recording path, here for new project not saved
+    end
+    render_path = folder .. os_sep .. render_path
   end
   
 end
 
 if render_path ~= "" then
   render_path = render_path:gsub( os_sep .. "+", os_sep ) -- Remove duplicate path separators
-  reaper.RecursiveCreateDirectory( render_path, 0 ) -- Instead of checking if folder exists, we create it anyway
+  --reaper.RecursiveCreateDirectory( render_path, 0 ) -- Instead of checking if folder exists, we create it anyway
   Tooltip( render_path )
   reaper.CF_ShellExecute(render_path )
 else
