@@ -8,7 +8,7 @@
  * Forum Thread: Scripts: Various
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1622146
  * REAPER: 7.0
- * Version: 1.0.3
+ * Version: 1.0.4
 --]]
 
 --[[
@@ -35,7 +35,7 @@ if render_path == "" then
   retval, render_path = reaper.BR_Win32_GetPrivateProfileString( "reaper", "defrenderpath", '', reaper_ini_file )
   -- if is relative
   if ( os_sep == "\\" and not render_path:find(":" ) or ( os_sep == "/" and not render_path:sub(1,1) == os_sep ) ) then
-    retval, project_path = reaper.EnumProjects( 0 )
+    retval, project_path = reaper.EnumProjects( -1 )
     if project_path ~= "" then
       folder = project_path:match("@?(.*[\\|/])")
     else
