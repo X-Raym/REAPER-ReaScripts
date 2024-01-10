@@ -8,7 +8,7 @@
  * Forum Thread: Scripts: Various
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1622146
  * REAPER: 7.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
@@ -28,6 +28,11 @@ if not reaper.CF_ShellExecute then
 end
 
 retval, render_path = reaper.GetSetProjectInfo_String( 0, "RENDER_FILE", "", false )
+if render_path == "" then
+  reaper_ini_file = reaper.get_ini_file()
+  retval, render_path = reaper.BR_Win32_GetPrivateProfileString( "reaper", "defrenderpath", '', reaper_ini_file )
+end
+
 if render_path ~= "" then
   reaper.CF_ShellExecute(render_path)
 else
