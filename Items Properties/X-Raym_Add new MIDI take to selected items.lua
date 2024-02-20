@@ -6,16 +6,18 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2024-02-20)
+  # Bug fix
  * v1.0 (2023-07-24)
   + Initial Release
 --]]
 
-undo_text = "Add empty source take to selected items"
+undo_text = "Add new MIDI take to selected items"
 
 -- UTILITIES -------------------------------------------------------------
 
@@ -51,7 +53,8 @@ function Main()
     local track = reaper.GetMediaItemTrack( item )
     local item_pos = reaper.GetMediaItemInfo_Value( item, "D_POSITION" )
     local item_len = reaper.GetMediaItemInfo_Value( item, "D_LENGTH" )
-    local midi_item = reaper.CreateNewMIDIItemInProj( track, item_pos, item_pos + item_len, qnIn )
+    local offset = 1 -- be sure tat it will be implode as last take
+    local midi_item = reaper.CreateNewMIDIItemInProj( track, item_pos + offset, item_pos + offset + item_len, qnIn )
 
     local name = ""
     local take = reaper.GetActiveTake( item )
@@ -68,6 +71,9 @@ function Main()
     reaper.SetMediaItemSelected( midi_item, true )
 
     reaper.Main_OnCommand( 40543, 0 ) -- Take: Implode items on same track into takes
+
+    local item = reaper.GetSelectedMediaItem( 0, 0 )
+    init_sel_items[i] = item
 
     reaper.SetActiveTake( reaper.GetTake( item, ( reaper.CountTakes( item ) - 1 ) ) )
 
