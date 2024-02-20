@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="bb45727eb17b74c72eb680b3609405cb99aa32b7" name="X-Raym Scripts">
+<index version="1" commit="f442cd7489304dc63bd42842c33cb5f3a6766f4c" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3078,6 +3078,10 @@
       <version name="1.0" author="X-Raym" time="2023-07-24T20:16:59Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e096aaa517d6491344691e46451f54646fd13d9b/Items%20Properties/X-Raym_Add%20new%20MIDI%20take%20to%20selected%20items.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2024-02-20T13:30:05Z">
+        <changelog><![CDATA[# Bug fix]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f442cd7489304dc63bd42842c33cb5f3a6766f4c/Items%20Properties/X-Raym_Add%20new%20MIDI%20take%20to%20selected%20items.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add stretch markers to selected items at grid divisions.eel" type="script" desc="Add stretch markers to selected items at grid divisions">
