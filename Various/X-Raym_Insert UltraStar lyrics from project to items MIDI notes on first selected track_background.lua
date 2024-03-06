@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Insert UltraStar lyrics from project to items MIDI notes on first selected track (background)
- * Instructions: Select atrack. Run. Supports both UltraStar Creator and YASS syntax.
+ * About: Select a track. Run. Supports both UltraStar Creator and YASS syntax.
  * Screenshot: https://i.imgur.com/Q7tOB47.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -10,11 +10,17 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe with REAPER
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2024-03-06)
+  # Page change at end of line
+  + update at MIDI notes change as well
+  + Tooltip if no init track
+  + doesn't prevent run if track not found
+  # bug fix if track is missing
  * v1.1 (2023-02-11)
   + Background real time version of the script
  * v1.0.3 (2023-02-09)
@@ -35,13 +41,21 @@
 console = true
 add_markers = true
 delete_unamed_markers = true
+update_at_midi_change = true
 
 ------------------------------- END IOF USER CONFIG AREA --
+
+previous_midi_notes = {}
 
 function Msg(val)
   if console then
     reaper.ShowConsoleMsg(tostring( val ) .. "\n" )
   end
+end
+
+function Tooltip(message) -- DisplayTooltip() already taken by the GUI version
+  local x, y = reaper.GetMousePosition()
+  reaper.TrackCtl_SetToolTip( tostring(message), x+17, y+17, false )
 end
 
  -- Set ToolBar Button State
@@ -85,6 +99,53 @@ function string:split(sep)
   return fields
 end
 
+function deepcopy(orig)
+  local orig_type = type(orig)
+  local copy
+  if orig_type == 'table' then
+    copy = {}
+    for orig_key, orig_value in next, orig, nil do
+        copy[deepcopy(orig_key)] = deepcopy(orig_value)
+    end
+    setmetatable(copy, deepcopy(getmetatable(orig)))
+  else -- number, string, boolean, etc
+    copy = orig
+  end
+  return copy
+end
+
+function CompareMIDI()
+  
+  local item_num = reaper.CountTrackMediaItems(track)
+  local midi_notes = {}
+  for j = 0, item_num-1 do
+    local item = reaper.GetTrackMediaItem(track, j)
+    local take = reaper.GetActiveTake(item)
+    if take and reaper.TakeIsMIDI( take ) then
+  
+      local retval, notes, ccs, sysex = reaper.MIDI_CountEvts(take)
+  
+      -- GET SELECTED NOTES (from 0 index)
+      for k = 0, notes-1 do
+        local retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, k)
+        midi_notes[k+1] = { ppq_start = startppqposOut, ppq_end = endppqposOut }
+      end
+    end
+  end
+  
+  local need_update_midi = false
+  for i, note in ipairs( midi_notes ) do
+    if previous_midi_notes[i] and previous_midi_notes[i].ppq_start ~= note.ppq_start and previous_midi_notes[i].ppq_end ~= note.ppq_end then
+      need_update_midi = true
+      break
+    end
+  end
+  
+  previous_midi_notes = deepcopy( midi_notes )
+  
+  return need_update_midi
+end
+
 function Main()
 
   local item_num = reaper.CountTrackMediaItems(track)
@@ -109,15 +170,17 @@ function Main()
       end
 
       -- GET SELECTED NOTES (from 0 index)
+      local previous_endppq = 0
       for k = 0, notes-1 do
         local retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, k)
         if add_markers and test[txt_evt_idx] and test[txt_evt_idx]:find("\n") then
-          reaper.AddProjectMarker( 0, false, reaper.MIDI_GetProjTimeFromPPQPos( take, startppqposOut-1 ), 0, "", -1 )
+          reaper.AddProjectMarker( 0, false, reaper.MIDI_GetProjTimeFromPPQPos( take, previous_endppq-1 ), 0, "", -1 )
         end
         reaper.MIDI_InsertTextSysexEvt( take, sel, false, startppqposOut, 5, string.gsub(test[txt_evt_idx], "\n", " ") )
         txt_evt_idx = txt_evt_idx + 1
         if txt_evt_idx > #test then break end
         --table.insert(events, reaper.MIDI_GetProjTimeFromPPQPos( take, startppqposOut ) )
+         previous_endppq = endppqposOut
       end
     end
     if txt_evt_idx > #test then break end
@@ -137,14 +200,14 @@ function Main()
 
 end
 
-function Run()
+function CheckUpdate()
   var = reaper.GetSetProjectNotes( 0, false, '' )
   if not var or var == "" then return end
 
   var = var:gsub('%+', '-')
   var = var:gsub('[ |%-|\n]', '|%1')
 
-  if reaper.GetSetProjectNotes( 0, false, '' ) ~= last_proj_notes then
+  if reaper.GetSetProjectNotes( 0, false, '' ) ~= last_proj_notes or ( update_at_midi_change and CompareMIDI() ) then
 
     --Msg("DIFFERENT")
 
@@ -170,18 +233,44 @@ function Run()
   --reaper.ShowConsoleMsg(var)
 
   last_proj_notes = reaper.GetSetProjectNotes( 0, false, '' )
+end
+
+function Run()
+
+  if reaper.ValidatePtr( track, "MediaTrack*" ) then
+    CheckUpdate()  
+  else
+    track = GetSelectLyricsTrack()
+    if not track and not has_displayed_missing_track_tooltip then
+      Tooltip( "No track named Lyrics." )
+      has_displayed_missing_track_tooltip = true
+    end
+    if track then
+      has_displayed_missing_track_tooltip = false
+      Tooltip( "Lyrics track found." )
+    end
+  end
 
   reaper.defer( Run )
 end
 
-track = reaper.GetSelectedTrack(0,0)
 
-if not track then
-  track = GetSelectLyricsTrack()
+function Init()
+  SetButtonState( 1 )
+  
+  track = reaper.GetSelectedTrack(0,0)
+  if not track then
+    track = GetSelectLyricsTrack()
+    Tooltip( "Lyrics track found." )
+  end
+  if not track then
+    Tooltip( "No selected track or track named Lyrics." )
+  end
+  
+  Run()
+  reaper.atexit( SetButtonState )
 end
 
-if not track then return end
-
-SetButtonState( 1 )
-Run()
-reaper.atexit( SetButtonState )
+if not preset_file_init then
+  Init()
+end
