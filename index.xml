@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="65fb132a4c57a7adf4926903d35c866a2b3cdbb2" name="X-Raym Scripts">
+<index version="1" commit="7879b0cb0ec84fbc65122df0fb3bc07d42257318" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5275,6 +5275,12 @@
       </version>
       <version name="1.0.1" author="X-Raym" time="2023-02-12T17:32:49Z">
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/68cba602baa81f474e535bf2e36bd73a497284b2/MIDI%20Editor/X-Raym_Shift%20MIDI%20lyrics%20events%20message%20after%20edit%20cursor%20to%20one%20event%20on%20the%20right.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Split selected MIDI notes half in 2 notes.lua" type="script" desc="Split selected MIDI notes half in 2 notes">
+      <version name="1.0" author="X-Raym" time="2024-03-06T10:53:44Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/7879b0cb0ec84fbc65122df0fb3bc07d42257318/MIDI%20Editor/X-Raym_Split%20selected%20MIDI%20notes%20half%20in%202%20notes.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle mute track with take in MIDI editor.lua" type="script" desc="Toggle mute track with take in MIDI editor">
