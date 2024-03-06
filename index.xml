@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="7879b0cb0ec84fbc65122df0fb3bc07d42257318" name="X-Raym Scripts">
+<index version="1" commit="bc69868b4df4f4a21279687cfe66cf691ce599c2" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -8547,6 +8547,37 @@
       </metadata>
       <version name="1.0" time="2021-12-06T16:28:21Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Various/X-Raym_Set%20SWS%20project%20startup%20action%20extstate%20value%20to%20On.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set take item track region marker color_functions.lua" type="script" desc="Set take or item or track or region or marker color (functions)">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Set color based on context.\par}
+}
+]]></description>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reaper_Lhy3kX7SKg.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2024-03-06T13:52:25Z">
+        <changelog><![CDATA[+ Initial release]]></changelog>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 1.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 2.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 3.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 4.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 5.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 6.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 7.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 8.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 9.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 10.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 11.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 12.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 13.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 14.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 15.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
+        <source main="main" file="X-Raym_Set take or item or track or region or marker color to custom slot 16.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc69868b4df4f4a21279687cfe66cf691ce599c2/Various/X-Raym_Set%20take%20item%20track%20region%20marker%20color_functions.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set UltraStar project metadata.lua" type="script" desc="Set UltraStar project metadata">
