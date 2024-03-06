@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Script: Automatically select notes under play cursor (background)
+ * ReaScript Name: Automatically select notes under play cursor (background)
  * Screeshot: https://i.imgur.com/DISBpSe.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 6.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
