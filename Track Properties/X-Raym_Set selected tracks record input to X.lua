@@ -2,7 +2,8 @@
  * ReaScript Name: Set selected tracks record input to X
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Repository: X-Raym Premium Scripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
  * Version: 1.0
