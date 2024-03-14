@@ -6,8 +6,8 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
- * Main: main,midi_editor
+ * Version: 1.0.1
+ * Provides: [main=main,midi_editor] .
 --]]
 
 --[[
