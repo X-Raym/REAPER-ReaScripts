@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="3347ec5612eb8deb755e3be06d87d26507e932c1" name="X-Raym Scripts">
+<index version="1" commit="312f12f2f00a9c213298256c4f1df0fa731d7fd7" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -8949,6 +8949,11 @@
       <version name="1.3" author="X-Raym" time="2022-06-08T00:31:30Z">
         <source file="X-Raym_Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/84b6ed3a00cfdbd15e038a61971b64a0567521e5/Web%20Interfaces/X-Raym_Lyrics.html</source>
       </version>
+      <version name="1.4.1" author="X-Raym" time="2024-04-10T14:45:58Z">
+        <changelog><![CDATA[Black background
+List display improvements]]></changelog>
+        <source file="X-Raym_Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/312f12f2f00a9c213298256c4f1df0fa731d7fd7/Web%20Interfaces/X-Raym_Lyrics.html</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Scrolling Lyrics.www" type="webinterface" desc="Scrolling Lyrics Web Interface">
       <metadata>
@@ -8962,6 +8967,12 @@
       </version>
       <version name="1.0.2" author="X-Raym" time="2023-06-29T16:45:19Z">
         <source file="X-Raym_Scrolling Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/a4349d1e639ccdea2d6e2329d1a732d8b3ea625a/Web%20Interfaces/X-Raym_Scrolling%20Lyrics.html</source>
+      </version>
+      <version name="1.0.3" author="X-Raym" time="2024-04-10T14:45:06Z">
+        <changelog><![CDATA[Black background mode with ?vignette query
+List display improvements
+Click lyrics to move edit cursor in REAPER]]></changelog>
+        <source file="X-Raym_Scrolling Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/9291cf3fd485b4965bcc320285e0474b5c67d97d/Web%20Interfaces/X-Raym_Scrolling%20Lyrics.html</source>
       </version>
     </reapack>
   </category>
