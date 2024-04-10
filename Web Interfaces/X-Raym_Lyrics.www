@@ -1,5 +1,7 @@
 @description Lyrics Web Interface
 @author X-Raym
-@version 1.3
+@version 1.4
 @screenshot https://i.imgur.com/o6DcxsG.gif
 @provides X-Raym_Lyrics.html
+  Black background
+  List display improvements

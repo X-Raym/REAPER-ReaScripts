@@ -10,7 +10,7 @@
 }
 
 body {
-	background: #333333;
+	background: #000;
 	color: white;
 	font-family: sans-serif;
 }
@@ -22,6 +22,15 @@ body {
 	text-align:center;
 }
 
+.container {
+	text-align: center;
+}
+
+ol, ul, dl {
+	display:inline-block;
+	text-align:left;
+}
+
 #playstate {
 	height:30px;
 	width: 100%;
@@ -29,6 +38,7 @@ body {
 	position:absolute;
 	bottom:0;
 	left: 0;
+	z-index: 200;
 }
 
 a {
@@ -53,16 +63,20 @@ a {
 	<h2>Installation</h2>
 	<p>Set this page as REAPER web interface, with menu Options > Preferences > Control/Osc/Web.</p>
 	<h2>Start</h2>
-	<ol>
-		<li>Connect to the web interface using web browser of device on your local network</li>
-		<li>Run one of the companion script, to push lyrics to the web interface from items notes on lyrics tracks, regions etc...</li>
-	</ol>
+	<div class="container">
+		<ol>
+			<li>Connect to the web interface using web browser of device on your local network</li>
+			<li>Run one of the companion script, to push lyrics to the web interface from items notes on lyrics tracks, regions etc...</li>
+		</ol>
+	</div>
 	<h2>Companion Scripts</h2>
-	<dl>
-	<li><strong>Item Notes</strong>: X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua</li>
-	<li><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>
-	<li><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>
-	</dl>
+	<div class="container">
+		<dl>
+		<li><strong>Item Notes</strong>: X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua</li>
+		<li><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>
+		<li><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>
+		</dl>
+	</div>
 </div>
 <div id="playstate"></div>
 
@@ -79,7 +93,7 @@ var last_next ="";
 var div = document.getElementById('text');
 var initial_text = div.innerHTML;
 var playstate_elm = document.getElementById('playstate');
-var colors = ["#333333", "#00FF00", "#FFFF00", "#333333", "#333333", "#FF0000", "#FFFF00"]; // playstate is 0 for stopped, 1 for playing, 2 for paused, 5 for recording, and 6 for record paused.
+var colors = ["#000000", "#00FF00", "#FFFF00", "#000000", "#000000", "#FF0000", "#FFFF00"]; // playstate is 0 for stopped, 1 for playing, 2 for paused, 5 for recording, and 6 for record paused.
 var detectMultiLine = true;
 var lastDetectMultine = false;
 

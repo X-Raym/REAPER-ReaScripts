@@ -14,9 +14,38 @@ body {
 	font-family: sans-serif;
 }
 
+body:has(#vignette) {
+	background: #000000;
+}
+
+body:has(.lyrics) #vignette {
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top: 0;
+	height: 100%;
+	z-index: 100;
+	background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(94,94,94,1) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 50%, rgba(0,0,0,1) 75%, rgba(0,0,0,1) 100%);
+	opacity: 0;
+	pointer-events: none;
+}
+
 #text {
 	margin: auto;
 	text-align: center;
+}
+
+#text:has(.lyrics) {
+  padding: 50vw 0;
+}
+
+.container {
+	text-align: center;
+}
+
+ol, ul, dl {
+	display:inline-block;
+	text-align:left;
 }
 
 #playstate {
@@ -26,6 +55,7 @@ body {
 	position: fixed;
 	bottom: 0;
 	left: 0;
+	z-index: 200;
 }
 
 a {
@@ -38,6 +68,11 @@ a {
 	font-size: 3em;
 }
 
+
+.lyrics:hover {
+	cursor: pointer;
+}
+
 .current {
 	opacity: 1;
 	/*font-size: 4em;*/
@@ -47,6 +82,7 @@ a {
 </head>
 <body>
 
+<div id="vignette"></div>
 <div id="text">
 	<h1>REAPER Scrolling Lyrics Web Interface by <a href="https://www.extremraym.com">X-Raym</a></h1>
 	<h2>State</h2>
@@ -54,16 +90,20 @@ a {
 	<h2>Installation</h2>
 	<p>Set this page as REAPER web interface, with menu Options > Preferences > Control/Osc/Web.</p>
 	<h2>Start</h2>
-	<ol>
-		<li>Connect to the web interface using web browser of device on your local network</li>
-		<li>Run one of the companion script, to push lyrics to the web interface from items notes on lyrics tracks.<!--, regions etc..--></li>
-	</ol>
+	<div class="container">
+		<ol>
+			<li>Connect to the web interface using web browser of device on your local network</li>
+			<li>Run one of the companion script, to push lyrics to the web interface from items notes on lyrics tracks.<!--, regions etc..--></li>
+		</ol>
+	</div>
 	<h2>Companion Scripts</h2>
-	<dl>
-		<li><strong>Item Notes</strong>: X-Raym_Convert all first selected track items notes for dedicated web browser interface.lua</li>
-		<!--<li><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>-->
-		<!--<li><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>-->
-	</dl>
+	<div class="container">
+		<dl>
+			<li><strong>Item Notes</strong>: X-Raym_Convert all first selected track items notes for dedicated web browser interface.lua</li>
+			<!--<li><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>-->
+			<!--<li><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>-->
+		</dl>
+	</div>
 </div>
 <div id="playstate"></div>
 
@@ -75,10 +115,36 @@ wwr_req_recur("GET/EXTSTATE/XR_Lyrics/need_refresh;TRANSPORT",10);
 var div = document.getElementById('text');
 var initial_text = div.innerHTML;
 var playstate_elm = document.getElementById('playstate');
-var colors = ["#333333", "#00FF00", "#FFFF00", "#333333", "#333333", "#FF0000", "#FFFF00"]; // playstate is 0 for stopped, 1 for playing, 2 for paused, 5 for recording, and 6 for record paused.
+var colors = ["#000000", "#00FF00", "#FFFF00", "#000000", "#000000", "#FF0000", "#FFFF00"] // playstate is 0 for stopped, 1 for playing, 2 for paused, 5 for recording, and 6 for record paused.
 var first_run = true;
 var json = [];
 var paragraphs = [];
+
+var vignette_elm = document.getElementById('vignette')
+var searchParams = new URLSearchParams(window.location.search)
+if ( searchParams.has('vignette') ) {
+	vignette_elm.style.opacity = "1"
+	div.classList.add("vignette")
+}
+
+document.addEventListener('click', function(e){
+  if(e.target.tagName=="P" && e.target.classList.contains('lyrics') ) {
+   wwr_req("SET/POS/" + e.target.dataset.posStart )
+	e.target.classList.add("current");
+	e.target.scrollIntoView({
+		behavior: 'smooth',
+		block: 'center',
+		inline: 'center'
+	})
+  }
+})
+
+document.addEventListener('keydown', event => {
+  if (event.code === 'Space') {
+  	event.preventDefault()
+  	wwr_req("40044") // Transport: Play/stop
+  }
+})
 
 function wwr_onreply(results) {
 	var ar = results.split("\n");
@@ -110,13 +176,15 @@ function wwr_onreply(results) {
 			var i = 0;
 			if( json.entry !== undefined ) {
 				for( let line of json.entry ) {
-					if (time >= line.pos_start && time <= line.pos_end) {
+					if (time >= line.pos_start -0.000001 && time <= line.pos_end) {
 						paragraphs[i].classList.add("current");
-						paragraphs[i].scrollIntoView({
-							behavior: 'smooth',
-							block: 'center',
-							inline: 'center'
-						})
+						if( parseInt( tok[1] ) > 0 ) {
+							paragraphs[i].scrollIntoView({
+								behavior: 'smooth',
+								block: 'center',
+								inline: 'center'
+							})
+						}
 					} else {
 						paragraphs[i].classList.remove("current");
 					}
@@ -124,7 +192,7 @@ function wwr_onreply(results) {
 				}
 			}
 		}
-	
+
 	}
 
 }
