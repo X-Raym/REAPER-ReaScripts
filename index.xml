@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="312f12f2f00a9c213298256c4f1df0fa731d7fd7" name="X-Raym Scripts">
+<index version="1" commit="e6a82bcf4502b2ddb68db3d3c3fab1767e8c946c" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1614,6 +1614,10 @@
       </metadata>
       <version name="0.2" author="X-Raym" time="2023-11-13T13:31:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/bc0799f39b6f359675f1d424b972f88c86b49943/FX/X-Raym_List%20installed%20FX%20according%20to%20their%20installation%20order_ReaImGui.lua.lua</source>
+      </version>
+      <version name="0.2.1" author="X-Raym" time="2024-04-13T09:55:07Z">
+        <changelog><![CDATA[# Force reaimgui version]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e6a82bcf4502b2ddb68db3d3c3fab1767e8c946c/FX/X-Raym_List%20installed%20FX%20according%20to%20their%20installation%20order_ReaImGui.lua.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Propagate last focused FX parameters values but bypass to similarly named FX on child tracks (real-time).lua" type="script" desc="Propagate last focused FX parameters values but bypass to similarly named FX on child tracks (real-time)">
@@ -4262,6 +4266,9 @@
       </version>
       <version name="1.1.1" author="X-Raym" time="2023-02-23T11:28:16Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/6386805dbc372d5b759e8d52f800d2cfff51fac1/Items%20Properties/X-Raym_Take%20FX%20list_ReaImGui.lua</source>
+      </version>
+      <version name="1.1.2" author="X-Raym" time="2024-04-13T09:55:07Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e6a82bcf4502b2ddb68db3d3c3fab1767e8c946c/Items%20Properties/X-Raym_Take%20FX%20list_ReaImGui.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle selected active takes reverse arround their snap offset.lua" type="script" desc="Toggle selected active takes reverse arround their snap offset">
@@ -8377,6 +8384,10 @@
         <changelog><![CDATA[+ Allows tab character in inputs]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/1f5d7cae519fb425fff9da014c425c46c39f392b/Various/X-Raym_Lua%20pattern%20viewer_ReaImGui.lua</source>
       </version>
+      <version name="1.1.2" author="X-Raym" time="2024-04-13T09:55:07Z">
+        <changelog><![CDATA[# Force reaimgui version]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e6a82bcf4502b2ddb68db3d3c3fab1767e8c946c/Various/X-Raym_Lua%20pattern%20viewer_ReaImGui.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Move edit cursor to time 0 or to project start.lua" type="script" desc="Move edit cursor to time 0 or to project start">
       <metadata>
@@ -8634,6 +8645,10 @@
       <version name="1.0.2" author="X-Raym" time="2024-01-05T16:58:49Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/29f77df8f3c213da8009e45439c4bad3fce3655e/Various/X-Raym_State%20chunk%20editor_ReaImGui.lua</source>
       </version>
+      <version name="1.0.3" author="X-Raym" time="2024-04-13T09:55:07Z">
+        <changelog><![CDATA[# Force reaimgui version]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e6a82bcf4502b2ddb68db3d3c3fab1767e8c946c/Various/X-Raym_State%20chunk%20editor_ReaImGui.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Toggle Sonarworks SoundID monitor FX instance Calibration state.lua" type="script" desc="Toggle Sonarworks SoundID monitor FX instance Calibration state">
       <version name="1.0" author="X-Raym" time="2021-12-05T19:17:55Z">
@@ -8660,6 +8675,10 @@
       </metadata>
       <version name="0.1" author="X-Raym" time="2023-11-13T14:36:19Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/0af089359e9ae06a853b5a5b14cea9b7b56ee928/Various/X-Raym_XR%20ReaImGui%20themer.lua</source>
+      </version>
+      <version name="0.1.1" author="X-Raym" time="2024-04-13T09:55:07Z">
+        <changelog><![CDATA[# Force reaimgui version]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e6a82bcf4502b2ddb68db3d3c3fab1767e8c946c/Various/X-Raym_XR%20ReaImGui%20themer.lua</source>
       </version>
     </reapack>
   </category>
