@@ -5,11 +5,13 @@
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 1.1.1
+ * Version: 1.1.2
 --]]
 
 --[[
  * Changelog
+ * v1.1.2 (2024-04-13)
+  # Force reaimgui version
  * v1.1 (2023-02-23)
   # Column layout
   # Colors
@@ -24,7 +26,7 @@
 ----------------------------------------------------------------------
 
 console = true -- Display debug messages in the console
-reaimgui_force_version = false -- false or string like "0.8.4"
+reaimgui_force_version = "0.8.7.6" -- false or string like "0.8.4"
 bypass_color = "#FF0000"
 offline_color = "888888"
 

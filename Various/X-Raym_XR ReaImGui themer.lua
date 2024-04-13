@@ -5,11 +5,13 @@
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 0.1
+ * Version: 0.1.1
 --]]
 
 --[[
- * Changelog
+ * Changelog:
+ * v0.1.1 (2024-04-13)
+  # Force reaimgui version
  * v0.1 (2023-11-13)
   + Initial release
 --]]
@@ -22,7 +24,7 @@
 -- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
 console = true -- Display debug messages in the console
-reaimgui_force_version = false -- false or string like "0.8.4"
+reaimgui_force_version = "0.8.7.6"-- false or string like "0.8.4"
 
 ----------------------------------------------------------------------
                                          -- END OF USER CONFIG AREA --

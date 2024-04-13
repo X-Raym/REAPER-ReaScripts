@@ -6,11 +6,13 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 1.1.1
+ * Version: 1.1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.1.2 (2024-04-13)
+  # Force reaimgui version
  * v1.1.1 (2023-08-13)
   + Allows tab character in inputs
  * v1.1 (2023-08-01)
@@ -29,7 +31,7 @@
 --------------------------------------------------------------------------------
 
 console = true -- Display debug messages in the console
-reaimgui_force_version = false -- false or string like "0.8.4"
+reaimgui_force_version = "0.8.7.6" -- false or string like "0.8.4"
 
 txt = "01 - Artist_Title.mp3"
 pattern = "(%d+) %- (.+)_(.+)%.(.+)"
@@ -48,11 +50,11 @@ input_title = "XR - Lua Pattern Viewer"
 doc = [[
 
 The magic characters are:
-
+  
   (   )   .   %   +   –   *   ?   [   ^   $
-
+  
   In addition to this, Lua uses the following character classes (you will notice that the magic character % is used here)
-
+  
       %a   letters
       %c   control characters
       %d   digits
@@ -63,13 +65,13 @@ The magic characters are:
       %w   alphanumeric characters
       %x   hexadecimal digits
       %z   the character \000
-
+  
   How it works [top]
-
+  
   This is section explains what each of the magic characters does. It also explains how to work with sets of characters.
-
+  
   The magic characters:
-
+  
       (   )
           Represents what is called a capture. This allows you to enclose sub-patterns in your patterns
       .
@@ -98,9 +100,9 @@ The magic characters are:
           This is only a magic character when it is at the beginning of a pattern.
           When it is at the end of a pattern it forces the pattern to match the end of the string
           Example Usage: %w%.$ will match any alphanumeric character which is followed immediately and only by a . character
-
+  
   Fun with Sets:
-
+  
       The [ and ] symbols are used to represent sets:
           The [ character denotes the start of a set, and a ] shows the end
           A set is a class which is the union of all of the characters and/or classes which appear in the set
@@ -179,16 +181,16 @@ function Main()
   --retval, txt = reaper.ImGui_InputText( ctx, "Text", txt or "" )
 
   if reaper.ImGui_BeginChild(ctx, 'left_panel', imgui_width/2 - 12, nil, true, reaper.ImGui_WindowFlags_MenuBar()) then
-
+    
     if reaper.ImGui_BeginMenuBar(ctx) then
       reaper.ImGui_Text(ctx,'PLAYGROUND')
       reaper.ImGui_EndMenuBar(ctx)
     end
-
+    
     retval, txt = reaper.ImGui_InputTextMultiline( ctx, "Text", txt or "", nil, nil,  reaper.ImGui_InputTextFlags_AllowTabInput() )
     retval, pattern = reaper.ImGui_InputText( ctx, "Pattern", pattern or "",  reaper.ImGui_InputTextFlags_AllowTabInput() )
     retval, replace = reaper.ImGui_InputTextMultiline( ctx, "Replace", replace or "", nil, nil,  reaper.ImGui_InputTextFlags_AllowTabInput() )
-
+    
     pattern_clean = pattern
     last_char = pattern:sub(-1)
     if last_char == "%" then
@@ -223,33 +225,33 @@ function Main()
     end
     reaper.ImGui_EndChild(ctx)
   end
-
+  
   reaper.ImGui_SameLine(ctx)
-
+  
   if reaper.ImGui_BeginChild(ctx, 'right_panel', imgui_width/2 - 12, nil, true, reaper.ImGui_WindowFlags_MenuBar()) then
-
+    
     if reaper.ImGui_BeginMenuBar(ctx) then
       reaper.ImGui_TextWrapped(ctx,'DOC')
       reaper.ImGui_EndMenuBar(ctx)
     end
-
+    
     reaper.ImGui_Text( ctx, "Doc form: https://help.interfaceware.com/v6/lua-magic-characters" )
-
+    
     if reaper.ImGui_IsItemClicked( ctx ) then
       Open_URL( "https://help.interfaceware.com/v6/lua-magic-characters")
     end
-
+    
     reaper.ImGui_PushTextWrapPos(ctx, imgui_width/2 - 12*3)
     reaper.ImGui_Text(ctx, doc)
     reaper.ImGui_PopTextWrapPos(ctx)
-
+    
     reaper.ImGui_EndChild(ctx)
   end
-
+  
 end
 
 function Run()
-
+  
   reaper.ImGui_SetNextWindowBgAlpha( ctx, 1 )
 
   reaper.ImGui_PushFont(ctx, font)
@@ -267,12 +269,12 @@ function Run()
     imgui_width, imgui_height = reaper.ImGui_GetWindowSize( ctx )
 
     Main()
-
+    
     --------------------
 
     reaper.ImGui_End(ctx)
   end
-
+  
   reaper.ImGui_PopFont(ctx)
 
   if imgui_open and not reaper.ImGui_IsKeyPressed(ctx, reaper.ImGui_Key_Escape()) and not process then
