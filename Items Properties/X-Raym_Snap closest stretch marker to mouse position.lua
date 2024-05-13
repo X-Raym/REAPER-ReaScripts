@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=166702
  * REAPER: 5.0
  * Extensions: SWS 2.9.1
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2024-05-13)
+  + Fix Rate
  * v1.1 (2021-03-30)
   + Snap to grid
  * v1.0 (2021-03-30)
@@ -69,7 +71,7 @@ function main()
 
       rate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
 
-      strech_pos = mouse_pos_item / rate
+      strech_pos = mouse_pos_item * rate
 
       reaper.SetTakeStretchMarker(take, idx, strech_pos, srcpos)
 
