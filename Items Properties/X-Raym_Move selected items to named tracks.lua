@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1.1
+ * Version: 1.1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.1.2 (2024-05-31)
+  # Basic shim to ReaImGui v0.8.7.6
  * v1.1 (2021-07-20)
   + Track color label using custom render (thx cfillion!)
   + Track depth character prefix
@@ -29,6 +31,8 @@ vars.track_id = 1
 
 input_title = "Move Items to Named Tracks"
 undo_text = "Move selected items to named tracks"
+
+reaimgui_force_version = "0.8.7.6" -- false or string like "0.8.4"
 ----------------- END OF USER CONFIG AREA
 
 ext_name = "XR_MoveItemsToNamedTrack"
@@ -38,6 +42,12 @@ if not reaper.ImGui_CreateContext then
   return false
 end
 
+if reaimgui_force_version then
+  reaimgui_shim_file_path = reaper.GetResourcePath() .. '/Scripts/ReaTeam Extensions/API/imgui.lua'
+  if reaper.file_exists( reaimgui_shim_file_path ) then
+    dofile( reaimgui_shim_file_path )(reaimgui_force_version)
+  end
+end
 
 -- Console Message
 function Msg(g)
