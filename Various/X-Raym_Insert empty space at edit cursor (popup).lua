@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2024-06-08)
+  # Fix sample duration calculation
  * v1.0 (2021-02-12)
   + Initial Release
 --]]
@@ -51,7 +53,7 @@ function ConvertValToSeconds(val, unit)
     bpm = reaper.Master_GetTempo()
     unit_length = 60 / bpm * division * 4
   elseif unit == "samples" or unit == "smpl" then
-    unit_length = reaper.parse_timestr_len(min, 0, 4)
+    unit_length = reaper.parse_timestr_len("1", 0, 4)
   elseif unit == "ms" then
     unit_length = 1 / 1000
   elseif unit == "frames" or unit == "f" then
