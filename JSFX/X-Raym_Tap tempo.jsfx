@@ -6,11 +6,13 @@
  * Author URI: https://www.extremraym.com
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
  */
 
 /**
  * Changelog:
+ * v1.0.1 (2024-06-06)
+  + Add sample offset to time stamp of MIDI tap (thx birdbird!)
  * v1.0 (2024-06-06)
   + Initial Release
  */
@@ -171,8 +173,8 @@ function limit(x, a, b) (
    (x < a) ? a : (x > b) ? b : x;
 );
 
-function Tap() (
-  clock = time_precise();
+function Tap( offset ) (
+  clock = time_precise() + offset / srate;
 
   clicks+=1;
   clicks > 1 ? (
@@ -277,7 +279,7 @@ function DrawBPMLine( val ) (
 // User Inputs
 char = gfx_getchar();
 (mouse_cap == 1 && last_mouse_cap == 0) || (char == 116 && last_char == 0) ? ( // T
-  Tap();
+  Tap( 0 );
 );
 
 (mouse_cap == 2 && last_mouse_cap == 0) || (char == 114 && last_char == 0) ? ( // R
@@ -415,7 +417,7 @@ while (
       // Is it a note event?
       status == statNoteOn ? (
       
-        Tap();
+        Tap( offset ); // Offset seems to be from block start, in samples
 
       );
 
