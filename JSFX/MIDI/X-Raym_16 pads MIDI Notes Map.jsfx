@@ -7,7 +7,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.17
+ * Version: 1.18
  * Provides:
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
@@ -16,6 +16,8 @@
 
 /**
  * Changelog:
+ * v1.18 (2024-07-12)
+  # Remanent shift fix
  * v1.17 (2024-01-11)
   # Fix notes sharps
  * v1.16 (2023-07-11)
@@ -433,6 +435,7 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len, de
 );
 
 mouse_cap > last_mouse_cap && pad_mouse > 0 ? (
+  offset = 0;
   mouse_cap & 1 == 1 ? offset = 1;
   mouse_cap & 2 == 2 ? offset = -1;
   mouse_cap & 8 == 8 ? ( // shift
@@ -443,6 +446,7 @@ mouse_cap > last_mouse_cap && pad_mouse > 0 ? (
 );
 
 mouse_wheel != 0 && pad_mouse > 0 ? (
+  offset = 0;
   mouse_wheel > 0 ? offset = 1;
   mouse_wheel < 0 ? offset = -1;
   offset != 0 ? (
