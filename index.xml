@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="52e40c3527ba724c6d4231b272af230a3f4638bd" name="X-Raym Scripts">
+<index version="1" commit="eb64b4b7036ec91216d11d591a8d164d892827cc" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -7674,6 +7674,12 @@
       <version name="1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Track%20Properties/X-Raym_Solo%20exclusive%20selected%20tracks.eel</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Solo in place exclusive selected tracks.eel" type="script" desc="Solo in place exclusive selected tracks">
+      <version name="1.0" author="X-Raym" time="2024-07-23T12:26:51Z">
+        <changelog><![CDATA[+ Initial release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/eb64b4b7036ec91216d11d591a8d164d892827cc/Track%20Properties/X-Raym_Solo%20in%20place%20exclusive%20selected%20tracks.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Solo selected tracks unsoloing unselected ones or unsolo if already solo.lua" type="script" desc="Solo selected tracks unsoloing unselected ones or unsolo if already solo">
