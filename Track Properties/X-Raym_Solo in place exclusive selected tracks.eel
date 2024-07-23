@@ -1,0 +1,39 @@
+/**
+ * ReaScript Name: Solo in place exclusive selected tracks
+ * Author: X-Raym
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+*/
+
+/**
+ * Changelog:
+ * v1.0 (2024-07-23)
+  + Initial release
+ */
+
+function solo() local(track, i) (
+  i=0;
+  loop(CountSelectedTracks(0),
+    SetMediaTrackInfo_Value(GetSelectedTrack(0, i), "I_SOLO", 2);
+    i+=1;
+  );
+
+  i=0;
+  loop(CountTracks(0),
+    track = GetTrack(0, i);
+    IsTrackSelected(track) == 0 ? (
+      SetMediaTrackInfo_Value(track, "I_SOLO", 0);
+    );
+    i+=1;
+  );
+);
+
+Undo_BeginBlock();
+PreventUIRefresh(1);
+solo();
+PreventUIRefresh(-1);
+Undo_EndBlock("Solo in place exclusive selected tracks", -1);
