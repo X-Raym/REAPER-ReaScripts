@@ -8,11 +8,13 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=175819
  * REAPER: 5.0
- * Version: 2.0.1
+ * Version: 2.0.2
 --]]
 
 --[[
  * Changelog:
+ * v2.0.2 (2024-08-06)
+  # Bug fix if no region
  * v2.0.1 (2023-02-18)
   # Fix /E counter
  * v2.0 (2022-10-07)
@@ -185,7 +187,7 @@ end
 function Init()
 
   retval, num_markers, num_regions = reaper.CountProjectMarkers( 0 )
-  if num_regions == 0 then return false end
+  if num_markers == 0 then return false end
 
   if popup then
 
