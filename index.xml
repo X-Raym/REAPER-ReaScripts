@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="8dde73378cf23194f60aa9ca5428dd60f2abb4d7" name="X-Raym Scripts">
+<index version="1" commit="0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4764,6 +4764,27 @@
         <source file="Images/snare_top.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/084fcb50413595d1e50adb1985968b4c0cf8b34f/JSFX/MIDI/Images/snare_top.png</source>
         <source file="Images/tamborine.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/084fcb50413595d1e50adb1985968b4c0cf8b34f/JSFX/MIDI/Images/tamborine.png</source>
         <source file="Images/tom.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/084fcb50413595d1e50adb1985968b4c0cf8b34f/JSFX/MIDI/Images/tom.png</source>
+      </version>
+      <version name="1.19" author="X-Raym" time="2024-09-01T17:36:39Z">
+        <changelog><![CDATA[# Presets update]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/X-Raym_16%20pads%20MIDI%20Notes%20Map.jsfx</source>
+        <source file="X-Raym_16 pads MIDI Notes Map.jsfx.rpl">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/X-Raym_16%20pads%20MIDI%20Notes%20Map.jsfx.rpl</source>
+        <source type="data" file="MIDINoteImages/mt-power-drum-kit.txt">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/MIDINoteImages/mt-power-drum-kit.txt</source>
+        <source file="Images/bongos.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/bongos.png</source>
+        <source file="Images/cabasa.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/cabasa.png</source>
+        <source file="Images/congas.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/congas.png</source>
+        <source file="Images/cowbell.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/cowbell.png</source>
+        <source file="Images/cowbell_more.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/cowbell_more.png</source>
+        <source file="Images/cymbal_large.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/cymbal_large.png</source>
+        <source file="Images/cymbal_small.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/cymbal_small.png</source>
+        <source file="Images/hihat.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/hihat.png</source>
+        <source file="Images/kick.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/kick.png</source>
+        <source file="Images/maracas.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/maracas.png</source>
+        <source file="Images/ride_bell.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/ride_bell.png</source>
+        <source file="Images/ride_rim.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/ride_rim.png</source>
+        <source file="Images/snare_top.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/snare_top.png</source>
+        <source file="Images/tamborine.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/tamborine.png</source>
+        <source file="Images/tom.png">https://github.com/X-Raym/REAPER-ReaScripts/raw/0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3/JSFX/MIDI/Images/tom.png</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Last MIDI event monitor.jsfx" type="effect" desc="Last MIDI event monitor">
