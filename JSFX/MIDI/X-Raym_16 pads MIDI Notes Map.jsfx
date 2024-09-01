@@ -7,7 +7,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.18
+ * Version: 1.19
  * Provides:
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
@@ -16,6 +16,8 @@
 
 /**
  * Changelog:
+ * v1.19 (2024-09-01)
+  # Presets update
  * v1.18 (2024-07-12)
   # Remanent shift fix
  * v1.17 (2024-01-11)
