@@ -6,11 +6,14 @@
  * Author URI: https://www.extremraym.com
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
  */
 
 /**
  * Changelog:
+ * v1.0.2 (2024-09-06)
+  # Fix input channel filter
+  # Vel 0 filter in noteon detection
  * v1.0.1 (2024-06-06)
   + Add sample offset to time stamp of MIDI tap (thx birdbird!)
  * v1.0 (2024-06-06)
@@ -21,7 +24,7 @@
 
 desc:XR Tap Tempo
 
-slider1:inChannel<-1,15,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
+slider1:inChannel=<-1,15,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
 slider2:in_note=0<0,127,1{-, 0: C0,1: C#0,2: D0,3: D#0,4: E0,5: F0,6: F#0,7: G0,8: G#0,9: A0,10: A#0,11: B0,12: C1,13: C#1,14: D1,15: D#1,16: E1,17: F1,18: F#1,19: G1,20: G#1,21: A1,22: A#1,23: B1,24: C2,25: C#2,26: D2,27: D#2,28: E2,29: F2,30: F#2,31: G2,32: G#2,33: A2,34: A#2,35: B2,36: C3,37: C#3,38: D3,39: D#3,40: E3,41: F3,42: F#3,43: G3,44: G#3,45: A3,46: A#3,47: B3,48: C4,49: C#4,50: D4,51: D#4,52: E4,53: F4,54: F#4,55: G4,56: G#4,57: A4,58: A#4,59: B4,60: C5,61: C#5,62: D5,63: D#5,64: E5,65: F5,66: F#5,67: G5,68: G#5,69: A5,70: A#5,71: B5,72: C6,73: C#6,74: D6,75: D#6,76: E6,77: F6,78: F#6,79: G6,80: G#6,81: A6,82: A#6,83: B6,84: C7,85: C#7,86: D7,87: D#7,88: E7,89: F7,90: F#7,91: G7,92: G#7,93: A7,94: A#7,95: B7,96: C8,97: C#8,98: D8,99: D#8,100: E8,101: F8,102: F#8,103: G8,104: G#8,105: A8,106: A#8,107: B8,108: C9,109: C#9,110: D9,111: D#9,112: E9,113: F9,114: F#9,115: G9,116: G#9,117: A9,118: A#9,119: B9,120: C10,121: C#10,122: D10,123: D#10,124: E10,125: F10,126: F#10,127: G10}>Note In Monitor
 slider4:reset=0<0,1,1{--,Clear}>Reset Taps
 slider6:input_limit=16<4,64,1>Taps Count Limit
@@ -42,7 +45,7 @@ afterTouch = $xA0;
 
 input_limit = 16;
 clicks = -1; // NOTE: Ignore first click because. When Press play, if cursor is at first note, then it will have a first higher than usual BPM entry at second note, unless Track Rec is On (or anticipative processing is off). Workarround, just start at -1.
-clock = time_precise(); 
+clock = time_precise();
 last_clock =  0;
 
 slope_threshold = 0.5;
@@ -54,11 +57,11 @@ function Init() local (i) (
   bpms[0] = 0;
   averages = 256; // memory
   averages[0] = 0;
-  
+
   stable = 0;
   clock = time_precise();
   last_clock = 0;
-  
+
   i = 1;
   loop( input_limit,
     bpms[i] = 0;
@@ -75,7 +78,7 @@ function array_len( array ) (
 function arr_unshift( t, val, limit ) local( array_size, i ) (
   array_size = array_len(t);
   i = array_size;
-  
+
   array_size > 0 ? (
     loop( array_size, // +1 because we add a value
       limit == 0 || i + 1 <= limit ? (
@@ -85,7 +88,7 @@ function arr_unshift( t, val, limit ) local( array_size, i ) (
     );
   );
   t[1] = val;
-  
+
   t[0] = t[0] + 1;
   limit && t[0] >= limit ? (
     t[0] = limit;
@@ -116,7 +119,7 @@ function TableMaxMin( t ) (
 function mean( t ) local( sum, array_size ) (
   array_size = array_len(t);
   sum = 0;
-  
+
   i = 1;
   loop( array_size,
     sum = sum + t[i];
@@ -127,9 +130,9 @@ function mean( t ) local( sum, array_size ) (
 );
 
 function linearRegression(x_t, y_t) local ( array_size, x, x_mean, y, y_mean, i, slope_numerator, slope_denominator ) (
-  
+
   array_size = array_len(y_t);
-  
+
   // Means
   x_t[0] > 0 ? (
     x_mean = mean( x_t );
@@ -149,7 +152,7 @@ function linearRegression(x_t, y_t) local ( array_size, x, x_mean, y, y_mean, i,
   // Slope
   slope_numerator = 0;
   slope_denominator = 0;
-  
+
   i = 1;
   loop( array_size,
     x = i;
@@ -167,7 +170,7 @@ function linearRegression(x_t, y_t) local ( array_size, x, x_mean, y, y_mean, i,
 
 function MapLinear (num, in_min, in_max, out_min, out_max) (
   (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-); 
+);
 
 function limit(x, a, b) (
    (x < a) ? a : (x > b) ? b : x;
@@ -204,7 +207,7 @@ reset == 1 ? (
 ////////////////////////////////////////////////////////////////////////////////
 @gfx 500 500
 
-function DrawBars( t ) local( i, x, y, w, h, c ) ( 
+function DrawBars( t ) local( i, x, y, w, h, c ) (
   w = graph_w / input_limit;
   i = 1;
   loop( input_limit,
@@ -220,7 +223,7 @@ function DrawBars( t ) local( i, x, y, w, h, c ) (
     gfx_rect( x, y, w, h );
     gfx_set( 0, 0, 0 );
     gfx_line( floor(x+w), graph_y, floor(x+w), graph_y + graph_h, 1);
-    
+
     // BPM Number
     gfx_setfont(1,"Tahoma Bold",w/2);
     gfx_measurestr(sprintf(#, "%d", t[i]), text_w, text_h);
@@ -240,17 +243,17 @@ function DrawBars( t ) local( i, x, y, w, h, c ) (
 function DrawSlope( t ) local(x1,y1,x2,y2,linear_1,linear_2, z) (
   // Get Intercept and Slope as globals
   linearRegression(0, t);
-  
+
   // Allow extend histogram scale passed limit_bpm if needed.
   TableMaxMin( t );
   bpm_limit = limit_bpm;
   t_max > limit_bpm ? ( bpm_limit = t_max );
-  
+
   x1 = graph_x;
   y1 = MapLinear( intercept + slope * 1, 0, bpm_limit, graph_y+graph_h, graph_y );
   x2 = graph_w;
   y2 = MapLinear( intercept + slope * input_limit, 0, bpm_limit, graph_y+graph_h, graph_y );
-  
+
   linear_1 = intercept + slope * 1;
   linear_2 = intercept + slope * input_limit;
   stable = abs(linear_1 - linear_2) < slope_threshold;
@@ -259,7 +262,7 @@ function DrawSlope( t ) local(x1,y1,x2,y2,linear_1,linear_2, z) (
   ):(
     gfx_set( 1, 0, 0 );
   );
-  
+
   gfx_line( x1,y2, x2, y1 );
   gfx_line( x1,y2+1, x2, y1+1 );
   gfx_line( x1,y2-1, x2, y1-1 );
@@ -309,23 +312,23 @@ clicks > 3 ? (
   DrawBars( bpms );
   DrawBPMLine( average_bpm );
   DrawSlope( bpms );
-  
+
   gfx_setfont(1,"Tahoma Bold",w/2, 'b');
-  
+
   gfx_measurestr(sprintf(#, "%d", average_bpm), num_w, num_h);
   gfx_measurestr("Average BPM : ", text_w, text_h);
   gfx_y = graph_y - 35;
   gfx_x = (graph_w - text_w - num_w) / 2;
   gfx_drawstr( "Average BPM: ");
   gfx_drawnumber( average_bpm, 0 );
-  
+
   gfx_measurestr(sprintf(#, "%d", last_stable_average_bpm), num_w, num_h);
   gfx_measurestr("Last Stable : ", text_w, text_h);
   gfx_y = graph_y - 35;
   gfx_x = (graph_w - text_w - num_w)-10;
   gfx_drawstr( "Last Stable: ");
   gfx_drawnumber( last_stable_average_bpm, 0 );
-  
+
   show_rolling_average_bpm ? (
     graph_y = gfx_h/2 + v_pad; graph_h = gfx_h/2 - v_pad;
     DrawSlope( averages );
@@ -334,7 +337,7 @@ clicks > 3 ? (
     DrawBars( averages );
     DrawBPMLine( rolling_average_bpm );
     DrawSlope( averages );
-    
+
     gfx_setfont(1,"Tahoma Bold",w/2, 'b');
     gfx_measurestr(sprintf(#, "%d", rolling_average_bpm), num_w, num_h);
     gfx_measurestr("Rolling Average BPM : ", text_w, text_h);
@@ -342,7 +345,7 @@ clicks > 3 ? (
     gfx_x = (graph_w - text_w - num_w) / 2;
     gfx_drawstr( "Rolling Average BPM: ");
     gfx_drawnumber( rolling_average_bpm, 0 );
-    
+
     gfx_measurestr(sprintf(#, "%d", last_stable_rolling_average_bpm), num_w, num_h);
     gfx_measurestr("Last Stable: ", text_w, text_h);
     gfx_y = graph_y - 35;
@@ -410,13 +413,13 @@ while (
 
     // Is it on our channel?
     channel == inChannel || inChannel == -1 ? (
-    
+
       status == statNoteOn && vel > 0 ? in_note = note + 1;
       status == statNoteOff || (status == statNoteOn && vel == 0) ? in_note = 0;
 
       // Is it a note event?
-      status == statNoteOn ? (
-      
+      status == statNoteOn && vel > 0 ? (
+
         Tap( offset ); // Offset seems to be from block start, in samples
 
       );
