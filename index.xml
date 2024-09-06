@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="0c40ef6c0ac462d5c74e5fe83eba7ad6a888aca3" name="X-Raym Scripts">
+<index version="1" commit="f54b51b9a48a355877e86a7a8a9b18942ea2cfcd" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4439,6 +4439,11 @@
       <version name="1.0.1" author="X-Raym" time="2024-06-09T13:33:04Z">
         <changelog><![CDATA[+ Add sample offset to time stamp of MIDI tap (thx birdbird!)]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/5956f8b5d16295f27036e73bb6886311d624852e/JSFX/X-Raym_Tap%20tempo.jsfx</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2024-09-06T14:09:01Z">
+        <changelog><![CDATA[# Fix input channel filter
+# Vel 0 filter in noteon detection]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/f54b51b9a48a355877e86a7a8a9b18942ea2cfcd/JSFX/X-Raym_Tap%20tempo.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Tone generator with playstate.jsfx" type="effect" desc="Tone generator with playstate">
