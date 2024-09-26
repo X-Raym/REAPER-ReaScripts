@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Set selected tracks parameters values with envelopes values at edit cursor
- * About: A way to convert envelope into track parameters. Use this script for tracks with Read mode.
+ * About: A way to convert envelope into track parameters. Use this script for tracks with Trim Read mode.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0 RC5
  * Extensions: SWS 2.7.3 #0
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2024-09-07)
+  # Fix mute param
  * v1.2 (2015-09-09)
   + Fader scaling support
  * v1.1.1 (2015-09-07)
@@ -81,7 +83,7 @@ function AddEnvValueToSend(track, env, param_name, value, minimum, maximum)
 
       if param_name == "B_MUTE" then
         -- reaper.BR_GetSetTrackSendInfo(track, 0, w, param_name, false, 0)
-        new_value = value
+        new_value = value == 1 and 0 or 1
       end
 
       reaper.BR_GetSetTrackSendInfo(track, 0, w, param_name, true, new_value)
@@ -128,7 +130,7 @@ function Action(env, track)
     end -- ENDIF Volume
 
     if env_name == "Mute" then
-      reaper.SetMediaTrackInfo_Value(track, "B_MUTE", value_eval)
+      reaper.SetMediaTrackInfo_Value(track, "B_MUTE", value_eval == 1 and 0 or 1 )
     end -- ENDIF Mute
 
     if env_name == "Width" then
