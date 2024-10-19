@@ -21,7 +21,6 @@
    # No name match if envelope selected
    # If no prompt, works only on selected envelope (with one insertion block)
    # Clear console
-
  * v1.6.3 (2020-04-10)
    # FaderScaling fixes
  * v1.6.2 (2018-04-10)
