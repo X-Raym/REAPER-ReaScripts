@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: MIDI (Various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=187555
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2020-10-28)
+  # Prevent crash if no further notes
  * v1.0 (2018-05-11)
   + Initial Release
 --]]
@@ -29,6 +31,7 @@ function Main( take )
   local time_endppq = reaper.MIDI_GetPPQPosFromProjTime( take, end_time )
 
   pattern = {}
+
   local j = 0
   -- GET SELECTED NOTES (from 0 index)
   for k = 0, notes - 1 do
@@ -40,8 +43,21 @@ function Main( take )
         local offset = k
         if pattern[1] then offset = pattern[1] end
         table.insert( pattern, sel )
+      end
+
+  end
+
+  if #pattern == 0 then return end
+
+  -- GET SELECTED NOTES (from 0 index)
+  for k = 0, notes - 1 do
+
+    local retval, sel, muted, startppq, endppq, chan, pitch, vel = reaper.MIDI_GetNote( take, k )
+
+
+      if startppq >= time_startppq and startppq < time_endppq and endppq > time_startppq and endppq <= time_endppq then
+
       else
-        -- ACTION HERE
         reaper.MIDI_SetNote( take, k, false, muted, startppq, endppq, chan, pitch, vel )
         if startppq >= time_startppq then
           j = j % #pattern
