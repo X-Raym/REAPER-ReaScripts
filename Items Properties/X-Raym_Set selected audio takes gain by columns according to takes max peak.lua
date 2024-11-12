@@ -11,7 +11,6 @@
  * Forum Thread: REQ: Copy & Paste Peak/RMS values of items to different items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
- * Extensions: spk77_Get take RMS.lua
  * Version: 1.0
 --]]
 
