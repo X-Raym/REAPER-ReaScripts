@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="5a8887e97546965cd1274c85d8e57404c4b98b18" name="X-Raym Scripts">
+<index version="1" commit="2034e0eb6e0e256e082089074042627f13330091" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -6892,6 +6892,10 @@
     <reapack name="X-Raym_Export items notes from tracks or items selection as SRT subtitles file.lua" type="script" desc="Export items notes from tracks or items selection as SRT subtitles file">
       <version name="2.0" time="2024-11-12T13:33:02Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/58fd5e25efd34621ae24a3736f737bc7078fe55a/Text%20Items%20and%20Item%20Notes/Subtitles/X-Raym_Export%20items%20notes%20from%20tracks%20or%20items%20selection%20as%20SRT%20subtitles%20file.lua</source>
+      </version>
+      <version name="2.1" time="2024-11-12T16:44:46Z">
+        <changelog><![CDATA[+ Font color support in User Config Area]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2034e0eb6e0e256e082089074042627f13330091/Text%20Items%20and%20Item%20Notes/Subtitles/X-Raym_Export%20items%20notes%20from%20tracks%20or%20items%20selection%20as%20SRT%20subtitles%20file.lua</source>
       </version>
     </reapack>
   </category>
