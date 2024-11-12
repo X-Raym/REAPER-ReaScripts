@@ -1,7 +1,6 @@
 --[[
  * ReaScript Name: Set selected audio takes gain by columns according to takes average RMS
  * About: Select audio takes on multile tracks. Run.
- * Instructions: Here is how to use it. (optional)
  * Screenshot: http://i.giphy.com/3o8doXnw0QskX4o1EI.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -11,12 +10,13 @@
  * Forum Thread: REQ: Copy & Paste Peak/RMS values of items to different items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
- * Extensions: spk77_Get max peak val and pos from take_function.lua
- * Version: 1.0
+ * Version: 2.0
 --]]
 
 --[[
  * Changelog:
+ * v2.0 (2024-11-12)
+  # Remove spk77_Get take RMS.lua dependency. Replace by SWS NF API.
  * v1.0 (2015-12-30)
   + Initial Release
 --]]
@@ -27,24 +27,12 @@ console = true -- true/false: activate/deactivate console messages
 
 --------------------------------- END OF USER CONFIG AREA
 
-
--- ----- DEBUGGING ====>
-local info = debug.getinfo(1,'S');
-
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
+-- INIT
+if not reaper.NF_GetMediaItemAverageRMS then
+  reaper.MB('Please Install last SWS Extension pre-release version.\nhttps://www.sws-extension.org/download/pre-release/\n', "Error", 1)
+  return false
 end
 
-require("spk77_Get take RMS")
--- <==== DEBUGGING -----
-
--- INIT
 count_sel_items_on_track = {}
 
 -------------------------------------------------------------
@@ -161,21 +149,8 @@ function Average(matrix)
   sum = sum / #matrix
   return sum
 end
-
 -------------------------------------------------------------
-function debug(table)
 
-  for i = 1, #table do
-
-    msg("Val = " .. i .. "=>"..reaper.ULT_GetMediaItemNote(table[i]))
-
-  end
-
-  return max_val
-
-end
-
--------
 function Msg(variable)
   if console == true then
     reaper.ShowConsoleMsg(tostring(variable).."\n")
@@ -208,8 +183,6 @@ function main()
 
   -- MAXIMUM OF ITEM SELECTED ON A TRACK
   max_sel_item_on_track = MaxValTable(count_sel_items_on_track)
-
-  --debug(init_sel_items)
 
   peak_values = {}
   item_take_vol = {}
@@ -244,11 +217,11 @@ function main()
             Returns a table (RMS values from each channel in an array)
             --]]
 
-            rms_source = get_average_rms( source_take, true, true, true, true )
+            rms_source = reaper.NF_GetMediaItemAverageRMS( source_item )
             average_rms_source = Average(rms_source)
             Msg("Average Source RMS: " .. average_rms_source)
 
-            rms_dest = get_average_rms( take, true, true, true, true )
+            rms_dest = reaper.NF_GetMediaItemAverageRMS( item )
             average_rms_dest = Average(rms_dest)
             Msg("Average Dest RMS: " .. average_rms_dest)
 

@@ -1,7 +1,6 @@
 --[[
  * ReaScript Name: Set selected audio takes gain by columns according to takes max peak
  * About: Select audio takes on multile tracks. Run.
- * Instructions: Here is how to use it. (optional)
  * Screenshot: http://i.giphy.com/3o8doXnw0QskX4o1EI.gif
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -11,11 +10,13 @@
  * Forum Thread: REQ: Copy & Paste Peak/RMS values of items to different items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 2.0
 --]]
 
 --[[
  * Changelog:
+ * v2.0 (2024-11-12)
+  # Remove spk77_Get max peak val and pos from take.lua dependency. Replace by SWS NF API.
  * v1.0 (2015-12-30)
   + Initial Release
 --]]
@@ -26,24 +27,12 @@ console = true -- true/false: activate/deactivate console messages
 
 --------------------------------- END OF USER CONFIG AREA
 
-
--- ----- DEBUGGING ====>
-local info = debug.getinfo(1,'S');
-
-local full_script_path = info.source
-
-local script_path = full_script_path:sub(2,-5) -- remove "@" and "file extension" from file name
-
-if reaper.GetOS() == "Win64" or reaper.GetOS() == "Win32" then
-  package.path = package.path .. ";" .. script_path:match("(.*".."\\"..")") .. "..\\Functions\\?.lua"
-else
-  package.path = package.path .. ";" .. script_path:match("(.*".."/"..")") .. "../Functions/?.lua"
+-- INIT
+if not reaper.NF_GetMediaItemAverageRMS then
+  reaper.MB('Please Install last SWS Extension pre-release version.\nhttps://www.sws-extension.org/download/pre-release/\n', "Error", 1)
+  return false
 end
 
-require("spk77_Get max peak val and pos from take_function")
--- <==== DEBUGGING -----
-
--- INIT
 count_sel_items_on_track = {}
 
 -------------------------------------------------------------
@@ -151,18 +140,7 @@ function MaxValTable(table)
 
 end
 -------------------------------------------------------------
-function debug(table)
 
-  for i = 1, #table do
-
-    msg("Val = " .. i .. "=>"..reaper.ULT_GetMediaItemNote(table[i]))
-
-  end
-
-  return max_val
-
-end
--------
 function Msg(variable)
   if console == true then
     reaper.ShowConsoleMsg(tostring(variable).."\n")
@@ -196,19 +174,17 @@ function main()
   -- MAXIMUM OF ITEM SELECTED ON A TRACK
   max_sel_item_on_track = MaxValTable(count_sel_items_on_track)
 
-  --debug(init_sel_items)
-
   peak_values = {}
   item_take_vol = {}
   -- LOOP COLUMN OF ITEMS ON TRACK
   for j = 0, max_sel_item_on_track - 1 do
 
-  msg("\n*****\nCOLUMN = "..j)
+  Msg("\n*****\nCOLUMN = "..j)
 
     -- LOOP TRHOUGH SELECTED TRACKS
     for k = 1, selected_tracks_count - 1  do
 
-      msg("----\nTRACK SEL = "..k)
+      Msg("----\nTRACK SEL = "..k)
 
       -- LOOP THROUGH ITEM IDX
       item = GetSelectedItems_OnTrack(k, j)
@@ -230,10 +206,10 @@ function main()
             retval, maximum peak value, maximum peak pos = get_sample_max_val_and_pos(MediaItem_Take, bool adj_for_take_vol, bool adj_for_item_vol, bool val_is_dB)
             --]]
 
-            retval, peak_values, peak_pos = get_sample_max_val_and_pos( source_take, true, true, true )
+            peak_values, peak_pos = reaper.NF_GetMediaItemMaxPeakAndMaxPeakPos( source_item )
             Msg("Source Peak: " .. peak_values)
 
-            retval2, peak_values_dest, peak_pos_dest = get_sample_max_val_and_pos( take, true, true, true )
+            peak_values_dest, peak_pos_dest = reaper.NF_GetMediaItemMaxPeakAndMaxPeakPos( item )
             Msg("Dest Peak: " .. peak_values_dest)
 
             db_diff = peak_values - peak_values_dest
