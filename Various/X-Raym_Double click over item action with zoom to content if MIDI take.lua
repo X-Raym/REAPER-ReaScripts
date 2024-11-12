@@ -1,12 +1,12 @@
 --[[
- * ReaScript Name: Double click action with zoom to content if MIDI item
+ * ReaScript Name: Double click over item action with zoom to content if MIDI take
  * About: Action to auto zoom to content when double click MIDI items. Fallback to all other default behavior for other type of media. Meant to be put as mouse modifier item double click, but can be used in any way.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 7.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
