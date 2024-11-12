@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="44d85aa6e4bb4e32cc6be6f2de095de6995d2681" name="X-Raym Scripts">
+<index version="1" commit="c0045ec68a4939764bb1674416ea2ca141b41b6d" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3377,6 +3377,10 @@
       <version name="1.0.1" author="X-Raym" time="2017-08-04T16:59:22Z">
         <changelog><![CDATA[# Fix dependency path]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Keep%20selected%20only%20active%20takes%20audio%20under%20or%20over%20peak%20volume%20threshold.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2024-11-12T21:52:11Z">
+        <changelog><![CDATA[# Remove spk77_Get max peak val and pos from take.lua dependency. Replace by SWS NF API.]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c0045ec68a4939764bb1674416ea2ca141b41b6d/Items%20Properties/X-Raym_Keep%20selected%20only%20active%20takes%20audio%20under%20or%20over%20peak%20volume%20threshold.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Keep selected only X items randomly.lua" type="script" desc="Keep selected only x items randomly">
