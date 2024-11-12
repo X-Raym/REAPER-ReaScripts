@@ -6,7 +6,7 @@
      Based on HeDa_X-Raym_Export selection as SRT subtitles with offset.lua
  * Authors: X-Raym
  * Author URI: https://www.extremraym.com
- * Version: 2.0
+ * Version: 2.1
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * License: GPL v3
@@ -16,7 +16,9 @@
 ]]
 
 --[[
- * Change log:
+ * Changelog:
+ * v2.1 (2024-11-12)
+  + Font color support in User Config Area
  * v2.0 (2024-11-12)
   # Refactoring
   # Renamed
@@ -65,7 +67,14 @@
   + initial version by Heda
 ]]
 
-export_color = false
+-- USER CONFIG AREA ------------------------------------------------------
+
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
+
+export_color = false -- Export item color as font color in SRT
+
+-------------------------------------------------- END OF USER CONFIG AREA
 
 os_sep = package.config:sub(1,1)
 
@@ -123,11 +132,6 @@ function ExportSRT( file )
 
       if item.pos_start < 0 then item.pos_start = 0 end
 
-      -- write color. NOTE: this is not standard SRT, just a mod by X-Raym for specific usage
-      if export_color then
-        f:write( i+1 .. "\n" .. item.color_hex .. "\n" )
-      end
-
       -- write item number
       count = count + 1
       f:write( count .. "\n" )
@@ -136,12 +140,20 @@ function ExportSRT( file )
       str_start = tosrtformat( item.pos_start )
       str_end = tosrtformat( item.pos_end )
       f:write( str_start .. " --> " ..  str_end .. "\n")
+      
+      if export_color then
+        f:write( '<font color="' .. item.color_hex .. '">' )
+      end
 
       -- write text
-      f:write( item.notes .. "\n" )
+      f:write( item.notes )
+      
+      if export_color then
+         f:write( "</font>" .. "\n" )
+      end
 
       -- break line
-      f:write( "\n" )
+      f:write( "\n\n" )
     end
   end
 
