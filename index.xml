@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="db52a78e50b02be0a9a7be3c4246eb6b77ccb6ff" name="X-Raym Scripts">
+<index version="1" commit="44d85aa6e4bb4e32cc6be6f2de095de6995d2681" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1533,16 +1533,6 @@
       <version name="1.0" author="spk77" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Functions/spk77_class.lua</source>
-      </version>
-    </reapack>
-    <reapack name="spk77_Get max peak val and pos from take_function.lua" type="script">
-      <version name="1.0" time="2016-02-17T00:57:18Z">
-        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/fd87147195f732f9af4e2e32eae610cc8d4f1a9f/Functions/spk77_Get%20max%20peak%20val%20and%20pos%20from%20take_function.lua</source>
-      </version>
-    </reapack>
-    <reapack name="spk77_Get take RMS.lua" type="script">
-      <version name="1.0" time="2016-02-17T00:57:18Z">
-        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/d4f4563f691c3b235c2802f2f95d72d9dc59f044/Functions/spk77_Get%20take%20RMS.lua</source>
       </version>
     </reapack>
     <reapack name="spk77_slider class.lua" type="script">
@@ -4026,7 +4016,7 @@
     </reapack>
     <reapack name="X-Raym_Set selected audio takes gain by columns according to takes average RMS.lua" type="script" desc="Set selected audio takes gain by columns according to takes average RMS">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -4039,10 +4029,14 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20average%20RMS.lua</source>
       </version>
+      <version name="2.0" author="X-Raym" time="2024-11-12T21:46:36Z">
+        <changelog><![CDATA[# Remove spk77_Get take RMS.lua dependency. Replace by SWS NF API.]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/44d85aa6e4bb4e32cc6be6f2de095de6995d2681/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20average%20RMS.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set selected audio takes gain by columns according to takes max peak.lua" type="script" desc="Set selected audio takes gain by columns according to takes max peak">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -4054,6 +4048,10 @@
       <version name="1.0" author="X-Raym" time="2016-02-17T00:57:18Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20max%20peak.lua</source>
+      </version>
+      <version name="2.0" author="X-Raym" time="2024-11-12T21:46:36Z">
+        <changelog><![CDATA[# Remove spk77_Get max peak val and pos from take.lua dependency. Replace by SWS NF API.]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/44d85aa6e4bb4e32cc6be6f2de095de6995d2681/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20max%20peak.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected item active takes to random colors.lua" type="script" desc="Set selected item active takes to random colors">
