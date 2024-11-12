@@ -32,7 +32,7 @@ beat_g = 0
 beat_b = 128
 
 if not reaper.BR_GetClosestGridDivision then
-  reaper.ShowMessageBox( 'Please Install last SWS extension.\nhttps://www.sws-extension.org', 'Migissing Dependency', 0 )
+  reaper.ShowMessageBox( 'Please Install last SWS extension.\nhttps://www.sws-extension.org', 'Missing Dependency', 0 )
   return false
 end
 
