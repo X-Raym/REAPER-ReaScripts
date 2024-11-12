@@ -10,12 +10,13 @@
  * Forum Thread: REQ: Copy & Paste Peak/RMS values of items to different items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
- * Extensions: spk77_Get max peak val and pos from take_function.lua
- * Version: 1.0.1
+ * Version: 2.0
 --]]
 
 --[[
  * Changelog:
+ * v2.0 (2024-11-12)
+  # Remove spk77_Get max peak val and pos from take.lua dependency. Replace by SWS NF API.
  * v1.0.1 (2017-08-04)
   # Fix dependency path
  * v1.0 (2016-03-14)
@@ -36,15 +37,6 @@ popup = true -- true/false: display a pop up box
 console = false -- true/false: display debug messages in the console
 
 ------------------------------------------------------- END OF USER CONFIG AREA
-
-
--- INCLUDES -----------------------------------------------------------
-
-local info = debug.getinfo(1,'S');
-script_path = info.source:match[[^@?(.*[\/])[^\/]-$]]
-dofile(script_path .. "../Functions/spk77_Get max peak val and pos from take_function.lua")
-
--------------------------------------------------------------- INCLUDES
 
 
 -- UTILITIES -------------------------------------------------------------
@@ -78,9 +70,9 @@ function main()
     if take then
 
       -- get_sample_max_val_and_pos(MediaItem_Take, bool adj_for_take_vol, bool adj_for_item_vol, bool val_is_dB)
-      local ret, max_peak_val, peak_sample_pos = get_sample_max_val_and_pos(take, true, true, true)
+      max_peak_val, peak_sample_pos = reaper.NF_GetMediaItemMaxPeakAndMaxPeakPos( item )
 
-      if ret then
+      if max_peak_val then
 
         Msg(max_peak_val)
 
