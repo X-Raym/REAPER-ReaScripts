@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="14fe454e2057a86c299df89c8b0e449c59bed9e9" name="X-Raym Scripts">
+<index version="1" commit="2cffefae151ac216c8eff81d1074c714214687e1" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5358,16 +5358,36 @@
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/MIDI%20Editor/X-Raym_Select-Unselect%20all%20MIDI%20notes%20under%20mouse.eel</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Select-Unselect all MIDI notes with same pitch left of the mouse.eel" type="script" desc="Select-Unselect all MIDI notes with same pitch left of the mouse">
-      <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
-        <changelog><![CDATA[+ Initial release]]></changelog>
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/MIDI%20Editor/X-Raym_Select-Unselect%20all%20MIDI%20notes%20with%20same%20pitch%20left%20of%20the%20mouse.eel</source>
+    <reapack name="X-Raym_Select-Unselect all MIDI notes with same pitch left of the mouse.lua" type="script" desc="Select-Unselect all MIDI notes with same pitch left of the mouse">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Assign the script to a keyboard shortcut, and load it into MIDI actions, from the MIDI editor Action window.\par}
+}
+]]></description>
+      </metadata>
+      <version name="2.0" author="X-Raym" time="2024-11-12T13:37:25Z">
+        <changelog><![CDATA[# Lua version, deprecation of X-Raym_Select-Unselect all MIDI notes with same pitch left of the mouse.eel
++ Enum all editable takes]]></changelog>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/2cffefae151ac216c8eff81d1074c714214687e1/MIDI%20Editor/X-Raym_Select-Unselect%20all%20MIDI%20notes%20with%20same%20pitch%20left%20of%20the%20mouse.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Select-Unselect all MIDI notes with same pitch right of the mouse.eel" type="script" desc="Select-Unselect all MIDI notes with same pitch right of the mouse">
-      <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
-        <changelog><![CDATA[+ Initial release]]></changelog>
-        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/MIDI%20Editor/X-Raym_Select-Unselect%20all%20MIDI%20notes%20with%20same%20pitch%20right%20of%20the%20mouse.eel</source>
+    <reapack name="X-Raym_Select-Unselect all MIDI notes with same pitch right of the mouse.lua" type="script" desc="Select-Unselect all MIDI notes with same pitch right of the mouse">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Assign the script to a keyboard shortcut, and load it into MIDI actions, from the MIDI editor Action window.\par}
+}
+]]></description>
+      </metadata>
+      <version name="2.0" author="X-Raym" time="2024-11-12T13:37:25Z">
+        <changelog><![CDATA[# Lua version, deprecation of X-Raym_Select-Unselect all MIDI notes with same pitch right of the mouse.eel
++ Enum all editable takes]]></changelog>
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/2cffefae151ac216c8eff81d1074c714214687e1/MIDI%20Editor/X-Raym_Select-Unselect%20all%20MIDI%20notes%20with%20same%20pitch%20right%20of%20the%20mouse.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select-Unselect highest MIDI notes in active take.eel" type="script" desc="Select-Unselect highest MIDI notes in active take">
@@ -6873,56 +6893,9 @@
     </reapack>
   </category>
   <category name="Text Items and Item Notes/Subtitles">
-    <reapack name="HeDa_X-Raym_Export selection as SRT subtitles with offset and color.lua" type="script" desc="Export selection as SRT subtitles with offset and color">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 Export item's note selection (or on selected track) as offset by edit cursor time SRT subtitles\par}
-}
-]]></description>
-      </metadata>
-      <version name="1.4" time="2019-11-21T11:44:44Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/90a6ba3959bca8dc2685f07dda82d98f68217d16/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset%20and%20color.lua</source>
-      </version>
-      <version name="1.4.1" time="2019-12-10T01:40:06Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b06e1da36f911affb6d62867d572ea142ac0dec9/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset%20and%20color.lua</source>
-      </version>
-      <version name="1.4.2" time="2020-01-13T19:34:37Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/964740fc3aab427b6d16790357f1d77f27fb062b/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset%20and%20color.lua</source>
-      </version>
-    </reapack>
-    <reapack name="HeDa_X-Raym_Export selection as SRT subtitles with offset.lua" type="script" desc="Export selection as SRT subtitles with offset">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 Export item's note selection (or on selected track) as offset by edit cursor time SRT subtitles\par}
-}
-]]></description>
-      </metadata>
-      <version name="0.6 beta" time="2015-03-07T15:01:01Z">
-        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/55cc67f7a0593562235736fbb03aa2f3a8e9e398/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
-      </version>
-      <version name="1.0" time="2015-03-13T15:34:33Z">
-        <source main="true">https://github.com/X-Raym/REAPER-ReaScripts/raw/2a42303362aadeb4b5c89f36e6fc1780854b32a2/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
-      </version>
-      <version name="1.4.1" time="2019-12-10T01:40:06Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b06e1da36f911affb6d62867d572ea142ac0dec9/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
-      </version>
-      <version name="1.4.2" time="2019-12-14T14:03:36Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/213ca697ad874f46f3153bd26ab57a0fab2b96c0/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
-      </version>
-      <version name="1.4.3" time="2020-03-17T14:01:55Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/f590c71357094786d1fc19bbb5a0feb835a1a526/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
-      </version>
-      <version name="1.5.1" time="2022-01-12T17:00:56Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/2a4eaf1ba24b2e5807ad775e15994d1a17f4b07a/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
-      </version>
-      <version name="1.5.2" time="2022-01-12T22:38:52Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/238c27e57d541063b98379908f98a314ab083b50/Text%20Items%20and%20Item%20Notes/Subtitles/HeDa_X-Raym_Export%20selection%20as%20SRT%20subtitles%20with%20offset.lua</source>
+    <reapack name="X-Raym_Export items notes from tracks or items selection as SRT subtitles file.lua" type="script" desc="Export items notes from tracks or items selection as SRT subtitles file">
+      <version name="2.0" time="2024-11-12T13:33:02Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/58fd5e25efd34621ae24a3736f737bc7078fe55a/Text%20Items%20and%20Item%20Notes/Subtitles/X-Raym_Export%20items%20notes%20from%20tracks%20or%20items%20selection%20as%20SRT%20subtitles%20file.lua</source>
       </version>
     </reapack>
   </category>
