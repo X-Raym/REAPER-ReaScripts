@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="c03c1dc130490ff3b58c3e7efe900464fe078f8c" name="X-Raym Scripts">
+<index version="1" commit="ce5ddb8e2ad1477cb42a893e13bff72036107261" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -8810,6 +8810,12 @@
       <version name="1.2" author="X-Raym" time="2024-11-14T00:31:38Z">
         <changelog><![CDATA[# Remove defer]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c03c1dc130490ff3b58c3e7efe900464fe078f8c/Various/X-Raym_Toggle%20Sonarworks%20SoundID%20monitor%20FX%20instance%20Calibration%20state.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Toggle Sonarworks SoundID monitor FX instance Speakers and Headphones presets.lua" type="script" desc="Toggle Sonarworks SoundID monitor FX instance Speakers and Headphones presets">
+      <version name="1.0" author="X-Raym" time="2024-11-14T10:45:51Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/ce5ddb8e2ad1477cb42a893e13bff72036107261/Various/X-Raym_Toggle%20Sonarworks%20SoundID%20monitor%20FX%20instance%20Speakers%20and%20Headphones%20presets.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_XR ReaImGui themer.lua" type="script" desc="XR ReaImGui themer">
