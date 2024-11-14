@@ -6,12 +6,21 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts/
  * Licence: GPL v3
  * REAPER: 5.0
- * Version:  1.0
+ * Version: 1.1
 --]]
+
+--[[
+ * Changelog:
+ * v1.1 (2024-11-14)
+  # Remove defer. No need to put it in reverse in global startup action anymore.
+ * v1.0 (2021-12-05)
+  + Initial Release
+--]]
+
 
 ext_name = "XR_SWSGlobalStartupAction"
 ext_key = "IsRunning"
-console = false
+console = off
 
 function Msg(val)
   reaper.ShowConsoleMsg(tostring(val).."\n")
@@ -26,4 +35,4 @@ function Main()
   end
 end
 
-reaper.defer(Main)
+Main()
