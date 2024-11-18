@@ -7,7 +7,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.20
+ * Version: 1.21
  * Provides:
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
@@ -17,6 +17,8 @@
 
 /**
  * Changelog:
+ * v1.21 (2024-11-18)
+  # Load images in Serialize block
  * v1.20 (2024-11-18)
   # Label changes
   # NONE.txt
@@ -76,7 +78,7 @@ slider1:0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
 slider2:36<0,127,1>Pad 01 Input Note
 slider3:1<0,1,1{Inactive,Active}>Remap
 
-slider4:/MIDINoteImages:NONE:Pads Image Mapping File
+slider4:/MIDINoteImages:NONE.txt:Pads Image Mapping File
 slider5:0<0,1,1{---,Reload Now}>Reload Pads Images
 slider6:0<0,1,1{Notes Numbers,Images}>Display
 
@@ -180,8 +182,7 @@ function ResetImages() local (i) (
 @slider
 inChannel = slider1 - 1;
 
-slider5 == 1 ?
-(
+slider5 == 1 ? (
   reload = 1;
   slider5 = 0; sliderchange(slider5);
 );
@@ -191,6 +192,9 @@ slider5 == 1 ?
 undef = 0;
 strcpy(undef, "[Undef]");
 memset(map, undef, 128);
+
+////////////////////////////////////////////////////////////////////////////////
+@serialize
 
 slider4 != file || reload == 1 ? (
   ResetImages();
@@ -222,8 +226,7 @@ slider4 != file || reload == 1 ? (
 ////////////////////////////////////////////////////////////////////////////////
 @block
 
-while
-(
+while (
 
   i = 0;
   loop( 16,
@@ -251,20 +254,17 @@ loop( 16,
 );
 slider_is_diff = 0;
 
-  midirecv(offset,msg1,note,vel) ?
-  (
+  midirecv(offset,msg1,note,vel) ? (
 
     // Extract message type and channel
     status = msg1 & $xF0;
     channel = msg1 & $x0F;
 
     // Is it on our channel?
-    channel == inChannel || inChannel == -1 ?
-    (
+    channel == inChannel || inChannel == -1 ? (
 
       // Is it a note event?
-      status == statNoteOn || status == statNoteOff || status == afterTouch ?
-      (
+      status == statNoteOn || status == statNoteOff || status == afterTouch ? (
 
         status == statNoteOff || vel == 0 ? note_buf[note] = 0 : note_buf[note] = vel;
 
@@ -337,8 +337,7 @@ function uix_HSL2RGB(h,s,l) local(q,p,h,r,g,b)(
   gfx_r = r; gfx_g = g; gfx_b = b;
 );
 
-function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len, dest_w, dest_h, ratio)
-(
+function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len, dest_w, dest_h, ratio) (
   x_offset = 0;
   i = 3;
   border = 1;
@@ -362,7 +361,7 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len, de
       note_buf[highlight] ? (
         gfx_a = 0.5+note_buf[highlight]/127/2; // From 0.5, increase based on velocity
         scale = note_buf[highlight]/127;
-      ) : (
+      ):(
         gfx_a = 0.5;
         scale = 0;
       );
@@ -449,7 +448,7 @@ mouse_cap > last_mouse_cap && pad_mouse > 0 ? (
   mouse_cap & 2 == 2 ? offset = -1;
   mouse_cap & 8 == 8 ? ( // shift
     slider(pad_mouse+10+16-1) = min(max(slider(pad_mouse+10+16-1) + offset,-1),15);
-  ) : (
+  ):(
     slider(pad_mouse+10-1) = min(max(slider(pad_mouse+10-1) + offset,0),127);
   );
 );
@@ -462,7 +461,7 @@ mouse_wheel != 0 && pad_mouse > 0 ? (
     char = gfx_getchar(); // for mouse_cap detection
     mouse_cap & 8 == 8 ? ( // shift
       slider(pad_mouse+10+16-1) = min(max(slider(pad_mouse+10+16-1) + offset,-1),15);
-    ) : (
+    ):(
       slider(pad_mouse+10-1) = min(max(slider(pad_mouse+10-1) + offset,0),127);
     );
   );
