@@ -7,15 +7,20 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.19
+ * Version: 1.20
  * Provides:
  *   [nomain] X-Raym_16 pads MIDI Notes Map.jsfx.rpl
  *   [data] MIDINoteImages/mt-power-drum-kit.txt
+ *   [data] MIDINoteImages/NONE.txt
  *   [nomain] Images/*.png
  */
 
 /**
  * Changelog:
+ * v1.20 (2024-11-18)
+  # Label changes
+  # NONE.txt
+  # C Major and C Natural Minor in presets
  * v1.19 (2024-09-01)
   # Presets update
  * v1.18 (2024-07-12)
@@ -68,12 +73,12 @@
 desc:16 pads MIDI Notes Map
 
 slider1:0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
-slider2:36<0,127,1>Pad1 Input Note
+slider2:36<0,127,1>Pad 01 Input Note
 slider3:1<0,1,1{Inactive,Active}>Remap
 
-slider4:/MIDINoteImages:none:Notes Out Mapping File
-slider5:0<0,1,1{---,Reload Now}>Reload Mapping
-slider6:0<0,1,1{Numbers,Images}>Display
+slider4:/MIDINoteImages:NONE:Pads Image Mapping File
+slider5:0<0,1,1{---,Reload Now}>Reload Pads Images
+slider6:0<0,1,1{Notes Numbers,Images}>Display
 
 slider10:36<0,127,1>-Pad 01 note
 slider11:37<0,127,1>-Pad 02 note
@@ -338,12 +343,15 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len, de
   i = 3;
   border = 1;
   pad = 0; // zero based, up to 15
-  pad_w = floor(gfx_w / 4);
-  pad_h = floor(gfx_h / 4);
+  columns = 4;
+  rows = 4;
+  i = rows-1;
+  pad_w = floor(gfx_w / columns);
+  pad_h = floor(gfx_h / rows );
   pad_mouse = 0;
-  loop( 4,
+  loop( rows,
     j = 0;
-    loop( 4,
+    loop( columns,
       //note_in >= slider2 && note_in <= slider2+15 && pad == note_in - slider2 ? (
       slider3 ? (
         highlight = slider2 + pad;
@@ -427,9 +435,8 @@ function draw_pads() local (a,i,border,pad,pad_w,j, hue, pad_note_in_str_len, de
           gfx_blit(slider(pad+10), 1, 0, 0, -scale, w, h, dest_x, dest_y, dest_w, dest_h, 0, 0); // scale is in fact use for offset
 
       );
-
       j += 1;
-       pad += 1;
+      pad += 1;
     );
     i -= 1;
   );
