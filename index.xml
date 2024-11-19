@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="d8cfa9b5ccf297fa4b0f1d60b5928be376bfae49" name="X-Raym Scripts">
+<index version="1" commit="fc6f12a0b2d25e900b6176f5c662373ef5719b39" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5472,6 +5472,14 @@
       </version>
       <version name="1.0.1" author="X-Raym" time="2023-02-12T17:32:49Z">
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/68cba602baa81f474e535bf2e36bd73a497284b2/MIDI%20Editor/X-Raym_Shift%20MIDI%20lyrics%20events%20message%20after%20edit%20cursor%20to%20one%20event%20on%20the%20right.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Snap edit cursor to closest MIDI editor grid line.lua" type="script" desc="Snap edit cursor to closest MIDI editor grid line">
+      <metadata>
+        <link rel="screenshot">https://i.imgur.com/EBjhma4.gif</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2024-11-19T12:28:19Z">
+        <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/fc6f12a0b2d25e900b6176f5c662373ef5719b39/MIDI%20Editor/X-Raym_Snap%20edit%20cursor%20to%20closest%20MIDI%20editor%20grid%20line.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Split selected MIDI notes half in 2 notes.lua" type="script" desc="Split selected MIDI notes half in 2 notes">
