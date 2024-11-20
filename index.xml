@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="fc6f12a0b2d25e900b6176f5c662373ef5719b39" name="X-Raym Scripts">
+<index version="1" commit="07ccc321d0799d50642f471d41d167859c2cf39c" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3602,6 +3602,21 @@
       <version name="1.0" author="X-Raym" time="2020-04-23T22:06:30Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Paste%20clipboard%20content%20into%20selected%20items%20notes.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Paste items-tracks and snap items if selected and snap enabled.lua" type="script" desc="Paste items-tracks and snap items if selected and snap enabled">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Workarround REAPER paste MIDI item timing bug\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2024-11-20T18:55:58Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/07ccc321d0799d50642f471d41d167859c2cf39c/Items%20Properties/X-Raym_Paste%20items-tracks%20and%20snap%20items%20if%20selected%20and%20snap%20enabled.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Paste value in clipboard as selected items volume.lua" type="script" desc="Paste value in clipboard as selected items volume">
