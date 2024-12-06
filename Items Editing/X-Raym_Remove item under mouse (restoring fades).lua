@@ -16,7 +16,7 @@
  * Changelog:
  * v1.1 (2023-11-03)
   + Restore fades based on crossfades
-  + Call Script: X-Raym_Remove item under mouse (restoring fades).lua in ripple state if avalaible
+  + Call Script: X-Raym_Delete selected items preserving crossfades and conditionally ripple by min item pos to max item end fade-out duration.lua in ripple state if avalaible
   + No SWS
  * v1.0 (2019-10-01)
   + Initial Release
@@ -25,7 +25,7 @@
 
 -- USER CONFIG AREA -----------------------------------------------------------
 
-ripple_action = "_RS88ecaa7021f5d9e9a7edb638dec3d452e6311b33" -- ID string or number
+ripple_action = "_RS88ecaa7021f5d9e9a7edb638dec3d452e6311b33" -- ID string or number. Default: Script: X-Raym_Delete selected items preserving crossfades and conditionally ripple by min item pos to max item end fade-out duration.lua
 console = true -- true/false: display debug messages in the console
 
 ------------------------------------------------------- END OF USER CONFIG AREA
