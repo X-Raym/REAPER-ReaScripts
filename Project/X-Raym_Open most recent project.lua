@@ -2,7 +2,7 @@
  * ReaScript Name: Open most recent project
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
