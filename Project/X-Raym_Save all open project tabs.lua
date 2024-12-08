@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Save all open project tabes
+ * ReaScript Name: Save all open project tabs
  * About: Mod of Script: TJF Save all open dirty projects.lua, but marking all projets dirty within the loop
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
