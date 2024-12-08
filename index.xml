@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="b94e4ad4542e1b11ff53d992d09858800ead68b9" name="X-Raym Scripts">
+<index version="1" commit="69f87ac77ef38871823be9125f7970106be16634" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5540,7 +5540,7 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b91497047d10dcc2f3b51265f38a2a85a4be82c1/Project/X-Raym_Open%20most%20recent%20project.lua</source>
       </version>
     </reapack>
-    <reapack name="X-Raym_Save all open project tabs.lua" type="script" desc="Save all open project tabes">
+    <reapack name="X-Raym_Save all open project tabs.lua" type="script" desc="Save all open project tabs">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -5553,6 +5553,9 @@
       <version name="1.0" author="X-Raym" time="2024-12-06T10:39:23Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/edc3ea7566f66a00f5f152b9cccd55d6acb648a5/Project/X-Raym_Save%20all%20open%20project%20tabs.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2024-12-08T14:55:09Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69f87ac77ef38871823be9125f7970106be16634/Project/X-Raym_Save%20all%20open%20project%20tabs.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Save project and keep only X backups.lua" type="script" desc="Save project and keep only X backups">
