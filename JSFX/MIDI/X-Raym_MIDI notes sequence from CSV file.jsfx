@@ -11,11 +11,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.1
+ * Version: 2.1.1
  */
 
 /**
  * Changelog:
+ * v2.1.1 (2025-01-04)
+  # Note-on with velocity 0 as Note-off
  * v2.1 (2023-11-07)
   # A bit of refactoring
   # Works with note,vel,chan and note.vel (v1) formats
@@ -170,8 +172,8 @@ while (
     channel == inChannel || inChannel == -1 ? (
 
       // Note In Slider
-      status == statNoteOn ? in_note = note + 1;
-      status == statNoteOff ? in_note = 0;
+      status == statNoteOn && vel > 0 ? in_note = note + 1;
+      status == statNoteOff || (status == statNoteOn && vel == 0) ? in_note = 0;
 
       // Is it a note event?
       status == statNoteOn || status == statNoteOff ? (
@@ -183,7 +185,7 @@ while (
 
           done = 1;
           // If note on
-          status == statNoteOn ? (
+          status == statNoteOn && vel > 0 ? (
             cur_step = cur_step + 1;
             cur_step >= seqSize ? cur_step = 0;
             note_out = t_note[cur_step];
@@ -192,7 +194,7 @@ while (
           );
 
           // If note off
-          status == statNoteOff ? (
+          status == statNoteOff || (status == statNoteOn && vel == 0) ? (
             note_out = t_note[cur_step];
             chan_out = t_chan[cur_step]; // 0 Based
             vel_out = 0;
@@ -206,7 +208,7 @@ while (
           done = 1;
 
           // If note on
-          status == statNoteOn ? (
+          status == statNoteOn && vel > 0 ? (
             cur_step = cur_step - 1;
             cur_step < 0 ? cur_step = seqSize-1;
             note_out = t_note[cur_step];
@@ -214,8 +216,8 @@ while (
             slider_vel_mod == 1 ? vel_out = t_vel[cur_step+1] : vel_out = vel;
           );
 
-          // If note off
-          status == statNoteOff ? (
+            // If note off
+           status == statNoteOff || (status == statNoteOn && vel == 0) ? (
             note_out = t_note[cur_step];
             chan_out = t_chan[cur_step]; // 0 Based
             vel_out = 0;
@@ -228,11 +230,11 @@ while (
 
             done = 1;
 
-            status == statNoteOn ? (
+            status == statNoteOn && vel > 0 ? (
               cur_step = -1;
             );
 
-            status == statNoteOff ? (
+            status == statNoteOff || (status == statNoteOn && vel == 0) ? (
                midisend(offset, 0xB0 | channel, 123); // All notes off
              );
 
@@ -245,11 +247,11 @@ while (
 
             done = 1;
 
-            status == statNoteOn ? (
+            status == statNoteOn && vel > 0 ? (
               cue = out_on
             );
 
-            status == statNoteOff ? (
+            status == statNoteOff || (status == statNoteOn && vel == 0) ? (
               midisend(offset, 11*16, msg23);
             );
 
@@ -262,11 +264,11 @@ while (
 
             done = 1;
 
-            status == statNoteOn ? (
+            status == statNoteOn && vel > 0 ? (
               cur_step = cue;
             );
 
-            status == statNoteOff ? (
+            status == statNoteOff || (status == statNoteOn && vel == 0) ? (
               midisend(offset, 11*16, msg23);
             );
 
