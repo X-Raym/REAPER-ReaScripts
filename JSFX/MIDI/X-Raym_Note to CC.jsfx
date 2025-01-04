@@ -9,11 +9,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1
+ * Version: 1.1.1
  */
 
 /**
  * Changelog:
+ * v1.1.1 (2025-01-04)
+  + NoteOn is only vel > 0
  * v1.1 (2018-10-09)
   + All CC option
  * v1.0 (2016-09-03)
@@ -67,7 +69,7 @@ while
 
             send = 0; // Don't send MIDI
 
-            status == statNoteOn ? ( // Send Only if Note On
+            status == statNoteOn && vel > 0  ? ( // Send Only if Note On
 
               slider5 < 128 ? (
                 msg2 = slider5;

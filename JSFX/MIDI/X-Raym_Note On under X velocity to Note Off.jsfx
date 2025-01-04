@@ -9,11 +9,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
  */
 
 /**
  * Changelog:
+ * v1.0.1 (2025-01-04)
+  + NoteOn is only vel > 0
  * v1.0 (2017-11-19)
   + Initial Release
  */
@@ -52,7 +54,7 @@ while
     (
 
       // Is it a note event?
-      status == statNoteOn ?
+      status == statNoteOn && vel > 0 ?
       (
 
           // If note is good
