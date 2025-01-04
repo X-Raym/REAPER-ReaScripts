@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="569447e425b698d1952c981bb4be8071f5ca118a" name="X-Raym Scripts">
+<index version="1" commit="4fef6b7f1965f780ec7b05edac2f5d827b950c75" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5033,6 +5033,10 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/JSFX/MIDI/X-Raym_Note%20On%20under%20X%20velocity%20to%20Note%20Off.jsfx</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2025-01-04T16:40:09Z">
+        <changelog><![CDATA[+ NoteOn is only vel > 0]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/4fef6b7f1965f780ec7b05edac2f5d827b950c75/JSFX/MIDI/X-Raym_Note%20On%20under%20X%20velocity%20to%20Note%20Off.jsfx</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Note to CC.jsfx" type="effect" desc="Note to CC">
       <metadata>
@@ -5053,6 +5057,10 @@
       <version name="1.1" author="X-Raym" time="2018-10-08T23:33:38Z">
         <changelog><![CDATA[+ All CC option]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/JSFX/MIDI/X-Raym_Note%20to%20CC.jsfx</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2025-01-04T16:40:09Z">
+        <changelog><![CDATA[+ NoteOn is only vel > 0]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/4fef6b7f1965f780ec7b05edac2f5d827b950c75/JSFX/MIDI/X-Raym_Note%20to%20CC.jsfx</source>
       </version>
     </reapack>
   </category>
