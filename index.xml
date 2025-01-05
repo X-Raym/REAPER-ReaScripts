@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="ec617cf635516dd125cd4d935742fd4e317afed6" name="X-Raym Scripts">
+<index version="1" commit="4b5d15284f4545b86e7c0a2fbdfffc1f5ed0b637" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -2477,6 +2477,11 @@
       <version name="1.0" author="X-Raym" time="2017-02-07T16:05:36Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Editing/X-Raym_Replace%20similar%20MIDI%20takes%20by%20pools.lua</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2025-01-05T12:13:40Z">
+        <changelog><![CDATA[# Save cursor pos
+# Replace Msg by Tooltip]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/4b5d15284f4545b86e7c0a2fbdfffc1f5ed0b637/Items%20Editing/X-Raym_Replace%20similar%20MIDI%20takes%20by%20pools.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set item under mouse start and end to items selection.lua" type="script" desc="Set item under mouse start and end to items selection">
