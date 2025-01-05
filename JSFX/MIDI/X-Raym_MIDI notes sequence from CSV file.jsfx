@@ -11,11 +11,13 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.1.3
+ * Version: 2.1.4
  */
 
 /**
  * Changelog:
+ * v2.1.4 (2025-01-05)
+  # Fix velocity parsing
  * v2.1.3 (2025-01-05)
   # Seq parsing fix (note: file need to end with an empty line)
  * v2.1.2 (2025-01-05)
@@ -66,7 +68,7 @@ slider20:/MIDI Sequences:none:Sequence CSV
 ////////////////////////////////////////////////////////////////////////////////
 @init
 
-function ParseCSV() local (i, fileHandle) (
+function ParseCSV() local (i, fileHandle, note, vel, chan) (
   seqFile = slider20;
   cur_step = -1;
   fileHandle = file_open(slider20);
@@ -77,12 +79,13 @@ function ParseCSV() local (i, fileHandle) (
     while( file_string(fileHandle, #line) ) (
       a_line_count += 1;
       // You could probably deal with line-endings more efficiently...
-      match("%d,%d,%d", #line, note, vel, chan) || match("%d,%d+,%d+", #line, note, vel, chan) ? (
+      //match("%d+,%d+,%d+", #line, note, vel, chan) || match("%d,%d+,%d+", #line, note, vel, chan) ? (
+      match("%d,%d,%d", #line, note, vel, chan) || match("%d,%d,%d+", #line, note, vel, chan) ? (
         t_note[i] = note;
         t_vel[i] = vel;
         t_chan[i] = chan;
         i += 1;
-      ):( match("%d.%d+", #line, note, vel, chan) ) ? (
+      ):( match("%d.%d", #line, note, vel) || match("%d.%d+", #line, note, vel) ) ? (
         t_note[i] = note;
         t_vel[i] = vel;
         t_chan[i] = 1;
@@ -158,6 +161,20 @@ loop(seqSize,
   gfx_y = y + pad_h /2 - height / 2;
   gfx_r=0; gfx_b=0; gfx_g=0; gfx_a=1;
   gfx_drawstr(sprintf(#, format, text));
+  text = t_vel[i];
+  //text = t_chan[i];
+  gfx_measurestr(sprintf(#, format, text),w,height);
+  gfx_x = x + pad_w / 2 - w/2;
+  gfx_y = y + pad_h /4 * 3 - height / 2;
+  gfx_r=0; gfx_b=0; gfx_g=0; gfx_a=1;
+  //gfx_drawstr(sprintf(#, format, text));
+  text = t_chan[i];
+  //text = t_chan[i];
+  gfx_measurestr(sprintf(#, format, text),w,height);
+  gfx_x = x + pad_w / 2 - w/2;
+  gfx_y = y + pad_h /4 - height / 2;
+  gfx_r=0; gfx_b=0; gfx_g=0; gfx_a=1;
+  //gfx_drawstr(sprintf(#, format, text));
   i+=1;
 );
 ////////////////////////////////////////////////////////////////////////////////
