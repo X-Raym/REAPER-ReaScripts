@@ -5,11 +5,15 @@
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 0.1.1
+ * Version: 0.1.2
 --]]
 
 --[[
  * Changelog:
+ * v0.1.2 (2025-01-06)
+  # Renamed with ReaImGui suffix
+  # ReaImGui v0.9.3.2
+  # Dark Theme
  * v0.1.1 (2024-04-13)
   # Force reaimgui version
  * v0.1 (2023-11-13)
@@ -24,7 +28,7 @@
 -- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
 console = true -- Display debug messages in the console
-reaimgui_force_version = "0.8.7.6"-- false or string like "0.8.4"
+reaimgui_force_version = "0.9.3.2"-- false or string like "0.8.4"
 
 ----------------------------------------------------------------------
                                          -- END OF USER CONFIG AREA --
@@ -55,23 +59,22 @@ local theme_colors = {
   TextSelectedBg    = 0x05050587, -- Search Field Selected Text
 }
 
-------------------------------------------------------------
+-----------------------------------------------------------
 -- DEPENDENCIES --
-------------------------------------------------------------
+-----------------------------------------------------------
 
-if not reaper.ImGui_CreateContext then
+imgui_path = reaper.ImGui_GetBuiltinPath and ( reaper.ImGui_GetBuiltinPath() .. '/imgui.lua' )
+
+if not imgui_path then
   reaper.MB("Missing dependency: ReaImGui extension.\nDownload it via Reapack ReaTeam extension repository.", "Error", 0)
   return false
 end
 
-reaimgui_shim_file_path = reaper.GetResourcePath() .. '/Scripts/ReaTeam Extensions/API/imgui.lua'
-if reaper.file_exists( reaimgui_shim_file_path ) and reaimgui_force_version then
-  dofile( reaimgui_shim_file_path )(reaimgui_force_version)
-end
+local ImGui = dofile(imgui_path) (reaimgui_force_version)
 
-------------------------------------------------------------
--- END OF DEPENDENCIES --
-------------------------------------------------------------
+-----------------------------------------------------------
+                                  -- END OF DEPENDENCIES --
+-----------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- DEBUG --
@@ -164,6 +167,20 @@ end
 -- IMGUI --
 ----------------------------------------------------------------------
 
+function SetThemeColors(ctx)
+  local count_theme_colors = 0
+  for k, color in pairs( theme_colors ) do
+    local color_str = reaper.GetExtState( "XR_ImGui_Col", k )
+    if color_str ~= "" then
+      color = tonumber( color_str, 16 )
+    end
+    ImGui.PushStyleColor(ctx, ImGui["Col_" .. k ], color )
+    count_theme_colors = count_theme_colors + 1
+  end
+  return count_theme_colors
+end
+
+
 -- From cfillion
 function about()
   local owner = reaper.ReaPack_GetOwner(({reaper.get_action_context()})[2])
@@ -180,27 +197,27 @@ function about()
 end
 
 function contextMenu()
-  local dock_id = reaper.ImGui_GetWindowDockID(ctx)
-  if not reaper.ImGui_BeginPopupContextWindow(ctx, nil, reaper.ImGui_PopupFlags_MouseButtonRight() | reaper.ImGui_PopupFlags_NoOpenOverItems()) then return end
-  if reaper.ImGui_BeginMenu(ctx, 'Dock window') then
-    if reaper.ImGui_MenuItem(ctx, 'Floating', nil, dock_id == 0) then
+  local dock_id = ImGui.GetWindowDockID(ctx)
+  if not ImGui.BeginPopupContextWindow(ctx, nil, ImGui.PopupFlags_MouseButtonRight | ImGui.PopupFlags_NoOpenOverItems) then return end
+  if ImGui.BeginMenu(ctx, 'Dock window') then
+    if ImGui.MenuItem(ctx, 'Floating', nil, dock_id == 0) then
       set_dock_id = 0
     end
     for i = 0, 15 do
-      if reaper.ImGui_MenuItem(ctx, ('Docker %d'):format(i + 1), nil, dock_id == ~i) then
+      if ImGui.MenuItem(ctx, ('Docker %d'):format(i + 1), nil, dock_id == ~i) then
         set_dock_id = ~i
       end
     end
-    reaper.ImGui_EndMenu(ctx)
+    ImGui.EndMenu(ctx)
   end
-  reaper.ImGui_Separator(ctx)
-  if reaper.ImGui_MenuItem(ctx, 'About/help', 'F1', false, reaper.ReaPack_GetOwner ~= nil) then
+  ImGui.Separator(ctx)
+  if ImGui.MenuItem(ctx, 'About/help', 'F1', false, reaper.ReaPack_GetOwner ~= nil) then
     about()
   end
-  if reaper.ImGui_MenuItem(ctx, 'Close', 'Escape') then
+  if ImGui.MenuItem(ctx, 'Close', 'Escape') then
     exit = true
   end
-  reaper.ImGui_EndPopup(ctx)
+  ImGui.EndPopup(ctx)
 end
 
 ----------------------------------------------------------------------
@@ -218,7 +235,7 @@ function SetThemeColors()
     if color_str ~= "" then
       color = tonumber( color_str, 16 )
     end
-    reaper.ImGui_PushStyleColor(ctx, reaper[ "ImGui_Col_" .. k ](), color )
+    ImGui.PushStyleColor(ctx, reaper[ "ImGui_Col_" .. k ](), color )
     count_theme_colors = count_theme_colors + 1
   end
   return count_theme_colors
@@ -227,23 +244,23 @@ end
 function Main()
   for i, k in ipairs( GetTableOfSortedKeys(theme_colors) ) do
     local color = theme_colors[ k ]
-    local retval, col_rgba = reaper.ImGui_ColorEdit4( ctx, k, color, flagsIn )
+    local retval, col_rgba = ImGui.ColorEdit4( ctx, k, color, flagsIn )
     if retval then
-      reaper.ImGui_PopStyleColor( ctx, 1 )
-      reaper.ImGui_PushStyleColor(ctx, reaper[ "ImGui_Col_" .. k ](), col_rgba  )
+      ImGui.PopStyleColor( ctx, 1 )
+      ImGui.PushStyleColor(ctx, reaper[ "ImGui_Col_" .. k ](), col_rgba  )
       theme_colors[k] = col_rgba
     end
   end
 
-  reaper.ImGui_Dummy( ctx, 0, 20 )
-  reaper.ImGui_Separator( ctx )
-  reaper.ImGui_Dummy( ctx, 0, 20 )
+  ImGui.Dummy( ctx, 0, 20 )
+  ImGui.Separator( ctx )
+  ImGui.Dummy( ctx, 0, 20 )
 
-  if reaper.ImGui_Button( ctx, "Copy to Clipboard" ) then
+  if ImGui.Button( ctx, "Copy to Clipboard" ) then
     --TODO: Print to ExtState
     local t = { "local theme_colors = {" }
     for k, v in spairs( theme_colors ) do
-      local r, g, b, a = reaper.ImGui_ColorConvertU32ToDouble4( v )
+      local r, g, b, a = ImGui.ColorConvertU32ToDouble4( v )
       table.insert( t, "  " .. k .. " = " .. rgbaToHex( math.floor(r * 255), math.floor(g*255), math.floor(b*255), math.floor(a*255), "0x" ) .. "," )
     end
     table.insert( t, "}" )
@@ -262,35 +279,35 @@ end
 
 function Run()
 
-  reaper.ImGui_SetNextWindowBgAlpha( ctx, 1 )
+  ImGui.SetNextWindowBgAlpha( ctx, 1 )
 
   count_theme_colors = SetThemeColors()
-  reaper.ImGui_PushFont(ctx, font)
+  ImGui.PushFont(ctx, font)
 
-  reaper.ImGui_SetNextWindowSize(ctx, 800, 200, reaper.ImGui_Cond_FirstUseEver())
+  ImGui.SetNextWindowSize(ctx, 800, 200, ImGui.Cond_FirstUseEver)
 
   if set_dock_id then
-    reaper.ImGui_SetNextWindowDockID(ctx, set_dock_id)
+    ImGui.SetNextWindowDockID(ctx, set_dock_id)
     set_dock_id = nil
   end
 
-  local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, input_title, true, reaper.ImGui_WindowFlags_NoCollapse())
+  local imgui_visible, imgui_open = ImGui.Begin(ctx, input_title, true, ImGui.WindowFlags_NoCollapse)
 
   if imgui_visible then
 
     contextMenu()
 
-    imgui_width, imgui_height = reaper.ImGui_GetWindowSize( ctx )
+    imgui_width, imgui_height = ImGui.GetWindowSize( ctx )
 
     Main()
 
-    reaper.ImGui_End(ctx)
+    ImGui.End(ctx)
   end
 
-  reaper.ImGui_PopFont(ctx)
-  reaper.ImGui_PopStyleColor( ctx, count_theme_colors )
+  ImGui.PopFont(ctx)
+  ImGui.PopStyleColor( ctx, count_theme_colors )
 
-  if imgui_open and not reaper.ImGui_IsKeyPressed(ctx, reaper.ImGui_Key_Escape()) and not process then
+  if imgui_open and not ImGui.IsKeyPressed(ctx, ImGui.Key_Escape) and not process then
     reaper.defer(Run)
   end
 
@@ -308,9 +325,10 @@ function Init()
   SetButtonState( 1 )
   reaper.atexit( Exit )
 
-  ctx = reaper.ImGui_CreateContext(input_title,  reaper.ImGui_ConfigFlags_DockingEnable())
-  font = reaper.ImGui_CreateFont('sans-serif', 16)
-  reaper.ImGui_Attach(ctx, font)
+  ctx = ImGui.CreateContext(input_title,  ImGui.ConfigFlags_DockingEnable)
+  ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
+  font = ImGui.CreateFont('sans-serif', 16)
+  ImGui.Attach(ctx, font)
 
   Run()
 end

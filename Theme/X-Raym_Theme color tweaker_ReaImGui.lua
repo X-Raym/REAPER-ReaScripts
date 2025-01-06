@@ -6,11 +6,15 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.7.1
+ * Version: 0.7.2
 --]]
 
 --[[
  * Changelog:
+ * v0.7.2 (2025-01-06)
+  # Renamed with ReaImGui suffix
+  # ReaImGui v0.9.3.2
+  # Dark Theme
  * v0.7.1 (2023-04-03)
   # Nil error message
  * v0.7.0 (2023-03-22)
@@ -77,6 +81,31 @@
 console = true
 export_text = "Theme saved."
 
+reaimgui_force_version = "0.9.3.2"-- false or string like "0.8.4"
+
+local theme_colors = {
+  WindowBg          = 0x292929ff, -- Window
+  Border            = 0x2a2a2aff, -- Border
+  Button            = 0x454545ff, -- Button
+  ButtonActive      = 0x404040ff, -- Button and Top resize
+  ButtonHovered     = 0x606060ff,
+  FrameBg           = 0x454545ff, -- Input text BG
+  FrameBgHovered    = 0x606060ff,
+  FrameBgActive     = 0x404040ff,
+  TitleBg           = 0x292929ff, -- Title
+  TitleBgActive     = 0x000000ff,
+  Header            = 0x323232ff, -- Selected rows
+  HeaderHovered     = 0x323232ff,
+  HeaderActive      = 0x05050587,
+  ResizeGrip        = 0x323232ff, -- Resize
+  ResizeGripHovered = 0x323232ff,
+  ResizeGripActive  = 0x05050587,
+  TextSelectedBg    = 0x05050587, -- Search Field Selected Text
+  CheckMark         = 0xffffffff, -- CheckMark
+}
+
+input_title = "XR Theme Tweaker - Beta"
+
 ----------------------------------------------------------------------
 ------------------------------------------- END OF USER CONFIG AREA --
 ----------------------------------------------------------------------
@@ -112,15 +141,14 @@ else
   return false
 end
 
-if not reaper.ImGui_CreateContext then
+imgui_path = reaper.ImGui_GetBuiltinPath and ( reaper.ImGui_GetBuiltinPath() .. '/imgui.lua' )
+
+if not imgui_path then
   reaper.MB("Missing dependency: ReaImGui extension.\nDownload it via Reapack ReaTeam extension repository.", "Error", 0)
   return false
 end
 
-reaimgui_shim_file_path = reaper.GetResourcePath() .. '/Scripts/ReaTeam Extensions/API/imgui.lua'
-if reaper.file_exists( reaimgui_shim_file_path ) then
-  dofile( reaimgui_shim_file_path )('0.8')
-end
+local ImGui = dofile(imgui_path) (reaimgui_force_version)
 
 ----------------------------------------------------------------------
 -- STRINGS --
@@ -244,8 +272,8 @@ end
 ----------------------------------------------------------------------
 
 function ColorConvertHSVtoInt( h, s, v, a )
-  local r, g, b = reaper.ImGui_ColorConvertHSVtoRGB( h, s, v, a )
-  return reaper.ImGui_ColorConvertDouble4ToU32( r, g, b, a )
+  local r, g, b = ImGui.ColorConvertHSVtoRGB( h, s, v, a )
+  return ImGui.ColorConvertDouble4ToU32( r, g, b, a )
 end
 
 -- https://www.alanzucconi.com/2015/09/30/colour-sorting/
@@ -312,97 +340,163 @@ function ExportTheme()
   WriteFile( GetExportThemeFileName(), str)
 end
 
+-----------------------------------------------------------
+-- IMGUI --
+-----------------------------------------------------------
+---
+function SetThemeColors(ctx)
+  local count_theme_colors = 0
+  for k, color in pairs( theme_colors ) do
+    local color_str = reaper.GetExtState( "XR_ImGui_Col", k )
+    if color_str ~= "" then
+      color = tonumber( color_str, 16 )
+    end
+    ImGui.PushStyleColor(ctx, ImGui["Col_" .. k ], color )
+    count_theme_colors = count_theme_colors + 1
+  end
+  return count_theme_colors
+end
+
+-- From cfillion
+function about()
+  local owner = reaper.ReaPack_GetOwner(({reaper.get_action_context()})[2])
+
+  if not owner then
+    reaper.MB(string.format(
+      'This feature is unavailable because this script was not installed using ReaPack.',
+      "Warning"), "Warning", 0)
+    return
+  end
+
+  reaper.ReaPack_AboutInstalledPackage(owner)
+  reaper.ReaPack_FreeEntry(owner)
+end
+
+function contextMenu()
+  local dock_id = ImGui.GetWindowDockID(ctx)
+  if not ImGui.BeginPopupContextWindow(ctx, nil, ImGui.PopupFlags_MouseButtonRight | ImGui.PopupFlags_NoOpenOverItems) then return end
+  if ImGui.BeginMenu(ctx, 'Dock window') then
+    if ImGui.MenuItem(ctx, 'Floating', nil, dock_id == 0) then
+      set_dock_id = 0
+    end
+    for i = 0, 15 do
+      if ImGui.MenuItem(ctx, ('Docker %d'):format(i + 1), nil, dock_id == ~i) then
+        set_dock_id = ~i
+      end
+    end
+    ImGui.EndMenu(ctx)
+  end
+  ImGui.Separator(ctx)
+  if ImGui.MenuItem(ctx, 'About/help', 'F1', false, reaper.ReaPack_GetOwner ~= nil) then
+    about()
+  end
+  if ImGui.MenuItem(ctx, 'Close', 'Escape') then
+    exit = true
+  end
+  ImGui.EndPopup(ctx)
+end
+
 ----------------------------------------------------------------------
 -- RUN --
 ----------------------------------------------------------------------
 
 function loop()
+  ImGui.SetNextWindowBgAlpha( ctx, 1 )
 
-  reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_WindowBg(), 0x0F0F0FFF) -- Black opaque background
-  reaper.ImGui_PushFont(ctx, font)
+  if set_dock_id then
+    ImGui.SetNextWindowDockID(ctx, set_dock_id)
+    set_dock_id = nil
+  end
 
-  local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, 'XR Theme Tweaker', true, reaper.ImGui_WindowFlags_AlwaysVerticalScrollbar() )
+  count_theme_colors = SetThemeColors( ctx )
+
+  ImGui.PushFont(ctx, font)
+  ImGui.SetNextWindowSize(ctx, 800, 200, ImGui.Cond_FirstUseEver)
+
+  local imgui_visible, imgui_open = ImGui.Begin(ctx, 'XR Theme Tweaker', true, ImGui.WindowFlags_AlwaysVerticalScrollbar )
   if imgui_visible then
 
-    reaper.ImGui_PushItemWidth(ctx,reaper.ImGui_GetWindowWidth( ctx ) - 85) -- Set max with of inputs
-    reaper.ImGui_InputText(ctx, 'Theme', theme_name,  reaper.ImGui_InputTextFlags_ReadOnly() )
+    contextMenu()
 
-    if reaper.ImGui_Button(ctx, 'Restore All', reaper.ImGui_GetWindowWidth( ctx )) then
+    ImGui.PushItemWidth(ctx,ImGui.GetWindowWidth( ctx ) - 85) -- Set max with of inputs
+    ImGui.InputText(ctx, 'Theme', theme_name,  ImGui.InputTextFlags_ReadOnly )
+
+    if ImGui.Button(ctx, 'Restore All', ImGui.GetWindowWidth( ctx )) then
       LoadTheme( theme_path, true )
     end
 
-    if reaper.ImGui_Button(ctx, 'Export') then
+    if ImGui.Button(ctx, 'Export') then
       ExportTheme()
-      reaper.ImGui_OpenPopup(ctx, 'Info')
+      ImGui.OpenPopup(ctx, 'Info')
     end
 
-    reaper.ImGui_SameLine(ctx)
+    ImGui.SameLine(ctx)
 
-    reaper.ImGui_PushItemWidth(ctx,reaper.ImGui_GetWindowWidth( ctx )-172) -- Set max with of inputs
-    retval_text, theme_mod_name = reaper.ImGui_InputText(ctx, 'File name', theme_mod_name)
+    ImGui.PushItemWidth(ctx,ImGui.GetWindowWidth( ctx )-172) -- Set max with of inputs
+    retval_text, theme_mod_name = ImGui.InputText(ctx, 'File name', theme_mod_name)
 
     -- Popup
-    local display_size = {reaper.ImGui_GetWindowSize(ctx)}
+    local display_size = {ImGui.GetWindowSize(ctx)}
     local center = { display_size[1] * 0.5, display_size[2] * 0.5 }
-    local x, y = reaper.ImGui_GetWindowPos( ctx )
-    reaper.ImGui_SetNextWindowPos(ctx, x + center[1], y + center[2], reaper.ImGui_Cond_Appearing(), 0.5, 0.5)
+    local x, y = ImGui.GetWindowPos( ctx )
+    ImGui.SetNextWindowPos(ctx, x + center[1], y + center[2], ImGui.Cond_Appearing, 0.5, 0.5)
 
-    if reaper.ImGui_BeginPopupModal(ctx, 'Info', nil, reaper.ImGui_WindowFlags_AlwaysAutoResize() |  reaper.ImGui_WindowFlags_NoMove()) then
-      reaper.ImGui_Text(ctx, export_text)
+    if ImGui.BeginPopupModal(ctx, 'Info', nil, ImGui.WindowFlags_AlwaysAutoResize |  ImGui.WindowFlags_NoMove) then
+      ImGui.Text(ctx, export_text)
       if fonts["lb_font"] == "-1" then
-        reaper.ImGui_Text(ctx, "WARNING: ReaperThemeZip as theme source isn't well supported.")
-        reaper.ImGui_Text(ctx, "[REAPER] section is missing, and blend modes are wrong.")
-        reaper.ImGui_Text(ctx, "Better work from uncompressed ReaperThemeZip.")
+        ImGui.Text(ctx, "WARNING: ReaperThemeZip as theme source isn't well supported.")
+        ImGui.Text(ctx, "[REAPER] section is missing, and blend modes are wrong.")
+        ImGui.Text(ctx, "Better work from uncompressed ReaperThemeZip.")
       end
-      reaper.ImGui_Separator(ctx)
+      ImGui.Separator(ctx)
 
-      if reaper.ImGui_Button(ctx, 'OK', 120, 0) then
-        reaper.ImGui_CloseCurrentPopup(ctx)
+      if ImGui.Button(ctx, 'OK', 120, 0) then
+        ImGui.CloseCurrentPopup(ctx)
       end
-      reaper.ImGui_SameLine( ctx )
-      if reaper.ImGui_Button(ctx, 'Load New Theme', 120, 0) then
+      ImGui.SameLine( ctx )
+      if ImGui.Button(ctx, 'Load New Theme', 120, 0) then
         local theme_mod_path = GetExportThemeFileName()
         LoadTheme( theme_mod_path, true )
         theme_path = theme_mod_path
-        reaper.ImGui_CloseCurrentPopup(ctx)
+        ImGui.CloseCurrentPopup(ctx)
       end
-      reaper.ImGui_SetItemDefaultFocus(ctx)
-      reaper.ImGui_EndPopup(ctx)
+      ImGui.SetItemDefaultFocus(ctx)
+      ImGui.EndPopup(ctx)
     end
 
     if theme_is_zip then
-      reaper.ImGui_Spacing( ctx )
-      reaper.ImGui_TextWrapped(ctx, "WARNING: Zipped Theme.\nUnzip theme to have working blend modes and font section in exported file.")
+      ImGui.Spacing( ctx )
+      ImGui.TextWrapped(ctx, "WARNING: Zipped Theme.\nUnzip theme to have working blend modes and font section in exported file.")
     end
 
-    if reaper.ImGui_Button(ctx, 'Load Theme from Export Path') then
+    if ImGui.Button(ctx, 'Load Theme from Export Path') then
       local theme_mod_path = GetExportThemeFileName()
       LoadTheme( theme_mod_path, true )
       theme_path = theme_mod_path
     end
 
-    reaper.ImGui_SameLine( ctx )
-    if reaper.ImGui_Button(ctx, 'Restore Initial Theme') then
+    ImGui.SameLine( ctx )
+    if ImGui.Button(ctx, 'Restore Initial Theme') then
       LoadTheme( init_theme_path, true )
       theme_path = init_theme_path
     end
 
-    reaper.ImGui_Spacing( ctx )
-    reaper.ImGui_Spacing( ctx )
-    reaper.ImGui_Separator(ctx)
-    reaper.ImGui_Spacing( ctx )
-    reaper.ImGui_Spacing( ctx )
+    ImGui.Spacing( ctx )
+    ImGui.Spacing( ctx )
+    ImGui.Separator(ctx)
+    ImGui.Spacing( ctx )
+    ImGui.Spacing( ctx )
 
-    reaper.ImGui_PushItemWidth(ctx, 100 )
+    ImGui.PushItemWidth(ctx, 100 )
     if  theme_var_descriptions then
-      local retval, color_descriptions_num_temp = r.ImGui_Combo(ctx, 'Labels', color_descriptions_num, "Text\0Variables\0")
+      local retval, color_descriptions_num_temp = ImGui.Combo(ctx, 'Labels', color_descriptions_num, "Text\0Variables\0")
       if retval then color_descriptions_num = color_descriptions_num_temp end
     else
-      reaper.ImGui_TextWrapped(ctx, "WARNING: Missing theme labels description files.\nInstall ReaTeam ReaScripts repository via Reapack to have labels text.")
+      ImGui.TextWrapped(ctx, "WARNING: Missing theme labels description files.\nInstall ReaTeam ReaScripts repository via Reapack to have labels text.")
     end
 
-    reaper.ImGui_PushItemWidth(ctx,reaper.ImGui_GetWindowWidth( ctx )-113) -- Set max with of inputs
-    retval_text, text = reaper.ImGui_InputText(ctx, 'Filter name', text)
+    ImGui.PushItemWidth(ctx,ImGui.GetWindowWidth( ctx )-113) -- Set max with of inputs
+    retval_text, text = ImGui.InputText(ctx, 'Filter name', text)
     tab = FilterTab( items_tab, text )
 
     -- PALETTE
@@ -415,46 +509,46 @@ function loop()
       end
     end
     table.sort(palette, function (first, second) -- Thx to gxray!!!!
-      local r1, g1, b1, a1 = reaper.ImGui_ColorConvertU32ToDouble4(first)
-      local r2, g2, b2, a2 = reaper.ImGui_ColorConvertU32ToDouble4(second)
+      local r1, g1, b1, a1 = ImGui.ColorConvertU32ToDouble4(first)
+      local r2, g2, b2, a2 = ImGui.ColorConvertU32ToDouble4(second)
       local step_count = 8 -- This doesn't seems to do anything
       return step(r1, g1, b1, step_count) > step(r2, g2, b2, step_count)
     end)
 
-    retval_palette_toggle, palette_toggle = r.ImGui_Checkbox(ctx, 'Filter color', palette_toggle)
-    r.ImGui_SameLine(ctx)
+    retval_palette_toggle, palette_toggle = ImGui.Checkbox(ctx, 'Filter color', palette_toggle)
+    ImGui.SameLine(ctx)
 
     if palette_toggle then
 
-      reaper.ImGui_PushItemWidth(ctx, 100) -- Set max with of inputs
-      local open_popup = r.ImGui_ColorEdit3(ctx, '##3b', filter_color, r.ImGui_ColorEditFlags_NoPicker()|r.ImGui_ColorEditFlags_NoAlpha()|reaper.ImGui_ColorEditFlags_DisplayHex())
-      r.ImGui_SameLine(ctx, 0, ({r.ImGui_GetStyleVar(ctx, r.ImGui_StyleVar_ItemInnerSpacing())})[1])
-      open_popup = r.ImGui_Button(ctx, 'Palette') or open_popup
+      ImGui.PushItemWidth(ctx, 100) -- Set max with of inputs
+      local open_popup = ImGui.ColorEdit3(ctx, '##3b', filter_color, ImGui.ColorEditFlags_NoPicker|ImGui.ColorEditFlags_NoAlpha|ImGui.ColorEditFlags_DisplayHex)
+      ImGui.SameLine(ctx, 0, ({ImGui.GetStyleVar(ctx, ImGui.StyleVar_ItemInnerSpacing)})[1])
+      open_popup = ImGui.Button(ctx, 'Palette') or open_popup
       if open_popup then
-        r.ImGui_OpenPopup(ctx, 'mypicker')
+        ImGui.OpenPopup(ctx, 'mypicker')
       end
 
-      if r.ImGui_BeginPopup(ctx, 'mypicker', reaper.ImGui_WindowFlags_NoMove() ) then
-        r.ImGui_Text(ctx, 'Palette')
-        r.ImGui_Separator(ctx)
+      if ImGui.BeginPopup(ctx, 'mypicker', ImGui.WindowFlags_NoMove ) then
+        ImGui.Text(ctx, 'Palette')
+        ImGui.Separator(ctx)
 
-        r.ImGui_BeginGroup(ctx) -- Lock X position
-        local palette_button_flags = r.ImGui_ColorEditFlags_NoAlpha()  |
-                                     r.ImGui_ColorEditFlags_NoPicker()
+        ImGui.BeginGroup(ctx) -- Lock X position
+        local palette_button_flags = ImGui.ColorEditFlags_NoAlpha  |
+                                     ImGui.ColorEditFlags_NoPicker
         for n,c in ipairs(palette) do
-          r.ImGui_PushID(ctx, n)
+          ImGui.PushID(ctx, n)
           if ((n - 1) % 16) ~= 0 then
-            r.ImGui_SameLine(ctx, 0.0, ({r.ImGui_GetStyleVar(ctx, r.ImGui_StyleVar_ItemSpacing())})[2])
+            ImGui.SameLine(ctx, 0.0, ({ImGui.GetStyleVar(ctx, ImGui.StyleVar_ItemSpacing)})[2])
           end
 
-          if r.ImGui_ColorButton(ctx, '##palette', c, palette_button_flags, 20, 20) then
+          if ImGui.ColorButton(ctx, '##palette', c, palette_button_flags, 20, 20) then
             filter_color = c
           end
 
-          r.ImGui_PopID(ctx)
+          ImGui.PopID(ctx)
         end
-        r.ImGui_EndGroup(ctx)
-        r.ImGui_EndPopup(ctx)
+        ImGui.EndGroup(ctx)
+        ImGui.EndPopup(ctx)
       end
 
       -- Refresh if filter color has changed or if palette toggle has been toggle twice and is activated
@@ -466,11 +560,11 @@ function loop()
 
     end
 
-    reaper.ImGui_Spacing( ctx )
-    reaper.ImGui_Spacing( ctx )
-    reaper.ImGui_Separator( ctx )
-    reaper.ImGui_Spacing( ctx )
-    reaper.ImGui_Spacing( ctx )
+    ImGui.Spacing( ctx )
+    ImGui.Spacing( ctx )
+    ImGui.Separator( ctx )
+    ImGui.Spacing( ctx )
+    ImGui.Spacing( ctx )
 
     for i, v in ipairs( tab ) do
 
@@ -479,13 +573,13 @@ function loop()
         local buttonColor = ColorConvertHSVtoInt( 7.0, 0.6, 0.6, 1.0 )
         local hoveredColor = ColorConvertHSVtoInt(7.0, 0.7, 0.7, 1.0)
         local activeColor  = ColorConvertHSVtoInt(7.0, 0.8, 0.8, 1.0)
-        r.ImGui_PushStyleColor(ctx, r.ImGui_Col_Button(),        buttonColor)
-        r.ImGui_PushStyleColor(ctx, r.ImGui_Col_ButtonHovered(), hoveredColor)
-        r.ImGui_PushStyleColor(ctx, r.ImGui_Col_ButtonActive(),  activeColor)
+        ImGui.PushStyleColor(ctx, ImGui.Col_Button,        buttonColor)
+        ImGui.PushStyleColor(ctx, ImGui.Col_ButtonHovered, hoveredColor)
+        ImGui.PushStyleColor(ctx, ImGui.Col_ButtonActive,  activeColor)
         pop_style = true
       end
 
-      if r.ImGui_Button(ctx, "Restore##3f"..i) then
+      if ImGui.Button(ctx, "Restore##3f"..i) then
         colors[v] = colors_backup[v]
         reaper.SetThemeColor( v, colors[v], 0 )
         reaper.ThemeLayout_RefreshAll()
@@ -493,37 +587,35 @@ function loop()
 
       if pop_style then
         pop_style = false
-        r.ImGui_PopStyleColor(ctx, 3)
+        ImGui.PopStyleColor(ctx, 3)
       end
 
-      reaper.ImGui_SameLine( ctx )
+      ImGui.SameLine( ctx )
 
-      reaper.ImGui_PushItemWidth(ctx, 92) -- Set max with of inputs
+      ImGui.PushItemWidth(ctx, 92) -- Set max with of inputs
 
-      retval, colors[v] = reaper.ImGui_ColorEdit3(ctx, (color_descriptions_num == 0 and theme_var_descriptions and theme_var_descriptions[v]) or v, reaper.ImGui_ColorConvertNative(colors[v]),  reaper.ImGui_ColorEditFlags_DisplayHex() )
-      colors[v] = reaper.ImGui_ColorConvertNative( colors[v] )
+      retval, colors[v] = ImGui.ColorEdit3(ctx, (color_descriptions_num == 0 and theme_var_descriptions and theme_var_descriptions[v]) or v, ImGui.ColorConvertNative(colors[v]),  ImGui.ColorEditFlags_DisplayHex )
+      colors[v] = ImGui.ColorConvertNative( colors[v] )
       if retval then -- if changed
         reaper.SetThemeColor( v, colors[v], 0 )
         reaper.ThemeLayout_RefreshAll()
       end
 
-      reaper.ImGui_PopItemWidth( ctx ) -- Restore max with of input
+      ImGui.PopItemWidth( ctx ) -- Restore max with of input
     end
 
     last_tab = CopyTable(tab) -- Copy filtered keys
     last_filter_color = filter_color
     last_palette_toggle = palette_toggle
 
-    reaper.ImGui_End(ctx)
+    ImGui.End(ctx)
 
   end
 
-  reaper.ImGui_PopStyleColor(ctx) -- Remove black opack background
-  reaper.ImGui_PopFont(ctx)
+  ImGui.PopStyleColor(ctx, count_theme_colors)
+  ImGui.PopFont(ctx)
 
-  if not imgui_open or reaper.ImGui_IsKeyPressed(ctx, 27) then
-    reaper.ImGui_DestroyContext(ctx)
-  else
+  if imgui_open and not ImGui.IsKeyPressed(ctx, ImGui.Key_Escape) and not process then
     reaper.defer(loop)
   end
 
@@ -548,11 +640,12 @@ palette_toggle = false
 color_descriptions_num = 0 -- 0 for text, 1 for variables
 
 -- For no saved settings:
--- local ctx = reaper.ImGui_CreateContext('XR Theme Tweaker - Beta', reaper.ImGui_ConfigFlags_DockingEnable()+reaper.ImGui_ConfigFlags_NoSavedSettings() )
-ctx = reaper.ImGui_CreateContext('XR Theme Tweaker - Beta', reaper.ImGui_ConfigFlags_DockingEnable() )
-font = reaper.ImGui_CreateFont('sans-serif', 14)
-reaper.ImGui_Attach(ctx, font)
-reaper.ImGui_SetNextWindowSize( ctx, 710, 400, reaper.ImGui_Cond_FirstUseEver() )
+-- local ctx = ImGui.CreateContext('XR Theme Tweaker - Beta', ImGui.ConfigFlags_DockingEnable+ImGui.ConfigFlags_NoSavedSettings )
+ctx = ImGui.CreateContext(input_title,  ImGui.ConfigFlags_DockingEnable )
+ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
+font = ImGui.CreateFont('sans-serif', 16)
+ImGui.Attach(ctx, font)
+ImGui.SetNextWindowSize( ctx, 710, 400, ImGui.Cond_FirstUseEver )
 
 r = reaper
 

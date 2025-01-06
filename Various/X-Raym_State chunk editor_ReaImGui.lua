@@ -5,11 +5,15 @@
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Version: 1.0.3
+ * Version: 1.0.4
 --]]
 
 --[[
  * Changelog:
+ * v1.0.4 (2025-01-06)
+  # Renamed with ReaImGui suffix
+  # ReaImGui v0.9.3.2
+  # Dark Theme
  * v1.0.3 (2024-04-13)
   # Force reaimgui version
  * v1.0 (2024-01-03)
@@ -26,7 +30,7 @@
 -- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
 console = true -- Display debug messages in the console
-reaimgui_force_version = "0.8.7.6" -- false or string like "0.8.4"
+reaimgui_force_version = "0.9.3.2" -- false or string like "0.8.4"
 
 ----------------------------------------------------------------------
                                          -- END OF USER CONFIG AREA --
@@ -46,6 +50,7 @@ local theme_colors = {
   ButtonHovered     = 0x606060ff,
   FrameBg           = 0x454545ff, -- Input text BG
   FrameBgHovered    = 0x606060ff,
+  FrameBgActive     = 0x404040ff,
   TitleBg           = 0x292929ff, -- Title
   TitleBgActive     = 0x000000ff,
   Header            = 0x323232ff, -- Selected rows
@@ -55,25 +60,25 @@ local theme_colors = {
   ResizeGripHovered = 0x323232ff,
   ResizeGripActive  = 0x05050587,
   TextSelectedBg    = 0x05050587, -- Search Field Selected Text
+  CheckMark         = 0xffffffff, -- CheckMark
 }
 
-------------------------------------------------------------
+-----------------------------------------------------------
 -- DEPENDENCIES --
-------------------------------------------------------------
+-----------------------------------------------------------
 
-if not reaper.ImGui_CreateContext then
+imgui_path = reaper.ImGui_GetBuiltinPath and ( reaper.ImGui_GetBuiltinPath() .. '/imgui.lua' )
+
+if not imgui_path then
   reaper.MB("Missing dependency: ReaImGui extension.\nDownload it via Reapack ReaTeam extension repository.", "Error", 0)
   return false
 end
 
-reaimgui_shim_file_path = reaper.GetResourcePath() .. '/Scripts/ReaTeam Extensions/API/imgui.lua'
-if reaper.file_exists( reaimgui_shim_file_path ) and reaimgui_force_version then
-  dofile( reaimgui_shim_file_path )(reaimgui_force_version)
-end
+local ImGui = dofile(imgui_path) (reaimgui_force_version)
 
-------------------------------------------------------------
--- END OF DEPENDENCIES --
-------------------------------------------------------------
+-----------------------------------------------------------
+                                  -- END OF DEPENDENCIES --
+-----------------------------------------------------------
 
 ----------------------------------------------------------------------
 -- DEBUG --
@@ -168,27 +173,27 @@ function about()
 end
 
 function contextMenu()
-  local dock_id = reaper.ImGui_GetWindowDockID(ctx)
-  if not reaper.ImGui_BeginPopupContextWindow(ctx, nil, reaper.ImGui_PopupFlags_MouseButtonRight() | reaper.ImGui_PopupFlags_NoOpenOverItems()) then return end
-  if reaper.ImGui_BeginMenu(ctx, 'Dock window') then
-    if reaper.ImGui_MenuItem(ctx, 'Floating', nil, dock_id == 0) then
+  local dock_id = ImGui.GetWindowDockID(ctx)
+  if not ImGui.BeginPopupContextWindow(ctx, nil, ImGui.PopupFlags_MouseButtonRight | ImGui.PopupFlags_NoOpenOverItems) then return end
+  if ImGui.BeginMenu(ctx, 'Dock window') then
+    if ImGui.MenuItem(ctx, 'Floating', nil, dock_id == 0) then
       set_dock_id = 0
     end
     for i = 0, 15 do
-      if reaper.ImGui_MenuItem(ctx, ('Docker %d'):format(i + 1), nil, dock_id == ~i) then
+      if ImGui.MenuItem(ctx, ('Docker %d'):format(i + 1), nil, dock_id == ~i) then
         set_dock_id = ~i
       end
     end
-    reaper.ImGui_EndMenu(ctx)
+    ImGui.EndMenu(ctx)
   end
-  reaper.ImGui_Separator(ctx)
-  if reaper.ImGui_MenuItem(ctx, 'About/help', 'F1', false, reaper.ReaPack_GetOwner ~= nil) then
+  ImGui.Separator(ctx)
+  if ImGui.MenuItem(ctx, 'About/help', 'F1', false, reaper.ReaPack_GetOwner ~= nil) then
     about()
   end
-  if reaper.ImGui_MenuItem(ctx, 'Close', 'Escape') then
+  if ImGui.MenuItem(ctx, 'Close', 'Escape') then
     exit = true
   end
-  reaper.ImGui_EndPopup(ctx)
+  ImGui.EndPopup(ctx)
 end
 
 function SetThemeColors()
@@ -198,7 +203,7 @@ function SetThemeColors()
     if color_str ~= "" then
       color = tonumber( color_str, 16 )
     end
-    reaper.ImGui_PushStyleColor(ctx, reaper[ "ImGui_Col_" .. k ](), color )
+    ImGui.PushStyleColor(ctx, reaper[ "ImGui_Col_" .. k ](), color )
     count_theme_colors = count_theme_colors + 1
   end
   return count_theme_colors
@@ -217,95 +222,95 @@ function Main()
 
   local chunk = ""
 
-  if reaper.ImGui_Button( ctx, "Get Track" ) then
+  if ImGui.Button( ctx, "Get Track" ) then
     local track = reaper.GetSelectedTrack( 0, 0 )
     if track then
       local retval, track_chunk = reaper.GetTrackStateChunk( track, "", false )
       chunk = FormatChunk( track_chunk )
     end
   end
-  
-  reaper.ImGui_SameLine( ctx )
-  
-  if reaper.ImGui_Button( ctx, "Get Item" ) then
+
+  ImGui.SameLine( ctx )
+
+  if ImGui.Button( ctx, "Get Item" ) then
     local item = reaper.GetSelectedMediaItem( 0, 0 )
     if item then
       local retval, item_chunk = reaper.GetItemStateChunk( item, "", false )
       chunk = FormatChunk( item_chunk )
     end
   end
-  
-  reaper.ImGui_SameLine( ctx )
-  
-  if reaper.ImGui_Button( ctx, "Get Envelope" ) then
+
+  ImGui.SameLine( ctx )
+
+  if ImGui.Button( ctx, "Get Envelope" ) then
     local env = reaper.GetSelectedEnvelope( 0 )
     if env then
       local retval, env_chunk = reaper.GetEnvelopeStateChunk( env, "", false )
       chunk = FormatChunk( env_chunk )
     end
   end
-  
+
   if chunk ~= "" then
     txts[ destination ] = chunk
   end
-  
-  if reaper.ImGui_Button( ctx, "Set Track" ) then
+
+  if ImGui.Button( ctx, "Set Track" ) then
     local track = reaper.GetSelectedTrack( 0, 0 )
     if track then
       local retval, track_chunk = reaper.SetTrackStateChunk( track, txts[ destination ], true )
       reaper.Undo_OnStateChange( "Set track state" )
     end
   end
-  
-  reaper.ImGui_SameLine( ctx )
-  
-  if reaper.ImGui_Button( ctx, "Set Item" ) then
+
+  ImGui.SameLine( ctx )
+
+  if ImGui.Button( ctx, "Set Item" ) then
     local item = reaper.GetSelectedMediaItem( 0, 0 )
     if item then
       local retval, item_chunk = reaper.SetItemStateChunk( item, txts[ destination ], true )
       reaper.Undo_OnStateChange( "Set item state" )
     end
   end
-  
-  reaper.ImGui_SameLine( ctx )
-  
-  if reaper.ImGui_Button( ctx, "Set Envelope" ) then
+
+  ImGui.SameLine( ctx )
+
+  if ImGui.Button( ctx, "Set Envelope" ) then
     local env = reaper.GetSelectedEnvelope( 0 )
     if env then
       local retval, env_chunk = reaper.SetEnvelopeStateChunk( env, txts[ destination ], true )
       reaper.Undo_OnStateChange( "Set env state" )
     end
   end
-  
+
   local w = imgui_width/2 - 10
   local h = math.max( 200, imgui_height-140)
 
-  if reaper.ImGui_BeginChild(ctx, 'left_panel', w, nil, true, reaper.ImGui_WindowFlags_MenuBar()) then
-    
-    if reaper.ImGui_BeginMenuBar(ctx) then
-      reaper.ImGui_Text(ctx,'Chunk 1')
-      reaper.ImGui_EndMenuBar(ctx)
+  if ImGui.BeginChild(ctx, 'left_panel', w, nil, nil, ImGui.WindowFlags_MenuBar) then
+
+    if ImGui.BeginMenuBar(ctx) then
+      ImGui.Text(ctx,'Chunk 1')
+      ImGui.EndMenuBar(ctx)
     end
-    
-    retval, txts[1] = reaper.ImGui_InputTextMultiline( ctx, "##Text1", txts[1], w-10, h,  reaper.ImGui_InputTextFlags_AllowTabInput() )
-    if reaper.ImGui_IsItemActive( ctx ) then
+
+    retval, txts[1] = ImGui.InputTextMultiline( ctx, "##Text1", txts[1], w-10, h,  ImGui.InputTextFlags_AllowTabInput )
+    if ImGui.IsItemActive( ctx ) then
       destination = 1
     end
-    reaper.ImGui_EndChild( ctx )
+    ImGui.EndChild( ctx )
   end
-  reaper.ImGui_SameLine( ctx )
-  if reaper.ImGui_BeginChild(ctx, 'right_panel', w, nil, true, reaper.ImGui_WindowFlags_MenuBar()) then
-    
-    if reaper.ImGui_BeginMenuBar(ctx) then
-      reaper.ImGui_Text(ctx,'Chunk 2')
-      reaper.ImGui_EndMenuBar(ctx)
+  ImGui.SameLine( ctx )
+  if ImGui.BeginChild(ctx, 'right_panel', w, nil, nil, ImGui.WindowFlags_MenuBar) then
+
+    if ImGui.BeginMenuBar(ctx) then
+      ImGui.Text(ctx,'Chunk 2')
+      ImGui.EndMenuBar(ctx)
     end
-    
-    retval, txts[2] = reaper.ImGui_InputTextMultiline( ctx, "##Text2", txts[2], w-10, h,  reaper.ImGui_InputTextFlags_AllowTabInput() )
-    if reaper.ImGui_IsItemActive( ctx ) then
+
+    retval, txts[2] = ImGui.InputTextMultiline( ctx, "##Text2", txts[2], w-10, h,  ImGui.InputTextFlags_AllowTabInput )
+    if ImGui.IsItemActive( ctx ) then
       destination = 2
     end
-    reaper.ImGui_EndChild( ctx )
+    ImGui.EndChild( ctx )
   end
 end
 
@@ -319,34 +324,35 @@ end
 
 function Run()
 
-  reaper.ImGui_SetNextWindowBgAlpha( ctx, 1 )
-  
-  count_theme_colors = SetThemeColors()
-  reaper.ImGui_PushFont(ctx, font)
-  reaper.ImGui_SetNextWindowSize(ctx, 800, 200, reaper.ImGui_Cond_FirstUseEver())
+  ImGui.SetNextWindowBgAlpha( ctx, 1 )
 
   if set_dock_id then
-    reaper.ImGui_SetNextWindowDockID(ctx, set_dock_id)
+    ImGui.SetNextWindowDockID(ctx, set_dock_id)
     set_dock_id = nil
   end
 
-  local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, input_title, true, reaper.ImGui_WindowFlags_NoCollapse())
+  count_theme_colors = SetThemeColors( ctx )
+
+  ImGui.PushFont(ctx, font)
+  ImGui.SetNextWindowSize(ctx, 800, 200, ImGui.Cond_FirstUseEver)
+
+  local imgui_visible, imgui_open = ImGui.Begin(ctx, input_title, true, ImGui.WindowFlags_NoCollapse)
 
   if imgui_visible then
 
     contextMenu()
 
-    imgui_width, imgui_height = reaper.ImGui_GetWindowSize( ctx )
+    imgui_width, imgui_height = ImGui.GetWindowSize( ctx )
 
     Main()
 
-    reaper.ImGui_End(ctx)
+    ImGui.End(ctx)
   end
 
-  reaper.ImGui_PopFont(ctx)
-  reaper.ImGui_PopStyleColor( ctx, count_theme_colors )
-  
-  if imgui_open and not reaper.ImGui_IsKeyPressed(ctx, reaper.ImGui_Key_Escape()) and not process then
+  ImGui.PopFont(ctx)
+  ImGui.PopStyleColor( ctx, count_theme_colors )
+
+  if imgui_open and not ImGui.IsKeyPressed(ctx, ImGui.Key_Escape) and not process then
     reaper.defer(Run)
   end
 
@@ -363,12 +369,13 @@ end -- END DEFER
 function Init()
   SetButtonState( 1 )
   reaper.atexit( Exit )
-  
+
   reaper.ClearConsole()
 
-  ctx = reaper.ImGui_CreateContext(input_title,  reaper.ImGui_ConfigFlags_DockingEnable())
-  font = reaper.ImGui_CreateFont('sans-serif', 16)
-  reaper.ImGui_Attach(ctx, font)
+  ctx = ImGui.CreateContext(input_title,  ImGui.ConfigFlags_DockingEnable )
+  ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
+  font = ImGui.CreateFont('sans-serif', 16)
+  ImGui.Attach(ctx, font)
 
   Run()
 end

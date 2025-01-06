@@ -10,6 +10,10 @@
 
 --[[
  * Changelog:
+ * v0.2.2 (2025-01-06)
+  # Renamed with ReaImGui suffix
+  # ReaImGui v0.9.3.2
+  # Dark Theme
  * v0.2.1 (2024-04-13)
   # Force reaimgui version
  * v0.2 (2023-11-13)
@@ -23,7 +27,7 @@
 --------------------------------------------------------------------------------
 
 console = true -- Display debug messages in the console
-reaimgui_force_version = "0.8.7.6"-- false or string like "0.8.4"
+reaimgui_force_version = "0.9.3.2"-- false or string like "0.8.4"
 
 --------------------------------------------------------------------------------
                                                    -- END OF USER CONFIG AREA --
@@ -35,21 +39,39 @@ reaimgui_force_version = "0.8.7.6"-- false or string like "0.8.4"
 
 input_title = "XR - List installed FX"
 
+local theme_colors = {
+  WindowBg          = 0x292929ff, -- Window
+  Border            = 0x2a2a2aff, -- Border
+  Button            = 0x454545ff, -- Button
+  ButtonActive      = 0x404040ff, -- Button and Top resize
+  ButtonHovered     = 0x606060ff,
+  FrameBg           = 0x454545ff, -- Input text BG
+  FrameBgHovered    = 0x606060ff,
+  FrameBgActive     = 0x404040ff,
+  TitleBg           = 0x292929ff, -- Title
+  TitleBgActive     = 0x000000ff,
+  Header            = 0x323232ff, -- Selected rows
+  HeaderHovered     = 0x323232ff,
+  HeaderActive      = 0x05050587,
+  ResizeGrip        = 0x323232ff, -- Resize
+  ResizeGripHovered = 0x323232ff,
+  ResizeGripActive  = 0x05050587,
+  TextSelectedBg    = 0x05050587, -- Search Field Selected Text
+  CheckMark         = 0xffffffff, -- CheckMark
+}
+
 --------------------------------------------------------------------------------
 -- DEPENDENCIES --
 --------------------------------------------------------------------------------
 
-if not reaper.ImGui_CreateContext then
+imgui_path = reaper.ImGui_GetBuiltinPath and ( reaper.ImGui_GetBuiltinPath() .. '/imgui.lua' )
+
+if not imgui_path then
   reaper.MB("Missing dependency: ReaImGui extension.\nDownload it via Reapack ReaTeam extension repository.", "Error", 0)
   return false
 end
 
-if reaimgui_force_version then
-  reaimgui_shim_file_path = reaper.GetResourcePath() .. '/Scripts/ReaTeam Extensions/API/imgui.lua'
-  if reaper.file_exists( reaimgui_shim_file_path ) then
-    dofile( reaimgui_shim_file_path )(reaimgui_force_version)
-  end
-end
+local ImGui = dofile(imgui_path) (reaimgui_force_version)
 
 --------------------------------------------------------------------------------
                                                        -- END OF DEPENDENCIES --
@@ -174,6 +196,62 @@ function ParseCSVLine2(line,sep)
 end
 
 --------------------------------------------------------------------------------
+-- REAIMGUI --
+--------------------------------------------------------------------------------
+
+function SetThemeColors(ctx)
+  local count_theme_colors = 0
+  for k, color in pairs( theme_colors ) do
+    local color_str = reaper.GetExtState( "XR_ImGui_Col", k )
+    if color_str ~= "" then
+      color = tonumber( color_str, 16 )
+    end
+    ImGui.PushStyleColor(ctx, ImGui["Col_" .. k ], color )
+    count_theme_colors = count_theme_colors + 1
+  end
+  return count_theme_colors
+end
+
+-- From cfillion
+function about()
+  local owner = reaper.ReaPack_GetOwner(({reaper.get_action_context()})[2])
+
+  if not owner then
+    reaper.MB(string.format(
+      'This feature is unavailable because this script was not installed using ReaPack.',
+      "Warning"), "Warning", 0)
+    return
+  end
+
+  reaper.ReaPack_AboutInstalledPackage(owner)
+  reaper.ReaPack_FreeEntry(owner)
+end
+
+function contextMenu()
+  local dock_id = ImGui.GetWindowDockID(ctx)
+  if not ImGui.BeginPopupContextWindow(ctx, nil, ImGui.PopupFlags_MouseButtonRight | ImGui.PopupFlags_NoOpenOverItems) then return end
+  if ImGui.BeginMenu(ctx, 'Dock window') then
+    if ImGui.MenuItem(ctx, 'Floating', nil, dock_id == 0) then
+      set_dock_id = 0
+    end
+    for i = 0, 15 do
+      if ImGui.MenuItem(ctx, ('Docker %d'):format(i + 1), nil, dock_id == ~i) then
+        set_dock_id = ~i
+      end
+    end
+    ImGui.EndMenu(ctx)
+  end
+  ImGui.Separator(ctx)
+  if ImGui.MenuItem(ctx, 'About/help', 'F1', false, reaper.ReaPack_GetOwner ~= nil) then
+    about()
+  end
+  if ImGui.MenuItem(ctx, 'Close', 'Escape') then
+    exit = true
+  end
+  ImGui.EndPopup(ctx)
+end
+
+--------------------------------------------------------------------------------
 -- MAIN --
 --------------------------------------------------------------------------------
 os_sep = package.config:sub(1,1)
@@ -200,41 +278,46 @@ end
 fx_plugins_vst64 = ReverseTable( GetVST64FXPlugins() )
 
 function Main()
-  reaper.ImGui_TextWrapped(ctx, [[This script is a proof of concept. Only VST is supported for now. No solution possible for JSFX cause their index file doesn't have any kind of date info and is sorting alphabetically]] )
-  reaper.ImGui_Dummy( ctx, 10, 10 )
-  reaper.ImGui_Text( ctx, "VST")
-  local cur_y = reaper.ImGui_GetCursorPosY( ctx )
-  reaper.ImGui_InputTextMultiline( ctx, "##vst64", table.concat(fx_plugins_vst64, "\n"), imgui_width - 20, (imgui_height-cur_y-10) ) -- height could be divised by the number of text area
+  ImGui.TextWrapped(ctx, [[This script is a proof of concept. Only VST is supported for now. No solution possible for JSFX cause their index file doesn't have any kind of date info and is sorting alphabetically]] )
+  ImGui.Dummy( ctx, 10, 10 )
+  ImGui.Text( ctx, "VST")
+  local cur_y = ImGui.GetCursorPosY( ctx )
+  ImGui.InputTextMultiline( ctx, "##vst64", table.concat(fx_plugins_vst64, "\n"), imgui_width - 20, (imgui_height-cur_y-10) ) -- height could be divised by the number of text area
 end
 
 function Run()
 
-  reaper.ImGui_SetNextWindowBgAlpha( ctx, 1 )
-
-  reaper.ImGui_PushFont(ctx, font)
-  reaper.ImGui_SetNextWindowSize(ctx, 800, 200, reaper.ImGui_Cond_FirstUseEver())
+  ImGui.SetNextWindowBgAlpha( ctx, 1 )
 
   if set_dock_id then
-    reaper.ImGui_SetNextWindowDockID(ctx, set_dock_id)
+    ImGui.SetNextWindowDockID(ctx, set_dock_id)
     set_dock_id = nil
   end
 
-  local imgui_visible, imgui_open = reaper.ImGui_Begin(ctx, input_title, true, reaper.ImGui_WindowFlags_NoCollapse())
+  count_theme_colors = SetThemeColors( ctx )
+
+  ImGui.PushFont(ctx, font)
+  ImGui.SetNextWindowSize(ctx, 800, 200, ImGui.Cond_FirstUseEver)
+
+  local imgui_visible, imgui_open = ImGui.Begin(ctx, input_title, true, ImGui.WindowFlags_NoCollapse)
 
   if imgui_visible then
 
-    imgui_width, imgui_height = reaper.ImGui_GetWindowSize( ctx )
+    contextMenu()
+
+    imgui_width, imgui_height = ImGui.GetWindowSize( ctx )
 
     Main()
 
     --------------------
 
-    reaper.ImGui_End(ctx)
+    ImGui.End(ctx)
   end
 
-  reaper.ImGui_PopFont(ctx)
+  ImGui.PopStyleColor(ctx, count_theme_colors)
+  ImGui.PopFont(ctx)
 
-  if imgui_open and not reaper.ImGui_IsKeyPressed(ctx, reaper.ImGui_Key_Escape()) and not process then
+  if imgui_open and not ImGui.IsKeyPressed(ctx, ImGui.Key_Escape) and not process then
     reaper.defer(Run)
   end
 
@@ -248,9 +331,9 @@ function Init()
   SetButtonState( 1 )
   reaper.atexit( Exit )
 
-  ctx = reaper.ImGui_CreateContext(input_title)
-  font = reaper.ImGui_CreateFont('sans-serif', 16)
-  reaper.ImGui_Attach(ctx, font)
+  ctx = ImGui.CreateContext(input_title)
+  font = ImGui.CreateFont('sans-serif', 16)
+  ImGui.Attach(ctx, font)
 
   reaper.defer(Run)
 end
@@ -258,4 +341,3 @@ end
 if not preset_file_init then
   Init()
 end
-
