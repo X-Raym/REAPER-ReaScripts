@@ -5,7 +5,7 @@
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Version: 1.0.4
+ * Version: 1.0.5
 --]]
 
 --[[
@@ -372,7 +372,7 @@ function Init()
 
   reaper.ClearConsole()
 
-  ctx = ImGui.CreateContext(input_title,  ImGui.ConfigFlags_DockingEnable )
+  ctx = ImGui.CreateContext( input_title, ImGui.ConfigFlags_DockingEnable | ImGui.ConfigFlags_NavEnableKeyboard )
   ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
   font = ImGui.CreateFont('sans-serif', 16)
   ImGui.Attach(ctx, font)

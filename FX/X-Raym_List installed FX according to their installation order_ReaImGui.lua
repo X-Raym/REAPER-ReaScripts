@@ -5,7 +5,7 @@
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 0.2.1
+ * Version: 0.2.3
 --]]
 
 --[[
@@ -331,7 +331,8 @@ function Init()
   SetButtonState( 1 )
   reaper.atexit( Exit )
 
-  ctx = ImGui.CreateContext(input_title)
+  ctx = ImGui.CreateContext( input_title, ImGui.ConfigFlags_DockingEnable | ImGui.ConfigFlags_NavEnableKeyboard )
+  ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
   font = ImGui.CreateFont('sans-serif', 16)
   ImGui.Attach(ctx, font)
 

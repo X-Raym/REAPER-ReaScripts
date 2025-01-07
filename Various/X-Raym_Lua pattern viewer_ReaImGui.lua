@@ -6,7 +6,7 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 1.1.3
+ * Version: 1.1.4
 --]]
 
 --[[
@@ -347,7 +347,7 @@ function Run()
   if imgui_visible then
 
     imgui_width, imgui_height = ImGui.GetWindowSize( ctx )
-    
+
     contextMenu()
 
     Main()
@@ -374,7 +374,7 @@ function Init()
   SetButtonState( 1 )
   reaper.atexit( Exit )
 
-  ctx = ImGui.CreateContext(input_title,  ImGui.ConfigFlags_DockingEnable )
+  ctx = ImGui.CreateContext( input_title, ImGui.ConfigFlags_DockingEnable | ImGui.ConfigFlags_NavEnableKeyboard )
   ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
   font = ImGui.CreateFont('sans-serif', 16)
   ImGui.Attach(ctx, font)

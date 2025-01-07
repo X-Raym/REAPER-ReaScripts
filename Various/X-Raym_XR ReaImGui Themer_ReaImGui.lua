@@ -1,11 +1,11 @@
 --[[
- * ReaScript Name: XR ReaImGui themer
+ * ReaScript Name: XR ReaImGui themer (ReaImGui)
  * About: This stripped down version of ReaImGui Demo script Style section is for quick experimentation on ReaImGui colors. May become in the long term a way to style XR scripts.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 0.1.2
+ * Version: 0.1.3
 --]]
 
 --[[
@@ -325,7 +325,7 @@ function Init()
   SetButtonState( 1 )
   reaper.atexit( Exit )
 
-  ctx = ImGui.CreateContext(input_title,  ImGui.ConfigFlags_DockingEnable)
+  ctx = ImGui.CreateContext( input_title, ImGui.ConfigFlags_DockingEnable | ImGui.ConfigFlags_NavEnableKeyboard )
   ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
   font = ImGui.CreateFont('sans-serif', 16)
   ImGui.Attach(ctx, font)

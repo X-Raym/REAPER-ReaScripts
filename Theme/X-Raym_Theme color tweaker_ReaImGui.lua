@@ -1,12 +1,12 @@
 --[[
- * ReaScript Name: Theme color tweaker
+ * ReaScript Name: Theme color tweaker (ReaImGui)
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 0.7.2
+ * Version: 0.7.3
 --]]
 
 --[[
@@ -639,9 +639,7 @@ filter_color = 0
 palette_toggle = false
 color_descriptions_num = 0 -- 0 for text, 1 for variables
 
--- For no saved settings:
--- local ctx = ImGui.CreateContext('XR Theme Tweaker - Beta', ImGui.ConfigFlags_DockingEnable+ImGui.ConfigFlags_NoSavedSettings )
-ctx = ImGui.CreateContext(input_title,  ImGui.ConfigFlags_DockingEnable )
+ctx = ImGui.CreateContext( input_title, ImGui.ConfigFlags_DockingEnable | ImGui.ConfigFlags_NavEnableKeyboard ) -- For no saved setting: ImGui.ConfigFlags_NoSavedSettings
 ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
 font = ImGui.CreateFont('sans-serif', 16)
 ImGui.Attach(ctx, font)
