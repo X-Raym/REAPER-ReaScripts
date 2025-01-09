@@ -6,11 +6,13 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 1.1.4
+ * Version: 1.1.5
 --]]
 
 --[[
  * Changelog:
+ * v1.1.5 (2025-01-09)
+  # Exit via context menu
  * v1.1.3 (2025-01-06)
   # Renamed with ReaImGui suffix
   # ReaImGui v0.9.3.2
@@ -360,7 +362,7 @@ function Run()
   ImGui.PopStyleColor(ctx, count_theme_colors)
   ImGui.PopFont(ctx)
 
-  if imgui_open and not ImGui.IsKeyPressed(ctx, ImGui.Key_Escape) and not process then
+  if imgui_open and not ImGui.IsKeyPressed(ctx, ImGui.Key_Escape) and not process and not exit then
     reaper.defer(Run)
   end
 
