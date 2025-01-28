@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 6.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
-
+ 
 --[[
  * Changelog:
+ * v1.0.1 (2025-01-15)
+  + Tooltip report
  * v1.0 (2022-12-14)
   + Initial Release
 --]]
@@ -21,7 +23,7 @@
 
 console = true -- true/false: display debug messages in the console
 
-undo_text = "Delete take markers outside of selected items boundaries"
+undo_text = "Delete take markers outside of selected items boundaries" 
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 
@@ -51,6 +53,11 @@ function Msg(value)
   end
 end
 
+function Tooltip(message)
+  local x, y = reaper.GetMousePosition()
+  reaper.TrackCtl_SetToolTip( tostring(message), x+17, y+17, false )
+end
+
 function IsInTime( s, start_time, end_time )
   if s >= start_time and s <= end_time then return true end
   return false
@@ -61,7 +68,7 @@ end
 
 -- Main function
 function Main()
-
+  count = 0
   for i, item in ipairs(init_sel_items) do
     item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
     item_len = reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
@@ -76,11 +83,12 @@ function Main()
         proj_pos = item_pos - take_offset + pos / take_rate
         if not IsInTime( proj_pos, item_pos, item_pos + item_len ) then
          reaper.DeleteTakeMarker( take, i )
+         count = count + 1
         end
       end
     end
   end
-
+   Tooltip(count .. " take markers removed")
 end
 
 
@@ -105,11 +113,11 @@ function Init()
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-
+  
 end
 
 if not preset_file_init then
-  Init()
+  Init() 
 end
 
 
