@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="bf712bdbf90ecef5fa8a11976fed9250f5909050" name="X-Raym Scripts">
+<index version="1" commit="daf57ad206831930911ad4e616e947af394ea100" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1608,6 +1608,11 @@
       </version>
       <version name="0.2.3" author="X-Raym" time="2025-01-07T18:57:57Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/da3865e2c30d17f21d2432ad076c36cf8b98724e/FX/X-Raym_List%20installed%20FX%20according%20to%20their%20installation%20order_ReaImGui.lua</source>
+      </version>
+      <version name="0.2.4" author="X-Raym" time="2025-01-28T13:21:53Z">
+        <changelog><![CDATA[# Window resize border color
+# Moving window with click and drag titlebar only]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/daf57ad206831930911ad4e616e947af394ea100/FX/X-Raym_List%20installed%20FX%20according%20to%20their%20installation%20order_ReaImGui.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Propagate last focused FX parameters values but bypass to similarly named FX on child tracks (real-time).lua" type="script" desc="Propagate last focused FX parameters values but bypass to similarly named FX on child tracks (real-time)">
@@ -3482,6 +3487,11 @@
         <changelog><![CDATA[# Exit via context menu]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/19ef53aa4bf1c11f4076b9eef1e5cec9f1fe3ad3/Items%20Properties/X-Raym_Move%20selected%20items%20to%20named%20tracks_ReaImGui.lua</source>
       </version>
+      <version name="1.1.6" author="X-Raym" time="2025-01-28T13:21:53Z">
+        <changelog><![CDATA[# Window resize border color
+# Moving window with click and drag titlebar only]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/daf57ad206831930911ad4e616e947af394ea100/Items%20Properties/X-Raym_Move%20selected%20items%20to%20named%20tracks_ReaImGui.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Multiply selected items rate by X and adjust length.lua" type="script" desc="Multiply selected items rate by X and adjust length">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
@@ -4351,6 +4361,11 @@
       <version name="1.1.5" author="X-Raym" time="2025-01-09T20:04:21Z">
         <changelog><![CDATA[# Exit via context menu]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/19ef53aa4bf1c11f4076b9eef1e5cec9f1fe3ad3/Items%20Properties/X-Raym_Take%20FX%20list_ReaImGui.lua</source>
+      </version>
+      <version name="1.1.6" author="X-Raym" time="2025-01-28T13:21:53Z">
+        <changelog><![CDATA[# Window resize border color
+# Moving window with click and drag titlebar only]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/daf57ad206831930911ad4e616e947af394ea100/Items%20Properties/X-Raym_Take%20FX%20list_ReaImGui.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle selected active takes reverse arround their snap offset.lua" type="script" desc="Toggle selected active takes reverse arround their snap offset">
@@ -7047,6 +7062,11 @@
         <changelog><![CDATA[# Exit via context menu]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/19ef53aa4bf1c11f4076b9eef1e5cec9f1fe3ad3/Theme/X-Raym_Theme%20color%20tweaker_ReaImGui.lua</source>
       </version>
+      <version name="0.7.5" author="X-Raym" time="2025-01-28T13:21:53Z">
+        <changelog><![CDATA[# Window resize border color
+# Moving window with click and drag titlebar only]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/daf57ad206831930911ad4e616e947af394ea100/Theme/X-Raym_Theme%20color%20tweaker_ReaImGui.lua</source>
+      </version>
     </reapack>
   </category>
   <category name="Track Properties">
@@ -8603,6 +8623,11 @@
         <changelog><![CDATA[# Exit via context menu]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/19ef53aa4bf1c11f4076b9eef1e5cec9f1fe3ad3/Various/X-Raym_Lua%20pattern%20viewer_ReaImGui.lua</source>
       </version>
+      <version name="1.1.6" author="X-Raym" time="2025-01-28T13:21:53Z">
+        <changelog><![CDATA[# Window resize border color
+# Moving window with click and drag titlebar only]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/daf57ad206831930911ad4e616e947af394ea100/Various/X-Raym_Lua%20pattern%20viewer_ReaImGui.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Move edit cursor to time 0 or to project start.lua" type="script" desc="Move edit cursor to time 0 or to project start">
       <metadata>
@@ -8885,6 +8910,11 @@
         <changelog><![CDATA[# Exit via context menu]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/19ef53aa4bf1c11f4076b9eef1e5cec9f1fe3ad3/Various/X-Raym_State%20chunk%20editor_ReaImGui.lua</source>
       </version>
+      <version name="1.0.7" author="X-Raym" time="2025-01-28T13:21:53Z">
+        <changelog><![CDATA[# Window resize border color
+# Moving window with click and drag titlebar only]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/daf57ad206831930911ad4e616e947af394ea100/Various/X-Raym_State%20chunk%20editor_ReaImGui.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Toggle Sonarworks SoundID monitor FX instance Calibration state.lua" type="script" desc="Toggle Sonarworks SoundID monitor FX instance Calibration state">
       <version name="1.0" author="X-Raym" time="2021-12-05T19:17:55Z">
@@ -8931,6 +8961,11 @@
       <version name="0.1.4" author="X-Raym" time="2025-01-09T20:04:21Z">
         <changelog><![CDATA[# Exit via context menu]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/19ef53aa4bf1c11f4076b9eef1e5cec9f1fe3ad3/Various/X-Raym_XR%20ReaImGui%20Themer_ReaImGui.lua</source>
+      </version>
+      <version name="0.1.5" author="X-Raym" time="2025-01-28T13:21:53Z">
+        <changelog><![CDATA[# Window resize border color
+# Moving window with click and drag titlebar only]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/daf57ad206831930911ad4e616e947af394ea100/Various/X-Raym_XR%20ReaImGui%20Themer_ReaImGui.lua</source>
       </version>
     </reapack>
   </category>
