@@ -6,11 +6,14 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1.5
+ * Version: 1.1.6
 --]]
 
 --[[
  * Changelog:
+ * v1.1.6 (2025-01-28)
+  # Window resize border color
+  # Moving window with click and drag titlebar only
  * v1.1.5 (2025-01-09)
   # Exit via context menu
  * v1.1.3 (2025-01-05)
@@ -61,7 +64,9 @@ local theme_colors = {
   ResizeGrip        = 0x323232ff, -- Resize
   ResizeGripHovered = 0x323232ff,
   ResizeGripActive  = 0x05050587,
-  TextSelectedBg    = 0x05050587, -- Search Field Selected Text
+  TextSelectedBg    = 0x404040ff, -- Search Field Selected Text
+  SeparatorHovered  = 0x606060ff,
+  SeparatorActive   = 0x404040ff,
   CheckMark         = 0xffffffff, -- CheckMark
 }
 
@@ -370,6 +375,8 @@ function Init()
 
     ctx = ImGui.CreateContext( input_title, ImGui.ConfigFlags_DockingEnable | ImGui.ConfigFlags_NavEnableKeyboard )
     ImGui.SetConfigVar( ctx, ImGui.ConfigVar_DockingNoSplit, 1 )
+    ImGui.SetConfigVar( ctx, ImGui.ConfigVar_WindowsMoveFromTitleBarOnly, 1 )
+
     font = ImGui.CreateFont('sans-serif', 16)
     ImGui.Attach(ctx, font)
 
