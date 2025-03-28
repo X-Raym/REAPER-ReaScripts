@@ -5,11 +5,15 @@
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Version: 1.0.7
+ * Version: 1.1.0
 --]]
 
 --[[
  * Changelog:
+ * v1.1.0 (2025-03-28)
+ + Copy to clipboard button
+  # Put buttons over every chunks textarea
+  # Change text selected color
  * v1.0.7 (2025-01-28)
   # Window resize border color
   # Moving window with click and drag titlebar only
@@ -64,7 +68,7 @@ local theme_colors = {
   ResizeGrip        = 0x323232ff, -- Resize
   ResizeGripHovered = 0x323232ff,
   ResizeGripActive  = 0x05050587,
-  TextSelectedBg    = 0x404040ff, -- Search Field Selected Text
+  TextSelectedBg    = 0x292929ff, -- Search Field Selected Text
   SeparatorHovered  = 0x606060ff,
   SeparatorActive   = 0x404040ff,
   CheckMark         = 0xffffffff, -- CheckMark
@@ -225,69 +229,78 @@ end
 ----------------------------------------------------------------------
 destination = 1
 txts = { "", "" }
-function Main()
 
-  local chunk = ""
-
-  if ImGui.Button( ctx, "Get Track" ) then
+function ChunkBar( id )
+  destination = id
+  if ImGui.Button( ctx, "Get Track" .. '##gettrack' .. id ) then
     local track = reaper.GetSelectedTrack( 0, 0 )
     if track then
       local retval, track_chunk = reaper.GetTrackStateChunk( track, "", false )
       chunk = FormatChunk( track_chunk )
     end
+    if chunk ~= "" then
+      txts[ destination ] = chunk
+    end
   end
-
+  
   ImGui.SameLine( ctx )
-
-  if ImGui.Button( ctx, "Get Item" ) then
+  
+  if ImGui.Button( ctx, "Get Item" .. '##getitem' .. id ) then
     local item = reaper.GetSelectedMediaItem( 0, 0 )
     if item then
       local retval, item_chunk = reaper.GetItemStateChunk( item, "", false )
       chunk = FormatChunk( item_chunk )
     end
+    if chunk ~= "" then
+      txts[ destination ] = chunk
+    end
   end
-
+  
   ImGui.SameLine( ctx )
-
-  if ImGui.Button( ctx, "Get Envelope" ) then
+  
+  if ImGui.Button( ctx, "Get Envelope" .. '##getenv' .. id ) then
     local env = reaper.GetSelectedEnvelope( 0 )
     if env then
       local retval, env_chunk = reaper.GetEnvelopeStateChunk( env, "", false )
       chunk = FormatChunk( env_chunk )
     end
+    if chunk ~= "" then
+      txts[ destination ] = chunk
+    end
   end
-
-  if chunk ~= "" then
-    txts[ destination ] = chunk
-  end
-
-  if ImGui.Button( ctx, "Set Track" ) then
+  
+  if ImGui.Button( ctx, "Set Track" .. '##settrack' .. id ) then
     local track = reaper.GetSelectedTrack( 0, 0 )
     if track then
       local retval, track_chunk = reaper.SetTrackStateChunk( track, txts[ destination ], true )
       reaper.Undo_OnStateChange( "Set track state" )
     end
   end
-
+  
   ImGui.SameLine( ctx )
-
-  if ImGui.Button( ctx, "Set Item" ) then
+  
+  if ImGui.Button( ctx, "Set Item" .. '##setitem' .. id ) then
     local item = reaper.GetSelectedMediaItem( 0, 0 )
     if item then
       local retval, item_chunk = reaper.SetItemStateChunk( item, txts[ destination ], true )
       reaper.Undo_OnStateChange( "Set item state" )
     end
   end
-
+  
   ImGui.SameLine( ctx )
-
-  if ImGui.Button( ctx, "Set Envelope" ) then
+  
+  if ImGui.Button( ctx, "Set Envelope" .. '##setenv' .. id ) then
     local env = reaper.GetSelectedEnvelope( 0 )
     if env then
       local retval, env_chunk = reaper.SetEnvelopeStateChunk( env, txts[ destination ], true )
       reaper.Undo_OnStateChange( "Set env state" )
     end
   end
+end
+
+function Main()
+
+  local chunk = ""
 
   local w = imgui_width/2 - 10
   local h = math.max( 200, imgui_height-140)
@@ -296,13 +309,20 @@ function Main()
 
     if ImGui.BeginMenuBar(ctx) then
       ImGui.Text(ctx,'Chunk 1')
+      ImGui.SameLine(ctx)
+      if ImGui.Button( ctx, 'Copy to Clipboard##Copy1') then
+        reaper.CF_SetClipboard( txts[1] )
+      end
       ImGui.EndMenuBar(ctx)
+      
+      ChunkBar( 1 )
     end
 
     retval, txts[1] = ImGui.InputTextMultiline( ctx, "##Text1", txts[1], w-10, h,  ImGui.InputTextFlags_AllowTabInput )
     if ImGui.IsItemActive( ctx ) then
-      destination = 1
+      --destination = 1
     end
+    
     ImGui.EndChild( ctx )
   end
   ImGui.SameLine( ctx )
@@ -310,12 +330,18 @@ function Main()
 
     if ImGui.BeginMenuBar(ctx) then
       ImGui.Text(ctx,'Chunk 2')
+      ImGui.SameLine(ctx)
+      if ImGui.Button( ctx, 'Copy to Clipboard##Copy1') then
+        reaper.CF_SetClipboard( txts[1] )
+      end
       ImGui.EndMenuBar(ctx)
+      
+      ChunkBar( 2 )
     end
 
     retval, txts[2] = ImGui.InputTextMultiline( ctx, "##Text2", txts[2], w-10, h,  ImGui.InputTextFlags_AllowTabInput )
     if ImGui.IsItemActive( ctx ) then
-      destination = 2
+      --destination = 2
     end
     ImGui.EndChild( ctx )
   end
