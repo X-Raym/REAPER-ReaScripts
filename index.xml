@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="83b96417369ad7a4838977997ad7761b27e91ebf" name="X-Raym Scripts">
+<index version="1" commit="36dd90cb60c7a887adfc467e7a969b537918388c" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -8684,6 +8684,10 @@
       </version>
       <version name="1.0.4" author="X-Raym" time="2024-01-10T21:12:38Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/abdae2245f4501f8af68684f3cdc56e717c341f0/Various/X-Raym_Open%20render%20folder%20in%20explorer%20or%20finder.lua</source>
+      </version>
+      <version name="1.0.5" author="X-Raym" time="2025-03-28T17:00:34Z">
+        <changelog><![CDATA[+ MacOS fix (thx edkashinsky!)]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/36dd90cb60c7a887adfc467e7a969b537918388c/Various/X-Raym_Open%20render%20folder%20in%20explorer%20or%20finder.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Remove content of time selection preserving time selection and relative play cursor in place.eel" type="script" desc="Remove content of time selection preserving time sleection and relative play cursor in place">
