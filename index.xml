@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="36dd90cb60c7a887adfc467e7a969b537918388c" name="X-Raym Scripts">
+<index version="1" commit="c7a51a9965ccef515361fced84fcf7c9da18084a" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -6618,9 +6618,37 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Text%20Items%20and%20Item%20Notes/Creation/X-Raym_Merge%20selected%20text%20items%20notes%20adding%20dialog%20dash.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Merge selected text items notes adding new line.lua" type="script" desc="Merge selected text items notes adding new line">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Edit the User Config Areas to make it work. Name above could typicallly be Original Script Name - Preset Name or Num, but it can be whatever you want.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2025-05-22T11:34:55Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c7a51a9965ccef515361fced84fcf7c9da18084a/Text%20Items%20and%20Item%20Notes/Creation/X-Raym_Merge%20selected%20text%20items%20notes%20adding%20new%20line.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Merge selected text items notes adding space.lua" type="script" desc="Merge selected text items notes adding space">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Edit the User Config Areas to make it work. Name above could typicallly be Original Script Name - Preset Name or Num, but it can be whatever you want.\par}
+}
+]]></description>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2025-05-22T11:34:55Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c7a51a9965ccef515361fced84fcf7c9da18084a/Text%20Items%20and%20Item%20Notes/Creation/X-Raym_Merge%20selected%20text%20items%20notes%20adding%20space.lua</source>
+      </version>
+    </reapack>
     <reapack name="X-Raym_Merge selected text items notes.lua" type="script" desc="Merge selected text items notes">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -6631,6 +6659,11 @@
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[# Better Set Notes]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Text%20Items%20and%20Item%20Notes/Creation/X-Raym_Merge%20selected%20text%20items%20notes.lua</source>
+      </version>
+      <version name="1.2" author="X-Raym" time="2025-05-22T11:34:55Z">
+        <changelog><![CDATA[# Presets script support for inbetween character
+# Remove newline character (this will be added in a preset script)]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c7a51a9965ccef515361fced84fcf7c9da18084a/Text%20Items%20and%20Item%20Notes/Creation/X-Raym_Merge%20selected%20text%20items%20notes.lua</source>
       </version>
     </reapack>
   </category>
