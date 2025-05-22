@@ -1,7 +1,6 @@
 --[[
  * ReaScript Name: Merge selected text items notes
  * About: Use this action on text items. It will merge them in one item only, from first item position to last one end, preserving all notes one under the other. This works for each tracks.
- * Instructions: Select items. Execute.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -11,17 +10,57 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.7.3 #0
- * Version: 1.1
+ * Version: 1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.2 (2015-07-29)
+  # Presets script support for inbetween character
+  # Remove newline character (this will be added in a preset script)
  * v1.1 (2015-07-29)
   # Better Set Notes
  * v1.0 (2015-07-08)
   + Initial Release
 --]]
 
+-- USER CONFIG AREA ------------------------------------------------------
+
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
+
+-- Typical global variables names. This will be out global variables which could be altered in the preset file.
+popup = false
+console = false
+
+inbetween_character = ""
+
+-------------------------------------------------- END OF USER CONFIG AREA
+
+undo_text = "Merge selected text items notes"
+
+-- UNSELECT ALL TRACKS
+function UnselectAllTracks()
+  first_track = reaper.GetTrack(0, 0)
+  reaper.SetOnlyTrackSelected(first_track)
+  reaper.SetTrackSelected(first_track, false)
+end
+
+-- SAVE INITIAL TRACKS SELECTION
+init_sel_tracks = {}
+local function SaveSelectedTracks (table)
+  for i = 0, reaper.CountSelectedTracks(0)-1 do
+    table[i+1] = reaper.GetSelectedTrack(0, i)
+  end
+end
+
+-- RESTORE INITIAL TRACKS SELECTION
+local function RestoreSelectedTracks (table)
+  UnselectAllTracks()
+  for _, track in ipairs(table) do
+    reaper.SetTrackSelected(track, true)
+  end
+end
 
 function SelectTracksOfSelectedItems()
   UnselectAllTracks()
@@ -44,9 +83,7 @@ function SelectTracksOfSelectedItems()
 end
 
 
-function main()
-
-  reaper.Undo_BeginBlock()
+function Main()
 
   SelectTracksOfSelectedItems()
 
@@ -80,7 +117,7 @@ function main()
           text_item_new = text_item
 
         else
-          text_item_new = text_item_new .. "\n".. text_item
+          text_item_new = text_item_new .. inbetween_character .. text_item
         end
 
         -- CHECK IF IT ITEM END IS AFTER PREVIOUS ITEM ENDS
@@ -111,51 +148,27 @@ function main()
 
   end -- ENDLOOP through selected tracks
 
-  reaper.Undo_EndBlock("Merge selected text items notes", -1) -- End of the undo block. Leave it at the bottom of your main function.
-
 end
-
---[[ ----- INITIAL SAVE AND RESTORE ====> ]]
-
--- TRACKS
--- UNSELECT ALL TRACKS
-function UnselectAllTracks()
-  first_track = reaper.GetTrack(0, 0)
-  reaper.SetOnlyTrackSelected(first_track)
-  reaper.SetTrackSelected(first_track, false)
-end
-
--- SAVE INITIAL TRACKS SELECTION
-init_sel_tracks = {}
-local function SaveSelectedTracks (table)
-  for i = 0, reaper.CountSelectedTracks(0)-1 do
-    table[i+1] = reaper.GetSelectedTrack(0, i)
-  end
-end
-
--- RESTORE INITIAL TRACKS SELECTION
-local function RestoreSelectedTracks (table)
-  UnselectAllTracks()
-  for _, track in ipairs(table) do
-    reaper.SetTrackSelected(track, true)
-  end
-end
-
---[[ <==== INITIAL SAVE AND RESTORE ----- ]]
-
 
 -- ---------- INIT ==============>
 selected_items_count = reaper.CountSelectedMediaItems(0)
+if selected_items_count < 2 then return end
 
-if selected_items_count > 0 then
-
+function Init()
+  reaper.Undo_BeginBlock()
+  
   reaper.PreventUIRefresh(1)
   SaveSelectedTracks(init_sel_tracks)
 
-  main() -- Execute your main function
+  Main() -- Execute your main function
 
   RestoreSelectedTracks(init_sel_tracks)
   reaper.PreventUIRefresh(-1)
   reaper.UpdateArrange() -- Update the arrangement (often needed)
+  
+  reaper.Undo_EndBlock(undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.
+end
 
+if not preset_file_init then
+  Init()
 end
