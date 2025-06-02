@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 7.0
- * Version: 1.0.0
+ * Version: 1.0.1
 --]]
 
 --[[
@@ -30,4 +30,4 @@ if not retval or not tonumber(retval_csv) or tonumber(retval_csv) <= 0 then retu
 
 reaper.BR_Win32_WritePrivateProfileString( "Notes", "Fontsize", math.ceil(tonumber(retval_csv)),  sm_ini  )
 
-reaper.MB( "Please restart REAPER to apply changes", "Success", 0 )
+reaper.MB( "Toggle Wrap Text via right click on S&M Notes window twice to refresh font size.", "Success", 0 )
