@@ -19,37 +19,37 @@
   + Initial Release
 --]]
 
--- USER CONFIG AREA ------------
+-- USER CONFIG AREA ------------------------------------------------------
+
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
+
 do_tracks = "y" -- (y/n)
 do_master = "y" -- (y/n)
 delete_markers = "y" -- (y/n)
 create_markers = "y" -- (y/n)
 target_dB = "0" -- (y/n)
+console = "y"
 
 popup = true --(true/false)
---------------------------------
+
+------------------------------------------------ END OF USER CONFIG AREA --
 
 function Msg(value)
-  reaper.ShowConsoleMsg(tostring(value).."\n")
+  if console then
+    reaper.ShowConsoleMsg(tostring(value).."\n")
+  end
 end
 
- -- Set ToolBar Button ON
-function SetButtonON()
-  is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
-  state = reaper.GetToggleCommandStateEx( sec, cmd )
-  reaper.SetToggleCommandState( sec, cmd, 1 ) -- Set ON
+function SetButtonState( set )
+  if not set then set = 0 end
+  local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
+  local state = reaper.GetToggleCommandStateEx( sec, cmd )
+  reaper.SetToggleCommandState( sec, cmd, set ) -- Set ON
   reaper.RefreshToolbar2( sec, cmd )
 end
 
--- Set ToolBar Button OFF
-function SetButtonOFF()
-  is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()
-  state = reaper.GetToggleCommandStateEx( sec, cmd )
-  reaper.SetToggleCommandState( sec, cmd, 0 ) -- Set OFF
-  reaper.RefreshToolbar2( sec, cmd )
-end
-
-function main()
+function Run()
 
   if do_tracks == "y" then
 
@@ -128,7 +128,7 @@ function main()
 
   end
 
-  reaper.defer(main)
+  reaper.defer(Run)
 
 end
 
@@ -154,7 +154,7 @@ function Exit()
   Msg("Overs Count = " .. overs_count)
   Msg("----------------")
 
-  SetButtonOFF()
+  SetButtonState( 0 )
 
   --if overs_count > 0 and create_markers == "y" then
 
@@ -213,7 +213,9 @@ function DeleteMarkers()
 
 end
 
-function init()
+function Main()
+
+  console = console == "y"
 
   overs= {}
   overs_count = 0
@@ -262,7 +264,7 @@ function init()
     DeleteMarkers()
   end
 
-  SetButtonON()
+  SetButtonState( 1 )
 
   -- MESSAGES
   Msg("\n===============================>")
@@ -280,7 +282,7 @@ function init()
   Msg("↴")
 
   -- DEFER
-  main()
+  Run()
 
   -- EXIT
   reaper.atexit( Exit )
@@ -288,12 +290,13 @@ function init()
 end
 
 -- INIT
-count_sel_tracks = reaper.CountSelectedTracks(0)
+function Init()
+  count_sel_tracks = reaper.CountSelectedTracks(0)
 
--- IF track selection
-if count_sel_tracks > 0 then
+  -- IF track selection
+  if count_sel_tracks == 0 then return end
 
-  if popup == true then
+  if popup then
 
     retval, retval_csv = reaper.GetUserInputs("Detect tracks clips position", 4, "Do Selected Tracks? (y/n),Do Master Tracks? (y/n),Delete Previous Markers? (y/n),Create Markers at Overs (y/n)", do_tracks .. "," .. do_master .. "," .. delete_markers .. "," .. create_markers)
 
@@ -303,7 +306,7 @@ if count_sel_tracks > 0 then
 
         if do_tracks ~= nil then
 
-        init()
+          Main()
 
         end
 
@@ -311,8 +314,12 @@ if count_sel_tracks > 0 then
 
   else
 
-    init()
+    Main()
 
   end
 
+end
+
+if not preset_file_init then
+  Init()
 end
