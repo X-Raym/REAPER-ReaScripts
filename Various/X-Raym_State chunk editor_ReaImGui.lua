@@ -5,7 +5,7 @@
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
  * Licence: GPL v3
- * Version: 1.1.0
+ * Version: 1.1.1
 --]]
 
 --[[
@@ -332,7 +332,7 @@ function Main()
       ImGui.Text(ctx,'Chunk 2')
       ImGui.SameLine(ctx)
       if ImGui.Button( ctx, 'Copy to Clipboard##Copy1') then
-        reaper.CF_SetClipboard( txts[1] )
+        reaper.CF_SetClipboard( txts[2] )
       end
       ImGui.EndMenuBar(ctx)
       
