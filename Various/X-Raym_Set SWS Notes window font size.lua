@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 7.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2025-07-22)
+  # Works even if not already set once
  * v1.0.0 (2025-05-28)
   + Initial Release
 --]]
@@ -23,7 +25,7 @@ local os_sep = package.config:sub(1,1)
 sm_ini = reaper.GetResourcePath() .. os_sep .. "S&M.ini"
 --
 retval, value = reaper.BR_Win32_GetPrivateProfileString( "Notes", "Fontsize", "",  sm_ini  )
-if not retval or value == "" then return end
+--if not retval or value == "" then return end
 
 retval, retval_csv = reaper.GetUserInputs( "SWS Notes Window Font Size", 1, "Font size? (default=14)", value)
 if not retval or not tonumber(retval_csv) or tonumber(retval_csv) <= 0 then return end
