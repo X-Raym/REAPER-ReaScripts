@@ -1,8 +1,7 @@
 @description Lyrics Web Interface
 @author X-Raym
-@version 1.4.1
+@version 1.4.2
 @screenshot https://i.imgur.com/o6DcxsG.gif
 @provides X-Raym_Lyrics.html
 @changelog
-  Black background
-  List display improvements
+  Clickable action names

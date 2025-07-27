@@ -52,6 +52,21 @@ a {
 	line-height: 100%;
 }
 
+strong {
+	color: red;
+	font-size: 2em;
+}
+
+ul li span {
+	color: #ea8400;
+}
+
+ul li:hover {
+	cursor:pointer;
+	text-decoration: underline;
+	text-decoration-color: #ea8400;
+}
+
 	</style>
 </head>
 <body>
@@ -72,9 +87,9 @@ a {
 	<h2>Companion Scripts</h2>
 	<div class="container">
 		<dl>
-		<li><strong>Item Notes</strong>: X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua</li>
-		<li><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>
-		<li><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>
+			<li onclick="wwr_req('_RS1638aa6e03b091c84f02171baab10fea1e59cfdf')"><strong>Item Notes</strong>: X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua</li>
+			<li onclick="wwr_req('_RS32661366f23d2f86ee72109937bdfcb664c8b5df')"><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>
+			<li onclick="wwr_req('_RS303c6fee7fd37ba01015295184f88d5b56cddefe')"><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>
 		</dl>
 	</div>
 </div>
@@ -114,7 +129,7 @@ function wwr_onreply(results) {
 		if (tok.length > 1 && tok[1] === "XR_Lyrics" && tok[2] === "text" && (text !== tok[3] || lastDetectMultine !== detectMultiLine) ) {
 			text = tok[3];
 		}
-		
+
 		if (tok.length > 1 && tok[1] === "XR_Lyrics" && tok[2] === "next" && (next !== tok[3] || lastDetectMultine !== detectMultiLine) ) {
 			next = tok[3];
 		}
@@ -122,7 +137,7 @@ function wwr_onreply(results) {
 		if (tok.length > 1 && tok[0] === "TRANSPORT" ){ // TRANSPORT \t playstate \t position_seconds \t isRepeatOn \t position_string \t position_string_beats
 			playstate_elm.style.background= colors[tok[1]];
 		}
-	
+
 	}
 
 	/* if( lastDetectMultine !== detectMultiLine ) {
