@@ -83,7 +83,7 @@ strong {
 	font-size: 2em;
 }
 
-ul li span {
+ul li {
 	color: #ea8400;
 }
 
@@ -91,6 +91,11 @@ ul li:hover {
 	cursor:pointer;
 	text-decoration: underline;
 	text-decoration-color: #ea8400;
+}
+
+ul li:active {
+	text-decoration-color: white;
+	color: white;
 }
 
 	</style>
@@ -113,9 +118,9 @@ ul li:hover {
 	</div>
 	<h2>Companion Scripts</h2>
 	<div class="container">
-		<dl>
-			<li onclick="wwr_req('_RS1638aa6e03b091c84f02171baab10fea1e59cfdf')"><strong>Item Notes</strong>: X-Raym_Convert first selected track items notes for scrolling web browser interface.lua</li>
-		</dl>
+		<ul>
+			<li onclick="wwr_req('_RS1638aa6e03b091c84f02171baab10fea1e59cfdf')"><span>Item Notes</span>: X-Raym_Convert first selected track items notes for scrolling web browser interface.lua</li>
+		</ul>
 	</div>
 </div>
 <div id="playstate"></div>

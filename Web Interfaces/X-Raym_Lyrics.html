@@ -57,7 +57,7 @@ strong {
 	font-size: 2em;
 }
 
-ul li span {
+ul li {
 	color: #ea8400;
 }
 
@@ -65,6 +65,11 @@ ul li:hover {
 	cursor:pointer;
 	text-decoration: underline;
 	text-decoration-color: #ea8400;
+}
+
+ul li:active {
+	text-decoration-color: white;
+	color: white;
 }
 
 	</style>
@@ -86,11 +91,11 @@ ul li:hover {
 	</div>
 	<h2>Companion Scripts</h2>
 	<div class="container">
-		<dl>
-			<li onclick="wwr_req('_RS1638aa6e03b091c84f02171baab10fea1e59cfdf')"><strong>Item Notes</strong>: X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua</li>
-			<li onclick="wwr_req('_RS32661366f23d2f86ee72109937bdfcb664c8b5df')"><strong>Region Names</strong>: X-Raym_Convert region names for dedicated web browser interface.lua</li>
-			<li onclick="wwr_req('_RS303c6fee7fd37ba01015295184f88d5b56cddefe')"><strong>Region Subtitles</strong>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>
-		</dl>
+		<ul>
+			<li onclick="wwr_req('_RS1638aa6e03b091c84f02171baab10fea1e59cfdf')"><span>Item Notes</span>: X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua</li>
+			<li onclick="wwr_req('_RS32661366f23d2f86ee72109937bdfcb664c8b5df')"><span>Region Names</span>: X-Raym_Convert region names for dedicated web browser interface.lua</li>
+			<li onclick="wwr_req('_RS303c6fee7fd37ba01015295184f88d5b56cddefe')"><span>Region Subtitles</span>: X-Raym_Convert region subtitles for dedicated web browser interface.lua</li>
+		</ul>
 	</div>
 </div>
 <div id="playstate"></div>
@@ -144,7 +149,7 @@ function wwr_onreply(results) {
 		lastDetectMultine = detectMultiLine;
 	} */
 
-	if( text === '' ) { // If no script run on use side
+	if( text === '' && div.innerHTML !== initial_text ) { // If no script run on use side
 		div.innerHTML = initial_text;
 	} else {
 		if( text === "--XR-NO-TEXT--") text = "";
