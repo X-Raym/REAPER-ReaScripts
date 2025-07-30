@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Split first selected item at edit carret position in SWS notes window
+ * ReaScript Name: Split first selected item at edit caret position in SWS notes window
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -8,11 +8,13 @@
  * Forum Thread: Scripts: Items selection (Various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=163321
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2025-07-30)
+  # Renamed: typo in script name fix
  * v1.0.1 (2024-07-18)
   + SWS HWND 2.4.0 fix
  * v1.0 (2019-12-12)
@@ -75,7 +77,7 @@ if new_item and caret_pos > 0 then
   reaper.Main_OnCommand(reaper.NamedCommandLookup("_S&M_ITEMNOTES"),0)
 end
 
-reaper.Undo_EndBlock("Split first selected item at edit carret position in SWS notes window", 0)
+reaper.Undo_EndBlock("Split first selected item at edit caret position in SWS notes window", 0)
 
 reaper.UpdateArrange()
 
