@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.1
 --]]
 
 --[[
  * Changelog:
+ * v2.1 (2025-08-03)
+  # One split per overlapping set
  * v2.0 (2023-11-10)
   # Renamed
   # Refactor
@@ -107,17 +109,10 @@ function GetTrackOverlappingAndAdjacentItemsAndSplits() -- Exclude select items 
       --if not reaper.IsMediaItemSelected( item ) then -- Ignore Selected Items
         local pos_start = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
         local pos_end = pos_start + reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
-        split_pos_unique[pos_start] = true
-        split_pos_unique[pos_end] = true
         table.insert(all_track_items, {item = item, pos_start = pos_start, pos_end = pos_end})
       --end
     end
   end
-  
-  for k, v in pairs( split_pos_unique ) do
-    table.insert( split_pos, k )
-  end
-  table.sort( split_pos )
 
   table.sort(all_track_items, function( a,b )
     if (a.pos_start < b.pos_start) then
@@ -160,6 +155,16 @@ function GetTrackOverlappingAndAdjacentItemsAndSplits() -- Exclude select items 
   end
 
   table.insert( regions, entry ) -- Insert the last entry
+  
+  for i, region in ipairs( regions ) do
+    split_pos_unique[region.pos_start] = true
+    split_pos_unique[region.pos_end] = true
+  end
+  
+  for k, v in pairs( split_pos_unique ) do
+    table.insert( split_pos, k )
+  end
+  table.sort( split_pos )
 
 end
 
