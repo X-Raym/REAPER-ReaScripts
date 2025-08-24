@@ -6,12 +6,14 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
  * Provides: [main=main,midi_editor] .
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2025-08-24)
+  + Toggle mute script support
  * v1.0 (2024-03-13)
   + Initial release
 --]]
@@ -93,6 +95,7 @@ end
 
 function Main()
   all_ref_solo = true
+  all_ref_mute = true
   ref_tracks = {}
   other_tracks = {}
   other_tracks_selected = {}
@@ -104,6 +107,9 @@ function Main()
       if reaper.GetMediaTrackInfo_Value(track, "I_SOLO") == 0
       or reaper.GetMediaTrackInfo_Value(track, "B_MUTE") == 1 then
         all_ref_solo = false
+      end
+      if reaper.GetMediaTrackInfo_Value(track, "B_MUTE") == 0 then
+        all_ref_mute = false
       end
     else
       table.insert( other_tracks, track )
@@ -124,14 +130,23 @@ function Main()
     Tooltip("Reference tracks selected")
   end
 
-  solo = all_ref_solo and 0 or 1
-  mute = all_ref_solo and 1 or 0
-  sel = all_ref_solo and 0 or 1
-  lock = all_ref_solo and 1 or 0
+  if mute then
+    solo = all_ref_mute and 0 or 1
+    mute = all_ref_mute and 0 or 1
+    sel = all_ref_mute and 0 or 1
+    lock = all_ref_mute and 1 or 0
+  else
+    solo = all_ref_solo and 0 or 1
+    mute = all_ref_solo and 1 or 0
+    sel = all_ref_solo and 0 or 1
+    lock = all_ref_solo and 1 or 0
+  end
   
   for i, track in ipairs( ref_tracks ) do
     local track_lock_a, track_lock_b = ToggleTrackLock( track, 0 ) -- Track needs to be unlock so API can pass
-    reaper.SetMediaTrackInfo_Value(track, "I_SOLO", solo)
+    if not mute then
+      reaper.SetMediaTrackInfo_Value(track, "I_SOLO", solo)
+    end
     reaper.SetMediaTrackInfo_Value(track, "B_MUTE", mute)
     if also_select then
       reaper.SetMediaTrackInfo_Value(track, "I_SELECTED", sel)

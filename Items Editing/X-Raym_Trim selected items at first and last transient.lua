@@ -9,11 +9,14 @@
  * Forum Thread: Scripts: Items Editing (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=163363
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2025-08-23)
+  + Preset scripts support
+  # Remove default pre-fade
  * v1.0 (2019-01-26)
   + Initial Release
 --]]
@@ -21,8 +24,12 @@
 
 -- USER CONFIG AREA -----------------------------------------------------------
 
+-- Use Preset Script for safe moding or to create a new action with your own values
+-- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
+
 console = true -- true/false: display debug messages in the console
-fade = 0.1
+fade = 0 -- pre-fade duration in seconds
+
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 
@@ -79,9 +86,9 @@ end
 -- INIT
 
 -- See if there is items selected
-count_sel_items = reaper.CountSelectedMediaItems(0)
-
-if count_sel_items > 0 then
+function Init()
+  count_sel_items = reaper.CountSelectedMediaItems(0)
+  if count_sel_items == 0 then return end
 
   reaper.PreventUIRefresh(1)
 
@@ -111,4 +118,9 @@ if count_sel_items > 0 then
 
   reaper.PreventUIRefresh(-1)
 
+end
+
+
+if not preset_file_init then
+  Init()
 end
