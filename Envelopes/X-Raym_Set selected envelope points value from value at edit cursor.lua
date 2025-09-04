@@ -7,11 +7,12 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
- * Version: 1.0
+ * Version: 1.0.1
 ]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2025-09-04)
  * v1.0 (2021-05-30)
   + Initial Release
 ]]
@@ -51,7 +52,6 @@ function Main()
     for j = 0, count_ai_points - 1 do
       local retval, time, val, shape, tension, selected = reaper.GetEnvelopePointEx( env, i, j )
       if selected then
-        val = ProcessPoint( env, env_name, val, user_input_num, set, min, max )
         reaper.SetEnvelopePointEx( env, i, j, time, val, shape, tension, true, false )
       end
     end
