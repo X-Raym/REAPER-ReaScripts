@@ -68,6 +68,9 @@ a {
 	font-size: 3em;
 }
 
+.fullheight .lyrics {
+	margin-bottom: 50vh;
+}
 
 .lyrics:hover {
 	cursor: pointer;
@@ -139,10 +142,14 @@ var json = [];
 var paragraphs = [];
 
 var vignette_elm = document.getElementById('vignette')
+
 var searchParams = new URLSearchParams(window.location.search)
 if ( searchParams.has('vignette') ) {
 	vignette_elm.style.opacity = "1"
 	div.classList.add("vignette")
+}
+if ( searchParams.has('fullheight') ) {
+	div.classList.add("fullheight")
 }
 
 document.addEventListener('click', function(e){
