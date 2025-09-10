@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="dae43f313fef5da23dc6c8f5d24436cad8902a11" name="X-Raym Scripts">
+<index version="1" commit="7f7447cbc8acba45bdb37c1bb9a35dd64c531a43" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -9373,6 +9373,10 @@ List display improvements]]></changelog>
         <changelog><![CDATA[Clickable action names
 Do not redraw UI when not needed]]></changelog>
         <source file="X-Raym_Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/42d11da86d9bebb0f6b1d9876f13a8e5a63fc5da/Web%20Interfaces/X-Raym_Lyrics.html</source>
+      </version>
+      <version name="1.4.4" author="X-Raym" time="2025-09-10T18:01:36Z">
+        <changelog><![CDATA[fullheight URL query to have only one lyrics line per screen view]]></changelog>
+        <source file="X-Raym_Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/7f7447cbc8acba45bdb37c1bb9a35dd64c531a43/Web%20Interfaces/X-Raym_Lyrics.html</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Scrolling Lyrics.www" type="webinterface" desc="Scrolling Lyrics Web Interface">
