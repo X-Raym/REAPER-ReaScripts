@@ -58,6 +58,10 @@ ol, ul, dl {
 	z-index: 200;
 }
 
+body:has(.fullheight) #playstate {
+	display: none;
+}
+
 body:has(.vignette) #playstate {
 	display:none;
 }
@@ -153,8 +157,14 @@ if ( searchParams.has('vignette') ) {
 	div.classList.add("vignette")
 }
 if ( searchParams.has('fullheight') ) {
+	var fullheight = true
 	div.classList.add("fullheight")
 }
+
+if ( searchParams.has('font') && searchParams.get('font') !== "" ) {
+	div.style.fontFamily = searchParams.get('font')
+}
+
 
 document.addEventListener('click', function(e){
   if(e.target.tagName=="P" && e.target.classList.contains('lyrics') ) {
@@ -189,11 +199,18 @@ function wwr_onreply(results) {
 			var text = tok[3].replaceAll(/\\n/gmi, "\n").replaceAll(/\\\\/gmi, "\\");
 			json = JSON.parse( text );
 			var t = [];
+			var last_end = 0
 			for( let line of json.entry ) {
 				line.pos_start = parseFloat(line.pos_start);
 				line.pos_end = parseFloat(line.pos_end);
-				t.push( '<p class="lyrics" data-pos-start="' + line.pos_start + '" data-pos_end="' + line.pos_end + '">' + line.text + '</p>' );
+				if( fullheight && last_end < line.pos_start ) {
+					t.push( '<p class="lyrics" data-pos-start="' + last_end + '" data-pos-end="' + line.pos_start + '">' + "<br>" + '</p>' );
+				}
+				t.push( '<p class="lyrics" data-pos-start="' + line.pos_start + '" data-pos-end="' + line.pos_end + '">' + line.text + '</p>' );
+				last_end = line.pos_end
 			}
+			t.push( '<p class="lyrics" data-pos-start="' + last_end + '" data-pos-end="' + (last_end+1000) + '">' + "<br>" + '</p>' );
+
 			div.innerHTML = t.join("\n");
 			paragraphs = document.getElementsByTagName("p");
 		}
@@ -204,18 +221,18 @@ function wwr_onreply(results) {
 			var time = parseFloat( tok[2] );
 			var i = 0;
 			if( json.entry !== undefined ) {
-				for( let line of json.entry ) {
-					if (time >= line.pos_start -0.000001 && time <= line.pos_end) {
-						paragraphs[i].classList.add("current");
+				for( let p of paragraphs ) {
+					if (time >= parseFloat( p.getAttribute("data-pos-start") ) -0.000001 && time <= parseFloat( p.getAttribute("data-pos-end")) ) {
+						p.classList.add("current");
 						if( parseInt( tok[1] ) > 0 ) {
-							paragraphs[i].scrollIntoView({
+							p.scrollIntoView({
 								behavior: 'smooth',
 								block: 'center',
 								inline: 'center'
 							})
 						}
 					} else {
-						paragraphs[i].classList.remove("current");
+						p.classList.remove("current");
 					}
 					i++;
 				}
