@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="9a06b279bcbfe9afbefd12597c4b75482401ea37" name="X-Raym Scripts">
+<index version="1" commit="94a22f1ca5531ae3dd35a2dfe6b9069de1e3c89e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -6172,6 +6172,10 @@
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/66212d7b5eeb1c11e49ea2933a3bb66c50830e44/Templates/Script%20Preset/X-Raym_Parent%20script%20of%20preset%20script_template.lua</source>
         <source file="README.md">https://github.com/X-Raym/REAPER-ReaScripts/raw/66212d7b5eeb1c11e49ea2933a3bb66c50830e44/Templates/Script%20Preset/README.md</source>
       </version>
+      <version name="1.0.4" author="X-Raym" time="2025-09-17T18:24:04Z">
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/18e73ae3da1cef940cbf5b2f4c164025b3cebc0e/Templates/Script%20Preset/X-Raym_Parent%20script%20of%20preset%20script_template.lua</source>
+        <source file="README.md">https://github.com/X-Raym/REAPER-ReaScripts/raw/18e73ae3da1cef940cbf5b2f4c164025b3cebc0e/Templates/Script%20Preset/README.md</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Preset script_template.lua" type="script" desc="Preset Script">
       <metadata>
@@ -6179,12 +6183,15 @@
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
-{\pard \ql \f0 \sa180 \li0 \fi0 Edit the User Config Areas to make it work. Name above could typicallly be Original Script Name - Preset Name or Num, but it can be whatever you want.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Duplicate and Edit the User Config Areas of the duplicated file. Put it anywhere and rename it with the name of your choice. Then import it into action list.\par}
 }
 ]]></description>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-12-14T16:45:34Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/eef3980d2eaa2edca044f6d00a57784ea6cd4863/Templates/Script%20Preset/X-Raym_Preset%20script_template.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2025-09-17T18:30:35Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/94a22f1ca5531ae3dd35a2dfe6b9069de1e3c89e/Templates/Script%20Preset/X-Raym_Preset%20script_template.lua</source>
       </version>
     </reapack>
   </category>
