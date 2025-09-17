@@ -6,7 +6,7 @@
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.3
+ * Version: 1.0.4
  * Provides:
  *   [nomain] .
  *   [nomain] README.md
@@ -21,7 +21,7 @@
 popup = false
 console = false
 
-link = "https://github.com/X-Raym/REAPER-ReaScripts/Templates/Script%20Preset/README.md"
+link = "https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset"
 
 -------------------------------------------------- END OF USER CONFIG AREA
 function Open_URL(url)
