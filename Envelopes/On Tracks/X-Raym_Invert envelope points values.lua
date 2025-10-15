@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1497832#post1497832
  * REAPER: 5.0 pre 18b
  * Extensions: SWS 2.6.3 #0
- * Version: 1.4
+ * Version: 1.4.1
 --]]
 
 --[[
  * Changelog:
+ * v1.4.1 (2025-10-15)
+  # Better dB calculation
  * v1.4 (2015-09-09)
   + Fader scaling support
  * v1.3 (2015-07-11)
@@ -37,6 +39,9 @@
 preserve_edges = false -- True will insert points à time selection edges before the action.
 
 -- <==== CONFIG -----
+
+function dBFromVal(val) return 20*math.log(val, 10) end
+function ValFromdB(dB_val) return 10^(dB_val/20) end
 
 function SetAtTimeSelection(env, k, point_time, value, shape, tension)
 
@@ -90,7 +95,7 @@ function Action(env)
 
           calc = -OldVolDB -- it invert volume based on 0db
 
-          valueIn = math.exp(calc*0.115129254)
+          valueIn = ValFromdB(calc)
 
           if valueIn >= 2 then
             valueIn = 2

@@ -5,8 +5,8 @@
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
 // Release Date : 2014-12-17
-// Version : 1.0.3
-// Version Date : 2018-04-19
+// Version : 1.0.4
+// Version Date : 2025-10-15
 
 // Based on : Create take pitch envelope (random points - with GUI) by spk77
 
@@ -100,7 +100,7 @@ function set_vol() local (i)
           NewVol = NewVol;
         );
 
-        NewVolGain=exp(NewVol*0.115129254);
+        NewVolGain=pow(10, NewVol / 20);
 
         SetMediaItemTakeInfo_Value(take, "D_VOL", NewVolGain);
       );

@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
  * REAPER: 5.0 pre 9
  * Extensions: SWS 2.6.3 #0
- * Version: 1.6
+ * Version: 1.6.1
 ]]
 
 --[[
  * Changelog:
+ * v1.6.1 (2025-10-15)
+  # Better dB calculation
  * v1.6 (2015-09-09)
   + Fader scaling support
  * v1.5.1 (2015-08-22)
@@ -47,6 +49,9 @@ valueSource = {}
 shape = {}
 tension = {}
 selectedOut = {}
+
+function dBFromVal(val) return 20*math.log(val, 10) end
+function ValFromdB(dB_val) return 10^(dB_val/20) end
 
 function GetDeleteTimeLoopPoints(envelope, env_point_count, start_time, end_time)
   local set_first_start = 0
@@ -214,7 +219,7 @@ function SetValue(envelope)
     if faderScaling == true then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
 
     -- CALC
-    valueOut = math.exp(0*0.115129254)
+    valueOut = ValFromdB(0)
     OldVol = valueOut
     OldVolDB = 20*(math.log(OldVol, 10)) -- thanks to spk77!
 
@@ -233,7 +238,7 @@ function SetValue(envelope)
       --msg_s("+12 <= Volume")
     end
     if calc < 6 and calc > -146 then
-      valueIn = math.exp(calc*0.115129254)
+      valueIn = ValFromdB(calc)
       --msg_s("-146 < Volume < +12")
     end
 

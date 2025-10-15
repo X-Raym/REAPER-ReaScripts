@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2025-10-15)
+  # Better dB calculation
  * v1.0.1 (2018-04-10)
    # FaderScaling support
  * v1.0 (2016-01-17)
@@ -36,6 +38,8 @@ prompt = true -- true/false : display a prompt window at script run
 
 ------------------- END OF USER CONFIF AREA
 
+function dBFromVal(val) return 20*math.log(val, 10) end
+function ValFromdB(dB_val) return 10^(dB_val/20) end
 
 function GetDeleteTimeLoopPoints(envelope, env_point_count, start_time, end_time)
   local set_first_start = 0
@@ -213,18 +217,18 @@ if retval or prompt == false then -- if user complete the fields
   if valueIn ~= nil then
 
   if valueIn > 12 then valueIn = 12 end
-  valueIn = math.exp(valueIn*0.115129254)
+    valueIn = ValFromdB(valueIn)
   if valueIn < 0 then valueIn = 0 end
 
     reaper.PreventUIRefresh(1) -- Prevent UI refreshing. Uncomment it only if the script works.
 
-  main() -- Execute your main function
+    main() -- Execute your main function
 
-  reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
+    reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
 
-  reaper.UpdateArrange() -- Update the arrangement (often needed)
+    reaper.UpdateArrange() -- Update the arrangement (often needed)
 
-  reaper.TrackList_AdjustWindows( false )
+    reaper.TrackList_AdjustWindows( false )
 
   end
 

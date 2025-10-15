@@ -10,11 +10,13 @@
  * Forum Thread: REQ: Copy & Paste Peak/RMS values of items to different items
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=169527
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.0.1
 --]]
 
 --[[
  * Changelog:
+ * v2.0.1 (2025-10-15)
+  # Better dB calculation
  * v2.0 (2024-11-12)
   # Remove spk77_Get max peak val and pos from take.lua dependency. Replace by SWS NF API.
  * v1.0 (2015-12-30)
@@ -147,6 +149,9 @@ function Msg(variable)
   end
 end
 
+function dBFromVal(val) return 20*math.log(val, 10) end
+function ValFromdB(dB_val) return 10^(dB_val/20) end
+
 -------------------------------------------------------------
 function main()
 
@@ -218,7 +223,7 @@ function main()
             item_vol = reaper.GetMediaItemInfo_Value(item, "D_VOL")
             OldVolDB = 20*(math.log(item_vol, 10))
             calc = OldVolDB + db_diff
-            valueIn = math.exp(calc*0.115129254)
+            valueIn = ValFromdB( calc )
             reaper.SetMediaItemInfo_Value(item, "D_VOL", valueIn)
 
           end

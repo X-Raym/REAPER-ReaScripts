@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0
  * Extensions: SWS 2.8.0 #0
- * Version: 1.2
---]]
+ * Version: 1.2.1
+]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2025-10-15)
+  # Better dB calculation
  * v1.2 (2015-09-09)
   + Fader scaling support
  * v1.1.1 (2015-09-07)
@@ -37,6 +39,9 @@ function UserInput()
 end
 ]]
 
+function dBFromVal(val) return 20*math.log(val, 10) end
+function ValFromdB(dB_val) return 10^(dB_val/20) end
+
 function ConstrainInMinMax(val, minimum, maximum)
   if val < minimum then val = minimum end
   if val > maximum then val = maximum end
@@ -55,10 +60,10 @@ function AddDB(value_eval, init_value, max_value)
     calc = 0
   end
   if calc_db > maxValue_db then
-    calc = math.exp(maxValue_db*0.115129254)
+    calc = ValFromdB(maxValue_db)
   end
   if calc_db < maxValue_db and calc_db > -146 then
-    calc = math.exp(calc_db*0.115129254)
+    calc = ValFromdB(calc_db)
   end
   return calc
 

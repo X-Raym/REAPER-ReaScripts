@@ -6,8 +6,8 @@
 // Source URI : https://github.com/X-Raym/REAPER-EEL-Scripts
 // Licence : GPL v3
 // Release Date : 16-12-2014
-// Version : 1.0
-// Version Date : 16-12-2014
+// Version : 1.0.1
+// Version Date : 15-10-2025
 
 function nudge_item_vol() local(i, item)
 (
@@ -28,7 +28,8 @@ function nudge_item_vol() local(i, item)
           NewVol = NewVol;
         );
 
-        NewVolGain=exp(NewVol*0.115129254);
+        NewVolGain=pow(10, NewVol / 20);
+
 
       SetMediaItemInfo_Value(item, "D_VOL", NewVolGain);
     );

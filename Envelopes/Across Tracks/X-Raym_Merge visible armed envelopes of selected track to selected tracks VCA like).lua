@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499998#post1499998
  * REAPER: 5.0
  * Extensions: SWS 2.8.0
- * Version: 1.1
+ * Version: 1.1.1
 --]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2025-10-15)
+  # Better dB calculation
  * v1.1 (2015-09-09)
   + Fader scaling support
  * v1.0 (2015-07-14)
@@ -31,6 +33,9 @@ envLast_shape = {}
 envLast_tension = {}
 envLast_selectedOut = {}
 ]]
+
+function dBFromVal(val) return 20*math.log(val, 10) end
+function ValFromdB(dB_val) return 10^(dB_val/20) end
 
 function main()
 
@@ -121,7 +126,7 @@ function main()
 
                 calc = env_VolDB + envLast_VolDB -- it invert volume based on 0db
 
-                valueIn = math.exp(calc*0.115129254)
+                valueIn = ValFromdB(calc)
 
                 if env_faderScaling == true then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
 
