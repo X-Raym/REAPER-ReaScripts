@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="94a22f1ca5531ae3dd35a2dfe6b9069de1e3c89e" name="X-Raym Scripts">
+<index version="1" commit="145811b445e303c3a8d432d8fb29171c13e46ac2" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -272,7 +272,7 @@
     </reapack>
     <reapack name="X-Raym_Round selected envelope points value.eel" type="script" desc="Round selected envelope points value">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -284,6 +284,10 @@
         <changelog><![CDATA[+ Pitch envelope are rounded at 0.5
 + Mute envelope are rounded at 0 or 1]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/X-Raym_Round%20selected%20envelope%20points%20value.eel</source>
+      </version>
+      <version name="1.3.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/X-Raym_Round%20selected%20envelope%20points%20value.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select envelope point at edit cursor.lua" type="script" desc="Select envelope point at edit cursor">
@@ -404,7 +408,7 @@
     </reapack>
     <reapack name="X-Raym_Merge visible armed envelopes of selected track to selected tracks VCA like).lua" type="script" desc="Merge visible armed envelopes of selected track to selected tracks VCA like)">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -415,6 +419,10 @@
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Fader scaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/Across%20Tracks/X-Raym_Merge%20visible%20armed%20envelopes%20of%20selected%20track%20to%20selected%20tracks%20VCA%20like).lua</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/Across%20Tracks/X-Raym_Merge%20visible%20armed%20envelopes%20of%20selected%20track%20to%20selected%20tracks%20VCA%20like).lua</source>
       </version>
     </reapack>
   </category>
@@ -840,7 +848,7 @@
     </reapack>
     <reapack name="X-Raym_Add envelope points at time selection edges from XdB to XdB preserving edges on Volume envelope.lua" type="script" desc="Add envelope points at time selection edges from XdB to XdB preserving edges on Volume envelope">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -855,6 +863,10 @@
       <version name="1.0.1" author="X-Raym" time="2018-04-10T15:19:20Z">
         <changelog><![CDATA[# FaderScaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20XdB%20to%20XdB%20preserving%20edges%20on%20Volume%20envelope.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20XdB%20to%20XdB%20preserving%20edges%20on%20Volume%20envelope.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add point on envelopes at edit cursor with center value.lua" type="script" desc="Add point on envelopes at edit cursor with center value">
@@ -1153,7 +1165,7 @@
     </reapack>
     <reapack name="X-Raym_Invert envelope points values preserving edges if time selection.lua" type="script" desc="Invert envelope points values preserving edges if time selection">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -1170,10 +1182,14 @@
         <changelog><![CDATA[+ Fader scaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Invert%20envelope%20points%20values%20preserving%20edges%20if%20time%20selection.lua</source>
       </version>
+      <version name="1.5.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Invert%20envelope%20points%20values%20preserving%20edges%20if%20time%20selection.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Invert envelope points values.lua" type="script" desc="Invert envelope points values">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -1189,6 +1205,10 @@
       <version name="1.4" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Fader scaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Invert%20envelope%20points%20values.lua</source>
+      </version>
+      <version name="1.4.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Invert%20envelope%20points%20values.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Quantize envelope points.lua" type="script" desc="Quantize envelope points">
@@ -1339,7 +1359,7 @@
     </reapack>
     <reapack name="X-Raym_Set flat points value in time selection preserving edges if time selection.lua" type="script" desc="X-Raym_Set flat points value in time selection preserving edges if time selection.lua">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -1351,10 +1371,14 @@
         <changelog><![CDATA[+ Fader scaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Set%20flat%20points%20value%20in%20time%20selection%20preserving%20edges%20if%20time%20selection.lua</source>
       </version>
+      <version name="1.6.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20flat%20points%20value%20in%20time%20selection%20preserving%20edges%20if%20time%20selection.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set flat points value in time selection.lua" type="script" desc="Set flat points value in time selection">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -1366,10 +1390,14 @@
         <changelog><![CDATA[+ Fader scaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Set%20flat%20points%20value%20in%20time%20selection.lua</source>
       </version>
+      <version name="1.6.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20flat%20points%20value%20in%20time%20selection.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set or Offset envelope points preserving edges if time selection.lua" type="script" desc="Set or Offset envelope points preserving edges if time selection">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -1381,10 +1409,14 @@
         <changelog><![CDATA[+ Fader scaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Set%20or%20Offset%20envelope%20points%20preserving%20edges%20if%20time%20selection.lua</source>
       </version>
+      <version name="1.6.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20or%20Offset%20envelope%20points%20preserving%20edges%20if%20time%20selection.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set or Offset envelope points value.lua" type="script" desc="Set or Offset envelope points value">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -1395,6 +1427,10 @@
       <version name="1.6" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Fader-scaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Set%20or%20Offset%20envelope%20points%20value.lua</source>
+      </version>
+      <version name="1.6.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20or%20Offset%20envelope%20points%20value.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected tracks parameters values with envelopes values at edit cursor.lua" type="script" desc="Set selected tracks parameters values with envelopes values at edit cursor">
@@ -1414,6 +1450,10 @@
       <version name="1.2.1" author="X-Raym" time="2024-09-26T23:10:01Z">
         <changelog><![CDATA[# Fix mute param]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5995415671bd8869000a7dfb999c878586f62c0a/Envelopes/On%20Tracks/X-Raym_Set%20selected%20tracks%20parameters%20values%20with%20envelopes%20values%20at%20edit%20cursor.lua</source>
+      </version>
+      <version name="1.2.2" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20selected%20tracks%20parameters%20values%20with%20envelopes%20values%20at%20edit%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle certain envelopes properties.lua" type="script" desc="Toggle certain envelopes properties">
@@ -1454,7 +1494,7 @@
     </reapack>
     <reapack name="X-Raym_Trim selected tracks parameters values with envelopes values at edit cursor.lua" type="script" desc="Trim selected tracks parameters values with envelopes values at edit cursor">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -1465,6 +1505,10 @@
       <version name="1.2" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Fader scaling support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Trim%20selected%20tracks%20parameters%20values%20with%20envelopes%20values%20at%20edit%20cursor.lua</source>
+      </version>
+      <version name="1.2.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Trim%20selected%20tracks%20parameters%20values%20with%20envelopes%20values%20at%20edit%20cursor.lua</source>
       </version>
     </reapack>
   </category>
@@ -3537,25 +3581,40 @@
       <version name="1.0.3" author="X-Raym" time="2018-04-19T10:39:03Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Nudge%20active%20takes%20volume%20randomly%20(normal%20distribution)%20with%20GUI.eel</source>
       </version>
+      <version name="1.0.4" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Nudge%20active%20takes%20volume%20randomly%20(normal%20distribution)%20with%20GUI.eel</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Nudge selected items volume +0.1db.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20+0.1db.eel</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20+0.1db.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Nudge selected items volume +0.5db.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20+0.5db.eel</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20+0.5db.eel</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Nudge selected items volume -0.1db.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20-0.1db.eel</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20-0.1db.eel</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Nudge selected items volume -0.5db.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20-0.5db.eel</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Nudge%20selected%20items%20volume%20-0.5db.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Offset selected items active take pan left -5% .lua" type="script" desc="Offset selected items active take pan left -5%">
@@ -3903,6 +3962,9 @@
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Round%20selected%20items%20volume%20-%20one%20decimal.eel</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Round%20selected%20items%20volume%20-%20one%20decimal.eel</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Search and replace in selected active takes names.lua" type="script" desc="Search and replace in selected active takes names">
       <metadata>
@@ -4091,6 +4153,10 @@
         <changelog><![CDATA[# Remove spk77_Get take RMS.lua dependency. Replace by SWS NF API.]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/44d85aa6e4bb4e32cc6be6f2de095de6995d2681/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20average%20RMS.lua</source>
       </version>
+      <version name="2.0.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20average%20RMS.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set selected audio takes gain by columns according to takes max peak.lua" type="script" desc="Set selected audio takes gain by columns according to takes max peak">
       <metadata>
@@ -4110,6 +4176,10 @@
       <version name="2.0" author="X-Raym" time="2024-11-12T21:46:36Z">
         <changelog><![CDATA[# Remove spk77_Get max peak val and pos from take.lua dependency. Replace by SWS NF API.]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/44d85aa6e4bb4e32cc6be6f2de095de6995d2681/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20max%20peak.lua</source>
+      </version>
+      <version name="2.0.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[# Better dB calculation]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Set%20selected%20audio%20takes%20gain%20by%20columns%20according%20to%20takes%20max%20peak.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected item active takes to random colors.lua" type="script" desc="Set selected item active takes to random colors">
@@ -4246,7 +4316,7 @@
     </reapack>
     <reapack name="X-Raym_Set selected takes volume from -x to +x.eel" type="script" desc="Set selected takes volume from -x to +x">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -4257,6 +4327,10 @@
       <version name="1.0" author="X-Raym" time="2019-01-03T10:27:56Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Properties/X-Raym_Set%20selected%20takes%20volume%20from%20-x%20to%20+x.eel</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2025-10-15T09:45:11Z">
+        <changelog><![CDATA[~# More accurate math]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Items%20Properties/X-Raym_Set%20selected%20takes%20volume%20from%20-x%20to%20+x.eel</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set sequential mono channel modes on selected items.lua" type="script" desc="Set sequential mono channel modes on selected items">
