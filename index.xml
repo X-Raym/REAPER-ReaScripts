@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="145811b445e303c3a8d432d8fb29171c13e46ac2" name="X-Raym Scripts">
+<index version="1" commit="5d63abf07f3e4b87389a25e88e44602c2d1ccb17" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -7170,6 +7170,22 @@
 + Truncate fields
 # Updated preset system]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/de984c021e7f3f6e36d081e314e00af7085826db/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Search%20and%20replace%20in%20selected%20items%20notes.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set selected items text notes stretching to fit.lua" type="script" desc="Set selected items text notes stretching to fit">
+      <version name="1.0.0" author="X-Raym" time="2025-10-20T14:06:47Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5d63abf07f3e4b87389a25e88e44602c2d1ccb17/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Set%20selected%20items%20text%20notes%20stretching%20to%20fit.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Set selected items text notes stretching to off.lua" type="script" desc="Set selected items text notes stretching to off">
+      <version name="1.0.0" author="X-Raym" time="2025-10-20T14:06:47Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5d63abf07f3e4b87389a25e88e44602c2d1ccb17/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Set%20selected%20items%20text%20notes%20stretching%20to%20off.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Toggle selected items text notes stretching.lua" type="script" desc="Toggle selected items text notes stretching">
+      <version name="1.0.0" author="X-Raym" time="2025-10-20T14:06:47Z">
+        <changelog><![CDATA[+ Initial release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5d63abf07f3e4b87389a25e88e44602c2d1ccb17/Text%20Items%20and%20Item%20Notes/Formatting/X-Raym_Toggle%20selected%20items%20text%20notes%20stretching.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Uppercase selected items notes.lua" type="script" desc="Uppercase selected items notes">
