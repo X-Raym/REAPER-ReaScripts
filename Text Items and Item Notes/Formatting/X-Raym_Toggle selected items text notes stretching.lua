@@ -8,11 +8,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156757
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2025-10-26)
+  + Using item chunk to get notes states, waiting for SWS fix
  * v1.0.0 (2025-10-20)
   + Initial release
 --]]
@@ -45,10 +47,15 @@ end
 function Main()
   for i = 0, count_sel_items - 1 do
     local item = reaper.GetSelectedMediaItem(0, i)
-    local retval, image, imageflags = reaper.BR_GetMediaItemImageResource( item )
-
+  
     local new_flags = force_new_flags
     if not new_flags then
+      --local retval, image, imageflags = reaper.BR_GetMediaItemImageResource( item )
+    
+      local retval, item_chunk = reaper.GetItemStateChunk( item, "", false )
+    
+      local imageflags = tonumber( item_chunk:match("IMGRESOURCEFLAGS (%d)") ) or 0
+
       new_flags = imageflags == 3 and 0 or 3
     end
 
