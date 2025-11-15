@@ -2,16 +2,18 @@
  * JSFX Name: MIDI single note map
  * About: Quickly remap a MIDI note
  * Screenshot: https://monosnap.com/image/HtvY0eslYZ72Hl6K0Nb8cf7psJPTJp.png
- * Author: X-Raym
+ * Author: X-Raym, Scrumpy Jack
  * Author URI: https://www.extremraym.com
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.1
  */
 
 /**
  * Changelog:
+ * v1.1 (2025-11-11)
+  + Add optional pass-through for the original note
  * v1.0 (2018-11-11)
   + Initial Release
  */
@@ -20,8 +22,10 @@ desc:MIDI single note map
 
 slider1:0<0,16,1{Any,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>Input Channel
 
-slider10:36<0,127,1>Note IN
-slider11:36<0,127,1>Note OUT
+slider10:note_in=36<0,127,1>Note IN
+slider11:note_out=36<0,127,1>Note OUT
+
+slider21:note_passthru=0<0,1,1{no,yes}>Pass-through Original Note
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,11 +59,12 @@ while
       status == statNoteOn || status == statNoteOff || status == afterTouch ?
       (
 
-        // If note is in Makey Makey MIDI Range
-        note == slider10 ? (
-
-          note = slider( 11 ); // Get Note Out
-
+        // Does it match the note to remap?
+        note == note_in ? (
+          note_passthru == 1 ? ( // optional: pass on the original MIDI note
+            midisend(offset, msg1, note, vel);
+          );
+          note = note_out; // Map the new note to send out
         );
 
       );
