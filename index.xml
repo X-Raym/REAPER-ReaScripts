@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e70744882a4a298a354b77822a54b6cb74545053" name="X-Raym Scripts">
+<index version="1" commit="8149e7f04f55f143c395a7441d79dd663b5e49ef" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4595,6 +4595,22 @@
       <version name="1.0" author="X-Raym" time="2022-12-13T15:39:40Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/7720c8c5e083a4d5212f2c423fd77ab08cf8ab1e/JSFX/X-Raym_Silence%20meter.jsfx</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Stereo downmixer.jsfx" type="effect" desc="Stereo downmixer">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 Merge/Sum all track audio channels by pair to channel 1-2\par}
+}
+]]></description>
+        <link rel="donation">http://www.extremraym.com/en/donation</link>
+      </metadata>
+      <version name="1.0" author="X-Raym" time="2025-11-17T13:34:02Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/8149e7f04f55f143c395a7441d79dd663b5e49ef/JSFX/X-Raym_Stereo%20downmixer.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Tap tempo.jsfx" type="effect" desc="Tap Tempo">
