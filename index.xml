@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a649773b9a18441c4d4a9196f97e5f7d53059e6c" name="X-Raym Scripts">
+<index version="1" commit="e70744882a4a298a354b77822a54b6cb74545053" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5170,6 +5170,13 @@
       <version name="1.0" author="X-Raym" time="2018-11-10T23:48:23Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/JSFX/MIDI/X-Raym_MIDI%20single%20note%20map.jsfx</source>
+      </version>
+      <version name="1.1" author="X-Raym" time="2025-11-13T21:34:48Z">
+        <changelog><![CDATA[+ Add optional pass-through for the original note]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/410c40441efbb77201068d2429291b4f3ea4e9b0/JSFX/MIDI/X-Raym_MIDI%20single%20note%20map.jsfx</source>
+      </version>
+      <version name="1.1.1" author="X-Raym" time="2025-11-17T09:15:31Z">
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/e70744882a4a298a354b77822a54b6cb74545053/JSFX/MIDI/X-Raym_MIDI%20single%20note%20map.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Note On under X velocity to Note Off.jsfx" type="effect" desc="Note On under X velocity to Note Off">
