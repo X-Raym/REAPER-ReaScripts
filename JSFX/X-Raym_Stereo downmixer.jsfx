@@ -1,0 +1,28 @@
+/**
+ * JSFX Name: Stereo downmixer
+ * About: Merge/Sum all track audio channels by pair to channel 1-2
+ * Author: X-Raym
+ * Author URI: https://www.extremraym.com
+ * Donation: http://www.extremraym.com/en/donation
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ */
+
+/**
+ * Changelog:
+ * v1.0 (2025-11-17)
+  + Initial Release
+ */
+
+desc:Stereo downmixer
+
+@sample
+
+num_ch > 2 ? (
+  loop(i=1; num_ch,
+    spl0 += spl(i*2);
+    spl1 += spl(i*2+1);
+    i+=1;
+  );
+);
