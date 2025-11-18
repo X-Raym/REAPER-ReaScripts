@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="c44cca3f69ece733eebf14cc9c2c9540028e7473" name="X-Raym Scripts">
+<index version="1" commit="c9fe2e69524fef986980e6d326ec1143e31bcc26" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5177,7 +5177,7 @@
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
-{\pard \ql \f0 \sa180 \li0 \fi0 Press play to send a user defined MIDI note. This is meant to force a track to a particular keyswitch in orchestral templates.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Send a user defined MIDI note at first input MIDI note. This is meant to force a track to a particular keyswitch in orchestral templates.\par}
 }
 ]]></description>
         <link rel="donation">http://www.extremraym.com/en/donation</link>
@@ -5185,6 +5185,9 @@
       <version name="1.0" author="X-Raym" time="2025-11-18T18:32:32Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/c44cca3f69ece733eebf14cc9c2c9540028e7473/JSFX/MIDI/X-Raym_MIDI%20send%20note%20keyswitch.jsfx</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2025-11-18T19:22:27Z">
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/c9fe2e69524fef986980e6d326ec1143e31bcc26/JSFX/MIDI/X-Raym_MIDI%20send%20note%20keyswitch.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_MIDI single note map.jsfx" type="effect" desc="MIDI single note map">
