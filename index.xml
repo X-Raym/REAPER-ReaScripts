@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="c9fe2e69524fef986980e6d326ec1143e31bcc26" name="X-Raym Scripts">
+<index version="1" commit="1e21867f273289d1e2d70366002a8ff2bf2456cd" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5169,25 +5169,6 @@
       </version>
       <version name="2.1.5" author="X-Raym" time="2025-01-05T18:41:45Z">
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/ab7ba274e20cff31e1103b6bafd1efeab48e12ae/JSFX/MIDI/X-Raym_MIDI%20notes%20sequence%20from%20CSV%20file.jsfx</source>
-      </version>
-    </reapack>
-    <reapack name="X-Raym_MIDI send note keyswitch.jsfx" type="effect" desc="MIDI send note keyswitch">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 Send a user defined MIDI note at first input MIDI note. This is meant to force a track to a particular keyswitch in orchestral templates.\par}
-}
-]]></description>
-        <link rel="donation">http://www.extremraym.com/en/donation</link>
-      </metadata>
-      <version name="1.0" author="X-Raym" time="2025-11-18T18:32:32Z">
-        <changelog><![CDATA[+ Initial Release]]></changelog>
-        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/c44cca3f69ece733eebf14cc9c2c9540028e7473/JSFX/MIDI/X-Raym_MIDI%20send%20note%20keyswitch.jsfx</source>
-      </version>
-      <version name="1.0.1" author="X-Raym" time="2025-11-18T19:22:27Z">
-        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/c9fe2e69524fef986980e6d326ec1143e31bcc26/JSFX/MIDI/X-Raym_MIDI%20send%20note%20keyswitch.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_MIDI single note map.jsfx" type="effect" desc="MIDI single note map">
