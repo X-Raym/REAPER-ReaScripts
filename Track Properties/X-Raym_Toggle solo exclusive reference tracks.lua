@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.2
+ * Version: 1.0.3
  * Provides: [main=main,midi_editor] .
 --]]
 
@@ -144,9 +144,9 @@ function Main()
   
   for i, track in ipairs( ref_tracks ) do
     local track_lock_a, track_lock_b = ToggleTrackLock( track, 0 ) -- Track needs to be unlock so API can pass
-    if not mute then
+    --if not mute then
       reaper.SetMediaTrackInfo_Value(track, "I_SOLO", solo)
-    end
+    --end
     reaper.SetMediaTrackInfo_Value(track, "B_MUTE", mute)
     if also_select then
       reaper.SetMediaTrackInfo_Value(track, "I_SELECTED", sel)
