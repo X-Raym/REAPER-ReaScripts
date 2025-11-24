@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="1e21867f273289d1e2d70366002a8ff2bf2456cd" name="X-Raym Scripts">
+<index version="1" commit="e2fb3aee0db8b2a621e20605d22e2b4906c8535b" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -8068,6 +8068,9 @@
       <version name="1.0.2" author="X-Raym" time="2025-08-24T14:49:03Z">
         <changelog><![CDATA[+ Toggle mute script support]]></changelog>
         <source main="main midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/807fb891b39356ec84d1404b84720e2e90b8b609/Track%20Properties/X-Raym_Toggle%20solo%20exclusive%20reference%20tracks.lua</source>
+      </version>
+      <version name="1.0.3" author="X-Raym" time="2025-11-24T14:02:42Z">
+        <source main="main midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/e2fb3aee0db8b2a621e20605d22e2b4906c8535b/Track%20Properties/X-Raym_Toggle%20solo%20exclusive%20reference%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle solo reference tracks.lua" type="script" desc="Toggle solo reference tracks">
