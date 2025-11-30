@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.3
+ * Version: 1.3.1
 --]]
 
 --[[
@@ -45,7 +45,8 @@ function Main()
       --end
     end
     --reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_PLAY_MOUSECURSOR"),0) -- SWS/BR: Play from mouse cursor position
-    if reaper.GetToggleCommandState( 1157 ) then
+    pos = reaper.BR_PositionAtMouseCursor( false )
+    if pos and reaper.GetToggleCommandState( 1157 ) then
       pos = reaper.SnapToGrid( 0, pos )
     end
     local pos_init = reaper.GetCursorPosition()
