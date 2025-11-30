@@ -1,16 +1,18 @@
 --[[
  * ReaScript Name: Solo exclusive track under mouse and play
  * Author: X-Raym
- * Author URI: https://www.extremraym.com
+ * Author URI: https://extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.2
+ * Version: 1.3
 --]]
 
 --[[
  * Changelog:
+ * v1.3 (2025-11-30)
+  # Use native GetThing from point API to support Pinned tracks
  * v1.2 (2019-07-14)
   + Snap to grid
   # no SWS dependency
@@ -23,8 +25,11 @@
 function Main()
   reaper.PreventUIRefresh(1)
   local solo_state = 1
-  local track, context, pos = reaper.BR_TrackAtMouseCursor()
-  if track then
+  --local track, context, pos = reaper.BR_TrackAtMouseCursor()
+  
+  mouse_x, mouse_y = reaper.GetMousePosition()
+  track, info = reaper.GetThingFromPoint( mouse_x, mouse_y )
+  if reaper.ValidatePtr(track, "MediaTrack*") then
     local solo = reaper.GetMediaTrackInfo_Value(track, "I_SOLO")
     if solo ~= solo_state then
       reaper.SetMediaTrackInfo_Value(track, "I_SOLO", solo_state)
