@@ -6,17 +6,19 @@
      Based on HeDa_X-Raym_Export selection as SRT subtitles with offset.lua
  * Authors: X-Raym
  * Author URI: https://www.extremraym.com
- * Version: 2.1
+ * Version: 2.1.1
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * License: GPL v3
  * Forum Thread: Lua Script: Export/Import subtitles SubRip SRT format
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1495841#post1495841
- * REAPER: 5.0
+ * REAPER: 7.0
 ]]
 
 --[[
  * Changelog:
+ * v2.1.1 (2025-12-08)
+  # break lines \r\n to just \n
  * v2.1 (2024-11-12)
   + Font color support in User Config Area
  * v2.0 (2024-11-12)
@@ -146,7 +148,8 @@ function ExportSRT( file )
       end
 
       -- write text
-      f:write( item.notes )
+      local item_notes = item.notes:gsub("\r\n", "\n" )
+      f:write( item_notes )
       
       if export_color then
          f:write( "</font>" .. "\n" )
