@@ -9,7 +9,7 @@
  * Forum Thread: Scripts: Items selection (Various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=163321
  * REAPER: 5.0
- * Version: 1.0.3
+ * Version: 1.0.4
 --]]
 
 --[[
@@ -26,6 +26,7 @@
 --]]
 
 only_sel_tracks = true
+frame = 0
 
 -- Set ToolBar Button State
 function SetButtonState( set )
@@ -44,7 +45,7 @@ end
 function GetPlayOrEditCursorPos2()
   local play_state = reaper.GetPlayState()
   if play_state == 1 or play_state == 5 then
-    frame = (frame <= 2 and frame + 1) or frame
+    frame = (frame < 2 and frame + 1) or frame
   else
     frame = 0
   end
