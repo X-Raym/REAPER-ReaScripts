@@ -10,11 +10,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=156763
  * REAPER: 5.0 pre 15
  * Extensions: SWS/S&M 2.7.3 #0
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2015-12-12)
+  + Check track in Init function
  * v1.2 (2015-07-29)
   # Presets script support for inbetween character
   # Remove newline character (this will be added in a preset script)
@@ -151,10 +153,10 @@ function Main()
 end
 
 -- ---------- INIT ==============>
-selected_items_count = reaper.CountSelectedMediaItems(0)
-if selected_items_count < 2 then return end
-
 function Init()
+  selected_items_count = reaper.CountSelectedMediaItems(0)
+  if selected_items_count < 2 then return end
+  
   reaper.Undo_BeginBlock()
   
   reaper.PreventUIRefresh(1)
