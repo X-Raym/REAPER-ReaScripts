@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="a0364929f10a144c84baba4aef5ed34c75934fe6" name="X-Raym Scripts">
+<index version="1" commit="b63280f9b01264059e8f64500ac2c60d2b352f23" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -4588,6 +4588,15 @@
       <version name="1.0.1" author="X-Raym" time="2023-04-01T10:52:26Z">
         <changelog><![CDATA[+ GFX for TCP/MCP embed]]></changelog>
         <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/1cd15a11cf7f0a0129a3dd64ac3fab07dea5f3e4/JSFX/X-Raym_Mute%20on%20loop.jsfx</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Send MIDI text at playstate change.jsfx" type="effect" desc="Send MIDI text at playstate change">
+      <metadata>
+        <link rel="donation">http://www.extremraym.com/en/donation</link>
+      </metadata>
+      <version name="1.0.0" author="X-Raym" time="2025-12-13T11:18:15Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/b63280f9b01264059e8f64500ac2c60d2b352f23/JSFX/X-Raym_Send%20MIDI%20text%20at%20playstate%20change.jsfx</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Silence meter.jsfx" type="effect" desc="Silence Meter">
