@@ -5,7 +5,7 @@
  * Donation: http://www.extremraym.com/en/donation
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.0
+ * Version: 1.0.1
  */
 
  /**
@@ -16,10 +16,19 @@
 
 desc:Send MIDI text at playstate change
 
+@init
+
+#send = "";
+play_state == 0 ? (
+  strcat(#send, "\xFF\x01");
+  strcat(#send, "__________ [STOP] __________ ");
+  midisend_str(0,#send);
+);
+
 @block
 
 play_state && has_send != play_state ? (
-  #send = ""; 
+  #send = "";
   sprintf(#time,"\xFF\x01", "a");
   sprintf(#num,"%f",time_precise());
   strcat(#send, "\xFF\x01");
@@ -28,10 +37,7 @@ play_state && has_send != play_state ? (
   ):(
     strcat(#send, "__________ [PLAY] __________ ");
   );
-  strcat(#send, #num); 
-  midisend_str(0,#send); // "\xFF\x01PLAY"
+  strcat(#send, #num);
+  midisend_str(0,#send);
   has_send = play_state;
 );
-
-
-
