@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 play_action = 1007 -- Transport: Play
@@ -56,7 +56,7 @@ function Run()
 end
 
 function Init()
-  reaper.set_action_options(2)
+  reaper.set_action_options(3)
   count_sel_items = reaper.CountSelectedMediaItems(0)
   if count_sel_items > 0 then
     min, max = GetItemsEdges()
