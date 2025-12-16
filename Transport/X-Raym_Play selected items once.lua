@@ -7,7 +7,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 play_action = 1007 -- Transport: Play
@@ -50,6 +50,10 @@ end
 function Run()
   cur_play = reaper.GetPlayPosition()
   local play_state = reaper.GetPlayState()
+  count_sel_items = reaper.CountSelectedMediaItems(0)
+  if count_sel_items > 0 then
+    min, max = GetItemsEdges()
+  end
   if max and cur_play < max and (play_state == 1 or play_state == 5 ) then
     reaper.defer(Run)
   end
