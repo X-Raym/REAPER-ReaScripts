@@ -10,11 +10,13 @@
  * Forum Thread: Scripts: Creating Karaoke Songs for UltraStar and Vocaluxe
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=202430
  * REAPER: 5.0
- * Version: 1.0.4
+ * Version: 1.1.0
 --]]
 
 --[[
  * Changelog:
+ * v1.1.0 (2025-12-29)
+  + Display next line setting via right click
  * v1.0.4 (2023-02-27)
   + Ignore out of items boundaries events
  * v1.0.3 (2023-02-21)
@@ -54,10 +56,11 @@ vars.hlen = 270
 vars.docked = 0
 vars.xpos = 100
 vars.ypos = 100
+vars.draw_next_line = "y"
 
 ext_name = "XR_MidiLyricsKaraokeViewer"
 
-colors = {
+local colors = {
   white = "#FFFFFF",
   silver = "#C0C0C0",
   gray = "#808080",
@@ -212,7 +215,7 @@ end
 -- DRAW --
 -----------------------------------------------------------
 
-function PrintAndBreak(string, col)
+function PrintAndBreak(string, col, y_offset)
   CenterAndResizeText(string)
   if col then
     color( col )
@@ -223,19 +226,22 @@ function PrintAndBreak(string, col)
   gfx.y = gfx.y + font_size
 end
 
-function CenterAndResizeText(string)
+function CenterAndResizeText(string, y_offset)
+  y_offset = y_offset or 0
   gfx.setfont(1, font_name, 100)
+  
+  local hbox = vars.draw_next_line == "y" and gfx.h / 2 or gfx.h
 
   local str_w, str_h = gfx.measurestr(string)
   local fontsizefit=(gfx.w/(str_w+50))*100 -- new font size needed to fit.
-  local fontsizefith=((gfx.h-gfx.y)/(str_h+50))*100 -- new font size needed to fit in vertical.
+  local fontsizefith=((hbox-gfx.y)/(str_h+50))*100 -- new font size needed to fit in vertical.
 
   local font_size =  math.min(fontsizefit,fontsizefith)
   gfx.setfont(1, font_name, font_size)
 
   local str_w, str_h = gfx.measurestr(string)
   gfx.x = gfx.w/2-str_w/2
-  gfx.y = gfx.h/2-str_h/2
+  gfx.y = hbox/2-str_h/2 + y_offset
   return str_w, str_h, font_size
 end
 
@@ -244,8 +250,8 @@ function DrawBackground()
   gfx.rect( 0, 0, gfx.w, gfx.h )
 end
 
-function DrawLine( line, index )
-
+function DrawLine( line, index, y_offset )
+  y_offset = y_offset or 0
   -- Concat Line
   str = {}
   for i, syllab in ipairs( line ) do
@@ -260,7 +266,7 @@ function DrawLine( line, index )
   -- Mesure Line
   -- + set font so it fit the screen
   -- + get the XY positions
-  local w_text, h_text, font_size = CenterAndResizeText(str) -- x and Y are in gfx variable
+  local w_text, h_text, font_size = CenterAndResizeText(str, y_offset) -- x and Y are in gfx variable
   local text_x = gfx.x
   local text_y = gfx.y
 
@@ -308,11 +314,12 @@ function DrawLine( line, index )
 
   -- Draw the rectangle
   color( color_highlight )
+  local hbox = vars.draw_next_line == "y" and gfx.h / 2 or gfx.h
   local rectangle_w_2 = previous_x - text_x + (rectangle_w or 0)
   local h = 10
-  gfx.rect(  text_x, gfx.h - h, rectangle_w_2, h )
+  gfx.rect(  text_x, hbox - h, rectangle_w_2, h )
   gfx.a = 0.05
-  gfx.rect(  text_x, 0, rectangle_w_2, gfx.h )
+  gfx.rect(  text_x, 0, rectangle_w_2, hbox )
   gfx.a = 1
   gfx.rect(  text_x, 0, rectangle_w_2, h )
 end
@@ -462,6 +469,9 @@ function Run()
         if line_to_draw then
           DrawLine( line_to_draw, line_to_draw_index )
         end
+        if vars.draw_next_line == "y" and tonumber( line_to_draw_index ) and lines[ line_to_draw_index + 1 ] then
+           DrawLine( lines[line_to_draw_index + 1], line_to_draw_index + 1, gfx.h/2 )
+        end
         if err then
           PrintAndBreak( err, "RED" )
         end
@@ -483,9 +493,14 @@ function Run()
     local dock = gfx.dock(-1) == 0 and "Dock" or "Undock"
     gfx.x = gfx.mouse_x
     gfx.y = gfx.mouse_y
-    if gfx.showmenu( dock ) == 1 then
+    local show_next = (vars.draw_next_line == "y" and "!" or "") .. "Show Next Line"
+    local retval = gfx.showmenu( dock .. "|" .. show_next )
+    if retval == 1 then
       if gfx.dock(-1) == 0 then gfx.dock(1) else gfx.dock(0) end
+    elseif retval == 2 then
+      vars.draw_next_line = vars.draw_next_line == "y" and "n" or "y"
     end
+    SaveState()
   end
 
   if gfx.mouse_cap == 0 then mouse_state = 0 end
