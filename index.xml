@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="b533568c918ca6c9f771c207d8d03f526abbf5a5" name="X-Raym Scripts">
+<index version="1" commit="3ac00a5f566d328380024ec132fac8290a977a6f" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -5386,6 +5386,10 @@
       <version name="1.0.4" author="X-Raym" time="2023-02-27T21:57:12Z">
         <changelog><![CDATA[+ Ignore out of items boundaries events]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/dba0fd8789d5ef38cfcd06959c5f605897bee58a/MIDI/X-Raym_MIDI%20Lyrics%20karaoke%20viewer%20for%20Ultrastar_GUI.lua</source>
+      </version>
+      <version name="1.1.0" author="X-Raym" time="2025-12-29T12:52:06Z">
+        <changelog><![CDATA[+ Display next line setting via right click]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/3ac00a5f566d328380024ec132fac8290a977a6f/MIDI/X-Raym_MIDI%20Lyrics%20karaoke%20viewer%20for%20Ultrastar_GUI.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Remove selected items MIDI CC events lanes where all events are equal to 0.lua" type="script" desc="Remove selected items MIDI CC events lanes where all events are equal to 0">
