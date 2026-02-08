@@ -59,7 +59,7 @@ local theme_colors = {
   ResizeGrip        = 0x323232ff, -- Resize
   ResizeGripHovered = 0x323232ff,
   ResizeGripActive  = 0x05050587,
-  TextSelectedBg    = 0x404040ff, -- Search Field Selected Text
+  TextSelectedBg    = 0x292929ff, -- Search Field Selected Text
   SeparatorHovered  = 0x606060ff,
   SeparatorActive   = 0x404040ff,
   CheckMark         = 0xffffffff, -- CheckMark
@@ -200,6 +200,14 @@ function ParseCSVLine2(line,sep)
   return res
 end
 
+-- Split file name
+function SplitFileName( strfilename )
+  -- Returns the Path, Filename, and Extension as 3 values
+  local path, file_name, extension = string.match( strfilename, "(.-)([^\\|/]-([^\\|/%.]+))$" )
+  file_name = string.match( file_name, ('(.+)%.(.+)') )
+  return path, file_name, extension
+end
+
 --------------------------------------------------------------------------------
 -- REAIMGUI --
 --------------------------------------------------------------------------------
@@ -268,26 +276,140 @@ function GetVST64FXPlugins()
   local lines = read_lines( file )
   if not lines then return false end
   for i, line in ipairs( lines ) do
-    local plugin_filename, values = line:match("(.+)=(.+)")
+    local plugin_filename, values = line:match("(.+)=(.+)") -- TODO: Multiple FX can registered from one single dll, see <SHELL>
     if plugin_filename then
       local values_t = ParseCSVLine2( values, "," )
       if values_t[3] then
         --table.insert( plugins, {file_name = plugin_filename, name = values_t[3] } )
-        table.insert( plugins, plugin_filename)
+        table.insert( plugins, { name = values_t[3]:gsub("!!!VSTi",""), file = plugin_filename } )
       end
     end
   end
   return plugins
 end
 
+function GetVST64FXPluginsPaths()
+  if not fx_plugins_vst64 or #fx_plugins_vst64 == 0 then return end
+
+  local reaper_ini_file = reaper.get_ini_file()
+  local retval, config_paths_str = reaper.BR_Win32_GetPrivateProfileString( "reaper", "vstpath64", "",  reaper_ini_file  )
+  if not retval or config_paths_str == "" then return end
+  config_paths = ParseCSVLine2(config_paths_str,";")
+
+  local files_folder = {}
+  --a  = {}
+  for i, path in pairs( config_paths ) do
+    local files = EnumerateFilesRescursiveSubFolder( path )
+    for z, file in ipairs( files ) do
+      local folder, file_name, ext = SplitFileName( file )
+      if file_name and (ext == "dll" or ext == "vst3") then
+        files_folder[file_name:gsub(" ", "_") .. "." .. ext] = folder
+        --table.insert( a, file_name .. "." .. ext .. "\t" .. folder )
+      end
+    end
+  end
+
+  --reaper.CF_SetClipboard( table.concat( a, "\n" ) )
+
+  return files_folder
+end
+
+-----------------------------------------------------------
+-- FILES --
+-----------------------------------------------------------
+
+function EnumerateFiles( folder )
+  local files = {}
+  local i = 0
+  repeat
+    local retval = reaper.EnumerateFiles( folder, i )
+    if retval then
+      table.insert(files, folder .. os_sep .. retval)
+    end
+    i = i + 1
+  until not retval
+  return files
+end
+
+function EnumerateFilesRescursiveSubFolder( folder, files )
+  if not files then files = {} end
+
+  folder = folder:gsub( os_sep .. "*$", "") -- removing end os_path
+
+  local current_folder_files = EnumerateFiles( folder )
+  for i, v in ipairs(current_folder_files) do
+      table.insert(files, v)
+  end
+
+  local subfolder = 0
+  local retval = false
+
+  repeat
+    retval = reaper.EnumerateSubdirectories( folder, subfolder )
+    if retval and retval ~= "" then
+      subfolder = subfolder + 1
+      local files_sub = EnumerateFilesRescursiveSubFolder( folder .. os_sep .. retval, files )
+    end
+  until not retval or retval == ""
+
+  return files
+end
+
+-----------------------------------------------------------
+                                         -- END OF FILES --
+-----------------------------------------------------------
+
+
 fx_plugins_vst64 = ReverseTable( GetVST64FXPlugins() )
 
 function Main()
-  ImGui.TextWrapped(ctx, [[This script is a proof of concept. Only VST is supported for now. No solution possible for JSFX cause their index file doesn't have any kind of date info and is sorting alphabetically]] )
+  ImGui.TextWrapped(ctx, [[This script is a proof of concept. Only VST is supported for now. No solution possible for JSFX cause their index file doesn't have any kind of date info and is sorted alphabetically]] )
   ImGui.Dummy( ctx, 10, 10 )
+
+  ImGui.Text( ctx, "Search:")
+  ImGui.PushItemWidth(ctx, -1) -- Set max with of inputs
+  r, search = ImGui.InputText( ctx, "##search##" )
+
   ImGui.Text( ctx, "VST")
-  local cur_y = ImGui.GetCursorPosY( ctx )
-  ImGui.InputTextMultiline( ctx, "##vst64", table.concat(fx_plugins_vst64, "\n"), imgui_width - 20, (imgui_height-cur_y-10) ) -- height could be divised by the number of text area
+  --local cur_y = ImGui.GetCursorPosY( ctx )
+  --ImGui.InputTextMultiline( ctx, "##vst64", table.concat(fx_plugins_vst64, "\n"), imgui_width - 20, (imgui_height-cur_y-10) ) -- height could be divised by the number of text area
+  if ImGui.BeginTable(ctx, '##table_output', 3, ImGui.TableFlags_SizingFixedFit ) then
+    ImGui.TableHeadersRow(ctx)
+    ImGui.TableSetColumnIndex(ctx, 0)
+    ImGui.TableHeader( ctx, "Folder" )
+    ImGui.TableSetColumnIndex(ctx, 1)
+    ImGui.TableHeader( ctx, "Add to Track" )
+    ImGui.TableSetColumnIndex(ctx, 2)
+    ImGui.TableHeader( ctx, "FX Name" )
+
+    for i, v in ipairs( fx_plugins_vst64 ) do
+
+      if search == "" or v.name:lower():find(search) then
+        ImGui.TableNextRow(ctx)
+
+        ImGui.TableSetColumnIndex(ctx, 0)
+        if ImGui.Button( ctx, 'Open##open_' .. i ) then
+          fx_plugins_vst64_paths = fx_plugins_vst64_paths or GetVST64FXPluginsPaths()
+          reaper.CF_ShellExecute( fx_plugins_vst64_paths[v.file] )
+        end
+        ImGui.TableSetColumnIndex(ctx, 1)
+        if ImGui.Button( ctx, 'Add##add_' .. i ) then
+          local track = reaper.GetSelectedTrack(0,0)
+          if track then
+            local fx = reaper.TrackFX_AddByName( track, v.name, false, -1 )
+            if fx >= 0 then
+              reaper.TrackFX_SetOpen( track, fx, true )
+            end
+          end
+        end
+        ImGui.TableSetColumnIndex(ctx, 2)
+        ImGui.SetNextItemWidth( ctx, imgui_width )
+        ImGui.InputText(ctx, "##" .. i,  v.name)
+      end
+    end
+
+    ImGui.EndTable(ctx)
+  end
 end
 
 function Run()
@@ -349,3 +471,5 @@ end
 if not preset_file_init then
   Init()
 end
+
+
