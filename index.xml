@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="7e22e7a31c829b542c591bf2e5fd0b1d0e887e67" name="X-Raym Scripts">
+<index version="1" commit="1bc575aa6d7e19d8e97ebe79564cb3373aaa2ec9" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -3365,6 +3365,12 @@
       <version name="1.0.1" author="X-Raym" time="2025-01-28T13:14:06Z">
         <changelog><![CDATA[+ Tooltip report]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/bf712bdbf90ecef5fa8a11976fed9250f5909050/Items%20Properties/X-Raym_Delete%20take%20markers%20outside%20of%20selected%20items%20boundaries.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Disable audio for selected video items.lua" type="script" desc="Disable Audio for selected video items">
+      <version name="1.0.0" author="X-Raym" time="2026-02-13T10:21:06Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/1bc575aa6d7e19d8e97ebe79564cb3373aaa2ec9/Items%20Properties/X-Raym_Disable%20audio%20for%20selected%20video%20items.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Display list of selected media items active take names in the console.lua" type="script" desc="Display list of selected media items active take names in the console">
