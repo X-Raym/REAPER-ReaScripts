@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Disable Audio for selected video items
+ * ReaScript Name: Disable audio for selected video items
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
