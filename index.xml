@@ -9491,7 +9491,7 @@
   <category name="Web Interfaces">
     <reapack name="X-Raym_Convert first selected track items notes for scrolling web browser interface.lua" type="script" desc="Convert first selected track items notes for scrolling web browser interface">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -9504,6 +9504,10 @@
       <version name="1.0" author="X-Raym" time="2022-06-20T12:43:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/84a74dac22585555af4d878ee861bff3ef6bc63c/Web%20Interfaces/X-Raym_Convert%20first%20selected%20track%20items%20notes%20for%20scrolling%20web%20browser%20interface.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2023-06-29T16:45:19Z">
+        <changelog><![CDATA[# encode quotes]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/a4349d1e639ccdea2d6e2329d1a732d8b3ea625a/Web%20Interfaces/X-Raym_Convert%20first%20selected%20track%20items%20notes%20for%20scrolling%20web%20browser%20interface.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Convert Lyrics track items notes for dedicated web browser interface.lua" type="script" desc="Convert Lyrics track items notes for the dedicated web browser interface">
