@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="cf0efd37faf5504270617177d0fd6c5eb773e38a" name="X-Raym Scripts">
+<index version="1" commit="8425220d3e050b3cba8d56516666adc7181cbcf4" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1595,6 +1595,11 @@
       <version name="1.0" author="spk77" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Mod by X-Raym]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Functions/spk_slider_class.eel</source>
+      </version>
+    </reapack>
+    <reapack name="utf8.lua" type="script" desc="UTF-8 Functions">
+      <version name="1.0" time="2026-02-16T14:14:58Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8425220d3e050b3cba8d56516666adc7181cbcf4/Functions/utf8.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Functions - console debug messages.eel" type="script">
@@ -4539,6 +4544,11 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Toggle%20selected%20items%20inactive%20takes%20sources%20online-offline.lua</source>
       </version>
     </reapack>
+    <reapack name="X-Raym_Uppercase first letter of selected items notes.lua" type="script" desc="Uppercase first letter of selected items notes">
+      <version name="2.0.1" author="X-Raym" time="2026-02-16T14:14:58Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8425220d3e050b3cba8d56516666adc7181cbcf4/Items%20Properties/X-Raym_Uppercase%20first%20letter%20of%20selected%20items%20notes.lua</source>
+      </version>
+    </reapack>
   </category>
   <category name="JSFX">
     <reapack name="X-Raym_4 Mono channels switcher.jsfx" type="effect" desc="4 Mono channels switcher">
@@ -5268,6 +5278,18 @@
       </version>
     </reapack>
   </category>
+  <category name="JSFX/MIDI/MIDINoteImages">
+    <reapack name="mt-power-drum-kit.txt" type="midinotenames">
+      <version name="1.0" time="2026-02-16T14:14:58Z">
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/8425220d3e050b3cba8d56516666adc7181cbcf4/JSFX/MIDI/MIDINoteImages/mt-power-drum-kit.txt</source>
+      </version>
+    </reapack>
+    <reapack name="NONE.txt" type="midinotenames">
+      <version name="1.0" time="2026-02-16T14:14:58Z">
+        <source>https://github.com/X-Raym/REAPER-ReaScripts/raw/8425220d3e050b3cba8d56516666adc7181cbcf4/JSFX/MIDI/MIDINoteImages/NONE.txt</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Media Explorer">
     <reapack name="X-Raym_Focus arrange view.lua" type="script" desc="Focus arrange view">
       <version name="1.0" author="X-Raym" time="2020-12-17T20:11:19Z">
@@ -5336,6 +5358,12 @@
       <version name="1.0.2" author="X-Raym" time="2023-08-30T13:07:18Z">
         <changelog><![CDATA[# More efficient GetMediaExplorer function]]></changelog>
         <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/7a76b2c45414d26cb9bcedea8f3eedb12e933f12/Media%20Explorer/X-Raym_Set%20media%20explorer%20volume%20up%20a%20bit.lua</source>
+      </version>
+    </reapack>
+    <reapack name="X-Raym_Stop media explorer.lua" type="script" desc="Stop media explorer">
+      <version name="1.0" author="X-Raym" time="2026-02-16T14:14:58Z">
+        <changelog><![CDATA[+ Initial Release]]></changelog>
+        <source main="mediaexplorer">https://github.com/X-Raym/REAPER-ReaScripts/raw/8425220d3e050b3cba8d56516666adc7181cbcf4/Media%20Explorer/X-Raym_Stop%20media%20explorer.lua</source>
       </version>
     </reapack>
   </category>
@@ -7908,7 +7936,7 @@
     </reapack>
     <reapack name="X-Raym_Set parents tracks names to uppercase and childs ones to camelcase.lua" type="script" desc="Set parents tracks names to uppercase and childs ones to camelcase">
       <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 Courier;}}
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -7938,6 +7966,9 @@
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Track%20Properties/X-Raym_Set%20parents%20tracks%20names%20to%20uppercase%20and%20childs%20ones%20to%20camelcase.lua</source>
         <source file="../Functions/utf8.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Functions/utf8.lua</source>
         <source file="../Functions/utf8data.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Functions/utf8data.lua</source>
+      </version>
+      <version name="2.0.2" author="X-Raym" time="2026-02-16T14:14:58Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8425220d3e050b3cba8d56516666adc7181cbcf4/Track%20Properties/X-Raym_Set%20parents%20tracks%20names%20to%20uppercase%20and%20childs%20ones%20to%20camelcase.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected tracks as reference tracks.lua" type="script" desc="Set selected tracks as reference tracks">
