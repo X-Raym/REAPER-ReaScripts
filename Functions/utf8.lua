@@ -1,3 +1,14 @@
+--[[
+ * ReaScript Name: UTF-8 Functions
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
+ * Licence: GPL v3
+ * REAPER: 5.0
+ * Version: 1.0
+ * Provides:
+    [nomain] .
+    utf8data.lua
+--]]
+
 -- $Id: utf8.lua 179 2009-04-03 18:10:03Z pasta $
 --
 -- Provides UTF-8 aware string functions implemented in pure lua:
