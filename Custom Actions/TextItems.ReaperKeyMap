@@ -1,4 +1,4 @@
-;version 1.0
+; @version 1.0
 ACT 1 0 "37eca78e78fdf042ae173d4cc0ba60f0" "Custom: Export subtitle track" 40042 40635 40289 _SWS_SELUNMUTEDITEMS2 _RSd014a501abdd7b451fe9c37eb18bc9e0c5ac0a0c
 ACT 1 0 "6685de38e0081a4090db62dbffa5d171" "Custom: Go to next item" _RS8eae3648033a52df9dea7dabba90fe00db8d3ff0 40417 40290
 ACT 1 0 "16f9294d4543f3499946cd967bd5370d" "Custom: Go to next item, Play" _RS8eae3648033a52df9dea7dabba90fe00db8d3ff0 40417 40290 1007
