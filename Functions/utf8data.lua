@@ -1,3 +1,7 @@
+-- @description UTF-8 Data
+-- @version 1.0
+-- @provides [nomain] .
+
 utf8_lc_uc = {
   ["a"] = "A",
   ["b"] = "B",

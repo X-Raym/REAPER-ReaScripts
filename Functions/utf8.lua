@@ -6,7 +6,7 @@
  * Version: 1.0
  * Provides:
     [nomain] .
-    utf8data.lua
+    Functions/utf8data.lua
 --]]
 
 -- $Id: utf8.lua 179 2009-04-03 18:10:03Z pasta $

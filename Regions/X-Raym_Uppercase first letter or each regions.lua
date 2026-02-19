@@ -10,10 +10,7 @@
  * Forum Thread: Scripts: Tracks Names (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1581214
  * REAPER: 5.0
- * Version: 2.0
- * Provides:
- *   [nomain] ../Functions/utf8.lua
- *   [nomain] ../Functions/utf8data.lua
+ * Version: 2.0.1
 ]]
 
 
