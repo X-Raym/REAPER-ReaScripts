@@ -1605,7 +1605,7 @@
     </reapack>
     <reapack name="utf8.lua" type="script" desc="UTF-8 Functions">
       <version name="1.0" time="2026-02-16T14:14:58Z">
-        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/8425220d3e050b3cba8d56516666adc7181cbcf4/Functions/utf8.lua</source>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/36302d5db86bf92e112db9037b4bc4003acd9cb9/Functions/utf8.lua</source>
       </version>
     </reapack>
     <reapack name="utf8data.lua" type="script" desc="UTF-8 Data">
