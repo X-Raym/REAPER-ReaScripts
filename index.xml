@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="0ee60337158b71723222c54affc03d7267b2fb55" name="X-Raym Scripts">
+<index version="1" commit="d8f5dd0dd70f7222523381d0ea68f7d438977e23" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -8299,8 +8299,12 @@
       <version name="1.0.1" author="X-Raym" time="2019-04-26T18:08:02Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20for%20the%20duration%20-%20and%20select%20track.lua</source>
       </version>
+      <version name="1.0.2" author="X-Raym" time="2026-03-21T18:23:29Z">
+        <changelog><![CDATA[# Use GetThingFromPoiunt to get track]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d8f5dd0dd70f7222523381d0ea68f7d438977e23/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20for%20the%20duration%20-%20and%20select%20track.lua</source>
+      </version>
     </reapack>
-    <reapack name="X-Raym_Play from mouse cursor position and solo track under mouse parent and select track.lua" type="script" desc="Play from mouse cursor position and solo track under mouse for the duration - and select track">
+    <reapack name="X-Raym_Play from mouse cursor position and solo track under mouse parent and select track.lua" type="script" desc="Play from mouse cursor position and solo track under mouse parent and select track">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -8317,6 +8321,10 @@
         <changelog><![CDATA[+ Snap to grid
 # no SWS dependency]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20parent%20and%20select%20track.lua</source>
+      </version>
+      <version name="1.2.1" author="X-Raym" time="2026-03-21T18:23:29Z">
+        <changelog><![CDATA[# Use GetThingFromPoiunt to get track]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d8f5dd0dd70f7222523381d0ea68f7d438977e23/Transport/X-Raym_Play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20parent%20and%20select%20track.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Play selected items once from first snap offset position.lua" type="script" desc="Play selected items once from first snap offset position">
@@ -8494,6 +8502,10 @@
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-10-03T19:40:21Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/Transport/X-Raym_Toggle%20play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20for%20the%20duration%20-%20and%20select%20track.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2026-03-21T18:23:29Z">
+        <changelog><![CDATA[# no SWS dependency]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/d8f5dd0dd70f7222523381d0ea68f7d438977e23/Transport/X-Raym_Toggle%20play%20from%20mouse%20cursor%20position%20and%20solo%20track%20under%20mouse%20for%20the%20duration%20-%20and%20select%20track.lua</source>
       </version>
     </reapack>
   </category>
