@@ -7,13 +7,27 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0.1
+ * Version: 1.0.2
+--]]
+
+--[[
+ * Changelog:
+ * v1.0.2 (2026-03-21)
+  # Use GetThingFromPoiunt to get track
 --]]
 
 function main()
   reaper.PreventUIRefresh(1)
-  track, pos = reaper.BR_TrackAtMouseCursor()
-  if track then
+
+  if reaper.GetThingFromPoint then
+    mouse_x, mouse_y = reaper.GetMousePosition()
+    track, info = reaper.GetThingFromPoint( mouse_x, mouse_y )
+    pos = reaper.BR_PositionAtMouseCursor( false )
+  else
+    track, pos = reaper.BR_TrackAtMouseCursor()
+  end
+
+  if track and reaper.ValidatePtr(track, "MediaTrack*") then
    if reaper.GetPlayState() > 0 then
     reaper.Main_OnCommand(reaper.NamedCommandLookup("_BR_TOGGLE_PLAY_MOUSE_SOLO_TRACK"),-1)
    end

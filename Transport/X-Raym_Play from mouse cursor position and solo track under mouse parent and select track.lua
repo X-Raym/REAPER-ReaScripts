@@ -1,5 +1,5 @@
 --[[
- * ReaScript Name: Play from mouse cursor position and solo track under mouse for the duration - and select track
+ * ReaScript Name: Play from mouse cursor position and solo track under mouse parent and select track
  * About: Just like the SWS action (which it runs), but with no undo and select track under mouse.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2026-03-21)
+  # Use GetThingFromPoiunt to get track
  * v1.2 (2019-07-14)
   + Snap to grid
   # no SWS dependency
@@ -27,11 +29,19 @@ end
 
 function main()
   reaper.PreventUIRefresh(1)
-  track, context, pos = reaper.BR_TrackAtMouseCursor()
+
+  if reaper.GetThingFromPoint then
+    mouse_x, mouse_y = reaper.GetMousePosition()
+    track, info = reaper.GetThingFromPoint( mouse_x, mouse_y )
+    pos = reaper.BR_PositionAtMouseCursor( false )
+  else
+    track, pos = reaper.BR_TrackAtMouseCursor()
+  end
+
   if reaper.GetToggleCommandState( 1157 ) then
     pos = reaper.SnapToGrid( 0, pos )
   end
-  if track then
+  if track and reaper.ValidatePtr(track, "MediaTrack*") then
    parent = reaper.GetParentTrack( track )
    if not parent then parent = track end
    count_tracks = reaper.CountTracks()
