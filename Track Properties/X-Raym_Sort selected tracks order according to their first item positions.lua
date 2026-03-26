@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Sort selected tracks order according to their first item positions
- * Screenshot: https://i.imgur.com/oeZNhFf.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/oeZNhFf.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

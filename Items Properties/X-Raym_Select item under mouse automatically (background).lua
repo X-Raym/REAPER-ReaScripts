@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Select item under mouse automatically (background)
- * Screenshot: https://i.imgur.com/2140P7M.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/2140P7M.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

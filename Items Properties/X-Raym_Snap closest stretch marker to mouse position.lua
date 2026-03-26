@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Snap closest stretch marker to mouse position
  * About: Put this on a keyboard shortcut. Run.
- * Screenshot: https://i.imgur.com/AagpwDy.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/AagpwDy.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

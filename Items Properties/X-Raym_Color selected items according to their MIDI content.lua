@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Color selected items according to their MIDI content
- * Screenshot: https://i.imgur.com/MrilibA.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/MrilibA.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

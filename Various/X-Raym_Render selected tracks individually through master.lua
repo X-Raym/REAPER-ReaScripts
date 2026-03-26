@@ -2,7 +2,7 @@
  * ReaScript Name: Render selected tracks individually through master
  * About: A way to render tracks to master chain.
  * Instructions: Select tracks. Set render settings to source = master tracks, time selection, or custom time range.
- * Screenshot: https://i.imgur.com/v3UKS68.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/v3UKS68.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Change last touched track layout
- * Screenshot: https://i.imgur.com/7ONmP3V.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/7ONmP3V.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

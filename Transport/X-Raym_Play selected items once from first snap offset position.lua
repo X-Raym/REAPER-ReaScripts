@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Play selected items once from first snap offset position
  * About: Just like the SWS action Xenakios/SWS: Play selected items once but from snap offset pos. Click NEW INSTANCE + Always remember when you run the script.
- * Screenshot: https://i.imgur.com/80v4gQk.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/80v4gQk.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
   * Repository: GitHub > X-Raym > REAPER-ReaScripts

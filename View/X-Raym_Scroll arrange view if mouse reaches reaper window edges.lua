@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Scroll arrange view if mouse reaches reaper window edges
- * Screenshot: https://i.imgur.com/0npTbEB.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/0npTbEB.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

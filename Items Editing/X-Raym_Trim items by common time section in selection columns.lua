@@ -2,7 +2,7 @@
  * ReaScript Name: Trim items by common time section in selection columns
  * About: Select item. Run. It will trim items based on their position in selection per track (firsts selected items on selected track together, seconds together etc...)
  * Instructions: Select items. Run. If an item is not un a column, it will not be trimmed. Not that it is column selection, not visual columns.
- * Screenshot: http://i.giphy.com/3o85xp8hhYNwGy76bm.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o85xp8hhYNwGy76bm.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

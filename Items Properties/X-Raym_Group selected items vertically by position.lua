@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Group selected items vertically by position
- * Screenshot: https://i.imgur.com/3ckIcBh.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3ckIcBh.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

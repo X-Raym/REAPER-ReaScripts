@@ -1,7 +1,7 @@
 -- @description Sort all tracks alphabetically
 -- @author X-Raym, MPL
 -- @website http://forum.cockos.com/showpost.php?p=1574912&postcount=1078
--- @screenshot http://i.giphy.com/3oEdv7ULuP7JOEeHUQ.gif
+-- @screenshot https://cloud.extremraym.com/sharex/reascripts/3oEdv7ULuP7JOEeHUQ.mp4
 -- @version 1.2.1
 -- @changelog
 --    # (MPL) rebuild with ReorderSelectedTracks(), require REAPER 5.90rc7+

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Select only MIDI notes above active note row pitch cursor
- * Screenshot: https://i.imgur.com/pjjqMYN.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/pjjqMYN.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

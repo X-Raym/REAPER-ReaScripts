@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Split selected items at their take markers positions
- * Screenshot: https://i.imgur.com/XZ3Gqa6.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/XZ3Gqa6.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

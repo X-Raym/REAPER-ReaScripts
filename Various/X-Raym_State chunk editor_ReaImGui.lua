@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: State chunk editor (ReaImGui)
- * Screenshot: https://i.imgur.com/fCw0Flt.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/fCw0Flt.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: X-Raym Premium Scripts
@@ -242,9 +242,9 @@ function ChunkBar( id )
       txts[ destination ] = chunk
     end
   end
-  
+
   ImGui.SameLine( ctx )
-  
+
   if ImGui.Button( ctx, "Get Item" .. '##getitem' .. id ) then
     local item = reaper.GetSelectedMediaItem( 0, 0 )
     if item then
@@ -255,9 +255,9 @@ function ChunkBar( id )
       txts[ destination ] = chunk
     end
   end
-  
+
   ImGui.SameLine( ctx )
-  
+
   if ImGui.Button( ctx, "Get Envelope" .. '##getenv' .. id ) then
     local env = reaper.GetSelectedEnvelope( 0 )
     if env then
@@ -268,7 +268,7 @@ function ChunkBar( id )
       txts[ destination ] = chunk
     end
   end
-  
+
   if ImGui.Button( ctx, "Set Track" .. '##settrack' .. id ) then
     local track = reaper.GetSelectedTrack( 0, 0 )
     if track then
@@ -276,9 +276,9 @@ function ChunkBar( id )
       reaper.Undo_OnStateChange( "Set track state" )
     end
   end
-  
+
   ImGui.SameLine( ctx )
-  
+
   if ImGui.Button( ctx, "Set Item" .. '##setitem' .. id ) then
     local item = reaper.GetSelectedMediaItem( 0, 0 )
     if item then
@@ -286,9 +286,9 @@ function ChunkBar( id )
       reaper.Undo_OnStateChange( "Set item state" )
     end
   end
-  
+
   ImGui.SameLine( ctx )
-  
+
   if ImGui.Button( ctx, "Set Envelope" .. '##setenv' .. id ) then
     local env = reaper.GetSelectedEnvelope( 0 )
     if env then
@@ -314,7 +314,7 @@ function Main()
         reaper.CF_SetClipboard( txts[1] )
       end
       ImGui.EndMenuBar(ctx)
-      
+
       ChunkBar( 1 )
     end
 
@@ -322,7 +322,7 @@ function Main()
     if ImGui.IsItemActive( ctx ) then
       --destination = 1
     end
-    
+
     ImGui.EndChild( ctx )
   end
   ImGui.SameLine( ctx )
@@ -335,7 +335,7 @@ function Main()
         reaper.CF_SetClipboard( txts[2] )
       end
       ImGui.EndMenuBar(ctx)
-      
+
       ChunkBar( 2 )
     end
 

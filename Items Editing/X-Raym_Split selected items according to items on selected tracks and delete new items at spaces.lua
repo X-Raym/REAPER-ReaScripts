@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Split selected items according to items on selected tracks and delete new items at spaces
  * About: A script to do multi mic based editing using one single track.
- * Screenshot: https://i.imgur.com/xmPVYZi.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/xmPVYZi.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -95,12 +95,12 @@ function SaveSelectedItems( t )
 end
 
 function GetTrackOverlappingAndAdjacentItemsAndSplits() -- Exclude select items (see commented lines)
-  
+
   -- Globals
   all_track_items = {}
   split_pos_unique = {}
   split_pos = {}
-  
+
   for i = 0, count_sel_tracks - 1 do
     local track = reaper.GetSelectedTrack( 0, i )
     local count_track_items = reaper.CountTrackMediaItems( track )
@@ -155,12 +155,12 @@ function GetTrackOverlappingAndAdjacentItemsAndSplits() -- Exclude select items 
   end
 
   table.insert( regions, entry ) -- Insert the last entry
-  
+
   for i, region in ipairs( regions ) do
     split_pos_unique[region.pos_start] = true
     split_pos_unique[region.pos_end] = true
   end
-  
+
   for k, v in pairs( split_pos_unique ) do
     table.insert( split_pos, k )
   end
@@ -218,11 +218,11 @@ end
 function Main()
 
   GetTrackOverlappingAndAdjacentItemsAndSplits()
-  
+
   SplitItems()
 
   DeleteAtSpaces()
-  
+
 end
 
 -----------------------------------------------------------
@@ -236,22 +236,22 @@ end
 function Init()
   count_sel_tracks = reaper.CountSelectedTracks(0)
   if count_sel_tracks == 0 then return end
-  
+
   count_sel_items = reaper.CountSelectedMediaItems(0)
   if count_sel_items == 0 then return end
-  
+
   reaper.Undo_BeginBlock() -- Begining of the undo block.
-  
+
   reaper.PreventUIRefresh(1)-- Prevent UI refreshing. Uncomment it only if the script works.
-  
+
   init_sel_items = SaveSelectedItems()
-  
+
   Main() -- Run
-  
+
   reaper.PreventUIRefresh(-1) -- Restore UI Refresh. Uncomment it only if the script works.
-  
+
   reaper.UpdateArrange() -- Update the arrangement (often needed)
-  
+
   reaper.Undo_EndBlock(undo_text, -1) -- End of the undo block.
 end
 

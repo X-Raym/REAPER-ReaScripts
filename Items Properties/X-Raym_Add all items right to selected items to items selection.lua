@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Add all items right to selected items to items selection
- * Screenshot: https://i.imgur.com/vBqRybO.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/vBqRybO.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

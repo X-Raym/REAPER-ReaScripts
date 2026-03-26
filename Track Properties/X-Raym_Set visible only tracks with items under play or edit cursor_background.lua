@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Set visible only tracks with items under play or edit cursor
  * About: Default ignore muted items. Moded from mpl_Toggle show tracks if play cursor crossing any of their items.lua
- * Screenshot: https://i.imgur.com/JkkJmoB.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/JkkJmoB.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

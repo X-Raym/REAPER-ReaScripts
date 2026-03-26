@@ -2,7 +2,7 @@
  * ReaScript Name: Snap selected items to region or marker with same name as their active take
  * About: A way to snap items to regions according to their names.
  * Instructions: Have regions or markers.
- * Screenshot: http://i.giphy.com/xTiTntThSvTeIV8gsE.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/xTiTntThSvTeIV8gsE.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

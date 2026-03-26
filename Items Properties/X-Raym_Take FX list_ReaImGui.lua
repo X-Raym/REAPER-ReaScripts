@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Take FX list (ReaImGui)
- * Screenshot: https://i.imgur.com/RCLyEnM.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/RCLyEnM.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

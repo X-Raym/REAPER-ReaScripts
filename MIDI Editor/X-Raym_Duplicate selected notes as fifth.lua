@@ -71,5 +71,5 @@ take = reaper.MIDIEditor_GetTake( active_midi_editor)
 if take then -- IF MIDI EDITOR
   reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
   Main( take )
-  reaper.Undo_EndBlock("Advanced MIDI Humanization", 0) -- End of the undo block. Leave it at the bottom of your main function.
+  reaper.Undo_EndBlock("Duplicate selected notes as fifth", 0) -- End of the undo block. Leave it at the bottom of your main function.
 end

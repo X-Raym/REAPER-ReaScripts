@@ -2,7 +2,7 @@
  * ReaScript Name: Rename tracks with first VSTi and its preset name
  * About: A way to quickly rename and recolor tracks in a REAPER project from its instrument.
  * Instructions: Select tracks. Run.
- * Screenshot: http://i.giphy.com/l41lMgnQVFZp2qfjW.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/l41lMgnQVFZp2qfjW.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

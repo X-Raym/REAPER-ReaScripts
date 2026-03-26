@@ -2,7 +2,7 @@
  * ReaScript Name: Snap stretch marker under mouse to closest grid line
  * Instructions: Put this on a keyboard shortcut. Run.
  * Notes : Only work if take rate is 1. SWS issue.
- * Screenshot: http://i.giphy.com/l41m5L3XNjRhjDyww.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/l41m5L3XNjRhjDyww.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

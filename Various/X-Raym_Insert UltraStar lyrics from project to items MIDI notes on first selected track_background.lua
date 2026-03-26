@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Insert UltraStar lyrics from project to items MIDI notes on first selected track (background)
  * About: Select a track. Run. Supports both UltraStar Creator and YASS syntax.
- * Screenshot: https://i.imgur.com/Q7tOB47.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/Q7tOB47.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -115,16 +115,16 @@ function deepcopy(orig)
 end
 
 function CompareMIDI()
-  
+
   local item_num = reaper.CountTrackMediaItems(track)
   local midi_notes = {}
   for j = 0, item_num-1 do
     local item = reaper.GetTrackMediaItem(track, j)
     local take = reaper.GetActiveTake(item)
     if take and reaper.TakeIsMIDI( take ) then
-  
+
       local retval, notes, ccs, sysex = reaper.MIDI_CountEvts(take)
-  
+
       -- GET SELECTED NOTES (from 0 index)
       for k = 0, notes-1 do
         local retval, sel, muted, startppqposOut, endppqposOut, chan, pitch, vel = reaper.MIDI_GetNote(take, k)
@@ -132,7 +132,7 @@ function CompareMIDI()
       end
     end
   end
-  
+
   local need_update_midi = false
   for i, note in ipairs( midi_notes ) do
     if previous_midi_notes[i] and previous_midi_notes[i].ppq_start ~= note.ppq_start and previous_midi_notes[i].ppq_end ~= note.ppq_end then
@@ -140,9 +140,9 @@ function CompareMIDI()
       break
     end
   end
-  
+
   previous_midi_notes = deepcopy( midi_notes )
-  
+
   return need_update_midi
 end
 
@@ -238,7 +238,7 @@ end
 function Run()
 
   if reaper.ValidatePtr( track, "MediaTrack*" ) then
-    CheckUpdate()  
+    CheckUpdate()
   else
     track = GetSelectLyricsTrack()
     if not track and not has_displayed_missing_track_tooltip then
@@ -257,7 +257,7 @@ end
 
 function Init()
   SetButtonState( 1 )
-  
+
   track = reaper.GetSelectedTrack(0,0)
   if not track then
     track = GetSelectLyricsTrack()
@@ -266,7 +266,7 @@ function Init()
   if not track then
     Tooltip( "No selected track or track named Lyrics." )
   end
-  
+
   Run()
   reaper.atexit( SetButtonState )
 end

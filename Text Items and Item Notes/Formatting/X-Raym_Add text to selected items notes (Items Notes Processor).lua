@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Add text to selected items notes (Items Notes Processor)
  * About: Equivalent to SWS label processor, but for items notes. Select items. Run. See below for customization and wildcards references.
- * Screenshot: http://i.giphy.com/l41lPYdijt9494V5S.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/l41lPYdijt9494V5S.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

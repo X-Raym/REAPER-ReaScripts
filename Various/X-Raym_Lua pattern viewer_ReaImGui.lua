@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Lua Pattern Viewer (ReaImGui)
- * Screenshot: https://i.imgur.com/UxOvxXI.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/UxOvxXI.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Go and zoom to previous selected item without losing selection
  * About: A way to find items more easily on huge project, without losing selection
- * Screenshot: https://i.imgur.com/sHBYUgL.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/sHBYUgL.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

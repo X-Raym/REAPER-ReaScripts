@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Split selected items every X seconds intervals
- * Screenshot: https://i.imgur.com/OMsDvrG.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/OMsDvrG.mp4
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

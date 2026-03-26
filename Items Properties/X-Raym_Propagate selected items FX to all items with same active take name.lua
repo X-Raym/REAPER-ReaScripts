@@ -2,7 +2,7 @@
  * ReaScript Name: Propagate selected items FX to all items with same active take name
  * About: Move group of selected items to next item end on all visible tracks, according to max end of items in selection.
  * Instructions: Select items. Run.
- * Screenshot: https://i.imgur.com/pVX9uGN.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/pVX9uGN.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

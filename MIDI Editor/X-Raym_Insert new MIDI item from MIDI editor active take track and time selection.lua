@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Insert new MIDI item from MIDI editor active take track and time selection
- * Screenshot: https://i.imgur.com/EtzVfGF.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/EtzVfGF.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

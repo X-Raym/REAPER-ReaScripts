@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Apply selected active takes volume to their items volume
  * Instructions: Select items. Run.
- * Screenshot: https://i.imgur.com/gwrg8Ls.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/gwrg8Ls.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

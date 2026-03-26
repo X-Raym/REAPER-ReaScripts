@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Move selected items position left according to their snap offset
  * Instructions: Select items. Run.
- * Screenshot: http://i.giphy.com/xTka01QdCUzcfyqtna.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/xTka01QdCUzcfyqtna.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Unhide - set visible tracks with items
- * Instructions: https://i.imgur.com/qWRVINF.gifv
+ * Instructions: https://cloud.extremraym.com/sharex/reascripts/qWRVINF.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

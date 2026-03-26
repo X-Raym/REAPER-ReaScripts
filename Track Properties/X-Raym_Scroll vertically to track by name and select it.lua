@@ -9,7 +9,7 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551
  * REAPER: 5.0
  * Version: 1.3
- * Screenshot: https://i.imgur.com/6qMLP2s.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/6qMLP2s.mp4
 --]]
 
 --[[

@@ -1,6 +1,6 @@
 /**
  * JSFX Name: Tap Tempo
- * Screenshot: https://i.imgur.com/O65Ps94.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/O65Ps94.mp4
  * About: Tap Tempo with MIDI precision, mouse or T key. Use linear regression slope to find the target value. This allows to work without a range BPM as precision threshold, which works less good at high tempo, due to variations and defer rate (if not MIDI).
  * Author: X-Raym
  * Author URI: https://www.extremraym.com

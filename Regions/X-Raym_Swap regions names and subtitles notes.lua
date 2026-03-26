@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Swap regions names and subtitles notes
- * Screenshot: https://i.imgur.com/GDv9OtL.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/GDv9OtL.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

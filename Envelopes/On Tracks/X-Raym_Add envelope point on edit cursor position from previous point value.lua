@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Add envelope point on edit cursor position from previous point value
- * Screenshot: https://i.imgur.com/qIqelYP.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/qIqelYP.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

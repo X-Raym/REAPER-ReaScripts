@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Rename selected items active take from multiline clipboard content
- * Screenshot: https://i.imgur.com/z66OJnG.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/z66OJnG.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

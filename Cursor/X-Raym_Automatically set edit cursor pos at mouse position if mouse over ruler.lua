@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Automatically set edit cursor pos at mouse position if mouse over ruler
- * Screenshot: https://i.imgur.com/UUECQNl.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/UUECQNl.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

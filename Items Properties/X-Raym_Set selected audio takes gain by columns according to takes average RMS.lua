@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Set selected audio takes gain by columns according to takes average RMS
  * About: Select audio takes on multile tracks. Run.
- * Screenshot: http://i.giphy.com/3o8doXnw0QskX4o1EI.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o8doXnw0QskX4o1EI.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

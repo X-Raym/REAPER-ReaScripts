@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Crossfade selected items across tracks
- * Screenshot: https://i.imgur.com/4g2KFp1.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/4g2KFp1.mp4
  * Instructions: Select items. Run
  * Author: X-Raym
  * Author URI: https://www.extremraym.com

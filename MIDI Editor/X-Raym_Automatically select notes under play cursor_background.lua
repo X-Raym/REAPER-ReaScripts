@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Automatically select notes under play cursor (background)
- * Screeshot: https://i.imgur.com/DISBpSe.gif
+ * Screeshot: https://cloud.extremraym.com/sharex/reascripts/DISBpSe.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

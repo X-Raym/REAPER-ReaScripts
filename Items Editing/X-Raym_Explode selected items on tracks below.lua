@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Explode selected items on tracks below
- * Screenshot: https://i.imgur.com/1ffAPBd.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/1ffAPBd.mp4
  * About: Leave first item to its track, then take second item and put to next track, etc.. Other explode items to tracks actions create new tracks. Not this one, unless there is not enough tracks.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com

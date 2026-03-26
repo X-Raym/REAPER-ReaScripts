@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Trim left edge of item under mouse or the next one to mouse cursor without changing fade-in end
- * Screenshot: https://i.imgur.com/Qhl0xCy.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/Qhl0xCy.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Bypass inactive take FX of selected items
  * About: this will help to free some RAM, as inactive take FX consumes RAM (but not CPU)
- * Screenshot: https://i.imgur.com/p69W7Vk.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/p69W7Vk.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

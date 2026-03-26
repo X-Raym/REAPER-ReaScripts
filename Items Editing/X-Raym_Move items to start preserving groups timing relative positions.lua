@@ -2,7 +2,7 @@
  * ReaScript Name: Move items to start preserving groups timing relative positions
  * About: A template script for REAPER ReaScript.
  * Instructions: Leader of groups is first selected item (in time position) for a group.
- * Screenshot: http://i.giphy.com/3o6UBfWs5qRzh0r3b2.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o6UBfWs5qRzh0r3b2.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

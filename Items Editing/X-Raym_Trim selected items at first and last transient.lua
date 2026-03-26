@@ -2,7 +2,7 @@
  * ReaScript Name: Trim selected items at first and last transient
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Screenshot: https://i.imgur.com/bavfu34.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/bavfu34.mp4
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

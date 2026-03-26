@@ -2,7 +2,7 @@
  * ReaScript Name: Quantize envelope points
  * About: A way to snap envelope points to grid across tracks.
  * Instructions: Select tracks with visible and armed envelopes. Execute the script.
- * Screenshot: http://i.giphy.com/3o85xz14S9xQyTFZDO.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o85xz14S9xQyTFZDO.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

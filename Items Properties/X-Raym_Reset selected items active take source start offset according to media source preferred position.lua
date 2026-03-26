@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Reset selected items active take source start offset according to media source preferred position
- * Screenshot: https://i.imgur.com/LSeiYXV.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/LSeiYXV.mp4
  * Author: X-Raym
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
@@ -8,7 +8,7 @@
  * REAPER: 5.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2024-05-21)
@@ -128,9 +128,9 @@ end
 
 -- INIT
 function Init()
- 
+
   reaper.ClearConsole()
- 
+
   -- See if there is items selected
   count_sel_items = reaper.CountSelectedMediaItems(0)
   if count_sel_items == 0 then return false end
@@ -150,10 +150,10 @@ function Init()
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end
 
 if not preset_file_init then
-  Init() 
+  Init()
 end
 

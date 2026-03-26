@@ -2,7 +2,7 @@
  * ReaScript Name: Import tracks from file
  * About: Import tracks from a TXT or CSV file. One track name per line.
  * Instructions: Select an item. Use it.
- * Screenshot: http://i.giphy.com/3oEduTrQlzj80oPpWE.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3oEduTrQlzj80oPpWE.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

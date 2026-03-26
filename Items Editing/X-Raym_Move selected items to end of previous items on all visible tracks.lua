@@ -2,7 +2,7 @@
  * ReaScript Name: Move selected items to end of previous items on all visible tracks
  * About: Move group of selected items to previous item end on all visible tracks, according to min position of items in selection.
  * Instructions: Select items. Run.
- * Screenshot: http://i.giphy.com/xTiTnGR5CJ4m7RyvHW.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/xTiTnGR5CJ4m7RyvHW.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

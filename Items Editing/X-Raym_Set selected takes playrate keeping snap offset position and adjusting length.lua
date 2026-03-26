@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Set selected takes playrate keeping snap offset position and adjusting length
  * About: A way to expand items in selection without moving their synch point, determined by snap offset and content at snap offset.
- * Screenshot: https://i.imgur.com/VrDKb9h.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/VrDKb9h.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

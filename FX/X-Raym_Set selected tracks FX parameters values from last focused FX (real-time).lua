@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Set selected tracks FX parameters values from last focused FX (real-time)
  * About: A way to propagate FX param value from last touched FX to others on selected tracks on real-time. This version overcome spk77 scripts which works on last touch parameter, cause some GUI controllers modify several parameters at the same time but the last touch parameter as returned by ReaScript functions is only one value.
- * Screenshot: https://i.imgur.com/YtwrB9M.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/YtwrB9M.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

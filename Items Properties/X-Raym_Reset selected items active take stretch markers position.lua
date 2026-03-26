@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Reset selected items active take stretch markers position
  * Instructions: Select items with take. Run.
- * Screenshot: http://i.giphy.com/3o85xowNTqf8CYQrba.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o85xowNTqf8CYQrba.mp4
  * Author: X-Raym, MPL
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,7 +1,7 @@
 ﻿--[[
  * ReaScript Name: Detect selected and master tracks clips - peaks over 0dB - position
  * Instructions: Select items with take. Run.
- * Screenshot: http://i.giphy.com/3o8dpaSLqUezHdaVlC.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o8dpaSLqUezHdaVlC.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

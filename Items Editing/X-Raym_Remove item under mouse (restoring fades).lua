@@ -2,7 +2,7 @@
  * ReaScript Name: Remove item under mouse (restoring fades)
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Screenshot: https://i.imgur.com/JKg1ExJ.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/JKg1ExJ.mp4
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

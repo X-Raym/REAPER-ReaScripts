@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Snap selected items non-auto fades to closest grid line
- * Screensot: https://i.imgur.com/Z1GTLKU.gif
+ * Screensot: https://cloud.extremraym.com/sharex/reascripts/Z1GTLKU.mp4
  * About: If closest grid line would make fade length to 0, then it chooses closest grid line inside the item.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Create project regions  from selected takes markers
- * Screenshot: https://i.imgur.com/pqqfaPX.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/pqqfaPX.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -54,7 +54,7 @@ function main()
       for i = 0, take_marker_count - 1 do
         local pos, name, color = reaper.GetTakeMarker(take, i)
         local proj_pos = item_pos - take_offset/ take_rate + pos / take_rate
-      
+
         local region_end_proj_pos = 0
         if i + 1 < take_marker_count then
           nxt_pos, _, _ = reaper.GetTakeMarker(take, i + 1)
@@ -62,7 +62,7 @@ function main()
         else
           region_end_proj_pos = item_end
         end
-      
+
         if IsInTime(proj_pos, item_pos, item_pos + item_len) then
           if not first_region and add_region_from_start and proj_pos > item_pos then
             reaper.AddProjectMarker(0, true, item_pos, proj_pos, "", -1, color)

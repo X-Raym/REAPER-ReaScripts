@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Offset selected items volume by their track fader value
- * Screenshot: https://i.imgur.com/OwhWpbn.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/OwhWpbn.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

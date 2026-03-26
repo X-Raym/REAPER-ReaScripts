@@ -2,7 +2,7 @@
  * ReaScript Name: Find and go to next items on selected tracks with input text as notes
  * About: A way to find a certain text in the project.
  * Instructions: Run. Enter text.
- * Screenshot: http://i.giphy.com/3oEdv3QtgRpelKaaNa.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3oEdv3QtgRpelKaaNa.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

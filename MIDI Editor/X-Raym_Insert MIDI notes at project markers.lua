@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Insert MIDI notes at project markers
  * Instructions: Open a MIDI take in MIDI Editor. Run.
- * Screenshot: http://i.giphy.com/xTcnSXojAqCRl0dD8Y.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/xTcnSXojAqCRl0dD8Y.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Delete selected items and ripple edit adjacent items
- * Screenshot: https://i.imgur.com/LUyqVCT.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/LUyqVCT.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -46,7 +46,7 @@ function Main()
   ripple_items = {}
 
   for i, item in ipairs( init_sel_items ) do
-    
+
     local track = reaper.GetMediaItemTrack(item) -- Get the active take
 
     -- GET INFOS
@@ -54,20 +54,20 @@ function Main()
     local item_pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
     local item_len =  reaper.GetMediaItemInfo_Value(item, "D_LENGTH")
     local item_end = item_pos + item_len
-    
+
     local first_offset
     local count_track_items = reaper.CountTrackMediaItems( track )
     for z = item_idx+1, count_track_items - 1 do
-  
+
       local next_item = reaper.GetTrackMediaItem(track, z)
       local next_item_pos = reaper.GetMediaItemInfo_Value(next_item, "D_POSITION")
       local next_item_len =  reaper.GetMediaItemInfo_Value(next_item, "D_LENGTH")
       local next_item_end = next_item_pos + next_item_len
-      
+
       if not first_offset then
         first_offset = (next_item_pos - item_pos )
       end
-      
+
       if next_item_pos <= item_end + overlap_duration then
         reaper.SetMediaItemInfo_Value(next_item, "D_POSITION", next_item_pos - first_offset )
         item_end = math.max( item_end, next_item_end )
@@ -81,9 +81,9 @@ function Main()
     local track = reaper.GetMediaItemTrack( item )
     reaper.DeleteTrackMediaItem( track, item )
   end
-  
+
   reaper.Main_OnCommand(40289 ,0) -- Item: Unselect all items
-    
+
   for i, item in ipairs( ripple_items ) do
     if reaper.ValidatePtr( item, "MediaItem*" ) then
       reaper.SetMediaItemSelected( item, true )

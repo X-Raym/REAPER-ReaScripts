@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Screenshot FX on selected tracks
  * Author: X-Raym
- * Screenshot: https://i.imgur.com/QJ347SW.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/QJ347SW.mp4
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
@@ -103,11 +103,11 @@ end
 -- Thx Edgemeal!!
 function CapWindowToPng(hwnd, filename, win10)
   Msg( filename )
-  
+
   -- Not necessary but nice for seeing what is happening
   reaper.JS_Window_SetForeground( hwnd )
   reaper.JS_Window_SetFocus( hwnd )
-  
+
   local srcx,srcy = 0,0
   local srcDC = reaper.JS_GDI_GetWindowDC(hwnd)
   local _,_,w,h = GetBounds(hwnd)
@@ -157,9 +157,9 @@ function Run()
     time = reaper.time_precise()
   end
   diff_time = reaper.time_precise() - time
-  
+
   Tooltip( "FX " .. current_fx+1 .. "/" .. count_fx .. "\nWait for: " .. round( math.max( 0, wait_time - diff_time ), 1 ) .. "s" )
-  
+
   if current_fx ~= count_fx then
     reaper.defer( Run )
   end
@@ -171,15 +171,15 @@ end
 
 function Init()
   reaper.RecursiveCreateDirectory( folder, 0)
-  
+
   reaper.ClearConsole()
-  
+
   track = reaper.GetSelectedTrack( 0, 0 )
   if not track then return end
-  
+
   count_fx = reaper.TrackFX_GetCount( track )
   if count_fx == 0 then return end
-  
+
   reaper.defer( Run )
   reaper.atexit( Exit )
 end

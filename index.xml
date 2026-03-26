@@ -78,7 +78,7 @@
   <category name="Cursor">
     <reapack name="X-Raym_Automatically set edit cursor pos at mouse position if mouse over ruler.lua" type="script" desc="Automatically set edit cursor pos at mouse position if mouse over ruler">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/UUECQNl.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/UUECQNl.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-01-31T14:29:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -113,7 +113,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Move edit or play cursor to previous region. Move view and seek play.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/VFhTQ3F.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/VFhTQ3F.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-09-04T18:10:53Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -449,7 +449,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Use this in a custom action to delete selected items, for eg.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o6QKX2WdiZllRt5e0.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o6QKX2WdiZllRt5e0.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-08-12T16:34:48Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -460,7 +460,7 @@
   <category name="Envelopes/On Tracks">
     <reapack name="X-Raym_Add envelope point on edit cursor position from next point value.lua" type="script" desc="Add envelope point on edit cursor position from next point value">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/qIqelYP.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/qIqelYP.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-10-27T22:44:27Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -469,7 +469,7 @@
     </reapack>
     <reapack name="X-Raym_Add envelope point on edit cursor position from previous point value.lua" type="script" desc="Add envelope point on edit cursor position from previous point value">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/qIqelYP.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/qIqelYP.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-10-27T22:44:27Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -822,7 +822,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Insert points at time selection edges. You can deactivate the pop up window within the script.\u8721 ?\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/l0K7o2JPg4cpLr2Jq.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l0K7o2JPg4cpLr2Jq.mp4</link>
       </metadata>
       <version name="1.5" author="X-Raym" time="2016-01-26T18:35:46Z">
         <changelog><![CDATA[+ Multitracks presets support]]></changelog>
@@ -1162,7 +1162,7 @@
     </reapack>
     <reapack name="X-Raym_Invert envelope points selection.lua" type="script" desc="Invert envelope points selection">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/96tJFtD.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/96tJFtD.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2017-12-17T11:37:46Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -1226,7 +1226,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to snap envelope points to grid across tracks.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o85xz14S9xQyTFZDO.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o85xz14S9xQyTFZDO.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -1553,7 +1553,7 @@
     </reapack>
     <reapack name="X-Raym_Offset selected items pitch envelope.lua" type="script" desc="Offset selected items pitch envelope">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/C7AqMt5.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/C7AqMt5.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-02-09T10:46:54Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -1637,7 +1637,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 this will help to free some RAM, as inactive take FX consumes RAM (but not CPU)\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/p69W7Vk.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/p69W7Vk.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-06-08T08:49:45Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -1707,7 +1707,7 @@
     </reapack>
     <reapack name="X-Raym_Screenshot FX on selected tracks.lua" type="script" desc="Screenshot FX on selected tracks">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/QJ347SW.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/QJ347SW.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-11-10T17:33:27Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -1755,7 +1755,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 this will help to free some RAM, as inactive take FX consumes RAM (but not CPU)\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/p69W7Vk.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/p69W7Vk.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-06-08T13:20:35Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -1775,7 +1775,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to propagate FX param value from last touched FX to others on selected tracks\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3oEdv7plpUl2dmlOcU.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3oEdv7plpUl2dmlOcU.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -1794,7 +1794,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to propagate FX param value from last touched FX to others on selected tracks on real-time. This version overcome spk77 scripts which works on last touch parameter, cause some GUI controllers modify several parameters at the same time but the last touch parameter as returned by ReaScript functions is only one value.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/YtwrB9M.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/YtwrB9M.mp4</link>
       </metadata>
       <version name="2.0" author="X-Raym" time="2021-01-13T14:07:47Z">
         <changelog><![CDATA[# Fork from original script]]></changelog>
@@ -1810,7 +1810,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to propagate FX param value from last touched FX to others on selected tracks on real-time. This version overcome spk77 scripts which works on last touch parameter, cause some GUI controllers modify several parameters at the same time but the last touch parameter as returned by ReaScript functions is only one value.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/YtwrB9M.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/YtwrB9M.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-07-05T11:04:04Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -1834,7 +1834,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to propagate FX param value from last touched FX to others on selected tracks\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/l41lY1RKDcgF7ibkY.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l41lY1RKDcgF7ibkY.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -1858,7 +1858,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Works on Take FX, Track FX, Input Track FX, Master FX, and Monitor FX.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/dYiR6e3.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/dYiR6e3.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-03-30T19:47:19Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -1975,7 +1975,7 @@
     </reapack>
     <reapack name="X-Raym_Delete selected items and ripple edit adjacent items.lua" type="script" desc="Delete selected items and ripple edit adjacent items">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/LUyqVCT.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/LUyqVCT.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -1988,7 +1988,7 @@
     </reapack>
     <reapack name="X-Raym_Delete selected items sections in time selection if cursor enter time selection and ripple new items.lua" type="script" desc="Delete selected items sections in time selection if cursor enter time selection and ripple new items">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/3o8doN6hJOcw77QX8Q.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o8doN6hJOcw77QX8Q.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2064,7 +2064,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Expand selected items to the left item position\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/AR4uRLk.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/AR4uRLk.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-05-10T17:52:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2132,7 +2132,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Leave first item to its track, then take second item and put to next track, etc.. Other explode items to tracks actions create new tracks. Not this one, unless there is not enough tracks.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/1ffAPBd.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/1ffAPBd.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-10-03T19:40:21Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2146,7 +2146,7 @@
     </reapack>
     <reapack name="X-Raym_Implode selected items on same track into takes preserving position.lua" type="script" desc="Implode selected items on same track into takes preserving position">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/NCQM0YA.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/NCQM0YA.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-04-09T10:22:16Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2196,7 +2196,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A template script for REAPER ReaScript.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o6UBfWs5qRzh0r3b2.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o6UBfWs5qRzh0r3b2.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-01-11T14:55:43Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2269,7 +2269,7 @@
     </reapack>
     <reapack name="X-Raym_Move selected items on first selected tracks.lua" type="script" desc="Move selected items on first selected tracks">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/NCQM0YA.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/NCQM0YA.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-06-21T22:22:17Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2278,7 +2278,7 @@
     </reapack>
     <reapack name="X-Raym_Move selected items position left according to their snap offset.lua" type="script" desc="Move selected items position left according to their snap offset">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/xTka01QdCUzcfyqtna.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xTka01QdCUzcfyqtna.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2309,7 +2309,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Move group of selected items to previous item end on all visible tracks, according to min position of items in selection.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/xTiTnGR5CJ4m7RyvHW.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xTiTnGR5CJ4m7RyvHW.mp4</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Limit with marker name "LIMIT"]]></changelog>
@@ -2331,7 +2331,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Move group of selected items to next item end on all visible tracks, according to max end of items in selection.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/xTiTnGR5CJ4m7RyvHW.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xTiTnGR5CJ4m7RyvHW.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2355,7 +2355,7 @@
     </reapack>
     <reapack name="X-Raym_Move selected items up to the top visible track.lua" type="script" desc="Move selected items up to the top visible track">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/UNdnR4C.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/UNdnR4C.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-10-03T19:40:21Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2416,7 +2416,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to swap items with simple click and drags. In user config area, swap can be active if item is before the middle of the previous one. It works on tracks of selected items only for efficiency.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/Ua8jgmd.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/Ua8jgmd.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-07-19T14:33:14Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2533,7 +2533,7 @@
     </reapack>
     <reapack name="X-Raym_Remove item under mouse (restoring fades).lua" type="script" desc="Remove item under mouse (restoring fades)">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/JKg1ExJ.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/JKg1ExJ.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-10-01T16:17:15Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2555,7 +2555,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Check selected items active takes MIDI content, and see if there is similar content. If yes, then replace by a pool instance. Very handy when you import and split guitar tabs or any instrument score, and you already split your midi items by riffs-patterns.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.imgur.com/N2fcs9k.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/N2fcs9k.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2017-02-07T16:05:36Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2576,7 +2576,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Useful if you need to adjust regions created with empty items. If you had to resize thiese regions, you can do it easily with this script.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.imgur.com/iFUNNCC.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/iFUNNCC.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-04-01T16:09:06Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2592,7 +2592,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to expand items in selection without moving their synch point, determined by snap offset and content at snap offset.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/VrDKb9h.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/VrDKb9h.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2017-01-25T23:55:35Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2613,7 +2613,7 @@
     </reapack>
     <reapack name="X-Raym_Shift selected takes source audio content position randomly.lua" type="script" desc="Shift selected takes source audio content position randomly">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/o7IlmwY.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/o7IlmwY.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-12-06T22:06:54Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2667,7 +2667,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to snap items to regions according to their names.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/xTiTntThSvTeIV8gsE.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xTiTntThSvTeIV8gsE.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2768,7 +2768,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A script to do multi mic based editing using one single track.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/xmPVYZi.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xmPVYZi.mp4</link>
       </metadata>
       <version name="2.0" author="X-Raym" time="2023-11-10T17:15:29Z">
         <changelog><![CDATA[# Renamed
@@ -2791,7 +2791,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A script designed for spliting an ambiance sound to put between dialog items\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/6e1H0I2.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/6e1H0I2.mp4</link>
       </metadata>
       <version name="2.0" author="X-Raym" time="2023-11-10T17:15:29Z">
         <changelog><![CDATA[# Renamed
@@ -2857,7 +2857,7 @@
     </reapack>
     <reapack name="X-Raym_Split selected items at their take markers positions.lua" type="script" desc="Split selected items at their take markers positions">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/XZ3Gqa6.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/XZ3Gqa6.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-12-14T01:28:04Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2866,7 +2866,7 @@
     </reapack>
     <reapack name="X-Raym_Split selected items every X seconds intervals.lua" type="script" desc="Split selected items every X seconds intervals">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/OMsDvrG.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/OMsDvrG.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-19T13:24:13Z">
         <changelog><![CDATA[(2015-12-19)
@@ -2881,7 +2881,7 @@
     </reapack>
     <reapack name="X-Raym_Split selected items into X equal length parts.lua" type="script" desc="Split selected items into X equal length parts">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/nvqhIck.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/nvqhIck.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2024-06-08T17:54:30Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -2897,7 +2897,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to stretch items with a new length\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.imgur.com/39zHx2j.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/39zHx2j.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-11-26T14:15:18Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2929,7 +2929,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select item. Run. It will trim items based on their position in selection per track (firsts selected items on selected track together, seconds together etc...)\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o85xp8hhYNwGy76bm.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o85xp8hhYNwGy76bm.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2938,7 +2938,7 @@
     </reapack>
     <reapack name="X-Raym_Trim left edge of item under mouse or the next one to mouse cursor without changing fade-in end.lua" type="script" desc="Trim left edge of item under mouse or the next one to mouse cursor without changing fade-in end">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/Qhl0xCy.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/Qhl0xCy.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-12-08T23:53:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -2947,7 +2947,7 @@
     </reapack>
     <reapack name="X-Raym_Trim left edge of item under mouse or the next one to mouse cursor.lua" type="script" desc="Trim left edge of item under mouse or the next one to mouse cursor">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/qt93dsZ.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/qt93dsZ.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-12-09T01:04:08Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3001,7 +3001,7 @@
     </reapack>
     <reapack name="X-Raym_Trim left edge of selected items to first transient.lua" type="script" desc="Trim left edge of selected items to first transient">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/bavfu34.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/bavfu34.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-01-25T23:25:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3015,7 +3015,7 @@
     </reapack>
     <reapack name="X-Raym_Trim right edge of item under mouse or the previous one to mouse cursor without changing fade-out start.lua" type="script" desc="Trim right edge of item under mouse or the previous one to mouse cursor without changing fade-out start">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/J2jGuWq.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/J2jGuWq.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-12-08T23:53:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3024,7 +3024,7 @@
     </reapack>
     <reapack name="X-Raym_Trim right edge of item under mouse or the previous one to mouse cursor.lua" type="script" desc="Trim right edge of item under mouse or the previous one to mouse cursor">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/qt93dsZ.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/qt93dsZ.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-12-09T01:04:08Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3048,7 +3048,7 @@
     </reapack>
     <reapack name="X-Raym_Trim right edge of selected items to last transient.lua" type="script" desc="Trim right edge of selected items to last transient">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/bavfu34.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/bavfu34.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-01-25T23:25:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3057,7 +3057,7 @@
     </reapack>
     <reapack name="X-Raym_Trim selected items at first and last transient.lua" type="script" desc="Trim selected items at first and last transient">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/bavfu34.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/bavfu34.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-01-25T23:25:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3108,7 +3108,7 @@
     </reapack>
     <reapack name="tritonality_X-Raym_Cubase_Style_SelectTrack_On_ItemSelect.lua" type="script" desc="Select Tracks Fom Item Selection (Cubase Style)">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/3o85xpylrlY7MPzmo0.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o85xpylrlY7MPzmo0.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3135,7 +3135,7 @@
     </reapack>
     <reapack name="X-Raym_Add all items left to selected items to items selection.lua" type="script" desc="Add all items left to selected items to items selection">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/vBqRybO.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/vBqRybO.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-02-15T23:23:29Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3159,7 +3159,7 @@
     </reapack>
     <reapack name="X-Raym_Add all items right to selected items to items selection.lua" type="script" desc="Add all items right to selected items to items selection">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/vBqRybO.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/vBqRybO.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-02-15T23:23:29Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3218,7 +3218,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 See name.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/9kX8HGY.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/9kX8HGY.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release. ]]></changelog>
@@ -3246,7 +3246,7 @@
     </reapack>
     <reapack name="X-Raym_Add take markers from project markers to selected takes.lua" type="script" desc="Add take markers from project markers to selected takes">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/aaRSHRs.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/aaRSHRs.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-04-29T11:38:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3255,7 +3255,7 @@
     </reapack>
     <reapack name="X-Raym_Apply selected active takes volume to their items volume.lua" type="script" desc="Apply selected active takes volume to their items volume">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/gwrg8Ls.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/gwrg8Ls.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-05-18T15:54:10Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3264,7 +3264,7 @@
     </reapack>
     <reapack name="X-Raym_Apply selected items volume to their takes.lua" type="script" desc="Apply selected items volume to their takes">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/VfyPoq7.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/VfyPoq7.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-11-20T18:42:26Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3280,7 +3280,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A very nice way to set item volume for dialog editing.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/xTiTnBqy5MgtePvLLG.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xTiTnBqy5MgtePvLLG.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3289,7 +3289,7 @@
     </reapack>
     <reapack name="X-Raym_Color selected items according to their MIDI content.lua" type="script" desc="Color selected items according to their MIDI content">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/MrilibA.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/MrilibA.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-09-05T21:39:37Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/5a3e1589fb6a29bf967075c36ddae007d9e54d2b/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20MIDI%20content.lua</source>
@@ -3300,7 +3300,7 @@
     </reapack>
     <reapack name="X-Raym_Color selected items according to their source file name.lua" type="script" desc="Color selected items according to their source file name">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/cIgOvSi.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/cIgOvSi.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-09-29T08:35:06Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/Items%20Properties/X-Raym_Color%20selected%20items%20according%20to%20their%20source%20file%20name.lua</source>
@@ -3308,7 +3308,7 @@
     </reapack>
     <reapack name="X-Raym_Color selected items from regions at their middle position.lua" type="script" desc="Color selected items from regions at their middle position">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/q9kBdMb.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/q9kBdMb.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-11-18T14:04:51Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3317,7 +3317,7 @@
     </reapack>
     <reapack name="X-Raym_Color selected items from regions.lua" type="script" desc="Color selected items from regions">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/q9kBdMb.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/q9kBdMb.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-07-03T18:33:00Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3363,7 +3363,7 @@
     </reapack>
     <reapack name="X-Raym_Crossfade selected items across tracks.lua" type="script" desc="Crossfade selected items across tracks">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/4g2KFp1.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/4g2KFp1.mp4</link>
       </metadata>
       <version name="1.0.1" author="X-Raym" time="2020-08-17T16:16:25Z">
         <changelog><![CDATA[+ Fade in fix]]></changelog>
@@ -3372,7 +3372,7 @@
     </reapack>
     <reapack name="X-Raym_Delete take markers outside of selected items boundaries.lua" type="script" desc="Delete take markers outside of selected items boundaries">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/GEt3OjY.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/GEt3OjY.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-12-14T14:28:54Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3470,7 +3470,7 @@
     </reapack>
     <reapack name="X-Raym_Group selected items vertically by position.lua" type="script" desc="Group selected items vertically by position">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/3ckIcBh.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3ckIcBh.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-02-10T10:33:43Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3491,7 +3491,7 @@
     </reapack>
     <reapack name="X-Raym_Keep selected only active takes audio under or over peak volume threshold.lua" type="script" desc="Keep selected only active audio takes under or over peak volume threshold">
       <metadata>
-        <link rel="screenshot">http://i.imgur.com/nKlFUCZ.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/nKlFUCZ.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-03-14T23:27:16Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3653,7 +3653,7 @@
     </reapack>
     <reapack name="X-Raym_Offset selected items volume by their track fader value.lua" type="script" desc="Offset selected items volume by their track fader value">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/OwhWpbn.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/OwhWpbn.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-04-30T11:47:38Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3777,7 +3777,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Move group of selected items to next item end on all visible tracks, according to max end of items in selection.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/pVX9uGN.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/pVX9uGN.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3847,7 +3847,7 @@
     </reapack>
     <reapack name="X-Raym_Rename selected items active take from multiline clipboard content.lua" type="script" desc="Rename selected items active take from multiline clipboard content">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/z66OJnG.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/z66OJnG.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-09-02T14:30:39Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3915,7 +3915,7 @@
     </reapack>
     <reapack name="X-Raym_Reset selected items active take source start offset according to media source preferred position.lua" type="script" desc="Reset selected items active take source start offset according to media source preferred position">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/LSeiYXV.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/LSeiYXV.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2024-05-21T13:27:04Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3924,7 +3924,7 @@
     </reapack>
     <reapack name="X-Raym_Reset selected items active take stretch markers position.lua" type="script" desc="Reset selected items active take stretch markers position">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/3o85xowNTqf8CYQrba.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o85xowNTqf8CYQrba.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3946,7 +3946,7 @@
     </reapack>
     <reapack name="X-Raym_Reset stretch marker under mouse position.lua" type="script" desc="Reset stretch marker under mouse position">
       <metadata>
-        <link rel="screenshot">http://i.imgur.com/vbEHtuz.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/vbEHtuz.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -3990,7 +3990,7 @@
     </reapack>
     <reapack name="X-Raym_Search and replace in selected active takes names.lua" type="script" desc="Search and replace in selected active takes names">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/3oEdv3tKb0CpB7VCtq.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3oEdv3tKb0CpB7VCtq.mp4</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ User Config Area]]></changelog>
@@ -4022,7 +4022,7 @@
     </reapack>
     <reapack name="X-Raym_Search and replace in selected items takes names.lua" type="script" desc="Search and replace in selected items takes names">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/3oEdv3tKb0CpB7VCtq.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3oEdv3tKb0CpB7VCtq.mp4</link>
       </metadata>
       <version name="2.0" author="X-Raym" time="2022-10-07T11:34:52Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4038,7 +4038,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Use this in a custom action to delete selected items, for eg.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o6QKX2WdiZllRt5e0.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o6QKX2WdiZllRt5e0.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4053,7 +4053,7 @@
     </reapack>
     <reapack name="X-Raym_Select item under mouse automatically (background).lua" type="script" desc="Select item under mouse automatically (background)">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/2140P7M.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/2140P7M.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-01-31T14:29:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4062,7 +4062,7 @@
     </reapack>
     <reapack name="X-Raym_Select items under play cursor_background.lua" type="script" desc="Select items under play cursor (background)">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/CGtMQC5.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/CGtMQC5.mp4</link>
       </metadata>
       <version name="1.0.2" author="X-Raym" time="2024-09-11T18:11:35Z">
         <changelog><![CDATA[# Button state
@@ -4103,7 +4103,7 @@
     </reapack>
     <reapack name="X-Raym_Set item under mouse snap offset value to selected items.lua" type="script" desc="Set item under mouse snap offset value to selected items">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/bzSneI8.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/bzSneI8.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-01-03T11:52:35Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4137,7 +4137,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Contrary to native actions, this one adjust fades. It also force non preserving pitch.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/2gGxOoH.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/2gGxOoH.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-01-14T14:28:37Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4174,7 +4174,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select audio takes on multile tracks. Run.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o8doXnw0QskX4o1EI.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o8doXnw0QskX4o1EI.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-02-17T00:57:18Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4198,7 +4198,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select audio takes on multile tracks. Run.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o8doXnw0QskX4o1EI.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o8doXnw0QskX4o1EI.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-02-17T00:57:18Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4373,7 +4373,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 It sets each to next number. So first item will be channel 1, next channel 2, etc\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.imgur.com/KTapWKU.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/KTapWKU.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2017-08-29T16:54:39Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4409,7 +4409,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Put this on a keyboard shortcut. Run.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/AagpwDy.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/AagpwDy.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-03-30T09:08:23Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4441,7 +4441,7 @@
     </reapack>
     <reapack name="X-Raym_Snap stretch marker under mouse to closest grid line.lua" type="script" desc="Snap stretch marker under mouse to closest grid line">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/l41m5L3XNjRhjDyww.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l41m5L3XNjRhjDyww.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4458,7 +4458,7 @@
     </reapack>
     <reapack name="X-Raym_Snap stretch marker under mouse to edit cursor.lua" type="script" desc="Snap stretch marker under mouse to edit cursor">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/KCbf6be.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/KCbf6be.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-06-07T18:48:54Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4474,7 +4474,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select items. Run.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/Hd0BhnU.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/Hd0BhnU.mp4</link>
       </metadata>
       <version name="1.2" author="X-Raym" time="2023-11-09T23:48:24Z">
         <changelog><![CDATA[# Change name (Invert to Swap)]]></changelog>
@@ -4483,7 +4483,7 @@
     </reapack>
     <reapack name="X-Raym_Take FX list_ReaImGui.lua" type="script" desc="Take FX list (ReaImGui)">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/RCLyEnM.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/RCLyEnM.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-02-22T13:23:29Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/40df8073c787b80b51e9a298d6c4a0fb0468b5f0/Items%20Properties/X-Raym_Take%20FX%20list_ReaImGui.lua</source>
@@ -4571,7 +4571,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select one mono channel as source and one as destination, it will mute the other. Useful in a multi-send set-up, where the source track send only one mono channel to 4 different tracks (or less).\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/rMIDGk2.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/rMIDGk2.mp4</link>
         <link rel="donation">http://www.extremraym.com/en/donation</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-05-25T22:21:35Z">
@@ -4588,7 +4588,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select one stereo channel as source and one as destination, it will mute the other. Useful in a multi-send set-up, where the source track send only one stereo channel to 4 different tracks (or less).\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/rMIDGk2.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/rMIDGk2.mp4</link>
         <link rel="donation">http://www.extremraym.com/en/donation</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-07-29T18:31:53Z">
@@ -4605,7 +4605,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Mute all audio when the play cursor start looping. Note: this will also mute if you put play cursor before its current position while playing (no way to check if play cursor goes before because of looping or not).\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/DQvMHTP.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/DQvMHTP.mp4</link>
         <link rel="donation">https://www.extremraym.com/en/donation</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-04-01T10:39:46Z">
@@ -4670,7 +4670,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Tap Tempo with MIDI precision, mouse or T key. Use linear regression slope to find the target value. This allows to work without a range BPM as precision threshold, which works less good at high tempo, due to variations and defer rate (if not MIDI).\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/O65Ps94.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/O65Ps94.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2024-06-09T11:25:55Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -4717,7 +4717,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Map 16 pads to specific notes\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/6kMft2l.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/6kMft2l.mp4</link>
         <link rel="donation">http://www.extremraym.com/en/donation</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-10-30T12:43:20Z">
@@ -5102,7 +5102,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Route CC messages to one of several channel\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/ve4YpmO.png</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/ve4YpmO.png</link>
         <link rel="donation">http://www.extremraym.com/en/donation</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2017-11-08T14:08:36Z">
@@ -5147,7 +5147,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Press play.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/zCVSnMk.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/zCVSnMk.mp4</link>
         <link rel="donation">http://www.extremraym.com/en/donation</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-02-15T10:13:40Z">
@@ -5396,7 +5396,7 @@
     </reapack>
     <reapack name="X-Raym_Insert MIDI note in selected items active take.lua" type="script" desc="Insert MIDI note in selected items active take">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/xTcnSXojAqCRl0dD8Y.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xTcnSXojAqCRl0dD8Y.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-01-05T13:21:02Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5412,7 +5412,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Add a clock based on Lyrics tracks MIDI Lyrics events. It use Markers to determine Lines of the karaoke.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/VnImxoP.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/VnImxoP.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-02-09T15:33:22Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5439,7 +5439,7 @@
     </reapack>
     <reapack name="X-Raym_Remove selected items MIDI CC events lanes where all events are equal to 0.lua" type="script" desc="Remove selected items MIDI CC events lanes where all events are equal to 0">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/sallb63.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/sallb63.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-12-26T14:33:38Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5544,7 +5544,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Interpolate multiple CC events by creating new ones. Works with multiple lanes (CC Channel).\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o6UB8vDPviM8jbXlC.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o6UB8vDPviM8jbXlC.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-01-04T19:07:32Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5571,7 +5571,7 @@
     </reapack>
     <reapack name="X-Raym_Insert MIDI notes at project markers.lua" type="script" desc="Insert MIDI notes at project markers">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/xTcnSXojAqCRl0dD8Y.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xTcnSXojAqCRl0dD8Y.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-01-14T22:51:00Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5580,7 +5580,7 @@
     </reapack>
     <reapack name="X-Raym_Insert new MIDI item from MIDI editor active take track and time selection.lua" type="script" desc="Insert new MIDI item from MIDI editor active take track and time selection">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/EtzVfGF.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/EtzVfGF.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-08-07T21:15:02Z">
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/MIDI%20Editor/X-Raym_Insert%20new%20MIDI%20item%20from%20MIDI%20editor%20active%20take%20track%20and%20time%20selection.lua</source>
@@ -5588,7 +5588,7 @@
     </reapack>
     <reapack name="X-Raym_Insert sysex events at time selection.lua" type="script" desc="Insert sysex events at time selection">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/dnAKtCX.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/dnAKtCX.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-07-12T13:13:33Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5597,7 +5597,7 @@
     </reapack>
     <reapack name="X-Raym_Move selected notes to pitch under mouse.lua" type="script" desc="Move selected notes to pitch under mouse">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/zrwgpl1.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/zrwgpl1.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-05-04T22:14:46Z">
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/MIDI%20Editor/X-Raym_Move%20selected%20notes%20to%20pitch%20under%20mouse.lua</source>
@@ -5628,7 +5628,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select notes inside a time selection. Run. The script will count every notes after time selection and select/unselect based on the notes in time selection selection value state. The script just cout notes, it doesn't do any complex grid/channel check.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/BOKDErc.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/BOKDErc.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-05-11T15:27:55Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5646,7 +5646,7 @@
     </reapack>
     <reapack name="X-Raym_Select only MIDI notes above active note row pitch cursor.lua" type="script" desc="Select only MIDI notes above active note row pitch cursor">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/pjjqMYN.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/pjjqMYN.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-05-06T20:39:51Z">
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/MIDI%20Editor/X-Raym_Select%20only%20MIDI%20notes%20above%20active%20note%20row%20pitch%20cursor.lua</source>
@@ -5654,7 +5654,7 @@
     </reapack>
     <reapack name="X-Raym_Select only MIDI notes below active note row pitch cursor.lua" type="script" desc="Select only MIDI notes below active note row pitch cursor">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/pjjqMYN.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/pjjqMYN.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-05-06T20:39:51Z">
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/MIDI%20Editor/X-Raym_Select%20only%20MIDI%20notes%20below%20active%20note%20row%20pitch%20cursor.lua</source>
@@ -5735,7 +5735,7 @@
     </reapack>
     <reapack name="X-Raym_Shift MIDI lyrics events message after edit cursor to one event on the left.lua" type="script" desc="Insert sysex events at time selection">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/bzhSa2O.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/bzhSa2O.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-02-12T16:48:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5747,7 +5747,7 @@
     </reapack>
     <reapack name="X-Raym_Shift MIDI lyrics events message after edit cursor to one event on the right.lua" type="script" desc="Insert sysex events at time selection">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/bzhSa2O.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/bzhSa2O.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-02-12T16:48:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5759,7 +5759,7 @@
     </reapack>
     <reapack name="X-Raym_Snap edit cursor to closest MIDI editor grid line.lua" type="script" desc="Snap edit cursor to closest MIDI editor grid line">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/EBjhma4.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/EBjhma4.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2024-11-19T12:28:19Z">
         <source main="midi_editor">https://github.com/X-Raym/REAPER-ReaScripts/raw/fc6f12a0b2d25e900b6176f5c662373ef5719b39/MIDI%20Editor/X-Raym_Snap%20edit%20cursor%20to%20closest%20MIDI%20editor%20grid%20line.lua</source>
@@ -5835,7 +5835,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 This action can replace your regular save action. Set CTRL+S as keyboard shortcode fr eg. Use REAPER config to save new backup at each save with timestamp and next to project\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/URmnLmt.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/URmnLmt.mp4</link>
       </metadata>
       <version name="1.0.4" author="X-Raym" time="2021-07-23T11:56:37Z">
         <changelog><![CDATA[* Small code optimization
@@ -5885,7 +5885,7 @@
     </reapack>
     <reapack name="X-Raym_Color current region or regions in time selection randomly with same color.lua" type="script" desc="Color current region or regions in time selection randomly with same color">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/DBqWE6Y.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/DBqWE6Y.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-08-07T13:19:28Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5894,7 +5894,7 @@
     </reapack>
     <reapack name="X-Raym_Color current region or regions in time selection randomly.lua" type="script" desc="Color current region or regions in time selection randomly">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/DBqWE6Y.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/DBqWE6Y.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-01-31T14:07:16Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5903,7 +5903,7 @@
     </reapack>
     <reapack name="X-Raym_Convert current region or regions in time selection to markers.lua" type="script" desc="Convert current region or regions in time selection to markers">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/wb7yhVs.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/wb7yhVs.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-11-10T17:31:07Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5912,7 +5912,7 @@
     </reapack>
     <reapack name="X-Raym_Convert last marker or marker in time selection to regions.lua" type="script" desc="Convert last marker or marker in time selection to regions">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/zK1vkhd.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/zK1vkhd.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-11-10T17:31:07Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5953,7 +5953,7 @@
     </reapack>
     <reapack name="X-Raym_Create project markers from selected takes markers.lua" type="script" desc="Create project markers from selected takes markers">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/AAcThVd.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/AAcThVd.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-04-28T00:27:03Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -5966,7 +5966,7 @@
     </reapack>
     <reapack name="X-Raym_Create project regions from selected takes markers.lua" type="script" desc="Create project regions  from selected takes markers">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/pqqfaPX.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/pqqfaPX.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2024-01-01T14:12:13Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -6005,7 +6005,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 This was designed to have a tempo map inside DaVinci Resolve\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/xEsD5a8.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/xEsD5a8.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-01-26T10:22:48Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -6078,7 +6078,7 @@
     </reapack>
     <reapack name="X-Raym_Export markers as YouTube timecode for video description.lua" type="script" desc="Export markers as YouTube timecode for video description">
       <metadata>
-        <link rel="screenshot">http://i.imgur.com/KFoTA3a.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/KFoTA3a.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-11-10T17:10:07Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -6197,7 +6197,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Add a clock for regions, based on Play Cursor position.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o85xpylrlY7MPzmo0.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o85xpylrlY7MPzmo0.mp4</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ User config area]]></changelog>
@@ -6265,7 +6265,7 @@
     </reapack>
     <reapack name="X-Raym_Set closest edge of closest region to edit cursor.lua" type="script" desc="Set closest edge of closest region to edit cursor">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/ZZJOmr9.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/ZZJOmr9.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-12-09T14:13:23Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -6282,7 +6282,7 @@
     </reapack>
     <reapack name="X-Raym_Swap regions names and subtitles notes.lua" type="script" desc="Swap regions names and subtitles notes">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/GDv9OtL.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/GDv9OtL.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-02-08T23:43:35Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -6304,7 +6304,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to reveal Parents and Childs tracks by their name\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/l41lMgnQVFZp2qfjW.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l41lMgnQVFZp2qfjW.mp4</link>
       </metadata>
       <version name="2.0.1" author="X-Raym" time="2026-02-19T12:14:14Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/36302d5db86bf92e112db9037b4bc4003acd9cb9/Regions/X-Raym_Uppercase%20first%20letter%20or%20each%20regions.lua</source>
@@ -6435,7 +6435,7 @@
     </reapack>
     <reapack name="X-Raym_Tap tempo.lua" type="script" desc="Tap Tempo">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/3oEduFGeA2lCw3Fh7y.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3oEduFGeA2lCw3Fh7y.mp4</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[# Precision is now Accuracy
@@ -6584,7 +6584,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Make to be used with heda's region from text items scripts, to create empty items from multiple audio samples for rendering\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.imgur.com/YSnkn4v.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/YSnkn4v.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-04-01T16:09:06Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -6622,7 +6622,7 @@
     </reapack>
     <reapack name="X-Raym_Create text items on first selected track from grid lines division in time selection (named and colored with regions).lua" type="script">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/Kb2hAQR.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/Kb2hAQR.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-01-13T15:41:22Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -6714,7 +6714,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Make to be used with heda's region from text items scripts, to create empty items from multiple audio samples for rendering\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.imgur.com/fv87llV.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/fv87llV.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-04-01T16:09:06Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7007,7 +7007,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Equivalent to SWS label processor, but for items notes. Select items. Run. See below for customization and wildcards references.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/l41lPYdijt9494V5S.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l41lPYdijt9494V5S.mp4</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Replace
@@ -7330,7 +7330,7 @@
   <category name="Theme">
     <reapack name="X-Raym_Theme auto-refresher (background).lua" type="script" desc="Theme auto-refresher (background)">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/yJnbHLQ.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/yJnbHLQ.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-04-25T18:43:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7361,7 +7361,7 @@
   <category name="Track Properties">
     <reapack name="X-Raym_Change last touched track layout_background.lua" type="script" desc="Change last touched track layout">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/7ONmP3V.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/7ONmP3V.mp4</link>
       </metadata>
       <version name="2.1.2" author="X-Raym" time="2023-10-26T11:57:50Z">
         <changelog><![CDATA[# Select project instance nil issue fix attempt]]></changelog>
@@ -7397,7 +7397,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Import tracks from a TXT or CSV file. One track name per line.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3oEduTrQlzj80oPpWE.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3oEduTrQlzj80oPpWE.mp4</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[# Track order]]></changelog>
@@ -7476,7 +7476,7 @@
     </reapack>
     <reapack name="X-Raym_Move selected tracks down on visible track list.lua" type="script" desc="Move selected tracks down on visible track list">
       <metadata>
-        <link rel="screenshot">http://i.imgur.com/GfN9y50.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/GfN9y50.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-07-10T15:49:41Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7504,7 +7504,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 See title. NOTE: don't select children of parent track if you move the parent track. NOTE: working with child tracks isn't very predictible for now.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.imgur.com/GfN9y50.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/GfN9y50.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-04-29T09:35:41Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7517,7 +7517,7 @@
     </reapack>
     <reapack name="X-Raym_Move selected tracks up on visible track list.lua" type="script" desc="Move selected tracks up on visible track list">
       <metadata>
-        <link rel="screenshot">http://i.imgur.com/GfN9y50.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/GfN9y50.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-07-10T15:49:41Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7534,7 +7534,7 @@
     </reapack>
     <reapack name="X-Raym_Move selected tracks up to the top of the visible track list.lua" type="script" desc="Move selected tracks up to the top of the visible track list">
       <metadata>
-        <link rel="screenshot">http://i.imgur.com/SPfJoQp.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/SPfJoQp.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-07-16T13:42:31Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7547,7 +7547,7 @@
     </reapack>
     <reapack name="X-Raym_Mute selected tracks unmuting unselected ones or unmute if already muted.lua" type="script" desc="Mute selected tracks unmuting unselected ones or unmute if already muted">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/I0EQB9U.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/I0EQB9U.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-02-15T11:48:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7581,7 +7581,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Sponored by Dan Stanley\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/RXSUmi6.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/RXSUmi6.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-06-06T15:26:31Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7597,7 +7597,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to reveal Parents and Childs tracks by their name\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/l41lMgnQVFZp2qfjW.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l41lMgnQVFZp2qfjW.mp4</link>
       </metadata>
       <version name="1.1.1" author="X-Raym" time="2019-11-02T09:58:44Z">
         <changelog><![CDATA[# No provides]]></changelog>
@@ -7613,7 +7613,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to quickly rename and recolor tracks in a REAPER project from its instrument.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/l41lMgnQVFZp2qfjW.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l41lMgnQVFZp2qfjW.mp4</link>
       </metadata>
       <version name="1.1.1" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[# Space in name]]></changelog>
@@ -7629,7 +7629,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to quickly rename and recolor tracks in a REAPER project from its instrument.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/l41lMgnQVFZp2qfjW.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l41lMgnQVFZp2qfjW.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-10-03T19:26:04Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7667,7 +7667,7 @@
     </reapack>
     <reapack name="X-Raym_Restore selected tracks parameters grouping.lua" type="script" desc="Restore selected tracks grouping parameters">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/gcjhs8s.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/gcjhs8s.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-11-24T16:40:59Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7722,7 +7722,7 @@
     </reapack>
     <reapack name="X-Raym_Save selected tracks parameters grouping.lua" type="script" desc="Save selected tracks grouping parameters">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/gcjhs8s.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/gcjhs8s.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-11-24T16:40:59Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7743,7 +7743,7 @@
     </reapack>
     <reapack name="X-Raym_Scroll vertically to track by name and select it.lua" type="script" desc="Scroll vertically to track by name and select it">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/6qMLP2s.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/6qMLP2s.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-06-23T17:32:14Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7776,7 +7776,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select tracks. Run.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3o85xuFcHQ27K06TdK.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o85xuFcHQ27K06TdK.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -7968,7 +7968,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to reveal Parents and Childs tracks by their name\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/l41lMgnQVFZp2qfjW.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/l41lMgnQVFZp2qfjW.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -8059,7 +8059,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Default ignore muted items. Moded from mpl_Toggle show tracks if play cursor crossing any of their items.lua\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/JkkJmoB.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/JkkJmoB.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-03-01T14:50:11Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -8080,7 +8080,7 @@
     </reapack>
     <reapack name="X-Raym_Solo selected tracks unsoloing unselected ones or unsolo if already solo.lua" type="script" desc="Solo selected tracks unsoloing unselected ones or unsolo if already solo">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/I0EQB9U.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/I0EQB9U.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-02-14T13:31:55Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -8097,7 +8097,7 @@
     <reapack name="X-Raym_Sort all tracks alphabetically.lua" type="script" desc="Sort all tracks alphabetically">
       <metadata>
         <link rel="website">http://forum.cockos.com/showpost.php?p=1574912&amp;postcount=1078</link>
-        <link rel="screenshot">http://i.giphy.com/3oEdv7ULuP7JOEeHUQ.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3oEdv7ULuP7JOEeHUQ.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -8127,7 +8127,7 @@
     </reapack>
     <reapack name="X-Raym_Sort selected tracks order according to their first item positions.lua" type="script" desc="Sort selected tracks order according to their first item positions">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/oeZNhFf.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/oeZNhFf.mp4</link>
       </metadata>
       <version name="1.0.1" author="X-Raym" time="2021-10-14T21:23:58Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Track%20Properties/X-Raym_Sort%20selected%20tracks%20order%20according%20to%20their%20first%20item%20positions.lua</source>
@@ -8274,7 +8274,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Just like the SWS action Xenakios/SWS: Play selected items once but from snap offset pos\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/80v4gQk.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/80v4gQk.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-03-13T21:30:35Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c4a7dddc4ddfa2a33308e31f2377f121c75a0a5b/Transport/X-Raym_Play%20first%20selected%20item%20once%20from%20first%20snap%20offset%20position.lua</source>
@@ -8336,7 +8336,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Just like the SWS action Xenakios/SWS: Play selected items once but from snap offset pos. Click NEW INSTANCE + Always remember when you run the script.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/80v4gQk.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/80v4gQk.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-03-13T21:14:09Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/9967ae60fe7833e214822628b71a1573285d7b3f/Transport/X-Raym_Play%20selected%20items%20once%20from%20first%20snap%20offset%20position.lua</source>
@@ -8512,7 +8512,7 @@
   <category name="Various">
     <reapack name="spk77_X-Raym_Play and recording clock.eel" type="script" desc="Play and recording clock">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/P6Zr7lC.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/P6Zr7lC.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
@@ -8530,7 +8530,7 @@
     </reapack>
     <reapack name="X-Raym_Change last touched track layout_background.lua" type="script" desc="Change last touched track layout">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/7ONmP3V.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/7ONmP3V.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-11-16T00:49:51Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -8618,7 +8618,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Use this with the Save mouse pos toslot scripts. Useful to switch presets of VST which doesn't have other way to trigger next/previous buttons.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/bWsnJET.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/bWsnJET.mp4</link>
       </metadata>
       <version name="1.0.1" author="X-Raym" time="2023-04-11T23:17:11Z">
         <source main="main" file="X-Raym_Click at X Y screen position relative to focused window_slot 1.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/Various/X-Raym_Click%20at%20X%20Y%20screen%20position%20relative%20to%20focused%20window.lua</source>
@@ -8636,7 +8636,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Use this with the Save mouse pos toslot scripts. Useful to switch presets of VST which doesn't have other way to trigger next/previous buttons.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/bWsnJET.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/bWsnJET.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2020-11-27T17:13:23Z">
         <source main="main" file="X-Raym_Click at X Y screen position_slot 1.lua">https://github.com/X-Raym/REAPER-ReaScripts/raw/509b1d15fe1e998443cf73c036ae78725d77e0b6/Various/X-Raym_Click%20at%20X%20Y%20screen%20position.lua</source>
@@ -8679,7 +8679,7 @@
     </reapack>
     <reapack name="X-Raym_Detect selected and master tracks clips - peaks over 0dB - position.lua" type="script" desc="Detect selected and master tracks clips - peaks over 0dB - position">
       <metadata>
-        <link rel="screenshot">http://i.giphy.com/3o8dpaSLqUezHdaVlC.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3o8dpaSLqUezHdaVlC.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -8796,7 +8796,7 @@
     </reapack>
     <reapack name="X-Raym_Generate a combination of three random words to clipboard.lua" type="script" desc="Generate a combination of three random words to clipboard">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/8ypsGkC.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/8ypsGkC.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2021-01-17T08:20:42Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cc2fd292eb8da0c76e2d2e96bf003a4cec34ed48/Various/X-Raym_Generate%20a%20combination%20of%20three%20random%20words%20to%20clipboard.lua</source>
@@ -8870,7 +8870,7 @@
     </reapack>
     <reapack name="X-Raym_Insert UltraStar lyrics from project to items MIDI notes on first selected track.lua" type="script" desc="Insert UltraStar lyrics from project to items MIDI notes on first selected track">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/ELPdgLn.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/ELPdgLn.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-01-25T17:00:45Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -8902,7 +8902,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Select a track. Run. Supports both UltraStar Creator and YASS syntax.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/Q7tOB47.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/Q7tOB47.mp4</link>
       </metadata>
       <version name="1.1" author="X-Raym" time="2023-02-12T16:49:00Z">
         <changelog><![CDATA[+ Background real time version of the script]]></changelog>
@@ -8934,7 +8934,7 @@
     </reapack>
     <reapack name="X-Raym_Lua pattern viewer_ReaImGui.lua" type="script" desc="Lua Pattern Viewer (ReaImGui)">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/UxOvxXI.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/UxOvxXI.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2023-07-24T23:09:53Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/c1075083a79e7c38241eccbdee22cf1dc822fb0d/Various/X-Raym_Lua%20pattern%20viewer_ReaImGui.lua</source>
@@ -9052,7 +9052,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to render tracks to master chain.\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/v3UKS68.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/v3UKS68.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2016-03-14T00:15:50Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -9255,7 +9255,7 @@
     </reapack>
     <reapack name="X-Raym_State chunk editor_ReaImGui.lua" type="script" desc="State chunk editor (ReaImGui)">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/fCw0Flt.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/fCw0Flt.mp4</link>
       </metadata>
       <version name="1.0.1" author="X-Raym" time="2024-01-03T15:44:49Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e6dc5bfa864abef783e946979487f2bfc6241d97/Various/X-Raym_State%20chunk%20editor_ReaImGui.lua</source>
@@ -9358,7 +9358,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to find a certain text in the project.\par}
 }
 ]]></description>
-        <link rel="screenshot">http://i.giphy.com/3oEdv3QtgRpelKaaNa.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/3oEdv3QtgRpelKaaNa.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -9388,7 +9388,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to find items more easily on huge project, without losing selection\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/sHBYUgL.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/sHBYUgL.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-06-20T23:52:10Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -9404,7 +9404,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 A way to find items more easily on huge project, without losing selection\par}
 }
 ]]></description>
-        <link rel="screenshot">https://i.imgur.com/sHBYUgL.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/sHBYUgL.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2018-06-20T23:52:10Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -9419,7 +9419,7 @@
     </reapack>
     <reapack name="X-Raym_Scroll arrange view if mouse reaches reaper window edges.lua" type="script" desc="Scroll arrange view if mouse reaches reaper window edges">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/0npTbEB.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/0npTbEB.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-05-18T18:12:07Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -9447,7 +9447,7 @@
     </reapack>
     <reapack name="X-Raym_Scroll arrange view if mouse reaches screen edges.lua" type="script" desc="Scroll arrange view if mouse reaches screen edges">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/0npTbEB.gifv</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/0npTbEB.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-03-22T19:08:00Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -9536,7 +9536,7 @@
 }
 ]]></description>
         <link rel="website" href="https://forum.cockos.com/showthread.php?p=2127630#post2127630">Forum</link>
-        <link rel="screenshot">https://i.imgur.com/z2Rv2cL.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/z2Rv2cL.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-06-20T12:43:58Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
@@ -9621,7 +9621,7 @@
     </reapack>
     <reapack name="X-Raym_Lyrics.www" type="webinterface" desc="Lyrics Web Interface">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/o6DcxsG.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/o6DcxsG.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2019-04-29T23:00:38Z">
         <source file="X-Raym_Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/18ec061a85dbbefb92c06a39b98215393ebf326b/Web%20Interfaces/X-Raym_Lyrics.html</source>
@@ -9663,7 +9663,7 @@ Do not redraw UI when not needed]]></changelog>
     </reapack>
     <reapack name="X-Raym_Scrolling Lyrics.www" type="webinterface" desc="Scrolling Lyrics Web Interface">
       <metadata>
-        <link rel="screenshot">https://i.imgur.com/z2Rv2cL.gif</link>
+        <link rel="screenshot">https://cloud.extremraym.com/sharex/reascripts/z2Rv2cL.mp4</link>
       </metadata>
       <version name="1.0" author="X-Raym" time="2022-06-20T12:43:58Z">
         <source file="X-Raym_Scrolling Lyrics.html">https://github.com/X-Raym/REAPER-ReaScripts/raw/84a74dac22585555af4d878ee861bff3ef6bc63c/Web%20Interfaces/X-Raym_Scrolling%20Lyrics.html</source>

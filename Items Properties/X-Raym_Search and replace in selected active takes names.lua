@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Search and replace in selected active takes names
- * Screenshot: http://i.giphy.com/3oEdv3tKb0CpB7VCtq.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3oEdv3tKb0CpB7VCtq.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

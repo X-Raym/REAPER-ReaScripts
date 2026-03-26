@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Set item under mouse start and end to items selection
  * About: Useful if you need to adjust regions created with empty items. If you had to resize thiese regions, you can do it easily with this script.
- * Screenshot: http://i.imgur.com/iFUNNCC.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/iFUNNCC.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

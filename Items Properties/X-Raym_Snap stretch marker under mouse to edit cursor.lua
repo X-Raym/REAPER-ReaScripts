@@ -2,7 +2,7 @@
  * ReaScript Name: Snap stretch marker under mouse to edit cursor
  * Instructions: Put this on a keyboard shortcut. Run.
  * Notes : Only work if take rate is 1. SWS issue.
- * Screenshot: https://i.imgur.com/KCbf6be.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/KCbf6be.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -34,12 +34,15 @@
 -- Use Preset Script for safe moding or to create a new action with your own values
 -- https://github.com/X-Raym/REAPER-ReaScripts/tree/master/Templates/Script%20Preset
 
-ripple_alltracks_color = "##4E1414"
+ripple_alltracks_color = "#4E1414"
 ripple_onetrack_color = "#142A4E"
+
+ripple_alltracks_color = "#111111"
 
 theme_elements_by_modes = {
   {"selcol_tr1_bg", "selcol_tr2_bg", "ts_lane_bg" }, -- ripple track
-  {"col_tr1_bg", "col_tr2_bg", "selcol_tr1_bg", "selcol_tr2_bg", "ts_lane_bg" }, -- ripple all tracks
+  --{"col_tr1_bg", "col_tr2_bg", "selcol_tr1_bg", "selcol_tr2_bg", "ts_lane_bg" }, -- ripple all tracks
+   {"col_tr1_bg", "col_tr2_bg", "selcol_tr1_bg", "selcol_tr2_bg" }
 }
 
 -- V1.0 Presets Value --

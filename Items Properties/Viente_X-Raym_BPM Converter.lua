@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: BPM Converter
- * Screenshot: https://s3.amazonaws.com/f.cl.ly/items/3j1g3Q050i010P3S0Y3c/bpmconverter.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/bpmconverter.gif
  * Author: Viente, X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Keep selected only active audio takes under or over peak volume threshold
  * Instructions: Select items. Run.
- * Screenshot: http://i.imgur.com/nKlFUCZ.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/nKlFUCZ.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Trim right edge of item under mouse or the previous one to mouse cursor
- * Screenshot: https://i.imgur.com/qt93dsZ.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/qt93dsZ.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

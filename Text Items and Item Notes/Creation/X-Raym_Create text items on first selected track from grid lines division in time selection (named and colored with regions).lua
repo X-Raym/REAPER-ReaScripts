@@ -1,6 +1,6 @@
 --[[
  * ReaScript: Create text items on first selected track from grid lines division in time selection (named and colored with regions)
- * Screenshot: https://i.imgur.com/Kb2hAQR.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/Kb2hAQR.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Snap edit cursor to closest MIDI editor grid line
- * Screenshot: https://i.imgur.com/EBjhma4.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/EBjhma4.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -26,15 +26,15 @@ function Main()
   if snap == 0 then
     reaper.MIDIEditor_OnCommand(midi_editor, 1014)
   end
-  
+
   cur_pos = reaper.GetCursorPosition()
-  
+
   reaper.MIDIEditor_OnCommand(midi_editor, 40048)
   rigth_cur_pos = reaper.GetCursorPosition()
-  
+
   reaper.MIDIEditor_OnCommand(midi_editor, 40047)
   left_cur_pos = reaper.GetCursorPosition()
-  
+
   if left_cur_pos == cur_pos then
     reaper.SetEditCurPos( cur_pos, false, false )
   elseif rigth_cur_pos - cur_pos < cur_pos - left_cur_pos then
@@ -43,7 +43,7 @@ function Main()
   else
     reaper.SetEditCurPos( left_cur_pos, false, false )
   end
-  
+
   if snap == 0 then
     reaper.MIDIEditor_OnCommand(midi_editor, 1014)
   end

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Split selected items into X equal length parts
- * Screenshot: https://i.imgur.com/nvqhIck.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/nvqhIck.mp4
  * Author: X-Raym
  * Author URI: http://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -153,20 +153,20 @@ function Init()
       reaper.Undo_BeginBlock() -- Begining of the undo block. Leave it at the top of your main function.
 
       reaper.ClearConsole()
-      
+
       vars.val = math.floor( vars.val )
 
       if popup then
         SaveState()
       end
-      
+
       init_sel_items = {}
       SaveSelectedItems(init_sel_items)
-      
+
       new_sel_items = {}
 
       Main() -- Execute your main function
-      
+
       RestoreSelectedItems( new_sel_items )
 
       reaper.Undo_EndBlock(undo_text, -1) -- End of the undo block. Leave it at the bottom of your main function.

@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Save selected tracks grouping parameters
- * Screenshot: https://i.imgur.com/gcjhs8s.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/gcjhs8s.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

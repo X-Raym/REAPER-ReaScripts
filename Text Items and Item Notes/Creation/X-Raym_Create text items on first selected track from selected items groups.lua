@@ -2,7 +2,7 @@
  * ReaScript Name: Create text items on first selected track from selected items groups
  * About: Make to be used with heda's region from text items scripts, to create empty items from multiple audio samples for rendering
  * Instructions: Select a destination track. Select items. Execute.
- * Screenshot: http://i.imgur.com/fv87llV.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/fv87llV.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

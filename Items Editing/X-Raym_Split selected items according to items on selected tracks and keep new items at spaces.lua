@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Split selected items according to items on selected tracks and keep new items at spaces
- * Screenshot: https://i.imgur.com/6e1H0I2.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/6e1H0I2.mp4
  * About: A script designed for spliting an ambiance sound to put between dialog items
  * Author: X-Raym
  * Author URI: https://www.extremraym.com

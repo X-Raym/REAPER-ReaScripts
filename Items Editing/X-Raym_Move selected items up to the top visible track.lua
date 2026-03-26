@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Move selected items up to the top visible track
  * Instructions: Select items. Run.
- * Screenshot: https://i.imgur.com/UNdnR4C.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/UNdnR4C.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

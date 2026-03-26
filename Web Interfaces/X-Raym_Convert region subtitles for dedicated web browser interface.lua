@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Convert region subtitles for the dedicated web browser interface
  * About: Have a track named lyrics and text items on it. Run the web interface.
- * Screenshot: https://monosnap.com/file/lDLQNmSP9K6SHCdK7tMWXS3zW31lP7
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/Desktop+2019-04-19+12.32.50.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

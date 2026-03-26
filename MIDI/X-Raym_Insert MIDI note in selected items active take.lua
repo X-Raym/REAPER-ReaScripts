@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Insert MIDI note in selected items active take
- * Screenshot: http://i.giphy.com/xTcnSXojAqCRl0dD8Y.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/xTcnSXojAqCRl0dD8Y.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

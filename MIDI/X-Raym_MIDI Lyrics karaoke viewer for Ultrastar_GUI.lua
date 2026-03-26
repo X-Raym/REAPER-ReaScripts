@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: MIDI Lyrics karaoke viewer for Ultrastar_GUI
  * About: Add a clock based on Lyrics tracks MIDI Lyrics events. It use Markers to determine Lines of the karaoke.
- * Screenshot: https://i.imgur.com/VnImxoP.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/VnImxoP.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -229,7 +229,7 @@ end
 function CenterAndResizeText(string, y_offset)
   y_offset = y_offset or 0
   gfx.setfont(1, font_name, 100)
-  
+
   local hbox = vars.draw_next_line == "y" and gfx.h / 2 or gfx.h
 
   local str_w, str_h = gfx.measurestr(string)

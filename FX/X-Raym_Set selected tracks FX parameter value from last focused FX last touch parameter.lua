@@ -2,7 +2,7 @@
  * ReaScript Name: Set selected tracks FX parameter value from last focused FX last touch parameter
  * About: A way to propagate FX param value from last touched FX to others on selected tracks
  * Instructions: Touch an FX param. Run.
- * Screenshot: http://i.giphy.com/3oEdv7plpUl2dmlOcU.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3oEdv7plpUl2dmlOcU.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

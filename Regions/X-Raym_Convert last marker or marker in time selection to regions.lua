@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Convert last marker or marker in time selection to regions
- * Screenshot: https://i.imgur.com/zK1vkhd.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/zK1vkhd.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

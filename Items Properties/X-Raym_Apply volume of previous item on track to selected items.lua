@@ -2,7 +2,7 @@
  * ReaScript Name: Apply volume of previous item on track to selected item
  * About: A very nice way to set item volume for dialog editing.
  * Instructions: Select items. Run.
- * Screenshot: http://i.giphy.com/xTiTnBqy5MgtePvLLG.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/xTiTnBqy5MgtePvLLG.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

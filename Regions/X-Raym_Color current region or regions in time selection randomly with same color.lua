@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Color current region or regions in time selection randomly with same color
- * Screenshot: https://i.imgur.com/DBqWE6Y.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/DBqWE6Y.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

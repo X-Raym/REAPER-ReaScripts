@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Delete take markers outside of selected items boundaries
- * Screenshot: https://i.imgur.com/GEt3OjY.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/GEt3OjY.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -9,7 +9,7 @@
  * REAPER: 6.0
  * Version: 1.0.1
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0.1 (2025-01-15)
@@ -23,7 +23,7 @@
 
 console = true -- true/false: display debug messages in the console
 
-undo_text = "Delete take markers outside of selected items boundaries" 
+undo_text = "Delete take markers outside of selected items boundaries"
 ------------------------------------------------------- END OF USER CONFIG AREA
 
 
@@ -113,11 +113,11 @@ function Init()
   reaper.UpdateArrange()
 
   reaper.PreventUIRefresh(-1)
-  
+
 end
 
 if not preset_file_init then
-  Init() 
+  Init()
 end
 
 

@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Set or offset selected takes rate by semitone adjusting item length and fades and clearing preserve pitch
  * About: Contrary to native actions, this one adjust fades. It also force non preserving pitch.
- * Screenshot: https://i.imgur.com/2gGxOoH.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/2gGxOoH.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

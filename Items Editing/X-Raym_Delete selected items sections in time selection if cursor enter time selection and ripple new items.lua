@@ -1,7 +1,7 @@
 ﻿--[[
  * ReaScript Name: Delete selected items sections in time selection if cursor enter time selection and ripple new items
  * Instructions: Select items with take. Run.
- * Screenshot: http://i.giphy.com/3o8doN6hJOcw77QX8Q.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o8doN6hJOcw77QX8Q.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

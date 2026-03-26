@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Swap selected items fades
  * About: Select items. Run.
- * Screenshot: https://i.imgur.com/Hd0BhnU.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/Hd0BhnU.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -33,7 +33,7 @@ function Main()
 
     -- GET ITEMS
     item = reaper.GetSelectedMediaItem(0, i) -- Get selected item i
-    
+
     -- Get current fade parameters
     fadeInLen = reaper.GetMediaItemInfo_Value(item, "D_FADEINLEN")
     fadeOutLen = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTLEN")
@@ -41,15 +41,15 @@ function Main()
     fadeOutCurvature = reaper.GetMediaItemInfo_Value(item, "D_FADEOUTDIR")
     fadeInShape = reaper.GetMediaItemInfo_Value(item, "C_FADEINSHAPE")
     fadeOutShape = reaper.GetMediaItemInfo_Value(item, "C_FADEOUTSHAPE")
-    
+
     -- Swap fade lengths
     reaper.SetMediaItemInfo_Value(item, "D_FADEINLEN", fadeOutLen)
     reaper.SetMediaItemInfo_Value(item, "D_FADEOUTLEN", fadeInLen)
-    
+
     -- Swap fade shapes
     reaper.SetMediaItemInfo_Value(item, "C_FADEINSHAPE", fadeOutShape)
     reaper.SetMediaItemInfo_Value(item, "C_FADEOUTSHAPE", fadeInShape)
-    
+
     -- Swap fade curvatures
     reaper.SetMediaItemInfo_Value(item, "D_FADEINDIR", -fadeOutCurvature)
     reaper.SetMediaItemInfo_Value(item, "D_FADEOUTDIR", -fadeInCurvature)

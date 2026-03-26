@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Generate a combination of three random words to clipboard
- * Screenshot: https://i.imgur.com/8ypsGkC.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/8ypsGkC.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

@@ -8,7 +8,7 @@
  * Licence: GPL v3
  * Links:
      Script Request: Render Region Matrix (stopping in between regions) http://forum.cockos.com/showthread.php?t=193188
-     Screenshot http://i.imgur.com/nKc09wL.gif
+     Screenshot https://cloud.extremraym.com/sharex/reascripts/nKc09wL.mp4
  * REAPER: 5.0
  * Version: 1.0
 --]]

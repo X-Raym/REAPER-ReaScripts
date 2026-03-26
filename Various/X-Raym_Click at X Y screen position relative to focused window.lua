@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Click at X Y screen position relative to focused window
- * Screenshot: https://i.imgur.com/bWsnJET.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/bWsnJET.mp4
  * About: Use this with the Save mouse pos toslot scripts. Useful to switch presets of VST which doesn't have other way to trigger next/previous buttons.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com

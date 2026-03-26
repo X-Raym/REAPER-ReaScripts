@@ -2,7 +2,7 @@
  * ReaScript Name: Set sequential mono channel modes on selected items
  * About: It sets each to next number. So first item will be channel 1, next channel 2, etc
  * Instructions: Select items. Run.
- * Screenshot: http://i.imgur.com/KTapWKU.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/KTapWKU.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

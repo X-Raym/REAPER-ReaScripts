@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Theme auto-refresher (background)
- * Screenshot: https://i.imgur.com/yJnbHLQ.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/yJnbHLQ.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

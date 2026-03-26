@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Select Tracks Fom Item Selection (Cubase Style)
- * Screenshot: http://i.giphy.com/3o85xpylrlY7MPzmo0.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o85xpylrlY7MPzmo0.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

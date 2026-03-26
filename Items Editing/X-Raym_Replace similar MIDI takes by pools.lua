@@ -2,7 +2,7 @@
  * ReaScript Name: Replace similar MIDI Takes by pools
  * About: Check selected items active takes MIDI content, and see if there is similar content. If yes, then replace by a pool instance. Very handy when you import and split guitar tabs or any instrument score, and you already split your midi items by riffs-patterns.
  * Instructions: Select MIDI items. Run.
- * Screenshot: http://i.imgur.com/N2fcs9k.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/N2fcs9k.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -216,7 +216,7 @@ function Main()
   end
 
   table.insert( log, pools_count .. ' MIDI pools were created from ' .. items_count .. ' media items.')
-  
+
   DisplayTooltip( table.concat( log, "\n" ) )
 
 end
@@ -266,7 +266,7 @@ if count_sel_items > 0 then
 
   init_sel_tracks = {}
   SaveSelectedTracks ( init_sel_tracks )
-  
+
   init_cur_pos = reaper.GetCursorPosition()
 
   midi_takes = {}
@@ -277,7 +277,7 @@ if count_sel_items > 0 then
   RestoreSelectedTracks( init_sel_tracks )
 
   RestoreSelectedItems( sel_items )
-  
+
   reaper.SetEditCurPos( init_cur_pos, false, false )
 
   RestoreView()

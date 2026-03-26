@@ -2,7 +2,7 @@
  * ReaScript Name: Select all automation items below length threshold on selected tracks
  * About: Use this in a custom action to delete selected items, for eg.
  * Instructions: Select a track. Execute the script.
- * Screenshot: http://i.giphy.com/3o6QKX2WdiZllRt5e0.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o6QKX2WdiZllRt5e0.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

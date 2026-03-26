@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Apply selected items volume to their takes
  * Instructions: Select items. Run.
- * Screenshot: https://i.imgur.com/VfyPoq7.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/VfyPoq7.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -33,7 +33,7 @@ function main()
     count_takes = reaper.CountTakes( item )
 
     for j = 0, count_takes - 1 do
-      
+
       take = reaper.GetTake( item, j )
       take_vol = reaper.GetMediaItemTakeInfo_Value( take, "D_VOL" )
       item_vol = reaper.GetMediaItemInfo_Value(item, "D_VOL")

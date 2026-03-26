@@ -1,6 +1,6 @@
 /**
  * JSFX Name: Mute on loop
- * Screenshot: https://i.imgur.com/DQvMHTP.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/DQvMHTP.mp4
  * About: Mute all audio when the play cursor start looping. Note: this will also mute if you put play cursor before its current position while playing (no way to check if play cursor goes before because of looping or not).
  * Author: X-Raym
  * Author URI: https://www.extremraym.com

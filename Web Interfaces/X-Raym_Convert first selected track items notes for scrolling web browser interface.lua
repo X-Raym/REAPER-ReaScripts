@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Convert first selected track items notes for scrolling web browser interface
  * About: Use with the X-Raym_Scrolling Lyrics.html web interface
- * Screenshot: https://i.imgur.com/z2Rv2cL.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/z2Rv2cL.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

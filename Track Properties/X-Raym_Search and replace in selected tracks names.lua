@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Search and replace in selected tracks names
  * About: Select tracks. Run.
- * Screenshot: http://i.giphy.com/3o85xuFcHQ27K06TdK.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/3o85xuFcHQ27K06TdK.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

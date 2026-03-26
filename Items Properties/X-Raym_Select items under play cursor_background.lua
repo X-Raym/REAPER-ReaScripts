@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Select items under play cursor (background)
- * Screenshot: https://i.imgur.com/CGtMQC5.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/CGtMQC5.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
@@ -69,7 +69,7 @@ end
    local count_tracks = only_sel_tracks and reaper.CountSelectedTracks(0) or reaper.CountTracks(0)
    for i_tr = 1, count_tracks do
      local tr = only_sel_tracks and reaper.GetSelectedTrack(0,i_tr-1) or reaper.GetTrack(0,i_tr-1)
-     
+
      for i_it = 1, reaper.CountTrackMediaItems(tr) do
        local item = reaper.GetTrackMediaItem( tr, i_it-1 )
        local it_pos = reaper.GetMediaItemInfo_Value( item, 'D_POSITION' )

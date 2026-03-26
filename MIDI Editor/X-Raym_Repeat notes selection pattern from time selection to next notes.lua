@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Repeat notes selection pattern from time selection to next notes
  * About: Select notes inside a time selection. Run. The script will count every notes after time selection and select/unselect based on the notes in time selection selection value state. The script just cout notes, it doesn't do any complex grid/channel check.
- * Screenshot: https://i.imgur.com/BOKDErc.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/BOKDErc.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

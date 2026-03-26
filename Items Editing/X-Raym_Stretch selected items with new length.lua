@@ -2,7 +2,7 @@
  * ReaScript Name: Stretch selected items with new length
  * About: A way to stretch items with a new length
  * Instructions: Select items. Choose length. Run.
- * Screenshot: http://i.imgur.com/39zHx2j.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/39zHx2j.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

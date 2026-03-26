@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Move selected tracks down on visible track list
  * Instructions: Select tracks. Run.
- * Screenshot: http://i.imgur.com/GfN9y50.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/GfN9y50.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

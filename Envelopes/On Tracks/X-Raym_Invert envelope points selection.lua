@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Invert envelope points selection
  * Instructions: Select tracks with visible and armed envelopes. Execute the script. Note that if there is an envelope selected, it will work only for it.
- * Screenshot: https://i.imgur.com/96tJFtD.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/96tJFtD.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

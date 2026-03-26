@@ -6,7 +6,7 @@
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
- * Screenshot: https://i.imgur.com/VFhTQ3F.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/VFhTQ3F.mp4
  * Licence: GPL v3
  * Forum Thread: Scripts: Transport (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1601342

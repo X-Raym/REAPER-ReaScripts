@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Trim right edge of item under mouse or the previous one to mouse cursor without changing fade-out start
- * Screenshot: https://i.imgur.com/J2jGuWq.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/J2jGuWq.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

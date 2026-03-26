@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Export markers and regions as Davinci Resolve EDL file
  * About: This was designed to have a tempo map inside DaVinci Resolve
- * Screenshot: https://i.imgur.com/xEsD5a8.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/xEsD5a8.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

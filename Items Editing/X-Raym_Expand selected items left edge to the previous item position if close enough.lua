@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Expand selected items left edge to the previous item position if close enough
  * About: Expand selected items to the left item position
- * Screenshot: https://i.imgur.com/AR4uRLk.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/AR4uRLk.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

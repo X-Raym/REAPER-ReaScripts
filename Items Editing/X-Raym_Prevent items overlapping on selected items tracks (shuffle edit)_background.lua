@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Prevent items overlapping on selected items tracks (shuffle edit)_background
- * Screenshot: https://i.imgur.com/Ua8jgmd.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/Ua8jgmd.mp4
  * About: A way to swap items with simple click and drags. In user config area, swap can be active if item is before the middle of the previous one. It works on tracks of selected items only for efficiency.
  * Author: X-Raym
  * Author URI: https://www.extremraym.com

@@ -2,7 +2,7 @@
  * ReaScript Name: Implode selected items on same track into takes preserving position
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Screenshot: https://i.imgur.com/NCQM0YA.gifv
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/NCQM0YA.mp4
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3

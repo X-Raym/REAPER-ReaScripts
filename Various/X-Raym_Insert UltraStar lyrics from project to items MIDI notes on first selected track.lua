@@ -1,7 +1,7 @@
 --[[
  * ReaScript Name: Insert UltraStar lyrics from project to items MIDI notes on first selected track
  * Instructions: Select atrack. Run. Supports both UltraStar Creator and YASS syntax.
- * Screenshot: https://i.imgur.com/ELPdgLn.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/ELPdgLn.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

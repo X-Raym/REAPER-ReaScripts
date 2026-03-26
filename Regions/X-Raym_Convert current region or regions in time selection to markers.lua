@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Convert current region or regions in time selection to markers
- * Screenshot: https://i.imgur.com/wb7yhVs.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/wb7yhVs.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts

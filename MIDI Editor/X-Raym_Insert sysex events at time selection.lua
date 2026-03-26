@@ -1,6 +1,6 @@
 --[[
  * ReaScript Name: Insert sysex events at time selection
- * Screenshot: https://i.imgur.com/dnAKtCX.gif
+ * Screenshot: https://cloud.extremraym.com/sharex/reascripts/dnAKtCX.mp4
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
