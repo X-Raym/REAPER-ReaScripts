@@ -6,7 +6,7 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 6.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
@@ -54,6 +54,6 @@ end
 reaper.PreventUIRefresh(1)
 reaper.Undo_BeginBlock()
 Main()
-reaper.Undo_EndBlock("Split selected MIDI notes half in 2 notes", -1)
+reaper.Undo_EndBlock("Split selected MIDI notes half in 2 notes", 0)
 reaper.UpdateArrange()
 reaper.PreventUIRefresh(-1)
