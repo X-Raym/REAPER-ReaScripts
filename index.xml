@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="e197c0a20c652ac1a6fe69b0290e4c20a17cd156" name="X-Raym Scripts">
+<index version="1" commit="af53090308a6fc1bd99bda5347e0c29fe7492ade" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -1913,6 +1913,10 @@
         <changelog><![CDATA[+ Preserve grouping if groups active. Treat first selected item (in position) in each group as group leader (other are ignored during the alignement).]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Editing/X-Raym_Align%20selected%20items%20across%20tracks.lua</source>
       </version>
+      <version name="1.2.1" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetTrackFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Items%20Editing/X-Raym_Align%20selected%20items%20across%20tracks.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Convert selected looped items into independent items.eel" type="script" desc="Convert selected looped items into independent items">
       <version name="1.0" author="X-Raym" time="2015-12-24T16:57:47Z">
@@ -1949,6 +1953,10 @@
       <version name="1.2" author="X-Raym" time="2021-12-15T23:44:05Z">
         <changelog><![CDATA[# Select new items after copy]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Items%20Editing/X-Raym_Copy%20selected%20items%20and%20paste%20at%20mouse%20position.lua</source>
+      </version>
+      <version name="1.2.1" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetThingFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Items%20Editing/X-Raym_Copy%20selected%20items%20and%20paste%20at%20mouse%20position.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Create empty items on selected tracks from selected midi takes notes.lua" type="script" desc="Create empty items on selected tracks from selected midi takes notes">
@@ -2944,6 +2952,10 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7baac3497d177b97c56e2aa5d57e37d9b6f18391/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20to%20mouse%20cursor%20without%20changing%20fade-in%20end.lua</source>
       </version>
+      <version name="1.0.1" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetThingFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20to%20mouse%20cursor%20without%20changing%20fade-in%20end.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Trim left edge of item under mouse or the next one to mouse cursor.lua" type="script" desc="Trim left edge of item under mouse or the next one to mouse cursor">
       <metadata>
@@ -2956,6 +2968,10 @@
       <version name="1.0.1" author="X-Raym" time="2026-05-20T10:55:50Z">
         <changelog><![CDATA[# Use GetThingFromPoint for pinned track support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e197c0a20c652ac1a6fe69b0290e4c20a17cd156/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20to%20mouse%20cursor.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetTrackFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20to%20mouse%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Trim left edge of item under mouse or the next one without changing fade-in end.lua" type="script" desc="Trim left edge of item under mouse or the next one without changing fade-in end">
@@ -2986,6 +3002,10 @@
       </version>
       <version name="2.0.1" author="X-Raym" time="2021-03-11T08:33:11Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20without%20changing%20fade-in%20end.lua</source>
+      </version>
+      <version name="2.0.2" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetThingFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Items%20Editing/X-Raym_Trim%20left%20edge%20of%20item%20under%20mouse%20or%20the%20next%20one%20without%20changing%20fade-in%20end.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Trim left edge of item under mouse to edit cursor without changing fade-in end.eel" type="script" desc="Trim left edge of item under mouse to edit cursor without changing fade-in end">
@@ -3025,6 +3045,9 @@
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7baac3497d177b97c56e2aa5d57e37d9b6f18391/Items%20Editing/X-Raym_Trim%20right%20edge%20of%20item%20under%20mouse%20or%20the%20previous%20one%20to%20mouse%20cursor%20without%20changing%20fade-out%20start.lua</source>
       </version>
+      <version name="1.0.2" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Items%20Editing/X-Raym_Trim%20right%20edge%20of%20item%20under%20mouse%20or%20the%20previous%20one%20to%20mouse%20cursor%20without%20changing%20fade-out%20start.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Trim right edge of item under mouse or the previous one to mouse cursor.lua" type="script" desc="Trim right edge of item under mouse or the previous one to mouse cursor">
       <metadata>
@@ -3037,6 +3060,9 @@
       <version name="1.0.1" author="X-Raym" time="2026-05-20T10:55:50Z">
         <changelog><![CDATA[# Use GetThingFromPoint for pinned track support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/e197c0a20c652ac1a6fe69b0290e4c20a17cd156/Items%20Editing/X-Raym_Trim%20right%20edge%20of%20item%20under%20mouse%20or%20the%20previous%20one%20to%20mouse%20cursor.lua</source>
+      </version>
+      <version name="1.0.2" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Items%20Editing/X-Raym_Trim%20right%20edge%20of%20item%20under%20mouse%20or%20the%20previous%20one%20to%20mouse%20cursor.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Trim right edge of item under mouse to edit cursor without changing fade-out start.eel" type="script" desc="Trim right edge of item under mouse to edit cursor without changing fade-out start">
@@ -4351,6 +4377,10 @@
       </version>
       <version name="2.0.1" author="X-Raym" time="2021-02-14T11:40:54Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Items%20Properties/X-Raym_Set%20selected%20items%20take%20names%20by%20columns%20according%20to%20track%20under%20mouse%20or%20first%20track%20with%20selected%20items.lua</source>
+      </version>
+      <version name="2.0.2" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetTrackFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Items%20Properties/X-Raym_Set%20selected%20items%20take%20names%20by%20columns%20according%20to%20track%20under%20mouse%20or%20first%20track%20with%20selected%20items.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected takes volume from -x to +x.eel" type="script" desc="Set selected takes volume from -x to +x">
@@ -7932,10 +7962,18 @@
       <version name="2.0" author="X-Raym" time="2019-06-23T14:52:26Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Track%20Properties/X-Raym_Select%20track%20under%20mouse%20parent%20track.lua</source>
       </version>
+      <version name="2.0.1" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetTrackFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Track%20Properties/X-Raym_Select%20track%20under%20mouse%20parent%20track.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Select track under mouse top level parent track.lua" type="script" desc="Select track under mouse top level parent track">
       <version name="2.0" author="X-Raym" time="2019-06-23T14:52:26Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Track%20Properties/X-Raym_Select%20track%20under%20mouse%20top%20level%20parent%20track.lua</source>
+      </version>
+      <version name="2.0.1" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetTrackFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Track%20Properties/X-Raym_Select%20track%20under%20mouse%20top%20level%20parent%20track.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Select tracks with certain words in their SWS notes.lua" type="script" desc="Select tracks with certain words in their SWS notes">
@@ -8059,6 +8097,10 @@
     <reapack name="X-Raym_Set track under mouse as last touched.lua" type="script" desc="Set track under mouse as last touched">
       <version name="2.0" author="X-Raym" time="2021-03-10T11:02:52Z">
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Track%20Properties/X-Raym_Set%20track%20under%20mouse%20as%20last%20touched.lua</source>
+      </version>
+      <version name="2.0.1" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetTrackFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Track%20Properties/X-Raym_Set%20track%20under%20mouse%20as%20last%20touched.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set visible only tracks with items under play or edit cursor_background.lua" type="script" desc="Set visible only tracks with items under play or edit cursor">
@@ -8499,6 +8541,10 @@
         <changelog><![CDATA[+ Snap to grid
 # no SWS dependency]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7deae8e307427101dead266967b1e416c91da8bb/Transport/X-Raym_Solo%20in%20place%20exclusive%20track%20under%20mouse%20and%20play.lua</source>
+      </version>
+      <version name="1.2.1" author="X-Raym" time="2026-05-20T11:38:53Z">
+        <changelog><![CDATA[# Use GetTrackFromPoint for pinned track support]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/af53090308a6fc1bd99bda5347e0c29fe7492ade/Transport/X-Raym_Solo%20in%20place%20exclusive%20track%20under%20mouse%20and%20play.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle play from mouse cursor position and solo track under mouse for the duration - and select track.lua" type="script" desc="Toggle play from mouse cursor position and solo track under mouse for the duration - and select track">
