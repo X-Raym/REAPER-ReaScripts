@@ -8,11 +8,13 @@
  * Licence: GPL v3
  * REAPER: 6.0
  * Extensions: SWS/S&M 2.12.2 #0
- * Version: 1.0
+ * Version: 1.0.1
 ]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2026-12-09)
+  # Use GetThingFromPoint for pinned track support
  * v1.0 (2022-12-09)
   + Initial Release
 ]]
@@ -29,13 +31,25 @@ end
 --MAIN
 function Main()
 
-  mouse_item, mouse_pos = reaper.BR_ItemAtMouseCursor()
+  --if reaper.GetThingFromPoint then
+    --mouse_x, mouse_y = reaper.GetMousePosition()
+    --mouse_thing, info = reaper.GetThingFromPoint( mouse_x, mouse_y )
+   -- mouse_item = reaper.ValidatePtr(mouse_thing, "MediaItem*") and mouse_thing
+  --else
+    mouse_item, mouse_pos = reaper.BR_ItemAtMouseCursor()
+  --end
 
-  if mouse_item == nil then -- Mouse in in arrange view
+  if not mouse_item then -- Mouse in in arrange view
 
-    mouse_track, track_context, mouse_pos = reaper.BR_TrackAtMouseCursor()
+    if reaper.GetThingFromPoint then
+      mouse_x, mouse_y = reaper.GetMousePosition()
+      mouse_thing, info = reaper.GetThingFromPoint( mouse_x, mouse_y )
+      mouse_track = reaper.ValidatePtr(mouse_thing, "MediaTrack*") and mouse_thing
+    else
+      mouse_track, track_context, mouse_pos = reaper.BR_TrackAtMouseCursor()
+    end
 
-    if track_context == 2 then
+    if (reaper.GetThingFromPoint and mouse_track) or track_context == 2 then
 
       count_items_on_tracks = reaper.CountTrackMediaItems(mouse_track)
 
