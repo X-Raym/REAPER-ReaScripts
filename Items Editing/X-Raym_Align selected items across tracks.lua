@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
  * REAPER: 5.0
  * Extensions: SWS/S&M 2.8.2
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2026-05-20)
+  # Use GetTrackFromPoint for pinned track support
  * v1.2 (2016-01-05)
   + Preserve grouping if groups active. Treat first selected item (in position) in each group as group leader (other are ignored during the alignement).
  * v1.1 (2015-12-28)
@@ -98,7 +100,12 @@ function main()
     -- Get the first selected track and save item selected
 
     -- Get track under mouse
-    first_sel_track, context, position = reaper.BR_TrackAtMouseCursor()
+    if reaper.GetTrackFromPoint then
+      mouse_x, mouse_y = reaper.GetMousePosition()
+      first_sel_track, info = reaper.GetTrackFromPoint( mouse_x, mouse_y )
+    else
+      first_sel_track, context, position = reaper.BR_TrackAtMouseCursor()
+    end
     -- If no track under mouse
     if first_sel_track == nil then
       first_sel_track = reaper.GetSelectedTrack(0, 0)

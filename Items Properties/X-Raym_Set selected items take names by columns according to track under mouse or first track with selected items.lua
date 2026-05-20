@@ -8,11 +8,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1574814
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 2.0.1
+ * Version: 2.0.2
 --]]
 
 --[[
  * Changelog:
+ * v2.0.2 (2026-05-20)
+  # Use GetTrackFromPoint for pinned track support
  * v2.0 (2021-02-14)
   # Renamed
  * v2.0 (2021-02-14)
@@ -37,7 +39,13 @@ local reaper = reaper
 -------------------------------------------------------------
 function Main()
   -- Find Ref Track
-  local ref_track, __, __ = reaper.BR_TrackAtMouseCursor() -- Mouse track
+  if reaper.GetTrackFromPoint then
+    mouse_x, mouse_y = reaper.GetMousePosition()
+    ref_track, info = reaper.GetTrackFromPoint( mouse_x, mouse_y )
+  else
+    ref_track, context, pos = reaper.BR_TrackAtMouseCursor()
+  end
+
   if not ref_track then
     ref_track = reaper.GetMediaItem_Track(reaper.GetSelectedMediaItem(0,0)) -- or first track with selected items
   end

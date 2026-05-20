@@ -10,11 +10,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157698
  * REAPER: 5 pre 17
  * Extensions: SWS/S&M 2.12.2 #0
- * Version: 2.0.1
+ * Version: 2.0.2
 ]]
 
 --[[
  * Changelog:
+ * v2.0.2 (2026-05-20)
+  # Use GetThingFromPoint for pinned track support
  * v2.0 (2021-03-10)
   # Use SWS instead
  * v1.1.1 (2021-03-09)
@@ -45,9 +47,16 @@ function main()
 
   if mouse_item == nil then -- Mouse in in arrange view
 
-    mouse_track, track_context, mouse_pos = reaper.BR_TrackAtMouseCursor()
+    if reaper.GetTrackFromPoint then
+      mouse_x, mouse_y = reaper.GetMousePosition()
+      mouse_thing, info = reaper.GetThingFromPoint( mouse_x, mouse_y )
+      track = reaper.ValidatePtr(mouse_thing, "MediaTrack*") and mouse_thing
+      mouse_pos = reaper.BR_PositionAtMouseCursor( false )
+    else
+      mouse_track, context, mouse_pos = reaper.BR_TrackAtMouseCursor()
+    end
 
-    if track_context == 2 then
+    if info == "arrange" and context == 2 then
 
       count_items_on_tracks = reaper.CountTrackMediaItems(mouse_track)
 

@@ -8,7 +8,7 @@
  * Licence: GPL v3
  * REAPER: 6.0
  * Extensions: SWS/S&M 2.12.2 #0
- * Version: 1.0.1
+ * Version: 1.0.2
 ]]
 
 --[[
@@ -45,6 +45,7 @@ function Main()
       mouse_x, mouse_y = reaper.GetMousePosition()
       mouse_thing, info = reaper.GetThingFromPoint( mouse_x, mouse_y )
       mouse_track = reaper.ValidatePtr(mouse_thing, "MediaTrack*") and mouse_thing
+      mouse_pos = reaper.BR_PositionAtMouseCursor( false )
     else
       mouse_track, track_context, mouse_pos = reaper.BR_TrackAtMouseCursor()
     end

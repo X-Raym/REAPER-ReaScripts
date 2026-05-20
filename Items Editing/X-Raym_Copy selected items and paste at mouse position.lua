@@ -8,11 +8,13 @@
  * Licence: GPL v3
  * REAPER: 5.0 pre 27
  * Extensions: SWS/S&M 2.7.1 #0
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2026-05-20)
+  # Use GetThingFromPoint for pinned track support
  * v1.2 (2021-12-16)
   # Select new items after copy
  * v1.1 (2015-05-08)
@@ -32,9 +34,16 @@ function main()
   -- YOUR CODE BELOW
   reaper.BR_ItemAtMouseCursor()
 
-  track, context, position = reaper.BR_TrackAtMouseCursor()
+  if reaper.GetTrackFromPoint then
+    mouse_x, mouse_y = reaper.GetMousePosition()
+    mouse_thing, info = reaper.GetThingFromPoint( mouse_x, mouse_y )
+    track = reaper.ValidatePtr(mouse_thing, "MediaTrack*") and mouse_thing
+    position = reaper.BR_PositionAtMouseCursor( false )
+  else
+    track, context, position = reaper.BR_TrackAtMouseCursor()
+  end
 
-  if context == 2 then
+  if info == "arrange" and context == 2 then
 
     reaper.Main_OnCommand(40297, 0) -- Unselect all tracks (so that it can copy items)
     reaper.Main_OnCommand(40698, 0) -- COpy selected items

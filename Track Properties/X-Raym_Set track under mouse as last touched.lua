@@ -8,11 +8,13 @@
  * Forum Thread: Scripts: Track Selection (various)
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1569551
  * REAPER: 5.0
- * Version: 2.0
+ * Version: 2.0.1
 --]]
 
 --[[
  * Changelog:
+ * v2.0.1 (2026-05-20)
+  # Use GetTrackFromPoint for pinned track support
  * v1.0 (2021-03-10)
   + Initial Release
 --]]
@@ -34,7 +36,13 @@ local function RestoreSelectedTracks (table)
 end
 
 function main()
-  track, pos = reaper.BR_TrackAtMouseCursor()
+  if reaper.GetTrackFromPoint then
+    mouse_x, mouse_y = reaper.GetMousePosition()
+    track, info = reaper.GetTrackFromPoint( mouse_x, mouse_y )
+  else
+    track, context, pos = reaper.BR_TrackAtMouseCursor()
+  end
+
   if track then
     reaper.SetOnlyTrackSelected( track ) -- this set last touched
   end

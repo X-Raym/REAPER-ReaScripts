@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2026-05-20)
+  # Use GetTrackFromPoint for pinned track support
  * v1.2 (2019-07-14)
   + Snap to grid
   # no SWS dependency
@@ -23,7 +25,14 @@
 function Main()
   reaper.PreventUIRefresh(1)
   solo_state = 2
-  local track, context, pos = reaper.BR_TrackAtMouseCursor()
+  if reaper.GetTrackFromPoint then
+    mouse_x, mouse_y = reaper.GetMousePosition()
+    track, info = reaper.GetTrackFromPoint( mouse_x, mouse_y )
+    pos = reaper.BR_PositionAtMouseCursor( false )
+  else
+    track, context, pos = reaper.BR_TrackAtMouseCursor()
+  end
+
   if track then
     local solo = reaper.GetMediaTrackInfo_Value(track, "I_SOLO")
     if solo ~= solo_state then
