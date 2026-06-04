@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" commit="af53090308a6fc1bd99bda5347e0c29fe7492ade" name="X-Raym Scripts">
+<index version="1" commit="cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e" name="X-Raym Scripts">
   <category name="Color">
     <reapack name="X-Raym_Display color of selected tracks items and takes in the console.eel" type="script">
       <version name="1.0" author="X-Raym" time="2015-03-03T13:52:58Z">
@@ -232,6 +232,10 @@
         <changelog><![CDATA[# Optimization]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/X-Raym_Fade%20out%20master%20envelope%20at%20each%20selected%20items%20end.lua</source>
       </version>
+      <version name="1.1.1" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/X-Raym_Fade%20out%20master%20envelope%20at%20each%20selected%20items%20end.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Move edit cursor to next envelope point.lua" type="script" desc="Move edit cursor to next envelope point">
       <metadata>
@@ -355,6 +359,10 @@
         <changelog><![CDATA[# Playrate envelope unit]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/3eaf3a75f84d92ef7d0219cda4399f74387d3e89/Envelopes/X-Raym_Set%20or%20Offset%20selected%20envelope%20points%20value.lua</source>
       </version>
+      <version name="2.0.4" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/X-Raym_Set%20or%20Offset%20selected%20envelope%20points%20value.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set selected envelope points value from value at edit cursor.lua" type="script" desc="Set selected envelope points value from value at edit cursor">
       <version name="1.0" author="X-Raym" time="2021-05-30T21:21:31Z">
@@ -391,6 +399,10 @@
       <version name="1.2" author="X-Raym" time="2015-12-24T16:57:47Z">
         <changelog><![CDATA[# Propper send support]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/Across%20Tracks/X-Raym_Copy%20visible%20armed%20envelope%20of%20last%20touched%20track%20and%20paste%20to%20selected%20tracks.lua</source>
+      </version>
+      <version name="1.2.1" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/Across%20Tracks/X-Raym_Copy%20visible%20armed%20envelope%20of%20last%20touched%20track%20and%20paste%20to%20selected%20tracks.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Copy visible armed envelope points in time selection of last touched track and insert in selected tracks.lua" type="script" desc="Copy visible armed envelope points in time selection of last touched track and insert in selected tracks">
@@ -430,6 +442,10 @@
       <version name="1.1.1" author="X-Raym" time="2025-10-15T09:45:11Z">
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/Across%20Tracks/X-Raym_Merge%20visible%20armed%20envelopes%20of%20selected%20track%20to%20selected%20tracks%20VCA%20like).lua</source>
+      </version>
+      <version name="1.1.2" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/Across%20Tracks/X-Raym_Merge%20visible%20armed%20envelopes%20of%20selected%20track%20to%20selected%20tracks%20VCA%20like).lua</source>
       </version>
     </reapack>
   </category>
@@ -851,6 +867,10 @@
 # Clear console]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7baac3497d177b97c56e2aa5d57e37d9b6f18391/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20X%20to%20Y%20preserving%20edges%20on%20choosen%20envelopes.lua</source>
       </version>
+      <version name="1.6.5" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20X%20to%20Y%20preserving%20edges%20on%20choosen%20envelopes.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Add envelope points at time selection edges from XdB to XdB preserving edges on Volume envelope.lua" type="script" desc="Add envelope points at time selection edges from XdB to XdB preserving edges on Volume envelope">
       <metadata>
@@ -873,6 +893,10 @@
       <version name="1.0.2" author="X-Raym" time="2025-10-15T09:45:11Z">
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20XdB%20to%20XdB%20preserving%20edges%20on%20Volume%20envelope.lua</source>
+      </version>
+      <version name="1.0.3" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Add%20envelope%20points%20at%20time%20selection%20edges%20from%20XdB%20to%20XdB%20preserving%20edges%20on%20Volume%20envelope.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Add point on envelopes at edit cursor with center value.lua" type="script" desc="Add point on envelopes at edit cursor with center value">
@@ -1192,6 +1216,10 @@
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Invert%20envelope%20points%20values%20preserving%20edges%20if%20time%20selection.lua</source>
       </version>
+      <version name="1.5.2" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Invert%20envelope%20points%20values%20preserving%20edges%20if%20time%20selection.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Invert envelope points values.lua" type="script" desc="Invert envelope points values">
       <metadata>
@@ -1215,6 +1243,10 @@
       <version name="1.4.1" author="X-Raym" time="2025-10-15T09:45:11Z">
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Invert%20envelope%20points%20values.lua</source>
+      </version>
+      <version name="1.4.2" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Invert%20envelope%20points%20values.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Quantize envelope points.lua" type="script" desc="Quantize envelope points">
@@ -1381,6 +1413,10 @@
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20flat%20points%20value%20in%20time%20selection%20preserving%20edges%20if%20time%20selection.lua</source>
       </version>
+      <version name="1.6.2" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Set%20flat%20points%20value%20in%20time%20selection%20preserving%20edges%20if%20time%20selection.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set flat points value in time selection.lua" type="script" desc="Set flat points value in time selection">
       <metadata>
@@ -1399,6 +1435,10 @@
       <version name="1.6.1" author="X-Raym" time="2025-10-15T09:45:11Z">
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20flat%20points%20value%20in%20time%20selection.lua</source>
+      </version>
+      <version name="1.6.2" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Set%20flat%20points%20value%20in%20time%20selection.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set or Offset envelope points preserving edges if time selection.lua" type="script" desc="Set or Offset envelope points preserving edges if time selection">
@@ -1419,6 +1459,10 @@
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20or%20Offset%20envelope%20points%20preserving%20edges%20if%20time%20selection.lua</source>
       </version>
+      <version name="1.6.2" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Set%20or%20Offset%20envelope%20points%20preserving%20edges%20if%20time%20selection.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Set or Offset envelope points value.lua" type="script" desc="Set or Offset envelope points value">
       <metadata>
@@ -1437,6 +1481,10 @@
       <version name="1.6.1" author="X-Raym" time="2025-10-15T09:45:11Z">
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20or%20Offset%20envelope%20points%20value.lua</source>
+      </version>
+      <version name="1.6.2" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Set%20or%20Offset%20envelope%20points%20value.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Set selected tracks parameters values with envelopes values at edit cursor.lua" type="script" desc="Set selected tracks parameters values with envelopes values at edit cursor">
@@ -1461,6 +1509,10 @@
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Set%20selected%20tracks%20parameters%20values%20with%20envelopes%20values%20at%20edit%20cursor.lua</source>
       </version>
+      <version name="1.2.3" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Set%20selected%20tracks%20parameters%20values%20with%20envelopes%20values%20at%20edit%20cursor.lua</source>
+      </version>
     </reapack>
     <reapack name="X-Raym_Toggle certain envelopes properties.lua" type="script" desc="Toggle certain envelopes properties">
       <metadata>
@@ -1475,6 +1527,10 @@
       <version name="1.0" author="X-Raym" time="2016-05-04T14:20:21Z">
         <changelog><![CDATA[+ Initial release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/b5a1cae8185f739e631c15ca844ec9a1c6460a13/Envelopes/On%20Tracks/X-Raym_Toggle%20certain%20envelopes%20properties.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Toggle%20certain%20envelopes%20properties.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Toggle envelope fader scaling.lua" type="script" desc="Toggle envelope fader scaling">
@@ -1516,6 +1572,10 @@
         <changelog><![CDATA[# Better dB calculation]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/145811b445e303c3a8d432d8fb29171c13e46ac2/Envelopes/On%20Tracks/X-Raym_Trim%20selected%20tracks%20parameters%20values%20with%20envelopes%20values%20at%20edit%20cursor.lua</source>
       </version>
+      <version name="1.2.2" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/On%20Tracks/X-Raym_Trim%20selected%20tracks%20parameters%20values%20with%20envelopes%20values%20at%20edit%20cursor.lua</source>
+      </version>
     </reapack>
   </category>
   <category name="Envelopes/Takes">
@@ -1541,6 +1601,10 @@
       <version name="1.0" author="X-Raym" time="2021-02-09T10:32:06Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/fe19da18bed7c81b32eca95926a6ede6ffc950fb/Envelopes/Takes/X-Raym_Apply%20selected%20items%20pitch%20offset%20to%20their%20pitch%20envelope%20and%20reset.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/Takes/X-Raym_Apply%20selected%20items%20pitch%20offset%20to%20their%20pitch%20envelope%20and%20reset.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Create take pitch envelope (random points - with GUI).eel" type="script">
@@ -1569,6 +1633,10 @@
       <version name="1.1.2" author="X-Raym" time="2022-07-19T17:47:04Z">
         <changelog><![CDATA[+ Selected points mode]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/7baac3497d177b97c56e2aa5d57e37d9b6f18391/Envelopes/Takes/X-Raym_Offset%20selected%20items%20pitch%20envelope.lua</source>
+      </version>
+      <version name="1.1.3" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Envelopes/Takes/X-Raym_Offset%20selected%20items%20pitch%20envelope.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Pan active takes randomly (normal distribution) with GUI - OneSeed.eel" type="script">
@@ -6472,6 +6540,10 @@
       <version name="1.0" author="X-Raym" time="2017-07-17T18:08:48Z">
         <changelog><![CDATA[+ Initial Release]]></changelog>
         <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/69e766a7098f62f3b320f2e23a6328613e95b8d2/Tempo%20and%20Time%20Signature/X-Raym_Set%20selected%20tempo%20envelope%20points%20value.lua</source>
+      </version>
+      <version name="1.0.1" author="X-Raym" time="2026-06-04T15:36:01Z">
+        <changelog><![CDATA[# Localize envelope name]]></changelog>
+        <source main="main">https://github.com/X-Raym/REAPER-ReaScripts/raw/cacd00e0641f7c6ad9ce204aed24aa2d4c90c99e/Tempo%20and%20Time%20Signature/X-Raym_Set%20selected%20tempo%20envelope%20points%20value.lua</source>
       </version>
     </reapack>
     <reapack name="X-Raym_Tap tempo.lua" type="script" desc="Tap Tempo">
