@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 ]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2026-06-04)
+     # Localize envelope name
  * v1.0 (2017-07-17)
      + Initial Release
 ]]
@@ -46,7 +48,7 @@ end
 env = reaper.GetSelectedEnvelope( 0 )
 if env then
   retval, env_name = reaper.GetEnvelopeName( env, '' )
-  if env_name == "Tempo map" then
+  if env_name == reaper.LocalizeString(  "Tempo map", "envname") then
 
     if prompt == true then
 

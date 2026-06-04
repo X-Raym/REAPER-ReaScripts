@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0 pre 18b
  * Extensions: SWS 2.6.3 #0
- * Version: 1.5.1
+ * Version: 1.5.2
 --]]
 
 --[[
  * Changelog:
+ * v1.5.2 (2026-06-04)
+  # Localize envelope name
  * v1.5.1 (2025-10-15)
   # Better dB calculation
  * v1.5 (2015-09-09)
@@ -38,6 +40,40 @@
 -- ----- CONFIG ====>
 
 preserve_edges = true -- True will insert points à time selection edges before the action.
+
+local env_db_scale = {}
+env_db_scale["Volume"] = true
+env_db_scale["Volume (Pre-FX)"] = true
+env_db_scale["Send Volume"] = true
+env_db_scale["Trim Volume"] = true
+
+local env_no_mulitply = {}
+env_no_mulitply["Mute"] = true
+env_no_mulitply["Send Mute"] = true
+env_no_mulitply["Pitch"] = true
+env_no_mulitply["Tempo map"] = true
+
+local env_multiply = {}
+env_multiply["Width"] = -1
+env_multiply["Width (Pre-FX)"] = -1
+env_multiply["Pan"] = -1
+env_multiply["Pan (Pre-FX)"] = -1
+env_multiply["Pan (Left)"] = -1
+env_multiply["Pan (Right)"] = -1
+env_multiply["Pan (Left, Pre-FX)"] = -1
+env_multiply["Pan (Right, Pre-FX)"] = -1
+env_multiply["Send Pan"] = -1
+env_multiply["Playrate"] = 100 -- TODO: work with playrate env
+
+function LocalizeEnvTableNameS( t )
+  for env_name, val in pairs( t ) do
+    t[ reaper.LocalizeString( env_name, "envname") ] = val
+  end
+end
+
+LocalizeEnvTableNameS( env_db_scale )
+LocalizeEnvTableNameS( env_no_mulitply )
+LocalizeEnvTableNameS( env_multiply )
 
 -- <==== CONFIG -----
 
@@ -120,7 +156,7 @@ end
 function Action(env)
 
   -- GET THE ENVELOPE
-  retval, envelopeName = reaper.GetEnvelopeName(env, "envelopeName")
+  retval, env_name = reaper.GetEnvelopeName(env, "envelopeName")
   br_env = reaper.BR_EnvAlloc(env, false)
 
   active, visible, armed, inLane, laneHeight, defaultShape, minValue, maxValue, centerValue, type, faderScaling = reaper.BR_EnvGetProperties(br_env, true, true, true, true, 0, 0, 0, 0, 0, 0, true)
@@ -148,7 +184,7 @@ function Action(env)
         -- BEGIN ACTION
         valueIn = -(valueOut-1)
 
-        if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" or envelopeName == "Send Volume" then
+        if env_db_scale[ env_name ] then
 
           -- CALC
           OldVolDB = 20*(math.log(valueOut, 10)) -- thanks to spk77!
@@ -166,7 +202,7 @@ function Action(env)
         if faderScaling == true then valueIn = reaper.ScaleToEnvelopeMode(1, valueIn) end
 
 
-        if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" or envelopeName == "Send Pan" then
+        if env_multiply[ env_name ] then
 
           valueIn = -valueOut
 

@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.0.2
+ * Version: 1.0.3
 --]]
 
 --[[
  * Changelog:
+ * v1.0.3 (2026-06-04)
+  # Localize envelope name
  * v1.0.2 (2025-10-15)
   # Better dB calculation
  * v1.0.1 (2018-04-10)
@@ -178,8 +180,8 @@ function main()
           -- GET THE ENVELOPE
           env = reaper.GetTrackEnvelope(track, j)
 
-          retval, envName = reaper.GetEnvelopeName(env, "")
-          if envName == "Volume" then
+          retval, env_name = reaper.GetEnvelopeName(env, "")
+          if env_name == reaper.LocalizeString( "Volume", "envname" ) then
             AddPoints(env)
           end
 
@@ -189,8 +191,8 @@ function main()
 
     else
 
-      retval, envName = reaper.GetEnvelopeName(env, "")
-      if envName == "Volume" then
+      retval, env_name = reaper.GetEnvelopeName(env, "")
+      if env_name == reaper.LocalizeString( "Volume", "envname" ) then
         AddPoints(env)
       end
 

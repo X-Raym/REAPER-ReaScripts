@@ -11,18 +11,20 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0
  * Extensions: SWS 2.8.3
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2026-06-04)
+  # Localize envelope name
  * v1.0 (2016-01-29)
   + Initial release
 --]]
 
 -- ------ USER CONFIG AREA =====>
 -- here you can customize the script
-dest_env_name = "Volume"
+dest_env_name = reaper.LocalizeString( "Volume", "envname")
 
 -- Envelope Output Properties
 active_out = nil -- true or false or nil for toggle
@@ -85,10 +87,10 @@ function main()
           -- GET THE ENVELOPE
           env = reaper.GetTrackEnvelope(track, j)
 
-            retval, envName = reaper.GetEnvelopeName(env, "")
-      if envName == dest_env_name then
-        Action(env)
-      end
+          retval, envName = reaper.GetEnvelopeName(env, "")
+          if envName == dest_env_name then
+            Action(env)
+          end
 
         end -- ENDLOOP through envelopes
 
@@ -98,8 +100,8 @@ function main()
 
   else
 
-  retval, envName = reaper.GetEnvelopeName(env, "")
-  if envName == dest_env_name then
+    retval, envName = reaper.GetEnvelopeName(env, "")
+    if envName == dest_env_name then
       Action(env)
     end
 

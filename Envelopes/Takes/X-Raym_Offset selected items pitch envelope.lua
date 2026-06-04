@@ -7,11 +7,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.1.2
+ * Version: 1.1.3
 --]]
 
 --[[
  * Changelog:
+ * v1.1.3 (2026-06-04)
+  # Localize envelope name
  * v1.1.2 (2021-07-19)
   + Selected points mode
  * v1.1.1 (2021-07-19)
@@ -128,7 +130,7 @@ function Main()
 
     if take then
 
-      env = reaper.GetTakeEnvelopeByName(take, "Pitch")
+      env = reaper.GetTakeEnvelopeByName(take, reaper.LocalizeString( "Pitch", "envname" ))
       rate = reaper.GetMediaItemTakeInfo_Value(take, "D_PLAYRATE")
       pos = reaper.GetMediaItemInfo_Value(item, "D_POSITION")
       if env then

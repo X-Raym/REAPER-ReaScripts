@@ -10,11 +10,13 @@
  * Forum Thread: Script (Lua): Scripts for Layering
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=159961
  * REAPER: 5.0 pre 36
- * Version: 1.1
+ * Version: 1.1.1
 ]]
 
 --[[
  * Changelog:
+ * v1.1.1 (2026-06-04)
+  # Localize envelope name
  * v1.1 (2015-06-24)
   # Optimization
  * v1.0 (2015-06-09)
@@ -67,7 +69,7 @@ end -- END OF FUNCTION
 
 -- GET MASTER INFOS
 track_master = reaper.GetMasterTrack(0)
-env = reaper.GetTrackEnvelopeByName(track_master, "Volume")
+env = reaper.GetTrackEnvelopeByName(track_master, reaper.LocalizeString( "Volume", "envname" ))
 
 if env ~= nil then
 

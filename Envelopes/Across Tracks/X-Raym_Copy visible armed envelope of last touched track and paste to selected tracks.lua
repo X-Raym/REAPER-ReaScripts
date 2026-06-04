@@ -10,11 +10,13 @@
  * Forum Thread: Script (LUA): Copy points envelopes in time selection and paste them at edit cursor
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1497832#post1497832
  * REAPER: 5.0
- * Version: 1.2
+ * Version: 1.2.1
 --]]
 
 --[[
  * Changelog:
+ * v1.2.1 (2026-06-04)
+  # Localize envelope name
  * v1.2 (2015-10-05)
   # Propper send support
  * v1.1 (2015-03-18)
@@ -37,9 +39,9 @@ function GetTrackEnvelopeSendName(track, env)
 
   local send_type
 
-  if env_name_temp == "Send Volume" then send_type = 0 end
-  if env_name_temp == "Send Pan" then send_type = 1 end
-  if env_name_temp == "Send Mute" then send_type = 2 end
+  if env_name_temp == reaper.LocalizeString( "Send Volume", "envname" ) then send_type = 0 end
+  if env_name_temp == reaper.LocalizeString( "Send Pan", "envname" ) then send_type = 1 end
+  if env_name_temp == reaper.LocalizeString( "Send Mute", "envname" ) then send_type = 2 end
 
   local num_sends = reaper.GetTrackNumSends(track, 0) -- 0 = sends
 
@@ -95,7 +97,7 @@ function main()
       retval, env_name = reaper.GetEnvelopeName(env, "")
 
       -- IF SEND
-      if env_name == "Send Pan" or env_name == "Send Mute" or env_name == "Send Volume" then
+      if env_name == reaper.LocalizeString( "Send Pan", "envname" ) or env_name == reaper.LocalizeString( "Send Mute", "envname" ) or env_name == reaper.LocalizeString( "Send Volume", "envname" ) then
         env_name = GetTrackEnvelopeSendName(last_track, env)
       end
 
@@ -128,7 +130,7 @@ function main()
           retval, env_name_dest = reaper.GetEnvelopeName(env_dest, "")
 
           -- IF SEND
-          if env_name_dest == "Send Pan" or env_name_dest == "Send Mute" or env_name_dest == "Send Volume" then
+          if env_name_dest == reaper.LocalizeString( "Send Pan", "envname" ) or env_name_dest == reaper.LocalizeString( "Send Mute", "envname" ) or env_name_dest == reaper.LocalizeString( "Send Volume", "envname" ) then
             env_name_dest = GetTrackEnvelopeSendName(track, env_dest)
           end
 

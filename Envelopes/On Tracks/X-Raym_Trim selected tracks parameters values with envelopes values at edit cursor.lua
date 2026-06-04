@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?t=157483
  * REAPER: 5.0
  * Extensions: SWS 2.8.0 #0
- * Version: 1.2.1
+ * Version: 1.2.2
 ]]
 
 --[[
  * Changelog:
+ * v1.2.2 (2026-06-04)
+  # Localize envelope name
  * v1.2.1 (2025-10-15)
   # Better dB calculation
  * v1.2 (2015-09-09)
@@ -129,54 +131,54 @@ function Action(env, track)
 
     retval, env_name = reaper.GetEnvelopeName(env, "")
 
-    if env_name == "Volume"  then
+    if env_name == reaper.LocalizeString( "Volume", "envname")  then
       init_vol = reaper.GetMediaTrackInfo_Value(track, "D_VOL")
       if faderScaling == true then value_eval = reaper.ScaleFromEnvelopeMode(1, value_eval) end
       new_value = AddDB(value_eval, init_vol, maxValue)
       reaper.SetMediaTrackInfo_Value(track, "D_VOL", new_value)
     end
 
-    if env_name == "Pan" then
+    if env_name == reaper.LocalizeString( "Pan", "envname") then
       init_pan = reaper.GetMediaTrackInfo_Value(track, "D_PAN")
       new_value = ConstrainInMinMax(init_pan - value_eval, minValue, maxValue) -- Pan are set to their opposite (-) because on envelope, Pan Left = 1 and Pan Right = -1
       reaper.SetMediaTrackInfo_Value(track, "D_PAN", new_value)
     end
 
-    if env_name == "Pan (Left)" then
+    if env_name == reaper.LocalizeString( "Pan (Left)", "envname") then
       init_dualL = reaper.GetMediaTrackInfo_Value(track, "D_DUALPANL")
       new_value = ConstrainInMinMax(init_dualL - value_eval, minValue, maxValue)
       reaper.SetMediaTrackInfo_Value(track, "D_DUALPANL", new_value)
     end
 
-    if env_name == "Pan (Right)" then
+    if env_name == reaper.LocalizeString( "Pan (Right)", "envname") then
       init_dualR = reaper.GetMediaTrackInfo_Value(track, "D_DUALPANR")
       new_value = ConstrainInMinMax(init_dualR - value_eval, minValue, maxValue)
       reaper.SetMediaTrackInfo_Value(track, "D_DUALPANR", new_value)
     end
 
-    if env_name == "Width" then
+    if env_name == reaper.LocalizeString( "Width", "envname") then
       init_width = reaper.GetMediaTrackInfo_Value(track, "D_WIDTH")
       new_value = ConstrainInMinMax(init_width * value_eval, minValue, maxValue)
       reaper.SetMediaTrackInfo_Value(track, "D_WIDTH", new_value)
     end
 
-    if env_name == "Mute" then
+    if env_name == reaper.LocalizeString( "Mute", "envname") then
       -- init_mute = reaper.GetMediaTrackInfo_Value(track, "B_MUTE")
       -- reaper.SetMediaTrackInfo_Value(track, "B_MUTE", value_eval + init_mute)
       reaper.SetMediaTrackInfo_Value(track, "B_MUTE", value_eval)
     end
 
-    if env_name == "Send Volume" then
+    if env_name == reaper.LocalizeString( "Send Volume", "envname") then
       param_name = "D_VOL"
       AddEnvValueToSend(track, env, param_name, value_eval)
     end
 
-    if env_name == "Send Pan" then
+    if env_name == reaper.LocalizeString( "Send Pan", "envname") then
       param_name = "D_PAN"
       AddEnvValueToSend(track, env, param_name, value_eval, minValue, maxValue)
     end
 
-    if env_name == "Send Mute" then
+    if env_name == reaper.LocalizeString( "Send Mute", "envname") then
       param_name = "B_MUTE"
       AddEnvValueToSend(track, env, param_name, value_eval, minValue, maxValue)
     end

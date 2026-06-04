@@ -6,11 +6,13 @@
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * REAPER: 5.0
- * Version: 1.0
+ * Version: 1.0.1
 --]]
 
 --[[
  * Changelog:
+ * v1.0.1 (2026-06-04)
+  # Localize envelope name
  * v1.0 (2020-02-09)
   + Initial Release
 --]]
@@ -33,7 +35,7 @@ function Main()
 
       if take_pitch ~= 0 then
 
-        env = reaper.GetTakeEnvelopeByName(take, "Pitch")
+        env = reaper.GetTakeEnvelopeByName(take, reaper.LocalizeString( "Pitch", "envname" ))
 
         if env then
           count_points = reaper.CountEnvelopePoints(env)

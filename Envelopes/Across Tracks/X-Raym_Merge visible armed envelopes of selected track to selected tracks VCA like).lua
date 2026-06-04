@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499998#post1499998
  * REAPER: 5.0
  * Extensions: SWS 2.8.0
- * Version: 1.1.1
+ * Version: 1.1.2
 --]]
 
 --[[
  * Changelog:
+ * v1.1.2 (2026-06-04)
+  # Localize envelope name
  * v1.1.1 (2025-10-15)
   # Better dB calculation
  * v1.1 (2015-09-09)
@@ -33,6 +35,20 @@ envLast_shape = {}
 envLast_tension = {}
 envLast_selectedOut = {}
 ]]
+
+env_db_scale = {}
+env_db_scale["Volume"] = true
+env_db_scale["Volume (Pre-FX)"] = true
+env_db_scale["Send Volume"] = true
+env_db_scale["Trim Volume"] = true
+
+function LocalizeEnvTableNameS( t )
+  for env_name, val in pairs( t ) do
+    t[ reaper.LocalizeString( env_name, "envname") ] = val
+  end
+end
+
+LocalizeEnvTableNameS( env_db_scale )
 
 function dBFromVal(val) return 20*math.log(val, 10) end
 function ValFromdB(dB_val) return 10^(dB_val/20) end
@@ -116,7 +132,7 @@ function main()
 
               retval, valueOut, dVdSOut, ddVdSOut, dddVdSOut = reaper.Envelope_Evaluate(env, envLast_time, 0, 0)
 
-              if envLast_name == "Volume" or envLast_name == "Volume (Pre-FX)" or envLast_name == "Send Volume" then
+              if env_db_scale[envLast_name] then
 
                 if env_faderScaling == true then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
 

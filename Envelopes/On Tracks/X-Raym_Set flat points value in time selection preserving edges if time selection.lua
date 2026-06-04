@@ -11,11 +11,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
  * REAPER: 5.0 pre 9
  * Extensions: SWS 2.6.3 #0
- * Version: 1.6.1
+ * Version: 1.6.2
 ]]
 
 --[[
  * Changelog:
+ * v1.6.2 (2026-06-04)
+  # Localize envelope name
  * v1.6.1 (2025-10-15)
   # Better dB calculation
  * v1.6 (2015-09-09)
@@ -213,7 +215,7 @@ function SetValue(envelope)
   already_set = false
   valueOut = 0
 
-  if env_name == "Volume" or env_name == "Volume (Pre-FX)" or env_name == "Send Volume" then
+  if env_name == reaper.LocalizeString( "Volume", "envname") or env_name == reaper.LocalizeString( "Volume (Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Send Volume", "envname") then
     already_set = true
 
     if faderScaling == true then valueOut = reaper.ScaleFromEnvelopeMode(1, valueOut) end
@@ -246,7 +248,7 @@ function SetValue(envelope)
 
   end -- ENDIF Volume
 
-  if env_name == "Mute" or env_name == "Send Mute" then
+  if env_name == reaper.LocalizeString( "Mute", "envname") or env_name == reaper.LocalizeString( "Send Mute", "envname") then
     already_set = true
 
     -- CALC
@@ -271,7 +273,7 @@ function SetValue(envelope)
 
   end -- ENDIF Mute
 
-  if env_name == "Width" or env_name == "Width (Pre-FX)" or env_name == "Pan" or env_name == "Pan (Pre-FX)" or env_name == "Pan (Left)" or env_name == "Pan (Right)" or env_name == "Pan (Left, Pre-FX)" or env_name == "Pan (Right, Pre-FX)" or env_name == "Send Pan" then
+  if env_name == reaper.LocalizeString( "Width", "envname") or env_name == reaper.LocalizeString( "Width (Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Pan", "envname") or env_name == reaper.LocalizeString( "Pan (Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Pan (Left)", "envname") or env_name == reaper.LocalizeString( "Pan (Right)", "envname") or env_name == reaper.LocalizeString( "Pan (Left, Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Pan (Right, Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Send Pan", "envname") then
     already_set = true
 
       -- CALC

@@ -12,11 +12,13 @@
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1499882
  * REAPER: 5.0
  * Extensions: 2.8.3
- * Version: 1.6.4
+ * Version: 1.6.5
 --]]
 
 --[[
  * Changelog:
+ * v1.6.5 (2026-06-04)
+  # Localize envelope name
  * v1.6.4 (2020-04-19)
    # No name match if envelope selected
    # If no prompt, works only on selected envelope (with one insertion block)
@@ -236,22 +238,23 @@ end
 
 
 -- Get envelope scale type
-function GetEnvelopeScaleType(envelopeName)
+function GetEnvelopeScaleType(env_name)
 
   local dest_env_type = -1
 
   -- Volume log
-  if envelopeName == "Volume" or envelopeName == "Volume (Pre-FX)" or envelopeName == "Send Volume" then
+  if env_name == reaper.LocalizeString( "Volume", "envname") or env_name == reaper.LocalizeString( "Volume (Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Send Volume", "envname") then
     dest_env_type = 0
   end
 
   -- Pan/Width
-  if envelopeName == "Width" or envelopeName == "Width (Pre-FX)" or envelopeName == "Pan" or envelopeName == "Pan (Pre-FX)" or envelopeName == "Pan (Left)" or envelopeName == "Pan (Right)" or envelopeName == "Pan (Left, Pre-FX)" or envelopeName == "Pan (Right, Pre-FX)" or envelopeName == "Send Pan" then
+  if env_name == reaper.LocalizeString( "Width", "envname") or env_name == reaper.LocalizeString( "Width (Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Pan", "envname") or env_name == reaper.LocalizeString( "Pan (Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Pan (Left)", "envname") or env_name == reaper.LocalizeString( "Pan (Right)", "envname") or env_name == reaper.LocalizeString( "Pan (Left, Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Pan (Right, Pre-FX)", "envname") or env_name == reaper.LocalizeString( "Send Pan", "envname") then
     dest_env_type = 2
   end
 
   -- ReaSurround gain
-  if string.find(envelopeName, "gain / ReaSurround") ~= nil then
+
+  if string.find(env_name, reaper.LocalizeString( "gain", "reasurround" ) .. " / ReaSurround") ~= nil then
     dest_env_type = 11
   end
 

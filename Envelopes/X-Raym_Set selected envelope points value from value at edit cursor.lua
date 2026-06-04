@@ -35,13 +35,7 @@ function Main()
     local retval, time, val, shape, tension, selected = reaper.GetEnvelopePoint(env,i)
     if selected then
 
-      --if env_name == "Tempo map" then
-                -- SET POINT VALUE
-        --local retval, timepos, measurepos, beatpos, bpm, timesig_num, timesig_denom, lineartempo = reaper.GetTempoTimeSigMarker( 0, i )
-        --reaper.SetTempoTimeSigMarker( 0, i, timepos, measurepos, beatpos, val, timesig_num, timesig_denom, lineartempo )
-      --else
         reaper.SetEnvelopePoint(env, i, time, edit_val, shape, tension, true, false)
-      --end
 
     end -- ENDIF point is selected
   end -- END Loop

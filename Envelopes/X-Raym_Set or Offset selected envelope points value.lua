@@ -8,11 +8,13 @@
  * Licence: GPL v3
  * Forum Thread: ReaScript: Set/Offset selected envelope points values
  * Forum Thread URI: http://forum.cockos.com/showthread.php?p=1487882#post1487882
- * Version: 2.0.3
+ * Version: 2.0.4
 ]]
 
 --[[
  * Changelog:
+ * v2.0.4 (2026-06-04)
+  # Localize envelope name
  * v2.0.3 (2022-08-09)
   # Playrate envelope unit
  * v2.0.2 (2021-03-30)
@@ -65,11 +67,11 @@ other_mod = {
 
 ext_name = "XR_SetOffsetSelPointValue"
 
-local env_width_db_scale = {}
-env_width_db_scale["Volume"] = true
-env_width_db_scale["Volume (Pre-FX)"] = true
-env_width_db_scale["Send Volume"] = true
-env_width_db_scale["Trim Volume"] = true
+local env_db_scale = {}
+env_db_scale["Volume"] = true
+env_db_scale["Volume (Pre-FX)"] = true
+env_db_scale["Send Volume"] = true
+env_db_scale["Trim Volume"] = true
 
 local env_no_mulitply = {}
 env_no_mulitply["Mute"] = true
@@ -89,6 +91,16 @@ env_multiply["Pan (Right, Pre-FX)"] = -1
 env_multiply["Send Pan"] = -1
 env_multiply["Playrate"] = 100 -- TODO: work with playrate env
 
+function LocalizeEnvTableNameS( t )
+  for env_name, val in pairs( t ) do
+    t[ reaper.LocalizeString( env_name, "envname") ] = val
+  end
+end
+
+LocalizeEnvTableNameS( env_db_scale )
+LocalizeEnvTableNameS( env_no_mulitply )
+LocalizeEnvTableNameS( env_multiply )
+
 function Msg(g)
   if console then
     reaper.ShowConsoleMsg(tostring(g).."\n")
@@ -105,7 +117,7 @@ end
 function ProcessPoint( env, env_name, val, user_input_num, set, min, max )
   -- Pre Process val
   local fader_scaling = reaper.GetEnvelopeScalingMode(env)
-  if env_width_db_scale[env_name] then
+  if env_db_scale[env_name] then
     if fader_scaling == 1 then val = reaper.ScaleFromEnvelopeMode(1, val) end
     val = dBFromVal( val )
   end
@@ -115,14 +127,14 @@ function ProcessPoint( env, env_name, val, user_input_num, set, min, max )
 
   if set then val = 0 end
 
-  if env_no_mulitply[env_name] or env_width_db_scale[env_name] then
+  if env_no_mulitply[env_name] or env_db_scale[env_name] then
     val = val + user_val
   else
     val = val + user_val/100
   end
 
   -- post Process val
-  if env_width_db_scale[env_name] then
+  if env_db_scale[env_name] then
     val = ValFromdB( val )
     val = LimitNumber( val, min, max )
     if fader_scaling == 1 then val = reaper.ScaleToEnvelopeMode(1, val) end
@@ -148,7 +160,7 @@ function ProcessEnv(env, set, user_input_num)
 
       val = ProcessPoint( env, env_name, val, user_input_num, set, min, max )
 
-      if env_name == "Tempo map" then
+      if env_name == reaper.LocalizeString( "Tempo map", "envname") then
                 -- SET POINT VALUE
         local retval, timepos, measurepos, beatpos, bpm, timesig_num, timesig_denom, lineartempo = reaper.GetTempoTimeSigMarker( 0, i )
         reaper.SetTempoTimeSigMarker( 0, i, timepos, measurepos, beatpos, val, timesig_num, timesig_denom, lineartempo )
