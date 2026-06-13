@@ -5,11 +5,16 @@
  * Author URI: https://www.extremraym.com
  * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Licence: GPL v3
- * Version: 0.2.4
+ * Version: 0.3.0
 --]]
 
 --[[
  * Changelog:
+ * v0.3.0 (2026-06-13)
+  # Replace input text by buttons
+  + Click button copy its value
+  + File name column
+  # Fix input search
  * v0.2.4 (2025-01-28)
   # Window resize border color
   # Moving window with click and drag titlebar only
@@ -368,12 +373,12 @@ function Main()
 
   ImGui.Text( ctx, "Search:")
   ImGui.PushItemWidth(ctx, -1) -- Set max with of inputs
-  r, search = ImGui.InputText( ctx, "##search##" )
+  r, search = ImGui.InputText( ctx, "##search", search )
 
   ImGui.Text( ctx, "VST")
   --local cur_y = ImGui.GetCursorPosY( ctx )
   --ImGui.InputTextMultiline( ctx, "##vst64", table.concat(fx_plugins_vst64, "\n"), imgui_width - 20, (imgui_height-cur_y-10) ) -- height could be divised by the number of text area
-  if ImGui.BeginTable(ctx, '##table_output', 3, ImGui.TableFlags_SizingFixedFit ) then
+  if ImGui.BeginTable(ctx, '##table_output', 4, ImGui.TableFlags_SizingFixedFit ) then
     ImGui.TableHeadersRow(ctx)
     ImGui.TableSetColumnIndex(ctx, 0)
     ImGui.TableHeader( ctx, "Folder" )
@@ -381,6 +386,8 @@ function Main()
     ImGui.TableHeader( ctx, "Add to Track" )
     ImGui.TableSetColumnIndex(ctx, 2)
     ImGui.TableHeader( ctx, "FX Name" )
+    ImGui.TableSetColumnIndex(ctx, 3)
+    ImGui.TableHeader( ctx, "File Name" )
 
     for i, v in ipairs( fx_plugins_vst64 ) do
 
@@ -388,12 +395,16 @@ function Main()
         ImGui.TableNextRow(ctx)
 
         ImGui.TableSetColumnIndex(ctx, 0)
-        if ImGui.Button( ctx, 'Open##open_' .. i ) then
+        if ImGui.Button( ctx, 'Open##open_' .. i, 70 ) then
           fx_plugins_vst64_paths = fx_plugins_vst64_paths or GetVST64FXPluginsPaths()
+          
           reaper.CF_ShellExecute( fx_plugins_vst64_paths[v.file] )
         end
+        if ImGui.IsItemHovered(ctx) then
+          ImGui.SetTooltip(ctx, v.file )
+        end
         ImGui.TableSetColumnIndex(ctx, 1)
-        if ImGui.Button( ctx, 'Add##add_' .. i ) then
+        if ImGui.Button( ctx, 'Add##add_' .. i, -1 ) then
           local track = reaper.GetSelectedTrack(0,0)
           if track then
             local fx = reaper.TrackFX_AddByName( track, v.name, false, -1 )
@@ -402,9 +413,22 @@ function Main()
             end
           end
         end
+        
+        ImGui.PushStyleVar( ctx, ImGui.StyleVar_ButtonTextAlign, 0, 1 )
+        
+        -- Name
         ImGui.TableSetColumnIndex(ctx, 2)
-        ImGui.SetNextItemWidth( ctx, imgui_width )
-        ImGui.InputText(ctx, "##" .. i,  v.name)
+        if ImGui.Button(ctx, v.name.."##name_" .. i, imgui_width / 3 ) then
+          reaper.CF_SetClipboard( v.name )
+        end
+        
+        -- File
+        ImGui.TableSetColumnIndex(ctx, 3)
+        if ImGui.Button(ctx, v.file .. "##file_" .. i, imgui_width / 3) then
+          reaper.CF_SetClipboard( v.file )
+        end
+        
+        ImGui.PopStyleVar( ctx, 1 )
       end
     end
 
