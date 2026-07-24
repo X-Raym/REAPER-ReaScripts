@@ -1,7 +1,10 @@
 @description Lyrics Web Interface
 @author X-Raym
-@version 1.4.5
+@version 1.5.0
 @screenshot https://cloud.extremraym.com/sharex/reascripts/o6DcxsG.mp4
 @provides X-Raym_Lyrics.html
 @changelog
-  vignette remove playstate bar
+  + Full screen with F or Touch
+  + Space Bar for Play/stop
+  + Arrow Keys for navigation
+  # Resize Text if Window Size changed

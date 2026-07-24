@@ -111,11 +111,68 @@ var last_text = "";
 var next = "";
 var last_next ="";
 var div = document.getElementById('text');
+var playstate = 0
 var initial_text = div.innerHTML;
 var playstate_elm = document.getElementById('playstate');
 var colors = ["#000000", "#00FF00", "#FFFF00", "#000000", "#000000", "#FF0000", "#FFFF00"]; // playstate is 0 for stopped, 1 for playing, 2 for paused, 5 for recording, and 6 for record paused.
 var detectMultiLine = true;
 var lastDetectMultine = false;
+var has_window_resize  = false
+
+// Events: Keyboard Shortcuts
+let keyboard_shortcuts = {
+	         Space: 40044, // Transport: Play/stop
+	     ArrowLeft: 40646, // View: Move cursor left to grid division
+	    ArrowRight: 40647, // View: Move cursor right to grid division
+	         Enter: 40073, // Transport: Play/pause
+	NumpadMultiply: 1013, // Transport: Record
+}
+
+document.addEventListener('keydown', event => {
+	if( event.code === "KeyF" ) {
+		toggleFullscreen()
+	}
+	if( keyboard_shortcuts[event.code] ) {
+		if( event.code === "Space" ) {
+			if ( playstate === 0 || playstate == 2 || playstate == 6 ) {
+				wwr_req( 1007 )
+			} else {
+				wwr_req( 1016 )
+			}
+		} else {
+			wwr_req( keyboard_shortcuts[event.code] )
+		}
+	}
+})
+
+div.addEventListener( 'touchstart', () => { toggleFullscreen() } )
+
+window.addEventListener("resize", (event) => { has_window_resize = true });
+
+function ResizeWindow() {
+	var settings = {
+		alignVert: true, // if true, textFit will align vertically using css tables
+		alignHoriz: true, // if true, textFit will set text-align: center
+		multiLine: detectMultiLine, // if true, textFit will not set white-space: no-wrap
+		detectMultiLine: detectMultiLine, // disable to turn off automatic multi-line sensing
+		minFontSize: 10,
+		maxFontSize: 80,
+		//reProcess: true, // if true, textFit will re-process already-fit nodes. Set to 'false' for better performance
+		//alignVertWithFlexbox: true, // if true, textFit will use flexbox for vertical alignment
+	};
+	textFit(div, settings); // Known issue, if browser have been resized, display need to be refreshed.
+}
+
+function toggleFullscreen() {
+	if ( document.fullscreenElement ) {
+		document.exitFullscreen()
+	} else {
+		document.documentElement.requestFullscreen().catch(err => {
+			console.error(`Fullscreen failed: ${err.message}`)
+		})
+		ResizeWindow()
+	}
+}
 
 function GetTabMaxLength(tab) {
 	let length = 0;
@@ -140,7 +197,11 @@ function wwr_onreply(results) {
 		}
 
 		if (tok.length > 1 && tok[0] === "TRANSPORT" ){ // TRANSPORT \t playstate \t position_seconds \t isRepeatOn \t position_string \t position_string_beats
-			playstate_elm.style.background= colors[tok[1]];
+			playstate = parseInt( tok[1] )
+			playstate_elm.style.background= colors[playstate];
+			if( has_window_resize ) {
+				ResizeWindow()
+			}
 		}
 
 	}
