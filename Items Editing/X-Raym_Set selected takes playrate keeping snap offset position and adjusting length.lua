@@ -27,7 +27,7 @@
 
 --[[
  * Many thanks to mpl for this help on this script ! He made this possible :D Thanks man!
- * http:--forum.cockos.com/member.php?u=70694
+ * http://forum.cockos.com/member.php?u=70694
 --]]
 
 -- ------ USER AREA =====>

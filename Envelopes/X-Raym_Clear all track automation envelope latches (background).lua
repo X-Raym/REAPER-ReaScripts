@@ -2,8 +2,8 @@
  * ReaScript Name: Clear all track automation envelope latches (background)
  * About: Workarround for JSFX not writting value if track is in Touch mode and play is stopped
  * Author: X-Raym
- * Author URI: http://extremraym.com
- * Repository: GitHub > X-Raym > EEL Scripts for Cockos REAPER
+ * Author URI: https://www.extremraym.com
+ * Repository: GitHub > X-Raym > REAPER-ReaScripts
  * Repository URI: https://github.com/X-Raym/REAPER-ReaScripts
  * Licence: GPL v3
  * Forum Thread: Writing automation in touch mode with JSFX GUIs doesn't work properly
@@ -11,13 +11,13 @@
  * REAPER: 6.0
  * Version: 1.0
 --]]
- 
+
 --[[
  * Changelog:
  * v1.0 (2023-12-13)
   + Initial Release
 --]]
- 
+
 -- Set ToolBar Button State
 function SetButtonState( set )
   local is_new_value, filename, sec, cmd, mode, resolution, val = reaper.get_action_context()

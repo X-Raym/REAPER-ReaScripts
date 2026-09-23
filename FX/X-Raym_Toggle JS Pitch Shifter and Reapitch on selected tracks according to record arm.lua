@@ -2,8 +2,8 @@
  * ReaScript Name: TToggle JS Pitch Shifter and Reapitch on selected tracks according to record arm
  * Author: X-Raym
  * Author URI: https://www.extremraym.com
- * Source: GitHub > X-Raym > EEL Scripts for Cockos REAPER
- * Source URI: https:--github.com/X-Raym/REAPER-EEL-Scripts
+ * Source: GitHub > X-Raym > REAPER-ReaScripts
+ * Source URI: https://github.com/X-Raym/REAPER-EEL-Scripts
  * Licence: GPL v3
  * Forum Thread: EEL script: Toggle FX by suffix
  * Forum Thread URI: https://forum.cockos.com/showthread.php?t=154742
