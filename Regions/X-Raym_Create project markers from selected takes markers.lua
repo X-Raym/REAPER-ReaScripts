@@ -9,11 +9,13 @@
  * Forum Thread: Scripts: Regions and Markers (various)
  * Forum Thread URI: https://forum.cockos.com/showthread.php?p=1670961
  * REAPER: 6.09
- * Version: 1.0.1
+ * Version: 1.0.2
 --]]
 
 --[[
  * Changelog:
+ * v1.0.2 (2026-20-10)
+  # Fix take start offset * take rate
  * v1.0.1 (2020-04-28)
   # Prevent marker generation if markers is outside item boundaries
  * v1.0 (2020-04-28)
@@ -42,7 +44,7 @@ function main()
       take_offset = reaper.GetMediaItemTakeInfo_Value(take, "D_STARTOFFS")
       for i = 0, take_marker_count - 1 do
         pos, name, color = reaper.GetTakeMarker(take, i)
-        proj_pos = item_pos - take_offset + pos / take_rate
+        proj_pos = item_pos - take_offset / take_rate + pos / take_rate
         if IsInTime( proj_pos, item_pos, item_pos + item_len ) then
           reaper.AddProjectMarker2(0, false, proj_pos, 0, name, -1, color)
         end
